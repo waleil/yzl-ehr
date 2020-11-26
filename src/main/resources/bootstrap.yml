@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: yzl-ehr
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      username: nacos
+      password: nacos
+      server-addr: 192.168.32.33:8848,192.168.32.34:8848,192.168.32.35:8848
+      discovery:
+        service: ${spring.application.name}
+        enabled: true
+        group: ehr
+      config:
+        encode: UTF-8
+        enabled: true
+        group: ehr
+        file-extension: yaml
+        namespace: a662e779-6c51-4809-988a-89a94c8d6274
+server:
+  port: 18080
+
+
+
+
+
