@@ -21,6 +21,8 @@ target/
 mvnw
 mvnw.cmd
 .mvn
+log
+logs
 
 ### NetBeans ###
 /nbproject/private/

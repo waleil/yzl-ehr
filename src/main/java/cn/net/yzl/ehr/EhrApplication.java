@@ -17,6 +17,4 @@ public class EhrApplication {
         System.err.println("测试....");
     }
 
-
-
 }

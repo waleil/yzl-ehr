@@ -20,6 +20,8 @@ spring:
         namespace: a662e779-6c51-4809-988a-89a94c8d6274
 server:
   port: 18080
+logging:
+  config: classpath:logback-spring.xml
 
 
 
