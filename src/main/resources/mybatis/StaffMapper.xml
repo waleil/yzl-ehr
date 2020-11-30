@@ -47,6 +47,14 @@
     from staff
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="getAll" resultType="cn.net.yzl.ehr.pojo.StaffPo">
+    select
+    <include refid="Base_Column_List" />
+    from staff
+    order by id
+
+
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from staff
     where id = #{id,jdbcType=INTEGER}

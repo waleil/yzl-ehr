@@ -1,9 +1,13 @@
 package cn.net.yzl.ehr.controller;
 
+import cn.net.yzl.common.entity.ResultDto;
 import cn.net.yzl.common.util.JsonUtil;
 import cn.net.yzl.ehr.config.redis.RedisDbSelectFactory;
 import cn.net.yzl.ehr.config.redis.RedisUtil;
 import cn.net.yzl.ehr.mapper.StaffMapper;
+import cn.net.yzl.ehr.pojo.StaffPo;
+import cn.net.yzl.ehr.service.StaffService;
+import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -36,6 +40,9 @@ public class TestController {
 
     @Autowired
     private StaffMapper staffMapper;
+
+    @Autowired
+    private StaffService staffService;
 
 
     @ApiOperation(value="测试Redis,设置值", notes="测试Redis,设置值",consumes= MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -86,7 +93,20 @@ public class TestController {
     })
     @RequestMapping(value = "/getById", method = RequestMethod.GET)
     public String getKey(int id){
-        return JsonUtil.toJsonStr(staffMapper.selectByPrimaryKey(id));
+        return JsonUtil.toJsonStr(staffService.getByPrimaryKey(id));
     }
 
+
+
+
+    @ApiOperation(value="测试mysql的读写分离", notes="测试mysql的读写分离",consumes= MediaType.MULTIPART_FORM_DATA_VALUE)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageNum", value = "pageNum", required = true, dataType = "String",paramType="query"),
+            @ApiImplicitParam(name = "pageSize", value = "pageSize", required = true, dataType = "String",paramType="query")
+    })
+    @RequestMapping(value = "/getPage", method = RequestMethod.GET)
+    public ResultDto<PageInfo<StaffPo>> getPage(int pageNum,int pageSize){
+
+        return ResultDto.success(staffService.getPage(pageNum,pageSize));
+    }
 }
