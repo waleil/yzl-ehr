@@ -56,6 +56,9 @@ public class MybatisConfiguration {
 	@Autowired
 	@Qualifier("readDataSource02")
 	private DataSource readDataSource02;
+
+	@Autowired
+    private AbstractRoutingDataSource roundRobinDataSouceProxy;
 	
 	
     @Bean(name="sqlSessionFactory")
@@ -146,8 +149,10 @@ public class MybatisConfiguration {
                 }
                 	
                 //读库， 简单负载均衡
+
                 int number = count.getAndAdd(1);
                 int lookupKey = number % readSize;
+
                 logger.info("使用数据库read-"+(lookupKey+1));
                 return DataSourceType.read.getType()+(lookupKey+1);
         	}

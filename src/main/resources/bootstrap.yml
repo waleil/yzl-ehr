@@ -22,6 +22,22 @@ server:
   port: 18080
 logging:
   config: classpath:logback-spring.xml
+  level:
+    cn.net.yzl.ehr.fegin.StaffFeginService: debug
+
+
+## 熔断
+#默认是不支持的，所以这里要开启，设置为true
+feign:
+  hystrix:
+    enabled: true
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 3000
 
 
 
