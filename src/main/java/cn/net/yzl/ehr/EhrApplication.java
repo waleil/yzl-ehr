@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 import java.util.Map;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"cn.net.yzl.ehr","cn.net.yzl.logger"})
 @EnableSwagger
 @EnableTransactionManagement(order = 10) //开启事务，并设置order值，默认是Integer的最大值
 @EnableFeignClients(basePackages = {"cn.net.yzl.ehr.fegin"})

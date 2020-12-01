@@ -35,9 +35,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class MybatisConfiguration {
 
 	private static Logger log = LoggerFactory.getLogger(MybatisConfiguration.class);
-	
-	@Value("${mysql.datasource.readSize}")
-    private String readDataSourceSize;
 
 	//XxxMapper.xml文件所在路径
 	  @Value("${mysql.datasource.mapperLocations}")
@@ -51,14 +48,9 @@ public class MybatisConfiguration {
 	@Qualifier("writeDataSource")
 	private DataSource writeDataSource;
 	@Autowired
-	@Qualifier("readDataSource01")
-	private DataSource readDataSource01;
-	@Autowired
-	@Qualifier("readDataSource02")
-	private DataSource readDataSource02;
+	@Qualifier("readDataSource")
+	private DataSource readDataSource;
 
-	@Autowired
-    private AbstractRoutingDataSource roundRobinDataSouceProxy;
 	
 	
     @Bean(name="sqlSessionFactory")
@@ -119,12 +111,8 @@ public class MybatisConfiguration {
         //把所有数据库都放在targetDataSources中,注意key值要和determineCurrentLookupKey()中代码写的一至，
         //否则切换数据源时找不到正确的数据源
         targetDataSources.put(DataSourceType.write.getType(), writeDataSource);
-        targetDataSources.put(DataSourceType.read.getType()+"1", readDataSource01);
-        targetDataSources.put(DataSourceType.read.getType()+"2", readDataSource02);
-    
-        final int readSize = Integer.parseInt(readDataSourceSize);
-   //     MyAbstractRoutingDataSource proxy = new MyAbstractRoutingDataSource(readSize);
-        
+        targetDataSources.put(DataSourceType.read.getType(), readDataSource);
+
         //路由类，寻找对应的数据源
         AbstractRoutingDataSource proxy = new AbstractRoutingDataSource(){
         	 private AtomicInteger count = new AtomicInteger(0);
@@ -147,14 +135,8 @@ public class MybatisConfiguration {
                 	logger.info("使用数据库write.............");
                     return DataSourceType.write.getType();
                 }
-                	
-                //读库， 简单负载均衡
 
-                int number = count.getAndAdd(1);
-                int lookupKey = number % readSize;
-
-                logger.info("使用数据库read-"+(lookupKey+1));
-                return DataSourceType.read.getType()+(lookupKey+1);
+                return DataSourceType.read.getType();
         	}
         };
         

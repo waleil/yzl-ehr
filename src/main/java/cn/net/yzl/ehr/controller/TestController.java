@@ -1,6 +1,6 @@
 package cn.net.yzl.ehr.controller;
 
-import cn.net.yzl.common.entity.ResultDto;
+import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.util.JsonUtil;
 import cn.net.yzl.ehr.config.redis.RedisDbSelectFactory;
 import cn.net.yzl.ehr.config.redis.RedisUtil;
@@ -105,8 +105,8 @@ public class TestController {
             @ApiImplicitParam(name = "pageSize", value = "pageSize", required = true, dataType = "String",paramType="query")
     })
     @RequestMapping(value = "/getPage", method = RequestMethod.GET)
-    public ResultDto<PageInfo<StaffPo>> getPage(int pageNum,int pageSize){
+    public ComResponse<PageInfo<StaffPo>> getPage(int pageNum,int pageSize){
 
-        return ResultDto.success(staffService.getPage(pageNum,pageSize));
+        return ComResponse.success(staffService.getPage(pageNum,pageSize));
     }
 }

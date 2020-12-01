@@ -23,7 +23,7 @@ public class DataSourceContextHolder {
      */
     public static void setRead() {
         local.set(DataSourceType.read.getType());
-        log.info("dataBase switch to {}"+DataSourceType.read.getName());
+        log.info("dataBase switch to {}",DataSourceType.read.getName());
     }
 
     /**
@@ -31,7 +31,7 @@ public class DataSourceContextHolder {
      */
     public static void setWrite() {
         local.set(DataSourceType.write.getType());
-        log.info("dataBase switch to {}"+DataSourceType.write.getName());
+        log.info("dataBase switch to {}",DataSourceType.write.getName());
     }
 
     public static String getReadOrWrite() {

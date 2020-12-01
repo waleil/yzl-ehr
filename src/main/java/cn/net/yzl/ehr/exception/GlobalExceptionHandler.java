@@ -1,6 +1,6 @@
-package cn.net.yzl.ehr.exceptin;
+package cn.net.yzl.ehr.exception;
 
-import cn.net.yzl.common.entity.ResultDto;
+import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.enums.ResponseCodeEnums;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +22,6 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public Object exceptionHandler(Exception e){
         logger.error("发生业务异常,原因是:{}"+e.getMessage());
-        return ResultDto.fail(ResponseCodeEnums.SERVICE_ERROR_CODE.getCode(),ResponseCodeEnums.SERVICE_ERROR_CODE.getMessage());
+        return ComResponse.fail(ResponseCodeEnums.SERVICE_ERROR_CODE.getCode(),ResponseCodeEnums.SERVICE_ERROR_CODE.getMessage());
     }
 }

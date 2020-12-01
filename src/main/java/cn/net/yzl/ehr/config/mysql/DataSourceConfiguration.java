@@ -39,17 +39,10 @@ public class DataSourceConfiguration {
      * 有多少个从库就要配置多少个
      * @return
      */
-    @Bean(name = "readDataSource01")
-    @ConfigurationProperties(prefix = "mysql.datasource.read01")
+    @Bean(name = "readDataSource")
+    @ConfigurationProperties(prefix = "mysql.datasource.read")
     public DataSource readDataSourceOne() {
-        log.info("-------------------- read01 DataSourceOne init ---------------------");
-        return DataSourceBuilder.create().type(dataSourceType).build();
-    }
-
-    @Bean(name = "readDataSource02")
-    @ConfigurationProperties(prefix = "mysql.datasource.read02")
-    public DataSource readDataSourceTwo() {
-        log.info("-------------------- read02 DataSourceTwo init ---------------------");
+        log.info("-------------------- read DataSourceOne init ---------------------");
         return DataSourceBuilder.create().type(dataSourceType).build();
     }
     

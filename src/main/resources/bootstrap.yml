@@ -16,8 +16,22 @@ spring:
         enabled: true
         file-extension: yaml
         namespace: a662e779-6c51-4809-988a-89a94c8d6274
+    sentinel:
+      transport:
+        dashboard: localhost:8080
 server:
   port: 18080
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+
 
 
 
