@@ -11,33 +11,17 @@ spring:
       discovery:
         service: ${spring.application.name}
         enabled: true
-        group: ehr
       config:
         encode: UTF-8
         enabled: true
-        group: ehr
         file-extension: yaml
         namespace: a662e779-6c51-4809-988a-89a94c8d6274
 server:
   port: 18080
-logging:
-  config: classpath:logback-spring.xml
-  level:
-    cn.net.yzl.ehr.fegin.StaffFeginService: debug
 
 
-## 熔断
-#默认是不支持的，所以这里要开启，设置为true
-feign:
-  hystrix:
-    enabled: true
-hystrix:
-  command:
-    default:
-      execution:
-        isolation:
-          thread:
-            timeoutInMilliseconds: 3000
+
+
 
 
 
