@@ -126,9 +126,9 @@ public class MybatisConfiguration {
         		String typeKey = DataSourceContextHolder.getReadOrWrite();
         		
         		if(typeKey == null){
-        		//	System.err.println("使用数据库write.............");
-                //    return DataSourceType.write.getType();
-        			throw new NullPointerException("数据库路由时，决定使用哪个数据库源类型不能为空...");
+        			logger.info("typeKey为null,使用数据库write.............");
+                    return DataSourceType.write.getType();
+//        			throw new NullPointerException("数据库路由时，决定使用哪个数据库源类型不能为空...");
         		}
         		
                 if (typeKey.equals(DataSourceType.write.getType())){

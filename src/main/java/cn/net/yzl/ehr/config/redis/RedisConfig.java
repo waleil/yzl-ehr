@@ -84,7 +84,7 @@ public class RedisConfig/* extends CachingConfigurerSupport*/ {
         // 配置redisTemplate
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<String, Object>();
         redisTemplate.setConnectionFactory(lettuceConnectionFactory);
-        RedisSerializer<?> stringSerializer = new StringRedisSerializer();
+        RedisSerializer<?> stringSerializer = new MyStringSerializer();
         redisTemplate.setKeySerializer(stringSerializer);// key序列化
         redisTemplate.setValueSerializer(jackson2JsonRedisSerializer);// value序列化
         redisTemplate.setHashKeySerializer(stringSerializer);// Hash key序列化
