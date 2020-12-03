@@ -1,15 +1,18 @@
 package cn.net.yzl.ehr.pojo;
 
+import lombok.Builder;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 员工实体
+ * staff
+ * @author 
  */
 @Data
-public class StaffPo {
-
+@Builder(toBuilder = true)
+public class StaffPo implements Serializable {
     /**
      * 唯一标识
      */
@@ -37,39 +40,34 @@ public class StaffPo {
 
     /**
      * 工作地点:指向系统字典表
-     1总部,2:桥西,3:邢台,4:方北,5:北京
+1总部,2:桥西,3:邢台,4:方北,5:北京
      */
-    private Integer workplaceId;
-
-    /**
-     * 部门id
-     */
-    private Integer departId;
-
-    /**
-     * 岗位id
-     */
-    private Integer postId;
-
-    /**
-     * 岗位级别id
-     */
-    private Integer postLevelId;
+    private Byte workplaceId;
 
     /**
      * 在岗状态(0:无效,1:试用,2:正式,3:离职,4:实习)
      */
-    private Integer workStatus;
+    private Byte workStatus;
 
     /**
      * 账号状态 (0:停用,1:正常)
      */
-    private Integer accountStatus;
+    private Byte accountStatus;
 
     /**
      * 培训状态 (0:未培训,1:已培训,2:培训完成)
      */
-    private Integer trainStatus;
+    private Byte trainStatus;
+
+    /**
+     * 异动状态(1:正常,2:待优化,3:待劝退,4:已离职)
+     */
+    private Byte abnormalStatus;
+
+    /**
+     * 异动时间(最新的)
+     */
+    private Date abnormalTime;
 
     /**
      * 加盐后密码
@@ -104,7 +102,7 @@ public class StaffPo {
     /**
      * 性别(0:未知1:男,2:女)
      */
-    private Integer sex;
+    private Byte sex;
 
     /**
      * 学历(指向字典表)
@@ -147,9 +145,19 @@ public class StaffPo {
     private String payClearingCenter;
 
     /**
-     * 状态(0:无效,1:有效)
+     * 钉钉userid
      */
-    private Integer status;
+    private String dingUserId;
+
+    /**
+     * 钉钉唯一表示
+     */
+    private String dingUnionId;
+
+    /**
+     * 状态(0:删除,1:有效)
+     */
+    private Byte isDel;
 
     /**
      * 创建时间
@@ -171,4 +179,5 @@ public class StaffPo {
      */
     private Integer updateId;
 
-  }
+    private static final long serialVersionUID = 1L;
+}

@@ -4,6 +4,7 @@ import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.enums.ResponseCodeEnums;
 import cn.net.yzl.ehr.dingding.DingProperties;
 import cn.net.yzl.ehr.dingding.DingtalkToken;
+import cn.net.yzl.ehr.fegin.depart.DepartFeginService;
 import cn.net.yzl.ehr.mapper.DepartMapper;
 import cn.net.yzl.ehr.pojo.DepartPo;
 import com.dingtalk.api.DefaultDingTalkClient;
@@ -30,6 +31,8 @@ public class DingTalkDepartmentService {
     private DingProperties dingProperties;
     @Autowired
     private DepartMapper departMapper;
+    @Autowired
+    private DepartFeginService departFeginService;
 
     // 获取部门列表
     public OapiDepartmentListResponse getDepartmentList(String parentId, Boolean fetchChild) throws ApiException {
@@ -86,7 +89,8 @@ public class DingTalkDepartmentService {
         DepartPo departPo = new DepartPo();
         // 构建 部门
         assembDepartPo(departPo,department);
-        departMapper.save(departPo);
+//        departMapper.save(departPo);
+        departFeginService.create(departPo);
         // 获取 部门下的子
         OapiDepartmentListIdsResponse departmentlistIds = getDepartmentlistIds(departPo.getDingDepartId() + "");
         if(departmentlistIds!=null && departmentlistIds.getSubDeptIdList()!=null&&departmentlistIds.getSubDeptIdList().size()>0){

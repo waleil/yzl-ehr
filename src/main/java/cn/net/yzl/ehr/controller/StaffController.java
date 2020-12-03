@@ -2,30 +2,18 @@ package cn.net.yzl.ehr.controller;
 
 
 import cn.net.yzl.common.entity.ComResponse;
-import cn.net.yzl.common.util.JsonUtil;
-import cn.net.yzl.ehr.config.redis.RedisDbSelectFactory;
-import cn.net.yzl.ehr.config.redis.RedisUtil;
-import cn.net.yzl.ehr.fegin.StaffFeginService;
-import cn.net.yzl.ehr.mapper.StaffMapper;
-import cn.net.yzl.ehr.pojo.StaffPo;
-import cn.net.yzl.ehr.service.StaffService;
+import cn.net.yzl.ehr.fegin.staff.StaffFeginService;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
-import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.redisson.api.RLock;
-import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.concurrent.TimeUnit;
 
 @RestController
 @RequestMapping("/staff")

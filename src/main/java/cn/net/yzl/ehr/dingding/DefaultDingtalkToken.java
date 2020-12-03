@@ -52,7 +52,7 @@ public class DefaultDingtalkToken implements DingtalkToken {
             redisUtil.set(dingProperties.dingAccessTokenKey, response.getAccessToken(), timout);
             return response.getAccessToken();
         } else {
-            log.info("获取AccessToken失败，响应的错误信息：{},请求的信息[url]={},[corpid]={},[corpsecret]={}", response.getErrmsg(), dingProperties.get_token_url, dingProperties.appKey, dingProperties.appSecret);
+            log.info("获取AccessToken失败，响应的错误信息：{},请求的信息[url]={},[appid]={},[appsecret]={}", response.getErrmsg(), dingProperties.get_token_url, dingProperties.appKey, dingProperties.appSecret);
             throw new RuntimeException(response.getErrmsg());
         }
     }

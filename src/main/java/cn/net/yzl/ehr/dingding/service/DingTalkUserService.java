@@ -1,7 +1,18 @@
 package cn.net.yzl.ehr.dingding.service;
 
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.convert.Convert;
+import cn.hutool.core.util.StrUtil;
+import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.common.enums.ResponseCodeEnums;
 import cn.net.yzl.ehr.dingding.DingProperties;
 import cn.net.yzl.ehr.dingding.DingtalkToken;
+import cn.net.yzl.ehr.fegin.depart.DepartFeginService;
+import cn.net.yzl.ehr.fegin.staff.StaffFeginService;
+import cn.net.yzl.ehr.pojo.DepartPo;
+import cn.net.yzl.ehr.pojo.DingTalkUserPo;
+import cn.net.yzl.ehr.pojo.StaffDepartPostPo;
+import cn.net.yzl.ehr.pojo.StaffPo;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.dingtalk.api.DefaultDingTalkClient;
@@ -10,6 +21,8 @@ import com.dingtalk.api.request.*;
 import com.dingtalk.api.response.*;
 import com.taobao.api.ApiException;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -26,6 +39,14 @@ public class DingTalkUserService {
     private DingtalkToken defaultDingtalkToken;
     @Autowired
     private DingProperties dingProperties;
+    @Autowired
+    private DingTalkDepartmentService dingTalkDepartmentService;
+    @Autowired
+    private StaffFeginService staffFeginService;
+
+    @Autowired
+    private DepartFeginService departFeginService;
+    private final Logger log = LoggerFactory.getLogger(DingTalkUserService.class);
 
     /**
      * 查询用户信息
@@ -66,231 +87,122 @@ public class DingTalkUserService {
      * @throws ApiException
      */
     public OapiUserGetResponse getUser(String userId) throws ApiException {
-        DingTalkClient client = new DefaultDingTalkClient(dingProperties.user_get_v2_url);
+        DingTalkClient client = new DefaultDingTalkClient(dingProperties.user_get_url);
         OapiUserGetRequest request = new OapiUserGetRequest();
         request.setUserid(userId);
         request.setHttpMethod("GET");
         return client.execute(request, defaultDingtalkToken.getToken());
     }
 
-//    /**
-//     * 创建用户
-//     * @param user
-//     * @see DingTalkUser
-//     * @link {com.xujicheng.dingtalk.pojo.DingTalkUser}
-//     * @return {
-//     *     "errcode": 0,
-//     *     "errmsg": "created",
-//     *     "userid": "zhangsan" //员工唯一标识
-//     * }
-//     * @throws ApiException
-//     */
-//    public OapiUserCreateResponse createUser(DingTalkUser user) throws ApiException{
-//        DingTalkClient client = new DefaultDingTalkClient(dingtalkProperties.getApi().getUser_create());
-//        OapiUserCreateRequest request = getOapiUserCreateRequest(user);
-//        return client.execute(request, dingtalkOAuth2AccessToken.getAccessToken());
-//    }
-//
-//    /**
-//     * 更新用户信息
-//     * @param user
-//     * @see DingTalkUser
-//     * @link {com.xujicheng.dingtalk.pojo.DingTalkUser}
-//     * @return {
-//     *     "errcode": 0,
-//     *     "errmsg": "updated"
-//     * }
-//     * @throws ApiException
-//     */
-//    public OapiUserUpdateResponse updateUser(DingTalkUser user) throws ApiException{
-//        DingTalkClient client = new DefaultDingTalkClient(dingtalkProperties.getApi().getUser_update());
-//        OapiUserUpdateRequest request = getOapiUserUpdateRequest(user);
-//        return client.execute(request, dingtalkOAuth2AccessToken.getAccessToken());
-//    }
-//
-//    /**
-//     * 删除用户
-//     * @param userId 员工唯一标识
-//     * @return {
-//     *     "errcode": 0,
-//     *     "errmsg": "deleted"
-//     * }
-//     * @throws ApiException
-//     */
-//    public OapiUserDeleteResponse deleteUser(String userId) throws ApiException {
-//        DingTalkClient client = new DefaultDingTalkClient(dingtalkProperties.getApi().getUser_delete());
-//        OapiUserDeleteRequest request = new OapiUserDeleteRequest();
-//        request.setUserid(userId);
-//        request.setHttpMethod("GET");
-//        return client.execute(request, dingtalkOAuth2AccessToken.getAccessToken());
-//    }
-//
-//    /**
-//     * 批量删除用户
-//     * @param users 员工UserID列表，列表长度在1~20之间
-//     * @return {
-//     *     "errcode": 0,
-//     *     "errmsg": "deleted"
-//     * }
-//     * @throws ApiException
-//     */
-//    public OapiUserBatchdeleteResponse batchdeleteUser(List<String> users) throws ApiException {
-//        DingTalkClient client = new DefaultDingTalkClient(dingtalkProperties.getApi().getUser_batch_delete());
-//        OapiUserBatchdeleteRequest request = new OapiUserBatchdeleteRequest();
-//        request.setUseridlist(users);
-//        return client.execute(request, dingtalkOAuth2AccessToken.getAccessToken());
-//    }
-//
-//    /**
-//     *
-//     * @param departmentId 获取的部门id
-//     * @param page 当前页 不分页传入null
-//     * @param size 每页显示的条数 最大100
-//     * @return {
-//     *     "errcode": 0,
-//     *     "errmsg": "ok",
-//     *     "hasMore": false, //在分页查询时返回，代表是否还有下一页更多数据
-//     *     "userlist": [ //成员列表
-//     *         {
-//     *             "userid": "zhangsan", //员工唯一标识ID（不可修改）
-//     *             "name": "张三" //成员名称
-//     *         }
-//     *     ]
-//     * }
-//     * @throws ApiException
-//     */
-//    public OapiUserSimplelistResponse getUserSimpleList(Long departmentId, Long page, Long size) throws ApiException {
-//        List<DingTalkSimpleUser> users = new ArrayList<>();
-//        DingTalkClient client = new DefaultDingTalkClient(dingtalkProperties.getApi().getUser_simple_list());
-//        OapiUserSimplelistRequest request = new OapiUserSimplelistRequest();
-//        if(null != page){
-//            if(null == size || size <=0){
-//                size = 10L;
-//            }
-//            request.setOffset(page);
-//            request.setSize(size);
-//        }
-//        request.setDepartmentId(departmentId);
-//        request.setHttpMethod("GET");
-//        return client.execute(request, dingtalkOAuth2AccessToken.getAccessToken());
-//
-//    }
-//
-//    /**
-//     *
-//     * @param departmentId 获取的部门id
-//     * @param page 当前页 不分页传入null
-//     * @param size 每页显示的条数 最大100
-//     * @return {
-//     *     "errcode": 0,
-//     *     "errmsg": "ok",
-//     *     "hasMore": false, //在分页查询时返回，代表是否还有下一页更多数据
-//     *     "userlist":[  //成员列表
-//     *         {
-//     *             "userid": "zhangsan", //员工唯一标识ID（不可修改）
-//     *             "unionid": "PiiiPyQqBNBii0HnCJ3zljcuAiEiE", //在当前isv全局范围内唯一标识一个用户的身份，用户无法修改
-//     *             "mobile": "13122222222", //手机号（ISV不可见）
-//     *             "tel" : "010-123333", //分机号（ISV不可见）
-//     *             "workPlace" :"", //办公地点（ISV不可见）
-//     *             "remark" : "", //备注（ISV不可见）
-//     *             "order" : 1, //表示人员在此部门中的排序，列表是按order的倒序排列输出的，即从大到小排列输出的（钉钉管理后台里面调整了顺序的话order才有值）
-//     *             "isAdmin": true, //是否是企业的管理员,true表示是 false表示不是
-//     *             "isBoss": false, //是否为企业的老板（不能通过接口进行设置，可以通过钉钉管理后台进行设置）， true表示是 false表示不是
-//     *             "isHide": true, //是否隐藏号码，  true表示是 false表示不是
-//     *             "isLeader": true,  //是否是部门的主管，true表示是，false表示不是
-//     *             "name": "张三", //成员名称
-//     *             "active": true, //表示该用户是否激活了钉钉
-//     *             "department": [1, 2], //成员所属部门id列表
-//     *             "position": "工程师", //职位信息
-//     *             "email": "zhangsan@alibaba-inc.com", //员工的邮箱
-//     *             "avatar":  "./dingtalk/abc.jpg", //头像url
-//     *             "jobnumber": "111111", //员工工号
-//     *             "hiredDate": 1520265600000, //入职时间
-//     *             "extattr": { //扩展属性 可以设置多种属性(但手机上最多只能显示10个扩展属性，具体显示哪些属性， 请到OA管理后台->设置->通讯录信息设置和OA管理后台->设置->手机端显示信息设置)
-//     *                 "爱好":"旅游",
-//     *                 "年龄":"24"
-//     *                 }
-//     *         }
-//     *     ]
-//     * }
-//     * @throws ApiException
-//     */
-//    public OapiUserListResponse getUserList(Long departmentId, Long page, Long size) throws ApiException {
-//        DingTalkClient client = new DefaultDingTalkClient(dingtalkProperties.getApi().getUser_list());
-//        OapiUserListRequest request = new OapiUserListRequest();
-//        request.setDepartmentId(departmentId);
-//        if(null != page){
-//            if(null == size || size <=0){
-//                size = 10L;
-//            }
-//            request.setOffset(page);
-//            request.setSize(size);
-//        }
-//        request.setHttpMethod("GET");
-//
-//        return client.execute(request, dingtalkOAuth2AccessToken.getAccessToken());
-//
-//    }
-//
-//    private OapiUserUpdateRequest getOapiUserUpdateRequest(DingTalkUser user) {
-//        OapiUserUpdateRequest request = new OapiUserUpdateRequest();
-//        request.setUserid(user.getUserid());
-//        request.setMobile(user.getMobile());
-//        request.setName(user.getName());
-//        // 需要用字符串， "[59869009,60345027]" 这种格式
-//        request.setDepartment(user.getDepartment());
-//        request.setEmail(user.getEmail());
-//        request.setWorkPlace(request.getWorkPlace());
-//        if(null == user.getExtattr()){
-//            request.setExtattr(new JSONObject().toJSONString());
-//        }else {
-//            request.setExtattr(user.getExtattr().toJSONString());
-//        }
-//
-//        request.setIsHide(user.getIsHide());
-//        request.setIsSenior(user.getIsSenior());
-//        request.setJobnumber(user.getJobnumber());
-//        if(null == user.getOrderInDepts()) {
-//            request.setOrderInDepts(new JSONObject().toJSONString());
-//        }else{
-//            request.setOrderInDepts(user.getOrderInDepts().toJSONString());
-//
-//        }
-//        request.setOrgEmail(user.getOrgEmail());
-//        request.setPosition(user.getPosition());
-//        request.setRemark(user.getRemark());
-//        request.setTel(user.getTel());
-//        return request;
-//    }
-//
-//    private OapiUserCreateRequest getOapiUserCreateRequest(DingTalkUser user) {
-//        OapiUserCreateRequest request = new OapiUserCreateRequest();
-//        request.setUserid(user.getUserid());
-//        request.setMobile(user.getMobile());
-//        request.setName(user.getName());
-//        // 需要用字符串， "[59869009,60345027]" 这种格式
-//        request.setDepartment(JSON.toJSONString(user.getDepartment()));
-//        request.setEmail(user.getEmail());
-//        request.setWorkPlace(request.getWorkPlace());
-//        if(null == user.getExtattr()){
-//            request.setExtattr(new JSONObject().toJSONString());
-//        }else {
-//            request.setExtattr(user.getExtattr().toJSONString());
-//        }
-//        request.setIsHide(user.getIsHide());
-//        request.setIsSenior(user.getIsSenior());
-//        request.setJobnumber(user.getJobnumber());
-//        if(null == user.getOrderInDepts()) {
-//            request.setOrderInDepts(new JSONObject().toJSONString());
-//        }else{
-//            request.setOrderInDepts(user.getOrderInDepts().toJSONString());
-//
-//        }
-//        request.setOrgEmail(user.getOrgEmail());
-//        request.setPosition(user.getPosition());
-//        request.setRemark(user.getRemark());
-//        request.setTel(user.getTel());
-//        return request;
-//    }
+    // 获取部门下的用户 id 集合
+    public OapiUserListidResponse getDepartUserIds(String departId) throws ApiException {
+        DingTalkClient client = new DefaultDingTalkClient(dingProperties.depart_user_list_ids_url);
+        OapiUserListidRequest req = new OapiUserListidRequest();
+        req.setDeptId(Long.parseLong(departId));
+        OapiUserListidResponse rsp = client.execute(req, defaultDingtalkToken.getToken());
+        return rsp;
+    }
+
+
+    public ComResponse<Boolean> init(String departId) throws ApiException {
+        OapiDepartmentGetResponse department = dingTalkDepartmentService.getDepartment(departId);
+        if (department == null) {
+            return ComResponse.fail(ResponseCodeEnums.DING_CONNECTION_ERROR_CODE.getCode(), ResponseCodeEnums.DING_CONNECTION_ERROR_CODE.getMessage());
+        }
+        Long errcode = department.getErrcode();
+        String errmsg = department.getErrmsg();
+        if (errcode != 0 && !errmsg.equals("ok")) {
+            return ComResponse.fail(ResponseCodeEnums.DING_ERROR_CODE.getCode(), department.getErrcode()+"-"+department.getErrmsg());
+        }
+
+        // 获取当前部门下的用户
+        OapiUserListidResponse departUserIds = getDepartUserIds(departId);
+        Long errcode1 = departUserIds.getErrcode();
+        String errmsg1 = departUserIds.getErrmsg();
+        if(departUserIds==null){
+            return ComResponse.fail(ResponseCodeEnums.DING_CONNECTION_ERROR_CODE.getCode(), ResponseCodeEnums.DING_CONNECTION_ERROR_CODE.getMessage());
+        }
+        if (errcode1 != 0 && !errmsg1.equals("ok")) {
+            return ComResponse.fail(ResponseCodeEnums.DING_ERROR_CODE.getCode(), department.getErrcode()+"-"+department.getErrmsg());
+        }
+
+        departUserIds.getResult().getUseridList().forEach(userId->{
+            //  获取用户信息
+            try {
+                OapiUserGetResponse user = getUser(userId);
+                Long errcode2 = user.getErrcode();
+                String errmsg2 = user.getErrmsg();
+                if(errcode2==null){
+                    log.info("dingding getUser info :钉钉连接异常! userId:{}",userId);
+                }
+                if (errcode2 != 0 && !errmsg2.equals("ok")) {
+                    log.info("dingding getUser  info: errcode:{},errmsg:{},userId:{}",errcode2,errmsg2,userId);
+                }
+                DingTalkUserPo dingTalkUserPo = new DingTalkUserPo();
+                BeanUtil.copyProperties(user,dingTalkUserPo,true);
+                ;
+
+                // 创建 钉钉 信息数据
+                staffFeginService.createDingTalkUser(dingTalkUserPo);
+
+                StaffPo staffPo = assembStaff(user);
+                // 添加 员工
+                ComResponse<StaffPo> insertStaffPo = staffFeginService.create(staffPo);
+
+                // 判断部门
+                List<StaffDepartPostPo> staffDepartList = new ArrayList<>();
+                user.getDepartment().forEach(depId->{
+                    ComResponse<DepartPo> byDingDepartId = departFeginService.getByDingDepartId(depId + "");
+                    if(byDingDepartId!=null && byDingDepartId.getData()!=null){
+                        StaffDepartPostPo staffDepartPostPo = new StaffDepartPostPo();
+                        staffDepartPostPo.setStaffId(insertStaffPo.getData().getId());
+                        staffDepartPostPo.setDepartId(byDingDepartId.getData().getId());
+                        staffDepartList.add(staffDepartPostPo);
+                    }
+                });
+
+                if(staffDepartList.size()>0){
+                    // 插入数据库
+                    staffFeginService.insertStaffDepartList(staffDepartList);
+                }
+
+
+            } catch (ApiException e) {
+                e.printStackTrace();
+            }
+
+
+        });
+
+        OapiDepartmentListIdsResponse departmentlistIds = dingTalkDepartmentService.getDepartmentlistIds(departId);
+
+        if(departmentlistIds!=null && departmentlistIds.getSubDeptIdList()!=null&&departmentlistIds.getSubDeptIdList().size()>0){
+            departmentlistIds.getSubDeptIdList().forEach(deptId->{
+                try {
+                    init(deptId+"");
+                } catch (ApiException e) {
+                    e.printStackTrace();
+                }
+            });
+
+        }
+
+        return ComResponse.success();
+
+
+    }
+    // 组装 staff 实体
+    private StaffPo assembStaff(OapiUserGetResponse user) {
+            return StaffPo.builder().name(user.getName())
+                    .phone(user.getMobile())
+                    .email(user.getEmail())
+                    .dingUnionId(user.getUnionid())
+                    .dingUserId(user.getUserid()).build();
+
+    }
+
+
+
+
 
 }

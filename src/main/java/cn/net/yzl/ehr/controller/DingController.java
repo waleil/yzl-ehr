@@ -86,11 +86,15 @@ public class DingController {
     }
 
 
-    @ApiOperation(value="钉钉部门数据初始化", notes="钉钉部门数据初始化",consumes= MediaType.MULTIPART_FORM_DATA_VALUE)
+    @ApiOperation(value="钉钉部门数据初始化(钉钉数据同步到ehr)", notes="钉钉部门数据初始化(钉钉数据同步到ehr)",consumes= MediaType.MULTIPART_FORM_DATA_VALUE)
     @RequestMapping(value = "/departInit", method = RequestMethod.GET)
     public ComResponse<Boolean> departInit() throws ApiException {
         return dingTalkDepartmentService.init(1+"");
     }
-
+    @ApiOperation(value="钉钉员工数据数据初始化(钉钉数据同步到ehr)", notes="钉钉部门数据初始化(钉钉数据同步到ehr)",consumes= MediaType.MULTIPART_FORM_DATA_VALUE)
+    @RequestMapping(value = "/staffInit", method = RequestMethod.GET)
+    public ComResponse<Boolean> staffInit() throws ApiException {
+        return dingTalkUserService.init("1");
+    }
 
 }
