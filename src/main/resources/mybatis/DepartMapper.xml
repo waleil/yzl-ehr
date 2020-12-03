@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.net.yzl.ehr.mapper.DepartMapper">
+  <resultMap id="BaseResultMap" type="cn.net.yzl.ehr.pojo.DepartPo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="p_id" jdbcType="INTEGER" property="pId" />
+    <result column="staff_num" jdbcType="INTEGER" property="staffNum" />
+    <result column="num" jdbcType="INTEGER" property="num" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="order" jdbcType="BIGINT" property="order" />
+    <result column="ding_name" jdbcType="VARCHAR" property="dingName" />
+    <result column="ding_depart_id" jdbcType="BIGINT" property="dingDepartId" />
+    <result column="ding_p_id" jdbcType="BIGINT" property="dingPId" />
+    <result column="ding_order" jdbcType="BIGINT" property="dingOrder" />
+    <result column="corp_id" jdbcType="VARCHAR" property="corpId" />
+    <result column="ding_owner" jdbcType="VARCHAR" property="dingOwner" />
+    <result column="from" jdbcType="TINYINT" property="from" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_id" jdbcType="INTEGER" property="createId" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_id" jdbcType="INTEGER" property="updateId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, `name`, p_id, staff_num, num, `status`, `order`, ding_name, ding_depart_id, ding_p_id, 
+    ding_order, corp_id, ding_owner, `from`, create_time, create_id, update_time, update_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from depart
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="getByDingIdAndCropId" resultType="cn.net.yzl.ehr.pojo.DepartPo">
+    select
+    <include refid="Base_Column_List" />
+    from depart
+    where ding_depart_id=#{parentid} and corp_id=#{corpId}
+
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from depart
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="save" keyColumn="id" keyProperty="id" parameterType="cn.net.yzl.ehr.pojo.DepartPo" useGeneratedKeys="true">
+    insert into depart
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="pId != null">
+        p_id,
+      </if>
+      <if test="staffNum != null">
+        staff_num,
+      </if>
+      <if test="num != null">
+        num,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="order != null">
+        `order`,
+      </if>
+      <if test="dingName != null">
+        ding_name,
+      </if>
+      <if test="dingDepartId != null">
+        ding_depart_id,
+      </if>
+      <if test="dingPId != null">
+        ding_p_id,
+      </if>
+      <if test="dingOrder != null">
+        ding_order,
+      </if>
+      <if test="corpId != null">
+        corp_id,
+      </if>
+      <if test="dingOwner != null">
+        ding_owner,
+      </if>
+      <if test="from != null">
+        `from`,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createId != null">
+        create_id,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateId != null">
+        update_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="pId != null">
+        #{pId,jdbcType=INTEGER},
+      </if>
+      <if test="staffNum != null">
+        #{staffNum,jdbcType=INTEGER},
+      </if>
+      <if test="num != null">
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="order != null">
+        #{order,jdbcType=BIGINT},
+      </if>
+      <if test="dingName != null">
+        #{dingName,jdbcType=VARCHAR},
+      </if>
+      <if test="dingDepartId != null">
+        #{dingDepartId,jdbcType=BIGINT},
+      </if>
+      <if test="dingPId != null">
+        #{dingPId,jdbcType=BIGINT},
+      </if>
+      <if test="dingOrder != null">
+        #{dingOrder,jdbcType=BIGINT},
+      </if>
+      <if test="corpId != null">
+        #{corpId,jdbcType=VARCHAR},
+      </if>
+      <if test="dingOwner != null">
+        #{dingOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="from != null">
+        #{from,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createId != null">
+        #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null">
+        #{updateId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.net.yzl.ehr.pojo.DepartPo">
+    update depart
+    <set>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="pId != null">
+        p_id = #{pId,jdbcType=INTEGER},
+      </if>
+      <if test="staffNum != null">
+        staff_num = #{staffNum,jdbcType=INTEGER},
+      </if>
+      <if test="num != null">
+        num = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="order != null">
+        `order` = #{order,jdbcType=BIGINT},
+      </if>
+      <if test="dingName != null">
+        ding_name = #{dingName,jdbcType=VARCHAR},
+      </if>
+      <if test="dingDepartId != null">
+        ding_depart_id = #{dingDepartId,jdbcType=BIGINT},
+      </if>
+      <if test="dingPId != null">
+        ding_p_id = #{dingPId,jdbcType=BIGINT},
+      </if>
+      <if test="dingOrder != null">
+        ding_order = #{dingOrder,jdbcType=BIGINT},
+      </if>
+      <if test="corpId != null">
+        corp_id = #{corpId,jdbcType=VARCHAR},
+      </if>
+      <if test="dingOwner != null">
+        ding_owner = #{dingOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="from != null">
+        `from` = #{from,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createId != null">
+        create_id = #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null">
+        update_id = #{updateId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.net.yzl.ehr.pojo.DepartPo">
+    update depart
+    set `name` = #{name,jdbcType=VARCHAR},
+      p_id = #{pId,jdbcType=INTEGER},
+      staff_num = #{staffNum,jdbcType=INTEGER},
+      num = #{num,jdbcType=INTEGER},
+      `status` = #{status,jdbcType=TINYINT},
+      `order` = #{order,jdbcType=BIGINT},
+      ding_name = #{dingName,jdbcType=VARCHAR},
+      ding_depart_id = #{dingDepartId,jdbcType=BIGINT},
+      ding_p_id = #{dingPId,jdbcType=BIGINT},
+      ding_order = #{dingOrder,jdbcType=BIGINT},
+      corp_id = #{corpId,jdbcType=VARCHAR},
+      ding_owner = #{dingOwner,jdbcType=VARCHAR},
+      `from` = #{from,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_id = #{createId,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_id = #{updateId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
