@@ -1,8 +1,9 @@
 package cn.net.yzl.ehr.pojo;
 
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.Date;
-import lombok.Data;
 
 /**
  * depart
@@ -36,14 +37,19 @@ public class DepartPo implements Serializable {
     private Integer num;
 
     /**
-     * 状态(0:无效,1:有效)
+     * 负责人id
      */
-    private Byte status;
+    private Integer leaderId;
+
+    /**
+     * 描述
+     */
+    private String desc;
 
     /**
      * 排序(1,2,3.....)
      */
-    private Long order;
+    private Integer order;
 
     /**
      * 钉钉部门名称
@@ -81,6 +87,21 @@ public class DepartPo implements Serializable {
     private Byte from;
 
     /**
+     * cti对应的部门id
+     */
+    private Integer ctiDepartId;
+
+    /**
+     * cti对应的部门名称
+     */
+    private String ctiDepartName;
+
+    /**
+     * 状态(0:有效,1:删除)
+     */
+    private Byte isDel;
+
+    /**
      * 创建时间
      */
     private Date createTime;
@@ -88,7 +109,7 @@ public class DepartPo implements Serializable {
     /**
      * 创建人id
      */
-    private Integer createId;
+    private Integer creator;
 
     /**
      * 更新时间
@@ -98,7 +119,7 @@ public class DepartPo implements Serializable {
     /**
      * 更新人id
      */
-    private Integer updateId;
+    private Integer updator;
 
     private static final long serialVersionUID = 1L;
 }

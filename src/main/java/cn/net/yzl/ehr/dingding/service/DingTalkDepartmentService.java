@@ -90,6 +90,9 @@ public class DingTalkDepartmentService {
         // 构建 部门
         assembDepartPo(departPo,department);
 //        departMapper.save(departPo);
+        if("1".equals(id)){
+            departPo.setPId(1);
+        }
         departFeginService.create(departPo);
         // 获取 部门下的子
         OapiDepartmentListIdsResponse departmentlistIds = getDepartmentlistIds(departPo.getDingDepartId() + "");
@@ -120,14 +123,15 @@ public class DingTalkDepartmentService {
             departPo.setDingPId(0L);
         }
         if(department.getId()==1){
-            departPo.setPId(0);
+            departPo.setPId(1);
         }else{
             // 还得查询 通过 department.getParentid() 查询 id
-            DepartPo byDingIdAndCropId = departMapper.getByDingIdAndCropId(department.getParentid(), dingProperties.corpId);
+//            DepartPo byDingIdAndCropId = departMapper.getByDingIdAndCropId(department.getParentid(), dingProperties.corpId);
+            DepartPo byDingIdAndCropId =  departFeginService.getByDingDepartId(department.getParentid()+"").getData();
             departPo.setPId(byDingIdAndCropId.getId());
         }
         departPo.setCorpId(dingProperties.corpId);
-        departPo.setOrder(department.getOrder());
+        departPo.setOrder(Integer.parseInt(""+department.getOrder()));
         departPo.setDingOrder(department.getOrder());
         departPo.setDingOwner(department.getOrgDeptOwner());
         departPo.setFrom((byte) 2);

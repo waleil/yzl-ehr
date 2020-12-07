@@ -7,7 +7,6 @@
     <result column="p_id" jdbcType="INTEGER" property="pId" />
     <result column="staff_num" jdbcType="INTEGER" property="staffNum" />
     <result column="num" jdbcType="INTEGER" property="num" />
-    <result column="status" jdbcType="TINYINT" property="status" />
     <result column="order" jdbcType="BIGINT" property="order" />
     <result column="ding_name" jdbcType="VARCHAR" property="dingName" />
     <result column="ding_depart_id" jdbcType="BIGINT" property="dingDepartId" />
@@ -17,13 +16,12 @@
     <result column="ding_owner" jdbcType="VARCHAR" property="dingOwner" />
     <result column="from" jdbcType="TINYINT" property="from" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="create_id" jdbcType="INTEGER" property="createId" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="update_id" jdbcType="INTEGER" property="updateId" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, `name`, p_id, staff_num, num, `status`, `order`, ding_name, ding_depart_id, ding_p_id, 
-    ding_order, corp_id, ding_owner, `from`, create_time, create_id, update_time, update_id
+    id, `name`, p_id, staff_num, num, leader_id, `desc`, `order`, ding_name, ding_depart_id,
+    ding_p_id, ding_order, corp_id, ding_owner, `from`, cti_depart_id, cti_depart_name,
+    is_del, create_time, creator, update_time, updator
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -35,7 +33,7 @@
     select
     <include refid="Base_Column_List" />
     from depart
-    where ding_depart_id=#{parentid} and corp_id=#{corpId}
+    where ding_depart_id=#{parentid} and corp_id =#{corpId}
 
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
