@@ -1,12 +1,9 @@
 package cn.net.yzl.ehr.controller;
 
 import cn.net.yzl.common.entity.ComResponse;
-import cn.net.yzl.ehr.dingding.RobotHelperUtil;
-import cn.net.yzl.ehr.dingding.service.DingTalkDepartmentService;
-import cn.net.yzl.ehr.dingding.service.DingTalkUserService;
+import cn.net.yzl.ehr.service.DingTalkDepartService;
 import com.dingtalk.api.response.OapiDepartmentListResponse;
 import com.dingtalk.api.response.OapiUserGetResponse;
-import com.github.pagehelper.PageInfo;
 import com.taobao.api.ApiException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -18,19 +15,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.UnsupportedEncodingException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 
 @RestController
-@RequestMapping("/ding")
-@Api(value="钉钉测试",tags={"钉钉测试"})
+@RequestMapping("/dingTalk")
+@Api(value="钉钉模块",tags={"钉钉模块"})
 public class DingController {
 
     @Autowired
-    private DingTalkDepartmentService dingTalkDepartmentService;
-    @Autowired
-    private DingTalkUserService dingTalkUserService;
+    private DingTalkDepartService dingTalkService;
+//    @Autowired
+//    private DingTalkUserService dingTalkUserService;
 
 
 
@@ -41,11 +35,11 @@ public class DingController {
     })
     @RequestMapping(value = "/getDingDepartList", method = RequestMethod.GET)
     public OapiDepartmentListResponse getDingDepartList(String partentid){
-        try {
-            return dingTalkDepartmentService.getDepartmentList(partentid,false);
-        } catch (ApiException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            return dingTalkDepartmentService.getDepartmentList(partentid,false);
+//        } catch (ApiException e) {
+//            e.printStackTrace();
+//        }
         return null;
     }
 
@@ -56,11 +50,11 @@ public class DingController {
     @RequestMapping(value = "/getDingUser", method = RequestMethod.GET)
     public OapiUserGetResponse getDingUser(String userId){
 
-        try {
-            return dingTalkUserService.getUser(userId);
-        } catch (ApiException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            return dingTalkUserService.getUser(userId);
+//        } catch (ApiException e) {
+//            e.printStackTrace();
+//        }
         return  null;
     }
 
@@ -73,28 +67,29 @@ public class DingController {
     })
     @RequestMapping(value = "/robotSend", method = RequestMethod.GET)
     public String robotSend(String secret,String webhookUrl){
-        try {
-            RobotHelperUtil.sdkDemoJava(secret,webhookUrl);
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (InvalidKeyException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            RobotHelperUtil.sdkDemoJava(secret,webhookUrl);
+//        } catch (NoSuchAlgorithmException e) {
+//            e.printStackTrace();
+//        } catch (UnsupportedEncodingException e) {
+//            e.printStackTrace();
+//        } catch (InvalidKeyException e) {
+//            e.printStackTrace();
+//        }
         return "success";
     }
 
 
-    @ApiOperation(value="钉钉部门数据初始化(钉钉数据同步到ehr)", notes="钉钉部门数据初始化(钉钉数据同步到ehr)",consumes= MediaType.MULTIPART_FORM_DATA_VALUE)
-    @RequestMapping(value = "/departInit", method = RequestMethod.GET)
-    public ComResponse<Boolean> departInit() throws ApiException {
-        return dingTalkDepartmentService.init(1+"");
+    @ApiOperation(value="从钉钉获取数据同步到本地ehr系统", notes="从钉钉获取数据同步到本地ehr系统",consumes= MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/dingDepartToEhr", method = RequestMethod.GET)
+    public ComResponse<Boolean> dingDepartToEhr() throws ApiException {
+        return dingTalkService.dingDepartToEhr(1+"");
+
     }
-    @ApiOperation(value="钉钉员工数据数据初始化(钉钉数据同步到ehr)", notes="钉钉部门数据初始化(钉钉数据同步到ehr)",consumes= MediaType.MULTIPART_FORM_DATA_VALUE)
-    @RequestMapping(value = "/staffInit", method = RequestMethod.GET)
-    public ComResponse<Boolean> staffInit() throws ApiException {
-        return dingTalkUserService.init("1");
-    }
+//    @ApiOperation(value="钉钉员工数据数据初始化(钉钉数据同步到ehr)", notes="钉钉部门数据初始化(钉钉数据同步到ehr)",consumes= MediaType.MULTIPART_FORM_DATA_VALUE)
+//    @RequestMapping(value = "/staffInit", method = RequestMethod.GET)
+//    public ComResponse<Boolean> staffInit() throws ApiException {
+//        return dingTalkUserService.init("1");
+//    }
 
 }

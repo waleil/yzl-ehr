@@ -1,8 +1,6 @@
 package cn.net.yzl.ehr.task;
 
 
-import cn.net.yzl.ehr.dingding.DefaultDingtalkToken;
-import com.taobao.api.ApiException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +17,7 @@ import org.springframework.stereotype.Component;
 @EnableAutoConfiguration
 public class Task {
 
-    @Autowired
-    private DefaultDingtalkToken defaultDingtalkToken;
+
 
     private Logger logger = LoggerFactory.getLogger(Task.class);
 
@@ -38,11 +35,11 @@ public class Task {
     @Scheduled(cron = "0 0/50 0/1 * * ?")
     public void reflushDingAccessToken() {
         logger.info("每一小时50分执行一次  获取 钉钉access_token");
-        try {
-            defaultDingtalkToken.renewal();
-        } catch (ApiException e) {
-            e.printStackTrace();
-        }
+//        try {
+////            defaultDingtalkToken.renewal();
+//        } catch (ApiException e) {
+//            e.printStackTrace();
+//        }
     }
 
     /**
