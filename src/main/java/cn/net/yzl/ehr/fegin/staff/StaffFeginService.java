@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.fegin.staff;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.ehr.dto.StaffBaseDto;
 import cn.net.yzl.ehr.pojo.DingTalkUserPo;
 import cn.net.yzl.ehr.pojo.StaffDepartPostPo;
 import cn.net.yzl.ehr.pojo.StaffPo;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Map;
 
 @FeignClient(name = "yzl-staff-service"/*,fallback = StaffFeginServiceFallBack.class*/)
 @Repository
@@ -28,4 +30,7 @@ public interface StaffFeginService {
     ComResponse<Boolean> createDingTalkUser(@RequestBody DingTalkUserPo dingTalkUserPo);
     @RequestMapping(value = "/staff/insertStaffDepartList", method = RequestMethod.POST,consumes = "application/json")
     void insertStaffDepartList(@RequestBody List<StaffDepartPostPo> staffDepartList);
+
+    @RequestMapping(value = "/staff/getOneByMap", method = RequestMethod.POST,consumes = "application/json")
+    ComResponse<StaffBaseDto> getOneByMap(@RequestBody Map<String, Object> map);
 }

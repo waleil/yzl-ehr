@@ -7,15 +7,13 @@ import cn.net.yzl.ehr.dto.DepartDto;
 import cn.net.yzl.ehr.service.DepartService;
 import cn.net.yzl.ehr.vo.DepartVO;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotBlank;
 
@@ -54,6 +52,16 @@ public class DepartController {
     @RequestMapping(value = "/del", method = RequestMethod.GET)
     public ComResponse<String> del(@NotBlank(message = "部门id不能为null!") String departId) {
         return departService.del(departId);
+    }
+
+    @ApiOperation(value = "通过员工工号获取组织架构信息", notes = "通过员工工号获取组织架构信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userNo", value = "userNo", required = true, dataType = "String", paramType = "query")
+    })
+    @RequestMapping(value = "/getByUserNo", method = RequestMethod.GET)
+    @UnAuthorization
+    public ComResponse<DepartDto> getByUserNo(@RequestParam("userNo") String userNo) {
+        return departService.getByUserNo(userNo);
     }
 
 }

@@ -14,4 +14,7 @@ public interface DepartService {
     ComResponse<String> update(DepartVO departVO);
     // 删除部门
     ComResponse<String> del(String departId);
+
+
+    ComResponse<DepartDto> getByUserNo(String userNo);
 }

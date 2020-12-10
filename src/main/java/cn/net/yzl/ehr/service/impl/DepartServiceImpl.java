@@ -1,6 +1,8 @@
 package cn.net.yzl.ehr.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.common.enums.ResponseCodeEnums;
 import cn.net.yzl.ehr.dto.DepartDto;
 import cn.net.yzl.ehr.fegin.depart.DepartFeginService;
 import cn.net.yzl.ehr.service.DepartService;
@@ -33,5 +35,14 @@ public class DepartServiceImpl implements DepartService {
     @Override
     public ComResponse<String> del(String departId) {
         return departFeginService.del(departId);
+    }
+
+    @Override
+    public ComResponse<DepartDto> getByUserNo(String userNo) {
+        if(StrUtil.isBlank(userNo)){
+            return ComResponse.fail(ResponseCodeEnums.PARAMS_EMPTY_ERROR_CODE.getCode(),ResponseCodeEnums.PARAMS_EMPTY_ERROR_CODE.getMessage());
+        }
+
+        return departFeginService.getByUserNo(userNo);
     }
 }

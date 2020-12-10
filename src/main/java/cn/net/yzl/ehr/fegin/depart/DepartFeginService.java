@@ -4,6 +4,7 @@ import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.dto.DepartDto;
 import cn.net.yzl.ehr.pojo.DepartPo;
 import cn.net.yzl.ehr.vo.DepartVO;
+import feign.Param;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,7 +24,7 @@ public interface DepartFeginService {
     ComResponse<String> create(@RequestBody DepartPo departPo);
 
     @RequestMapping(value = "/depart/getByDingDepartId", method = RequestMethod.GET)
-    ComResponse<DepartPo> getByDingDepartId(@RequestParam String dingDepartId);
+    ComResponse<DepartPo> getByDingDepartId(@RequestParam("dingDepartId") String dingDepartId);
 
     // 获取部门列表
     @RequestMapping(value = "/depart/getTreeList", method = RequestMethod.GET)
@@ -34,4 +35,7 @@ public interface DepartFeginService {
     ComResponse<String> update(@RequestBody DepartVO departVO);
     @RequestMapping(value = "/depart/del", method = RequestMethod.GET)
     ComResponse<String> del(@RequestParam("departId") String departId);
+
+    @RequestMapping(value = "/depart/getByUserNo", method = RequestMethod.GET)
+    ComResponse<DepartDto> getByUserNo(@RequestParam("userNo")String userNo);
 }
