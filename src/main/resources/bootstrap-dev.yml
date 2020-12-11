@@ -1,9 +1,14 @@
 spring:
   cloud:
     nacos:
+      server-addr: 192.168.32.33:8848,192.168.32.34:8848,192.168.32.35:8848
       discovery:
-        namespace: a662e779-6c51-4809-988a-89a94c8d6274
+        username: apigateway
+        password: apigateway
+        namespace: a97dae2d-5fcd-4dc3-bfa1-5f7b9b1dfd5a
       config:
-        namespace: a662e779-6c51-4809-988a-89a94c8d6274
+        namespace: 1668ab9a-def9-4a51-9c04-6bbbdf40b162
+        username: ehr
+        password: ehr
 
 
