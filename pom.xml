@@ -8,7 +8,6 @@
         <version>1.0-RELEASE</version>
     </parent>
     <artifactId>yzl-ehr</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
     <name>yzl-ehr</name>
     <description>Demo project for Spring Boot</description>
 

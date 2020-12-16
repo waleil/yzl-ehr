@@ -1,6 +1,9 @@
 package cn.net.yzl.ehr.service.impl;
 
+import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.config.annotation.ReadDataSource;
+import cn.net.yzl.ehr.dto.StaffDetailsDto;
+import cn.net.yzl.ehr.fegin.staff.StaffFeginService;
 import cn.net.yzl.ehr.mapper.StaffMapper;
 import cn.net.yzl.ehr.pojo.StaffPo;
 import cn.net.yzl.ehr.service.StaffService;
@@ -16,6 +19,9 @@ public class StaffServiceImpl implements StaffService {
     @Autowired
     private StaffMapper staffMapper;
 
+    @Autowired
+    private StaffFeginService staffFeginService;
+
     @ReadDataSource
     @Override
     public PageInfo<StaffPo> getPage(int pageNum, int pageSize){
@@ -28,6 +34,11 @@ public class StaffServiceImpl implements StaffService {
     @Override
     public Object getByPrimaryKey(int id) {
         return staffMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public ComResponse<StaffDetailsDto> getDetailsByNo(Integer userNo) {
+        return staffFeginService.getDetailsByNo(userNo);
     }
 
 }

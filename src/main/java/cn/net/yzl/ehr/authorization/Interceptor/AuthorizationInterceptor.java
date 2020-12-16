@@ -3,10 +3,12 @@ package cn.net.yzl.ehr.authorization.Interceptor;
 import cn.hutool.json.JSONUtil;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.enums.ResponseCodeEnums;
+import cn.net.yzl.common.util.UUIDGenerator;
 import cn.net.yzl.ehr.authorization.annotation.UnAuthorization;
 import cn.net.yzl.ehr.authorization.service.TokenManager;
 import cn.net.yzl.ehr.dto.StaffDto;
 import cn.net.yzl.ehr.permission.ReqPermissions;
+import cn.net.yzl.logger.common.XBasicUtil;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +25,7 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * 自定义拦截器
@@ -36,6 +39,25 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         // 如果不是映射到方法直接通过
         log.info("----------c映射----------" + (handler instanceof HandlerMethod) + "----------------------");
+
+
+//        String traceId = request.getHeader("traceId");
+        String spanId = XBasicUtil.uuid();
+        request.setAttribute("span",spanId);
+
+        String gateway = request.getHeader("gateway");
+        // gateway 已经验证过
+        if("true".equals(gateway)){
+            return true;
+        }else {
+            response.setStatus(200);
+            ComResponse<String> rep = ComResponse.fail(ResponseCodeEnums.TOKEN_INVALID_ERROR_CODE.getCode(), ResponseCodeEnums.TOKEN_INVALID_ERROR_CODE.getMessage());
+            response.setContentType("application/json;charset=UTF-8");
+            response.getWriter().append(JSONUtil.toJsonStr(rep));
+
+        }
+
+//        String token = request.getHeader("token");
 
 //        String methods = request.getMethod();
 //        // 预请求处理

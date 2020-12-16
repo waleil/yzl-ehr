@@ -18,6 +18,9 @@ public class GlobalExceptionHandler {
 
 
 
+
+
+
     @ExceptionHandler(value =Exception.class)
     @ResponseBody
     public Object exceptionHandler(Exception e){
