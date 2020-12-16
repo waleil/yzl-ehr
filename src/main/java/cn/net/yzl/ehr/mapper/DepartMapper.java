@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface DepartMapper {
     int deleteByPrimaryKey(Integer id);
 
-
     int save(DepartPo record);
 
     DepartPo selectByPrimaryKey(Integer id);

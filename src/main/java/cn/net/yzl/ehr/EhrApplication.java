@@ -12,9 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
 import javax.sql.DataSource;
-import java.util.Map;
 
 @SpringBootApplication(scanBasePackages = {"cn.net.yzl.ehr","cn.net.yzl.logger"})
 @EnableSwagger
@@ -24,10 +22,8 @@ import java.util.Map;
 public class EhrApplication {
 
 
-
     public static void main(String[] args) {
         SpringApplication.run(EhrApplication.class, args);
         System.err.println("测试....");
     }
-
 }

@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.net.yzl.ehr.mapper.OfficeSuppliesMapper" >
+  <resultMap id="BaseResultMap" type="cn.net.yzl.ehr.pojo.OfficeSupplies" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="area_id" property="areaId" jdbcType="INTEGER" />
+    <result column="type_id" property="typeId" jdbcType="INTEGER" />
+    <result column="item_name" property="itemName" jdbcType="VARCHAR" />
+    <result column="item_characteristics" property="itemCharacteristics" jdbcType="VARCHAR" />
+    <result column="item_brand" property="itemBrand" jdbcType="VARCHAR" />
+    <result column="item_id" property="itemId" jdbcType="INTEGER" />
+    <result column="item_total" property="itemTotal" jdbcType="VARCHAR" />
+    <result column="item_remaining" property="itemRemaining" jdbcType="VARCHAR" />
+    <result column="item_unit" property="itemUnit" jdbcType="VARCHAR" />
+    <result column="storage_location" property="storageLocation" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="buy_time" property="buyTime" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="creator_id" property="creatorId" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="updator_id" property="updatorId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, area_id, type_id, item_name, item_characteristics, item_brand, item_id, item_total, 
+    item_remaining, item_unit, storage_location, status, buy_time, create_time, creator_id, 
+    update_time, updator_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from office_supplies
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByType" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from office_supplies
+    where type_id = #{typeId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectAllList" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from office_supplies
+    order by type_id
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from office_supplies
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.net.yzl.ehr.pojo.OfficeSupplies" >
+    insert into office_supplies (id, area_id, type_id, 
+      item_name, item_characteristics, item_brand, 
+      item_id, item_total, item_remaining, 
+      item_unit, storage_location, status, 
+      buy_time, create_time, creator_id, 
+      update_time, updator_id)
+    values (#{id,jdbcType=INTEGER}, #{areaId,jdbcType=INTEGER}, #{typeId,jdbcType=INTEGER}, 
+      #{itemName,jdbcType=VARCHAR}, #{itemCharacteristics,jdbcType=VARCHAR}, #{itemBrand,jdbcType=VARCHAR}, 
+      #{itemId,jdbcType=INTEGER}, #{itemTotal,jdbcType=VARCHAR}, #{itemRemaining,jdbcType=VARCHAR}, 
+      #{itemUnit,jdbcType=VARCHAR}, #{storageLocation,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
+      #{buyTime,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{creatorId,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updatorId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.net.yzl.ehr.pojo.OfficeSupplies" >
+    insert into office_supplies
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="areaId != null" >
+        area_id,
+      </if>
+      <if test="typeId != null" >
+        type_id,
+      </if>
+      <if test="itemName != null" >
+        item_name,
+      </if>
+      <if test="itemCharacteristics != null" >
+        item_characteristics,
+      </if>
+      <if test="itemBrand != null" >
+        item_brand,
+      </if>
+      <if test="itemId != null" >
+        item_id,
+      </if>
+      <if test="itemTotal != null" >
+        item_total,
+      </if>
+      <if test="itemRemaining != null" >
+        item_remaining,
+      </if>
+      <if test="itemUnit != null" >
+        item_unit,
+      </if>
+      <if test="storageLocation != null" >
+        storage_location,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="buyTime != null" >
+        buy_time,
+      </if>
+      <if test="creatorId != null" >
+        creator_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="areaId != null" >
+        #{areaId,jdbcType=INTEGER},
+      </if>
+      <if test="typeId != null" >
+        #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="itemName != null" >
+        #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="itemCharacteristics != null" >
+        #{itemCharacteristics,jdbcType=VARCHAR},
+      </if>
+      <if test="itemBrand != null" >
+        #{itemBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="itemId != null" >
+        #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="itemTotal != null" >
+        #{itemTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="itemRemaining != null" >
+        #{itemRemaining,jdbcType=VARCHAR},
+      </if>
+      <if test="itemUnit != null" >
+        #{itemUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="storageLocation != null" >
+        #{storageLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="buyTime != null" >
+        #{buyTime,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null" >
+        #{creatorId,jdbcType=INTEGER},
+      </if>
+
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.net.yzl.ehr.pojo.OfficeSupplies" >
+    update office_supplies
+    <set>
+      <if test="areaId != null" >
+        area_id = #{areaId,jdbcType=INTEGER},
+      </if>
+      <if test="typeId != null" >
+        type_id = #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="itemName != null" >
+        item_name = #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="itemCharacteristics != null" >
+        item_characteristics = #{itemCharacteristics,jdbcType=VARCHAR},
+      </if>
+      <if test="itemBrand != null" >
+        item_brand = #{itemBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="itemId != null" >
+        item_id = #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="itemTotal != null" >
+        item_total = #{itemTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="itemRemaining != null" >
+        item_remaining = #{itemRemaining,jdbcType=VARCHAR},
+      </if>
+      <if test="itemUnit != null" >
+        item_unit = #{itemUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="storageLocation != null" >
+        storage_location = #{storageLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="buyTime != null" >
+        buy_time = #{buyTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updatorId != null" >
+        updator_id = #{updatorId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.net.yzl.ehr.pojo.OfficeSupplies" >
+    update office_supplies
+    set area_id = #{areaId,jdbcType=INTEGER},
+      type_id = #{typeId,jdbcType=INTEGER},
+      item_name = #{itemName,jdbcType=VARCHAR},
+      item_characteristics = #{itemCharacteristics,jdbcType=VARCHAR},
+      item_brand = #{itemBrand,jdbcType=VARCHAR},
+      item_id = #{itemId,jdbcType=INTEGER},
+      item_total = #{itemTotal,jdbcType=VARCHAR},
+      item_remaining = #{itemRemaining,jdbcType=VARCHAR},
+      item_unit = #{itemUnit,jdbcType=VARCHAR},
+      storage_location = #{storageLocation,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      buy_time = #{buyTime,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      creator_id = #{creatorId,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      updator_id = #{updatorId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

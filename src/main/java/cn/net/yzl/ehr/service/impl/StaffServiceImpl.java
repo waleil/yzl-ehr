@@ -25,7 +25,7 @@ public class StaffServiceImpl implements StaffService {
     @ReadDataSource
     @Override
     public PageInfo<StaffPo> getPage(int pageNum, int pageSize){
-        Page<StaffPo> page = PageHelper.startPage(pageNum, pageSize);
+        Page<StaffPo> page = PageHelper.startPage(pageNum,pageSize);
         //PageHelper会自动拦截到下面这查询sql
         this.staffMapper.getAll();
         return page.toPageInfo();
