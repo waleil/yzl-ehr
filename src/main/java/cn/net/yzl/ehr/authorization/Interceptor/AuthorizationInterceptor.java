@@ -48,13 +48,19 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
         String gateway = request.getHeader("gateway");
         // gateway 已经验证过
         if("true".equals(gateway)){
+            // 员工工号
+            String staffNo = request.getHeader("userNo");
+            request.setAttribute("CURRENT_USER_NO", staffNo);
+
+
+
             return true;
         }else {
             response.setStatus(200);
             ComResponse<String> rep = ComResponse.fail(ResponseCodeEnums.TOKEN_INVALID_ERROR_CODE.getCode(), ResponseCodeEnums.TOKEN_INVALID_ERROR_CODE.getMessage());
             response.setContentType("application/json;charset=UTF-8");
             response.getWriter().append(JSONUtil.toJsonStr(rep));
-
+            return false;
         }
 
 //        String token = request.getHeader("token");
@@ -122,7 +128,6 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
 //                return false;
 //            }
 //        }
-        return true;
 
     }
 

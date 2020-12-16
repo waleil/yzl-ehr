@@ -1,5 +1,7 @@
 package cn.net.yzl.ehr.authorization.resolvers;
 
+import cn.hutool.core.util.StrUtil;
+import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.authorization.annotation.CurrentUser;
 import cn.net.yzl.ehr.dto.StaffDto;
 import org.springframework.core.MethodParameter;
@@ -25,6 +27,9 @@ public class CurrentUserMethodArgumentResolver implements HandlerMethodArgumentR
         if (parameter.getParameterType().isAssignableFrom(StaffDto.class) &&
                 parameter.hasParameterAnnotation(CurrentUser.class)) {
             return true;
+        }if(parameter.getParameterType().isAssignableFrom(Integer.class)&&
+        parameter.hasParameterAnnotation(CurrentStaffNo.class)){
+            return true;
         }
         return false;
     }
@@ -32,10 +37,11 @@ public class CurrentUserMethodArgumentResolver implements HandlerMethodArgumentR
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
         //取出鉴权时存入的登录用户
-    	StaffDto currentUser = (StaffDto) webRequest.getAttribute("CURRENT_USER", RequestAttributes.SCOPE_REQUEST);
-        if (currentUser != null) {
+    	String currentUserNo = (String) webRequest.getAttribute("CURRENT_USER_NO", RequestAttributes.SCOPE_REQUEST);
+
+        if (StrUtil.isNotBlank(currentUserNo)) {
             //从数据库中查询并返回
-            return currentUser;
+            return Integer.parseInt(currentUserNo);
         }
         throw new MissingServletRequestPartException("");
     }

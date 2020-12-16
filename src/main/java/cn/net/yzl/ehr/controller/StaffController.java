@@ -2,6 +2,7 @@ package cn.net.yzl.ehr.controller;
 
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.dto.StaffDetailsDto;
 import cn.net.yzl.ehr.fegin.staff.StaffFeginService;
 import cn.net.yzl.ehr.service.StaffService;
@@ -36,13 +37,10 @@ public class StaffController {
 
 
 
-    @ApiOperation(value = "查询用户详情(根据用户工号)", notes = "查询用户详情(根据用户工号)")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "userNo", value = "用户工号", required = true, dataType = "String",paramType="query")
-    })
-    @RequestMapping(value = "/getDetailsByNo", method = RequestMethod.GET)
-    ComResponse<StaffDetailsDto> getDetailsByNo(@NotNull(message = "userNo不能为空") @RequestParam(value = "userNo",required = false) Integer userNo) {
-        return staffService.getDetailsByNo(userNo);
+    @ApiOperation(value = "查询当前用户详情", notes = "查询当前用户详情")
+    @RequestMapping(value = "/getCurrentDetails", method = RequestMethod.GET)
+    ComResponse<StaffDetailsDto> getCurrentDetails( @CurrentStaffNo  Integer staffNo) {
+        return staffService.getDetailsByNo(staffNo);
     }
 
 
