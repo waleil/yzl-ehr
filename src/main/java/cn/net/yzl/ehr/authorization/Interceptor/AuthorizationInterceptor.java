@@ -41,7 +41,7 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
         log.info("----------c映射----------" + (handler instanceof HandlerMethod) + "----------------------");
 
 
-//        String traceId = request.getHeader("traceId");
+        String traceId = request.getHeader("traceId");
         String spanId = XBasicUtil.uuid();
         request.setAttribute("span",spanId);
 
@@ -51,6 +51,8 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
             // 员工工号
             String staffNo = request.getHeader("userNo");
             request.setAttribute("CURRENT_USER_NO", staffNo);
+
+            log.info("{traceId:{},spanId:{},userNo:{}}",traceId,spanId,staffNo);
 
 
 
