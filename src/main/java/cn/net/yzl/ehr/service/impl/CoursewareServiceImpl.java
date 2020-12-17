@@ -1,5 +1,7 @@
 package cn.net.yzl.ehr.service.impl;
 
+import cn.net.yzl.common.entity.Page;
+import cn.net.yzl.common.util.AssemblerResultUtil;
 import cn.net.yzl.ehr.dto.CoursewareDto;
 import cn.net.yzl.ehr.mapper.CoursewareMapper;
 import cn.net.yzl.ehr.pojo.Courseware;
@@ -7,12 +9,12 @@ import cn.net.yzl.ehr.pojo.CoursewareCategory;
 import cn.net.yzl.ehr.pojo.CoursewareDepart;
 import cn.net.yzl.ehr.service.CoursewareService;
 import cn.net.yzl.ehr.vojo.QueryCoursewareParam;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class CoursewareServiceImpl implements CoursewareService {
@@ -89,9 +91,11 @@ public class CoursewareServiceImpl implements CoursewareService {
     }
 
     @Override
-    public List<CoursewareDto> getCoursewareByPage(QueryCoursewareParam param) {
-        List<CoursewareDto> coursewares = coursewareMapper.selectListByPage(param);
-        return coursewares;
+    public Page<CoursewareDto> getCoursewareByPage(QueryCoursewareParam param) {
+        PageHelper.startPage(param.getPageNo(),param.getPageSize());
+        List<CoursewareDto> coursewareList = coursewareMapper.selectList(param);
+        Page<CoursewareDto> coursewarePage= AssemblerResultUtil.resultAssembler(coursewareList);
+        return coursewarePage;
     }
 
     @Override

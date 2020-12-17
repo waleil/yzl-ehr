@@ -1,5 +1,7 @@
 package cn.net.yzl.ehr.service;
 
+import cn.net.yzl.common.entity.Page;
+import cn.net.yzl.ehr.dto.CoursewareCategoryDictDto;
 import cn.net.yzl.ehr.dto.CoursewareDto;
 import cn.net.yzl.ehr.pojo.Courseware;
 import cn.net.yzl.ehr.vojo.QueryCoursewareParam;
@@ -31,7 +33,7 @@ public interface CoursewareService {
      * @param param
      * @return
      */
-    List<CoursewareDto> getCoursewareByPage(QueryCoursewareParam param);
+    Page<CoursewareDto> getCoursewareByPage(QueryCoursewareParam param);
     /**
      * 更改课件审批状态
      * @param record
@@ -50,5 +52,6 @@ public interface CoursewareService {
      * @return
      */
     public int deleteByPrimaryKey(int coursewareId);
+    
 
 }

@@ -44,7 +44,7 @@ public interface CoursewareMapper   {
      * @param param
      * @return
      */
-    List<CoursewareDto> selectListByPage(QueryCoursewareParam param);
+    List<CoursewareDto> selectList(QueryCoursewareParam param);
     /**
      * 更改课件信息
      * @param record

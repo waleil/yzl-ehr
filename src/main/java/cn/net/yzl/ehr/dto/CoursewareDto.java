@@ -3,7 +3,6 @@ package cn.net.yzl.ehr.dto;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 @Data
@@ -53,7 +52,7 @@ public class CoursewareDto implements Serializable {
     /**
      * 启用状态：0：待审核，1：审核通过待启用，2：已启用，3：已撤销
      */
-    private Byte status;
+    private int state;
 
     //适用部门
     private List<CoursewareDepartParam> departList;
@@ -65,12 +64,6 @@ public class CoursewareDto implements Serializable {
     public static class  CoursewareCategoryParam {
         private int typeId;
         private String typeName;
-      /*  public CoursewareCategoryParam() {
-        }
-        public CoursewareCategoryParam(int typeId, String typeName) {
-            this.typeId = typeId;
-            this.typeName = typeName;
-        }*/
     }
 
 
@@ -78,14 +71,6 @@ public class CoursewareDto implements Serializable {
     public static class CoursewareDepartParam {
         private  String departId;
         private  String departName;
-
-     /*   public CoursewareDepartParam() {
-        }
-
-        public CoursewareDepartParam(String departId, String departName) {
-            this.departId = departId;
-            this.departName = departName;
-        }*/
     }
 
 

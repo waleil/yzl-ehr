@@ -3,10 +3,16 @@ package cn.net.yzl.ehr.controller;
 
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.common.entity.Page;
+import cn.net.yzl.common.enums.ResponseCodeEnums;
+import cn.net.yzl.common.util.AssemblerResultUtil;
+import cn.net.yzl.ehr.dto.CoursewareCategoryDictDto;
 import cn.net.yzl.ehr.dto.CoursewareDto;
 import cn.net.yzl.ehr.pojo.Courseware;
+import cn.net.yzl.ehr.service.CoursewareCategoryDictService;
 import cn.net.yzl.ehr.service.CoursewareService;
 import cn.net.yzl.ehr.vojo.QueryCoursewareParam;
+import cn.net.yzl.ehr.vojo.UpdateCoursewareCategoryParam;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -19,28 +25,60 @@ import java.util.List;
 @RequestMapping("/courseware")
 @Api(value="课件接口",tags = {"课件接口"})
 public class CoursewareController {
+
     @Autowired
     private CoursewareService coursewareService;
 
+    @Autowired
+    private CoursewareCategoryDictService coursewareCategoryDictService;
+
+
     /**
-     * 新增课件 APPLICATION_JSON_VALUE
+     * 查询课件类型列表
+     * @return
+     */
+    @ApiOperation(value = "获取课件类别", notes = "获取课件类别")
+    @RequestMapping(value = "getCoursewareCategoryList",method = RequestMethod.GET)
+    List<CoursewareCategoryDictDto> getCoursewareCategoryByPage(){
+        return  coursewareCategoryDictService.getCoursewareCategoryByPage();
+    }
+
+    /**
+     * 更改课件类型列表
+     * @return
+     */
+    @ApiOperation(value = "更改课件类别", notes = "更改课件类别")
+    @RequestMapping(value = "UpdateCoursewareCategoryList",method = RequestMethod.POST)
+    ComResponse updateCoursewareCategoryList(@RequestBody UpdateCoursewareCategoryParam param){
+        int num=coursewareCategoryDictService.updateCoursewareCategoryList(param);
+        if(num==0){
+            return  ComResponse.success();
+        }else{
+            return  ComResponse.fail(ResponseCodeEnums.SAVE_DATA_ERROR_CODE.getCode(),ResponseCodeEnums.SAVE_DATA_ERROR_CODE.getMessage());
+        }
+    }
+
+
+    /**
+     * 新增课件
      * @param courseware
-     * @return @RequestBody
+     * @return
      */
     @ApiOperation(value="新增课件",notes="新增课件",consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/insertCourseware", method = RequestMethod.POST)
     int insertCourseware(@RequestBody Courseware courseware){
       return coursewareService.insertCourseware(courseware);
     }
+
     /**
      * 更改课件
-     * @param record
+     * @param courseware
      * @return
      */
     @ApiOperation(value="更改课件",notes="更改课件",consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/updateCourseware", method = RequestMethod.POST)
-    int updateCourseware(@RequestBody Courseware record){
-        return coursewareService.updateCourseware(record);
+    int updateCourseware(@RequestBody Courseware courseware){
+        return coursewareService.updateCourseware(courseware);
     }
 
     /**
@@ -69,8 +107,9 @@ public class CoursewareController {
      */
     @ApiOperation(value="查询课件列表",notes="查询课件列表",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @RequestMapping(value = "/getCoursewareByPage", method = RequestMethod.GET)
-    List<CoursewareDto> getCoursewareByPage(QueryCoursewareParam param){
-        return coursewareService.getCoursewareByPage(param);
+    Page<CoursewareDto> getCoursewareByPage(QueryCoursewareParam param){
+        Page<CoursewareDto> coursewarePage= coursewareService.getCoursewareByPage(param);
+        return coursewarePage;
     }
     /**
      * 更改课件状态

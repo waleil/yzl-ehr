@@ -62,11 +62,11 @@
 	join courseware_category_dict e on (t.type_id=e.id and e.is_del=0)
   </select>
 
-  <select id="selectListByPage" parameterType="cn.net.yzl.ehr.vojo.QueryCoursewareParam" resultMap="CoursewareResultMap"  >
+  <select id="selectList" parameterType="cn.net.yzl.ehr.vojo.QueryCoursewareParam" resultMap="CoursewareResultMap"  >
     select
     t.id,t.name,t.desc,t.attachment_path,date_format(t.create_time,'%Y-%m-%d %H:%i:%s') as create_time,
     date_format(t.update_time,'%Y-%m-%d %H:%i:%s') as update_time,t.creator,t.updator,t.state,x.id as depart_id,
-    x.name as depart_name,e.code as type_id,e.value as type_name
+    x.name as depart_name,e.id as type_id,e.name as type_name
     from
     (
     select a.id,a.name,a.desc,a.attachment_path,a.create_time,a.creator,a.update_time,
@@ -94,14 +94,6 @@
     join courseware_category_dict e
     on (t.type_id=e.id  and e.is_del=0)
     order by t.create_time desc
-    <choose>
-      <when test="pageNo!= null and pageNo>0 and pageSize>0">
-        limit ${(pageNo-1)*pageSize},#{pageSize}
-      </when>
-      <otherwise>
-        limit 0,0
-      </otherwise>
-    </choose>
   </select>
 
   <insert id="insertCoursewareSelective" parameterType="cn.net.yzl.ehr.pojo.Courseware" keyColumn="id" keyProperty="id"  useGeneratedKeys="true">
