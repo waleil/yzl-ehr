@@ -20,7 +20,11 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
+<<<<<<< HEAD
  * 全局异常类处理
+=======
+ *  全局异常类处理
+>>>>>>> origin/master
  */
 
 
