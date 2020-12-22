@@ -2,6 +2,7 @@ package cn.net.yzl.ehr.controller;
 
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.authorization.annotation.UnAuthorization;
 import cn.net.yzl.ehr.dto.DepartDto;
 import cn.net.yzl.ehr.service.DepartService;
@@ -43,13 +44,15 @@ public class DepartController {
 
     @ApiOperation(value = "添加部门", notes = "添加部门", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    ComResponse<String> add(@RequestBody @Validated DepartVO departVO) {
+    ComResponse<String> add(@RequestBody @Validated DepartVO departVO, @CurrentStaffNo String staffNo) {
+        departVO.setCreator(staffNo);
         return departService.add(departVO);
     }
 
     @ApiOperation(value = "更新部门", notes = "更新部门", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    ComResponse<String> update(@RequestBody @Validated DepartUpdateVO departUpdateVo) {
+    ComResponse<String> update(@RequestBody @Validated DepartUpdateVO departUpdateVo,@CurrentStaffNo String staffNo) {
+        departUpdateVo.setUpdator(staffNo);
         return departService.update(departUpdateVo);
     }
 

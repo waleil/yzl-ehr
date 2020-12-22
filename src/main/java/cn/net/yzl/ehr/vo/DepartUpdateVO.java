@@ -31,8 +31,8 @@ public class DepartUpdateVO implements Serializable {
     /**
      * 负责人id
      */
-    @Min(value = 1)
-    private Integer leaderNo;
+    @NotBlank
+    private String leaderNo;
 
     @Min(value = 1)
     private Integer financeDepartId;
@@ -41,8 +41,8 @@ public class DepartUpdateVO implements Serializable {
      */
     private String desc;
 
-
-    private Integer updator;
+    @NotBlank
+    private String updator;
 
 
 

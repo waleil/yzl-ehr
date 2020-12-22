@@ -45,6 +45,6 @@ public class DepartVO implements Serializable {
     private String desc;
 
 
-    private Integer creator;
+    private String creator;
 
 }

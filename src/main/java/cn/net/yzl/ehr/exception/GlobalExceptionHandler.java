@@ -6,12 +6,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolationException;
@@ -20,11 +22,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
-<<<<<<< HEAD
  * 全局异常类处理
-=======
- *  全局异常类处理
->>>>>>> origin/master
  */
 
 
@@ -60,33 +58,36 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(value = MethodArgumentNotValidException.class) //400
     @ResponseBody
-    public Object methodArgumentValidationHandler(HttpServletRequest request, MethodArgumentNotValidException exception) {
-        logger.info("异常:" + request.getRequestURI(), exception);
-        logger.info("请求参数错误！{}", getExceptionDetail(exception), "参数数据：" + showParams(request));
+    public Object methodArgumentValidationHandler(HttpServletRequest request, MethodArgumentNotValidException exception)  {
 
-        return ComResponse.fail(ResponseCodeEnums.PARAMS_ERROR_CODE.getCode(), ResponseCodeEnums.PARAMS_ERROR_CODE.getMessage());
+        BindingResult bindingResult = exception.getBindingResult();
+        StringBuilder sb = new StringBuilder("校验失败:");
+        for (FieldError fieldError : bindingResult.getFieldErrors()) {
+            sb.append(fieldError.getField()).append(":").append(fieldError.getDefaultMessage()).append(", ");
+        }
+        logger.info("接口路径:{},请求参数:{},报错信息:{}", request.getRequestURI(),
+                showParams(request),
+                sb);
+        return ComResponse.fail(ResponseCodeEnums.PARAMS_ERROR_CODE.getCode(), sb.toString());
     }
 
     /**
      * 绑定异常
      *
      * @param request
-     * @param pe
      * @return
      */
     @ExceptionHandler(BindException.class)
     @ResponseBody
-    public Object bindException(HttpServletRequest request, BindException pe) {
-        logger.error("异常:" + request.getRequestURI(), pe);
-        Map map = new HashMap();
-        if (pe.getBindingResult() != null) {
-            List<ObjectError> allErrors = pe.getBindingResult().getAllErrors();
-            allErrors.stream().filter(Objects::nonNull).forEach(objectError -> {
-                map.put("请求路径：" + request.getRequestURI() + "--请求参数：" + (((FieldError) ((FieldError) allErrors.get(0))).getField().toString()), objectError.getDefaultMessage());
-            });
+    public Object bindException(HttpServletRequest request, BindException exception) {
+        logger.error("异常:" + request.getRequestURI(), exception);
+        BindingResult bindingResult = exception.getBindingResult();
+        StringBuilder sb = new StringBuilder("校验失败:");
+        for (FieldError fieldError : bindingResult.getFieldErrors()) {
+            sb.append(fieldError.getField()).append(":").append(fieldError.getDefaultMessage()).append(", ");
         }
 
-        return ComResponse.fail(ResponseCodeEnums.PARAMS_ERROR_CODE.getCode(), ResponseCodeEnums.PARAMS_ERROR_CODE.getMessage());
+        return ComResponse.fail(ResponseCodeEnums.PARAMS_ERROR_CODE.getCode(), sb.toString());
     }
 
 
@@ -104,7 +105,7 @@ public class GlobalExceptionHandler {
 //        RestResultWrapper<String> restResultWrapper = new RestResultWrapper();
 //        restResultWrapper.setCode(HttpStatus.BAD_REQUEST.value());
 //        restResultWrapper.setMessage("该请求路径："+request.getRequestURI()+"下的请求参数不全："+pe.getMessage());
-        return ComResponse.fail(ResponseCodeEnums.PARAMS_ERROR_CODE.getCode(), ResponseCodeEnums.PARAMS_ERROR_CODE.getMessage());
+        return ComResponse.fail(ResponseCodeEnums.LOGIN_ERROR_CODE.getCode(), "该请求路径："+request.getRequestURI()+"下的请求参数不全："+pe.getMessage());
     }
 
     /**
@@ -121,7 +122,7 @@ public class GlobalExceptionHandler {
 //        RestResultWrapper<String> restResultWrapper = new RestResultWrapper();
 //        restResultWrapper.setCode(HttpStatus.BAD_REQUEST.value());
 //        restResultWrapper.setMessage("请求方式不正确");
-        return ComResponse.fail(ResponseCodeEnums.PARAMS_ERROR_CODE.getCode(), ResponseCodeEnums.PARAMS_ERROR_CODE.getMessage());
+        return ComResponse.fail(HttpStatus.BAD_REQUEST.value(), "请求方式不正确");
     }
 
 
@@ -169,10 +170,10 @@ public class GlobalExceptionHandler {
     }
 
 
-    @ExceptionHandler(value = Exception.class)
-    @ResponseBody
-    public Object exceptionHandler(Exception e) {
-        logger.error("发生业务异常,原因是:{}" + e.getMessage());
-        return ComResponse.fail(ResponseCodeEnums.SERVICE_ERROR_CODE.getCode(), ResponseCodeEnums.SERVICE_ERROR_CODE.getMessage());
-    }
+//    @ExceptionHandler(value = Exception.class)
+//    @ResponseBody
+//    public Object exceptionHandler(Exception e) {
+//        logger.error("发生业务异常,原因是:{}" + e.getMessage());
+//        return ComResponse.fail(ResponseCodeEnums.SERVICE_ERROR_CODE.getCode(), ResponseCodeEnums.SERVICE_ERROR_CODE.getMessage());
+//    }
 }
