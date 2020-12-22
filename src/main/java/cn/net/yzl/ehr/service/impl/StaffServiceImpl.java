@@ -37,8 +37,8 @@ public class StaffServiceImpl implements StaffService {
     }
 
     @Override
-    public ComResponse<StaffDetailsDto> getDetailsByNo(Integer userNo) {
-        return staffFeginService.getDetailsByNo(userNo);
+    public ComResponse<StaffDetailsDto> getDetailsByNo(String staffNo) {
+        return staffFeginService.getDetailsByNo(staffNo);
     }
 
 }

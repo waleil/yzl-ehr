@@ -3,6 +3,7 @@ package cn.net.yzl.ehr.controller;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
+import cn.net.yzl.ehr.authorization.annotation.UnAuthorization;
 import cn.net.yzl.ehr.dto.StaffDetailsDto;
 import cn.net.yzl.ehr.fegin.staff.StaffFeginService;
 import cn.net.yzl.ehr.service.StaffService;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -39,7 +41,7 @@ public class StaffController {
 
     @ApiOperation(value = "查询当前用户详情", notes = "查询当前用户详情")
     @RequestMapping(value = "/getCurrentDetails", method = RequestMethod.GET)
-    ComResponse<StaffDetailsDto> getCurrentDetails( @CurrentStaffNo  Integer staffNo) {
+    ComResponse<StaffDetailsDto> getCurrentDetails( @ApiIgnore  @CurrentStaffNo  String staffNo) {
         return staffService.getDetailsByNo(staffNo);
     }
 

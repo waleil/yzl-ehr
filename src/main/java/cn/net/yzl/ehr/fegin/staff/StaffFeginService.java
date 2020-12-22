@@ -16,7 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 import java.util.Map;
 
-@FeignClient(value = "staff",url = "http://api.staff.yuzhilin.net.cn/staff")
+@FeignClient(value = "staff",url = "${fegin.api.url}")
+//@FeignClient(name = "yzl-staff-api")
 @Repository
 public interface StaffFeginService {
 
@@ -36,5 +37,5 @@ public interface StaffFeginService {
     ComResponse<StaffBaseDto> getOneByMap(@RequestBody Map<String, Object> map);
 
     @RequestMapping(value = "/staff/getDetailsByNo", method = RequestMethod.GET)
-    ComResponse<StaffDetailsDto> getDetailsByNo(@RequestParam("userNo") Integer userNo);
+    ComResponse<StaffDetailsDto> getDetailsByNo(@RequestParam("staffNo") String staffNo);
 }

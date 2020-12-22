@@ -13,5 +13,5 @@ public interface StaffService {
     Object getByPrimaryKey(int id);
 
     // 获取用户详情
-    ComResponse<StaffDetailsDto> getDetailsByNo(Integer userNo);
+    ComResponse<StaffDetailsDto> getDetailsByNo(String staffNo);
 }

@@ -51,11 +51,7 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
             // 员工工号
             String staffNo = request.getHeader("userNo");
             request.setAttribute("CURRENT_USER_NO", staffNo);
-
             log.info("{traceId:{},spanId:{},userNo:{}}",traceId,spanId,staffNo);
-
-
-
             return true;
         }else {
             response.setStatus(200);

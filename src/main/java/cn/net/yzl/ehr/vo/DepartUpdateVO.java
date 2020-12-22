@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @author 
  */
 @Data
-public class DepartVO implements Serializable {
+public class DepartUpdateVO implements Serializable {
 
 
     /**
@@ -24,19 +24,16 @@ public class DepartVO implements Serializable {
     /**
      * 父id(root 的父id为0,御芝林)
      */
-    @NotNull(message = "部门的父编号不能为null!")
-    @Min(value = 0)
-    private Integer pid;
+    @NotNull(message = "部门id不能为null!")
+    @Min(value = 1)
+    private Integer id;
 
     /**
      * 负责人id
      */
-    @NotNull(message = "负责人id不能为null!")
     @Min(value = 1)
     private Integer leaderNo;
-    /**
-     * 财务归属部门id
-     */
+
     @Min(value = 1)
     private Integer financeDepartId;
     /**
@@ -45,6 +42,9 @@ public class DepartVO implements Serializable {
     private String desc;
 
 
-    private Integer creator;
+    private Integer updator;
+
+
+
 
 }

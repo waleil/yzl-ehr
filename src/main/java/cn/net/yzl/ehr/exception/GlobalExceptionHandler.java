@@ -4,11 +4,23 @@ import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.enums.ResponseCodeEnums;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindException;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolationException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.stream.Collectors;
+
 /**
- *
- *  全局异常类处理
+ * 全局异常类处理
  */
 
 
@@ -17,14 +29,146 @@ public class GlobalExceptionHandler {
     private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
 
-
-
-
-
-    @ExceptionHandler(value =Exception.class)
+    /**
+     * 方法参数校验异常 Validate
+     *
+     * @param request
+     * @param ex
+     * @return
+     */
+    @ExceptionHandler(ConstraintViolationException.class)
     @ResponseBody
-    public Object exceptionHandler(Exception e){
-        logger.error("发生业务异常,原因是:{}"+e.getMessage());
-        return ComResponse.fail(ResponseCodeEnums.SERVICE_ERROR_CODE.getCode(),ResponseCodeEnums.SERVICE_ERROR_CODE.getMessage());
+    public Object handleValidationException(HttpServletRequest request, ConstraintViolationException ex) {
+        logger.error("异常:" + request.getRequestURI(), ex);
+        String collect = ex.getConstraintViolations().stream().filter(Objects::nonNull)
+                .map(cv -> cv == null ? "null" : cv.getPropertyPath() + ": " + cv.getMessage())
+                .collect(Collectors.joining(", "));
+        logger.info("请求参数异常", collect);
+        return ComResponse.fail(ResponseCodeEnums.PARAMS_ERROR_CODE.getCode(), ResponseCodeEnums.PARAMS_ERROR_CODE.getMessage());
+    }
+
+    /**
+     * Bean 校验异常 Validate
+     *
+     * @param request
+     * @param exception
+     * @return
+     */
+    @ExceptionHandler(value = MethodArgumentNotValidException.class) //400
+    @ResponseBody
+    public Object methodArgumentValidationHandler(HttpServletRequest request, MethodArgumentNotValidException exception) {
+        logger.info("异常:" + request.getRequestURI(), exception);
+        logger.info("请求参数错误！{}", getExceptionDetail(exception), "参数数据：" + showParams(request));
+
+        return ComResponse.fail(ResponseCodeEnums.PARAMS_ERROR_CODE.getCode(), ResponseCodeEnums.PARAMS_ERROR_CODE.getMessage());
+    }
+
+    /**
+     * 绑定异常
+     *
+     * @param request
+     * @param pe
+     * @return
+     */
+    @ExceptionHandler(BindException.class)
+    @ResponseBody
+    public Object bindException(HttpServletRequest request, BindException pe) {
+        logger.error("异常:" + request.getRequestURI(), pe);
+        Map map = new HashMap();
+        if (pe.getBindingResult() != null) {
+            List<ObjectError> allErrors = pe.getBindingResult().getAllErrors();
+            allErrors.stream().filter(Objects::nonNull).forEach(objectError -> {
+                map.put("请求路径：" + request.getRequestURI() + "--请求参数：" + (((FieldError) ((FieldError) allErrors.get(0))).getField().toString()), objectError.getDefaultMessage());
+            });
+        }
+
+        return ComResponse.fail(ResponseCodeEnums.PARAMS_ERROR_CODE.getCode(), ResponseCodeEnums.PARAMS_ERROR_CODE.getMessage());
+    }
+
+
+    /**
+     * 访问接口参数不全
+     *
+     * @param request
+     * @param pe
+     * @return
+     */
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    @ResponseBody
+    public Object missingServletRequestParameterException(HttpServletRequest request, MissingServletRequestParameterException pe) {
+        logger.error("异常:" + request.getRequestURI(), pe);
+//        RestResultWrapper<String> restResultWrapper = new RestResultWrapper();
+//        restResultWrapper.setCode(HttpStatus.BAD_REQUEST.value());
+//        restResultWrapper.setMessage("该请求路径："+request.getRequestURI()+"下的请求参数不全："+pe.getMessage());
+        return ComResponse.fail(ResponseCodeEnums.PARAMS_ERROR_CODE.getCode(), ResponseCodeEnums.PARAMS_ERROR_CODE.getMessage());
+    }
+
+    /**
+     * HttpRequestMethodNotSupportedException
+     *
+     * @param request
+     * @param pe
+     * @return
+     */
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    @ResponseBody
+    public Object httpRequestMethodNotSupportedException(HttpServletRequest request, HttpRequestMethodNotSupportedException pe) {
+        logger.error("异常:" + request.getRequestURI(), pe);
+//        RestResultWrapper<String> restResultWrapper = new RestResultWrapper();
+//        restResultWrapper.setCode(HttpStatus.BAD_REQUEST.value());
+//        restResultWrapper.setMessage("请求方式不正确");
+        return ComResponse.fail(ResponseCodeEnums.PARAMS_ERROR_CODE.getCode(), ResponseCodeEnums.PARAMS_ERROR_CODE.getMessage());
+    }
+
+
+    /**
+     * 异常详情
+     *
+     * @param e
+     * @return
+     */
+    private String getExceptionDetail(Exception e) {
+        StringBuilder stringBuffer = new StringBuilder(e.toString() + "\n");
+        StackTraceElement[] messages = e.getStackTrace();
+        Arrays.stream(messages).filter(Objects::nonNull).forEach(stackTraceElement -> {
+            stringBuffer.append(stackTraceElement.toString() + "\n");
+        });
+        return stringBuffer.toString();
+    }
+
+    /**
+     * 请求参数
+     *
+     * @param request
+     * @return
+     */
+    public String showParams(HttpServletRequest request) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        StringBuilder stringBuilder = new StringBuilder();
+        Enumeration paramNames = request.getParameterNames();
+        stringBuilder.append("----------------参数开始-------------------");
+        stringBuilder.append(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+        if (Objects.nonNull(paramNames)) {
+            while (paramNames.hasMoreElements()) {
+                String paramName = (String) paramNames.nextElement();
+                String[] paramValues = request.getParameterValues(paramName);
+                if (paramValues.length > 0) {
+                    String paramValue = paramValues[0];
+                    if (paramValue.length() != 0) {
+                        stringBuilder.append("参数名:").append(paramName).append("参数值:").append(paramValue);
+                    }
+                }
+            }
+        }
+        stringBuilder.append("----------------参数结束-------------------");
+        return stringBuilder.toString();
+    }
+
+
+    @ExceptionHandler(value = Exception.class)
+    @ResponseBody
+    public Object exceptionHandler(Exception e) {
+        logger.error("发生业务异常,原因是:{}" + e.getMessage());
+        return ComResponse.fail(ResponseCodeEnums.SERVICE_ERROR_CODE.getCode(), ResponseCodeEnums.SERVICE_ERROR_CODE.getMessage());
     }
 }

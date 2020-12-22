@@ -27,8 +27,7 @@ public class CurrentUserMethodArgumentResolver implements HandlerMethodArgumentR
         if (parameter.getParameterType().isAssignableFrom(StaffDto.class) &&
                 parameter.hasParameterAnnotation(CurrentUser.class)) {
             return true;
-        }if(parameter.getParameterType().isAssignableFrom(Integer.class)&&
-        parameter.hasParameterAnnotation(CurrentStaffNo.class)){
+        }if(parameter.hasParameterAnnotation(CurrentStaffNo.class)){
             return true;
         }
         return false;
@@ -37,11 +36,11 @@ public class CurrentUserMethodArgumentResolver implements HandlerMethodArgumentR
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
         //取出鉴权时存入的登录用户
-    	String currentUserNo = (String) webRequest.getAttribute("CURRENT_USER_NO", RequestAttributes.SCOPE_REQUEST);
+    	String staffNo = (String) webRequest.getAttribute("CURRENT_USER_NO", RequestAttributes.SCOPE_REQUEST);
 
-        if (StrUtil.isNotBlank(currentUserNo)) {
+        if (StrUtil.isNotBlank(staffNo)) {
             //从数据库中查询并返回
-            return Integer.parseInt(currentUserNo);
+            return staffNo;
         }
         throw new MissingServletRequestPartException("");
     }

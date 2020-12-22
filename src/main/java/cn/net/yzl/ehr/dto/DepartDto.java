@@ -1,36 +1,52 @@
 package cn.net.yzl.ehr.dto;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
-@Getter
-@Setter
-@ApiModel(value="DepartDto",description="部门信息实体")
+/**
+ * depart
+ * @author 
+ */
+@Data
+@JsonIgnoreProperties(value = { "handler" })
 public class DepartDto implements Serializable {
-    @ApiModelProperty(value="主键",name="id")
+    /**
+     * 唯一标识
+     */
     private Integer id;
-    @ApiModelProperty(value="部门名称",name="name")
+
+    /**
+     * 部门名称
+     */
     private String name;
-    @ApiModelProperty(value="父id(顶级目录为0)",name="pId")
-    private Integer pId;
-    @ApiModelProperty(value="编制人数",name="staffNum")
-    private Integer staffNum;
-    @ApiModelProperty(value="部门人数",name="num")
-    private Integer num;
-    @ApiModelProperty(value="负责人id",name="leaderId")
-    private Integer leaderId;
-    @ApiModelProperty(value="负责人名称",name="leadName")
+
+    /**
+     * 父id(root 的父id为0,御芝林)
+     */
+    private Integer pid;
+
+    /**
+     * 负责人id
+     */
+    private Integer leaderNo;
+
     private String leaderName;
-    @ApiModelProperty(value="描述",name="desc")
+
+    /**
+     * 描述
+     */
     private String desc;
-    @ApiModelProperty(value="排序(1,2,3.....)",name="order")
+
+    /**
+     * 排序(1,2,3.....)
+     */
     private Integer order;
-    @ApiModelProperty(value="子部门集合",name="childDepartDto")
+
+    //部门子
     private List<DepartDto> childDepartDto;
+
+
 }
