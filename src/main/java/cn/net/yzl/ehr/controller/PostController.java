@@ -22,7 +22,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/post")
-@Api(value = "岗位中台层服务", tags = {"岗位中台层服务"})
+@Api(value = "岗位服务层服务", tags = {"岗位服务层服务"})
 public class PostController {
 
     @Autowired
