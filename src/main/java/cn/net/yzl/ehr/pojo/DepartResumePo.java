@@ -31,7 +31,7 @@ public class DepartResumePo implements Serializable {
     /**
      * 面试人id
      */
-    private Integer leaderNo;
+    private String leaderNo;
 
     /**
      * 创建时间

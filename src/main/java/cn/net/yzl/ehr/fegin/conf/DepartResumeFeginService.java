@@ -20,13 +20,13 @@ import java.util.List;
 /**
  * 部门的 fegin client
  */
-@FeignClient(name = "yzl-staff-db")
-//@FeignClient(value = "staff",url = "${fegin.db.url}")
+//@FeignClient(name = "yzl-staff-db")
+@FeignClient(value = "staff",url = "${fegin.db.url}")
 @Repository
 public interface DepartResumeFeginService {
 
     @RequestMapping(value = "/conf/resume/add", method = RequestMethod.POST)
-    ComResponse<Integer> add(@RequestBody DepartResumeVO departResumeVO);
+    ComResponse<Integer> add( @RequestParam("strJson") String strJson);
     @RequestMapping(value = "/conf/resume/update", method = RequestMethod.POST)
     ComResponse<Integer> update(@RequestBody DepartResumeUpdateVO departResumeUpdateVO);
     @RequestMapping(value = "/conf/resume/getByDepartId", method = RequestMethod.GET)

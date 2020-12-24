@@ -20,7 +20,7 @@ import java.util.List;
  * 部门的 fegin client
  */
 //@FeignClient(name = "yzl-staff-api")
-@FeignClient(value = "staff",url = "${fegin.api.url}")
+@FeignClient(value = "depart",url = "${fegin.api.url}")
 @Repository
 public interface DepartFeginService {
 
@@ -44,6 +44,6 @@ public interface DepartFeginService {
     ComResponse<List<DepartDto>> getChildByLevel(@RequestParam("level") Integer level);
 
     // 根据部门id获取
-    @RequestMapping(value = "/getById", method = RequestMethod.GET)
+    @RequestMapping(value = "/depart/getById", method = RequestMethod.GET)
     ComResponse<DepartDto> getById(@RequestParam("id") Integer id);
 }

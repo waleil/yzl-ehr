@@ -37,7 +37,7 @@ public class DepartResumeUpdateVO implements Serializable {
      * 面试人id
      */
     @NotBlank
-    private Integer leaderNo;
+    private String leaderNo;
     /**
      * 创建人唯一标识
      */
