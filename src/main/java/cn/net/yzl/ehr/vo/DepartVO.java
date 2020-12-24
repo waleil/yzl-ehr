@@ -24,16 +24,11 @@ public class DepartVO implements Serializable {
     /**
      * 父id(root 的父id为0,御芝林)
      */
-    @NotNull(message = "部门的父编号不能为null!")
+    @NotBlank(message = "部门的父编号不能为null!")
     @Min(value = 0)
     private Integer pid;
 
-    /**
-     * 负责人id
-     */
-    @NotNull(message = "负责人id不能为null!")
-    @Min(value = 1)
-    private Integer leaderNo;
+    private String leaderNo;
     /**
      * 财务归属部门id
      */

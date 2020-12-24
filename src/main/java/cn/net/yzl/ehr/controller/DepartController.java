@@ -63,6 +63,9 @@ public class DepartController {
     }
 
 
+
+
+
     @ApiOperation(value = "通过员工工号获取组织架构信息", notes = "通过员工工号获取组织架构信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userNo", value = "userNo", required = true, dataType = "String", paramType = "query")
@@ -73,4 +76,10 @@ public class DepartController {
         return departService.getByUserNo(userNo);
     }
 
+
+    @ApiOperation(value = "根据层级获取部门集合", notes = "根据层级获取部门集合", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/getChildByLevel", method = RequestMethod.GET)
+    ComResponse<List<DepartDto>> getChildByLevel(@RequestParam("level") Integer level) {
+        return departService.getChildByLevel(level);
+    }
 }

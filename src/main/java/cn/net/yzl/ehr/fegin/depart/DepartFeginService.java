@@ -2,11 +2,12 @@ package cn.net.yzl.ehr.fegin.depart;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.dto.DepartDto;
-import cn.net.yzl.ehr.pojo.DepartPo;
 import cn.net.yzl.ehr.vo.DepartUpdateVO;
 import cn.net.yzl.ehr.vo.DepartVO;
 import feign.Param;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,11 +25,6 @@ import java.util.List;
 public interface DepartFeginService {
 
 
-    @RequestMapping(value = "/depart/create", method = RequestMethod.POST)
-    ComResponse<String> create(@RequestBody DepartPo departPo);
-
-    @RequestMapping(value = "/depart/getByDingDepartId", method = RequestMethod.GET)
-    ComResponse<DepartPo> getByDingDepartId(@RequestParam("dingDepartId") String dingDepartId);
 
     // 获取部门列表
     @RequestMapping(value = "/depart/getTreeList", method = RequestMethod.GET)
@@ -44,4 +40,10 @@ public interface DepartFeginService {
     ComResponse<DepartDto> getByUserNo(@RequestParam("userNo")String userNo);
     @RequestMapping(value = "/depart/getChildById", method = RequestMethod.GET)
     ComResponse<List<DepartDto>> getChildById(@RequestParam("id") Integer id);
+    @RequestMapping(value = "/depart/getChildByLevel", method = RequestMethod.GET)
+    ComResponse<List<DepartDto>> getChildByLevel(@RequestParam("level") Integer level);
+
+    // 根据部门id获取
+    @RequestMapping(value = "/getById", method = RequestMethod.GET)
+    ComResponse<DepartDto> getById(@RequestParam("id") Integer id);
 }

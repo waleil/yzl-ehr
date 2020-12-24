@@ -22,4 +22,7 @@ public interface DepartService {
     ComResponse<DepartDto> getByUserNo(String userNo);
 
     ComResponse<List<DepartDto>> getChildById(Integer id);
+
+
+    ComResponse<List<DepartDto>> getChildByLevel(Integer level);
 }

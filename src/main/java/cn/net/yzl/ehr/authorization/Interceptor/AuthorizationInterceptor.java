@@ -46,6 +46,7 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
         request.setAttribute("span",spanId);
 
         String gateway = request.getHeader("gateway");
+
         // gateway 已经验证过
         if("true".equals(gateway)){
             // 员工工号

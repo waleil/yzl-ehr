@@ -43,8 +43,16 @@ public class DepartServiceImpl implements DepartService {
 
     @Override
     public ComResponse<List<DepartDto>> getChildById(Integer id) {
+
         return departFeginService.getChildById(id);
     }
+
+    @Override
+    public ComResponse<List<DepartDto>> getChildByLevel(Integer level) {
+
+        return departFeginService.getChildByLevel(level);
+    }
+
     @Override
     public ComResponse<DepartDto> getByUserNo(String userNo) {
         if(StrUtil.isBlank(userNo)){
