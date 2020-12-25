@@ -2,10 +2,10 @@ package cn.net.yzl.ehr.controller;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
+import cn.net.yzl.ehr.dto.DepartResumeDto;
 import cn.net.yzl.ehr.dto.DepartResumeInfoDto;
 import cn.net.yzl.ehr.service.DepartResumeService;
 import cn.net.yzl.ehr.vo.DepartResumeInfoVO;
-import cn.net.yzl.ehr.vo.DepartResumeUpdateVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
