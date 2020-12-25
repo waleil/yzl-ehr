@@ -4,6 +4,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -16,11 +18,13 @@ public class DepartResumeVO implements Serializable {
 
 
     @ApiModelProperty(value="此轮名称",name="stepName")
+    @NotBlank
     private String stepName;
     /**
      * 面试人id
      */
     @ApiModelProperty(value="面试人工号",name="leaderNo")
+    @NotBlank
     private String leaderNo;
 
 

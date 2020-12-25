@@ -28,14 +28,14 @@ public class DepartResumeController {
 
     @ApiOperation(value = "面试流程-创建面试流程配置", notes = "面试流程-创建面试流程配置", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    ComResponse<Integer> add(@RequestBody @Validated DepartResumeInfoVO departResumeInfoVO, @CurrentStaffNo String staffNo) {
+    ComResponse<String> add(@RequestBody @Validated DepartResumeInfoVO departResumeInfoVO, @CurrentStaffNo String staffNo) {
         return departResumeService.add(departResumeInfoVO,staffNo);
     }
 
     @ApiOperation(value = "面试流程-根据主键更新面试流程信息", notes = "面试流程-根据主键更新面试流程信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/update", method = RequestMethod.POST, consumes = "application/json")
-    ComResponse<Integer> update(@RequestBody DepartResumeUpdateVO departResumeUpdateVO) {
-        return departResumeService.update(departResumeUpdateVO);
+    ComResponse<String> update(@RequestBody @Validated DepartResumeInfoVO departResumeInfoVO,@CurrentStaffNo String staffNo) {
+        return departResumeService.update(departResumeInfoVO,staffNo);
     }
 
 
@@ -46,7 +46,11 @@ public class DepartResumeController {
         return departResumeService.getByDepartId(departId);
     }
 
-
+    @ApiOperation(value = "面试流程-获取岗位下的面试流程信息", notes = "面试流程-获取部门下的面试流程信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/getByPostId", method = RequestMethod.GET)
+    ComResponse<List<DepartResumeDto>> getByPostId(@RequestParam("postId") @Min(1) Integer postId) {
+        return departResumeService.getByPostId(postId);
+    }
 
 
 

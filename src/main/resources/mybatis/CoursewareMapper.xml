@@ -15,6 +15,7 @@
     <collection property="categoryList" resultMap="CoursewareCategoryMap" />
     <collection property="departList" resultMap="CoursewareDepartMap" />
   </resultMap>
+
   <resultMap id="CoursewareDepartCoursewareResultMap" type="cn.net.yzl.ehr.pojo.CoursewareDepart" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="courseware_id" property="coursewareId" jdbcType="INTEGER" />

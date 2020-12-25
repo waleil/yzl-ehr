@@ -42,7 +42,8 @@ public class DepartResumeDto implements Serializable {
      * 面试人id
      */
     @ApiModelProperty(value="面试人工号",name="leaderNo")
-    private Integer leaderNo;
+    private String leaderNo;
+
     @ApiModelProperty(value="面试名称",name="leaderName")
     private String leaderName;
 

@@ -11,8 +11,9 @@ import java.util.List;
 public interface DepartResumeService {
     ComResponse<List<DepartResumeInfoDto>> getByDepartId(Integer departId);
 
-    ComResponse<Integer> add(DepartResumeInfoVO departResumeInfoVO,String staffNo);
+    ComResponse<String> add(DepartResumeInfoVO departResumeInfoVO,String staffNo);
 
-
-    ComResponse<Integer> update(DepartResumeUpdateVO departResumeUpdateVO);
+    ComResponse<List<DepartResumeDto>> getByPostId(Integer postId);
+    //ComResponse<Integer> update(DepartResumeUpdateVO departResumeUpdateVO);
+    ComResponse<String> update(DepartResumeInfoVO departResumeInfoVO,String staffNo);
 }

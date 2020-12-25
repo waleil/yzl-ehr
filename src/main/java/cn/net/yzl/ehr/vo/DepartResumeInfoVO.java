@@ -5,6 +5,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 
@@ -19,9 +21,15 @@ import java.util.List;
 public class DepartResumeInfoVO implements Serializable {
 
     @ApiModelProperty(value="岗位id",name="岗位id")
+    @NotNull
+    @Min(0)
     private Integer postId;
+
     @ApiModelProperty(value="部门id",name="departId")
+    @NotNull
+    @Min(0)
     private Integer departId;
+
     private List<DepartResumeVO> departResumeList;
 
 
