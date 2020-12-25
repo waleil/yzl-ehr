@@ -2,14 +2,10 @@ package cn.net.yzl.ehr.controller;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
-import cn.net.yzl.ehr.dto.DepartResumeDto;
 import cn.net.yzl.ehr.dto.DepartResumeInfoDto;
-import cn.net.yzl.ehr.dto.PostBaseDto;
 import cn.net.yzl.ehr.service.DepartResumeService;
 import cn.net.yzl.ehr.vo.DepartResumeInfoVO;
 import cn.net.yzl.ehr.vo.DepartResumeUpdateVO;
-import cn.net.yzl.ehr.vo.DepartResumeVO;
-import cn.net.yzl.ehr.vo.DepartUpdateVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/conf/resume")

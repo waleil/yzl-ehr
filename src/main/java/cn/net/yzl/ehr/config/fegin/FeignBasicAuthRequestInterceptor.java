@@ -1,8 +1,5 @@
 package cn.net.yzl.ehr.config.fegin;
 
-import cn.hutool.core.util.StrUtil;
-import cn.net.yzl.common.util.UUIDGenerator;
-import cn.net.yzl.ehr.authorization.Interceptor.AuthorizationInterceptor;
 import cn.net.yzl.logger.common.XBasicUtil;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
@@ -22,8 +19,8 @@ public class FeignBasicAuthRequestInterceptor implements RequestInterceptor {
                 .currentRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
         Enumeration<String> headerNames = request.getHeaderNames();
-        requestTemplate.header("appid","yzl-ehr");
-//        requestTemplate.header("appid","yzl-staff-api");
+  //      requestTemplate.header("appid","yzl-ehr");
+       requestTemplate.header("appid","yzl-staff-api");
         if (headerNames != null) {
             String traceId = request.getHeader("traceId");
             String spanId = request.getHeader("spanId");
