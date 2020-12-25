@@ -46,7 +46,7 @@ public class DepartDto implements Serializable {
     private Integer order;
 
     //部门子
-    private List<DepartDto> childDepartDto;
+    private List<DepartDto> children;
 
     private Integer level;
 }
