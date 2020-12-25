@@ -4,7 +4,9 @@ import cn.net.yzl.ehr.dto.DepartResumeDto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.validation.annotation.Validated;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -17,6 +19,7 @@ import java.util.List;
  * @date： 2020-12-23 09:39:11
  */
 @Data
+@Valid
 @ApiModel(value="DepartResumeInfoVO",description="部门面试实体")
 public class DepartResumeInfoVO implements Serializable {
 

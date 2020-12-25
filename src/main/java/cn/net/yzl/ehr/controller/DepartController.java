@@ -47,6 +47,7 @@ public class DepartController {
     ComResponse<String> add(@RequestBody @Validated DepartVO departVO, @CurrentStaffNo String staffNo) {
         departVO.setCreator(staffNo);
         return departService.add(departVO);
+
     }
 
     @ApiOperation(value = "更新部门", notes = "更新部门", consumes = MediaType.APPLICATION_JSON_VALUE)

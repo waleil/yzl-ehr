@@ -16,4 +16,6 @@ public interface DepartResumeService {
     ComResponse<List<DepartResumeDto>> getByPostId(Integer postId);
     //ComResponse<Integer> update(DepartResumeUpdateVO departResumeUpdateVO);
     ComResponse<String> update(DepartResumeInfoVO departResumeInfoVO,String staffNo);
+
+    ComResponse<String> deleteByPostId(Integer postId);
 }

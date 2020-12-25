@@ -34,7 +34,7 @@ public class DepartResumeController {
 
     @ApiOperation(value = "面试流程-根据主键更新面试流程信息", notes = "面试流程-根据主键更新面试流程信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/update", method = RequestMethod.POST, consumes = "application/json")
-    ComResponse<String> update(@RequestBody @Validated DepartResumeInfoVO departResumeInfoVO,@CurrentStaffNo String staffNo) {
+    ComResponse<String> update(@RequestBody  DepartResumeInfoVO departResumeInfoVO,@CurrentStaffNo String staffNo) {
         return departResumeService.update(departResumeInfoVO,staffNo);
     }
 
@@ -54,6 +54,11 @@ public class DepartResumeController {
 
 
 
+    @ApiOperation(value = "面试流程-删除岗位的面试流程信息", notes = "面试流程-删除岗位的面试流程信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/deleteByPostId", method = RequestMethod.POST)
+    ComResponse<String> deleteByPostId(@RequestParam("postId") @Min(1) Integer postId) {
+        return departResumeService.deleteByPostId(postId);
+    }
 
 
 }

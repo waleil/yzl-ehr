@@ -118,4 +118,13 @@ public class DepartResumeServiceImpl implements DepartResumeService {
         //岗位判断
         return ComResponse.success();
     }
+
+
+    public ComResponse<String> deleteByPostId(Integer postId) {
+        ComResponse<Integer> result = departResumeFeginService.deleteByPostId(postId);
+        if (result == null || result.getData() == null || result.getData()<1) {
+            return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(), ResponseCodeEnums.API_ERROR_CODE.getMessage());
+        }
+        return ComResponse.success();
+    }
 }
