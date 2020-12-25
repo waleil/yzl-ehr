@@ -22,8 +22,8 @@ import java.util.List;
  * 部门的 fegin client
  */
 
-//@FeignClient(value = "staff",url = "${fegin.db.url}")
-@FeignClient(name = "yzl-staff-db")
+@FeignClient(value = "staff",url = "${fegin.db.url}")
+//@FeignClient(name = "yzl-staff-db")
 @Repository
 public interface DepartResumeFeginService {
     @RequestMapping(value = "/conf/resume/add", method = RequestMethod.POST)
