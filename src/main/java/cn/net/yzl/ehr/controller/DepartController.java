@@ -17,12 +17,16 @@ import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController
 @RequestMapping("/depart")
 @Api(value = "部门模块", tags = {"部门模块"})
+@Valid
 public class DepartController {
 
     @Autowired
@@ -38,7 +42,7 @@ public class DepartController {
 
     @ApiOperation(value = "获取子部门信息(1层)", notes = "获取子部门信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/getChildById", method = RequestMethod.GET)
-    ComResponse<List<DepartDto>> getChildById(@RequestParam("id") Integer id) {
+    ComResponse<List<DepartDto>> getChildById(@RequestParam("id") @NotNull @Min(1) Integer id) {
         return departService.getChildById(id);
     }
 
