@@ -1,81 +1,64 @@
 package cn.net.yzl.ehr.vo;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * post
  * @author 
  */
+@ApiModel
 @Data
 public class PostVo implements Serializable {
-    private Integer id;
 
     /**
      * 岗位名称
      */
+    @ApiModelProperty(value ="name",name="岗位名称",required = true)
     @NotBlank
     private String name;
 
     /**
      * 部门id
      */
+    @ApiModelProperty(value ="departId",name="部门编号",required = true)
+    @NotNull
     @Min(1)
     private Integer departId;
 
     /**
      * 属性code(指向字典表,post_attribute)
      */
+    @ApiModelProperty(value ="attrCode",name="岗位属性编码",required = true)
+    @NotNull
     @Min(1)
     private Integer attrCode;
 
     /**
      * 编制人数
      */
-    @NotNull
+    @ApiModelProperty(value ="staffNum",name="岗位编制人数",required = true)
     @Min(1)
     private Integer staffNum;
 
     /**
      * 岗位职责
      */
+    @ApiModelProperty(value ="duty",name="岗位职责",required = true)
     private String duty;
-
-    /**
-     * 在岗人数
-     */
-    private Integer jobNum;
-
-    /**
-     * 是否删除:0:没有删除,1:删除
-     */
-    private Integer isDel;
-
-    /**
-     * 创建时间
-     */
-    private Date createTime;
 
     /**
      * 创建人唯一标识
      */
+    @ApiModelProperty(value ="creator",name="创建人编号",required = true)
     @NotNull
     private String creator;
-
-    /**
-     * 更新时间
-     */
-    private Date updateTime;
-
-    /**
-     * 更新人唯一标识
-     */
-    private String updator;
 
     private static final long serialVersionUID = 1L;
 }
