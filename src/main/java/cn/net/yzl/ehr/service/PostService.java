@@ -4,32 +4,49 @@ import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.baseDto.PostBaseDto;
 import cn.net.yzl.ehr.dto.PostDto;
 import cn.net.yzl.ehr.dto.PostLevelDto;
+import cn.net.yzl.ehr.dto.PostLevelListDto;
 import cn.net.yzl.ehr.vo.PostLevelUpdateVo;
 import cn.net.yzl.ehr.vo.PostLevelVo;
 import cn.net.yzl.ehr.vo.PostUpdateVo;
 import cn.net.yzl.ehr.vo.PostVo;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
 public interface PostService {
 
-    ComResponse<String> insertPost(PostVo postVo);
 
-    ComResponse<List<PostDto>> getPostList(int departId);
 
-    ComResponse<String> updatePost(PostUpdateVo postUpdateVo);
 
-    ComResponse<String> deletePost(int id);
+    ComResponse<String> addPost(PostVo postVo) ;
 
-    ComResponse<PostDto> getPostById(int id);
 
-    ComResponse<String> insertPostLevel(PostLevelVo postLevelVo);
+    ComResponse<List<PostDto>> getPostList(Integer departId) ;
 
-    ComResponse<List<PostBaseDto>> getPostLevelList(int departId);
 
-    ComResponse<String> updatePostLevel(PostLevelUpdateVo postLevelUpdateVo);
+    ComResponse<PostDto> getPostById(Integer id);
 
-    ComResponse<String> deletePostLevel(int id);
+    ComResponse<String> updatePost(PostUpdateVo postVo);
 
-    ComResponse<PostLevelDto> getPostLevelById(int id);
+
+    ComResponse<String> deletePost(Integer id);
+
+    /**
+     * 岗位级别管理
+     * postlevel
+     * @return
+     */
+
+    ComResponse<String> addPostLevel(@RequestBody PostLevelVo postLevelVo) ;
+
+    ComResponse<List<PostLevelListDto>> getPostLevelListByDepartId(@RequestParam("departId")  Integer departId);
+
+    ComResponse<PostLevelListDto> getPostLevelListByPostId(@RequestParam("postId") Integer postId);
+
+    ComResponse<PostLevelDto> getPostLevelById(@RequestParam("id")  Integer id) ;
+
+    ComResponse<String> updateLevelPost(@RequestBody PostLevelUpdateVo postLevelVo) ;
+
+    ComResponse<String> deletePostLevel(@RequestParam("id") Integer id) ;
 }

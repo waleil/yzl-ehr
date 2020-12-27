@@ -2,11 +2,10 @@ package cn.net.yzl.ehr.service.impl;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.enums.ResponseCodeEnums;
-import cn.net.yzl.ehr.baseDto.PostBaseDto;
 import cn.net.yzl.ehr.dto.PostDto;
 import cn.net.yzl.ehr.dto.PostLevelDto;
+import cn.net.yzl.ehr.dto.PostLevelListDto;
 import cn.net.yzl.ehr.fegin.post.PostFeginMapper;
-import cn.net.yzl.ehr.fegin.post.PostLevelFeginMapper;
 import cn.net.yzl.ehr.service.PostService;
 import cn.net.yzl.ehr.vo.PostLevelUpdateVo;
 import cn.net.yzl.ehr.vo.PostLevelVo;
@@ -24,12 +23,10 @@ public class PostServiceImpl implements PostService {
     @Autowired
     private PostFeginMapper postFeginMapper;
 
-    @Autowired
-    private PostLevelFeginMapper postLevelFeginMapper;
 
 
     @Override
-    public ComResponse<String> insertPost(PostVo postVo) {
+    public ComResponse<String> addPost(PostVo postVo) {
         ComResponse<String> result = postFeginMapper.addPost(postVo);
         if (result == null) {
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
@@ -38,8 +35,8 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public ComResponse<List<PostDto>> getPostList(int departId) {
-        ComResponse<List<PostDto>> result = postFeginMapper.getList(departId);
+    public ComResponse<List<PostDto>> getPostList(Integer departId) {
+        ComResponse<List<PostDto>> result = postFeginMapper.getPostList(departId);
         if (result == null  ) {
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
         }
@@ -48,16 +45,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public ComResponse<String> updatePost(PostUpdateVo postVo) {
-        ComResponse<String> result = postFeginMapper.update(postVo);
-        if (result == null) {
-            return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
-        }
-        return result;
-    }
-
-    @Override
-    public ComResponse<String> deletePost(int id) {
-        ComResponse<String> result = postFeginMapper.delete(id);
+        ComResponse<String> result = postFeginMapper.updatePost(postVo);
         if (result == null) {
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
         }
@@ -65,10 +53,9 @@ public class PostServiceImpl implements PostService {
     }
 
 
-
     @Override
-    public ComResponse<PostDto> getPostById(int id) {
-        ComResponse<PostDto> result = postFeginMapper.getPost(id);
+    public ComResponse<PostDto> getPostById(Integer id) {
+        ComResponse<PostDto> result = postFeginMapper.getPostById(id);
         if (result == null){
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
         }
@@ -76,8 +63,35 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public ComResponse<String> insertPostLevel(PostLevelVo postLevelVo) {
-        ComResponse<String> result = postLevelFeginMapper.addPostLevelPost(postLevelVo);
+    public ComResponse<String> deletePost(Integer id) {
+        ComResponse<String> result = postFeginMapper.deletePost(id);
+        if (result == null) {
+            return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
+        }
+        return result;
+    }
+
+    @Override
+    public ComResponse<String> addPostLevel(PostLevelVo postLevelVo) {
+        ComResponse<String> result = postFeginMapper.addPostLevel(postLevelVo);
+        if (result == null) {
+            return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
+        }
+        return result;
+    }
+
+    @Override
+    public ComResponse<List<PostLevelListDto>> getPostLevelListByDepartId(Integer departId) {
+        ComResponse<List<PostLevelListDto>> result = postFeginMapper.getPostLevelListByDepartId(departId);
+        if (result == null) {
+            return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
+        }
+        return result;
+    }
+
+    @Override
+    public ComResponse<PostLevelListDto> getPostLevelListByPostId(Integer postId) {
+        ComResponse<PostLevelListDto> result = postFeginMapper.getPostLevelListByPostId(postId);
         if (result == null) {
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
         }
@@ -86,8 +100,8 @@ public class PostServiceImpl implements PostService {
 
 
     @Override
-    public ComResponse<List<PostBaseDto>> getPostLevelList(int departId) {
-        ComResponse<List<PostBaseDto>> result = postLevelFeginMapper.getListByDepartId(departId);
+    public ComResponse<PostLevelDto> getPostLevelById(Integer id) {
+        ComResponse<PostLevelDto> result = postFeginMapper.getPostLevelById(id);
         if (result == null) {
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
         }
@@ -95,8 +109,8 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public ComResponse<String> updatePostLevel(PostLevelUpdateVo postLevelUpdateVo) {
-        ComResponse<String> result = postLevelFeginMapper.updatePostLevel(postLevelUpdateVo);
+    public ComResponse<String> updateLevelPost(PostLevelUpdateVo postLevelVo) {
+        ComResponse<String> result = postFeginMapper.updateLevelPost(postLevelVo);
         if (result == null) {
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
         }
@@ -104,23 +118,11 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public ComResponse<String> deletePostLevel(int id) {
-        //判断是否有此岗位级别的员工
-        ComResponse<String>  result = postLevelFeginMapper.deletePostLevel(id);
+    public ComResponse<String> deletePostLevel(Integer id) {
+        ComResponse<String>  result = postFeginMapper.deletePostLevel(id);
         if (result == null){
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
         }
         return result;
     }
-
-    @Override
-    public ComResponse<PostLevelDto> getPostLevelById(int id) {
-        ComResponse<PostLevelDto> result = postLevelFeginMapper.getPostLevelById(id);
-        if (result == null) {
-            return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
-        }
-        return result;
-    }
-
-
 }
