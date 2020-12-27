@@ -1,25 +1,17 @@
 package cn.net.yzl.ehr.dto;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
 
-/**
- * depart_attend_st
- * @author 
- */
 @Data
+@ApiModel(value = "DepartAttendStDto", description = "考勤结算日信息实体")
 public class DepartAttendStDto implements Serializable {
-    private Integer id;
-
-    /**
-     * 部门id
-     */
+    @ApiModelProperty(value = "部门id", name = "id")
     private Integer departId;
-
-    /**
-     * 结算日(每个月几号)
-     */
+    @ApiModelProperty(value = "结算日(每个月几号)", name = "day")
     private Byte day;
 
 }

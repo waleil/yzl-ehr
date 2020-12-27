@@ -19,12 +19,24 @@ public class AttendSTServiceImpl implements AttendSTService {
     private AttendSTFeginMapper attendSTFeginMapper;
     @Override
     public ComResponse<Integer> add(DepartAttendStVO departAttendStVO) {
+        // 部门判断
         Integer departId = departAttendStVO.getDepartId();
         ComResponse<DepartDto> departByNo = departFeginMapper.getById(departId);
-
         if (departByNo.getData() == null) {
             return ComResponse.fail(ResponseCodeEnums.DEPART_NOEXIT_ERROR_CODE.getCode(), ResponseCodeEnums.DEPART_NOEXIT_ERROR_CODE.getMessage());
         }
+        // 判断是否 存在考勤日
+        ComResponse<DepartAttendStDto> byDepartId = attendSTFeginMapper.getByDepartId(departId);
+        if(byDepartId.getData()!=null){
+            // 更新
+            ComResponse<Integer> result = attendSTFeginMapper.update(departAttendStVO);
+            if (result.getData() > 0) {
+                return ComResponse.success();
+            } else {
+                return ComResponse.fail(ResponseCodeEnums.UPDATE_DATA_ERROR_CODE.getCode(), ResponseCodeEnums.UPDATE_DATA_ERROR_CODE.getMessage());
+            }
+        }
+
         ComResponse<Integer> result = attendSTFeginMapper.add(departAttendStVO);
         if (result.getData() > 0) {
             return ComResponse.success();
@@ -46,7 +58,7 @@ public class AttendSTServiceImpl implements AttendSTService {
         if (result.getData() > 0) {
             return ComResponse.success();
         } else {
-            return ComResponse.fail(ResponseCodeEnums.SAVE_DATA_ERROR_CODE.getCode(), ResponseCodeEnums.SAVE_DATA_ERROR_CODE.getMessage());
+            return ComResponse.fail(ResponseCodeEnums.UPDATE_DATA_ERROR_CODE.getCode(), ResponseCodeEnums.UPDATE_DATA_ERROR_CODE.getMessage());
         }
 
     }

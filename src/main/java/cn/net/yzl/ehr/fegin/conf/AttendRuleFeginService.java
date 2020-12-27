@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-//@FeignClient(name = "yzl-staff-db")
-@FeignClient(value = "staff",url = "${fegin.db.url}")
+@FeignClient(name = "yzl-staff-db")
+//@FeignClient(value = "staff",url = "${fegin.db.url}")
 public interface AttendRuleFeginService {
 
 

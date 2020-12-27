@@ -46,7 +46,7 @@ public class GlobalExceptionHandler {
                 .map(cv -> cv == null ? "null" : cv.getPropertyPath() + ": " + cv.getMessage())
                 .collect(Collectors.joining(", "));
         logger.info("请求参数异常", collect);
-        return ComResponse.fail(ResponseCodeEnums.PARAMS_ERROR_CODE.getCode(), ResponseCodeEnums.PARAMS_ERROR_CODE.getMessage());
+        return ComResponse.fail(ResponseCodeEnums.PARAMS_ERROR_CODE.getCode(), collect);
     }
 
     /**

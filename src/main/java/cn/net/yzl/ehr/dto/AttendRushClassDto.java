@@ -1,5 +1,7 @@
 package cn.net.yzl.ehr.dto;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -9,27 +11,17 @@ import java.io.Serializable;
  * @author 
  */
 @Data
+@ApiModel(value="AttendRushClassDto",description="考勤班次实体")
 public class AttendRushClassDto implements Serializable {
+    @ApiModelProperty(value="考勤班次id",name="id")
     private Integer id;
-
-    /**
-     * 考勤规则id
-     */
+    @ApiModelProperty(value="考勤规则id",name="attendRuleId")
     private Integer attendRuleId;
-
-    /**
-     * 班次名称
-     */
+    @ApiModelProperty(value="班次名称",name="name")
     private String name;
-
-    /**
-     * 开始时间(时,分)
-     */
+    @ApiModelProperty(value="开始时间(时,分)",name="startTime")
     private String startTime;
-
-    /**
-     * 结束时间(时,分)
-     */
+    @ApiModelProperty(value="结束时间(时,分)",name="endTime")
     private String endTime;
 
 }

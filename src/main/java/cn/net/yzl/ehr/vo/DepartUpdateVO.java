@@ -1,5 +1,7 @@
 package cn.net.yzl.ehr.vo;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.Min;
@@ -12,36 +14,27 @@ import java.io.Serializable;
  * @author 
  */
 @Data
+@ApiModel(value = "DepartUpdateVO", description = "更新部门实体信息")
 public class DepartUpdateVO implements Serializable {
-
 
     /**
      * 部门名称
      */
-    @NotBlank(message = "部门名称不能为空!")
+    @ApiModelProperty(value = "部门名称", name = "name")
     private String name;
 
-    /**
-     * 父id(root 的父id为0,御芝林)
-     */
-    @NotNull(message = "部门id不能为null!")
+
     @Min(value = 1)
+    @ApiModelProperty(value = "部门id", name = "id",required = true)
     private Integer id;
 
-    /**
-     * 负责人id
-     */
-    @NotBlank
+    @ApiModelProperty(value = "负责人工号", name = "leaderNo")
     private String leaderNo;
-
-    @Min(value = 1)
+    @ApiModelProperty(value = "财务归属部门地", name = "financeDepartId")
     private Integer financeDepartId;
-    /**
-     * 描述
-     */
+    @ApiModelProperty(value = "描述", name = "desc")
     private String desc;
-
-    @NotBlank
+    @ApiModelProperty(value = "更新人", name = "updator",hidden = true)
     private String updator;
 
 

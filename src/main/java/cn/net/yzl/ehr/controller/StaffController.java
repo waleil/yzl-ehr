@@ -17,8 +17,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.ApiIgnore;
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 @RestController
 @RequestMapping("/staff")
@@ -31,23 +36,19 @@ public class StaffController {
     private StaffService staffService;
 
 
-    @ApiOperation(value = "根据id获取员工信息(通过fegin进行远程调用)", notes = "根据id获取员工信息(通过fegin进行远程调用)", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "id", required = true, dataType = "String", paramType = "query")
-    })
-    @RequestMapping(value = "/getById", method = RequestMethod.GET)
-    @SentinelResource(value = "getKey",
-            blockHandler = "getKeyBlockHandler",
-            fallback = "getKeyFallback")
-    public ComResponse<String> getKey(int id) {
-        return staffFeginService.getByPrimaryKey(id);
-    }
 
     @ApiOperation(value = "查询当前用户详情", notes = "查询当前用户详情")
     @RequestMapping(value = "/getCurrentDetails", method = RequestMethod.GET)
     public ComResponse<StaffDetailsDto> getCurrentDetails(@ApiIgnore @CurrentStaffNo String staffNo) {
         return staffService.getDetailsByNo(staffNo);
-
+    }
+    @ApiOperation(value = "模糊查询用户信息", notes = "模糊查询用户信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "params", value = "参数", required = true, dataType = "String", paramType = "query")
+    })
+    @RequestMapping(value = "/getByParams", method = RequestMethod.GET)
+    public ComResponse<List<StaffDetailsDto>> getByParams(@NotBlank String params) {
+        return staffService.getByParams(params);
 
     }
 }

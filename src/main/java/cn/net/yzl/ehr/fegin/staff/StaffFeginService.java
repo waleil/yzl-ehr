@@ -16,26 +16,27 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 import java.util.Map;
 
-@FeignClient(value = "staff",url = "${fegin.api.url}")
-//@FeignClient(name = "yzl-staff-api")
+//@FeignClient(value = "staff",url = "${fegin.api.url}")
+@FeignClient(name = "yzl-staff-api")
 @Repository
 public interface StaffFeginService {
 
 
-    @RequestMapping(value = "/staff/getById", method = RequestMethod.GET)
-    ComResponse<String> getByPrimaryKey( @RequestParam("id") int id);
 
-    @RequestMapping(value = "/staff/create", method = RequestMethod.POST,consumes = "application/json")
-    ComResponse<StaffPo> create(@RequestBody StaffPo staffPo);
 
-    @RequestMapping(value = "/staff/dingTalkUser/create", method = RequestMethod.POST,consumes = "application/json")
-    ComResponse<Boolean> createDingTalkUser(@RequestBody DingTalkUserPo dingTalkUserPo);
-    @RequestMapping(value = "/staff/insertStaffDepartList", method = RequestMethod.POST,consumes = "application/json")
-    void insertStaffDepartList(@RequestBody List<StaffDepartPostPo> staffDepartList);
+//    @RequestMapping(value = "/staff/create", method = RequestMethod.POST,consumes = "application/json")
+//    ComResponse<StaffPo> create(@RequestBody StaffPo staffPo);
+//
+//    @RequestMapping(value = "/staff/dingTalkUser/create", method = RequestMethod.POST,consumes = "application/json")
+//    ComResponse<Boolean> createDingTalkUser(@RequestBody DingTalkUserPo dingTalkUserPo);
+//    @RequestMapping(value = "/staff/insertStaffDepartList", method = RequestMethod.POST,consumes = "application/json")
+//    void insertStaffDepartList(@RequestBody List<StaffDepartPostPo> staffDepartList);
 
     @RequestMapping(value = "/staff/getOneByMap", method = RequestMethod.POST,consumes = "application/json")
     ComResponse<StaffBaseDto> getOneByMap(@RequestBody Map<String, Object> map);
 
     @RequestMapping(value = "/staff/getDetailsByNo", method = RequestMethod.GET)
     ComResponse<StaffDetailsDto> getDetailsByNo(@RequestParam("staffNo") String staffNo);
+    @RequestMapping(value = "/staff/getByParams", method = RequestMethod.GET)
+    ComResponse<List<StaffDetailsDto>> getByParams(@RequestParam("params")String params);
 }

@@ -1,5 +1,7 @@
 package cn.net.yzl.ehr.dto;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -9,21 +11,18 @@ import java.io.Serializable;
  * @author 
  */
 @Data
+@ApiModel(value = "DepartAttendRpDto", description = "DepartAttendRpDto")
 public class DepartAttendRpDto implements Serializable {
 
+    @ApiModelProperty(value = "考勤奖惩项id", name = "attendRpId")
     private Integer attendRpId;
-
-    /**
-     * 奖惩金额
-     */
+    @ApiModelProperty(value = "奖惩金额", name = "money")
     private Double money;
-
-    /**
-     * 第几次(0:表示一次奖惩)
-     */
+    @ApiModelProperty(value = "第几次(0:表示一次奖惩)", name = "times")
     private Integer times;
-
+    @ApiModelProperty(value = "考勤奖惩项id", name = "rpItemId")
     private Integer rpItemId;
+    @ApiModelProperty(value = "考勤奖惩名称", name = "rpItemName")
     private String rpItemName;
 
 

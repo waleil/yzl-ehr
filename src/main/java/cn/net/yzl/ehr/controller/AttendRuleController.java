@@ -36,6 +36,8 @@ public class AttendRuleController {
         return attendRuleService.add(departAttendRuleDto);
     }
 
+
+
     @ApiOperation(value = "考勤配置-根据部门获取考勤规则列表", notes = "考勤配置-根据部门获取考勤规则列表", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/getByDepartId", method = RequestMethod.GET)
     public ComResponse<Page<DepartAttendRuleDto>> getByDepartId(@RequestParam("departId")  @NotNull @Min(1) Integer departId, @RequestParam(value = "pageNo",defaultValue = "1") Integer pageNo,

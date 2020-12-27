@@ -11,6 +11,7 @@ import cn.net.yzl.ehr.vo.DepartVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,12 +21,21 @@ public class DepartServiceImpl implements DepartService {
     private DepartFeginService departFeginService;
 
     @Override
-    public ComResponse<DepartDto> getTreeList() {
-        return departFeginService.getTreeList();
+    public ComResponse<List<DepartDto>> getTreeList() {
+        ComResponse<DepartDto> treeList = departFeginService.getTreeList();
+
+        if(treeList.getData()!=null){
+            ArrayList<DepartDto> departDtos = new ArrayList<>();
+            departDtos.add(treeList.getData());
+            return ComResponse.success(departDtos);
+        }
+
+
+        return ComResponse.nodata();
     }
 
     @Override
-    public ComResponse<String> add(DepartVO departVO) {
+    public ComResponse<Integer> add(DepartVO departVO) {
 
         return departFeginService.add(departVO);
     }
@@ -54,13 +64,12 @@ public class DepartServiceImpl implements DepartService {
     }
 
     @Override
-    public ComResponse<DepartDto> getByUserNo(String userNo) {
-        if(StrUtil.isBlank(userNo)){
-            return ComResponse.fail(ResponseCodeEnums.PARAMS_EMPTY_ERROR_CODE.getCode(),ResponseCodeEnums.PARAMS_EMPTY_ERROR_CODE.getMessage());
-        }
+    public ComResponse<DepartDto> getById(Integer id) {
 
-        return departFeginService.getByUserNo(userNo);
+        return departFeginService.getById(id);
     }
+
+
 
 
 }

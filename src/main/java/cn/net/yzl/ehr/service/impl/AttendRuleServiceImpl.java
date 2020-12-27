@@ -27,12 +27,30 @@ public class AttendRuleServiceImpl implements AttendRuleService {
 
         Byte type = departAttendRuleDto.getType();
 
+        ComResponse<Integer> result = checkParam(departAttendRuleDto,type);
 
-
+        if(result.getData()==0){
+            return result;
+        }
 
 
 
         return attendRuleFeginService.add(departAttendRuleDto);
+    }
+
+    private ComResponse<Integer> checkParam(DepartAttendRuleDto departAttendRuleDto, Byte type) {
+
+
+        if(type==1){   // 定时打卡-正常
+
+        }else if(type==2){  // 定时打卡-可抢
+
+        }else if(type==3){  // 弹性打卡
+
+        }else if(type==4){  // 不打卡
+        return ComResponse.success(1);
+        }
+        return null;
     }
 
     @Override
