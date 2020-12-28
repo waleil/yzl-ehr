@@ -1,5 +1,6 @@
 package cn.net.yzl.ehr.dto;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -12,18 +13,16 @@ import java.io.Serializable;
  */
 @Data
 public class PostLevelDto implements Serializable {
+    @ApiModelProperty(value = "岗位级别编号", name = "id")
     private Integer id;
-
-    /**
-     * 岗位编号
-     */
+    
+    @ApiModelProperty(value = "岗位编号", name = "postId")
     private Integer postId;
 
+    @ApiModelProperty(value = "岗位名称", name = "postName")
     private String postName;
 
-    /**
-     * 级别名称
-     */
+    @ApiModelProperty(value = "级别名称", name = "name")
     private String name;
 
 

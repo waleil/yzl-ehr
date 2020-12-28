@@ -26,7 +26,8 @@ public class PostServiceImpl implements PostService {
 
 
     @Override
-    public ComResponse<String> addPost(PostVo postVo) {
+    public ComResponse<String> addPost(PostVo postVo,String staffNo) {
+        postVo.setCreator(staffNo);
         ComResponse<String> result = postFeginMapper.addPost(postVo);
         if (result == null) {
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
@@ -44,7 +45,8 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public ComResponse<String> updatePost(PostUpdateVo postVo) {
+    public ComResponse<String> updatePost(PostUpdateVo postVo,String staffNo) {
+        postVo.setUpdator(staffNo);
         ComResponse<String> result = postFeginMapper.updatePost(postVo);
         if (result == null) {
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
@@ -63,8 +65,8 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public ComResponse<String> deletePost(Integer id) {
-        ComResponse<String> result = postFeginMapper.deletePost(id);
+    public ComResponse<String> deletePost(Integer id,String staffNo) {
+        ComResponse<String> result = postFeginMapper.deletePost(id,staffNo);
         if (result == null) {
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
         }
@@ -72,7 +74,8 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public ComResponse<String> addPostLevel(PostLevelVo postLevelVo) {
+    public ComResponse<String> addPostLevel(PostLevelVo postLevelVo,String staffNo) {
+        postLevelVo.setCreator(staffNo);
         ComResponse<String> result = postFeginMapper.addPostLevel(postLevelVo);
         if (result == null) {
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
@@ -109,7 +112,8 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public ComResponse<String> updateLevelPost(PostLevelUpdateVo postLevelVo) {
+    public ComResponse<String> updateLevelPost(PostLevelUpdateVo postLevelVo,String staffNo) {
+        postLevelVo.setUpdator(staffNo);
         ComResponse<String> result = postFeginMapper.updateLevelPost(postLevelVo);
         if (result == null) {
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
@@ -118,8 +122,8 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public ComResponse<String> deletePostLevel(Integer id) {
-        ComResponse<String>  result = postFeginMapper.deletePostLevel(id);
+    public ComResponse<String> deletePostLevel(Integer id,String staffNo) {
+        ComResponse<String>  result = postFeginMapper.deletePostLevel(id,staffNo);
         if (result == null){
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
         }

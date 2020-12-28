@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -43,8 +44,8 @@ public class PostController {
 
     @ApiOperation(value = "创建岗位", notes = "创建岗位", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/addPost", method = RequestMethod.POST)
-    ComResponse<String> addPost(@RequestBody @Validated PostVo postPo) {
-        return postService.addPost(postPo);
+    ComResponse<String> addPost(@RequestBody @Validated PostVo postPo,@CurrentStaffNo String staffNo) {
+        return postService.addPost(postPo,staffNo);
     }
 
     @ApiOperation(value = "获取部门下岗位列表", notes = "获取部门下岗位列表", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
@@ -67,17 +68,17 @@ public class PostController {
 
     @ApiOperation(value = "更新岗位信息", notes = "更新", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/updatePost", method = RequestMethod.POST, consumes = "application/json")
-    ComResponse<String> updatePost(@RequestBody @Validated PostUpdateVo postVo) {
-        return postService.updatePost(postVo);
+    ComResponse<String> updatePost(@RequestBody @Validated PostUpdateVo postVo,@CurrentStaffNo String staffNo) {
+        return postService.updatePost(postVo,staffNo);
     }
 
     @ApiOperation(value = "删除岗位", notes = "删除岗位", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @ApiImplicitParams(
-            @ApiImplicitParam(name = "id", value = "岗位编号", required = true, paramType = "query")
-    )
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "岗位编号", required = true, paramType = "query"),
+    })
     @RequestMapping(value = "/deletePost", method = RequestMethod.POST)
-    ComResponse<String> deletePost(@RequestParam("id") @NotNull @Min(0) Integer id) {
-        return postService.deletePost(id);
+    ComResponse<String> deletePost(@RequestParam("id") @NotNull @Min(0) Integer id,@ApiIgnore @CurrentStaffNo String staffNo) {
+        return postService.deletePost(id,staffNo);
     }
 
 
@@ -89,8 +90,8 @@ public class PostController {
 
     @ApiOperation(value = "创建岗位级别", notes = "创建岗位级别", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/addPostLevelPost", method = RequestMethod.POST)
-    ComResponse<String> addPostLevelPost(@RequestBody @Validated PostLevelVo postLevelVo) {
-        return postService.addPostLevel(postLevelVo);
+    ComResponse<String> addPostLevelPost(@RequestBody @Validated PostLevelVo postLevelVo ,@CurrentStaffNo String staffNo) {
+        return postService.addPostLevel(postLevelVo,staffNo);
     }
 
     @ApiOperation(value = "获取部门岗位级别列表", notes = "获取部门岗位级别列表", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
@@ -122,16 +123,16 @@ public class PostController {
 
     @ApiOperation(value = "更新岗位级别信息", notes = "更新岗位级别信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/updatePostLevel", method = RequestMethod.POST, consumes = "application/json")
-    ComResponse<String> updateLevelPost(@RequestBody @Validated PostLevelUpdateVo postLevelVo) {
-        return postService.updateLevelPost(postLevelVo);
+    ComResponse<String> updateLevelPost(@RequestBody @Validated PostLevelUpdateVo postLevelVo,@CurrentStaffNo String staffNo) {
+        return postService.updateLevelPost(postLevelVo,staffNo);
     }
 
-    @ApiImplicitParams(
+    @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "岗位级别编号", required = true, paramType = "query")
-    )
+    })
     @ApiOperation(value = "删除岗位级别", notes = "删除岗位级别", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/deletePostLevel", method = RequestMethod.POST)
-    ComResponse<String> deletePostLevel(@RequestParam("id") @Min(1) Integer id) {
-        return postService.deletePostLevel(id);
+    ComResponse<String> deletePostLevel(@RequestParam("id") @Min(1) Integer id,@ApiIgnore @CurrentStaffNo String staffNo) {
+        return postService.deletePostLevel(id,staffNo);
     }
 }

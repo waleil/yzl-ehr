@@ -39,7 +39,7 @@ public interface PostFeginMapper {
     ComResponse<String> updatePost(@RequestBody PostUpdateVo postVo);
 
     @RequestMapping(value = "/post/deletePost", method = RequestMethod.POST)
-    ComResponse<String> deletePost(@RequestParam("id")Integer id);
+    ComResponse<String> deletePost(@RequestParam("id")Integer id,@RequestParam("staffNo")String staffNo);
 
     /////////////////////////////////////////
 
@@ -65,6 +65,6 @@ public interface PostFeginMapper {
     ComResponse<String> updateLevelPost(@RequestBody PostLevelUpdateVo postLevelVo) ;
 
     @RequestMapping(value = "/post/deletePostLevel", method = RequestMethod.POST)
-    ComResponse<String> deletePostLevel(@RequestParam("id") Integer id) ;
+    ComResponse<String> deletePostLevel(@RequestParam("id") Integer id,@RequestParam("staffNo")String staffNo) ;
 
 }

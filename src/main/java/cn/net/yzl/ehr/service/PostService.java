@@ -19,7 +19,7 @@ public interface PostService {
 
 
 
-    ComResponse<String> addPost(PostVo postVo) ;
+    ComResponse<String> addPost(PostVo postVo,String staffNo) ;
 
 
     ComResponse<List<PostDto>> getPostList(Integer departId) ;
@@ -27,10 +27,10 @@ public interface PostService {
 
     ComResponse<PostDto> getPostById(Integer id);
 
-    ComResponse<String> updatePost(PostUpdateVo postVo);
+    ComResponse<String> updatePost(PostUpdateVo postVo,String staffNo);
 
 
-    ComResponse<String> deletePost(Integer id);
+    ComResponse<String> deletePost(Integer id,String staffNo);
 
     /**
      * 岗位级别管理
@@ -38,15 +38,15 @@ public interface PostService {
      * @return
      */
 
-    ComResponse<String> addPostLevel(@RequestBody PostLevelVo postLevelVo) ;
+    ComResponse<String> addPostLevel(PostLevelVo postLevelVo,String staffNo) ;
 
-    ComResponse<List<PostLevelListDto>> getPostLevelListByDepartId(@RequestParam("departId")  Integer departId);
+    ComResponse<List<PostLevelListDto>> getPostLevelListByDepartId(Integer departId);
 
-    ComResponse<PostLevelListDto> getPostLevelListByPostId(@RequestParam("postId") Integer postId);
+    ComResponse<PostLevelListDto> getPostLevelListByPostId(Integer postId);
 
-    ComResponse<PostLevelDto> getPostLevelById(@RequestParam("id")  Integer id) ;
+    ComResponse<PostLevelDto> getPostLevelById(Integer id) ;
 
-    ComResponse<String> updateLevelPost(@RequestBody PostLevelUpdateVo postLevelVo) ;
+    ComResponse<String> updateLevelPost( PostLevelUpdateVo postLevelVo,String staffNo) ;
 
-    ComResponse<String> deletePostLevel(@RequestParam("id") Integer id) ;
+    ComResponse<String> deletePostLevel(Integer id,String staffNo) ;
 }

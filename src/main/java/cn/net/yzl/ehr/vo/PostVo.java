@@ -56,7 +56,7 @@ public class PostVo implements Serializable {
     /**
      * 创建人唯一标识
      */
-    @ApiModelProperty(name ="creator",value ="创建人编号",required = true)
+    @ApiModelProperty(name ="creator",value ="创建人编号",hidden = true)
     @NotNull
     private String creator;
 
