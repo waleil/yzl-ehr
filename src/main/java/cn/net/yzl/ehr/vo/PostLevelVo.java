@@ -1,5 +1,6 @@
 package cn.net.yzl.ehr.vo;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -11,26 +12,27 @@ import java.io.Serializable;
  * post_level
  * @author 
  */
+@ApiModel
 @Data
 public class PostLevelVo implements Serializable {
     /**
      * 岗位编号
      */
-    @ApiModelProperty(value ="postId",name="岗位编号",required = true)
+    @ApiModelProperty(name="postId",value="岗位编号",required = true)
     @NotNull
     private Integer postId;
 
     /**
      * 级别名称
      */
-    @ApiModelProperty(value ="name",name="级别名称",required = true)
+    @ApiModelProperty(name="name",value="级别名称",required = true)
     @NotBlank
     private String name;
 
     /**
      * 创建人唯一标识
      */
-    @ApiModelProperty(value ="creator",name="创建人编号",required = true)
+    @ApiModelProperty(name="creator",value="创建人编号",required = true)
     @NotBlank
     private String creator;
 

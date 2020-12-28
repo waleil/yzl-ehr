@@ -13,21 +13,21 @@ import java.io.Serializable;
  * post
  * @author 
  */
-@ApiModel
+@ApiModel(value = "PostVo", description = "创建岗位")
 @Data
 public class PostVo implements Serializable {
 
     /**
      * 岗位名称
      */
-    @ApiModelProperty(value ="name",name="岗位名称",required = true)
+    @ApiModelProperty(name ="name",value ="岗位名称",required = true)
     @NotBlank
     private String name;
 
     /**
      * 部门id
      */
-    @ApiModelProperty(value ="departId",name="部门编号",required = true)
+    @ApiModelProperty(name ="departId",value ="部门编号",required = true)
     @NotNull
     @Min(1)
     private Integer departId;
@@ -35,7 +35,7 @@ public class PostVo implements Serializable {
     /**
      * 属性code(指向字典表,post_attribute)
      */
-    @ApiModelProperty(value ="attrCode",name="岗位属性编码",required = true)
+    @ApiModelProperty(name ="attrCode",value ="岗位属性编码",required = true)
     @NotNull
     @Min(1)
     private Integer attrCode;
@@ -43,20 +43,20 @@ public class PostVo implements Serializable {
     /**
      * 编制人数
      */
-    @ApiModelProperty(value ="staffNum",name="岗位编制人数",required = true)
+    @ApiModelProperty(name ="staffNum",value ="岗位编制人数",required = true)
     @Min(1)
     private Integer staffNum;
 
     /**
      * 岗位职责
      */
-    @ApiModelProperty(value ="duty",name="岗位职责",required = true)
+    @ApiModelProperty(name ="duty",value ="岗位职责",required = true)
     private String duty;
 
     /**
      * 创建人唯一标识
      */
-    @ApiModelProperty(value ="creator",name="创建人编号",required = true)
+    @ApiModelProperty(name ="creator",value ="创建人编号",required = true)
     @NotNull
     private String creator;
 
