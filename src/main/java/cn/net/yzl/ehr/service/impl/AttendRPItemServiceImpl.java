@@ -2,6 +2,7 @@ package cn.net.yzl.ehr.service.impl;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.enums.ResponseCodeEnums;
+import cn.net.yzl.ehr.dto.DepartAttendRpDto;
 import cn.net.yzl.ehr.dto.DepartAttendRpItemInfoDto;
 import cn.net.yzl.ehr.dto.DepartDto;
 import cn.net.yzl.ehr.fegin.conf.AttendRPItemFeginService;
@@ -35,7 +36,17 @@ public class AttendRPItemServiceImpl implements AttendRPItemService {
     @Override
     public ComResponse<Integer> update(Map<Integer, Double> map) {
 
+
+
         // 判断attendRpId是否存在
+        for (Integer attendRpId : map.keySet()) {
+            ComResponse<DepartAttendRpDto> byAttendRpItemId = attendRPItemFeginService.getByAttendRpId(attendRpId);
+            if(byAttendRpItemId.getData()==null){
+                return ComResponse.fail(ResponseCodeEnums.PARAMS_ERROR_CODE.getCode(),"attendRpId:{"+attendRpId+"} 数据不存在!");
+            }
+        }
+
+
         return attendRPItemFeginService.update(map);
     }
 }

@@ -14,7 +14,7 @@ import java.io.Serializable;
 @ApiModel(value = "DepartAttendRpDto", description = "DepartAttendRpDto")
 public class DepartAttendRpDto implements Serializable {
 
-    @ApiModelProperty(value = "考勤奖惩项id", name = "attendRpId")
+    @ApiModelProperty(value = "考勤奖惩项规则id", name = "attendRpId")
     private Integer attendRpId;
     @ApiModelProperty(value = "奖惩金额", name = "money")
     private Double money;

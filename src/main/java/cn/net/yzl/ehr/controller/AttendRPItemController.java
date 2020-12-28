@@ -30,7 +30,7 @@ public class AttendRPItemController {
     @ApiOperation(value = "考勤配置-根据考勤奖惩项进行修改", notes = "考勤配置-根据考勤奖惩项进行修改", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/update", method = RequestMethod.POST, consumes = "application/json")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "key", value = "key为考勤奖惩项id(attendRpId)", required = true, dataType = "Int", paramType = "query"),
+            @ApiImplicitParam(name = "key", value = "key为考勤奖惩项规则id(attendRpId)", required = true, dataType = "Int", paramType = "query"),
             @ApiImplicitParam(name = "value", value = "奖惩金额(money)", required = true, dataType = "Int", paramType = "query")
     })
     ComResponse<Integer> update(@RequestBody Map<Integer,Double> map) {
