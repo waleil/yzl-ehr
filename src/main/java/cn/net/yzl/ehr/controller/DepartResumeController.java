@@ -42,8 +42,6 @@ public class DepartResumeController {
         return departResumeService.update(departResumeInfoVO,staffNo);
     }
 
-
-
     @ApiOperation(value = "面试流程-获取部门下的面试流程信息", notes = "面试流程-获取部门下的面试流程信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @ApiImplicitParams(
             @ApiImplicitParam(name = "departId", value = "部门编号", required = true, paramType = "query")
