@@ -17,12 +17,13 @@ import java.util.List;
 @ApiModel(value="DepartResumeInfoDto",description="部门面试实体")
 public class DepartResumeInfoDto implements Serializable {
 
-    @ApiModelProperty(value="id",name="id")
+    @ApiModelProperty(value="岗位id",name="id")
     private Integer id;
 
     /**
      * 岗位名称
      */
+    @ApiModelProperty(value="岗位名称",name="id")
     private String name;
 
 

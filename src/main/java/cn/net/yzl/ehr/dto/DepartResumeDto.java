@@ -32,6 +32,9 @@ public class DepartResumeDto implements Serializable {
     @ApiModelProperty(value="岗位名称",name="postName")
     private String postName;
 
+
+    @ApiModelProperty(value="顺序序号",name="sortNo")
+    private String sortNo;
     /**
      * 此轮名称
      */

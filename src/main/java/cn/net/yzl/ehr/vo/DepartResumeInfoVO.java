@@ -33,7 +33,7 @@ public class DepartResumeInfoVO implements Serializable {
     @Min(0)
     private Integer departId;
 
-    private List<DepartResumeVO> departResumeList;
+    private List<DepartResumeInsertPo> departResumeList;
 
 
 

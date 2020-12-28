@@ -27,6 +27,9 @@ public class DepartResumeVO implements Serializable {
     @NotBlank
     private String leaderNo;
 
+    @ApiModelProperty(value="顺序序号",name="sortNo")
+    @NotBlank
+    private Integer sortNo;
 
 
 }

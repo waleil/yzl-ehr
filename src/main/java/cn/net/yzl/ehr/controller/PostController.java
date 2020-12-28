@@ -39,12 +39,9 @@ public class PostController {
      * @return
      */
 
-
-
-
     @ApiOperation(value = "创建岗位", notes = "创建岗位", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/addPost", method = RequestMethod.POST)
-    ComResponse<String> addPost(@RequestBody @Validated PostVo postPo,@CurrentStaffNo String staffNo) {
+    ComResponse<String> addPost(@RequestBody @Validated PostVo postPo,@ApiIgnore @CurrentStaffNo String staffNo) {
         return postService.addPost(postPo,staffNo);
     }
 
@@ -68,7 +65,7 @@ public class PostController {
 
     @ApiOperation(value = "更新岗位信息", notes = "更新", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/updatePost", method = RequestMethod.POST, consumes = "application/json")
-    ComResponse<String> updatePost(@RequestBody @Validated PostUpdateVo postVo,@CurrentStaffNo String staffNo) {
+    ComResponse<String> updatePost(@RequestBody @Validated PostUpdateVo postVo,@ApiIgnore @CurrentStaffNo String staffNo) {
         return postService.updatePost(postVo,staffNo);
     }
 
@@ -90,7 +87,7 @@ public class PostController {
 
     @ApiOperation(value = "创建岗位级别", notes = "创建岗位级别", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/addPostLevelPost", method = RequestMethod.POST)
-    ComResponse<String> addPostLevelPost(@RequestBody @Validated PostLevelVo postLevelVo ,@CurrentStaffNo String staffNo) {
+    ComResponse<String> addPostLevelPost(@RequestBody @Validated PostLevelVo postLevelVo ,@ApiIgnore @CurrentStaffNo String staffNo) {
         return postService.addPostLevel(postLevelVo,staffNo);
     }
 
@@ -123,7 +120,7 @@ public class PostController {
 
     @ApiOperation(value = "更新岗位级别信息", notes = "更新岗位级别信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/updatePostLevel", method = RequestMethod.POST, consumes = "application/json")
-    ComResponse<String> updateLevelPost(@RequestBody @Validated PostLevelUpdateVo postLevelVo,@CurrentStaffNo String staffNo) {
+    ComResponse<String> updateLevelPost(@RequestBody @Validated PostLevelUpdateVo postLevelVo,@ApiIgnore @CurrentStaffNo String staffNo) {
         return postService.updateLevelPost(postLevelVo,staffNo);
     }
 
