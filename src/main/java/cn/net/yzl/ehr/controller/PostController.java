@@ -103,6 +103,9 @@ public class PostController {
     }
 
     @ApiOperation(value = "查询岗位的岗位级别列表", notes = "查询岗位的岗位级别列表", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "postId", value = "岗位编号", required = true, paramType = "query")
+    )
     @RequestMapping(value = "/getPostLevelListByPostId", method = RequestMethod.GET)
     ComResponse<PostLevelListDto> getPostLevelListByPostId(@RequestParam("postId") @NotNull @Min(0) Integer postId){
         return postService.getPostLevelListByPostId(postId);

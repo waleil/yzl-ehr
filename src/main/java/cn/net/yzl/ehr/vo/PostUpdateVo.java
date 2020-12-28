@@ -17,7 +17,7 @@ import java.io.Serializable;
 @Data
 public class PostUpdateVo implements Serializable {
 
-    @ApiModelProperty(value ="id",name="岗位编号",required = true)
+    @ApiModelProperty(name ="id",value="岗位编号",required = true)
     @NotNull
     @Min(1)
     private Integer id;
@@ -25,14 +25,14 @@ public class PostUpdateVo implements Serializable {
     /**
      * 岗位名称
      */
-    @ApiModelProperty(value ="name",name="岗位名称",required = true)
+    @ApiModelProperty(name ="name",value="岗位名称",required = true)
     @NotBlank
     private String name;
 
     /**
      * 属性code(指向字典表,post_attribute)
      */
-    @ApiModelProperty(value ="attrCode",name="岗位属性编码",required = true)
+    @ApiModelProperty(name ="attrCode",value="岗位属性编码",required = true)
     @NotNull
     @Min(0)
     private Integer attrCode;
@@ -40,19 +40,19 @@ public class PostUpdateVo implements Serializable {
     /**
      * 编制人数
      */
-    @ApiModelProperty(value ="staffNum",name="编制人数",required = true)
+    @ApiModelProperty(name ="staffNum",value="编制人数",required = true)
     private Integer staffNum;
 
     /**
      * 岗位职责
      */
-    @ApiModelProperty(value ="duty",name="岗位职责",required = true)
+    @ApiModelProperty(name ="duty",value="岗位职责",required = true)
     private String duty;
 
     /**
      * 更新人唯一标识
      */
-    @ApiModelProperty(value ="updator",name="更改人编号",required = true)
+    @ApiModelProperty(name ="updator",value="更改人编号",required = true)
     @NotBlank
     private String updator;
 
