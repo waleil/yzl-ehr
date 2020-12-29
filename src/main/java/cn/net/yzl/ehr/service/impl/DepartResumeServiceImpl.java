@@ -8,7 +8,10 @@ import cn.net.yzl.ehr.fegin.conf.DepartResumeFeginService;
 import cn.net.yzl.ehr.fegin.depart.DepartFeginService;
 import cn.net.yzl.ehr.pojo.DepartResumePo;
 import cn.net.yzl.ehr.service.DepartResumeService;
+import cn.net.yzl.ehr.util.ValidList;
 import cn.net.yzl.ehr.vo.DepartResumeInfoVO;
+import cn.net.yzl.ehr.vo.DepartResumeInsertPo;
+import cn.net.yzl.ehr.vo.DepartResumeItemPo;
 import cn.net.yzl.ehr.vo.DepartResumeUpdateVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,7 +53,7 @@ public class DepartResumeServiceImpl implements DepartResumeService {
         if(result==null ){
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
         }
-        return ComResponse.success();
+        return result;
     }
 
 
@@ -64,64 +67,63 @@ public class DepartResumeServiceImpl implements DepartResumeService {
         if(departById.getData()==null){
             return ComResponse.fail(ResponseCodeEnums.DEPART_NOEXIT_ERROR_CODE.getCode(),ResponseCodeEnums.DEPART_NOEXIT_ERROR_CODE.getMessage());
         }
-
         //岗位判断
-        List<DepartResumePo> list = new ArrayList<>();
+        ValidList<DepartResumeInsertPo> list = new ValidList<>();
         departResumeInfoVO.getDepartResumeList().forEach(departResumeVO -> {
-            DepartResumePo departResumePo = new DepartResumePo();
-            departResumePo.setDepartId(departId);
-            departResumePo.setPostId(postId);
+            DepartResumeInsertPo departResumePo = new DepartResumeInsertPo();
+            departResumePo.setDepartId(departResumeInfoVO.getDepartId());
+            departResumePo.setPostId(departResumeVO.getPostId());
             departResumePo.setCreator(staffNo);
+            departResumePo.setSortNo(departResumeVO.getSortNo());
             departResumePo.setLeaderNo(departResumeVO.getLeaderNo());
             departResumePo.setStepName(departResumeVO.getStepName());
             list.add(departResumePo);
         });
-        String s = JsonUtil.toJsonStr(list);
-        ComResponse<Integer> result = departResumeFeginService.add(s);
-        if(result.getData()==null || result.getData()<1){
-            return ComResponse.fail(ResponseCodeEnums.UPDATE_DATA_ERROR_CODE.getCode(),ResponseCodeEnums.UPDATE_DATA_ERROR_CODE.getMessage());
-        }
 
+        ComResponse<Integer> result = departResumeFeginService.add(list);
+        if(result==null) {
+            return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(), ResponseCodeEnums.API_ERROR_CODE.getMessage());
+        }else if(result.getCode()!=200){
+            return ComResponse.fail(result.getCode(),result.getMessage());
+        }
         return ComResponse.success();
+
     }
 
 
 
     @Override
-    public ComResponse<String> update(DepartResumeInfoVO departResumeInfoVO,String staffNo) {
-        Integer departId = departResumeInfoVO.getDepartId();
-        Integer postId = departResumeInfoVO.getPostId();
+    public ComResponse<String> update(DepartResumeItemPo departResumeItemPo, String staffNo) {
+        Integer departId = departResumeItemPo.getDepartId();
+        Integer postId = departResumeItemPo.getPostId();
         // 部门判断
+        departResumeItemPo.getInsertList().forEach(x->{
+            x.setCreator(staffNo);
+        });
+        departResumeItemPo.getDeleteList().forEach(x->{
+            x.setUpdator(staffNo);
+        });
+        departResumeItemPo.getUpdateList().forEach(x->{
+            x.setUpdator(staffNo);
+        });
         ComResponse<DepartDto> departById = departFeginService.getById(departId);
         if(departById.getData()==null){
             return ComResponse.fail(ResponseCodeEnums.DEPART_NOEXIT_ERROR_CODE.getCode(),ResponseCodeEnums.DEPART_NOEXIT_ERROR_CODE.getMessage());
         }
-        ComResponse<Integer> result=departResumeFeginService.deleteByPostId(postId);
+        ComResponse<Integer> result=departResumeFeginService.update(departResumeItemPo);
         if(result == null){
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
+        }else if(result.getData()==null || result.getData()<1){
+            return ComResponse.nodata();
         }
-        List<DepartResumePo> list = new ArrayList<>();
-        departResumeInfoVO.getDepartResumeList().forEach(departResumeVO -> {
-            DepartResumePo departResumePo = new DepartResumePo();
-            departResumePo.setDepartId(departId);
-            departResumePo.setPostId(postId);
-            departResumePo.setCreator(staffNo);
-            departResumePo.setLeaderNo(departResumeVO.getLeaderNo());
-            departResumePo.setStepName(departResumeVO.getStepName());
-            list.add(departResumePo);
-        });
-        String s = JsonUtil.toJsonStr(list);
-        result = departResumeFeginService.add(s);
-        if(result == null || result.getData()==null || result.getData()<1){
-            return ComResponse.fail(ResponseCodeEnums.SAVE_DATA_ERROR_CODE.getCode(),ResponseCodeEnums.SAVE_DATA_ERROR_CODE.getMessage());
-        }
+
         //岗位判断
         return ComResponse.success();
     }
 
 
-    public ComResponse<String> deleteByPostId(Integer postId) {
-        ComResponse<Integer> result = departResumeFeginService.deleteByPostId(postId);
+    public ComResponse<String> deleteByPostId(Integer postId,String updator) {
+        ComResponse<Integer> result = departResumeFeginService.deleteByPostId(postId,updator);
         if (result == null || result.getData() == null || result.getData()<1) {
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(), ResponseCodeEnums.API_ERROR_CODE.getMessage());
         }
