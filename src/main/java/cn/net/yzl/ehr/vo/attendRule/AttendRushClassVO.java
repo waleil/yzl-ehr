@@ -1,4 +1,4 @@
-package cn.net.yzl.ehr.dto;
+package cn.net.yzl.ehr.vo.attendRule;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -11,8 +11,8 @@ import java.io.Serializable;
  * @author 
  */
 @Data
-@ApiModel(value="AttendRushClassDto",description="考勤班次实体")
-public class AttendRushClassDto implements Serializable {
+@ApiModel(value="AttendRushClassVO",description="考勤班次实体")
+public class AttendRushClassVO implements Serializable {
     @ApiModelProperty(value="考勤班次id",name="id")
     private Integer id;
     @ApiModelProperty(value="考勤规则id",name="attendRuleId")
@@ -25,6 +25,5 @@ public class AttendRushClassDto implements Serializable {
     private String endTime;
     @ApiModelProperty(value="创建或者更新表示,1:创建,2:更新",name="flag",required = true)
     private int flag;
-    @ApiModelProperty(hidden = true)
-    private String creator;
+
 }

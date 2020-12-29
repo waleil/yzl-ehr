@@ -1,14 +1,11 @@
-package cn.net.yzl.ehr.dto;
+package cn.net.yzl.ehr.vo.attendRule;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -17,27 +14,25 @@ import java.util.List;
  * depart_attend_rule
  * @author 
  */
-@Data
-@JsonIgnoreProperties(value = { "handler" })
-@ApiModel(value="DepartAttendRuleDto",description="部门考勤规则实体")
-public class DepartAttendRuleDto implements Serializable {
 
-    @ApiModelProperty(value="考勤规则id",name="id")
+@JsonIgnoreProperties(value = { "handler" })
+@ApiModel(value="DepartAttendRuleVO",description="部门考勤规则实体")
+public class DepartAttendRuleVO implements Serializable {
+
+    @ApiModelProperty(value="考勤规则id,备注-更新必传",name="id")
     private Integer id;
 
-    @ApiModelProperty(value="部门id",name="departId")
-    @Min(1)
+    @ApiModelProperty(value="部门id,备注-创建必传",name="departId")
     private Integer departId;
-    @ApiModelProperty(value="部门名称",name="departName")
+    @ApiModelProperty(value="部门名称",name="departName",required = false)
     private String departName;
-    @ApiModelProperty(value="创建或者更新表示,1:创建,2:更新,3:删除",name="flag",required = true)
+    @ApiModelProperty(value="创建或者更新表示,1:创建,2:更新",name="flag",required = true)
     private int flag;
 
     /**
      * 岗位id
      */
-    @ApiModelProperty(value="岗位id",name="postId")
-    @Min(1)
+    @ApiModelProperty(value="岗位id,部门id,备注-创建必传",name="postId")
     private Integer postId;
     @ApiModelProperty(value="岗位名称",name="postName")
     private String postName;
@@ -68,7 +63,7 @@ public class DepartAttendRuleDto implements Serializable {
 
     // 考勤班次
     @ApiModelProperty(value="考勤班次信息集合",name="attendRushClassDtoList")
-    private List<AttendRushClassDto> attendRushClassDtoList;
+    private List<AttendRushClassVO> attendRushClassDtoList;
 
 
 
@@ -90,7 +85,6 @@ public class DepartAttendRuleDto implements Serializable {
     @ApiModelProperty(value="时间(年,月)",name="time")
     @JsonFormat(pattern="yyyy-MM",timezone="GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM")
-    @NotEmpty
     private Date time;
 
     @ApiModelProperty(value="选上班日期(0表示否,1表示是,用4个字节表示)",name="crycle")
@@ -105,17 +99,6 @@ public class DepartAttendRuleDto implements Serializable {
     @ApiModelProperty(value="提醒日期",name="remindTime")
     private Integer remindTime;
 
-    @ApiModelProperty(hidden = true)
-    private String creator;
-    @ApiModelProperty(hidden = true)
-    private String updator;
-    @ApiModelProperty(value="弹性打卡:上班打卡时段开始时间",name="elasticUpStartTime")
-    private String elasticUpStartTime;
-    @ApiModelProperty(value="弹性打卡:上班打卡时段结束时间",name="remindTime")
-    private String elasticUpEndTime;
-    @ApiModelProperty(value="弹性打卡:下班打卡时段开始时间",name="remindTime")
-    private String elasticDownStartTime;
-    @ApiModelProperty(value="弹性打卡:下班打卡时段结束时间",name="remindTime")
-    private String elasticDownEndTime;
+
 
 }

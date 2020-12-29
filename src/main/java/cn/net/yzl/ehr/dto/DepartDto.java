@@ -43,6 +43,11 @@ public class DepartDto implements Serializable {
     @ApiModelProperty(value = "负责人名称", name = "leaderName")
     private String leaderName;
 
+    @ApiModelProperty(value = "财务归属部门id", name = "financeDepartId")
+    private Integer financeDepartId;
+    @ApiModelProperty(value = "财务归属部门名称", name = "financeDepartName")
+    private String financeDepartName;
+
     /**
      * 描述
      */
