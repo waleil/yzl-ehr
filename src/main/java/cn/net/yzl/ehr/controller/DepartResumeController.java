@@ -51,7 +51,7 @@ public class DepartResumeController {
         return departResumeService.getByDepartId(departId);
     }
 
-    @ApiOperation(value = "面试流程-获取岗位下的面试流程信息", notes = "面试流程-获取部门下的面试流程信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+   @ApiOperation(value = "面试流程-获取岗位下的面试流程信息", notes = "面试流程-获取部门下的面试流程信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
    @ApiImplicitParams(
            @ApiImplicitParam(name = "postId", value = "岗位编号", required = true, paramType = "query")
    )

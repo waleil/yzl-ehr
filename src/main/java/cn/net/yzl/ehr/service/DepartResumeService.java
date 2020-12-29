@@ -16,13 +16,13 @@ public interface DepartResumeService {
 
     ComResponse<List<DepartResumeInfoDto>> getByDepartId(Integer departId);
 
-    ComResponse<String> add(DepartResumeInfoVO departResumeInfoVO,String staffNo);
+    ComResponse<String> add(DepartResumeInfoVO departResumeInfoVO, String staffNo);
 
     ComResponse<List<DepartResumeDto>> getByPostId(Integer postId);
 
     ComResponse<String> update(DepartResumeItemPo departResumeItemPo, String staffNo);
 
-    ComResponse<String> deleteByPostId(Integer postId,String updator);
+    ComResponse<String> deleteByPostId(Integer postId, String updator);
 
 
 }

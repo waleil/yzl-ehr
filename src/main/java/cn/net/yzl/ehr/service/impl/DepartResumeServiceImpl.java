@@ -67,12 +67,18 @@ public class DepartResumeServiceImpl implements DepartResumeService {
         if(departById.getData()==null){
             return ComResponse.fail(ResponseCodeEnums.DEPART_NOEXIT_ERROR_CODE.getCode(),ResponseCodeEnums.DEPART_NOEXIT_ERROR_CODE.getMessage());
         }
+        ComResponse<List<DepartResumeDto>> resumeResult= departResumeFeginService.getByPostId(postId);
+        if(resumeResult==null || resumeResult.getCode()!=200){
+            return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
+        }else if(resumeResult.getData().size()>0 ){
+            return ComResponse.fail(ResponseCodeEnums.RESUME_EXIST_ERROR_CODE.getCode(),ResponseCodeEnums.RESUME_EXIST_ERROR_CODE.getMessage());
+        }
         //岗位判断
         ValidList<DepartResumeInsertPo> list = new ValidList<>();
         departResumeInfoVO.getDepartResumeList().forEach(departResumeVO -> {
             DepartResumeInsertPo departResumePo = new DepartResumeInsertPo();
             departResumePo.setDepartId(departResumeInfoVO.getDepartId());
-            departResumePo.setPostId(departResumeVO.getPostId());
+            departResumePo.setPostId(departResumeInfoVO.getPostId());
             departResumePo.setCreator(staffNo);
             departResumePo.setSortNo(departResumeVO.getSortNo());
             departResumePo.setLeaderNo(departResumeVO.getLeaderNo());
@@ -124,8 +130,10 @@ public class DepartResumeServiceImpl implements DepartResumeService {
 
     public ComResponse<String> deleteByPostId(Integer postId,String updator) {
         ComResponse<Integer> result = departResumeFeginService.deleteByPostId(postId,updator);
-        if (result == null || result.getData() == null || result.getData()<1) {
+        if (result == null || result.getData() == null ) {
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(), ResponseCodeEnums.API_ERROR_CODE.getMessage());
+        }else if(result.getData()<1){
+                return ComResponse.fail(ResponseCodeEnums.NO_MATCHING_RESULT_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
         }
         return ComResponse.success();
     }

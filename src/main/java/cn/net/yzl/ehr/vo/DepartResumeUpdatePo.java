@@ -19,9 +19,7 @@ public  class DepartResumeUpdatePo implements Serializable {
     @Min(1)
     private Integer id;
 
-    @ApiModelProperty("部门id")
-    @NotNull
-    @Min(1)
+    @ApiModelProperty(value = "部门id",hidden = true)
     private Integer departId;
 
     @ApiModelProperty("岗位id")
@@ -44,8 +42,7 @@ public  class DepartResumeUpdatePo implements Serializable {
     private Integer sortNo;
 
 
-    @ApiModelProperty("更新人唯一标识")
-    @NotBlank
+    @ApiModelProperty(value = "更新人唯一标识",hidden = true)
     private String updator;
 
     private static final long serialVersionUID = 1L;

@@ -24,15 +24,15 @@ import java.util.List;
 @Repository
 public interface DepartResumeFeginService {
     @RequestMapping(value = "/conf/resume/add", method = RequestMethod.POST)
-    ComResponse<Integer> add( @RequestBody ValidList<DepartResumeInsertPo> departResumeList);
+    ComResponse<Integer> add(@RequestBody ValidList<DepartResumeInsertPo> departResumeList);
     @RequestMapping(value = "/conf/resume/update", method = RequestMethod.POST)
     ComResponse<Integer> update(@RequestBody DepartResumeItemPo itemUpdatePo);
     @RequestMapping(value = "/conf/resume/getByDepartId", method = RequestMethod.GET)
     ComResponse<List<DepartResumeDto>> getByDepartId(@RequestParam("departId") Integer departId);
     @RequestMapping(value = "/conf/resume/getByPostId", method = RequestMethod.GET)
-    ComResponse<List<DepartResumeDto>> getByPostId(@RequestParam("postId")  Integer postId) ;
+    ComResponse<List<DepartResumeDto>> getByPostId(@RequestParam("postId") Integer postId) ;
     @RequestMapping(value = "/conf/resume/deleteByPostId", method = RequestMethod.POST)
-    ComResponse<Integer> deleteByPostId(@RequestParam("postId")  Integer postId,@RequestParam("updator")  String updator) ;
+    ComResponse<Integer> deleteByPostId(@RequestParam("postId") Integer postId, @RequestParam("updator") String updator) ;
 
 
 

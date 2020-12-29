@@ -1,11 +1,12 @@
 package cn.net.yzl.ehr.service.impl;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.common.enums.ResponseCodeEnums;
 import cn.net.yzl.ehr.dto.DepartTrainingRuleDto;
-import cn.net.yzl.ehr.fegin.depart.DepartTrainingRuleFeignService;
-import cn.net.yzl.ehr.pojo.DepartTrainingRulePo;
-import cn.net.yzl.ehr.pojo.DepartTrainingRuleUpdatePo;
+import cn.net.yzl.ehr.fegin.conf.DepartTrainingRuleFeginService;
 import cn.net.yzl.ehr.service.DepartTrainingRuleService;
+import cn.net.yzl.ehr.vo.DepartTrainingRulePo;
+import cn.net.yzl.ehr.vo.DepartTrainingRuleUpdatePo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,31 +14,62 @@ import java.util.List;
 
 @Service
 public class DepartTrainingRuleServiceImpl implements DepartTrainingRuleService {
+
     @Autowired
-    private DepartTrainingRuleFeignService departTrainingRuleFeignService;
+    private DepartTrainingRuleFeginService departTrainingRuleService;
+
     @Override
     public ComResponse<Integer> add(DepartTrainingRulePo departTrainingRulePo) {
-      return departTrainingRuleFeignService.add(departTrainingRulePo);
+        ComResponse<Integer> result=departTrainingRuleService.add(departTrainingRulePo);
+        if(result==null ){
+            ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
+        }else if(result.getData()==null || result.getData()<1){
+            ComResponse.fail(ResponseCodeEnums.SAVE_DATA_ERROR_CODE.getCode(),ResponseCodeEnums.SAVE_DATA_ERROR_CODE.getMessage());
+        }
+        return ComResponse.success();
     }
 
     @Override
-    public ComResponse<List<DepartTrainingRuleDto>> getDepartTraininRuleById(Integer departId) {
-        return  departTrainingRuleFeignService.getDepartTraininRuleById((departId));
+    public ComResponse<List<DepartTrainingRuleDto>> getByDepartId(Integer departId) {
+        ComResponse<List<DepartTrainingRuleDto>> result=departTrainingRuleService.getByDepartId(departId);
+        if(result==null ){
+            ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
+        }else if(result.getData()==null || result.getData().size()<1){
+            ComResponse.nodata();
+        }
+        return result;
     }
 
     @Override
-    public ComResponse<Integer> deleteDepartTrainingRuleById(Integer id) {
-        return departTrainingRuleFeignService.deleteDepartTrainingRuleById((id));
+    public ComResponse<Integer> update(DepartTrainingRuleUpdatePo itemUpdatePo) {
+        ComResponse<Integer> result=departTrainingRuleService.update(itemUpdatePo);
+        if(result==null ){
+            ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
+        }else if(result.getData()==null || result.getData()<1){
+            ComResponse.fail(ResponseCodeEnums.UPDATE_DATA_ERROR_CODE.getCode(),ResponseCodeEnums.UPDATE_DATA_ERROR_CODE.getMessage());
+        }
+        return ComResponse.success();
     }
 
     @Override
-    public ComResponse<DepartTrainingRuleDto> getPostById(Integer id) {
-      return departTrainingRuleFeignService.getPostById(id);
-       // return     ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
+    public ComResponse<DepartTrainingRuleDto> getById(Integer postId) {
+        ComResponse<DepartTrainingRuleDto> result=departTrainingRuleService.getById(postId);
+        if(result==null ){
+            ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
+        }else if(result.getData()==null ){
+            ComResponse.nodata();
+        }
+        return result;
     }
 
     @Override
-    public ComResponse<Integer> updatePost(DepartTrainingRuleUpdatePo departTrainingRulePo) {
-        return departTrainingRuleFeignService.updatePost(departTrainingRulePo);
+    public ComResponse<Integer> deleteById(Integer id, String updator) {
+        ComResponse<Integer> result=departTrainingRuleService.deleteById(id,updator);
+        if(result==null ){
+            ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
+        }else if(result.getData()==null || result.getData()<1){
+            ComResponse.fail(ResponseCodeEnums.UPDATE_DATA_ERROR_CODE.getCode(),ResponseCodeEnums.UPDATE_DATA_ERROR_CODE.getMessage());
+        }
+        return ComResponse.success();
     }
 }

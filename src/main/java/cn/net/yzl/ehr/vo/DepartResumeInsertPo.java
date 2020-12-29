@@ -3,6 +3,8 @@ package cn.net.yzl.ehr.vo;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import springfox.documentation.annotations.ApiIgnore;
+
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -13,14 +15,10 @@ import java.io.Serializable;
 public class DepartResumeInsertPo implements Serializable {
 
 
-    @ApiModelProperty("部门id")
-    @NotNull
-    @Min(1)
+    @ApiModelProperty(value = "部门id",hidden = true)
     private Integer departId;
 
-    @ApiModelProperty("岗位id")
-    @NotNull
-    @Min(1)
+    @ApiModelProperty(value ="岗位id",hidden = true)
     private Integer postId;
 
     @ApiModelProperty("此轮名称")
@@ -34,11 +32,10 @@ public class DepartResumeInsertPo implements Serializable {
 
     @ApiModelProperty("顺序序号")
     @NotNull
-    @Min(0)
+    @Min(1)
     private Integer sortNo;
 
-    @ApiModelProperty("创建人唯一标识")
-    @NotBlank
+    @ApiModelProperty(value = "创建人编号", required = false,hidden = true)
     private String creator;
 
 

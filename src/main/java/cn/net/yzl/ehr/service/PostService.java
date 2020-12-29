@@ -19,7 +19,7 @@ public interface PostService {
 
 
 
-    ComResponse<String> addPost(PostVo postVo,String staffNo) ;
+    ComResponse<String> addPost(PostVo postVo, String staffNo) ;
 
 
     ComResponse<List<PostDto>> getPostList(Integer departId) ;
@@ -27,10 +27,10 @@ public interface PostService {
 
     ComResponse<PostDto> getPostById(Integer id);
 
-    ComResponse<String> updatePost(PostUpdateVo postVo,String staffNo);
+    ComResponse<String> updatePost(PostUpdateVo postVo, String staffNo);
 
 
-    ComResponse<String> deletePost(Integer id,String staffNo);
+    ComResponse<String> deletePost(Integer id, String staffNo);
 
     /**
      * 岗位级别管理
@@ -38,7 +38,7 @@ public interface PostService {
      * @return
      */
 
-    ComResponse<String> addPostLevel(PostLevelVo postLevelVo,String staffNo) ;
+    ComResponse<String> addPostLevel(PostLevelVo postLevelVo, String staffNo) ;
 
     ComResponse<List<PostLevelListDto>> getPostLevelListByDepartId(Integer departId);
 
@@ -46,7 +46,7 @@ public interface PostService {
 
     ComResponse<PostLevelDto> getPostLevelById(Integer id) ;
 
-    ComResponse<String> updateLevelPost( PostLevelUpdateVo postLevelVo,String staffNo) ;
+    ComResponse<String> updateLevelPost(PostLevelUpdateVo postLevelVo, String staffNo) ;
 
-    ComResponse<String> deletePostLevel(Integer id,String staffNo) ;
+    ComResponse<String> deletePostLevel(Integer id, String staffNo) ;
 }

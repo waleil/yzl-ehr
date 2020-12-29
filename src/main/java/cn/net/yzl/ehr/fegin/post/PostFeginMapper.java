@@ -39,10 +39,10 @@ public interface PostFeginMapper {
     ComResponse<String> updatePost(@RequestBody PostUpdateVo postVo);
 
     @RequestMapping(value = "/post/deletePost", method = RequestMethod.POST)
-    ComResponse<String> deletePost(@RequestParam("id")Integer id,@RequestParam("staffNo")String staffNo);
+    ComResponse<String> deletePost(@RequestParam("id") Integer id, @RequestParam("staffNo") String staffNo);
 
     @RequestMapping(value = "/post/addBatchPost", method = RequestMethod.POST)
-    ComResponse<Integer> addBatchPost(@RequestBody  List<PostVo> postList);
+    ComResponse<Integer> addBatchPost(@RequestBody List<PostVo> postList);
 
     /////////////////////////////////////////
 
@@ -56,19 +56,19 @@ public interface PostFeginMapper {
     ComResponse<String> addPostLevel(@RequestBody PostLevelVo postLevelVo) ;
 
     @RequestMapping(value = "/post/getPostLevelListByDepartId", method = RequestMethod.GET)
-    public ComResponse<List<PostLevelListDto>> getPostLevelListByDepartId(@RequestParam("departId")  Integer departId);
+    public ComResponse<List<PostLevelListDto>> getPostLevelListByDepartId(@RequestParam("departId") Integer departId);
 
     @RequestMapping(value = "/post/getPostLevelListByPostId", method = RequestMethod.GET)
     ComResponse<PostLevelListDto> getPostLevelListByPostId(@RequestParam("postId") Integer postId);
 
     @RequestMapping(value = "/post/getPostLevelById", method = RequestMethod.GET)
-    public ComResponse<PostLevelDto> getPostLevelById(@RequestParam("id")  Integer id) ;
+    public ComResponse<PostLevelDto> getPostLevelById(@RequestParam("id") Integer id) ;
 
     @RequestMapping(value = "/post/updatePostLevel", method = RequestMethod.POST, consumes = "application/json")
     ComResponse<String> updateLevelPost(@RequestBody PostLevelUpdateVo postLevelVo) ;
 
     @RequestMapping(value = "/post/deletePostLevel", method = RequestMethod.POST)
-    ComResponse<String> deletePostLevel(@RequestParam("id") Integer id,@RequestParam("staffNo")String staffNo) ;
+    ComResponse<String> deletePostLevel(@RequestParam("id") Integer id, @RequestParam("staffNo") String staffNo) ;
 
     @RequestMapping(value = "/post/addBatchPostLevel", method = RequestMethod.POST)
     ComResponse<Integer> addBatchPostLevel(@RequestBody List<PostLevelVo> postLevelList);

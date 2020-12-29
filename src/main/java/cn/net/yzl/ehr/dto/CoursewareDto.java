@@ -1,57 +1,41 @@
 package cn.net.yzl.ehr.dto;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.util.List;
-
+@ApiModel(value = "CoursewareDto", description = "培训课件")
 @Data
 public class CoursewareDto implements Serializable {
 
-    /**
-     * 课件id
-     */
+    @ApiModelProperty("课件id")
     private Integer id;
 
-    /**
-     * 课件名称
-     */
+    @ApiModelProperty("课件名称")
     private String name;
 
 
-    /**
-     * 课件描述
-     */
+    @ApiModelProperty("课件描述")
     private String desc;
 
-    /**
-     * 附件路径
-     */
+    @ApiModelProperty("附件路径")
     private String attachmentPath;
 
-    /**
-     * 创建时间
-     */
+    @ApiModelProperty("创建时间")
     private String createTime;
 
-    /**
-     * 创建人编号
-     */
+    @ApiModelProperty("创建人编号")
     private Integer creator;
 
-    /**
-     * 更改时间
-     */
+    @ApiModelProperty("更改时间")
     private String updateTime;
 
-    /**
-     * 更改人编号
-     */
+    @ApiModelProperty("更改人编号")
     private Integer updator;
 
-    /**
-     * 启用状态：0：待审核，1：审核通过待启用，2：已启用，3：已撤销
-     */
+    @ApiModelProperty("启用状态：0：待审核，1：审核通过待启用，2：已启用，3：已撤销")
     private int state;
 
     //适用部门
