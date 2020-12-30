@@ -44,5 +44,8 @@ public class PostLevelUpdateVo implements Serializable {
     @NotBlank
     private String updator;
 
+    @ApiModelProperty(value = "排序(1,2,3.....)", name = "order")
+    private Integer order;
+
     private static final long serialVersionUID = 1L;
 }

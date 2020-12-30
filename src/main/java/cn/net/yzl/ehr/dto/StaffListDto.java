@@ -58,8 +58,8 @@ public class StaffListDto implements Serializable {
     private Integer postLevelId;
     @ApiModelProperty(value = "岗位级别名称", name = "postLevelName")
     private String postLevelName;
-    @ApiModelProperty(value = "合作方id", name = "partnerId")
-    private Integer partnerId;
+    @ApiModelProperty(value = "合作方code", name = "partnerCode")
+    private Integer partnerCode;
     @ApiModelProperty(value = "合作方名称", name = "partnerName")
     private String partnerName;
 

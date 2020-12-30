@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 //@FeignClient(name = "departSocial",url = "${fegin.api.url}/departSocial")
-@FeignClient("yzl-staff-db")
+@FeignClient(value = "staff",url = "${fegin.db.url}")
+//@FeignClient("yzl-staff-db")
 public interface DepartSocialService {
 
     @GetMapping("departSocial/selectDepartSocialType")
@@ -35,14 +36,14 @@ public interface DepartSocialService {
     public ComResponse insertDepartSocial(@RequestBody DepartSocialVo departSocialVo);
 
     @GetMapping("departSocial/selectDepartSocialList")
-    public ComResponse<DepartSocialDto> selectDepartSocialList(@RequestParam Integer departId);
+    public ComResponse<DepartSocialDto> selectDepartSocialList(@RequestParam("departId") Integer departId);
 
 
     @GetMapping("departSocial/selectPaymentAreaPostName")
-    public ComResponse<AreaPostDto> selectPaymentAreaPostName(@RequestParam Integer departId);
+    public ComResponse<AreaPostDto> selectPaymentAreaPostName(@RequestParam("departId") Integer departId);
 
     @GetMapping("departSocial/selectDepartSocialInfo")
-    public ComResponse<DepartSocialInfoDto> selectDepartSocialInfo(@RequestParam Integer departId, @RequestParam Integer id);
+    public ComResponse<DepartSocialInfoDto> selectDepartSocialInfo(@RequestParam("departId") Integer departId, @RequestParam("id") Integer id);
 
     @PostMapping("departSocial/updateDepartSocial")
     public ComResponse updateDepartSocial(@RequestBody DepartSocialVo departSocialVo);
@@ -52,12 +53,12 @@ public interface DepartSocialService {
     public ComResponse insertDepartSalarySettle(@RequestBody DepartSalarySettlePo departSalarySettlePo);
 
     @PostMapping("departSocial/selectDepartSalarySettle")
-    public ComResponse<DepartSalarySettlePo> selectDepartSalarySettle(@RequestParam Integer departId);
+    public ComResponse<DepartSalarySettlePo> selectDepartSalarySettle(@RequestParam("departId") Integer departId);
 
     @PostMapping("departSocial/updateDepartSalarySettle")
     public ComResponse updateDepartSalarySettle(@RequestBody DepartSalarySettlePo departSalarySettlePo);
 
     @GetMapping("departSocial/deleteDepartSocial")
-    public ComResponse deleteDepartSocial(@RequestParam Integer departId,@RequestParam Integer departSocialId);
+    public ComResponse deleteDepartSocial(@RequestParam("departId") Integer departId,@RequestParam("departSocialId") Integer departSocialId);
 
 }

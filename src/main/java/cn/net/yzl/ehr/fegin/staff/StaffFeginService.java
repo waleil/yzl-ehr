@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 import java.util.Map;
 
-@FeignClient(value = "staff",url = "${fegin.api.url}")
-//@FeignClient(name = "yzl-staff-api")
+//@FeignClient(value = "staff",url = "${fegin.api.url}")
+@FeignClient(name = "yzl-staff-api")
 @Repository
 public interface StaffFeginService {
 
