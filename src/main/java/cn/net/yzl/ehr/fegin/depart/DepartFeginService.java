@@ -4,7 +4,9 @@ import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.dto.DepartDto;
 import cn.net.yzl.ehr.vo.DepartUpdateVO;
 import cn.net.yzl.ehr.vo.DepartVO;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,5 +45,6 @@ public interface DepartFeginService {
     ComResponse<DepartDto> getById(@RequestParam("departId") Integer departId);
 
 
-
+    @RequestMapping(value = "/depart/updateSortByIds", method = RequestMethod.POST)
+    ComResponse<Integer> updateSortByIds(@RequestBody List<Integer> ids);
 }

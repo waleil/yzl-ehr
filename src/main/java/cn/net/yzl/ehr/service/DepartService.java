@@ -19,4 +19,6 @@ public interface DepartService {
     ComResponse<List<DepartDto>> getChildById(Integer id);
     ComResponse<List<DepartDto>> getChildByLevel(Integer level);
     ComResponse<DepartDto> getById(Integer id);
+
+    ComResponse<Integer> updateSortByIds(List<Integer> ids);
 }

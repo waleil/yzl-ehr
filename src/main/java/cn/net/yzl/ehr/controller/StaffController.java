@@ -5,6 +5,7 @@ import cn.net.yzl.common.entity.ComResponse;
 
 import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
+import cn.net.yzl.ehr.dto.StaffBaseDto;
 import cn.net.yzl.ehr.dto.StaffDetailsDto;
 import cn.net.yzl.ehr.dto.StaffListDto;
 import cn.net.yzl.ehr.fegin.staff.StaffFeginService;
@@ -22,6 +23,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
@@ -29,6 +31,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/staff")
 @Api(value = "员工服务", tags = {"员工服务"})
+@Valid
 public class StaffController {
 
     @Autowired
@@ -43,12 +46,22 @@ public class StaffController {
     public ComResponse<StaffDetailsDto> getCurrentDetails(@ApiIgnore @CurrentStaffNo String staffNo) {
         return staffService.getDetailsByNo(staffNo);
     }
+
+
+    @ApiOperation(value = "根据用户工号获取详情信息", notes = "根据用户工号获取详情信息")
+    @RequestMapping(value = "/getDetailsByNo", method = RequestMethod.GET)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "staffNo", value = "用户工号", required = true, dataType = "String", paramType = "query")
+    })
+    public ComResponse<StaffDetailsDto> getDetailsByNo(@NotBlank String staffNo) {
+        return staffService.getDetailsByNo(staffNo);
+    }
     @ApiOperation(value = "模糊查询用户信息", notes = "模糊查询用户信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "params", value = "参数", required = true, dataType = "String", paramType = "query")
     })
     @RequestMapping(value = "/getByParams", method = RequestMethod.GET)
-    public ComResponse<List<StaffDetailsDto>> getByParams(@NotBlank String params) {
+    public ComResponse<List<StaffBaseDto>> getByParams(@NotBlank String params) {
         return staffService.getByParams(params);
 
     }

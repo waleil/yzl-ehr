@@ -69,7 +69,11 @@ public class DepartServiceImpl implements DepartService {
         return departFeginService.getById(id);
     }
 
+    @Override
+    public ComResponse<Integer> updateSortByIds(List<Integer> ids) {
 
+        return departFeginService.updateSortByIds(ids);
+    }
 
 
 }

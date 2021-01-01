@@ -18,6 +18,7 @@ import springfox.documentation.annotations.ApiIgnore;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -89,4 +90,10 @@ public class DepartController {
         return departService.getById(departId);
     }
 
+
+    @ApiOperation(value = "根据部门id集合修改顺序", notes = "根据部门id集合修改顺序", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/updateSortByIds", method = RequestMethod.POST)
+    ComResponse<Integer> updateSortByIds(@RequestBody @NotEmpty List<Integer> ids) {
+        return departService.updateSortByIds(ids);
+    }
 }

@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 import java.util.Map;
 
-//@FeignClient(value = "staff",url = "${fegin.api.url}")
-@FeignClient(name = "yzl-staff-api")
+@FeignClient(value = "staff",url = "${fegin.api.url}")
+//@FeignClient(name = "yzl-staff-api")
 @Repository
 public interface StaffFeginService {
 
@@ -42,7 +42,7 @@ public interface StaffFeginService {
     @RequestMapping(value = "/staff/getDetailsByNo", method = RequestMethod.GET)
     ComResponse<StaffDetailsDto> getDetailsByNo(@RequestParam("staffNo") String staffNo);
     @RequestMapping(value = "/staff/getByParams", method = RequestMethod.GET)
-    ComResponse<List<StaffDetailsDto>> getByParams(@RequestParam("params")String params);
+    ComResponse<List<StaffBaseDto>> getByParams(@RequestParam("params")String params);
     @ApiOperation(value = "模糊查询员工列表", notes = "模糊查询员工列表")
     @RequestMapping(value = "/staff/getListByParams", method = RequestMethod.POST)
     ComResponse<Page<StaffListDto>> getListByParams(@RequestBody StaffParamsVO staffParamsVO);

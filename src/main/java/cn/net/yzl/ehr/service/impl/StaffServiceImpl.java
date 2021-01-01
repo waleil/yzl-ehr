@@ -2,6 +2,7 @@ package cn.net.yzl.ehr.service.impl;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
+import cn.net.yzl.ehr.dto.StaffBaseDto;
 import cn.net.yzl.ehr.dto.StaffDetailsDto;
 import cn.net.yzl.ehr.dto.StaffListDto;
 import cn.net.yzl.ehr.fegin.staff.StaffFeginService;
@@ -25,7 +26,7 @@ public class StaffServiceImpl implements StaffService {
     }
 
     @Override
-    public ComResponse<List<StaffDetailsDto>> getByParams(String params) {
+    public ComResponse<List<StaffBaseDto>> getByParams(String params) {
         return staffFeginService.getByParams(params);
     }
 
