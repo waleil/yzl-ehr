@@ -27,8 +27,8 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
-@FeignClient(name = "yzl-staff-db")
-//@FeignClient(value = "staff",url = "${fegin.db.url}")
+//@FeignClient(name = "yzl-staff-db")
+@FeignClient(value = "staff",url = "${fegin.db.url}")
 public interface AttendRuleFeginService {
 
 
