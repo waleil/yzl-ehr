@@ -43,11 +43,6 @@ public class DepartDto implements Serializable {
     @ApiModelProperty(value = "负责人名称", name = "leaderName")
     private String leaderName;
 
-    @ApiModelProperty(value = "财务归属部门id", name = "financeDepartId")
-    private Integer financeDepartId;
-    @ApiModelProperty(value = "财务归属部门名称", name = "financeDepartName")
-    private String financeDepartName;
-
     /**
      * 描述
      */
@@ -64,4 +59,10 @@ public class DepartDto implements Serializable {
     private List<DepartDto> children;
     @ApiModelProperty(value = "级别", name = "level")
     private Integer level;
+    @ApiModelProperty(value = "财务归属部门id", name = "financeDepartId")
+    private Integer financeDepartId;
+    @ApiModelProperty(value = "财务归属部门名称", name = "financeDepartName")
+    private String financeDepartName;
+    @ApiModelProperty(value = "业务属性code", name = "attrCode")
+    private Integer attrCode;
 }

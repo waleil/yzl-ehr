@@ -4,9 +4,12 @@ import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.dto.SysDictDataDto;
 import cn.net.yzl.ehr.fegin.sysDictData.SysDictDataFeginService;
 import cn.net.yzl.ehr.service.SysDictService;
+import cn.net.yzl.ehr.vo.SysDictDataVO;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,5 +37,9 @@ public class SysDictController {
         return sysDictDataFeginService.getByType(dictType);
     }
 
-
+    @ApiOperation(value = "新增字典", notes = "新增字典", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/insert", method = RequestMethod.POST)
+    ComResponse<Integer> insertSelective(@RequestBody @Validated SysDictDataVO dictDataVO){
+        return sysDictDataFeginService.insertSelective(dictDataVO);
+    }
 }

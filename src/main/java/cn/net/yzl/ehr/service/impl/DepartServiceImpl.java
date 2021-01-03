@@ -6,6 +6,7 @@ import cn.net.yzl.common.enums.ResponseCodeEnums;
 import cn.net.yzl.ehr.dto.DepartDto;
 import cn.net.yzl.ehr.fegin.depart.DepartFeginService;
 import cn.net.yzl.ehr.service.DepartService;
+import cn.net.yzl.ehr.vo.DepartBusinessAttrVO;
 import cn.net.yzl.ehr.vo.DepartUpdateVO;
 import cn.net.yzl.ehr.vo.DepartVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,6 +74,12 @@ public class DepartServiceImpl implements DepartService {
     public ComResponse<Integer> updateSortByIds(List<Integer> ids) {
 
         return departFeginService.updateSortByIds(ids);
+    }
+
+    @Override
+    public ComResponse<Integer> addBusinessAtrr(DepartBusinessAttrVO departBusinessAttrVO) {
+
+        return departFeginService.addBusinessAtrr(departBusinessAttrVO);
     }
 
 

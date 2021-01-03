@@ -6,6 +6,7 @@ import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.authorization.annotation.UnAuthorization;
 import cn.net.yzl.ehr.dto.DepartDto;
 import cn.net.yzl.ehr.service.DepartService;
+import cn.net.yzl.ehr.vo.DepartBusinessAttrVO;
 import cn.net.yzl.ehr.vo.DepartUpdateVO;
 import cn.net.yzl.ehr.vo.DepartVO;
 import io.swagger.annotations.*;
@@ -95,5 +96,11 @@ public class DepartController {
     @RequestMapping(value = "/updateSortByIds", method = RequestMethod.POST)
     ComResponse<Integer> updateSortByIds(@RequestBody @NotEmpty List<Integer> ids) {
         return departService.updateSortByIds(ids);
+    }
+
+    @ApiOperation(value = "绑定业务属性", notes = "绑定业务属性", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/addBusinessAtrr", method = RequestMethod.POST)
+    ComResponse<Integer> addBusinessAtrr(@RequestBody @Validated DepartBusinessAttrVO departBusinessAttrVO) {
+        return departService.addBusinessAtrr(departBusinessAttrVO);
     }
 }

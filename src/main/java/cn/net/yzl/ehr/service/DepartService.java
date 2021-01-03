@@ -2,6 +2,7 @@ package cn.net.yzl.ehr.service;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.dto.DepartDto;
+import cn.net.yzl.ehr.vo.DepartBusinessAttrVO;
 import cn.net.yzl.ehr.vo.DepartUpdateVO;
 import cn.net.yzl.ehr.vo.DepartVO;
 
@@ -21,4 +22,7 @@ public interface DepartService {
     ComResponse<DepartDto> getById(Integer id);
 
     ComResponse<Integer> updateSortByIds(List<Integer> ids);
+
+
+    ComResponse<Integer> addBusinessAtrr(DepartBusinessAttrVO departBusinessAttrVO);
 }
