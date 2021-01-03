@@ -14,9 +14,7 @@ import java.util.List;
 @ApiModel(value = "DepartAttendRpItemInfoDto", description = "考勤奖惩信息表")
 public class DepartAttendRpItemInfoDto implements Serializable {
 
-    /**
-     * 部门id
-     */
+
     @ApiModelProperty(value = "奖惩项id", name = "attendRpItemId")
     private Integer attendRpItemId; // 奖惩项id
     @ApiModelProperty(value = "部门id", name = "attendRpItemId")

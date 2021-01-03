@@ -4,44 +4,59 @@ import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.dto.DepartAttendRuleDto;
 import cn.net.yzl.ehr.dto.PostDto;
+import cn.net.yzl.ehr.vo.attendRule.DepartAttendRuleElasticVO;
+import cn.net.yzl.ehr.vo.attendRule.DepartAttendRuleNoPunchVO;
+import cn.net.yzl.ehr.vo.attendRule.DepartAttendRuleNormalVO;
+import cn.net.yzl.ehr.vo.attendRule.DepartAttendRuleRobbedVO;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
-@FeignClient(name = "yzl-staff-db")
-//@FeignClient(value = "staff",url = "${fegin.db.url}")
+//@FeignClient(name = "yzl-staff-db")
+@FeignClient(value = "staff",url = "${fegin.db.url}")
 public interface AttendRuleFeginService {
 
 
+    @RequestMapping(value = "/conf/attendRule/normal/addOrUpdate", method = RequestMethod.POST, consumes = "application/json")
+    ComResponse<Integer> addOrUpdateNormal(@RequestBody @Validated DepartAttendRuleNormalVO departAttendRuleNormalVO);
+    @RequestMapping(value = "/conf/attendRule/robbed/addOrUpdate", method = RequestMethod.POST, consumes = "application/json")
+    ComResponse<Integer> addOrUpdateRobbed(@RequestBody @Validated DepartAttendRuleRobbedVO departAttendRuleRobbedVO) ;
+    @RequestMapping(value = "/conf/attendRule/elastic/addOrUpdate", method = RequestMethod.POST, consumes = "application/json")
+    ComResponse<Integer> addOrUpdateElastic(@RequestBody @Validated DepartAttendRuleElasticVO departAttendRuleElasticVO);
 
-    @ApiOperation(value = "考勤配置-更新", notes = "考勤配置-更新", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @RequestMapping(value = "/conf/attendRule/update", method = RequestMethod.POST, consumes = "application/json")
-    ComResponse<Integer> update(@RequestBody DepartAttendRuleDto departAttendRuleDto);
+    @RequestMapping(value = "/conf/attendRule/punch/addOrUpdate", method = RequestMethod.POST, consumes = "application/json")
+    ComResponse<Integer> addOrUpdatePunch(@RequestBody  DepartAttendRuleNoPunchVO departAttendRuleNoPunchVO);
 
-    @ApiOperation(value = "考勤配置-创建考勤规则", notes = "考勤配置-创建考勤规则", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @RequestMapping(value = "/conf/attendRule/addOrUpdate", method = RequestMethod.POST, consumes = "application/json")
-    ComResponse<Integer> addOrUpdate(@RequestBody List<DepartAttendRuleDto> departAttendRuleDto);
-
-    @ApiOperation(value = "考勤配置-根据部门获取考勤规则列表", notes = "考勤配置-根据部门获取考勤规则列表", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @RequestMapping(value = "/conf/attendRule/getByDepartIdAndTime", method = RequestMethod.GET)
-    public ComResponse<Page<DepartAttendRuleDto>> getByDepartIdAndTime(@RequestParam("departId") Integer departId, @RequestParam(value = "pageNo",defaultValue = "1") Integer pageNo,
-                                                                @RequestParam(value = "pageSize",defaultValue = "20") Integer pageSize,@RequestParam("time")String time) ;
+    @RequestMapping(value = "/conf/attendRule/getByDepartId", method = RequestMethod.GET)
+    public ComResponse<Page<DepartAttendRuleDto>> getByDepartId(@RequestParam("departId") Integer departId,
+                                                                @RequestParam("pageNo") Integer pageNo,
+                                                                @RequestParam("pageSize") Integer pageSize) ;
 
 
-    @ApiOperation(value = "考勤配置-根据部门获取考勤规则列表", notes = "考勤配置-根据部门获取考勤规则列表", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @RequestMapping(value = "/conf/attendRule/getByParams", method = RequestMethod.GET)
-    ComResponse<DepartAttendRuleDto> getByParams(@RequestParam("departId")Integer departId,@RequestParam("time") String time,@RequestParam("postId") Integer postId, @RequestParam("typeId")Integer typeId);
 
-    @ApiOperation(value = "考勤配置-获取岗位列表", notes = "考勤配置-获取岗位列表", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/conf/attendRule/getByDepartIdAndPostIdAndEnable", method = RequestMethod.GET)
+    public ComResponse<DepartAttendRuleDto> getByDepartIdAndPostIdAndEnable(@RequestParam("departId") Integer departId,@RequestParam("postId") Integer postId, @RequestParam("enable")Integer enable);
+
+
+
+
+
     @RequestMapping(value = "/conf/attendRule/getPostList", method = RequestMethod.GET)
-    ComResponse<List<PostDto>> getPostList(@RequestParam("departId") Integer departId);
+    public ComResponse<List<PostDto>> getPostList(@RequestParam("departId") Integer departId) ;
+
 }
