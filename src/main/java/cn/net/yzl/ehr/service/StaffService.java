@@ -10,6 +10,7 @@ import cn.net.yzl.ehr.pojo.StaffSwitchStatePo;
 import cn.net.yzl.ehr.pojo.StaffSwitchTalentPoolPo;
 import cn.net.yzl.ehr.vo.StaffParamsVO;
 import com.github.pagehelper.PageInfo;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -28,4 +29,6 @@ public interface StaffService {
     ComResponse<Integer> swtichStaffTalentPoolAccount(StaffSwitchTalentPoolPo staffSwitchTalentPoolPo);
 
     ComResponse<Integer> switchAccount(StaffSwitchStatePo staffSwitchStatePo);
+
+    ComResponse<String> resetPassword(String userNo,String creator);
 }

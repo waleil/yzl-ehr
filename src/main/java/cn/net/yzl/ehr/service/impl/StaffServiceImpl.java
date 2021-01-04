@@ -34,7 +34,6 @@ public class StaffServiceImpl implements StaffService {
 
     @Override
     public ComResponse<Page<StaffListDto>> getListByParams(StaffParamsVO staffParamsVO) {
-
         return staffFeginService.getListByParams(staffParamsVO);
     }
 
@@ -46,6 +45,11 @@ public class StaffServiceImpl implements StaffService {
     @Override
     public ComResponse<Integer> switchAccount(StaffSwitchStatePo staffSwitchStatePo) {
         return staffFeginService.switchAccount(staffSwitchStatePo);
+    }
+
+    @Override
+    public ComResponse<String> resetPassword(String userNo, String creator) {
+        return staffFeginService.resetPassword(userNo,creator);
     }
 
 }

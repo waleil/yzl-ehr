@@ -76,14 +76,19 @@ public class StaffController {
 
     @ApiOperation(value = "将员工加入/移出人才池", notes = "将员工加入/移出人才池")
     @RequestMapping(value = "/swtichStaffTalentPoolAccount", method = RequestMethod.POST)
-    ComResponse<Integer> swtichStaffTalentPoolAccount(StaffSwitchTalentPoolPo staffSwitchTalentPoolPo){
+    ComResponse<Integer> swtichStaffTalentPoolAccount(@RequestBody StaffSwitchTalentPoolPo staffSwitchTalentPoolPo){
         return staffService.swtichStaffTalentPoolAccount(staffSwitchTalentPoolPo);
     }
 
     @ApiOperation(value = "停用/启用员工账号", notes = "停用/启用员工账号")
     @RequestMapping(value = "/switchAccount", method = RequestMethod.POST)
-    ComResponse<Integer> switchAccount(StaffSwitchStatePo staffSwitchStatePo){
+    ComResponse<Integer> switchAccount(@RequestBody StaffSwitchStatePo staffSwitchStatePo){
         return staffService.switchAccount(staffSwitchStatePo);
     }
 
+    @ApiOperation(value = "重置员工密码", notes = "重置员工密码")
+    @RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
+    ComResponse<String> resetPassword(@RequestParam("userNo") String userNo,@RequestParam("creator") String creator){
+        return staffService.resetPassword(userNo,creator);
+    }
 }

@@ -50,4 +50,7 @@ public interface StaffFeginService {
 
     @RequestMapping(value = "/staff/switchAccount", method = RequestMethod.POST)
     ComResponse<Integer> switchAccount(@RequestBody StaffSwitchStatePo staffSwitchStatePo);
+
+    @RequestMapping(value = "/staff/resetPassword", method = RequestMethod.POST)
+    ComResponse<String> resetPassword(@RequestParam("userNo") String userNo,@RequestParam("creator") String creator);
 }
