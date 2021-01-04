@@ -15,10 +15,15 @@ public class AttendFalsePunishDto implements Serializable {
     /**
      * 惩罚方式：1.按旷工处理 2.扣日薪
      */
-    private Byte type;
+    private Integer type;
 
     /**
      * 扣日薪比例
      */
     private Double rate;
+
+    /**
+     * 奖惩规则名称
+     */
+    private String name;
 }
