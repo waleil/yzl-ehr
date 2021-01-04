@@ -6,6 +6,8 @@ import cn.net.yzl.ehr.dto.StaffBaseDto;
 import cn.net.yzl.ehr.dto.StaffDetailsDto;
 import cn.net.yzl.ehr.dto.StaffListDto;
 import cn.net.yzl.ehr.fegin.staff.StaffFeginService;
+import cn.net.yzl.ehr.pojo.StaffSwitchStatePo;
+import cn.net.yzl.ehr.pojo.StaffSwitchTalentPoolPo;
 import cn.net.yzl.ehr.service.StaffService;
 import cn.net.yzl.ehr.vo.StaffParamsVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,16 @@ public class StaffServiceImpl implements StaffService {
     public ComResponse<Page<StaffListDto>> getListByParams(StaffParamsVO staffParamsVO) {
 
         return staffFeginService.getListByParams(staffParamsVO);
+    }
+
+    @Override
+    public ComResponse<Integer> swtichStaffTalentPoolAccount(StaffSwitchTalentPoolPo staffSwitchTalentPoolPo) {
+        return staffFeginService.swtichStaffTalentPoolAccount(staffSwitchTalentPoolPo);
+    }
+
+    @Override
+    public ComResponse<Integer> switchAccount(StaffSwitchStatePo staffSwitchStatePo) {
+        return staffFeginService.switchAccount(staffSwitchStatePo);
     }
 
 }

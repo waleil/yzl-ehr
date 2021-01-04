@@ -31,6 +31,9 @@ public class DepartResumeServiceImpl implements DepartResumeService {
     @Override
     public ComResponse<List<DepartResumeInfoDto>> getByDepartId(Integer departId) {
         ComResponse<List<DepartResumeDto>>  result =  departResumeFeginService.getByDepartId(departId);
+        if(result==null){
+            return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
+        }
         List<DepartResumeDto> list = result.getData();
         if(list==null || list.size()<1){
             return ComResponse.nodata();
@@ -117,10 +120,10 @@ public class DepartResumeServiceImpl implements DepartResumeService {
             return ComResponse.fail(ResponseCodeEnums.DEPART_NOEXIT_ERROR_CODE.getCode(),ResponseCodeEnums.DEPART_NOEXIT_ERROR_CODE.getMessage());
         }
         ComResponse<Integer> result=departResumeFeginService.update(departResumeItemPo);
-        if(result == null){
+        if(result == null || result.getData()==null ){
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
-        }else if(result.getData()==null || result.getData()<1){
-            return ComResponse.nodata();
+        }else if(result.getData()<1){
+            return ComResponse.fail(ResponseCodeEnums.NO_MATCHING_RESULT_CODE.getCode(),ResponseCodeEnums.NO_MATCHING_RESULT_CODE.getMessage());
         }
 
         //岗位判断
@@ -133,7 +136,7 @@ public class DepartResumeServiceImpl implements DepartResumeService {
         if (result == null || result.getData() == null ) {
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(), ResponseCodeEnums.API_ERROR_CODE.getMessage());
         }else if(result.getData()<1){
-                return ComResponse.fail(ResponseCodeEnums.NO_MATCHING_RESULT_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
+            return ComResponse.fail(ResponseCodeEnums.NO_MATCHING_RESULT_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
         }
         return ComResponse.success();
     }
