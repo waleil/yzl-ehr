@@ -51,7 +51,7 @@ public class DepartTrainingRuleController {
             @ApiImplicitParam(name = "updator", value = "更改人编号", required = true,  paramType = "query")
     })
     @RequestMapping(value = "/deleteById", method = RequestMethod.POST)
-    ComResponse<Integer> deleteById(@RequestParam("id") @NotNull @Min(0) Integer id, @RequestParam("updator") @NotBlank String updator) {
+    ComResponse<Integer> deleteById( @NotNull @Min(0) Integer id, @RequestParam("updator") @NotBlank String updator) {
         return departTrainingRuleService.deleteById(id,updator);
     }
 

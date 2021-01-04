@@ -5,9 +5,7 @@ import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.dto.StaffBaseDto;
 import cn.net.yzl.ehr.dto.StaffDetailsDto;
 import cn.net.yzl.ehr.dto.StaffListDto;
-import cn.net.yzl.ehr.pojo.DingTalkUserPo;
-import cn.net.yzl.ehr.pojo.StaffDepartPostPo;
-import cn.net.yzl.ehr.pojo.StaffPo;
+import cn.net.yzl.ehr.pojo.*;
 import cn.net.yzl.ehr.vo.StaffParamsVO;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -46,4 +44,10 @@ public interface StaffFeginService {
     @ApiOperation(value = "模糊查询员工列表", notes = "模糊查询员工列表")
     @RequestMapping(value = "/staff/getListByParams", method = RequestMethod.POST)
     ComResponse<Page<StaffListDto>> getListByParams(@RequestBody StaffParamsVO staffParamsVO);
+
+    @RequestMapping(value = "/staff/swtichStaffTalentPoolAccount", method = RequestMethod.POST)
+    ComResponse<Integer> swtichStaffTalentPoolAccount(@RequestBody StaffSwitchTalentPoolPo staffSwitchTalentPoolPo);
+
+    @RequestMapping(value = "/staff/switchAccount", method = RequestMethod.POST)
+    ComResponse<Integer> switchAccount(@RequestBody StaffSwitchStatePo staffSwitchStatePo);
 }

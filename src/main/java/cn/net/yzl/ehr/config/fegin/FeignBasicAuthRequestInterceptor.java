@@ -22,8 +22,8 @@ public class FeignBasicAuthRequestInterceptor implements RequestInterceptor {
                 .currentRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
         Enumeration<String> headerNames = request.getHeaderNames();
-        requestTemplate.header("appid","yzl-ehr");
-//        requestTemplate.header("appid","yzl-staff-api");
+//        requestTemplate.header("appid","yzl-ehr");
+        requestTemplate.header("appid","yzl-staff-api");
         if (headerNames != null) {
             String traceId = request.getHeader("traceId");
             String spanId = request.getHeader("spanId");

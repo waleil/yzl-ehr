@@ -50,7 +50,7 @@ public class PostController {
             @ApiImplicitParam(name = "departId", value = "部门编号", required = true, paramType = "query")
     )
     @RequestMapping(value = "/getPostList", method = RequestMethod.GET)
-    public ComResponse<List<PostDto>> getPostList(@RequestParam("departId") @NotNull @Min(0) Integer departId) {
+    public ComResponse<List<PostDto>> getPostList( @NotNull @Min(0) Integer departId) {
         return postService.getPostList(departId);
     }
 
@@ -59,7 +59,7 @@ public class PostController {
     @ApiImplicitParams(
             @ApiImplicitParam(name = "id", value = "岗位编号", required = true, paramType = "query")
     )
-    public ComResponse<PostDto> getPostById(@RequestParam("id") @NotNull @Min(0) Integer id) {
+    public ComResponse<PostDto> getPostById( @NotNull @Min(0) Integer id) {
         return postService.getPostById(id);
     }
 
@@ -69,7 +69,7 @@ public class PostController {
         return postService.updatePost(postVo,staffNo);
     }
 
-    @ApiOperation(value = "删除岗位", notes = "删除岗位", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "删除岗位", notes = "删除岗位", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "岗位编号", required = true, paramType = "query"),
     })
@@ -92,9 +92,6 @@ public class PostController {
     }
 
     @ApiOperation(value = "获取部门岗位级别列表", notes = "获取部门岗位级别列表", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @ApiImplicitParams(
-            @ApiImplicitParam(name = "departId", value = "部门编号", required = true, paramType = "query")
-    )
     @RequestMapping(value = "/getPostLevelListByDepartId", method = RequestMethod.GET)
     public ComResponse<List<PostLevelListDto>> getPostLevelListByDepartId(@RequestParam("departId") @NotNull @Min(0) Integer departId) {
         return postService.getPostLevelListByDepartId(departId);
@@ -105,7 +102,7 @@ public class PostController {
             @ApiImplicitParam(name = "postId", value = "岗位编号", required = true, paramType = "query")
     )
     @RequestMapping(value = "/getPostLevelListByPostId", method = RequestMethod.GET)
-    ComResponse<PostLevelListDto> getPostLevelListByPostId(@RequestParam("postId") @NotNull @Min(0) Integer postId){
+    ComResponse<PostLevelListDto> getPostLevelListByPostId( @NotNull @Min(0) Integer postId){
         return postService.getPostLevelListByPostId(postId);
     }
 
@@ -114,7 +111,7 @@ public class PostController {
     )
     @ApiOperation(value = "获取岗位级别信息", notes = "获取岗位级别信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/getPostLevelById", method = RequestMethod.GET)
-    public ComResponse<PostLevelDto> getPostLevelById(@RequestParam("id") @Min(1) Integer id) {
+    public ComResponse<PostLevelDto> getPostLevelById( @Min(1) Integer id) {
         return postService.getPostLevelById(id);
     }
 

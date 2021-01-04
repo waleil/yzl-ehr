@@ -1,20 +1,16 @@
-package cn.net.yzl.ehr.vo;
+package cn.net.yzl.ehr.pojo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
 
 @Data
-@ApiModel(value = "DepartAttendVo", description = "部门假勤配置")
-public class DepartAttendVo implements Serializable {
+@ApiModel(value = "DepartAttendPojo", description = "部门假勤配置")
+public class DepartAttendPo implements Serializable {
 
     @ApiModelProperty(value = "假勤类型id", name = "id")
 //    @NotNull
@@ -25,8 +21,6 @@ public class DepartAttendVo implements Serializable {
      * 部门id
      */
     @ApiModelProperty(value = "部门id", name = "departId")
-    @NotNull
-    @Min(0)
     private Integer departId;
 
     @ApiModelProperty(value = "是否启用(0代表否,1代表是,1也代表立即生效)",name = "enable")
@@ -39,6 +33,12 @@ public class DepartAttendVo implements Serializable {
     private Integer effectDay;
 
 
+//    /**
+//     * 名称
+//     */
+//    @ApiModelProperty(value = "惩罚名称", name = "punishName")
+////    @NotBlank
+//    private String punishName;
 
     /**
      * 工龄左边区间
@@ -53,13 +53,10 @@ public class DepartAttendVo implements Serializable {
     private Integer workRight;
 
     /**
-     * 假期天数
+     * 天数
      */
-    @ApiModelProperty(value = "假期天数", name = "days")
+    @ApiModelProperty(value = "天数", name = "days")
     private Integer days;
-
-    @ApiModelProperty(value = "日薪发放百分比",name = "daySalaryRate")
-    private Double daySalaryRate;
 
     /**
      * 超过假期天数
@@ -68,36 +65,42 @@ public class DepartAttendVo implements Serializable {
     private Double leaveDays;
 
 
-    @ApiModelProperty(value = "假勤类型字典表id",name = "sysDictDataId")
-    private Integer sysDictDataId;
 
+    @ApiModelProperty(value = "字典表id",name = "sysDictDataId")
+    private Integer sysDictDataId;
+    @ApiModelProperty(value ="假勤名称",name = "falseName")
+    private String falseName;
+
+    @ApiModelProperty(value = "日薪发放百分比",name = "daySalaryRate")
+    private Double daySalaryRate;
+
+
+    @ApiModelProperty(value = "假勤配置惩罚规则id",name = "falsePunishId")
+    private Integer falsePunishId;
     /**
      * 惩罚方式：1.按旷工处理 2.扣日薪
      */
     @ApiModelProperty(value = "惩罚类型：1.按旷工处理 2.扣日薪", name = "type")
-    @NotNull
-    @Min(1)
-    @Max(2)
     private Integer type;
+//    /**
+//     * 扣日薪比例
+//     */
+//    @ApiModelProperty(value = "扣日薪比例", name = "rate")
+//    private Double rate;
 
-    @ApiModelProperty(value = "假勤配置惩罚规则id",name = "falsePunishId")
-    private Integer falsePunishId;
 
-    /**
-     * 扣日薪比例
-     */
-    @ApiModelProperty(value = "扣日薪比例", name = "rate")
-    private Double rate;
-
-    @ApiModelProperty(value = "修改时间",name ="updateDate" )
-    private Date updateDate;
-
-    @NotNull
     @ApiModelProperty(value = "创建人编号",name = "creator")
     private String creator;
 
-    @NotNull
     @ApiModelProperty(value = "修改人编号",name = "updator")
     private String updator;
+
+    @ApiModelProperty(value = "创建时间",name ="createTime" )
+    private Date createTime;
+
+    @ApiModelProperty(value = "修改时间",name ="updateDate" )
+    private Date updateTime;
+
+
 
 }

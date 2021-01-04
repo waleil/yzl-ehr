@@ -7,6 +7,7 @@ import lombok.Data;
 import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
@@ -31,7 +32,7 @@ public class AttendFalsePunishPo implements Serializable {
     @NotNull
     @Min(1)
     @Max(2)
-    private Byte type;
+    private Integer type;
 
     /**
      * 扣日薪比例
@@ -40,13 +41,23 @@ public class AttendFalsePunishPo implements Serializable {
     private Double rate;
 
     /**
+     * 惩罚方式名称
+     */
+    @NotEmpty
+    @NotNull
+    @ApiModelProperty(value = "惩罚方式名称",name = "name")
+    private String name;
+
+    /**
      * 删除标志（0.未删除1.已删除）
      */
     @ApiModelProperty(value = "删除标志（0.未删除1.已删除）", name = "isDel")
     @NotNull
     @Min(0)
     @Max(1)
-    private Byte isDel;
+    private Integer isDel;
+
+
 
     private static final long serialVersionUID = 1L;
 }
