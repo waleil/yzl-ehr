@@ -22,7 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/departAttendFalse")
 @Api(value = "假勤配置服务", tags = {"假勤配置服务"})
-public class DepartAttendController {
+public class DepartAttendFalseController {
 
     @Autowired
     private DepartAttendFeginService departAttendFeginService;
