@@ -23,12 +23,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.text.ParseException;
 import java.util.List;
 
 @RestController
 @RequestMapping("/conf/attendRule")
 @Api(value = "配置模块", tags = {"配置模块"})
+@Validated
 public class AttendRuleController {
 
     @Autowired
@@ -64,8 +66,8 @@ public class AttendRuleController {
             @ApiImplicitParam(name = "pageNo", value = "第几页",defaultValue ="1",required = true, dataType = "Int", paramType = "query"),
             @ApiImplicitParam(name = "pageSize", value = "页数量", defaultValue ="20",required = true, dataType = "Int", paramType = "query")
     })
-    public ComResponse<Page<DepartAttendRuleDto>> getByDepartId(@Min(1) Integer departId, @Min(1) Integer pageNo,
-                                                                @Min(1) Integer pageSize) throws ParseException {
+    public ComResponse<Page<DepartAttendRuleDto>> getByDepartId(@Min(1) @NotNull Integer departId, @Min(1) @NotNull Integer pageNo,
+                                                                @Min(1) @NotNull Integer pageSize) throws ParseException {
         return attendRuleService.getByDepartId(departId,pageNo,pageSize);
     }
 
@@ -78,7 +80,7 @@ public class AttendRuleController {
             @ApiImplicitParam(name = "enable", value = "0:否,1:是(1:也表示立即生效的)",required = true, dataType = "Int", paramType = "query"),
             @ApiImplicitParam(name = "postId", value = "岗位id",required = true, dataType = "Int", paramType = "query")
     })
-    public ComResponse<DepartAttendRuleDto> getByDepartIdAndPostIdAndEnable(@Min(1) Integer departId,@Min(1) Integer postId, @Min(0) @Max(1) Integer enable)  {
+    public ComResponse<DepartAttendRuleDto> getByDepartIdAndPostIdAndEnable(@Min(1) @NotNull Integer departId,@Min(1) @NotNull Integer  postId, @Min(0) @Max(1) @NotNull Integer enable)  {
         return attendRuleService.getByDepartIdAndPostIdAndEnable(departId,postId,enable);
     }
 
@@ -91,7 +93,7 @@ public class AttendRuleController {
             @ApiImplicitParam(name = "departId", value = "部门id", required = true, dataType = "Int", paramType = "query")
 
     })
-    public ComResponse<List<PostDto>> getPostList(@Min(1) Integer departId) {
+    public ComResponse<List<PostDto>> getPostList(@Min(1) @NotNull Integer departId) {
         return attendRuleService.getPostList(departId);
     }
 

@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Repository
-@FeignClient(name = "yzl-staff-api")
-//@FeignClient(value = "post",url = "${fegin.api.url}")
+//@FeignClient(name = "yzl-staff-api")
+@FeignClient(value = "post",url = "${fegin.api.url}")
 @RefreshScope
 public interface PostFeginMapper {
 

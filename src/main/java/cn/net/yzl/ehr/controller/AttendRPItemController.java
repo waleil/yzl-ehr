@@ -24,7 +24,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/conf/attendRP")
 @Api(value = "配置模块", tags = {"配置模块"})
-@Valid
+@Validated
 public class AttendRPItemController {
 
     @Autowired
@@ -53,7 +53,7 @@ public class AttendRPItemController {
     })
     @ApiOperation(value = "考勤配置-考勤奖惩项-根据部门和启用状态获取考勤奖惩项信息", notes = "考勤配置-考勤奖惩项-根据部门和启用状态获取考勤奖惩项信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/getByDepartId", method = RequestMethod.GET)
-    public ComResponse<List<DepartAttendRpItemInfoDto>> getByDepartId(@Min(1) Integer departId, @Min(0) @Max(1) Integer enable) {
+    public ComResponse<List<DepartAttendRpItemInfoDto>> getByDepartId(@Min(1) @NotNull Integer departId, @Min(0) @Max(1) @NotNull Integer enable) {
         return attendRPItemService.getByDepartId(departId, enable);
     }
 

@@ -23,7 +23,8 @@ public class DepartAttendRpItemInfoDto implements Serializable {
     private String name;
     @ApiModelProperty(value = "总共几次", name = "times")
     private Integer times; // 几次
-
+    @ApiModelProperty(value = "几日后生效", name = "days")
+    private Integer days; // 几次
     @ApiModelProperty(value = "考勤奖惩项扣款信息表", name = "attendRpDtoList")
     private List<DepartAttendRpDto> attendRpDtoList;
 

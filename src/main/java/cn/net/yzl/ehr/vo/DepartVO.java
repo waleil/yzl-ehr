@@ -25,6 +25,7 @@ public class DepartVO implements Serializable {
 
     @Min(value = 1)
     @ApiModelProperty(value = "父id", name = "pid",required = true)
+    @NotNull
     private Integer pid;
     @ApiModelProperty(value = "负责人工号", name = "leaderNo")
     private String leaderNo;

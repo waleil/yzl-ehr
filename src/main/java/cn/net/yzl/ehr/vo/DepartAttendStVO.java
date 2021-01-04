@@ -21,14 +21,16 @@ public class DepartAttendStVO implements Serializable {
      */
     @Min(1)
     @ApiModelProperty(value = "部门id", name = "id")
+    @NotNull
     private Integer departId;
 
     /**
      * 结算日(每个月几号)
      */
     @Min(1)
-    @Max(31)
-    @ApiModelProperty(value = "部门id", name = "id")
+    @Max(28)
+    @NotNull
+    @ApiModelProperty(value = "结算日(每个月几号)", name = "day")
     private Byte day;
 
 }

@@ -5,10 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
 
 /**
  * depart_attend_rule
@@ -39,13 +36,16 @@ public class DepartAttendRuleNormalVO extends DepartAttendRuleBaseVO {
     private String restEndTime;
     @ApiModelProperty(value="迟到规则(首次打卡时间大于上班时间,单位分钟)",name="lateTime",required = true)
     @Min(1)
+    @NotNull
     private Integer lateTime;
     @ApiModelProperty(value="早退规则(末次打卡时间小于下班时间,单位分钟)",name="leaveTime",required = true)
     @Min(1)
+    @NotNull
     private Integer leaveTime;
     @ApiModelProperty(value="是否大小周(0:否,1:是)",name="weekFlag",required = true)
     @Min(0)
     @Max(1)
+    @NotNull
     private Integer weekFlag;
     @ApiModelProperty(value="大小周字节",name="weekBit",hidden = true)
     private Integer weekBit;

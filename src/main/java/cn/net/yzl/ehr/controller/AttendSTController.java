@@ -14,6 +14,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 @RestController
 @RequestMapping("/conf/attendST")
@@ -37,7 +38,7 @@ public class AttendSTController {
             @ApiImplicitParam(name = "departId", value = "部门id", required = true, dataType = "Int", paramType = "query")
     })
     @RequestMapping(value = "/getByDepartId", method = RequestMethod.GET)
-    ComResponse<DepartAttendStDto> getByDepartId(@Min(1) Integer departId) {
+    ComResponse<DepartAttendStDto> getByDepartId(@Min(1) @NotNull Integer departId) {
         return attendSTService.getByDepartId(departId);
     }
 }

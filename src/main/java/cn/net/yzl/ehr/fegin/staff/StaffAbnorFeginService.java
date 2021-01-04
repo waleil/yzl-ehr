@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 @Repository
-@FeignClient(name = "yzl-staff-db")
+//@FeignClient(name = "yzl-staff-db")
+@FeignClient(value = "staff",url = "${fegin.db.url}")
 public interface StaffAbnorFeginService {
 
     @RequestMapping(value = "/abnor/updateStaffChangeStatus", method = RequestMethod.POST)

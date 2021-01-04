@@ -45,7 +45,7 @@ public class DepartController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "departId", value = "部门id", required = true, dataType = "Int", paramType = "query")
     })
-    ComResponse<List<DepartDto>> getChildById(@Min(1)  Integer departId) {
+    ComResponse<List<DepartDto>> getChildById(@Min(1) @NotNull Integer departId) {
         return departService.getChildById(departId);
     }
 
@@ -69,7 +69,7 @@ public class DepartController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "departId", value = "部门id", required = true, dataType = "Int", paramType = "query")
     })
-    ComResponse<String> del(@Min(1) Integer departId) {
+    ComResponse<String> del(@Min(1) @NotNull Integer departId) {
         return departService.del(departId);
     }
 
@@ -78,7 +78,7 @@ public class DepartController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "level", value = "层级(1:集团,2:表示公司,3:事业部,4:表示中心)", required = true, dataType = "Int", paramType = "query")
     })
-    ComResponse<List<DepartDto>> getChildByLevel(@Min(1) Integer level) {
+    ComResponse<List<DepartDto>> getChildByLevel(@Min(1) @NotNull Integer level) {
         return departService.getChildByLevel(level);
     }
 
@@ -87,7 +87,7 @@ public class DepartController {
             @ApiImplicitParam(name = "departId", value = "部门id", required = true, dataType = "Int", paramType = "query")
     })
     @RequestMapping(value = "/getById", method = RequestMethod.GET)
-    ComResponse<DepartDto> getById(@Min(1) Integer departId) {
+    ComResponse<DepartDto> getById(@Min(1) @NotNull Integer departId) {
         return departService.getById(departId);
     }
 
