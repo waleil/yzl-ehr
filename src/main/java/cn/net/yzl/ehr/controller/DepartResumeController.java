@@ -47,7 +47,7 @@ public class DepartResumeController {
             @ApiImplicitParam(name = "departId", value = "部门编号", required = true, paramType = "query")
     )
     @RequestMapping(value = "/getByDepartId", method = RequestMethod.GET)
-    ComResponse<List<DepartResumeInfoDto>> getByDepartId(@RequestParam("departId") @Min(1) Integer departId) {
+    ComResponse<List<DepartResumeInfoDto>> getByDepartId( @Min(1) Integer departId) {
         return departResumeService.getByDepartId(departId);
     }
 
@@ -56,7 +56,7 @@ public class DepartResumeController {
            @ApiImplicitParam(name = "postId", value = "岗位编号", required = true, paramType = "query")
    )
     @RequestMapping(value = "/getByPostId", method = RequestMethod.GET)
-    ComResponse<List<DepartResumeDto>> getByPostId(@RequestParam("postId") @Min(1) Integer postId) {
+    ComResponse<List<DepartResumeDto>> getByPostId( @Min(1) Integer postId) {
         return departResumeService.getByPostId(postId);
     }
 

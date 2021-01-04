@@ -6,6 +6,8 @@ import cn.net.yzl.ehr.dto.StaffBaseDto;
 import cn.net.yzl.ehr.dto.StaffDetailsDto;
 import cn.net.yzl.ehr.dto.StaffListDto;
 import cn.net.yzl.ehr.pojo.StaffPo;
+import cn.net.yzl.ehr.pojo.StaffSwitchStatePo;
+import cn.net.yzl.ehr.pojo.StaffSwitchTalentPoolPo;
 import cn.net.yzl.ehr.vo.StaffParamsVO;
 import com.github.pagehelper.PageInfo;
 
@@ -22,4 +24,8 @@ public interface StaffService {
     ComResponse<List<StaffBaseDto>> getByParams(String params);
 
     ComResponse<Page<StaffListDto>> getListByParams(StaffParamsVO staffParamsVO);
+
+    ComResponse<Integer> swtichStaffTalentPoolAccount(StaffSwitchTalentPoolPo staffSwitchTalentPoolPo);
+
+    ComResponse<Integer> switchAccount(StaffSwitchStatePo staffSwitchStatePo);
 }
