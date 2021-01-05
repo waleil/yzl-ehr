@@ -1,28 +1,39 @@
 package cn.net.yzl.ehr.pojo;
 
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Data
-public class DepartSocialInfoPo implements Serializable {
+@ApiModel(value = "DepartSocialInfoPo", description = "社保信息配置详情")
+public class DepartSocialInfoPo implements Serializable{
 
+    @ApiModelProperty(value = "主键", name = "id")
     private Integer id;
-    private Integer socialId;
-    @NotNull(message = "缴纳社保信息id不能为空")
-    private Integer socialItemId;
-    @NotNull(message = "社保项目名称不能为空")
-    @NotEmpty(message = "社保项目名称不能为空")
-    private String name;
-    @NotNull(message = "个人缴纳不能为空")
-    private Double person;
-    @NotNull(message = "公司缴纳不能为空")
-    private Double company;
-    private Integer isDel;
-    @NotNull(message = "缴纳开始时间不能为空")
-    private Integer checkFlag;
 
+    @ApiModelProperty(value = "社保配置id", name = "socialId")
+    private Integer socialId;
+
+    @ApiModelProperty(value = "字典表社保类型id", name = "sysDictDataId")
+    private Integer sysDictDataId;
+
+//    @ApiModelProperty(value = "主键",name = "id")
+//    private String name;
+
+    @ApiModelProperty(value = "个人缴纳", name = "person")
+    @Min(0)
+    private Double person;
+
+    @ApiModelProperty(value = "公司缴纳", name = "company")
+    @Min(0)
+    private Double company;
+
+//    @ApiModelProperty(value = "主键",name = "id")
+//    private Integer isDel;
 }
