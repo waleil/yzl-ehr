@@ -14,7 +14,7 @@ import java.util.List;
 
 @Data
 @ApiModel(value = "DepartSocialPo", description = "社保信息")
-public class DepartSocialPo implements Serializable{
+public class DepartSocialPo implements Serializable {
 
     @ApiModelProperty(value = "主键id(新增没有值,编辑时有值)",name = "id")
     private Integer id;
@@ -62,6 +62,9 @@ public class DepartSocialPo implements Serializable{
 
     @ApiModelProperty(value = "生效时间(前端不需要赋值)",name = "effectTime")
     private LocalDate effectTime;
+
+    @ApiModelProperty(value = "修改之前的id",name = "editBeforeId")
+    private Integer editBeforeId;
 
     @ApiModelProperty(value = "创建人",name = "creator")
     @NotNull

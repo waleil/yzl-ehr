@@ -64,6 +64,9 @@ public class DepartSocialVo implements Serializable {
     @ApiModelProperty(value = "生效时间(前端不需要赋值)",name = "effect_time")
     private LocalDate effectTime;
 
+    @ApiModelProperty(value = "修改之前的id",name = "editBeforeId")
+    private Integer editBeforeId;
+
     @ApiModelProperty(value = "创建人",name = "creator")
     @NotNull
     private String creator;

@@ -20,6 +20,9 @@ public class DepartSocialInfoDto implements Serializable {
     @ApiModelProperty(value = "社保修改后的数据",name = "afterDepartSocialPo")
     private DepartSocialPo afterDepartSocialPo;
 
+    @ApiModelProperty(value = "社保种类",name = "sysDictDataDtos")
+    List<SysDictDataDto> sysDictDataDtos;
+
     @ApiModelProperty(value = "岗位集合列表",name = "postDtos")
     List<PostDto> postDtos;
 
