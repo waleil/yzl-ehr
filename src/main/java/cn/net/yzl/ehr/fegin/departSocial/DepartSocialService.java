@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 //@FeignClient(name = "departSocial",url = "${fegin.api.url}/departSocial")
-//@FeignClient(value = "staff",url = "${fegin.db.url}")
-@FeignClient("yzl-staff-db")
+@FeignClient(value = "staff",url = "${fegin.db.url}")
+//@FeignClient("yzl-staff-db")
 public interface DepartSocialService {
 
 
