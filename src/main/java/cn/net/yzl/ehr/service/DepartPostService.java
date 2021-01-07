@@ -18,7 +18,9 @@ public interface DepartPostService {
 
     public ComResponse<List<DepartPostDto>> getListByDepartId(Integer departId);
 
-    public ComResponse<DepartPostDto> getPostById( Integer departId, Integer postId);
+    public ComResponse<DepartPostDto> getPostByPostId( Integer departId, Integer postId);
+
+    public ComResponse<DepartPostDto> getPostById( Integer id);
 
     ComResponse<String> updatePost(DepartPostUpdatePo post,String staffNo);
 

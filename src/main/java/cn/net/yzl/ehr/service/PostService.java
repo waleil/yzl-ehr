@@ -20,7 +20,7 @@ public interface PostService {
 
     ComResponse<PostDto> getById(Integer id);
 
-    ComResponse<Integer> saveUpdate(PostItemPo postItemPo,String staffNo);
+    ComResponse<String> saveUpdate(PostItemPo postItemPo,String staffNo);
 
-    ComResponse<Integer> selectStaffCountForPost(Integer postId);
+    ComResponse<String> selectStaffCountForPost(Integer postId);
 }

@@ -12,8 +12,8 @@ import java.util.List;
 @ApiModel(value = "AreaPostDto",description = "岗位和缴纳地区信息")
 public class AreaPostDto implements Serializable {
 
-    @ApiModelProperty(value = "岗位集合",name = "postDtos")
-    List<PostDto> postDtos;
+    @ApiModelProperty(value = "岗位集合",name = "departPostDtoList")
+    List<DepartPostDto> departPostDtoList;
     @ApiModelProperty(value = "缴纳地区集合",name = "areaPoList")
     List<AreaPo> areaPoList;
 }

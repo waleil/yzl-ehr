@@ -46,8 +46,21 @@ public class DepartPostServiceImpl implements DepartPostService {
     }
 
     @Override
-    public ComResponse<DepartPostDto> getPostById(Integer departId, Integer postId) {
-        ComResponse<DepartPostDto> result = departPostMapper.getPostById(departId, postId);
+    public ComResponse<DepartPostDto> getPostByPostId(Integer departId, Integer postId) {
+        ComResponse<DepartPostDto> result = departPostMapper.getPostByPostId(departId, postId);
+        if(result==null){
+            return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
+        }else if(result.getCode()==200 &&  result.getData()==null){
+            return ComResponse.nodata();
+        }else if(result.getCode()!=200){
+            return ComResponse.fail(result.getCode(),result.getMessage());
+        }
+        return result;
+    }
+
+    @Override
+    public ComResponse<DepartPostDto> getPostById(Integer id) {
+        ComResponse<DepartPostDto> result = departPostMapper.getPostById(id);
         if(result==null){
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
         }else if(result.getCode()==200 &&  result.getData()==null){

@@ -27,9 +27,11 @@ public interface DepartPostFeginMapper {
     @RequestMapping(value = "/departPost/getListByDepartId", method = RequestMethod.GET)
     public ComResponse<List<DepartPostDto>> getListByDepartId(@RequestParam("departId") Integer departId);
 
-    @RequestMapping(value = "/departPost/getPostById", method = RequestMethod.GET)
-    public ComResponse<DepartPostDto> getPostById(@RequestParam("departId") Integer departId,@RequestParam("postId") Integer postId);
+    @RequestMapping(value = "/departPost/getPostByPostId", method = RequestMethod.GET)
+    public ComResponse<DepartPostDto> getPostByPostId(@RequestParam("departId") Integer departId,@RequestParam("postId") Integer postId);
 
+    @RequestMapping(value = "/departPost/getPostById", method = RequestMethod.GET)
+    public ComResponse<DepartPostDto> getPostById(@RequestParam("id")  Integer id) ;
 
     @RequestMapping(value = "/departPost/updatePost", method = RequestMethod.POST, consumes = "application/json")
     ComResponse<Integer> updatePost(@RequestBody DepartPostUpdatePo post);
@@ -37,4 +39,6 @@ public interface DepartPostFeginMapper {
 
     @RequestMapping(value = "/departPost/deletePost", method = RequestMethod.GET)
     ComResponse<Integer> delete(@RequestParam("id")  Integer id,@RequestParam("staffNo") String staffNo) ;
+
+
 }
