@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.controller;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.dto.DepartPostDto;
 import cn.net.yzl.ehr.pojo.DepartPostPo;
 import cn.net.yzl.ehr.pojo.DepartPostUpdatePo;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -29,8 +31,8 @@ public class DepartPostController {
 
     @ApiOperation(value = "部门下新建岗位", notes = "部门下新建岗位", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/addDepartPost", method = RequestMethod.POST)
-    ComResponse<String> addPost(@RequestBody @Validated DepartPostPo departPostPo) {
-        return departPostService.addPost(departPostPo);
+    ComResponse<String> addPost(@RequestBody @Validated DepartPostPo departPostPo,@CurrentStaffNo @ApiIgnore String staffNo) {
+        return departPostService.addPost(departPostPo,staffNo);
     }
 
     @ApiOperation(value = "获取部门下岗位列表", notes = "获取岗位列表", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
@@ -51,13 +53,13 @@ public class DepartPostController {
 
     @ApiOperation(value = "更新岗位信息", notes = "更新", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/updatePost", method = RequestMethod.POST, consumes = "application/json")
-    ComResponse<String> updatePost(@RequestBody @Validated DepartPostUpdatePo post) {
-        return departPostService.updatePost(post);
+    ComResponse<String> updatePost(@RequestBody @Validated DepartPostUpdatePo post, @CurrentStaffNo @ApiIgnore String staffNo) {
+        return departPostService.updatePost(post,staffNo);
     }
 
     @ApiOperation(value = "删除岗位", notes = "删除岗位", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/deletePost", method = RequestMethod.POST)
-    ComResponse<String> delete(@RequestParam("id") @NotNull @Min(0) Integer id, @RequestParam("staffNo") @NotBlank String staffNo) {
+    ComResponse<String> delete(@RequestParam("id") @NotNull @Min(0) Integer id, @CurrentStaffNo @ApiIgnore String staffNo) {
         return departPostService.delete(id,staffNo);
     }
 

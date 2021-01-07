@@ -21,20 +21,20 @@ import java.util.List;
 @RefreshScope
 public interface DepartPostFeginMapper {
 
-    @RequestMapping(value = "/addDepartPost", method = RequestMethod.POST)
+    @RequestMapping(value = "/departPost/addDepartPost", method = RequestMethod.POST)
     ComResponse<Integer> addPost(@RequestBody DepartPostPo departPostPo) ;
 
-    @RequestMapping(value = "/getListByDepartId", method = RequestMethod.GET)
-    public ComResponse<List<DepartPostDto>> getListByDepartId(Integer departId);
+    @RequestMapping(value = "/departPost/getListByDepartId", method = RequestMethod.GET)
+    public ComResponse<List<DepartPostDto>> getListByDepartId(@RequestParam("departId") Integer departId);
 
-    @RequestMapping(value = "/getPostById", method = RequestMethod.GET)
+    @RequestMapping(value = "/departPost/getPostById", method = RequestMethod.GET)
     public ComResponse<DepartPostDto> getPostById(@RequestParam("departId") Integer departId,@RequestParam("postId") Integer postId);
 
 
-    @RequestMapping(value = "/updatePost", method = RequestMethod.POST, consumes = "application/json")
+    @RequestMapping(value = "/departPost/updatePost", method = RequestMethod.POST, consumes = "application/json")
     ComResponse<Integer> updatePost(@RequestBody DepartPostUpdatePo post);
 
 
-    @RequestMapping(value = "/deletePost", method = RequestMethod.POST)
+    @RequestMapping(value = "/departPost/deletePost", method = RequestMethod.POST)
     ComResponse<Integer> delete(@RequestParam("id")  Integer id,@RequestParam("staffNo") String staffNo) ;
 }

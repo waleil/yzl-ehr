@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -26,12 +27,12 @@ public interface PostFeginMapper {
 
 
     @RequestMapping(value = "/post/getPostById", method = RequestMethod.GET)
-    public ComResponse<PostDto> getPostById(@NotNull @Min(1) Integer id);
+    public ComResponse<PostDto> getPostById(@RequestParam("id") Integer id);
 
 
     @RequestMapping(value = "/post/saveUpdatePost", method = RequestMethod.POST,consumes = "application/json")
     ComResponse<Integer> saveUpdatePost(@RequestBody  PostItemPo itemPo) ;
 
-    @RequestMapping(value = "/post/cancelCheck", method = RequestMethod.GET)
-    ComResponse<Integer> cancelCheck(@NotNull @Min(1) Integer postId);
+    @RequestMapping(value = "/post/getStaffCountForPost", method = RequestMethod.GET)
+    ComResponse<Integer> cancelCheck(@RequestParam("postId") Integer postId);
 }
