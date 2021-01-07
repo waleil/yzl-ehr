@@ -3,6 +3,7 @@ package cn.net.yzl.ehr.controller;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.dto.DepartAttendRuleDto;
+import cn.net.yzl.ehr.dto.DepartPostDto;
 import cn.net.yzl.ehr.dto.PostDto;
 import cn.net.yzl.ehr.service.AttendRuleService;
 import cn.net.yzl.ehr.vo.attendRule.DepartAttendRuleElasticVO;
@@ -93,7 +94,7 @@ public class AttendRuleController {
             @ApiImplicitParam(name = "departId", value = "部门id", required = true, dataType = "Int", paramType = "query")
 
     })
-    public ComResponse<List<PostDto>> getPostList(@Min(1) @NotNull Integer departId) {
+    public ComResponse<List<DepartPostDto>> getPostList(@Min(1) @NotNull Integer departId) {
         return attendRuleService.getPostList(departId);
     }
 

@@ -8,10 +8,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.common.enums.ResponseCodeEnums;
-import cn.net.yzl.ehr.dto.AttendRushClassDto;
-import cn.net.yzl.ehr.dto.DepartAttendRuleDto;
-import cn.net.yzl.ehr.dto.DepartDto;
-import cn.net.yzl.ehr.dto.PostDto;
+import cn.net.yzl.ehr.dto.*;
 import cn.net.yzl.ehr.fegin.conf.AttendRuleFeginService;
 import cn.net.yzl.ehr.fegin.depart.DepartFeginService;
 import cn.net.yzl.ehr.fegin.post.PostFeginMapper;
@@ -32,7 +29,7 @@ public class AttendRuleServiceImpl implements AttendRuleService {
 
 
     @Override
-    public ComResponse<List<PostDto>> getPostList(Integer departId) {
+    public ComResponse<List<DepartPostDto>> getPostList(Integer departId) {
         return attendRuleFeginService.getPostList(departId);
     }
 

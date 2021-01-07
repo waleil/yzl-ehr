@@ -3,6 +3,7 @@ package cn.net.yzl.ehr.fegin.conf;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.dto.DepartAttendRuleDto;
+import cn.net.yzl.ehr.dto.DepartPostDto;
 import cn.net.yzl.ehr.dto.PostDto;
 import cn.net.yzl.ehr.vo.attendRule.DepartAttendRuleElasticVO;
 import cn.net.yzl.ehr.vo.attendRule.DepartAttendRuleNoPunchVO;
@@ -57,6 +58,6 @@ public interface AttendRuleFeginService {
 
 
     @RequestMapping(value = "/conf/attendRule/getPostList", method = RequestMethod.GET)
-    public ComResponse<List<PostDto>> getPostList(@RequestParam("departId") Integer departId) ;
+    public ComResponse<List<DepartPostDto>> getPostList(@RequestParam("departId") Integer departId) ;
 
 }
