@@ -46,10 +46,20 @@ public class DepartPostController {
             @ApiImplicitParam(name = "departId", value = "部门id", required = true,  paramType = "query"),
             @ApiImplicitParam(name = "postId", value = "岗位id", required = true,  paramType = "query")
     })
-    @RequestMapping(value = "/getPostById", method = RequestMethod.GET)
-    public ComResponse<DepartPostDto> getPostById(@NotNull @Min(1) Integer departId, @NotNull @Min(1) Integer postId) {
-        return departPostService.getPostById(departId,postId);
+    @RequestMapping(value = "/getPostByPostId", method = RequestMethod.GET)
+    public ComResponse<DepartPostDto> getPostByPostId(@NotNull @Min(1) Integer departId, @NotNull @Min(1) Integer postId) {
+        return departPostService.getPostByPostId(departId,postId);
     }
+
+    @ApiOperation(value = "用id获取部门岗位信息", notes = "用id获取部门岗位信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "部门id", required = true,  paramType = "query"),
+    })
+    @RequestMapping(value = "/getPostById", method = RequestMethod.GET)
+    public ComResponse<DepartPostDto> getPostById(@NotNull @Min(1) Integer id) {
+        return departPostService.getPostById(id);
+    }
+
 
     @ApiOperation(value = "更新岗位信息", notes = "更新", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/updatePost", method = RequestMethod.POST, consumes = "application/json")

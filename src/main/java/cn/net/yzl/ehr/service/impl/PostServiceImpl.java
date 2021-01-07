@@ -8,7 +8,6 @@ import cn.net.yzl.ehr.pojo.PostItemPo;
 import cn.net.yzl.ehr.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -24,7 +23,7 @@ public class PostServiceImpl implements PostService {
         ComResponse<List<PostDto>> result = postMapper.getPostList();
         if(result==null){
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
-        }else if(result.getCode()==200 &&  result.getData().size()<1){
+        }else if(result.getCode()==200 && (result.getData()==null || result.getData().size()<1)){
             return ComResponse.nodata();
         }
         return result;
@@ -42,18 +41,18 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public ComResponse<Integer> selectStaffCountForPost(Integer postId){
+    public ComResponse<String> selectStaffCountForPost(Integer postId){
         ComResponse<Integer> integerComResponse = postMapper.cancelCheck(postId);
         if(integerComResponse==null){
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
         }else if(integerComResponse.getCode()==200 && integerComResponse.getData()>1){
             return ComResponse.fail(ResponseCodeEnums.POST_HAS_STAFF_ERROR_CODE.getCode(),ResponseCodeEnums.POST_HAS_STAFF_ERROR_CODE.getMessage());
         }
-        return integerComResponse;
+        return ComResponse.success();
     }
 
     @Override
-    public ComResponse<Integer> saveUpdate(PostItemPo postItemPo,String staffNo){
+    public ComResponse<String> saveUpdate(PostItemPo postItemPo,String staffNo){
         postItemPo.getPostDeleteList().forEach(x->{
             x.setUpdator(staffNo);
         });
@@ -66,9 +65,13 @@ public class PostServiceImpl implements PostService {
         ComResponse<Integer> integerComResponse = postMapper.saveUpdatePost(postItemPo);
         if(integerComResponse==null){
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
-        }else if(integerComResponse.getCode()==200 &&  integerComResponse.getData()==0){
-            return ComResponse.fail(ResponseCodeEnums.UPDATE_DATA_ERROR_CODE.getCode(),ResponseCodeEnums.UPDATE_DATA_ERROR_CODE.getMessage());
+        }else if(integerComResponse.getCode()==200   ) {
+            if (integerComResponse.getData() == 0) {
+                return ComResponse.fail(ResponseCodeEnums.UPDATE_DATA_ERROR_CODE.getCode(), ResponseCodeEnums.UPDATE_DATA_ERROR_CODE.getMessage());
+            } else {
+                return ComResponse.success();
+            }
         }
-        return integerComResponse;
+        return ComResponse.fail(integerComResponse.getCode(),integerComResponse.getMessage());
     }
 }

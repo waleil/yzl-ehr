@@ -48,7 +48,7 @@ public class PostController {
 
     @ApiOperation(value = "保存岗位列表", notes = "保存岗位列表", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/saveUpdatePost", method = RequestMethod.POST,consumes = "application/json")
-    ComResponse<Integer> saveUpdatePost(@RequestBody @Validated PostItemPo itemPo, @CurrentStaffNo @ApiIgnore String staffNo) {
+    ComResponse<String> saveUpdatePost(@RequestBody @Validated PostItemPo itemPo, @CurrentStaffNo @ApiIgnore String staffNo) {
         return postService.saveUpdate(itemPo,staffNo);
     }
 
@@ -57,7 +57,7 @@ public class PostController {
             @ApiImplicitParam(name = "postId", value = "岗位id", required = true,  paramType = "query")
     })
     @RequestMapping(value = "/getStaffCountForPost", method = RequestMethod.GET)
-    ComResponse<Integer> getStaffCountForPost(@NotNull @Min(1) Integer postId){
+    ComResponse<String> getStaffCountForPost(@NotNull @Min(1) Integer postId){
         return postService.selectStaffCountForPost(postId);
     }
 }
