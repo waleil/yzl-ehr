@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.vo;
 
 import cn.net.yzl.ehr.dto.DepartResumeDto;
+import cn.net.yzl.ehr.pojo.DepartResumeInsertPo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

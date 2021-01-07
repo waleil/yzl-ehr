@@ -1,62 +1,40 @@
 package cn.net.yzl.ehr.pojo;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Date;
+import java.util.List;
 
 /**
- * depart_resume
- * @author 
+ * 面试流程表
+ * 
+ * @author：yangxf
+ * @date： 2021-01-04 16:49:36
  */
 @Data
 public class DepartResumePo implements Serializable {
+    @ApiModelProperty(value = "id",hidden = true)
     private Integer id;
 
-    /**
-     * 部门id
-     */
+    @ApiModelProperty("部门id")
+    @NotNull
+    @Min(0)
     private Integer departId;
 
-    /**
-     * 岗位id
-     */
+    @ApiModelProperty("岗位id")
+    @NotNull
+    @Min(0)
     private Integer postId;
 
-    /**
-     * 此轮名称
-     */
-    private String stepName;
-
-    /**
-     * 面试人id
-     */
-    private String leaderNo;
-
-    /**
-     * 创建时间
-     */
-    private Date createTime;
-
-    /**
-     * 创建人唯一标识
-     */
+    @ApiModelProperty("创建人唯一标识")
+    @NotBlank
     private String creator;
 
-    /**
-     * 更新时间
-     */
-    private Date updateTime;
-
-    /**
-     * 更新人唯一标识
-     */
-    private String updator;
-
-    /**
-     * 状态:0:有效,1:删除
-     */
-    private Byte isDel;
-
-    private static final long serialVersionUID = 1L;
+    @Valid
+    private List<DepartResumeInsertPo> insertPo;
 }

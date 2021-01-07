@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.controller;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.dto.StaffAbnorRecordListDto;
 import cn.net.yzl.ehr.pojo.StaffAbnorRecordPo;
 import cn.net.yzl.ehr.pojo.StaffSwitchStatePo;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.constraints.NotBlank;
 
@@ -27,15 +29,15 @@ public class StaffAbnorController {
 
     @ApiOperation(value = "更改员工异动状态", notes = "更改员工异动状态", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/updateStaffChangeStatus", method = RequestMethod.POST)
-    public ComResponse<Integer> updateStaffChangeStatus(@RequestBody @Validated StaffSwitchStatePo staffSwitchStatePo){
-        return staffAbnorService.updateStaffChangeStatus(staffSwitchStatePo);
+    public ComResponse<Integer> updateStaffChangeStatus(@RequestBody @Validated StaffSwitchStatePo staffSwitchStatePo, @CurrentStaffNo @ApiIgnore String staffNo){
+        return staffAbnorService.updateStaffChangeStatus(staffSwitchStatePo,staffNo);
     }
 
 
     @ApiOperation(value = "执行异动操作", notes = "执行异动操作", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/executeStaffChange", method = RequestMethod.POST)
-    public ComResponse<Integer> executeStaffChange(@RequestBody @Validated StaffAbnorRecordPo staffChangePo){
-        return staffAbnorService.executeStaffChange(staffChangePo);
+    public ComResponse<Integer> executeStaffChange(@RequestBody @Validated StaffAbnorRecordPo staffChangePo, @CurrentStaffNo @ApiIgnore String staffNo){
+        return staffAbnorService.executeStaffChange(staffChangePo,staffNo);
     }
 
     @ApiOperation(value = "查询员工异动记录", notes = "查询员工异动记录", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)

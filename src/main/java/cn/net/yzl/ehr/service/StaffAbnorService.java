@@ -7,10 +7,10 @@ import cn.net.yzl.ehr.pojo.StaffSwitchStatePo;
 
 public interface StaffAbnorService {
 
-    public ComResponse<Integer> updateStaffChangeStatus( StaffSwitchStatePo staffSwitchStatePo) ;
+    public ComResponse<Integer> updateStaffChangeStatus( StaffSwitchStatePo staffSwitchStatePo,String staffNo) ;
 
 
-    public ComResponse<Integer> executeStaffChange(StaffAbnorRecordPo staffChangePo);
+    public ComResponse<Integer> executeStaffChange(StaffAbnorRecordPo staffChangePo,String staffNo);
 
 
     public ComResponse<StaffAbnorRecordListDto> getStaffAbnorRecord(String staffNo) ;

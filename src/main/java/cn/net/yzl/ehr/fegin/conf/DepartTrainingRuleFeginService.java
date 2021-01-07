@@ -1,7 +1,6 @@
 package cn.net.yzl.ehr.fegin.conf;
 
 import cn.net.yzl.common.entity.ComResponse;
-import cn.net.yzl.ehr.dto.DepartResumeDto;
 import cn.net.yzl.ehr.dto.DepartTrainingRuleDto;
 import cn.net.yzl.ehr.vo.DepartTrainingRulePo;
 import cn.net.yzl.ehr.vo.DepartTrainingRuleUpdatePo;
