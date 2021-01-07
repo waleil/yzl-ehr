@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.service;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.ehr.dto.DepartAttrDto;
 import cn.net.yzl.ehr.dto.DepartDto;
 import cn.net.yzl.ehr.vo.DepartBusinessAttrVO;
 import cn.net.yzl.ehr.vo.DepartUpdateVO;
@@ -12,7 +13,7 @@ public interface DepartService {
     ComResponse<List<DepartDto>> getTreeList();
 
     // 添加部门
-    ComResponse<Integer> add(DepartVO departVO);
+    ComResponse<DepartDto> add(DepartVO departVO);
     // 更新部门
     ComResponse<String> update(DepartUpdateVO departVO);
     // 删除部门
@@ -25,4 +26,6 @@ public interface DepartService {
 
 
     ComResponse<Integer> addBusinessAtrr(DepartBusinessAttrVO departBusinessAttrVO);
+
+    ComResponse<List<DepartAttrDto>> getDepartAttrList();
 }

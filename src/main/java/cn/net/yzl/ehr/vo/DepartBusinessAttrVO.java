@@ -6,6 +6,7 @@ import lombok.Data;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class DepartBusinessAttrVO implements Serializable {
     private List<Integer> departId;
     @ApiModelProperty(value = "业务属性code", name = "dictCode",required = true)
     @Min(1)
+    @NotNull
     private Integer dictCode;
 
 }

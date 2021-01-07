@@ -7,6 +7,7 @@ import lombok.Data;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
@@ -20,12 +21,14 @@ public class DepartUpdateVO implements Serializable {
     /**
      * 部门名称
      */
-    @ApiModelProperty(value = "部门名称", name = "name")
+    @ApiModelProperty(value = "部门名称", name = "name",required = true)
+    @Size(min = 1,max = 32)
     private String name;
 
 
     @Min(value = 1)
     @ApiModelProperty(value = "部门id", name = "id",required = true)
+    @NotNull
     private Integer id;
 
     @ApiModelProperty(value = "负责人工号", name = "leaderNo")

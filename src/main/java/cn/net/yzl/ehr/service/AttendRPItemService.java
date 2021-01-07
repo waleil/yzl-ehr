@@ -10,7 +10,7 @@ import java.util.Map;
 
 public interface AttendRPItemService {
 
-    ComResponse<Integer> update(Map<Integer, Double> map);
+    ComResponse<Integer> update(List<Map<String, Double>> map);
 
     ComResponse<Integer> add(List<DepartAttendRpVO> departAttendRpVO);
 

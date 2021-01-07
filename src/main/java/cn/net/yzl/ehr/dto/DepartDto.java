@@ -39,7 +39,7 @@ public class DepartDto implements Serializable {
      * 负责人id
      */
     @ApiModelProperty(value = "负责人id", name = "leaderNo")
-    private Integer leaderNo;
+    private String leaderNo;
     @ApiModelProperty(value = "负责人名称", name = "leaderName")
     private String leaderName;
 

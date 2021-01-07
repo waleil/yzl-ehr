@@ -4,6 +4,7 @@ package cn.net.yzl.ehr.controller;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.authorization.annotation.UnAuthorization;
+import cn.net.yzl.ehr.dto.DepartAttrDto;
 import cn.net.yzl.ehr.dto.DepartDto;
 import cn.net.yzl.ehr.service.DepartService;
 import cn.net.yzl.ehr.vo.DepartBusinessAttrVO;
@@ -51,7 +52,7 @@ public class DepartController {
 
     @ApiOperation(value = "添加部门", notes = "添加部门", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    ComResponse<Integer> add(@RequestBody @Validated DepartVO departVO, @ApiIgnore @CurrentStaffNo String staffNo) {
+    ComResponse<DepartDto> add(@RequestBody @Validated DepartVO departVO, @ApiIgnore @CurrentStaffNo String staffNo) {
         departVO.setCreator(staffNo);
         return departService.add(departVO);
 
@@ -103,4 +104,13 @@ public class DepartController {
     ComResponse<Integer> addBusinessAtrr(@RequestBody @Validated DepartBusinessAttrVO departBusinessAttrVO) {
         return departService.addBusinessAtrr(departBusinessAttrVO);
     }
+
+
+    @ApiOperation(value = "获取部门属性列表", notes = "获取部门属性列表", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/getDepartAttrList", method = RequestMethod.GET)
+    ComResponse<List<DepartAttrDto>> getDepartAttrList() {
+
+        return departService.getDepartAttrList();
+    }
+
 }

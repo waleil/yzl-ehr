@@ -8,6 +8,7 @@ import springfox.documentation.annotations.ApiIgnore;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 
@@ -20,6 +21,7 @@ import java.io.Serializable;
 public class DepartVO implements Serializable {
 
     @NotBlank()
+    @Size(min = 1,max = 32)
     @ApiModelProperty(value = "部门名称", name = "name",required = true)
     private String name;
 

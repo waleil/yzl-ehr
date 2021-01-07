@@ -37,4 +37,7 @@ public class DepartAttendRpVO implements Serializable {
     @ApiModelProperty(value = "扣除的钱list集合", name = "moneyList",required = true)
     private List<Double> moneyList;
 
+    @ApiModelProperty(value = "1:立即生效,0:几天后生效", name = "enable",required = true)
+    private Integer enable;
+
 }

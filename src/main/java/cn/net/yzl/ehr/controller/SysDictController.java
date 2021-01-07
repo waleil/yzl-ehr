@@ -29,8 +29,22 @@ public class SysDictController {
 
     @ApiOperation(value = "根据类型获取字典集合", notes = "根据类型获取字典集合", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "dictType", value = "字典类型(在岗状态:post_status,工作地点:work_area,职场:workplace,政治面貌:political_status," +
-                    "异动状态:abnormal_state,异动类型:abnormal_type,考勤类型:attendance_type,岗位属性:post_attr,培训方式:train_way)", required = true, paramType = "query")
+            @ApiImplicitParam(name = "dictType", value = "" +
+                    "在岗状态:post_status," +
+                    "工作地点:work_area," +
+                    "职场:workplace," +
+                    "政治面貌:political_status," +
+                    "异动状态:abnormal_state," +
+                    "异动类型:abnormal_type," +
+                    "考勤类型:attendance_type," +
+                    "岗位属性:post_attr," +
+                    "培训方式:train_way" +
+                    "部门属性:depart_attr," +
+                    "学历类型:degree," +
+                    "合作方:partner," +
+                    "假勤类型:false_name," +
+                    "社保类型:social" +
+                    "", required = true, paramType = "query")
     })
     @RequestMapping(value = "/getByType", method = RequestMethod.GET)
     ComResponse<List<SysDictDataDto>> getByType(@NotBlank String dictType){

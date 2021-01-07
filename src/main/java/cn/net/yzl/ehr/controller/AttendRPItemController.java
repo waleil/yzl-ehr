@@ -35,9 +35,12 @@ public class AttendRPItemController {
     @RequestMapping(value = "/update", method = RequestMethod.POST, consumes = "application/json")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "key", value = "key为考勤奖惩项id(attendRpId)", required = true, dataType = "Int", paramType = "query"),
-            @ApiImplicitParam(name = "value", value = "奖惩金额(money)", required = true, dataType = "Int", paramType = "query")
+            @ApiImplicitParam(name = "value", value = "奖惩金额(money)", required = true, dataType = "Int", paramType = "query"),
+            @ApiImplicitParam(name = "enable", value = "1:立即执行,0:几日后生效", required = true, dataType = "Int", paramType = "query"),
+            @ApiImplicitParam(name = "days", value = "几天后生效", required = false, dataType = "Int", paramType = "query"),
+            @ApiImplicitParam(name = "departId", value = "部门id", required = true, dataType = "Int", paramType = "query")
     })
-    ComResponse<Integer> update(@RequestBody Map<Integer, Double> map) {
+    ComResponse<Integer> update(@RequestBody List<Map<String, Double>> map) {
         return attendRPItemService.update(map);
     }
 

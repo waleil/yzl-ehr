@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.fegin.depart;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.ehr.dto.DepartAttrDto;
 import cn.net.yzl.ehr.dto.DepartDto;
 import cn.net.yzl.ehr.vo.DepartBusinessAttrVO;
 import cn.net.yzl.ehr.vo.DepartUpdateVO;
@@ -21,7 +22,7 @@ import java.util.List;
  * 部门的 fegin client
  */
 //@FeignClient(name = "yzl-staff-api")
-@FeignClient(value = "depart",url = "${fegin.api.url}")
+@FeignClient(value = "depart",url = "${fegin.db.url}")
 @Repository
 public interface DepartFeginService {
 
@@ -31,7 +32,7 @@ public interface DepartFeginService {
     @RequestMapping(value = "/depart/getTreeList", method = RequestMethod.GET)
     ComResponse<DepartDto> getTreeList();
     @RequestMapping(value = "/depart/add", method = RequestMethod.POST)
-    ComResponse<Integer> add(@RequestBody DepartVO departVO);
+    ComResponse<DepartDto> add(@RequestBody DepartVO departVO);
     @RequestMapping(value = "/depart/update", method = RequestMethod.POST)
     ComResponse<String> update(@RequestBody DepartUpdateVO departUpdateVO);
     @RequestMapping(value = "/depart/del", method = RequestMethod.GET)
@@ -53,4 +54,8 @@ public interface DepartFeginService {
     @ApiOperation(value = "绑定业务属性", notes = "绑定业务属性", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/depart/addBusinessAtrr", method = RequestMethod.POST)
     ComResponse<Integer> addBusinessAtrr(@RequestBody @Validated DepartBusinessAttrVO departBusinessAttrVO);
+
+    @ApiOperation(value = "获取部门属性列表", notes = "获取部门属性列表", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/depart/getDepartAttrList", method = RequestMethod.GET)
+    ComResponse<List<DepartAttrDto>> getDepartAttrList();
 }

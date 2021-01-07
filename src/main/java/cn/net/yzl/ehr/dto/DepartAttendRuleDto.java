@@ -33,9 +33,9 @@ public class DepartAttendRuleDto implements Serializable {
     private Integer postId;
     @ApiModelProperty(value="岗位名称",name="postName")
     private String postName;
-    @ApiModelProperty(value="考勤时段:上班时间/上班打卡时段开始时间",name="workStartTime")
+    @ApiModelProperty(value="考勤时段:上班时间",name="workStartTime")
     private String workStartTime;
-    @ApiModelProperty(value="考勤时段:下班时间/下班打卡时段结束时间",name="workEndTime")
+    @ApiModelProperty(value="考勤时段:下班时间",name="workEndTime")
     private String workEndTime;
     @ApiModelProperty(value="中休的开始时间",name="restStartTime")
     private String restStartTime;
@@ -48,8 +48,13 @@ public class DepartAttendRuleDto implements Serializable {
 
     @ApiModelProperty(value="迟到规则(首次打卡时间大于上班时间,单位分钟)",name="lateTime")
     private Integer lateTime;
+    @ApiModelProperty(value="迟到规则时间描述(例如:09:01)",name="lateTimeStr")
+    private String lateTimeStr;
     @ApiModelProperty(value="早退规则(末次打卡时间小于下班时间,单位分钟)",name="leaveTime")
     private Integer leaveTime;
+
+    @ApiModelProperty(value="早退规则时间描述(例如:09:11)",name="leaveTimeStr")
+    private String leaveTimeStr;
 
     @ApiModelProperty(value="是否大小周(0:否,1:是)",name="weekFlag")
     private Integer weekFlag;
