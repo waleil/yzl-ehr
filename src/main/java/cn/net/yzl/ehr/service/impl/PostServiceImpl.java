@@ -53,7 +53,16 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public ComResponse<Integer> saveUpdate(PostItemPo postItemPo){
+    public ComResponse<Integer> saveUpdate(PostItemPo postItemPo,String staffNo){
+        postItemPo.getPostDeleteList().forEach(x->{
+            x.setUpdator(staffNo);
+        });
+        postItemPo.getPostInsertList().forEach(x->{
+            x.setCreator(staffNo);
+        });
+        postItemPo.getPostUpdateList().forEach(x->{
+            x.setUpdator(staffNo);
+        });
         ComResponse<Integer> integerComResponse = postMapper.saveUpdatePost(postItemPo);
         if(integerComResponse==null){
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());

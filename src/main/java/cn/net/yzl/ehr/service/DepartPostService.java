@@ -14,13 +14,13 @@ import java.util.List;
 public interface DepartPostService {
 
 
-    ComResponse<String> addPost( DepartPostPo departPostPo) ;
+    ComResponse<String> addPost( DepartPostPo departPostPo,String staffNo) ;
 
     public ComResponse<List<DepartPostDto>> getListByDepartId(Integer departId);
 
     public ComResponse<DepartPostDto> getPostById( Integer departId, Integer postId);
 
-    ComResponse<String> updatePost(DepartPostUpdatePo post);
+    ComResponse<String> updatePost(DepartPostUpdatePo post,String staffNo);
 
     ComResponse<String> delete(  Integer id, String staffNo) ;
 

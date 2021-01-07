@@ -17,9 +17,9 @@ public interface PostLevelService {
     ComResponse<Integer> delete(Integer id,String staffNo);
 
 
-    ComResponse<Integer> addPostLevel( PostLevelPo postLevelPo);
+    ComResponse<Integer> addPostLevel( PostLevelPo postLevelPo,String staffNo);
 
-    ComResponse<Integer> update( PostLevelUpdatePo postLevel);
+    ComResponse<Integer> update( PostLevelUpdatePo postLevel,String staffNo);
 
     ComResponse<List<PostLevelListDto>> getListByDepartId( Integer departId);
 

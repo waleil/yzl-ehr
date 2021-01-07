@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.controller;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.dto.PostLevelDto;
 import cn.net.yzl.ehr.dto.PostLevelListDto;
 import cn.net.yzl.ehr.pojo.PostLevelPo;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -37,14 +39,14 @@ public class PostLevelController {
 
     @ApiOperation(value = "删除岗位级别", notes = "删除岗位级别", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    ComResponse<Integer> delete(@RequestParam("id") @NotNull @Min(0) Integer id,@RequestParam("staffNo") @NotBlank String staffNo){
+    ComResponse<Integer> delete(@RequestParam("id") @NotNull @Min(0) Integer id, @CurrentStaffNo @ApiIgnore String staffNo){
         return postLevelService.delete(id,staffNo);
     }
 
     @ApiOperation(value = "新建岗位级别", notes = "新建岗位级别", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/addPostLevel", method = RequestMethod.POST)
-    ComResponse<Integer> addPostLevel(@RequestBody @Validated PostLevelPo postLevelPo){
-        return postLevelService.addPostLevel(postLevelPo);
+    ComResponse<Integer> addPostLevel(@RequestBody @Validated PostLevelPo postLevelPo, @CurrentStaffNo @ApiIgnore String staffNo){
+        return postLevelService.addPostLevel(postLevelPo,staffNo);
     }
 
    /* @ApiOperation(value = "批量新建岗位级别", notes = "批量新建岗位级别", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -55,8 +57,8 @@ public class PostLevelController {
 
     @ApiOperation(value = "编辑岗位级别", notes = "编辑岗位级别", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    ComResponse<Integer> update(@RequestBody @Validated PostLevelUpdatePo postLevel){
-        return postLevelService.update(postLevel);
+    ComResponse<Integer> update(@RequestBody @Validated PostLevelUpdatePo postLevel, @CurrentStaffNo @ApiIgnore String staffNo){
+        return postLevelService.update(postLevel,staffNo);
     }
 
     @ApiOperation(value = "查询部门岗位级别列表", notes = "查询部门岗位级别列表", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)

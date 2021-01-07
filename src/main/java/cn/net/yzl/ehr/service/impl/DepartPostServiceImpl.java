@@ -19,7 +19,8 @@ public class DepartPostServiceImpl implements DepartPostService {
     private DepartPostFeginMapper departPostMapper;
 
     @Override
-    public ComResponse<String> addPost(DepartPostPo departPostPo) {
+    public ComResponse<String> addPost(DepartPostPo departPostPo,String staffNo) {
+        departPostPo.setCreator(staffNo);
         ComResponse<Integer> result = departPostMapper.addPost(departPostPo);
         if(result==null){
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
@@ -58,7 +59,8 @@ public class DepartPostServiceImpl implements DepartPostService {
     }
 
     @Override
-    public ComResponse<String> updatePost(DepartPostUpdatePo post) {
+    public ComResponse<String> updatePost(DepartPostUpdatePo post,String staffNo) {
+        post.setUpdator(staffNo);
         ComResponse<Integer> result = departPostMapper.updatePost(post);
         if(result==null){
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());

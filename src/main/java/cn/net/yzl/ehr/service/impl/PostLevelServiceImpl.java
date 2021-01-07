@@ -44,7 +44,8 @@ public class PostLevelServiceImpl implements PostLevelService {
     }
 
     @Override
-    public ComResponse<Integer> addPostLevel(PostLevelPo postLevelPo) {
+    public ComResponse<Integer> addPostLevel(PostLevelPo postLevelPo,String staffNo) {
+        postLevelPo.setCreator(staffNo);
         ComResponse<Integer> result = postLevelMapper.addPostLevel(postLevelPo);
         if(result==null){
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
@@ -55,7 +56,8 @@ public class PostLevelServiceImpl implements PostLevelService {
     }
 
     @Override
-    public ComResponse<Integer> update(PostLevelUpdatePo postLevel) {
+    public ComResponse<Integer> update(PostLevelUpdatePo postLevel,String staffNo) {
+        postLevel.setUpdator(staffNo);
         ComResponse<Integer> result = postLevelMapper.update(postLevel);
         if(result==null){
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());

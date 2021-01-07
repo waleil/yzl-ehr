@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.controller;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.dto.PostDto;
 import cn.net.yzl.ehr.pojo.PostItemPo;
 import cn.net.yzl.ehr.service.PostService;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -46,15 +48,15 @@ public class PostController {
 
     @ApiOperation(value = "保存岗位列表", notes = "保存岗位列表", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/saveUpdatePost", method = RequestMethod.POST,consumes = "application/json")
-    ComResponse<Integer> saveUpdatePost(@RequestBody @Validated PostItemPo itemPo) {
-        return postService.saveUpdate(itemPo);
+    ComResponse<Integer> saveUpdatePost(@RequestBody @Validated PostItemPo itemPo, @CurrentStaffNo @ApiIgnore String staffNo) {
+        return postService.saveUpdate(itemPo,staffNo);
     }
 
     @ApiOperation(value = "获取岗位对应员工数量", notes = "获取岗位对应员工数量", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "postId", value = "岗位id", required = true,  paramType = "query")
     })
-    @RequestMapping(value = "/cancelCheck", method = RequestMethod.GET)
+    @RequestMapping(value = "/getStaffCountForPost", method = RequestMethod.GET)
     ComResponse<Integer> getStaffCountForPost(@NotNull @Min(1) Integer postId){
         return postService.selectStaffCountForPost(postId);
     }

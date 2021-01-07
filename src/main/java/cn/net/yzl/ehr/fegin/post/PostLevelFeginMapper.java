@@ -24,25 +24,25 @@ public interface PostLevelFeginMapper {
 
 
 
-    @RequestMapping(value = "/getById", method = RequestMethod.GET)
+    @RequestMapping(value = "/postLevel/getById", method = RequestMethod.GET)
     ComResponse<PostLevelDto> getById(@RequestParam("id")  Integer id);
 
 
-    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    @RequestMapping(value = "/postLevel/delete", method = RequestMethod.POST)
     ComResponse<Integer> delete(@RequestParam("id")  Integer id,@RequestParam("staffNo")  String staffNo);
 
-    @RequestMapping(value = "/addPostLevel", method = RequestMethod.POST)
+    @RequestMapping(value = "/postLevel/addPostLevel", method = RequestMethod.POST)
     ComResponse<Integer> addPostLevel(@RequestBody PostLevelPo postLevelPo);
 
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @RequestMapping(value = "/postLevel/update", method = RequestMethod.POST)
     ComResponse<Integer> update(@RequestBody PostLevelUpdatePo postLevel);
 
-    @RequestMapping(value = "/getListByDepartId", method = RequestMethod.GET)
+    @RequestMapping(value = "/postLevel/getListByDepartId", method = RequestMethod.GET)
     ComResponse<List<PostLevelListDto>> getListByDepartId(@RequestParam("departId") Integer departId);
 
-    @RequestMapping(value = "/getListByPostId", method = RequestMethod.GET)
+    @RequestMapping(value = "/postLevel/getListByPostId", method = RequestMethod.GET)
     ComResponse<PostLevelListDto> getListByPostId(@RequestParam("postId") Integer postId);
 
-    @RequestMapping(value = "/getStaffTotalForPostLevel", method = RequestMethod.GET)
+    @RequestMapping(value = "/postLevel/getStaffTotalForPostLevel", method = RequestMethod.GET)
     ComResponse<Integer> getStaffTotalForPostLevel(@RequestParam("postLevelId") Integer postLevelId) ;
 }
