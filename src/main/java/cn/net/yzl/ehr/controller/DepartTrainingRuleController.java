@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.controller;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.dto.DepartTrainingRuleDto;
 import cn.net.yzl.ehr.service.DepartTrainingRuleService;
 import cn.net.yzl.ehr.vo.DepartTrainingRulePo;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -21,7 +23,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/conf/training")
-@Api(value = "培训配置服务", tags = {"培训配置服务"})
+@Api(value = "配置模块", tags = {"配置模块"})
 public class DepartTrainingRuleController {
     @Autowired
     private DepartTrainingRuleService departTrainingRuleService;
@@ -30,7 +32,8 @@ public class DepartTrainingRuleController {
 
     @ApiOperation(value = "新增岗位培训配置", notes = "新增岗位培训配置", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    ComResponse<Integer> add(@RequestBody @Validated DepartTrainingRulePo departTrainingRulePo) {
+    ComResponse<Integer> add(@RequestBody @Validated DepartTrainingRulePo departTrainingRulePo, @CurrentStaffNo @ApiIgnore String staffNo) {
+        departTrainingRulePo.setCreator(staffNo);
         return departTrainingRuleService.add(departTrainingRulePo);
     }
 
@@ -51,14 +54,14 @@ public class DepartTrainingRuleController {
             @ApiImplicitParam(name = "updator", value = "更改人编号", required = true,  paramType = "query")
     })
     @RequestMapping(value = "/deleteById", method = RequestMethod.POST)
-    ComResponse<Integer> deleteById( @NotNull @Min(0) Integer id, @RequestParam("updator") @NotBlank String updator) {
+    ComResponse<Integer> deleteById( @NotNull @Min(0) Integer id, @RequestParam("updator") @ApiIgnore String updator) {
         return departTrainingRuleService.deleteById(id,updator);
     }
 
     @ApiOperation(value = "用配置id获取培训信息", notes = "获取培训信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/getById", method = RequestMethod.GET)
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "配置id", required = true,  paramType = "query")
+            @ApiImplicitParam(name = "id", value = "配置id", required = true, paramType ="query")
     })
     public ComResponse<DepartTrainingRuleDto> getById( @NotNull @Min(0) Integer id) {
         return  departTrainingRuleService.getById(id);

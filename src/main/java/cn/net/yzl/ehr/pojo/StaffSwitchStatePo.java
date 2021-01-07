@@ -22,7 +22,6 @@ public class StaffSwitchStatePo implements Serializable {
     @Min(0)
     private Integer state;
 
-    @ApiModelProperty("修改人")
-    @NotBlank
+    @ApiModelProperty(value = "修改人",hidden = true)
     private String updator;
 }

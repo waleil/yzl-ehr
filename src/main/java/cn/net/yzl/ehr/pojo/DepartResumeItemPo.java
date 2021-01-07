@@ -1,19 +1,26 @@
-package cn.net.yzl.ehr.vo;
-
+package cn.net.yzl.ehr.pojo;
 
 import cn.net.yzl.ehr.util.ValidList;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 
 @Data
 public class DepartResumeItemPo {
-    @ApiModelProperty(value = "部门编号", name = "departId",required = true)
-    private Integer departId;
-    @ApiModelProperty(value = "部门名称", name = "postId",required = true)
-    private Integer postId;
+    @ApiModelProperty(value = "面试流程id")
+    @NotNull
+    @Min(0)
+    private Integer resumeId;
+
+    @ApiModelProperty(value = "更改人id")
+    @NotBlank
+    private String updator;
+
     @Valid
     private ValidList<DepartResumeInsertPo> insertList;
     @Valid

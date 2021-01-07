@@ -18,8 +18,10 @@ public class DepartTrainingRuleServiceImpl implements DepartTrainingRuleService 
     @Autowired
     private DepartTrainingRuleFeginService departTrainingRuleService;
 
+
     @Override
     public ComResponse<Integer> add(DepartTrainingRulePo departTrainingRulePo) {
+
         ComResponse<Integer> result=departTrainingRuleService.add(departTrainingRulePo);
         if(result==null ){
             ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
@@ -45,8 +47,10 @@ public class DepartTrainingRuleServiceImpl implements DepartTrainingRuleService 
         ComResponse<Integer> result=departTrainingRuleService.update(itemUpdatePo);
         if(result==null ){
             ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
-        }else if(result.getData()==null || result.getData()<1){
+        }else if(result.getData()==null ){
             ComResponse.fail(ResponseCodeEnums.UPDATE_DATA_ERROR_CODE.getCode(),ResponseCodeEnums.UPDATE_DATA_ERROR_CODE.getMessage());
+        }else if(result.getData()==0){
+            ComResponse.fail(ResponseCodeEnums.NO_MATCHING_RESULT_CODE.getCode(),ResponseCodeEnums.NO_MATCHING_RESULT_CODE.getMessage());
         }
         return ComResponse.success();
     }
@@ -67,8 +71,10 @@ public class DepartTrainingRuleServiceImpl implements DepartTrainingRuleService 
         ComResponse<Integer> result=departTrainingRuleService.deleteById(id,updator);
         if(result==null ){
             ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
-        }else if(result.getData()==null || result.getData()<1){
+        }else if(result.getData()==null ){
             ComResponse.fail(ResponseCodeEnums.UPDATE_DATA_ERROR_CODE.getCode(),ResponseCodeEnums.UPDATE_DATA_ERROR_CODE.getMessage());
+        }else if(result.getData()==0){
+            ComResponse.fail(ResponseCodeEnums.NO_MATCHING_RESULT_CODE.getCode(),ResponseCodeEnums.NO_MATCHING_RESULT_CODE.getMessage());
         }
         return ComResponse.success();
     }

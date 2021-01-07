@@ -1,11 +1,9 @@
-package cn.net.yzl.ehr.vo;
+package cn.net.yzl.ehr.pojo;
 
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import org.springframework.validation.annotation.Validated;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -14,18 +12,10 @@ import java.io.Serializable;
 
 @Data
 public  class DepartResumeUpdatePo implements Serializable {
-    @ApiModelProperty("面试轮次id")
+    @ApiModelProperty("id")
     @NotNull
     @Min(1)
     private Integer id;
-
-    @ApiModelProperty(value = "部门id",hidden = true)
-    private Integer departId;
-
-    @ApiModelProperty("岗位id")
-    @NotNull
-    @Min(1)
-    private Integer postId;
 
     @ApiModelProperty("此轮名称")
     @NotBlank

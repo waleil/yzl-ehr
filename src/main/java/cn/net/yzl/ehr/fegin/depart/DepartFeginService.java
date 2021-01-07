@@ -25,8 +25,6 @@ import java.util.List;
 @Repository
 public interface DepartFeginService {
 
-
-
     // 获取部门列表
     @RequestMapping(value = "/depart/getTreeList", method = RequestMethod.GET)
     ComResponse<DepartDto> getTreeList();

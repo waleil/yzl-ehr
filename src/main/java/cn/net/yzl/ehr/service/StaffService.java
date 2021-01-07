@@ -26,9 +26,9 @@ public interface StaffService {
 
     ComResponse<Page<StaffListDto>> getListByParams(StaffParamsVO staffParamsVO);
 
-    ComResponse<Integer> swtichStaffTalentPoolAccount(StaffSwitchTalentPoolPo staffSwitchTalentPoolPo);
+    ComResponse<Integer> swtichStaffTalentPoolAccount(StaffSwitchTalentPoolPo staffSwitchTalentPoolPo,String staffNo);
 
-    ComResponse<Integer> switchAccount(StaffSwitchStatePo staffSwitchStatePo);
+    ComResponse<Integer> switchAccount(StaffSwitchStatePo staffSwitchStatePo,String staffNo);
 
     ComResponse<String> resetPassword(String userNo,String creator);
 }

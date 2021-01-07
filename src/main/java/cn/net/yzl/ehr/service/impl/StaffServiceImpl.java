@@ -38,12 +38,14 @@ public class StaffServiceImpl implements StaffService {
     }
 
     @Override
-    public ComResponse<Integer> swtichStaffTalentPoolAccount(StaffSwitchTalentPoolPo staffSwitchTalentPoolPo) {
+    public ComResponse<Integer> swtichStaffTalentPoolAccount(StaffSwitchTalentPoolPo staffSwitchTalentPoolPo,String staffNo) {
+        staffSwitchTalentPoolPo.setUpdator(staffNo);
         return staffFeginService.swtichStaffTalentPoolAccount(staffSwitchTalentPoolPo);
     }
 
     @Override
-    public ComResponse<Integer> switchAccount(StaffSwitchStatePo staffSwitchStatePo) {
+    public ComResponse<Integer> switchAccount(StaffSwitchStatePo staffSwitchStatePo,String staffNo) {
+        staffSwitchStatePo.setUpdator(staffNo);
         return staffFeginService.switchAccount(staffSwitchStatePo);
     }
 

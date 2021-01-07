@@ -17,7 +17,8 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
     private StaffAbnorFeginService staffAbnorFeginService;
 
     @Override
-    public ComResponse<Integer> updateStaffChangeStatus(StaffSwitchStatePo staffSwitchStatePo) {
+    public ComResponse<Integer> updateStaffChangeStatus(StaffSwitchStatePo staffSwitchStatePo,String staffNo) {
+        staffSwitchStatePo.setUpdator(staffNo);
         ComResponse<Integer> comResponse = staffAbnorFeginService.updateStaffChangeStatus(staffSwitchStatePo);
         if(comResponse==null){
             ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
@@ -28,7 +29,8 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
     }
 
     @Override
-    public ComResponse<Integer> executeStaffChange(StaffAbnorRecordPo staffChangePo) {
+    public ComResponse<Integer> executeStaffChange(StaffAbnorRecordPo staffChangePo,String staffNo) {
+        staffChangePo.setCreator(staffNo);
         ComResponse<Integer> comResponse = staffAbnorFeginService.executeStaffChange(staffChangePo);
         if(comResponse==null){
             ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
