@@ -58,7 +58,7 @@ public class DepartPostController {
     }
 
     @ApiOperation(value = "删除岗位", notes = "删除岗位", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @RequestMapping(value = "/deletePost", method = RequestMethod.POST)
+    @RequestMapping(value = "/deletePost", method = RequestMethod.GET)
     ComResponse<String> delete(@RequestParam("id") @NotNull @Min(0) Integer id, @CurrentStaffNo @ApiIgnore String staffNo) {
         return departPostService.delete(id,staffNo);
     }

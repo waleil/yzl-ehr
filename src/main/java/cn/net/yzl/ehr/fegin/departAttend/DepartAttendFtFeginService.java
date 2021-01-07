@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
-
+//@FeignClient(value = "staff",url = "${fegin.db.url}")
 @FeignClient(name = "yzl-staff-db")
 @Repository
 public interface DepartAttendFtFeginService {

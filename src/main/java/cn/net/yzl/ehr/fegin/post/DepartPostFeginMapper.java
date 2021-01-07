@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Repository
-@FeignClient(name = "yzl-staff-db")
-//@FeignClient(value = "post",url = "${fegin.api.url}")
+//@FeignClient(name = "yzl-staff-db")
+@FeignClient(value = "post",url = "${fegin.db.url}")
 @RefreshScope
 public interface DepartPostFeginMapper {
 
@@ -35,6 +35,6 @@ public interface DepartPostFeginMapper {
     ComResponse<Integer> updatePost(@RequestBody DepartPostUpdatePo post);
 
 
-    @RequestMapping(value = "/departPost/deletePost", method = RequestMethod.POST)
+    @RequestMapping(value = "/departPost/deletePost", method = RequestMethod.GET)
     ComResponse<Integer> delete(@RequestParam("id")  Integer id,@RequestParam("staffNo") String staffNo) ;
 }
