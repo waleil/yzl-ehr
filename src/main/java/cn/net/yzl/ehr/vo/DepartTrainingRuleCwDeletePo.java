@@ -18,7 +18,7 @@ public class DepartTrainingRuleCwDeletePo implements Serializable {
     @ApiModelProperty(value = "培训课件关联id")
     @NotNull
     @Min(0)
-    private Integer id;
+    private Integer coursewareId;
 
     @ApiModelProperty(value = "更改人",hidden = true)
     private String updator;

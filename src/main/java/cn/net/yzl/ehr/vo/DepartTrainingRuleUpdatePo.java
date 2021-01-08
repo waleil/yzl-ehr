@@ -42,8 +42,7 @@ public class DepartTrainingRuleUpdatePo implements Serializable {
     @Min(0)
     private Integer examFlag;
 
-    @ApiModelProperty("更新人编号")
-    @NotBlank
+    @ApiModelProperty(value = "更新人编号",hidden = true)
     private String updator;
 
     @Valid

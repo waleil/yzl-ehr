@@ -55,7 +55,7 @@ public class DepartPostPo implements Serializable {
     private Integer salarySign;
 
 
-    @ApiModelProperty("创建人")
+    @ApiModelProperty(value = "创建人",hidden = true)
     @NotBlank
     private String creator;
 

@@ -45,8 +45,7 @@ public class DepartTrainingRulePo implements Serializable {
     @Min(0)
     private int examFlag;
 
-    @ApiModelProperty("创建人唯一标识")
-    @NotBlank
+    @ApiModelProperty(value = "创建人唯一标识",hidden = true)
     private String creator;
 
 

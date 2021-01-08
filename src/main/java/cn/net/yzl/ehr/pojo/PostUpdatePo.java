@@ -30,8 +30,7 @@ public class PostUpdatePo implements Serializable {
     @Min(1)
     private Integer sortNo;
 
-    @ApiModelProperty("更改人")
-    @NotBlank
+    @ApiModelProperty(value = "更改人",hidden = true)
     private String updator;
 
     private static final long serialVersionUID = 1L;

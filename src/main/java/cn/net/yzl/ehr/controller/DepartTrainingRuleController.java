@@ -51,10 +51,9 @@ public class DepartTrainingRuleController {
     @ApiOperation(value = "删除培训配置", notes = "删除培训配置", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "配置id", required = true,  paramType = "query"),
-            @ApiImplicitParam(name = "updator", value = "更改人编号", required = true,  paramType = "query")
     })
     @RequestMapping(value = "/deleteById", method = RequestMethod.POST)
-    ComResponse<Integer> deleteById( @NotNull @Min(0) Integer id, @RequestParam("updator") @ApiIgnore String updator) {
+    ComResponse<Integer> deleteById( @NotNull @Min(0) Integer id,@CurrentStaffNo @ApiIgnore String updator) {
         return departTrainingRuleService.deleteById(id,updator);
     }
 
@@ -69,7 +68,8 @@ public class DepartTrainingRuleController {
 
     @ApiOperation(value = "更新培训信息", notes = "更新培训信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/update", method = RequestMethod.POST, consumes = "application/json")
-    ComResponse<Integer> update(@RequestBody @Validated DepartTrainingRuleUpdatePo departTrainingRulePo) {
+    ComResponse<Integer> update(@RequestBody @Validated DepartTrainingRuleUpdatePo departTrainingRulePo, @CurrentStaffNo @ApiIgnore String staffNo) {
+        departTrainingRulePo.setUpdator(staffNo);
         return departTrainingRuleService.update(departTrainingRulePo);
     }
 }

@@ -24,8 +24,7 @@ public class PostLevelPo implements Serializable {
     @NotBlank
     private String name;
 
-    @ApiModelProperty("创建人唯一标识")
-    @NotBlank
+    @ApiModelProperty(value = "创建人唯一标识",hidden = true)
     private String creator;
 //
 

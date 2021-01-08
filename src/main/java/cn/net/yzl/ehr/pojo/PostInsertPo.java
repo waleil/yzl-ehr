@@ -26,8 +26,7 @@ public class PostInsertPo implements Serializable {
     @Min(1)
     private Integer sortNo;
 
-    @ApiModelProperty("创建人")
-    @NotBlank
+    @ApiModelProperty(value = "创建人",hidden = true)
     private String creator;
 
 
