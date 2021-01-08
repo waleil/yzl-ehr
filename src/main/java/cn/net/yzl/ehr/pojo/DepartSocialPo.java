@@ -27,6 +27,10 @@ public class DepartSocialPo implements Serializable {
     @NotNull
     private Integer postId;
 
+    @ApiModelProperty(value = "部门岗位id",name = "departPostId")
+    @NotNull
+    private Integer departPostId;
+
     @ApiModelProperty(value = "岗位名称",name = "postName")
     private String postName;
 

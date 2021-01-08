@@ -3,6 +3,7 @@ package cn.net.yzl.ehr.fegin.departAttend;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.dto.DepartAttendDto;
 import cn.net.yzl.ehr.dto.DepartAttendFtDto;
+import cn.net.yzl.ehr.dto.SysAttendFalsePunishDto;
 import cn.net.yzl.ehr.pojo.DepartAttendFtPo;
 import cn.net.yzl.ehr.vo.DepartAttendAllVo;
 import cn.net.yzl.ehr.vo.DepartAttendInsertAllVo;
@@ -18,8 +19,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-//@FeignClient(name = "yzl-staff-db")
-@FeignClient(value = "staff",url = "${fegin.db.url}")
+@FeignClient(name = "yzl-staff-db")
+//@FeignClient(value = "staff",url = "${fegin.db.url}")
 @Repository
 public interface DepartAttendFeginService {
 
@@ -28,4 +29,10 @@ public interface DepartAttendFeginService {
 
     @PostMapping("departAttendFalse/insertUpdateDelDepartAttendFalse")
     public ComResponse insertUpdateDelDepartAttendFalse(@RequestBody @Validated DepartAttendInsertAllVo departAttendInsertAllVo);
+
+    @ApiOperation(value = "获取假勤类型和惩罚规则列表", notes = "获取假勤类型和惩罚规则列表")
+    @GetMapping("departAttendFalse/getSysAttendFalse")
+    public ComResponse<SysAttendFalsePunishDto> getSysAttendFalse();
+
+
 }

@@ -3,6 +3,7 @@ package cn.net.yzl.ehr.controller;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.dto.DepartAttendDto;
 import cn.net.yzl.ehr.dto.DepartAttendFtDto;
+import cn.net.yzl.ehr.dto.SysAttendFalsePunishDto;
 import cn.net.yzl.ehr.fegin.departAttend.DepartAttendFeginService;
 import cn.net.yzl.ehr.pojo.DepartAttendFtPo;
 import cn.net.yzl.ehr.vo.DepartAttendAllVo;
@@ -43,6 +44,13 @@ public class DepartAttendFalseController {
     public ComResponse insertUpdateDelDepartAttendFalse(@RequestBody @Validated DepartAttendInsertAllVo departAttendInsertAllVo){
         return departAttendFeginService.insertUpdateDelDepartAttendFalse(departAttendInsertAllVo);
     }
+
+    @ApiOperation(value = "获取假勤类型和惩罚规则列表", notes = "获取假勤类型和惩罚规则列表")
+    @GetMapping("getSysAttendFalse")
+    public ComResponse<SysAttendFalsePunishDto> getSysAttendFalse(){
+        return departAttendFeginService.getSysAttendFalse();
+    }
+
 
 
 }
