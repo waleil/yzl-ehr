@@ -73,4 +73,11 @@ public class DepartPostController {
         return departPostService.delete(id,staffNo);
     }
 
+
+    public static void main(String[] args) {
+
+
+        System.err.println(0b110000>>5<<5);
+        System.err.println(0b100000);
+    }
 }
