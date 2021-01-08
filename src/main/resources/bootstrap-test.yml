@@ -1,7 +1,7 @@
 spring:
   cloud:
     nacos:
-      server-addr: 192.168.32.160:8848
+      server-addr: http://nacostest.staff.yuzhilin.net.cn/
       discovery:
         username: servergateway
         password: servergateway
