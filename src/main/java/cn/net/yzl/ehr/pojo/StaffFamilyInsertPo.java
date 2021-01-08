@@ -1,0 +1,55 @@
+package cn.net.yzl.ehr.pojo;
+
+import lombok.Data;
+
+import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
+
+/**
+ * staff_family
+ * @author 
+ */
+@Data
+public class StaffFamilyInsertPo implements Serializable {
+
+
+    /**
+     * 员工表工号
+     */
+    @NotBlank
+    private String staffNo;
+
+    /**
+     * 姓名
+     */
+    @NotBlank
+    private String name;
+
+    /**
+     * 关系
+     */
+    @NotBlank
+    private String relation;
+
+    /**
+     * 工作单位/职务
+     */
+    @NotBlank
+    private String workUnit;
+
+    /**
+     * 联系电话
+     */
+    @NotBlank
+    private String phone;
+
+    /**
+     * 创建人
+     */
+    @NotBlank
+    private String creator;
+
+
+    private static final long serialVersionUID = 1L;
+
+}
