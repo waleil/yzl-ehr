@@ -1,68 +1,27 @@
-mybatis:
-  mapperLocations: classpath:/mybiats/*.xml
-  typeAliasesPackage: cn.net.yzl.ehr.pojo
-  mapperScanPackage: cn.net.yzl.ehr.mapper
-  configLocation: classpath:/mybatis-config.xml
-mysql:
-  datasource:
-    readSize: 2  #读库个数
-    type: com.alibaba.druid.pool.DruidDataSource
-    mapperLocations: classpath:/mybiats/*.xml
-    configLocation: classpath:/mybatis-config.xml
-    write:
-      url: jdbc:mysql://192.168.32.33:3306/test?useUnicode=true&amp;characterEncoding=utf-8
-      username: yzl_crm
-      password: Yzl123456!
-      driver-class-name: com.mysql.jdbc.Driver
-      minIdle: 5
-      maxActive: 100
-      initialSize: 10
-      maxWait: 60000
-      timeBetweenEvictionRunsMillis: 60000
-      minEvictableIdleTimeMillis: 300000
-      validationQuery: select 'x'
-      testWhileIdle: true
-      testOnBorrow: false
-      testOnReturn: false
-      poolPreparedStatements: true
-      maxPoolPreparedStatementPerConnectionSize: 50
-      removeAbandoned: true
-      filters: stat
-    read01:
-      url: jdbc:mysql://192.168.32.34:3306/test?useUnicode=true&amp;characterEncoding=utf-8
-      username: yzl_crm
-      password: Yzl123456!
-      driver-class-name: com.mysql.jdbc.Driver
-      minIdle: 5
-      maxActive: 100
-      initialSize: 10
-      maxWait: 60000
-      timeBetweenEvictionRunsMillis: 60000
-      minEvictableIdleTimeMillis: 300000
-      validationQuery: select 'x'
-      testWhileIdle: true
-      testOnBorrow: false
-      testOnReturn: false
-      poolPreparedStatements: true
-      maxPoolPreparedStatementPerConnectionSize: 50
-      removeAbandoned: true
-      filters: stat
-    read02:
-      url: jdbc:mysql://192.168.32.35:3306/test?useUnicode=true&amp;characterEncoding=utf-8
-      username: yzl_crm
-      password: Yzl123456!
-      driver-class-name: com.mysql.jdbc.Driver
-      minIdle: 5
-      maxActive: 100
-      initialSize: 10
-      maxWait: 60000
-      timeBetweenEvictionRunsMillis: 60000
-      minEvictableIdleTimeMillis: 300000
-      validationQuery: select 'x'
-      testWhileIdle: true
-      testOnBorrow: false
-      testOnReturn: false
-      poolPreparedStatements: true
-      maxPoolPreparedStatementPerConnectionSize: 50
-      removeAbandoned: true
-      filters: stat
+spring:
+  cloud:
+    nacos:
+      server-addr: http://nacostest.staff.yuzhilin.net.cn/
+      discovery:
+        username: servergateway
+        password: servergateway
+        namespace: 71088b30-7c81-48cd-9f1e-481977d6157d
+#        namespace: 46fc939a-916c-4203-9fb0-10fb0a2d6226
+#        username: bi
+#        password: bi
+#        namespace: 1668ab9a-def9-4a51-9c04-6bbbdf40b162
+#        username: ehr
+#        password: ehr
+#        namespace: ca2511dc-ae29-40f0-b1d9-8daca30a7e9c
+#        username: crm
+#        password: crm123456!
+#        namespace: d96fa76b-1489-4c41-8ea6-7f1137a238ce
+#        username: oauth
+#        password: oauth
+
+      config:
+        namespace: 1668ab9a-def9-4a51-9c04-6bbbdf40b162
+        username: ehr
+        password: ehr
+
+

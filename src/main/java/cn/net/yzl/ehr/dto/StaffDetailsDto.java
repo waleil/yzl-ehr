@@ -10,11 +10,9 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @Author lhw
- * @Date 2020/12/16 12:49
  */
 @Data
-@ApiModel(value = "StaffDetailsDto", description = "员工详情")
+@ApiModel(value = "StaffDetailsDto", description = "员工详情实体")
 public class StaffDetailsDto implements Serializable {
     @ApiModelProperty(value = "工号(用户工号)", name = "id")
     private String userNo;
@@ -67,6 +65,9 @@ public class StaffDetailsDto implements Serializable {
     private String emergencyContact;
     @ApiModelProperty(value = "紧急联系人手机号", name = "emergencyPhone")
     private String emergencyPhone;
+
+    @ApiModelProperty(value = "初试密码", name = "firstPassword")
+    private String firstPassword;
     @ApiModelProperty(value = "部门ids", name = "departIds")
     private List<Integer> departIds;
     @ApiModelProperty(value = "部门ids对应的名称集合", name = "departNames")
@@ -79,6 +80,10 @@ public class StaffDetailsDto implements Serializable {
     private Integer postLevelId;
     @ApiModelProperty(value = "岗位级别名称", name = "postLevelName")
     private String postLevelName;
+    @ApiModelProperty(value = "角色id", name = "roleId")
+    private Integer roleId;
+    @ApiModelProperty(value = "角色名称", name = "roleName")
+    private String roleName;
     @ApiModelProperty(value = "工作地点code", name = "workplaceCode")
     private Integer workplaceCode;
     @ApiModelProperty(value = "工作地点", name = "workplaceCodeStr")

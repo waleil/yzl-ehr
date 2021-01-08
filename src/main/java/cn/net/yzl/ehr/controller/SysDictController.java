@@ -51,9 +51,9 @@ public class SysDictController {
         return sysDictDataFeginService.getByType(dictType);
     }
 
-    @ApiOperation(value = "新增字典", notes = "新增字典", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @RequestMapping(value = "/insert", method = RequestMethod.POST)
-    ComResponse<Integer> insertSelective(@RequestBody @Validated SysDictDataVO dictDataVO){
-        return sysDictDataFeginService.insertSelective(dictDataVO);
+    @ApiOperation(value = "添加字典或者删除", notes = "添加字典或者删除", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/addOrUpdate", method = RequestMethod.POST)
+    ComResponse<Integer> addOrUpdate(@RequestBody  @Validated List<SysDictDataVO> dictDataList){
+        return sysDictDataFeginService.addOrUpdate(dictDataList);
     }
 }

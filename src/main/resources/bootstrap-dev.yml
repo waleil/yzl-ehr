@@ -15,6 +15,9 @@ spring:
 #        namespace: ca2511dc-ae29-40f0-b1d9-8daca30a7e9c
 #        username: crm
 #        password: crm123456!
+#        namespace: d96fa76b-1489-4c41-8ea6-7f1137a238ce
+#        username: oauth
+#        password: oauth
 
       config:
         namespace: 1668ab9a-def9-4a51-9c04-6bbbdf40b162
