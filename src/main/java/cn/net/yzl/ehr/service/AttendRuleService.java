@@ -18,10 +18,6 @@ public interface AttendRuleService {
     // 获取部门下的考勤规则
     ComResponse<Page<DepartAttendRuleDto>> getByDepartId(Integer departId, Integer pageNo, Integer pageSize) throws ParseException;
 
-    ComResponse<DepartAttendRuleDto> getByDepartIdAndPostIdAndEnable(Integer departId, Integer postId, Integer enable);
-
-
-
     ComResponse<Integer> addOrUpdateNormal(DepartAttendRuleNormalVO departAttendRuleNormalVO);
 
     ComResponse<Integer> addOrUpdateRobbed(DepartAttendRuleRobbedVO departAttendRuleRobbedVO);
@@ -29,4 +25,6 @@ public interface AttendRuleService {
     ComResponse<Integer> addOrUpdateElastic(DepartAttendRuleElasticVO departAttendRuleElasticVO);
 
     ComResponse<Integer> addOrUpdatePunch(DepartAttendRuleNoPunchVO departAttendRuleNoPunchVO);
+
+    ComResponse<DepartAttendRuleDto> getByDepartPostIdAndEnable(Integer departPostId, Integer enable);
 }

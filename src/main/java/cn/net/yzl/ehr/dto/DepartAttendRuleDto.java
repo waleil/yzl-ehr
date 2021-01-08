@@ -33,6 +33,11 @@ public class DepartAttendRuleDto implements Serializable {
     private Integer postId;
     @ApiModelProperty(value="岗位名称",name="postName")
     private String postName;
+    /**
+     * 部门岗位id
+     */
+    @ApiModelProperty(value="部门岗位id",name="departPostId")
+    private Integer departPostId;
     @ApiModelProperty(value="考勤时段:上班时间",name="workStartTime")
     private String workStartTime;
     @ApiModelProperty(value="考勤时段:下班时间",name="workEndTime")

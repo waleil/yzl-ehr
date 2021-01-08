@@ -27,6 +27,10 @@ public class DepartAttendRuleBaseVO implements Serializable {
     @Min(1)
     @NotNull
     protected Integer postId;
+    @ApiModelProperty(value="部门岗位id",name="departPostId",required = true)
+    @Min(1)
+    @NotNull
+    protected Integer departPostId;
     @ApiModelProperty(value="字典类型id",name="type",required = true)
     @NotNull
     @Min(1)

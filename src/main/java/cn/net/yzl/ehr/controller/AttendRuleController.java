@@ -74,15 +74,16 @@ public class AttendRuleController {
 
 
 
-    @ApiOperation(value = "考勤配置-考勤规则-根据部门id,是否启用状态,岗位id获取考勤规则信息", notes = "考勤配置-考勤规则-根据部门id,是否启用状态,岗位id获取考勤规则信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @RequestMapping(value = "/getByDepartIdAndPostIdAndEnable", method = RequestMethod.GET)
+    @ApiOperation(value = "考勤配置-考勤规则-根据部门岗位id获取考勤规则信息", notes = "考勤配置-考勤规则-根据部门id,是否启用状态,岗位id获取考勤规则信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/getByDepartPostIdAndEnable", method = RequestMethod.GET)
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "departId", value = "部门id", required = true, dataType = "Int", paramType = "query"),
+            @ApiImplicitParam(name = "departPostId", value = "部门岗位id", required = true, dataType = "Int", paramType = "query"),
+//            @ApiImplicitParam(name = "departId", value = "部门id", required = true, dataType = "Int", paramType = "query"),
             @ApiImplicitParam(name = "enable", value = "0:否,1:是(1:也表示立即生效的)",required = true, dataType = "Int", paramType = "query"),
-            @ApiImplicitParam(name = "postId", value = "岗位id",required = true, dataType = "Int", paramType = "query")
+//            @ApiImplicitParam(name = "postId", value = "岗位id",required = true, dataType = "Int", paramType = "query")
     })
-    public ComResponse<DepartAttendRuleDto> getByDepartIdAndPostIdAndEnable(@Min(1) @NotNull Integer departId,@Min(1) @NotNull Integer  postId, @Min(0) @Max(1) @NotNull Integer enable)  {
-        return attendRuleService.getByDepartIdAndPostIdAndEnable(departId,postId,enable);
+    public ComResponse<DepartAttendRuleDto> getByDepartPostIdAndEnable(@Min(1) @NotNull Integer departPostId,@Min(0) @Max(1) @NotNull Integer enable) throws ParseException {
+        return attendRuleService.getByDepartPostIdAndEnable(departPostId,enable);
     }
 
 

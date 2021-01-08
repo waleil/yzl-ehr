@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
@@ -29,35 +30,31 @@ import java.util.Date;
 import java.util.List;
 
 //@FeignClient(name = "yzl-staff-db")
-@FeignClient(value = "staff",url = "${fegin.db.url}")
+@FeignClient(value = "staff", url = "${fegin.db.url}")
 public interface AttendRuleFeginService {
 
 
     @RequestMapping(value = "/conf/attendRule/normal/addOrUpdate", method = RequestMethod.POST, consumes = "application/json")
     ComResponse<Integer> addOrUpdateNormal(@RequestBody @Validated DepartAttendRuleNormalVO departAttendRuleNormalVO);
+
     @RequestMapping(value = "/conf/attendRule/robbed/addOrUpdate", method = RequestMethod.POST, consumes = "application/json")
-    ComResponse<Integer> addOrUpdateRobbed(@RequestBody @Validated DepartAttendRuleRobbedVO departAttendRuleRobbedVO) ;
+    ComResponse<Integer> addOrUpdateRobbed(@RequestBody @Validated DepartAttendRuleRobbedVO departAttendRuleRobbedVO);
+
     @RequestMapping(value = "/conf/attendRule/elastic/addOrUpdate", method = RequestMethod.POST, consumes = "application/json")
     ComResponse<Integer> addOrUpdateElastic(@RequestBody @Validated DepartAttendRuleElasticVO departAttendRuleElasticVO);
 
     @RequestMapping(value = "/conf/attendRule/punch/addOrUpdate", method = RequestMethod.POST, consumes = "application/json")
-    ComResponse<Integer> addOrUpdatePunch(@RequestBody  DepartAttendRuleNoPunchVO departAttendRuleNoPunchVO);
+    ComResponse<Integer> addOrUpdatePunch(@RequestBody DepartAttendRuleNoPunchVO departAttendRuleNoPunchVO);
 
     @RequestMapping(value = "/conf/attendRule/getByDepartId", method = RequestMethod.GET)
     public ComResponse<Page<DepartAttendRuleDto>> getByDepartId(@RequestParam("departId") Integer departId,
                                                                 @RequestParam("pageNo") Integer pageNo,
-                                                                @RequestParam("pageSize") Integer pageSize) ;
-
-
-
-    @RequestMapping(value = "/conf/attendRule/getByDepartIdAndPostIdAndEnable", method = RequestMethod.GET)
-    public ComResponse<DepartAttendRuleDto> getByDepartIdAndPostIdAndEnable(@RequestParam("departId") Integer departId,@RequestParam("postId") Integer postId, @RequestParam("enable")Integer enable);
-
-
-
+                                                                @RequestParam("pageSize") Integer pageSize);
 
 
     @RequestMapping(value = "/conf/attendRule/getPostList", method = RequestMethod.GET)
-    public ComResponse<List<DepartPostDto>> getPostList(@RequestParam("departId") Integer departId) ;
+    public ComResponse<List<DepartPostDto>> getPostList(@RequestParam("departId") Integer departId);
 
+    @RequestMapping(value = "/conf/attendRule/getByDepartPostIdAndEnable", method = RequestMethod.GET)
+    ComResponse<DepartAttendRuleDto> getByDepartPostIdAndEnable(@RequestParam("departPostId") Integer departPostId, @RequestParam("enable") Integer enable);
 }

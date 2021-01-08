@@ -38,10 +38,10 @@ public class AttendRuleServiceImpl implements AttendRuleService {
         return attendRuleFeginService.getByDepartId(departId,pageNo,pageSize);
     }
 
-    @Override
-    public ComResponse<DepartAttendRuleDto> getByDepartIdAndPostIdAndEnable(Integer departId, Integer postId, Integer enable) {
-        return attendRuleFeginService.getByDepartIdAndPostIdAndEnable(departId,postId,enable);
-    }
+//    @Override
+//    public ComResponse<DepartAttendRuleDto> getByDepartIdAndPostIdAndEnable(Integer departId, Integer postId, Integer enable) {
+//        return attendRuleFeginService.getByDepartIdAndPostIdAndEnable(departId,postId,enable);
+//    }
 
     @Override
     public ComResponse<Integer> addOrUpdateNormal(DepartAttendRuleNormalVO departAttendRuleNormalVO) {
@@ -61,6 +61,12 @@ public class AttendRuleServiceImpl implements AttendRuleService {
     @Override
     public ComResponse<Integer> addOrUpdatePunch(DepartAttendRuleNoPunchVO departAttendRuleNoPunchVO) {
         return attendRuleFeginService.addOrUpdatePunch(departAttendRuleNoPunchVO);
+    }
+
+    @Override
+    public ComResponse<DepartAttendRuleDto> getByDepartPostIdAndEnable(Integer departPostId, Integer enable) {
+
+        return attendRuleFeginService.getByDepartPostIdAndEnable(departPostId,enable);
     }
 
 
