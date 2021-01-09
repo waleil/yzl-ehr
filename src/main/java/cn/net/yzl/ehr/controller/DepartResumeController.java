@@ -5,8 +5,7 @@ import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.dto.DepartResumeDto;
 import cn.net.yzl.ehr.dto.DepartResumeItemDto;
-import cn.net.yzl.ehr.pojo.DepartResumeItemPo;
-import cn.net.yzl.ehr.pojo.DepartResumePo;
+import cn.net.yzl.ehr.pojo.DepartResumeInsertListPo;
 import cn.net.yzl.ehr.service.DepartResumeService;
 
 import io.swagger.annotations.Api;
@@ -20,7 +19,6 @@ import springfox.documentation.annotations.ApiIgnore;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @RestController
 @RequestMapping("/conf/resume")
@@ -33,15 +31,15 @@ public class DepartResumeController {
 
     @ApiOperation(value = "面试流程-创建面试流程配置", notes = "面试流程-创建面试流程配置", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    ComResponse<String> add(@RequestBody @Validated DepartResumePo departResumePo, @CurrentStaffNo @ApiIgnore String staffNo) {
-        departResumePo.setCreator(staffNo);
+    ComResponse<String> add(@RequestBody @Validated DepartResumeInsertListPo departResumePo, @CurrentStaffNo @ApiIgnore String staffNo) {
+        departResumePo.setStaffNo(staffNo);
         return departResumeService.add(departResumePo);
     }
 
     @ApiOperation(value = "面试流程-根据主键更新面试流程信息", notes = "面试流程-根据主键更新面试流程信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/update", method = RequestMethod.POST, consumes = "application/json")
-    ComResponse<Integer> update(@RequestBody @Validated DepartResumeItemPo itemUpdatePo,@CurrentStaffNo @ApiIgnore String staffNo) {
-        itemUpdatePo.setUpdator(staffNo);
+    ComResponse<Integer> update(@RequestBody @Validated DepartResumeInsertListPo itemUpdatePo, @CurrentStaffNo @ApiIgnore String staffNo) {
+        itemUpdatePo.setStaffNo(staffNo);
         return departResumeService.saveUpdate(itemUpdatePo);
     }
 

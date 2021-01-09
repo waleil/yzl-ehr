@@ -6,14 +6,10 @@ import cn.net.yzl.common.enums.ResponseCodeEnums;
 import cn.net.yzl.ehr.dto.*;
 import cn.net.yzl.ehr.fegin.departResume.DepartResumeFeignService;
 import cn.net.yzl.ehr.dto.DepartResumeItemDto;
-import cn.net.yzl.ehr.pojo.DepartResumeItemPo;
-import cn.net.yzl.ehr.pojo.DepartResumePo;
+import cn.net.yzl.ehr.pojo.DepartResumeInsertListPo;
 import cn.net.yzl.ehr.service.DepartResumeService;
-import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class DepartResumeServiceImpl implements DepartResumeService {
@@ -22,7 +18,7 @@ public class DepartResumeServiceImpl implements DepartResumeService {
 
 
     @Override
-    public ComResponse<String> add(DepartResumePo departResumePo) {
+    public ComResponse<String> add(DepartResumeInsertListPo departResumePo) {
         ComResponse<Integer> addResult = departResumeFeginService.add(departResumePo);
         if(addResult==null){
         return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
@@ -33,7 +29,7 @@ public class DepartResumeServiceImpl implements DepartResumeService {
     }
 
     @Override
-    public ComResponse<Integer> saveUpdate(DepartResumeItemPo itemUpdatePo) {
+    public ComResponse<Integer> saveUpdate(DepartResumeInsertListPo itemUpdatePo) {
         ComResponse<Integer> addResult = departResumeFeginService.saveUpdate(itemUpdatePo);
         if(addResult==null){
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
