@@ -1,4 +1,4 @@
-/*package cn.net.yzl.ehr.service;
+package cn.net.yzl.ehr.service;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.pojo.*;
@@ -26,4 +26,4 @@ public interface StaffGrowUpService {
 
     ComResponse<Integer> saveUpDateTrain (StaffUpTrainItemPo staffUpTrainItemPo);
 
-}*/
+}
