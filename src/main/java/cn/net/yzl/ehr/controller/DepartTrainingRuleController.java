@@ -43,7 +43,7 @@ public class DepartTrainingRuleController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "departId", value = "部门id", required = true,  paramType = "query")
     })
-    public ComResponse<List<DepartTrainingRuleDto>> getDepartTraininRuleById( @NotNull @Min(0) Integer departId){
+    public ComResponse<List<DepartTrainingRuleDto>> getDepartTraininRuleById(@RequestBody @NotNull @Min(0) Integer departId){
         return   departTrainingRuleService.getByDepartId(departId);
     }
 

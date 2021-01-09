@@ -25,7 +25,6 @@ public class DepartResumeInsertPo implements Serializable {
     private String stepId;
 
     @ApiModelProperty(value = "面试人id",hidden = true)
-    @NotBlank
     private String leaderNo;
 
 

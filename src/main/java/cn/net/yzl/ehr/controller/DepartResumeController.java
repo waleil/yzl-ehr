@@ -1,11 +1,14 @@
 package cn.net.yzl.ehr.controller;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.dto.DepartResumeDto;
+import cn.net.yzl.ehr.dto.DepartResumeItemDto;
 import cn.net.yzl.ehr.pojo.DepartResumeItemPo;
 import cn.net.yzl.ehr.pojo.DepartResumePo;
 import cn.net.yzl.ehr.service.DepartResumeService;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +19,6 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -45,8 +47,9 @@ public class DepartResumeController {
 
     @ApiOperation(value = "面试流程-获取部门下的面试流程信息", notes = "面试流程-获取部门下的面试流程信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/getByDepartId", method = RequestMethod.GET)
-    ComResponse<List<DepartResumeDto>> getByDepartId(@RequestParam("departId") @NotNull @Min(1) Integer departId) {
-        return departResumeService.getByDepartId(departId);
+    ComResponse<Page<DepartResumeItemDto>> getByDepartId(@RequestParam("departId") @Min(1) @NotNull Integer departId, @RequestParam("pageNo")  @Min(1) @NotNull Integer pageNo,
+                                                         @RequestParam("pageSize")  @Min(1) @NotNull Integer pageSize) {
+        return departResumeService.getByDepartId(departId,pageNo,pageSize);
     }
 
     @ApiOperation(value = "面试流程-获取岗位的面试流程信息", notes = "面试流程-获取岗位的面试流程信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)

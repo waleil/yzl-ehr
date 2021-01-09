@@ -36,5 +36,4 @@ public interface DepartTrainingRuleFeginService {
     @RequestMapping(value = "/conf/training/deleteById", method = RequestMethod.POST)
     ComResponse<Integer> deleteById(@RequestParam("id") Integer id, @RequestParam("updator") String updator) ;
 
-
 }
