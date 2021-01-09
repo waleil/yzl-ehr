@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Repository
-@FeignClient(name = "yzl-staff-db")
-//@FeignClient(value = "post",url = "${fegin.db.url}")
+//@FeignClient(name = "yzl-staff-db")
+@FeignClient(value = "departResume",url = "${fegin.db.url}")
 public interface DepartResumeFeignService {
 
     @RequestMapping(value = "/conf/resume/add", method = RequestMethod.POST)
