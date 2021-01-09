@@ -120,4 +120,7 @@ public class DepartAttendRuleDto implements Serializable {
     @ApiModelProperty(value="几日后生效",name="days")
     private Integer days;
 
+    @ApiModelProperty(value="标题",name="title")
+    private String title;
+
 }
