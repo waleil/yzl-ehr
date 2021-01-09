@@ -24,7 +24,7 @@ public class DepartResumeDictListPo {
         @NotNull
         @Min(0)
         private Integer sort;
-        @ApiModelProperty(value = "创建人", name = "creator",hidden = true)
+        @ApiModelProperty(value = "创建人",hidden = true)
         private String creator;
     }
 
@@ -41,7 +41,7 @@ public class DepartResumeDictListPo {
         @NotNull
         @Min(0)
         private Integer sort;
-        @ApiModelProperty(value = "更改人", name ="updator",hidden = true)
+        @ApiModelProperty(value = "更改人",hidden = true)
         private String updator;
     }
 
@@ -51,7 +51,7 @@ public class DepartResumeDictListPo {
         @NotNull
         @Min(0)
         private Integer id;
-        @ApiModelProperty(value = "更改人", name = "updator",hidden = true)
+        @ApiModelProperty(value = "更改人",hidden = true)
         private String updator;
     }
 
