@@ -4,7 +4,6 @@ import cn.net.yzl.ehr.util.ValidList;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -21,10 +20,10 @@ public class DepartResumeItemPo {
     @NotBlank
     private String updator;
 
-    @Valid
+
     private ValidList<DepartResumeInsertPo> insertList;
-    @Valid
+
     private ValidList<DepartResumeUpdatePo> updateList;
-    @Valid
+
     private ValidList<DepartResumeDeletePo> deleteList;
 }
