@@ -21,9 +21,6 @@ import java.util.List;
 @RefreshScope
 public interface PostLevelFeginMapper {
 
-
-
-
     @RequestMapping(value = "/postLevel/getById", method = RequestMethod.GET)
     ComResponse<PostLevelDto> getById(@RequestParam("id")  Integer id);
 

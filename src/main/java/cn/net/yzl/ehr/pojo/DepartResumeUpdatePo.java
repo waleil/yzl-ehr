@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.pojo;
 
 
+import cn.net.yzl.ehr.util.ValidList;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -19,7 +20,7 @@ public  class DepartResumeUpdatePo implements Serializable {
 
     @ApiModelProperty("此轮名称")
     @NotBlank
-    private String stepName;
+    private String stepId;
 
     @ApiModelProperty("面试人id")
     @NotBlank
@@ -34,6 +35,8 @@ public  class DepartResumeUpdatePo implements Serializable {
 
     @ApiModelProperty(value = "更新人唯一标识",hidden = true)
     private String updator;
+
+    private ValidList<DepartResumeNodeStaffPo> departResumeNodeStaffList;
 
     private static final long serialVersionUID = 1L;
 

@@ -11,7 +11,12 @@ import lombok.Data;
  */
 @Data
 public class DepartResumeNodeDto {
-    private Integer nodeId;
+
+    @ApiModelProperty("noteId")
+    private Integer noteId;
+
+    @ApiModelProperty("此轮名称编号")
+    private String stepId;
 
     @ApiModelProperty("此轮名称")
     private String stepName;

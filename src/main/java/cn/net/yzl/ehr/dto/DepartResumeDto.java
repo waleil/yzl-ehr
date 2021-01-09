@@ -28,6 +28,11 @@ public class DepartResumeDto {
     @ApiModelProperty("岗位名称")
     private String postName;
 
+    @ApiModelProperty("配置编码")
+    private String resumeId;
+
     private List<DepartResumeNodeDto> nodeList;
+
+
 
 }
