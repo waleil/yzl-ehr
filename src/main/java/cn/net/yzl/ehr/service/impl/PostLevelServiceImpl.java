@@ -68,8 +68,8 @@ public class PostLevelServiceImpl implements PostLevelService {
     }
 
     @Override
-    public ComResponse<List<PostLevelListDto>> getListByDepartId(Integer departId) {
-        ComResponse<List<PostLevelListDto>> result = postLevelMapper.getListByDepartId(departId);
+    public ComResponse<List<PostLevelListDto>> getList() {
+        ComResponse<List<PostLevelListDto>> result = postLevelMapper.getList();
         if(result==null){
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
         }else if(result.getCode()==200 &&  result.getData()==null){
