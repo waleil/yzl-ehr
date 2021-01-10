@@ -5,7 +5,6 @@ import cn.net.yzl.common.enums.ResponseCodeEnums;
 import cn.net.yzl.ehr.dto.DepartResumeDictDto;
 import cn.net.yzl.ehr.fegin.departResume.DepartResumeDictFeignService;
 import cn.net.yzl.ehr.pojo.DepartResumeDictListPo;
-import cn.net.yzl.ehr.pojo.DepartResumeItemPo;
 import cn.net.yzl.ehr.service.DepartResumeDictService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

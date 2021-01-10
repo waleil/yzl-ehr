@@ -24,7 +24,7 @@ public class StaffFamilyPo implements Serializable {
     private String phone;
     @ApiModelProperty(value = "创建人", name = "creator")
     private String creator;
-    @ApiModelProperty(value = "修改人", name = "updator")
+    @ApiModelProperty(value = "修改人", name = "updator",hidden = true)
     private String updator;
 
 

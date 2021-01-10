@@ -13,7 +13,6 @@ public class PostLevelDeletePo {
     @Min(value = 0)
     private Integer id;
 
-    @ApiModelProperty("更改人")
-    @NotBlank
+    @ApiModelProperty(value="更改人",hidden=true)
     private String updator;
 }

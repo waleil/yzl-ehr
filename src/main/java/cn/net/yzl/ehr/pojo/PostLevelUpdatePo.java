@@ -26,8 +26,7 @@ public class PostLevelUpdatePo implements Serializable {
     @NotBlank
     private String name;
 
-    @ApiModelProperty("更新人唯一标识")
-    @NotBlank
+    @ApiModelProperty(value = "更新人唯一标识",hidden = true)
     private String updator;
 
     private static final long serialVersionUID = 1L;

@@ -59,7 +59,7 @@ public class DepartResumeDictController {
 
     @ApiOperation(value = "保存轮次名称字典", notes = "保存轮次名称字典", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/saveUpdate", method = RequestMethod.POST)
-    ComResponse<Integer> saveUpdate(@RequestBody @Validated DepartResumeDictListPo listPo,@CurrentStaffNo @ApiIgnore String staffNo){
+    ComResponse<Integer> saveUpdate(@RequestBody  DepartResumeDictListPo listPo,@CurrentStaffNo @ApiIgnore String staffNo){
         return dictService.saveUpdate(listPo,staffNo);
     }
 

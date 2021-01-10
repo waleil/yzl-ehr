@@ -1,11 +1,13 @@
 package cn.net.yzl.ehr.controller;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.dto.DepartResumeDto;
-import cn.net.yzl.ehr.pojo.DepartResumeItemPo;
-import cn.net.yzl.ehr.pojo.DepartResumePo;
+import cn.net.yzl.ehr.dto.DepartResumeItemDto;
+import cn.net.yzl.ehr.pojo.DepartResumeInsertListPo;
 import cn.net.yzl.ehr.service.DepartResumeService;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +18,11 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @RestController
 @RequestMapping("/conf/resume")
-@Api(value = "配置模块-面试流程配置", tags = {"配置模块-面试流程配置"})
+@Api(value = "配置模块", tags = {"配置模块-面试流程配置"})
 @Valid
 public class DepartResumeController {
 
@@ -31,22 +31,23 @@ public class DepartResumeController {
 
     @ApiOperation(value = "面试流程-创建面试流程配置", notes = "面试流程-创建面试流程配置", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    ComResponse<String> add(@RequestBody @Validated DepartResumePo departResumePo, @CurrentStaffNo @ApiIgnore String staffNo) {
-        departResumePo.setCreator(staffNo);
+    ComResponse<String> add(@RequestBody @Validated DepartResumeInsertListPo departResumePo, @CurrentStaffNo @ApiIgnore String staffNo) {
+        departResumePo.setStaffNo(staffNo);
         return departResumeService.add(departResumePo);
     }
 
     @ApiOperation(value = "面试流程-根据主键更新面试流程信息", notes = "面试流程-根据主键更新面试流程信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/update", method = RequestMethod.POST, consumes = "application/json")
-    ComResponse<Integer> update(@RequestBody @Validated DepartResumeItemPo itemUpdatePo,@CurrentStaffNo @ApiIgnore String staffNo) {
-        itemUpdatePo.setUpdator(staffNo);
+    ComResponse<Integer> update(@RequestBody @Validated DepartResumeInsertListPo itemUpdatePo, @CurrentStaffNo @ApiIgnore String staffNo) {
+        itemUpdatePo.setStaffNo(staffNo);
         return departResumeService.saveUpdate(itemUpdatePo);
     }
 
     @ApiOperation(value = "面试流程-获取部门下的面试流程信息", notes = "面试流程-获取部门下的面试流程信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/getByDepartId", method = RequestMethod.GET)
-    ComResponse<List<DepartResumeDto>> getByDepartId(@RequestParam("departId") @NotNull @Min(1) Integer departId) {
-        return departResumeService.getByDepartId(departId);
+    ComResponse<Page<DepartResumeItemDto>> getByDepartId(@RequestParam("departId") @Min(1) @NotNull Integer departId, @RequestParam("pageNo")  @Min(1) @NotNull Integer pageNo,
+                                                         @RequestParam("pageSize")  @Min(1) @NotNull Integer pageSize) {
+        return departResumeService.getByDepartId(departId,pageNo,pageSize);
     }
 
     @ApiOperation(value = "面试流程-获取岗位的面试流程信息", notes = "面试流程-获取岗位的面试流程信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
