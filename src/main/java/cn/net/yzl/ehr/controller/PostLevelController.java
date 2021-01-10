@@ -63,7 +63,7 @@ public class PostLevelController {
 
     @ApiOperation(value = "查询岗位级别列表", notes = "查询岗位级别列表", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/getList", method = RequestMethod.GET)
-    ComResponse<List<PostLevelListDto>> getList(){
+    ComResponse<List<PostLevelDto>> getList(){
         return postLevelService.getList();
     }
 

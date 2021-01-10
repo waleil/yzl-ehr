@@ -21,7 +21,7 @@ public interface PostLevelService {
 
     ComResponse<Integer> update( PostLevelUpdatePo postLevel,String staffNo);
 
-    ComResponse<List<PostLevelListDto>> getList();
+    ComResponse<List<PostLevelDto>> getList();
 
     ComResponse<PostLevelListDto> getListByPostId( Integer postId);
 

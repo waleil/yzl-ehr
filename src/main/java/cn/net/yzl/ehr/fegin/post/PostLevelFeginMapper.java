@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Repository
-@FeignClient(name = "yzl-staff-db")
-//@FeignClient(value = "post",url = "${fegin.db.url}")
+//@FeignClient(name = "yzl-staff-db")
+@FeignClient(value = "post",url = "${fegin.db.url}")
 @RefreshScope
 public interface PostLevelFeginMapper {
 
@@ -35,7 +35,7 @@ public interface PostLevelFeginMapper {
     ComResponse<Integer> update(@RequestBody PostLevelUpdatePo postLevel);
 
     @RequestMapping(value = "/postLevel/getList", method = RequestMethod.GET)
-    ComResponse<List<PostLevelListDto>> getList();
+    ComResponse<List<PostLevelDto>> getList();
 
     @RequestMapping(value = "/postLevel/getListByPostId", method = RequestMethod.GET)
     ComResponse<PostLevelListDto> getListByPostId(@RequestParam("postId") Integer postId);
