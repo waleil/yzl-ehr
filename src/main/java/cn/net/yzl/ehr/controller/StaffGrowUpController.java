@@ -2,6 +2,8 @@ package cn.net.yzl.ehr.controller;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
+import cn.net.yzl.ehr.dto.StaffUpRpListDto;
+import cn.net.yzl.ehr.dto.StaffUpTrainListDto;
 import cn.net.yzl.ehr.pojo.*;
 
 import cn.net.yzl.ehr.service.StaffGrowUpService;
@@ -33,7 +35,7 @@ public class StaffGrowUpController {
 
     @ApiOperation(value = "查询员工成长中奖惩信息",notes = "查询员工成长中奖惩信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/findByStaffNo", method = RequestMethod.GET)
-    ComResponse<List<StaffUpRpPo>> findByStaffNo(String staffNO) {
+    ComResponse<List<StaffUpRpListDto>> findByStaffNo(String staffNO) {
         return staffGrowUpService.findByStaffNo(staffNO);
     }
 /*
@@ -63,18 +65,27 @@ public class StaffGrowUpController {
 
     @ApiOperation(value = "保存员工成长中奖惩信息", notes = "保存员工成长中奖惩信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value ="/saveUpDate",method = RequestMethod.POST)
-    ComResponse<Integer> saveUpDate(@RequestBody @Validated StaffUpRpItemPo staff){
-        return staffGrowUpService.saveUpDate(staff);
+    ComResponse<Integer> saveUpDate(@RequestBody @Validated StaffUpRpItemPo itemPo,@ApiIgnore @CurrentStaffNo String updator){
+        itemPo.getInsertList().forEach(x->{
+            x.setCreator(updator);
+        });
+        itemPo.getUpdateList().forEach(x->{
+            x.setUpdator(updator);
+        });
+        itemPo.getDeleteList().forEach(x->{
+            x.setUpdator(updator);
+        });
+        return staffGrowUpService.saveUpDate(itemPo);
     }
+
 
     @ApiOperation(value = "查询员工成长信息中培训信息",notes = "查询员工成长信息中培训信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/find", method = RequestMethod.GET)
-    ComResponse<List<StaffUpTrainPo>> find(String staffNO) {
+    ComResponse<List<StaffUpTrainListDto>> find(String staffNO) {
         return staffGrowUpService.find(staffNO);
     }
 
-/*
-    @ApiOperation(value = "删除员工成长信息中培训信息",notes = "删除员工成长信息中培训信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+ /*   @ApiOperation(value = "删除员工成长信息中培训信息",notes = "删除员工成长信息中培训信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @ApiImplicitParams(
             @ApiImplicitParam(name = "id", value = "员工编号", required = true, paramType = "query")
     )
@@ -96,13 +107,21 @@ public class StaffGrowUpController {
     @RequestMapping(value = "/updateTrain",method = RequestMethod.POST)
     ComResponse<Integer> updateTrain (@RequestBody @Validated StaffUpTrainUpdatePo FamilyPo){
         return staffGrowUpService.updateTrain(FamilyPo);
-    }*/
-
+    }
+*/
     @ApiOperation(value = "保存员工成长信息中培训信息", notes = "保存员工成长信息中培训信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value ="/saveUpDateTrain",method = RequestMethod.POST)
-    ComResponse<Integer> saveUpDateTrain(@RequestBody @Validated StaffUpTrainItemPo staff){
-        return staffGrowUpService.saveUpDateTrain(staff);
+    ComResponse<Integer>  saveUpDateTrain (@RequestBody @Validated StaffUpTrainItemPo trainItemPo ,@ApiIgnore @CurrentStaffNo String updator){
+        trainItemPo.getInsertList().forEach(x->{
+            x.setCreator(updator);
+        });
+        trainItemPo.getUpdateList().forEach(x->{
+            x.setUpdator(updator);
+        });
+        trainItemPo.getDeleteList().forEach(x->{
+            x.setUpdator(updator);
+        });
+        return staffGrowUpService.saveUpDateTrain(trainItemPo);
     }
-
 
 }

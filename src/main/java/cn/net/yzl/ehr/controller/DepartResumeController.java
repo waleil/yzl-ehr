@@ -6,6 +6,7 @@ import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.dto.DepartResumeDto;
 import cn.net.yzl.ehr.dto.DepartResumeItemDto;
 import cn.net.yzl.ehr.pojo.DepartResumeInsertListPo;
+import cn.net.yzl.ehr.pojo.DepartResumeUpdateListPo;
 import cn.net.yzl.ehr.service.DepartResumeService;
 
 import io.swagger.annotations.Api;
@@ -38,7 +39,7 @@ public class DepartResumeController {
 
     @ApiOperation(value = "面试流程-根据主键更新面试流程信息", notes = "面试流程-根据主键更新面试流程信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/update", method = RequestMethod.POST, consumes = "application/json")
-    ComResponse<Integer> update(@RequestBody @Validated DepartResumeInsertListPo itemUpdatePo, @CurrentStaffNo @ApiIgnore String staffNo) {
+    ComResponse<Integer> update(@RequestBody @Validated DepartResumeUpdateListPo itemUpdatePo, @CurrentStaffNo @ApiIgnore String staffNo) {
         itemUpdatePo.setStaffNo(staffNo);
         return departResumeService.saveUpdate(itemUpdatePo);
     }

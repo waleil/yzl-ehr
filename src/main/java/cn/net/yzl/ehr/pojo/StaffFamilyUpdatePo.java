@@ -40,8 +40,7 @@ public class StaffFamilyUpdatePo implements Serializable {
     @NotBlank
     private String phone;
 
-    @ApiModelProperty("修改人")
-    @NotBlank
+    @ApiModelProperty(value = "修改人",hidden = true)
     private String updator;
 
 

@@ -7,6 +7,7 @@ import cn.net.yzl.ehr.dto.*;
 import cn.net.yzl.ehr.fegin.departResume.DepartResumeFeignService;
 import cn.net.yzl.ehr.dto.DepartResumeItemDto;
 import cn.net.yzl.ehr.pojo.DepartResumeInsertListPo;
+import cn.net.yzl.ehr.pojo.DepartResumeUpdateListPo;
 import cn.net.yzl.ehr.service.DepartResumeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,8 +29,9 @@ public class DepartResumeServiceImpl implements DepartResumeService {
         return  ComResponse.success();
     }
 
+
     @Override
-    public ComResponse<Integer> saveUpdate(DepartResumeInsertListPo itemUpdatePo) {
+    public ComResponse<Integer> saveUpdate(DepartResumeUpdateListPo itemUpdatePo) {
         ComResponse<Integer> addResult = departResumeFeginService.saveUpdate(itemUpdatePo);
         if(addResult==null){
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());

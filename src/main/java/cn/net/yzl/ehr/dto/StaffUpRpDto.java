@@ -35,11 +35,6 @@ public class StaffUpRpDto implements Serializable {
     @ApiModelProperty(value = "奖/惩 (1.奖励 2.惩罚)",name = "flag")
     private Integer flag;
 
-    @ApiModelProperty(value = "创建人",name = "creator")
-    private String creator;
-
-    @ApiModelProperty(value = "修改人",name = "updator")
-    private String updator;
 
     private static final long serialVersionUID = 1L;
 

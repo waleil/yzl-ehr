@@ -70,8 +70,7 @@ public class StaffUpRpUpdatePo implements Serializable {
     /**
      * 修改人
      */
-    @ApiModelProperty(value = "修改人唯一标识",hidden = true)
-    @NotBlank
+    @ApiModelProperty(value = "修改人",hidden = true)
     private String updator;
 
 

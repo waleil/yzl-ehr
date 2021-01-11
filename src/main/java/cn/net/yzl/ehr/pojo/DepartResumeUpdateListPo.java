@@ -12,7 +12,7 @@ import java.io.Serializable;
 
 @Valid
 @Data
-public class DepartResumeInsertListPo implements Serializable {
+public class DepartResumeUpdateListPo implements Serializable {
     @ApiModelProperty(value = "操作人",hidden = true)
     private String staffNo;
 
@@ -31,7 +31,8 @@ public class DepartResumeInsertListPo implements Serializable {
         @Min(0)
         private Integer postId;
 
-        @ApiModelProperty(value = "配置编码",hidden = true)
+        @ApiModelProperty(value = "配置编码")
+        @NotNull
         @Min(0)
         private Integer resumeId;
 

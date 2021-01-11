@@ -1,6 +1,8 @@
 package cn.net.yzl.ehr.fegin.staff;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.ehr.dto.StaffFamilyDto;
+import cn.net.yzl.ehr.dto.StaffFamilyListDto;
 import cn.net.yzl.ehr.pojo.StaffFamilyInsertPo;
 import cn.net.yzl.ehr.pojo.StaffFamilyItemPo;
 import cn.net.yzl.ehr.pojo.StaffFamilyPo;
@@ -25,7 +27,7 @@ public interface StaffFamilyFeginService {
 
     @ApiOperation(value = "查询员工家庭信息",notes = "查询员工家庭信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/staffFamily/findByStaffNo", method = RequestMethod.GET)
-    ComResponse<List<StaffFamilyPo>> findByStaffNo(@RequestParam("staffNO")  String staffNO);
+    ComResponse<List<StaffFamilyListDto>> findByStaffNo(@RequestParam("staffNO")  String staffNO);
 
     @ApiOperation(value = "删除信息",notes = "删除信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/staffFamily/deleteById",method = RequestMethod.GET)
