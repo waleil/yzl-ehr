@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.fegin.staff;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.ehr.dto.StaffEduListDto;
 import cn.net.yzl.ehr.pojo.*;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -20,7 +21,7 @@ public interface StaffEduFeginService {
 
     @ApiOperation(value = "查询员工教育经历",notes = "查询员工教育经历",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/staffEdu/findByStaffNo", method = RequestMethod.GET)
-    ComResponse<List<StaffEduPo>> findByStaffNo(@RequestParam("staffNO")  String staffNO);
+    ComResponse<List<StaffEduListDto>> findByStaffNo(@RequestParam("staffNO")  String staffNO);
 
     @ApiOperation(value = "删除查询员工教育经历",notes = "删除查询员工教育经历",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/staffEdu/deleteById",method = RequestMethod.GET)

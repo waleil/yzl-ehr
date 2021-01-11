@@ -4,6 +4,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -16,12 +18,14 @@ import java.util.Date;
 public class StaffEduDto implements Serializable {
 
     @ApiModelProperty(value = "员工教育编号", name = "id")
+    @NotNull
     private Integer id;
 
     /**
      * 员工表工号
      */
     @ApiModelProperty(value = "员工表工号", name = "staffNo")
+    @NotBlank
     private String staffNo;
 
     /**
@@ -40,61 +44,37 @@ public class StaffEduDto implements Serializable {
      * 毕业学校
      */
     @ApiModelProperty(value = "毕业学校", name = "school")
+    @NotBlank
     private String school;
 
     /**
      * 学历
      */
     @ApiModelProperty(value = "学历", name = "degree")
+    @NotNull
     private Integer degree;
 
     /**
      * 专业/院系
      */
     @ApiModelProperty(value = "专业/院系", name = "major")
+    @NotBlank
     private String major;
 
     /**
      * 证书路径
      */
     @ApiModelProperty(value = "证书路径", name = "path")
+    @NotBlank
     private String path;
 
     /**
      * 持有证书
      */
     @ApiModelProperty(value = "持有证书", name = "certificate")
+    @NotBlank
     private String certificate;
 
-    /**
-     * 是否删除 0正常 1删除
-     */
-    @ApiModelProperty(value = "是否删除 (0正常 1删除)", name = "isDel")
-    private Integer isDel;
-
-    /**
-     * 创建时间
-     */
-    @ApiModelProperty(value = "创建时间", name = "createTime")
-    private Date createTime;
-
-    /**
-     * 创建人
-     */
-    @ApiModelProperty(value = "创建人", name = "creator")
-    private String creator;
-
-    /**
-     * 修改人
-     */
-    @ApiModelProperty(value = "修改人", name = "updator")
-    private String updator;
-
-    /**
-     * 修改时间
-     */
-    @ApiModelProperty(value = "修改时间", name = "updateTime")
-    private Date updateTime;
 
     private static final long serialVersionUID = 1L;
 

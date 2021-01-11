@@ -2,6 +2,7 @@ package cn.net.yzl.ehr.controller;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
+import cn.net.yzl.ehr.dto.StaffEduListDto;
 import cn.net.yzl.ehr.pojo.*;
 import cn.net.yzl.ehr.service.StaffEduService;
 import cn.net.yzl.ehr.service.StaffFamilyService;
@@ -31,9 +32,11 @@ public class StaffEduController {
             @ApiImplicitParam(name = "StaffNo", value = "员工工号", required = true, paramType = "query")
     )
     @RequestMapping(value = "/findByStaffNo", method = RequestMethod.GET)
-    ComResponse<List<StaffEduPo>> findByStaffNo(@RequestParam("StaffNo") String StaffNo) {
+    ComResponse<List<StaffEduListDto>> findByStaffNo(@RequestParam("StaffNo") String StaffNo) {
         return staffEduService.findByStaffNo(StaffNo);
     }
+
+/*
     @ApiOperation(value = "删除员工教育经历",notes = "删除员工教育经历",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @ApiImplicitParams(
             @ApiImplicitParam(name = "id", value = "员工教育经历编号", required = true, paramType = "query")
@@ -56,7 +59,10 @@ public class StaffEduController {
     ComResponse<Integer> update (@RequestBody @Validated StaffEduUpdatePo updatePo){
         return staffEduService.update(updatePo);
     }
-    @ApiOperation(value = "保存信息", notes = "保存信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+
+    */
+
+    @ApiOperation(value = "保存员工教育经历", notes = "保存员工教育经历", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value ="/saveUpDate",method = RequestMethod.POST)
     ComResponse<Integer> saveUpDate(@RequestBody @Validated StaffEduItemPo itemPo ,@ApiIgnore @CurrentStaffNo String staffNo){
         itemPo.getInsertList().forEach(x->{
