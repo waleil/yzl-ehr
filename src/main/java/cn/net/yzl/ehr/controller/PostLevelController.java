@@ -61,10 +61,10 @@ public class PostLevelController {
         return postLevelService.update(postLevel,staffNo);
     }
 
-    @ApiOperation(value = "查询部门岗位级别列表", notes = "查询部门岗位级别列表", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @RequestMapping(value = "/getListByDepartId", method = RequestMethod.GET)
-    ComResponse<List<PostLevelListDto>> getListByDepartId(@RequestParam("departId") @NotNull @Min(0) Integer departId){
-        return postLevelService.getListByDepartId(departId);
+    @ApiOperation(value = "查询岗位级别列表", notes = "查询岗位级别列表", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/getList", method = RequestMethod.GET)
+    ComResponse<List<PostLevelDto>> getList(){
+        return postLevelService.getList();
     }
 
     @ApiOperation(value = "查询岗位的岗位级别列表", notes = "查询岗位的岗位级别列表", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)

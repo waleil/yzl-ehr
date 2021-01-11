@@ -56,7 +56,6 @@ public class DepartPostPo implements Serializable {
 
 
     @ApiModelProperty(value = "创建人",hidden = true)
-    @NotBlank
     private String creator;
 
     @ApiModelProperty("父id")
@@ -64,7 +63,6 @@ public class DepartPostPo implements Serializable {
     private Integer pid;
 
     @ApiModelProperty("排序")
-    @NotNull
     @Min(0)
     private Integer sort;
 
