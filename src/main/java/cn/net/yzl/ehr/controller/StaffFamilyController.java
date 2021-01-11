@@ -2,6 +2,8 @@ package cn.net.yzl.ehr.controller;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
+import cn.net.yzl.ehr.dto.StaffFamilyDto;
+import cn.net.yzl.ehr.dto.StaffFamilyListDto;
 import cn.net.yzl.ehr.pojo.StaffFamilyInsertPo;
 import cn.net.yzl.ehr.pojo.StaffFamilyItemPo;
 import cn.net.yzl.ehr.pojo.StaffFamilyPo;
@@ -14,10 +16,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
@@ -34,10 +33,10 @@ public class StaffFamilyController {
 
     @ApiOperation(value = "查询员工家庭信息",notes = "查询员工家庭信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @ApiImplicitParams(
-            @ApiImplicitParam(name = "StaffNo", value = "员工工号", required = true, paramType = "query")
+            @ApiImplicitParam(name = "staffNO", value = "员工工号", required = true, paramType = "query")
     )
     @RequestMapping(value = "/findByStaffNo", method = RequestMethod.GET)
-    ComResponse<List<StaffFamilyPo>> findByStaffNo(@ApiIgnore @CurrentStaffNo String staffNO) {
+    ComResponse<List<StaffFamilyListDto>> findByStaffNo(@RequestParam("staffNO") String staffNO) {
         return staffFamilyService.findByStaffNo(staffNO);
     }
 /*
@@ -65,7 +64,17 @@ public class StaffFamilyController {
     }*/
     @ApiOperation(value = "保存信息", notes = "保存信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value ="/saveUpDate",method = RequestMethod.POST)
-    ComResponse<Integer> saveUpDate(@RequestBody @Validated StaffFamilyItemPo staffFamilyPo){
+    ComResponse<Integer> saveUpDate(@RequestBody @Validated StaffFamilyItemPo staffFamilyPo, @ApiIgnore @CurrentStaffNo String updator){
+        staffFamilyPo.getInsertList().forEach(x->{
+            x.setCreator(updator);
+        });
+        staffFamilyPo.getUpdateList().forEach(x->{
+            x.setUpdator(updator);
+        });
+        staffFamilyPo.getDeleteList().forEach(x->{
+            x.setUpdator(updator);
+        });
+
         return staffFamilyService.saveUpDate(staffFamilyPo);
     }
 }

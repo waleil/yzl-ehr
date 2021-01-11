@@ -8,12 +8,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
-/**
- * staff_up_train
- * @author 
- */
 @Data
-public class StaffUpTrainDeletePo implements Serializable {
+public class StaffEduDeletePo implements Serializable {
     /**
      * id 唯一标识
      */
