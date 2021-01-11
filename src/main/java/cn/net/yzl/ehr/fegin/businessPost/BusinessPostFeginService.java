@@ -23,8 +23,8 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Map;
 
-//@FeignClient(value = "businessPost",url = "${fegin.db.url}")
-@FeignClient(name = "yzl-staff-db")
+@FeignClient(value = "businessPost",url = "${fegin.db.url}")
+//@FeignClient(name = "yzl-staff-db")
 public interface BusinessPostFeginService {
 
 
