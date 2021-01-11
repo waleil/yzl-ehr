@@ -5,6 +5,7 @@ import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.dto.DepartResumeDto;
 import cn.net.yzl.ehr.dto.DepartResumeItemDto;
 import cn.net.yzl.ehr.pojo.DepartResumeInsertListPo;
+import cn.net.yzl.ehr.pojo.DepartResumeUpdateListPo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,7 +24,7 @@ public interface DepartResumeFeignService {
 
 
     @RequestMapping(value = "/conf/resume/saveUpdate", method = RequestMethod.POST, consumes = "application/json")
-    ComResponse<Integer> saveUpdate(@RequestBody DepartResumeInsertListPo itemUpdatePo);
+    ComResponse<Integer> saveUpdate(@RequestBody DepartResumeUpdateListPo itemUpdatePo);
 
 
     @RequestMapping(value = "/conf/resume/getByDepartId", method = RequestMethod.GET)

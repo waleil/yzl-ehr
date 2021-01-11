@@ -5,13 +5,14 @@ import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.dto.DepartResumeDto;
 import cn.net.yzl.ehr.dto.DepartResumeItemDto;
 import cn.net.yzl.ehr.pojo.DepartResumeInsertListPo;
+import cn.net.yzl.ehr.pojo.DepartResumeUpdateListPo;
 
 
 public interface DepartResumeService {
 
     ComResponse<String> add(DepartResumeInsertListPo departResumePo) ;
 
-    ComResponse<Integer> saveUpdate(DepartResumeInsertListPo itemUpdatePo);
+    ComResponse<Integer> saveUpdate(DepartResumeUpdateListPo itemUpdatePo);
 
     ComResponse<Page<DepartResumeItemDto>> getByDepartId(Integer departId, Integer pageNo,
                                                          Integer pageSize);
