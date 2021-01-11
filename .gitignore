@@ -36,3 +36,5 @@ build/
 
 ### VS Code ###
 .vscode/
+/src/main/resources/bootstrap-dev.yml
+/src/main/resources/bootstrap-test.yml
