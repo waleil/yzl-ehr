@@ -1,16 +1,16 @@
 package cn.net.yzl.ehr.service.impl;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.common.enums.ResponseCodeEnums;
 import cn.net.yzl.ehr.dto.*;
 import cn.net.yzl.ehr.fegin.departResume.DepartResumeFeignService;
-import cn.net.yzl.ehr.pojo.DepartResumeItemPo;
-import cn.net.yzl.ehr.pojo.DepartResumePo;
+import cn.net.yzl.ehr.dto.DepartResumeItemDto;
+import cn.net.yzl.ehr.pojo.DepartResumeInsertListPo;
+import cn.net.yzl.ehr.pojo.DepartResumeUpdateListPo;
 import cn.net.yzl.ehr.service.DepartResumeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.List;
-
 
 @Service
 public class DepartResumeServiceImpl implements DepartResumeService {
@@ -19,7 +19,7 @@ public class DepartResumeServiceImpl implements DepartResumeService {
 
 
     @Override
-    public ComResponse<String> add(DepartResumePo departResumePo) {
+    public ComResponse<String> add(DepartResumeInsertListPo departResumePo) {
         ComResponse<Integer> addResult = departResumeFeginService.add(departResumePo);
         if(addResult==null){
         return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
@@ -29,8 +29,9 @@ public class DepartResumeServiceImpl implements DepartResumeService {
         return  ComResponse.success();
     }
 
+
     @Override
-    public ComResponse<Integer> saveUpdate(DepartResumeItemPo itemUpdatePo) {
+    public ComResponse<Integer> saveUpdate(DepartResumeUpdateListPo itemUpdatePo) {
         ComResponse<Integer> addResult = departResumeFeginService.saveUpdate(itemUpdatePo);
         if(addResult==null){
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
@@ -41,15 +42,16 @@ public class DepartResumeServiceImpl implements DepartResumeService {
     }
 
     @Override
-    public ComResponse<List<DepartResumeDto>> getByDepartId(Integer departId) {
-        ComResponse<List<DepartResumeDto>> byDepartId = departResumeFeginService.getByDepartId(departId);
+    public ComResponse<Page<DepartResumeItemDto>> getByDepartId(Integer departId, Integer pageNo, Integer pageSize) {
+        ComResponse<Page<DepartResumeItemDto>> byDepartId = departResumeFeginService.getByDepartId(departId, pageNo, pageSize);
         if(byDepartId==null){
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
         }else if(byDepartId.getCode()!=200 ){
             return ComResponse.fail(byDepartId.getCode(),byDepartId.getMessage());
-        }else if(byDepartId.getCode()==200 && byDepartId.getData().size()<1){
+        }else if(byDepartId.getCode()==200 &&  byDepartId.getData()==null ){
             return ComResponse.nodata();
         }
+      //  Page<DepartResumeItemDto> departResumeDtoPage = AssemblerResultUtil.resultAssembler(byDepartId.);
         return  byDepartId;
     }
 

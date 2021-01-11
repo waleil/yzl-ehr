@@ -1,5 +1,6 @@
 package cn.net.yzl.ehr.pojo;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.Min;
@@ -15,60 +16,42 @@ import java.util.List;
 public class DepartTrainingRulePo implements Serializable {
     private Integer id;
 
-    /**
-     * 部门id
-     */
+    @ApiModelProperty("部门id")
     @NotNull
     @Min(0)
     private Integer departId;
 
-    /**
-     * 岗位id
-     */
+    @ApiModelProperty("岗位id")
     @NotNull
     @Min(0)
     private Integer postId;
 
-    /**
-     * 培训方式(1:线下,2,线上)
-     */
+    @ApiModelProperty("培训方式(1:线下,2,线上)")
     @NotNull
     @Min(0)
     private int way;
 
-    /**
-     * 培训标识(0:不培训,1:培训)
-     */
+    @ApiModelProperty("培训标识(0:不培训,1:培训)")
     @NotNull
     @Min(0)
     private int trainingFlag;
 
-    /**
-     * 是否考试(0:否,1:是)
-     */
+    @ApiModelProperty("是否考试(0:否,1:是)")
     @NotNull
     @Min(0)
     private int examFlag;
 
-    /**
-     * 状态:0:未删除,1:删除
-     */
+    @ApiModelProperty("状态:0:未删除,1:删除")
     @NotNull
     @Min(0)
     private int isDel;
 
 
-    /**
-     * 创建人唯一标识
-     */
-    @NotNull
-    @Min(0)
+    @ApiModelProperty(value = "创建人唯一标识",hidden = true)
     private String creator;
 
 
-    /**
-     * 更新人唯一标识
-     */
+    @ApiModelProperty(value ="更新人唯一标识",hidden = true)
     private String updator;
 
 

@@ -1,34 +1,35 @@
 package cn.net.yzl.ehr.fegin.departResume;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.dto.DepartResumeDto;
-import cn.net.yzl.ehr.pojo.DepartResumeItemPo;
-import cn.net.yzl.ehr.pojo.DepartResumePo;
+import cn.net.yzl.ehr.dto.DepartResumeItemDto;
+import cn.net.yzl.ehr.pojo.DepartResumeInsertListPo;
+import cn.net.yzl.ehr.pojo.DepartResumeUpdateListPo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Repository;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
 
 @Repository
 //@FeignClient(name = "yzl-staff-db")
-@FeignClient(value = "post",url = "${fegin.db.url}")
+@FeignClient(value = "departResume",url = "${fegin.db.url}")
 public interface DepartResumeFeignService {
 
     @RequestMapping(value = "/conf/resume/add", method = RequestMethod.POST)
-    ComResponse<Integer> add(@RequestBody  DepartResumePo departResumePo) ;
+    ComResponse<Integer> add(@RequestBody  DepartResumeInsertListPo departResumePo) ;
 
 
     @RequestMapping(value = "/conf/resume/saveUpdate", method = RequestMethod.POST, consumes = "application/json")
-    ComResponse<Integer> saveUpdate(@RequestBody DepartResumeItemPo itemUpdatePo);
+    ComResponse<Integer> saveUpdate(@RequestBody DepartResumeUpdateListPo itemUpdatePo);
 
 
     @RequestMapping(value = "/conf/resume/getByDepartId", method = RequestMethod.GET)
-    ComResponse<List<DepartResumeDto>> getByDepartId(@RequestParam("departId") Integer departId);
+    ComResponse<Page<DepartResumeItemDto>> getByDepartId(@RequestParam("departId") Integer departId, @RequestParam("pageNo") Integer pageNo,
+                                                         @RequestParam("pageSize") Integer pageSize);
 
 
     @RequestMapping(value = "/conf/resume/getByPostId", method = RequestMethod.GET)
