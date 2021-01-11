@@ -1,6 +1,8 @@
 package cn.net.yzl.ehr.fegin.staff;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.ehr.dto.StaffUpRpListDto;
+import cn.net.yzl.ehr.dto.StaffUpTrainListDto;
 import cn.net.yzl.ehr.pojo.*;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -19,7 +21,7 @@ public interface StaffGrowUpFeginService {
 
     @ApiOperation(value = "查询员工奖惩记录",notes = "查询员工奖惩记录",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/staffGrowUp/findByStaffNo", method = RequestMethod.GET)
-    ComResponse<List<StaffUpRpPo>> findByStaffNo (@RequestParam("staffNO") String staffNO);
+    ComResponse<List<StaffUpRpListDto>> findByStaffNo (@RequestParam("staffNO") String staffNO);
 
     @ApiOperation(value = "删除奖惩信息",notes = "删除奖惩信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/staffGrowUp/deleteById",method = RequestMethod.GET)
@@ -41,7 +43,7 @@ public interface StaffGrowUpFeginService {
 
     @ApiOperation(value = "查询员工培训记录",notes = "查询员工培训记录",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/staffGrowUp/find", method = RequestMethod.GET)
-    ComResponse<List<StaffUpTrainPo>> find (@RequestParam("staffNO")String staffNO);
+    ComResponse<List<StaffUpTrainListDto>> find (@RequestParam("staffNO")String staffNO);
 
     @ApiOperation(value = "删除培训信息",notes = "删除培训信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/staffGrowUp/deleteTrain",method = RequestMethod.GET)

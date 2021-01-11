@@ -2,6 +2,8 @@ package cn.net.yzl.ehr.service.impl;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.enums.ResponseCodeEnums;
+import cn.net.yzl.ehr.dto.StaffUpRpListDto;
+import cn.net.yzl.ehr.dto.StaffUpTrainListDto;
 import cn.net.yzl.ehr.fegin.staff.StaffGrowUpFeginService;
 import cn.net.yzl.ehr.pojo.*;
 import cn.net.yzl.ehr.service.StaffGrowUpService;
@@ -16,8 +18,8 @@ public class StaffGrowUpServiceImpl implements StaffGrowUpService {
     private StaffGrowUpFeginService staffGrowUpFeginService;
 
     @Override
-    public ComResponse<List<StaffUpRpPo>> findByStaffNo(String staffNO) {
-        ComResponse<List<StaffUpRpPo>> result = staffGrowUpFeginService.findByStaffNo(staffNO);
+    public ComResponse<List<StaffUpRpListDto>> findByStaffNo(String staffNO) {
+        ComResponse<List<StaffUpRpListDto>> result = staffGrowUpFeginService.findByStaffNo(staffNO);
         if (result == null) {
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(), ResponseCodeEnums.API_ERROR_CODE.getMessage());
         } else if (result.getCode() == 200 && result.getData().size() < 1) {
@@ -78,8 +80,8 @@ public class StaffGrowUpServiceImpl implements StaffGrowUpService {
     }
 
     @Override
-    public ComResponse<List<StaffUpTrainPo>> find(String staffNO) {
-        ComResponse<List<StaffUpTrainPo>> result = staffGrowUpFeginService.find(staffNO);
+    public ComResponse<List<StaffUpTrainListDto>> find(String staffNO) {
+        ComResponse<List<StaffUpTrainListDto>> result = staffGrowUpFeginService.find(staffNO);
         if (result == null) {
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(), ResponseCodeEnums.API_ERROR_CODE.getMessage());
         } else if (result.getCode() == 200 && result.getData().size() < 1) {

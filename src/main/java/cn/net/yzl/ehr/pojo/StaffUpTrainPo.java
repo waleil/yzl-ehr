@@ -36,12 +36,6 @@ public class StaffUpTrainPo implements Serializable {
     @ApiModelProperty(value = "是否获奖(0:否,1:是)",name = "flag")
     private Integer flag;
 
-    @ApiModelProperty(value = "创建人",name = "creator")
-    private String creator;
-
-    @ApiModelProperty(value = "修改人",name = "updator")
-    private String updator;
-
     private static final long serialVersionUID = 1L;
 
 

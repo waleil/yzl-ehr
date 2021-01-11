@@ -1,5 +1,6 @@
 package cn.net.yzl.ehr.pojo;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.Min;
@@ -17,6 +18,7 @@ public class StaffUpRpDeletePo implements Serializable {
     /**
      * id 唯一标识
      */
+    @ApiModelProperty(value = "id 唯一标识")
     @NotNull
     @Min(1)
     private Integer id;
@@ -25,6 +27,7 @@ public class StaffUpRpDeletePo implements Serializable {
     /**
      * 修改人
      */
+    @ApiModelProperty(value = "修改人",hidden = true)
     @NotBlank
     private String updator;
 }

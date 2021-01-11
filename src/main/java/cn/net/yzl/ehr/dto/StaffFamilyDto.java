@@ -21,11 +21,7 @@ public class StaffFamilyDto implements Serializable {
     @ApiModelProperty(value = "家庭成员的工作单位", name = "workUnit")
     private String workUnit;
     @ApiModelProperty(value = "家庭成员的联系电话", name = "phone")
-    private Date createTime;
-    @ApiModelProperty(value = "创建人", name = "creator")
-    private Date updateTime;
-    @ApiModelProperty(value = "修改人", name = "updator")
-    private String updator;
+    private String phone;
 
 
 

@@ -12,67 +12,52 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * staff_up_train
+ * staff_edu
  * @author 
  */
 @Data
-public class StaffUpTrainUpdatePo implements Serializable {
+public class StaffEduUpdatePo implements Serializable {
 
-
-    /**
-     * 员工表工号
-     */
-    @ApiModelProperty(value = "id")
+    @ApiModelProperty(value = "员工教育编号", name = "id")
     @NotNull
-    @Min(0)
+    @Min(1)
     private Integer id;
 
-    /**
-     * 员工表工号
-     */
-    @ApiModelProperty(value = "员工表工号")
+    @ApiModelProperty(value = "员工表工号", name = "staffNo")
     @NotBlank
     private String staffNo;
-
-    /**
-     * 开始时间
-     */
 
     @JsonFormat(pattern="yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date startTime;
 
-    /**
-     * 结束时间
-     */
     @JsonFormat(pattern="yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date endTime;
 
-    /**
-     * 培训名称
-     */
-    @ApiModelProperty(value = "培训名称")
+    @ApiModelProperty(value = "毕业学校", name = "school")
     @NotBlank
-    private String content;
+    private String school;
 
-    /**
-     * 结果
-     */
-    @ApiModelProperty(value = "结果")
-    @NotBlank
-    private String result;
-
-    /**
-     * 是否获奖(0:否,1:是)
-     */
-    @ApiModelProperty(value = "是否获奖(0:否,1:是)")
+    @ApiModelProperty(value = "学历", name = "degree")
     @NotNull
-    private Integer flag;
+    @Min(0)
+    private Integer degree;
 
-    /**
-     * 修改人
-     */
+    @ApiModelProperty(value = "专业/院系", name = "major")
+    @NotBlank
+    private String major;
+
+    @ApiModelProperty(value = "证书路径", name = "path")
+    @NotBlank
+    private String path;
+
+
+    @ApiModelProperty(value = "持有证书", name = "certificate")
+    @NotBlank
+    private String certificate;
+
+
     @ApiModelProperty(value = "修改人",hidden = true)
     private String updator;
 

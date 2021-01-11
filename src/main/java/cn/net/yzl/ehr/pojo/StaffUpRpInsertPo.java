@@ -66,7 +66,6 @@ public class StaffUpRpInsertPo implements Serializable {
      * 创建人
      */
     @ApiModelProperty(value = "创建人唯一标识",hidden = true)
-    @NotBlank
     private String creator;
 
 
