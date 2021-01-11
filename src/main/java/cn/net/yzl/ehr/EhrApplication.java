@@ -1,5 +1,6 @@
 package cn.net.yzl.ehr;
 
+import cn.net.yzl.common.enums.ResponseCodeEnums;
 import cn.net.yzl.common.swagger2.EnableSwagger;
 import org.checkerframework.checker.units.qual.A;
 import org.mybatis.spring.annotation.MapperScan;
