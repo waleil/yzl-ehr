@@ -52,8 +52,7 @@ public class PostUpdateVo implements Serializable {
     /**
      * 更新人唯一标识
      */
-    @ApiModelProperty(name ="updator",value="更改人编号",required = true)
-    @NotBlank
+    @ApiModelProperty(name ="updator",value="更改人编号",hidden = true)
     private String updator;
 
     private static final long serialVersionUID = 1L;

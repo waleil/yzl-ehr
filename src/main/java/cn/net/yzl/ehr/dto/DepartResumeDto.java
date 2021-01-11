@@ -13,9 +13,9 @@ import java.util.List;
  */
 @Data
 public class DepartResumeDto {
-    @ApiModelProperty("培训配置id")
+    /*@ApiModelProperty("培训配置id")
     private Integer id;
-
+*/
     @ApiModelProperty("部门id")
     private Integer departId;
 

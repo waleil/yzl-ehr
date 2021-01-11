@@ -23,7 +23,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/conf/training")
-@Api(value = "配置模块", tags = {"配置模块"})
+@Api(value = "配置模块", tags = {"配置模块-岗位培训"})
 public class DepartTrainingRuleController {
     @Autowired
     private DepartTrainingRuleService departTrainingRuleService;

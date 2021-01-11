@@ -3,7 +3,6 @@ package cn.net.yzl.ehr.fegin.departResume;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.dto.DepartResumeDictDto;
 import cn.net.yzl.ehr.pojo.DepartResumeDictListPo;
-import cn.net.yzl.ehr.pojo.DepartResumeItemPo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestBody;

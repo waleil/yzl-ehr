@@ -50,8 +50,7 @@ public class DepartPostUpdatePo implements Serializable {
     @Min(0)
     private Integer salarySign;
 
-    @ApiModelProperty("更新人唯一标识")
-    @NotBlank
+    @ApiModelProperty(value = "更新人唯一标识",hidden = true)
     private String updator;
 
     @ApiModelProperty("父id")
@@ -60,7 +59,6 @@ public class DepartPostUpdatePo implements Serializable {
     private Integer pid;
 
     @ApiModelProperty("排序")
-    @NotNull
     @Min(0)
     private Integer sort;
 
