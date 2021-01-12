@@ -22,11 +22,11 @@ public class StaffFamilyServiceImpl implements StaffFamilyService {
 
 
     @Override
-    public ComResponse<List<StaffFamilyListDto>> findByStaffNo(String staffNO) {
-        ComResponse<List<StaffFamilyListDto>>  result = staffFamilyFeginService.findByStaffNo(staffNO);
+    public ComResponse<StaffFamilyListDto> findByStaffNo(String staffNO) {
+        ComResponse<StaffFamilyListDto>  result = staffFamilyFeginService.findByStaffNo(staffNO);
         if (result==null){
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
-        }else if (result.getCode()==200 && result.getData().size()<1){
+        }else if (result.getCode()==200 && result.getData() == null){
             return ComResponse.fail(ResponseCodeEnums.NO_DATA_CODE.getCode(),ResponseCodeEnums.NO_DATA_CODE.getMessage());
         }
         return result;

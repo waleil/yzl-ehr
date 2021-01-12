@@ -14,10 +14,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
@@ -35,7 +32,7 @@ public class StaffGrowUpController {
 
     @ApiOperation(value = "查询员工成长中奖惩信息",notes = "查询员工成长中奖惩信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/findByStaffNo", method = RequestMethod.GET)
-    ComResponse<List<StaffUpRpListDto>> findByStaffNo(String staffNO) {
+    ComResponse<StaffUpRpListDto> findByStaffNo(@RequestParam("staffNO")String staffNO) {
         return staffGrowUpService.findByStaffNo(staffNO);
     }
 /*
@@ -81,7 +78,7 @@ public class StaffGrowUpController {
 
     @ApiOperation(value = "查询员工成长信息中培训信息",notes = "查询员工成长信息中培训信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/find", method = RequestMethod.GET)
-    ComResponse<List<StaffUpTrainListDto>> find(String staffNO) {
+    ComResponse<StaffUpTrainListDto> find(@RequestParam("staffNO")String staffNO) {
         return staffGrowUpService.find(staffNO);
     }
 

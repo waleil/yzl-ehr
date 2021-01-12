@@ -11,7 +11,7 @@ import cn.net.yzl.ehr.pojo.StaffFamilyUpdatePo;
 import java.util.List;
 
 public interface StaffFamilyService {
-    ComResponse<List<StaffFamilyListDto>> findByStaffNo (String staffNO);
+    ComResponse<StaffFamilyListDto> findByStaffNo (String staffNO);
 
     ComResponse<Integer> deleteById (Integer id, String updator);
 

@@ -8,7 +8,7 @@ import java.util.List;
 public class StaffEduListDto {
     private String staffNo;
     private String staffName;
-    private Integer dictcode;
+    private Integer dictCode;
     private String  value;
-    private List<StaffEduDto> list;
+    private List<StaffEduDto> staffEduList;
 }
