@@ -32,7 +32,7 @@ public class StaffEduController {
             @ApiImplicitParam(name = "StaffNo", value = "员工工号", required = true, paramType = "query")
     )
     @RequestMapping(value = "/findByStaffNo", method = RequestMethod.GET)
-    ComResponse<List<StaffEduListDto>> findByStaffNo(@RequestParam("StaffNo") String StaffNo) {
+    ComResponse<StaffEduListDto> findByStaffNo(@RequestParam("StaffNo") String StaffNo) {
         return staffEduService.findByStaffNo(StaffNo);
     }
 
@@ -55,7 +55,7 @@ public class StaffEduController {
         return staffEduService.add(insertList);
     }
     @ApiOperation(value = "修改员工教育经历", notes = "添加员工教育经历", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @RequestMapping(value = "/update",method = RequestMethod.POST)
+    @RequestMapping(value = "/upaDteEdu",method = RequestMethod.POST)
     ComResponse<Integer> update (@RequestBody @Validated StaffEduUpdatePo updatePo){
         return staffEduService.update(updatePo);
     }

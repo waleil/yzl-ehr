@@ -7,7 +7,7 @@ import cn.net.yzl.ehr.pojo.*;
 import java.util.List;
 
 public interface StaffEduService {
-    ComResponse<List<StaffEduListDto>> findByStaffNo (String staffNO);
+    ComResponse<StaffEduListDto> findByStaffNo (String staffNO);
 
     ComResponse<Integer> deleteById (Integer id, String updator);
 
