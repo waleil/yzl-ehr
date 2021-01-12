@@ -45,3 +45,6 @@ build/
 /src/main/resources/bootstrap-dev.yml
 /src/main/resources/*.yml
 /src/main/resources/bootstrap-dev.yml
+/src/main/resources/bootstrap-dev.yml
+/src/main/resources/bootstrap-test.yml
+/src/main/resources/bootstrap.yml
