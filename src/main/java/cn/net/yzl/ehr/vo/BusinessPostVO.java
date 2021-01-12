@@ -18,10 +18,9 @@ public class BusinessPostVO implements Serializable {
     @ApiModelProperty(value = "业务属性id", name = "bussinessAtrrCode",required = true)
     @NotNull
     @Min(1)
-    protected Integer bussinessAtrrCode;
+    private Integer bussinessAtrrCode;
     @ApiModelProperty(value = "岗位id", name = "postId",required = true)
-    @NotNull
     @Min(1)
-    protected Integer postId;
+    private Integer postId;
   
 }

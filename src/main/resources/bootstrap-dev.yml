@@ -1,3 +1,4 @@
+
 spring:
   cloud:
     nacos:
@@ -12,6 +13,7 @@ spring:
 #        namespace: 1668ab9a-def9-4a51-9c04-6bbbdf40b162
 #        username: ehr
 #        password: ehr
+#        group: TWJ
 #        namespace: ca2511dc-ae29-40f0-b1d9-8daca30a7e9c
 #        username: crm
 #        password: crm123456!
@@ -24,5 +26,4 @@ spring:
         namespace: 1668ab9a-def9-4a51-9c04-6bbbdf40b162
         username: ehr
         password: ehr
-
 

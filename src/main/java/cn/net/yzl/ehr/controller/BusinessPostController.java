@@ -6,6 +6,7 @@ import cn.net.yzl.ehr.dto.PostDto;
 import cn.net.yzl.ehr.dto.PostLevelIndicatorsDto;
 import cn.net.yzl.ehr.service.BusinessPostService;
 import cn.net.yzl.ehr.vo.BusinessPostVO;
+import cn.net.yzl.ehr.vo.PostLevelIndicatorsVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -56,7 +57,7 @@ public class BusinessPostController {
     }
 
 
-    @ApiOperation(value = "根据岗位级别获取对用的指标列表", notes = "根据岗位级别获取对用的指标列表", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "根据岗位级别获取已有的指标列表", notes = "根据岗位级别获取对用的指标列表", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "postLevelId", value = "postLevelId", required = true, dataType = "Int", paramType = "query")
     })
@@ -65,14 +66,14 @@ public class BusinessPostController {
         return businessPostService.getPostLevelIndicatorsList(postLevelId);
     }
 
-    @ApiOperation(value = "删除岗位级别考核指标", notes = "删除岗位级别考核指标", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "岗位级别考核指标id", required = true, dataType = "Int", paramType = "query")
-    })
-    @RequestMapping(value = "/delPostIndicators", method = RequestMethod.GET)
-    public ComResponse<Integer> delPostIndicators(@NotNull @Min(1) Integer id) {
-        return businessPostService.delPostIndicators(id);
-    }
+//    @ApiOperation(value = "删除岗位级别考核指标", notes = "删除岗位级别考核指标", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+//    @ApiImplicitParams({
+//            @ApiImplicitParam(name = "id", value = "岗位级别考核指标id", required = true, dataType = "Int", paramType = "query")
+//    })
+//    @RequestMapping(value = "/delPostIndicators", method = RequestMethod.GET)
+//    public ComResponse<Integer> delPostIndicators(@NotNull @Min(1) Integer id) {
+//        return businessPostService.delPostIndicators(id);
+//    }
 
     @ApiOperation(value = "获取岗位级别的所有指标库", notes = "获取岗位级别的所有指标库", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @ApiImplicitParams({
@@ -82,5 +83,11 @@ public class BusinessPostController {
     public ComResponse<List<PostLevelIndicatorsDto>> getAllPostIndcatorsList(@NotNull @Min(1) Integer postLevelId) {
         return businessPostService.getAllPostIndcatorsList(postLevelId);
     }
+
+    @ApiOperation(value = "添加或者修改岗位级别对应的指标", notes = "添加或者修改岗位级别对应的指标", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/addOrUpdatePostIndicators", method = RequestMethod.POST)
+    public ComResponse<Integer> addOrUpdatePostIndicators(@RequestBody @Validated  List<PostLevelIndicatorsVO> postLevelIndicatorsVOList){
+        return businessPostService.addOrUpdatePostIndicators(postLevelIndicatorsVOList);
+    };
 
 }

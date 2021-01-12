@@ -7,6 +7,7 @@ import cn.net.yzl.ehr.dto.PostDto;
 import cn.net.yzl.ehr.dto.PostLevelIndicatorsDto;
 import cn.net.yzl.ehr.vo.BusinessPostVO;
 import cn.net.yzl.ehr.vo.DepartAttendRpVO;
+import cn.net.yzl.ehr.vo.PostLevelIndicatorsVO;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -45,4 +46,8 @@ public interface BusinessPostFeginService {
 
     @RequestMapping(value = "/businessPost/getAllPostIndcatorsList", method = RequestMethod.GET)
     public ComResponse<List<PostLevelIndicatorsDto>> getAllPostIndcatorsList(@RequestParam("postLevelId") Integer postLevelId);
+
+
+    @RequestMapping(value = "/addOrUpdatePostIndicators", method = RequestMethod.POST)
+    public ComResponse<Integer> addOrUpdatePostIndicators(@RequestBody List<PostLevelIndicatorsVO> postLevelIndicatorsVOList);
 }
