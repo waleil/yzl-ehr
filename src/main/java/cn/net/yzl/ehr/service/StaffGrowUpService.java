@@ -8,7 +8,7 @@ import cn.net.yzl.ehr.pojo.*;
 import java.util.List;
 
 public interface StaffGrowUpService {
-    ComResponse<List<StaffUpRpListDto>> findByStaffNo (String staffNO);
+    ComResponse<StaffUpRpListDto> findByStaffNo (String staffNO);
 
     ComResponse<Integer> deleteById (Integer id, String updator);
 
@@ -18,7 +18,7 @@ public interface StaffGrowUpService {
 
     ComResponse<Integer> saveUpDate (StaffUpRpItemPo itemPo);
 
-    ComResponse<List<StaffUpTrainListDto>> find (String staffNO);
+    ComResponse<StaffUpTrainListDto> find (String staffNO);
 
     ComResponse<Integer> deleteTrain (Integer id, String updator);
 

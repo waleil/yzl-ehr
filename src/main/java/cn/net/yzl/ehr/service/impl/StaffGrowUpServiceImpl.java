@@ -18,11 +18,11 @@ public class StaffGrowUpServiceImpl implements StaffGrowUpService {
     private StaffGrowUpFeginService staffGrowUpFeginService;
 
     @Override
-    public ComResponse<List<StaffUpRpListDto>> findByStaffNo(String staffNO) {
-        ComResponse<List<StaffUpRpListDto>> result = staffGrowUpFeginService.findByStaffNo(staffNO);
+    public ComResponse<StaffUpRpListDto> findByStaffNo(String staffNO) {
+        ComResponse<StaffUpRpListDto> result = staffGrowUpFeginService.findByStaffNo(staffNO);
         if (result == null) {
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(), ResponseCodeEnums.API_ERROR_CODE.getMessage());
-        } else if (result.getCode() == 200 && result.getData().size() < 1) {
+        } else if (result.getCode() == 200 && result.getData()==null) {
             return ComResponse.fail(ResponseCodeEnums.NO_DATA_CODE.getCode(), ResponseCodeEnums.NO_DATA_CODE.getMessage());
         }
         return result;
@@ -80,11 +80,11 @@ public class StaffGrowUpServiceImpl implements StaffGrowUpService {
     }
 
     @Override
-    public ComResponse<List<StaffUpTrainListDto>> find(String staffNO) {
-        ComResponse<List<StaffUpTrainListDto>> result = staffGrowUpFeginService.find(staffNO);
+    public ComResponse<StaffUpTrainListDto> find(String staffNO) {
+        ComResponse<StaffUpTrainListDto> result = staffGrowUpFeginService.find(staffNO);
         if (result == null) {
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(), ResponseCodeEnums.API_ERROR_CODE.getMessage());
-        } else if (result.getCode() == 200 && result.getData().size() < 1) {
+        } else if (result.getCode() == 200 && result.getData()==null) {
             return ComResponse.fail(ResponseCodeEnums.NO_DATA_CODE.getCode(), ResponseCodeEnums.NO_DATA_CODE.getMessage());
         }
         return result;

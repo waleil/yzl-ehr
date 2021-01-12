@@ -2,6 +2,7 @@ package cn.net.yzl.ehr.service.impl;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.enums.ResponseCodeEnums;
+import cn.net.yzl.ehr.dto.StaffEduListDto;
 import cn.net.yzl.ehr.fegin.staff.StaffEduFeginService;
 import cn.net.yzl.ehr.fegin.staff.StaffFamilyFeginService;
 import cn.net.yzl.ehr.pojo.*;
@@ -20,11 +21,11 @@ public class StaffEduServiceImpl implements StaffEduService {
 
 
     @Override
-    public ComResponse<List<StaffEduPo>> findByStaffNo(String staffNO) {
-        ComResponse<List<StaffEduPo>>  result = staffEduFeginService.findByStaffNo(staffNO);
+    public ComResponse<StaffEduListDto>findByStaffNo(String staffNO) {
+        ComResponse<StaffEduListDto>  result = staffEduFeginService.findByStaffNo(staffNO);
         if (result==null){
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
-        }else if (result.getCode()==200 && result.getData().size()<1){
+        }else if (result.getCode()==200 && result.getData()==null){
             return ComResponse.fail(ResponseCodeEnums.NO_DATA_CODE.getCode(),ResponseCodeEnums.NO_DATA_CODE.getMessage());
         }
         return result;

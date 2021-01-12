@@ -57,35 +57,6 @@ public class StaffEduPo {
     @ApiModelProperty(value = "持有证书", name = "certificate")
     private String certificate;
 
-    /**
-     * 是否删除 0正常 1删除
-     */
-    @ApiModelProperty(value = "是否删除 (0正常 1删除)", name = "isDel")
-    private Integer isDel;
-
-    /**
-     * 创建时间
-     */
-    @ApiModelProperty(value = "创建时间", name = "createTime")
-    private Date createTime;
-
-    /**
-     * 创建人
-     */
-    @ApiModelProperty(value = "创建人", name = "creator")
-    private String creator;
-
-    /**
-     * 修改人
-     */
-    @ApiModelProperty(value = "修改人", name = "updator")
-    private String updator;
-
-    /**
-     * 修改时间
-     */
-    @ApiModelProperty(value = "修改时间", name = "updateTime")
-    private Date updateTime;
 
     private static final long serialVersionUID = 1L;
 
