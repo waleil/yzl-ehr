@@ -23,19 +23,19 @@ public interface StaffEduFeginService {
     @RequestMapping(value = "/staffEdu/findByStaffNo", method = RequestMethod.GET)
     ComResponse<StaffEduListDto> findByStaffNo(@RequestParam("staffNO")  String staffNO);
 
-    @ApiOperation(value = "删除查询员工教育经历",notes = "删除查询员工教育经历",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "删除员工教育经历",notes = "删除员工教育经历",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/staffEdu/deleteById",method = RequestMethod.GET)
     ComResponse<Integer> deleteById(@RequestParam("id")  Integer id,@RequestParam("updator") String updator);
 
-    @ApiOperation(value = "添加查询员工教育经历", notes = "添加查询员工教育经历", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "添加员工教育经历", notes = "添加员工教育经历", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/staffEdu/add",method = RequestMethod.POST)
     ComResponse<Integer> insert(@RequestBody  List<StaffEduInsertPo> staffEduInsertList);
 
-    @ApiOperation(value = "修改查询员工教育经历", notes = "修改查询员工教育经历", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "修改员工教育经历", notes = "修改员工教育经历", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/staffEdu/upaDteEdu",method = RequestMethod.POST)
     ComResponse<Integer> update (@RequestBody StaffEduUpdatePo staffEduPo);
 
-    @ApiOperation(value = "保存查询员工教育经历", notes = "保存查询员工教育经历", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "保存员工教育经历", notes = "保存员工教育经历", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value ="/staffEdu/saveUpDate",method = RequestMethod.POST)
     ComResponse<Integer> saveUpDate(@RequestBody StaffEduItemPo staffEduPo);
 }

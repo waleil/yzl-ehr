@@ -21,13 +21,13 @@ import javax.validation.constraints.Min;
 import java.util.List;
 
 @RestController
-@RequestMapping("/staffEdu")
-@Api(value = "员工教育经历", tags = {"员工教育经历"})
+@RequestMapping("/staff/staffEdu")
+@Api(value = "教育经历", tags = {"员工档案"})
 public class StaffEduController {
     @Autowired
     private StaffEduService staffEduService;
 
-    @ApiOperation(value = "查询员工教育信息",notes = "查询员工教育信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "教育经历—查询员工教育信息",notes = "查询员工教育信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @ApiImplicitParams(
             @ApiImplicitParam(name = "StaffNo", value = "员工工号", required = true, paramType = "query")
     )
@@ -62,7 +62,7 @@ public class StaffEduController {
 
     */
 
-    @ApiOperation(value = "保存员工教育经历", notes = "保存员工教育经历", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "教育经历—保存员工教育经历", notes = "保存员工教育经历", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value ="/saveUpDate",method = RequestMethod.POST)
     ComResponse<Integer> saveUpDate(@RequestBody @Validated StaffEduItemPo itemPo ,@ApiIgnore @CurrentStaffNo String staffNo){
         itemPo.getInsertList().forEach(x->{
