@@ -50,3 +50,4 @@ build/
 /src/main/resources/bootstrap.yml
 /src/main/resources/bootstrap.yml
 /src/main/resources/bootstrap-dev.yml
+/src/main/resources/*.yml
