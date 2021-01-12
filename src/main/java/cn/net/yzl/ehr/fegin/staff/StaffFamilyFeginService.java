@@ -19,15 +19,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-@FeignClient(value = "staff",url = "${fegin.db.url}")
+//@FeignClient(value = "staff",url = "${fegin.db.url}")
 @Repository
-//@FeignClient(name = "yzl-staff-db")
+@FeignClient(name = "yzl-staff-db")
 public interface StaffFamilyFeginService {
 
 
     @ApiOperation(value = "查询员工家庭信息",notes = "查询员工家庭信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/staffFamily/findByStaffNo", method = RequestMethod.GET)
-    ComResponse<List<StaffFamilyListDto>> findByStaffNo(@RequestParam("staffNO")  String staffNO);
+    ComResponse<StaffFamilyListDto> findByStaffNo(@RequestParam("staffNO")  String staffNO);
 
     @ApiOperation(value = "删除信息",notes = "删除信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/staffFamily/deleteById",method = RequestMethod.GET)

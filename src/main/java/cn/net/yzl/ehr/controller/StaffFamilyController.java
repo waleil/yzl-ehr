@@ -36,7 +36,7 @@ public class StaffFamilyController {
             @ApiImplicitParam(name = "staffNO", value = "员工工号", required = true, paramType = "query")
     )
     @RequestMapping(value = "/findByStaffNo", method = RequestMethod.GET)
-    ComResponse<List<StaffFamilyListDto>> findByStaffNo(@RequestParam("staffNO") String staffNO) {
+    ComResponse<StaffFamilyListDto> findByStaffNo(@RequestParam("staffNO") String staffNO) {
         return staffFamilyService.findByStaffNo(staffNO);
     }
 /*

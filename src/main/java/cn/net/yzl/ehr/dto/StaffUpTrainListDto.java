@@ -8,5 +8,5 @@ import java.util.List;
 public class StaffUpTrainListDto {
     private String staffNo;
     private String staffName;
-    private List<StaffFamilyDto> staffFamilyList;
+    private List<StaffUpTrainDto> staffUpTrainList;
 }
