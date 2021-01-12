@@ -22,5 +22,5 @@ public interface PostService {
 
     ComResponse<String> saveUpdate(PostItemPo postItemPo,String staffNo);
 
-    ComResponse<String> selectStaffCountForPost(Integer postId);
+    ComResponse<String> selectDepartPostCountForPost(Integer postId);
 }

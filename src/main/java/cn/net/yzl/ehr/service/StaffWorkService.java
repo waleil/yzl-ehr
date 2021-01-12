@@ -18,5 +18,5 @@ public interface StaffWorkService {
 
    ComResponse<Integer> updatelist(StaffWorkUpdateListPo staffWorkUpdateListPo);
 
-   ComResponse<Integer> saveUpDate(StaffWorkItemPo staffWorkItemPo);
+   ComResponse<Integer> saveUpDate(StaffWorkItemPo staffWorkItemPo,String staff);
 }

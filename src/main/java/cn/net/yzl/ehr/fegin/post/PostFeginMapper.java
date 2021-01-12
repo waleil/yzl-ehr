@@ -33,6 +33,6 @@ public interface PostFeginMapper {
     @RequestMapping(value = "/post/saveUpdatePost", method = RequestMethod.POST,consumes = "application/json")
     ComResponse<Integer> saveUpdatePost(@RequestBody  PostItemPo itemPo) ;
 
-    @RequestMapping(value = "/post/getStaffCountForPost", method = RequestMethod.GET)
-    ComResponse<Integer> cancelCheck(@RequestParam("postId") Integer postId);
+    @RequestMapping(value = "/post/selectDepartPostCountForPost", method = RequestMethod.GET)
+    ComResponse<Integer> selectDepartPostCountForPost(@RequestParam("postId") Integer postId);
 }

@@ -40,14 +40,5 @@ public class StaffWorkDto implements Serializable {
     private String certifierPhone;
     @ApiModelProperty(value = "经历类型", name = "type")
     private Integer type;
-    @ApiModelProperty(value = "创建时间", name = "create_time")
-    private Date createTime;
-    @ApiModelProperty(value = "创建人", name = "creator")
-    private Integer creator;
-    @ApiModelProperty(value = "修改时间", name = "update_time")
-    private Date updateTime;
-    @ApiModelProperty(value = "修改人", name = "updator")
-    private String updator;
-    @ApiModelProperty(value = "是否删除", name = "is_del")
-    private Integer isDel;
+
 }

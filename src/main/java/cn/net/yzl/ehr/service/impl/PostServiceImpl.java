@@ -41,8 +41,8 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public ComResponse<String> selectStaffCountForPost(Integer postId){
-        ComResponse<Integer> integerComResponse = postMapper.cancelCheck(postId);
+    public ComResponse<String> selectDepartPostCountForPost(Integer postId){
+        ComResponse<Integer> integerComResponse = postMapper.selectDepartPostCountForPost(postId);
         if(integerComResponse==null){
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
         }else if(integerComResponse.getCode()==200 && integerComResponse.getData()>1){
