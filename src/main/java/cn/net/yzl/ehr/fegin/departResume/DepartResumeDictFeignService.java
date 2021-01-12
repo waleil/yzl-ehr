@@ -3,6 +3,7 @@ package cn.net.yzl.ehr.fegin.departResume;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.dto.DepartResumeDictDto;
 import cn.net.yzl.ehr.pojo.DepartResumeDictListPo;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,7 +17,6 @@ import java.util.List;
 //@FeignClient(name = "yzl-staff-db")
 @FeignClient(value = "post",url = "${fegin.db.url}")
 public interface DepartResumeDictFeignService {
-
 
     @RequestMapping(value = "/resumeDict/getDictList", method = RequestMethod.GET)
     public ComResponse<List<DepartResumeDictDto>> getDictList();
