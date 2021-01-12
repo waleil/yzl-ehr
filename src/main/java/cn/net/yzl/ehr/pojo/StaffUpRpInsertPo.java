@@ -18,10 +18,7 @@ import java.util.Date;
 @Data
 public class StaffUpRpInsertPo implements Serializable {
 
-    @ApiModelProperty("奖惩记录编号")
-    @NotNull
-    @Min(1)
-    private Integer id;
+
 
     @ApiModelProperty(value = "员工表工号")
     @NotBlank
