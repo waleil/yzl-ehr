@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.controller;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.ehr.dto.StaffWorkListDto;
 import cn.net.yzl.ehr.pojo.*;
 import cn.net.yzl.ehr.service.StaffWorkService;
 import io.swagger.annotations.Api;
@@ -23,14 +24,14 @@ public class StaffWorkController {
 
     @ApiOperation(value = "查询员工工作经历信息",notes = "查询员工工作经历信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    ComResponse<StaffWorkListPo> list(@RequestBody StaffWorkPo staffWorkPo) {
-        return staffWorkService.list(staffWorkPo);
+    ComResponse<StaffWorkListDto> list(String staffNo) {
+        return staffWorkService.list(staffNo);
     }
 
     @ApiOperation(value = "删除工作经历信息",notes = "删除工作经历信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/deleteById",method = RequestMethod.GET)
-    ComResponse<Integer> deleteById(@RequestBody StaffWorkDeletePo staffWorkDeletePo) {
-        return staffWorkService .deleteById(staffWorkDeletePo);
+    ComResponse<Integer> deleteById(Integer id) {
+        return staffWorkService .deleteById(id);
     }
 
     @ApiOperation(value = "添加工作经历信息", notes = "添加工作经历信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)

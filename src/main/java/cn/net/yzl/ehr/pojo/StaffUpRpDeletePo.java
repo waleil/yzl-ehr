@@ -28,6 +28,5 @@ public class StaffUpRpDeletePo implements Serializable {
      * 修改人
      */
     @ApiModelProperty(value = "修改人",hidden = true)
-    @NotBlank
     private String updator;
 }
