@@ -23,14 +23,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/conf/training")
-@Api(value = "配置模块", tags = {"配置模块-岗位培训"})
+@Api(value = "配置模块-岗位培训", tags = {"配置模块"})
 public class DepartTrainingRuleController {
     @Autowired
     private DepartTrainingRuleService departTrainingRuleService;
 
 
 
-    @ApiOperation(value = "新增岗位培训配置", notes = "新增岗位培训配置", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "岗位培训-新增岗位培训配置", notes = "新增岗位培训配置", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     ComResponse<Integer> add(@RequestBody @Validated DepartTrainingRulePo departTrainingRulePo, @CurrentStaffNo @ApiIgnore String staffNo) {
         departTrainingRulePo.setCreator(staffNo);
@@ -38,7 +38,7 @@ public class DepartTrainingRuleController {
     }
 
 
-    @ApiOperation(value = "获取部门的培训配置列表", notes = "获取部门的培训配置列表", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "岗位培训-获取部门的培训配置列表", notes = "获取部门的培训配置列表", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/getByDepartId", method = RequestMethod.GET)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "departId", value = "部门id", required = true,  paramType = "query")
@@ -48,7 +48,7 @@ public class DepartTrainingRuleController {
     }
 
 
-    @ApiOperation(value = "删除培训配置", notes = "删除培训配置", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "岗位培训-删除培训配置", notes = "删除培训配置", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "配置id", required = true,  paramType = "query"),
     })
@@ -57,7 +57,7 @@ public class DepartTrainingRuleController {
         return departTrainingRuleService.deleteById(id,updator);
     }
 
-    @ApiOperation(value = "用配置id获取培训信息", notes = "获取培训信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "岗位培训-用配置id获取培训信息", notes = "获取培训信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/getById", method = RequestMethod.GET)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "配置id", required = true, paramType ="query")
@@ -66,7 +66,7 @@ public class DepartTrainingRuleController {
         return  departTrainingRuleService.getById(id);
     }
 
-    @ApiOperation(value = "更新培训信息", notes = "更新培训信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "岗位培训-更新培训信息", notes = "更新培训信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/update", method = RequestMethod.POST, consumes = "application/json")
     ComResponse<Integer> update(@RequestBody @Validated DepartTrainingRuleUpdatePo departTrainingRulePo, @CurrentStaffNo @ApiIgnore String staffNo) {
         departTrainingRulePo.setUpdator(staffNo);

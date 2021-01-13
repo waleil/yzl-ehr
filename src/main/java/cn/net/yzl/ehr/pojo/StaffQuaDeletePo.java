@@ -13,12 +13,12 @@ import java.io.Serializable;
  * @author 
  */
 @Data
-public class StaffUpRpDeletePo implements Serializable {
+public class StaffQuaDeletePo implements Serializable {
 
     /**
      * id 唯一标识
      */
-    @ApiModelProperty(value = "id 唯一标识")
+    @ApiModelProperty("id 唯一标识")
     @NotNull
     @Min(1)
     private Integer id;

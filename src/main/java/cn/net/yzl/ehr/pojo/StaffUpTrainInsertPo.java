@@ -18,10 +18,6 @@ import java.util.Date;
 @Data
 public class StaffUpTrainInsertPo implements Serializable {
 
-    @ApiModelProperty("培训记录编号")
-    @NotNull
-    @Min(1)
-    private Integer id;
 
     @ApiModelProperty(value = "员工表工号")
     @NotBlank

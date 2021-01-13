@@ -1,4 +1,4 @@
-package cn.net.yzl.ehr.pojo;
+package cn.net.yzl.ehr.dto;
 
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
@@ -6,12 +6,12 @@ import lombok.Data;
 import javax.validation.Valid;
 import java.io.Serializable;
 import java.util.List;
-@Valid
+
 @Data
 @ApiModel(value = "StaffWorkListPo", description = "员工入职经历信息")
-public class StaffWorkListPo implements Serializable {
+public class StaffWorkListDto implements Serializable {
     @Valid
-    private List<StaffWorkPo> preWorkList;
+    private List<StaffWorkDto> preWorkList;
     @Valid
-    private List<StaffWorkPo> WorkList;
+    private List<StaffWorkDto> WorkList;
 }

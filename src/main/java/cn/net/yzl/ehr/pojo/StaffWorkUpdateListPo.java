@@ -4,9 +4,8 @@ import cn.net.yzl.ehr.util.ValidList;
 import lombok.Data;
 
 import javax.validation.Valid;
-
+@Valid
 @Data
 public class StaffWorkUpdateListPo {
-    @Valid
     private ValidList<StaffWorkUpdatePo> staffWorkUpdateList;
 }

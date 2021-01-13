@@ -23,7 +23,7 @@ import java.util.List;
 
 @RequestMapping("/postLevel")
 @RestController
-@Api(value = "岗位级别接口", tags = {"岗位级别接口"})
+@Api(value = "岗位级别接口", tags = {"字典配置"})
 public class PostLevelController {
 
 

@@ -12,8 +12,6 @@ import java.util.Date;
 public class StaffFamilyDto implements Serializable {
     @ApiModelProperty(value = "员工家庭成员编号", name = "id")
     private Integer id;
-    @ApiModelProperty(value = "工号(用户工号)", name = "id")
-    private String staffNo;
     @ApiModelProperty(value = "姓名(家庭成员姓名)", name = "name")
     private String name;
     @ApiModelProperty(value = "与员工之间的关系", name = "relation")

@@ -23,14 +23,14 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController
-@RequestMapping("/staffGrowUp")
-@Api(value = "员工成长信息", tags = {"员工成长信息"})
+@RequestMapping("/staff/staffGrowUp")
+@Api(value = "成长信息", tags = {"员工档案"})
 @Valid
 public class StaffGrowUpController {
     @Autowired
     private StaffGrowUpService staffGrowUpService;
 
-    @ApiOperation(value = "查询员工成长中奖惩信息",notes = "查询员工成长中奖惩信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "成长信息—查询员工成长中奖惩信息",notes = "查询员工成长中奖惩信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/findByStaffNo", method = RequestMethod.GET)
     ComResponse<StaffUpRpListDto> findByStaffNo(@RequestParam("staffNO")String staffNO) {
         return staffGrowUpService.findByStaffNo(staffNO);
@@ -60,7 +60,7 @@ public class StaffGrowUpController {
         return staffGrowUpService.update(FamilyPo);
     }*/
 
-    @ApiOperation(value = "保存员工成长中奖惩信息", notes = "保存员工成长中奖惩信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "成长信息—保存员工成长中奖惩信息", notes = "保存员工成长中奖惩信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value ="/saveUpDate",method = RequestMethod.POST)
     ComResponse<Integer> saveUpDate(@RequestBody @Validated StaffUpRpItemPo itemPo,@ApiIgnore @CurrentStaffNo String updator){
         itemPo.getInsertList().forEach(x->{
@@ -76,7 +76,7 @@ public class StaffGrowUpController {
     }
 
 
-    @ApiOperation(value = "查询员工成长信息中培训信息",notes = "查询员工成长信息中培训信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "成长信息—查询员工成长信息中培训信息",notes = "查询员工成长信息中培训信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/find", method = RequestMethod.GET)
     ComResponse<StaffUpTrainListDto> find(@RequestParam("staffNO")String staffNO) {
         return staffGrowUpService.find(staffNO);
@@ -106,7 +106,7 @@ public class StaffGrowUpController {
         return staffGrowUpService.updateTrain(FamilyPo);
     }
 */
-    @ApiOperation(value = "保存员工成长信息中培训信息", notes = "保存员工成长信息中培训信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "成长信息—保存员工成长信息中培训信息", notes = "保存员工成长信息中培训信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value ="/saveUpDateTrain",method = RequestMethod.POST)
     ComResponse<Integer>  saveUpDateTrain (@RequestBody @Validated StaffUpTrainItemPo trainItemPo ,@ApiIgnore @CurrentStaffNo String updator){
         trainItemPo.getInsertList().forEach(x->{

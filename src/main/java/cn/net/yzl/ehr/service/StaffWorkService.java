@@ -1,15 +1,16 @@
 package cn.net.yzl.ehr.service;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.ehr.dto.StaffWorkListDto;
 import cn.net.yzl.ehr.pojo.*;
 
 import java.util.List;
 
 public interface StaffWorkService {
 
-   ComResponse<StaffWorkListPo> list(StaffWorkPo staffWorkPo);
+   ComResponse<StaffWorkListDto> list(String staffNo);
 
-   ComResponse<Integer> deleteById(StaffWorkDeletePo staffWorkDeletePo);
+   ComResponse<Integer> deleteById(Integer id);
 
    ComResponse<Integer> insert(StaffWorkInsertListPo staffWorkList);
 
@@ -17,5 +18,5 @@ public interface StaffWorkService {
 
    ComResponse<Integer> updatelist(StaffWorkUpdateListPo staffWorkUpdateListPo);
 
-   ComResponse<Integer> saveUpDate(StaffWorkItemPo staffWorkItemPo);
+   ComResponse<Integer> saveUpDate(StaffWorkItemPo staffWorkItemPo,String staff);
 }

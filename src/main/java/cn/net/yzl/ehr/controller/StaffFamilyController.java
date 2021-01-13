@@ -24,14 +24,14 @@ import javax.validation.constraints.Min;
 import java.util.List;
 
 @RestController
-@RequestMapping("/staffFamily")
-@Api(value = "员工家庭信息", tags = {"员工家庭信息"})
+@RequestMapping("/staff/staffFamily")
+@Api(value = "家人信息", tags = {"员工档案"})
 @Valid
 public class StaffFamilyController {
     @Autowired
     private StaffFamilyService staffFamilyService;
 
-    @ApiOperation(value = "查询员工家庭信息",notes = "查询员工家庭信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "家人信息—查询员工家庭信息",notes = "查询员工家庭信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @ApiImplicitParams(
             @ApiImplicitParam(name = "staffNO", value = "员工工号", required = true, paramType = "query")
     )
@@ -62,7 +62,7 @@ public class StaffFamilyController {
     ComResponse<Integer> update (@RequestBody @Validated StaffFamilyUpdatePo FamilyPo){
         return staffFamilyService.update(FamilyPo);
     }*/
-    @ApiOperation(value = "保存信息", notes = "保存信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "家人信息—保存员工家庭信息", notes = "保存信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value ="/saveUpDate",method = RequestMethod.POST)
     ComResponse<Integer> saveUpDate(@RequestBody @Validated StaffFamilyItemPo staffFamilyPo, @ApiIgnore @CurrentStaffNo String updator){
         staffFamilyPo.getInsertList().forEach(x->{
