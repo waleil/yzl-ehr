@@ -24,19 +24,19 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/post")
-@Api(value = "岗位字典接口", tags = {"岗位字典接口"})
+@Api(value = "岗位字典接口", tags = {"字典配置"})
 public class PostController {
 
     @Autowired
     private PostService postService;
 
-    @ApiOperation(value = "获取岗位列表", notes = "获取岗位列表", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "岗位字典-获取岗位列表", notes = "获取岗位列表", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/getPostList", method = RequestMethod.GET)
     public ComResponse<List<PostDto>> getPostList() {
         return postService.getList();
     }
 
-    @ApiOperation(value = "用岗位id获取岗位信息", notes = "获取岗位信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "岗位字典-用岗位id获取岗位信息", notes = "获取岗位信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "岗位id", required = true,  paramType = "query")
     })
@@ -46,18 +46,10 @@ public class PostController {
     }
 
 
-    @ApiOperation(value = "保存岗位列表", notes = "保存岗位列表", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "岗位字典-保存岗位列表", notes = "保存岗位列表", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/saveUpdatePost", method = RequestMethod.POST,consumes = "application/json")
     ComResponse<String> saveUpdatePost(@RequestBody @Validated PostItemPo itemPo, @CurrentStaffNo @ApiIgnore String staffNo) {
         return postService.saveUpdate(itemPo,staffNo);
     }
 
-    @ApiOperation(value = "获取岗位对应员工数量", notes = "获取岗位对应员工数量", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "postId", value = "岗位id", required = true,  paramType = "query")
-    })
-    @RequestMapping(value = "/getStaffCountForPost", method = RequestMethod.GET)
-    ComResponse<String> getStaffCountForPost(@NotNull @Min(1) Integer postId){
-        return postService.selectStaffCountForPost(postId);
-    }
 }
