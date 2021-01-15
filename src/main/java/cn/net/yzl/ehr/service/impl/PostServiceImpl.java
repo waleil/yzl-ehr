@@ -73,7 +73,7 @@ public class PostServiceImpl implements PostService {
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
         }else if(integerComResponse.getCode()==200   ) {
             if (integerComResponse.getData() == 0) {
-                return ComResponse.fail(ResponseCodeEnums.UPDATE_DATA_ERROR_CODE.getCode(), ResponseCodeEnums.UPDATE_DATA_ERROR_CODE.getMessage());
+                return ComResponse.fail(ResponseCodeEnums.NO_DATA_HAS_BEEN_UPDATE_CODE.getCode(), ResponseCodeEnums.NO_DATA_HAS_BEEN_UPDATE_CODE.getMessage());
             } else {
                 return ComResponse.success();
             }
