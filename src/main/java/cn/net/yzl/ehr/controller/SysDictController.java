@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.controller;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.common.enums.ResponseCodeEnums;
 import cn.net.yzl.ehr.dto.SysDictDataDto;
 import cn.net.yzl.ehr.fegin.sysDictData.SysDictDataFeginService;
 import cn.net.yzl.ehr.service.SysDictService;
@@ -48,6 +49,7 @@ public class SysDictController {
     })
     @RequestMapping(value = "/getByType", method = RequestMethod.GET)
     ComResponse<List<SysDictDataDto>> getByType(@NotBlank String dictType){
+        System.err.println(ResponseCodeEnums.POST_NOT_HAS_DEPARTPOST_ERROR_CODE.getCode());
         return sysDictDataFeginService.getByType(dictType);
     }
 
