@@ -17,7 +17,7 @@ public class TokenManagerImpl implements TokenManager {
     private String token = "token:"; // token前缀
     @Override
     public StaffDto create(StaffDto admin) {
-        Integer no = admin.getNo();
+        String no = admin.getNo();
         String tokenKey=token+no;
         redisUtil.set(tokenKey,token,sessionTimeout);
         return admin;

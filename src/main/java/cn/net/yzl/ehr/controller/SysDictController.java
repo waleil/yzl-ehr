@@ -49,7 +49,6 @@ public class SysDictController {
     })
     @RequestMapping(value = "/getByType", method = RequestMethod.GET)
     ComResponse<List<SysDictDataDto>> getByType(@NotBlank String dictType){
-        System.err.println(ResponseCodeEnums.POST_NOT_HAS_DEPARTPOST_ERROR_CODE.getCode());
         return sysDictDataFeginService.getByType(dictType);
     }
 

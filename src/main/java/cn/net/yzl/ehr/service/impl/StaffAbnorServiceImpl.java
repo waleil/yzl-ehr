@@ -3,12 +3,18 @@ package cn.net.yzl.ehr.service.impl;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.enums.ResponseCodeEnums;
 import cn.net.yzl.ehr.dto.StaffAbnorRecordListDto;
+import cn.net.yzl.ehr.dto.StaffTrainDto;
 import cn.net.yzl.ehr.fegin.staff.StaffAbnorFeginService;
 import cn.net.yzl.ehr.pojo.StaffAbnorRecordPo;
 import cn.net.yzl.ehr.pojo.StaffSwitchStatePo;
 import cn.net.yzl.ehr.service.StaffAbnorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 @Service
 public class StaffAbnorServiceImpl implements StaffAbnorService {
@@ -50,4 +56,18 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
         }
         return comResponse;
     }
+
+    @Override
+    public ComResponse<List<StaffTrainDto>> find(String staffNo) {
+        ComResponse<List<StaffTrainDto>> listComResponse = staffAbnorFeginService.find(staffNo);
+        if (listComResponse==null){
+            ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
+        }else if (listComResponse.getData()!=null && listComResponse.getCode() == 200){
+            ComResponse.success();
+        }
+        return listComResponse;
+    }
+
+
+
 }
