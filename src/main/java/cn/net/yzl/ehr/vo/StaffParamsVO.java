@@ -13,7 +13,6 @@ public class StaffParamsVO implements Serializable {
 
     @ApiModelProperty(value = "姓名或者工号", name = "params")
     private String  params;
-
     @ApiModelProperty(value = "工作地点code", name = "workplaceCode")
     private Integer workplaceCode;
     @ApiModelProperty(value = "部门id", name = "departId")
