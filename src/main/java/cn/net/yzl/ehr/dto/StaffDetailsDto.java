@@ -73,7 +73,7 @@ public class StaffDetailsDto implements Serializable {
     @ApiModelProperty(value = "部门ids对应的名称集合", name = "departNames")
     private String departNames;
     @ApiModelProperty(value = "部门id", name = "departId")
-    private List<Integer> departId;
+    private Integer departId;
     @ApiModelProperty(value = "部门id对应的名称", name = "departName")
     private String departName;
     @ApiModelProperty(value = "岗位id", name = "postId")
