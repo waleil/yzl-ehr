@@ -22,5 +22,6 @@ public class PostLevelDto implements Serializable {
     private Integer postId;
     @ApiModelProperty("岗位名称")
     private String postName;
-
+    @ApiModelProperty("级别排序")
+    private Integer sort;
 }

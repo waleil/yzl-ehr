@@ -26,6 +26,11 @@ public class PostLevelUpdatePo implements Serializable {
     @NotBlank
     private String name;
 
+    @ApiModelProperty("岗位排序")
+    @NotNull
+    @Min(1)
+    private Integer sort;
+
     @ApiModelProperty(value = "更新人唯一标识",hidden = true)
     private String updator;
 
