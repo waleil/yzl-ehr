@@ -109,6 +109,13 @@
             <artifactId>aspectjweaver</artifactId>
         </dependency>
 
+        <!--fastDFS-->
+        <dependency>
+            <groupId>com.github.tobato</groupId>
+            <artifactId>fastdfs-client</artifactId>
+            <version>1.26.5</version>
+        </dependency>
+
         <!--openfegin-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
