@@ -4,10 +4,9 @@ import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.dto.StaffBaseDto;
 import cn.net.yzl.ehr.dto.StaffDetailsDto;
+import cn.net.yzl.ehr.dto.StaffDto;
 import cn.net.yzl.ehr.dto.StaffListDto;
-import cn.net.yzl.ehr.pojo.StaffPo;
-import cn.net.yzl.ehr.pojo.StaffSwitchStatePo;
-import cn.net.yzl.ehr.pojo.StaffSwitchTalentPoolPo;
+import cn.net.yzl.ehr.pojo.*;
 import cn.net.yzl.ehr.vo.StaffParamsVO;
 import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,4 +30,15 @@ public interface StaffService {
     ComResponse<Integer> switchAccount(StaffSwitchStatePo staffSwitchStatePo,String staffNo);
 
     ComResponse<String> resetPassword(String userNo,String creator);
+
+    ComResponse<StaffDto> find (String staffNO);
+
+    ComResponse<Integer> deleteById (Integer id,String updator);
+
+    ComResponse<Integer> insert (List<StaffInsertPo> insertPos);
+
+    ComResponse<Integer> update (StaffUpdatePo updatePo);
+
+    ComResponse<Integer> saveUpDate (StaffItemPo staffItemPo);
+
 }

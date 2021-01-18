@@ -3,6 +3,7 @@ package cn.net.yzl.ehr.controller;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.dto.StaffAbnorRecordListDto;
+import cn.net.yzl.ehr.dto.StaffTrainDto;
 import cn.net.yzl.ehr.pojo.StaffAbnorRecordPo;
 import cn.net.yzl.ehr.pojo.StaffSwitchStatePo;
 import cn.net.yzl.ehr.service.StaffAbnorService;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 
 @RestController
@@ -47,5 +49,15 @@ public class StaffAbnorController {
     @RequestMapping(value = "/getStaffAbnorRecord", method = RequestMethod.GET)
     public ComResponse<StaffAbnorRecordListDto> getStaffAbnorRecord(@NotBlank String staffNo) {
         return staffAbnorService.getStaffAbnorRecord(staffNo);
+    }
+
+    @ApiOperation(value = "员工旅程查询", notes = "员工旅程查询", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "staffNo", value = "员工编号", required = true, paramType = "query")
+    )
+    @RequestMapping(value = "/getStaffTrain", method = RequestMethod.GET)
+    public ComResponse<List<StaffTrainDto>> find(@RequestParam("staffNo") String staffNo){
+        ComResponse<List<StaffTrainDto>>  staffTrain = staffAbnorService.find(staffNo);
+        return staffTrain;
     }
 }
