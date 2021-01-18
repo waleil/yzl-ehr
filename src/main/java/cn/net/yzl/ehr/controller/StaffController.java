@@ -101,11 +101,7 @@ public class StaffController {
         return staffService.find(staffNO);
     }
 
-   /* @ApiOperation(value = "删除员工基本信息",notes = "删除员工基本信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @RequestMapping(value = "/deleteById",method = RequestMethod.GET)
-    ComResponse<Integer> deleteById(Integer id,String updator) {
-        return staffService .deleteById(id,updator);
-    }
+
 
     @ApiOperation(value = "添加员工基本信息", notes = "添加员工基本信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/insert",method = RequestMethod.POST)
@@ -116,10 +112,6 @@ public class StaffController {
     @RequestMapping(value = "/upadte",method = RequestMethod.POST)
     ComResponse<Integer> update (@RequestBody StaffUpdatePo updatePo) {
         return staffService.update(updatePo);
-    }*/
-    @ApiOperation(value = "保存员工基本信息", notes = "保存员工基本信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @RequestMapping(value ="/saveUpDate",method = RequestMethod.POST)
-    ComResponse<Integer> saveUpDate(@RequestBody StaffItemPo itemPo){
-        return staffService.saveUpDate(itemPo);
     }
+
 }

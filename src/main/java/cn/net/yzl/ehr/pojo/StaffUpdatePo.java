@@ -1,6 +1,8 @@
 package cn.net.yzl.ehr.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -122,6 +124,8 @@ public class StaffUpdatePo implements Serializable {
     /**
      * 生日
      */
+    @JsonFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthdate;
 
     /**
@@ -215,27 +219,54 @@ public class StaffUpdatePo implements Serializable {
     /**
      * 入职时间
      */
+    @JsonFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date entryTime;
 
     /**
      * 入岗时间
      */
+    @JsonFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date postTime;
 
     /**
      * 转正时间
      */
+    @JsonFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date positiveTime;
 
     /**
      * 离职时间
      */
+    @JsonFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dimissionTime;
 
     /**
      * 领用的物品
      */
     private String article;
+
+    private Integer hjProvinceId ;
+    private String hjProvinceName ;
+    private Integer hjCityId;
+    private String hjCityName;
+    private Integer hjCountyId;
+    private String hjCountyName;
+    private Integer hjStreetId;
+    private String hjStreetName;
+    private String  hjAddress;
+    private Integer xjzdProvinceId ;
+    private String xjzdProvinceName ;
+    private Integer xjzdCityId;
+    private String  xjzdCityName;
+    private Integer  xjzdCountyId;
+    private String  xjzdCountyName;
+    private Integer  xjzdStreetId;
+    private String xjzdStreetName;
+    private String  xjzdAddress;
 
 
 
