@@ -1,7 +1,9 @@
 package cn.net.yzl.ehr.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -64,6 +66,25 @@ public class StaffAbnorRecordDto {
     @ApiModelProperty("异动时间")
     private Date abnorTime;
 
+    @ApiModelProperty("转正时间")
+    @JsonFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date positiveTime;
 
-    
+
+    @ApiModelProperty("调整前岗位等级")
+    private Integer adjustPostLevelFront;
+
+    @ApiModelProperty("调整后岗位等级")
+    private Integer adjustPostLevelLater;
+
+    @ApiModelProperty("调整前岗位等级名")
+    private String adjustPostLevelFrontName;
+
+    @ApiModelProperty("调整后岗位等级名")
+    private String adjustPostLevelLaterName;
+
+
+
+
 }
