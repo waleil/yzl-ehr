@@ -4,16 +4,16 @@ spring:
     nacos:
       server-addr: 192.168.32.33:8848,192.168.32.34:8848,192.168.32.35:8848
       discovery:
-#        username: servergateway
-#        password: servergateway
-#        namespace: 71088b30-7c81-48cd-9f1e-481977d6157d
+        username: servergateway
+        password: servergateway
+        namespace: 71088b30-7c81-48cd-9f1e-481977d6157d
 #        namespace: 46fc939a-916c-4203-9fb0-10fb0a2d6226
 #        username: bi
 #        password: bi
-        namespace: 1668ab9a-def9-4a51-9c04-6bbbdf40b162
-        username: ehr
-        password: ehr
-        group: TWJ
+#        namespace: 1668ab9a-def9-4a51-9c04-6bbbdf40b162
+#        username: ehr
+#        password: ehr
+#        group: TWJ
 #        namespace: ca2511dc-ae29-40f0-b1d9-8daca30a7e9c
 #        username: crm
 #        password: crm123456!
@@ -27,3 +27,10 @@ spring:
         username: ehr
         password: ehr
 
+
+## fast文件
+fdfs:
+  tracker-list:
+    - 192.168.32.127:22122
+    - 192.168.32.128:22122
+    - 192.168.32.129:22122
