@@ -84,5 +84,21 @@ public class StaffListDto implements Serializable {
     @ApiModelProperty(value = "异动时间", name = "abnorTime")
     private Date abnorTime;
 
+    @ApiModelProperty(value = "离职时间", name = "dimissionTime")
+    private Date dimissionTime;
+    @ApiModelProperty(value = "薪资核算结算日", name = "payrollAccountingDate")
+    private Date payrollAccountingDate;
+    @ApiModelProperty(value = "培训完成度code", name = "trainingCompletion")
+    private Integer trainingCompletion;
+    @ApiModelProperty(value = "培训完成度", name = "trainingCompletionName")
+    private String trainingCompletionName;
+    @ApiModelProperty(value = "培训成绩code", name = "trainingGrade")
+    private Integer trainingGrade;
+    @ApiModelProperty(value = "培训成绩", name = "trainingGradeName")
+    private String trainingGradeName;
+    @ApiModelProperty(value = "在职业状态code", name = "workStatus")
+    private Integer workStatus;
+    @ApiModelProperty(value = "在职业状态", name = "workStatusName")
+    private String workStatusName;
 
 }
