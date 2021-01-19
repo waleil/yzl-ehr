@@ -21,7 +21,7 @@ public interface StaffEntryPostFeginService {
 
     @ApiOperation(value = "员工入岗", notes = "员工入岗")
     @RequestMapping(value = "/entrypost/insert", method = RequestMethod.POST,consumes = "application/json")
-    ComResponse<Integer> insert(@RequestParam String staffNo);
+    ComResponse<Integer> insert(@RequestParam("staffNo") String staffNo);
 
 
 }
