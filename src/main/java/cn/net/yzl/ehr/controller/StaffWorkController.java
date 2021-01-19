@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.controller;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.dto.StaffWorkListDto;
 import cn.net.yzl.ehr.pojo.*;
 import cn.net.yzl.ehr.service.StaffWorkService;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 
@@ -28,22 +30,32 @@ public class StaffWorkController {
         return staffWorkService.list(staffNo);
     }
 
-    @ApiOperation(value = "工作经历信息-删除工作经历信息",notes = "删除工作经历信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+/*    @ApiOperation(value = "工作经历-删除工作经历信息",notes = "删除工作经历信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+>>>>>>> 04856d5ac5f72e8bfbf4df84a07ec9bf43305380
     @RequestMapping(value = "/deleteById",method = RequestMethod.GET)
     ComResponse<Integer> deleteById(Integer id) {
         return staffWorkService .deleteById(id);
     }
 
+<<<<<<< HEAD
     @ApiOperation(value = "工作经历信息-添加工作经历信息", notes = "添加工作经历信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+=======
+    @ApiOperation(value = "工作经历-添加工作经历信息", notes = "添加工作经历信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+>>>>>>> 04856d5ac5f72e8bfbf4df84a07ec9bf43305380
     @RequestMapping(value = "/insert",method = RequestMethod.POST)
     ComResponse<Integer> insert(@RequestBody StaffWorkInsertListPo staffWorkList) {
         return staffWorkService.insert(staffWorkList);
     }
+<<<<<<< HEAD
     @ApiOperation(value = "工作经历信息-修改工作经历信息", notes = "修改工作经历信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+=======
+    @ApiOperation(value = "工作经历-修改工作经历信息", notes = "修改工作经历信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+>>>>>>> 04856d5ac5f72e8bfbf4df84a07ec9bf43305380
     @RequestMapping(value = "/update",method = RequestMethod.POST)
     ComResponse<Integer> update (@RequestBody StaffWorkUpdatePo WorkPo){
         return staffWorkService.update(WorkPo);
     }
+<<<<<<< HEAD
     @ApiOperation(value = "工作经历信息-批量修改工作经历信息", notes = "批量修改工作经历信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/updatelist",method = RequestMethod.POST)
     ComResponse<Integer> updateList (@RequestBody StaffWorkUpdateListPo staffWorkUpdateListPo){
@@ -53,6 +65,16 @@ public class StaffWorkController {
     @RequestMapping(value ="/saveUpDate",method = RequestMethod.POST)
     ComResponse<Integer> saveUpDate(@RequestBody StaffWorkItemPo staffWorkItemPo){
         return staffWorkService.saveUpDate(staffWorkItemPo);
+
+    @ApiOperation(value = "工作经历-批量修改工作经历信息", notes = "批量修改工作经历信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/updatelist",method = RequestMethod.POST)
+    ComResponse<Integer> updateList (@RequestBody StaffWorkUpdateListPo staffWorkUpdateListPo){
+        return staffWorkService.updatelist(staffWorkUpdateListPo);
+    }*/
+    @ApiOperation(value = "工作经历-保存工作经历信息", notes = "保存工作经历信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value ="/saveUpDate",method = RequestMethod.POST)
+    ComResponse<Integer> saveUpDate(@RequestBody StaffWorkItemPo staffWorkItemPo, @CurrentStaffNo @ApiIgnore String staffNo){
+        return staffWorkService.saveUpDate(staffWorkItemPo,staffNo);
     }
 
 }

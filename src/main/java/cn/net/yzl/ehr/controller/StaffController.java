@@ -7,14 +7,12 @@ import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.dto.StaffBaseDto;
 import cn.net.yzl.ehr.dto.StaffDetailsDto;
+import cn.net.yzl.ehr.dto.StaffDto;
 import cn.net.yzl.ehr.dto.StaffListDto;
 import cn.net.yzl.ehr.fegin.staff.StaffFeginService;
-import cn.net.yzl.ehr.pojo.StaffSwitchStatePo;
-import cn.net.yzl.ehr.pojo.StaffSwitchTalentPoolPo;
+import cn.net.yzl.ehr.pojo.*;
 import cn.net.yzl.ehr.service.StaffService;
 import cn.net.yzl.ehr.vo.StaffParamsVO;
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
-import com.alibaba.csp.sentinel.slots.block.BlockException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -94,4 +92,25 @@ public class StaffController {
     ComResponse<String> resetPassword(@RequestParam("userNo") String userNo,@ApiIgnore @CurrentStaffNo String staffNo){
         return staffService.resetPassword(userNo,staffNo);
     }
+
+
+    @ApiOperation(value = "查询员工基本信息",notes = "查询员工基本信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/find", method = RequestMethod.GET)
+    ComResponse<StaffDto> find(@RequestParam("staffNO") String staffNO) {
+        return staffService.find(staffNO);
+    }
+
+
+
+    @ApiOperation(value = "添加员工基本信息", notes = "添加员工基本信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/insert",method = RequestMethod.POST)
+    ComResponse<Integer> insert(@RequestBody List<StaffInsertPo> insertPos) {
+        return staffService.insert( insertPos);
+    }
+    @ApiOperation(value = "修改员工基本信息", notes = "修改员工基本信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/upadte",method = RequestMethod.POST)
+    ComResponse<Integer> update (@RequestBody StaffUpdatePo updatePo) {
+        return staffService.update(updatePo);
+    }
+
 }

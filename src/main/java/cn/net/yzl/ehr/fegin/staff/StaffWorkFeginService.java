@@ -14,22 +14,23 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Map;
 
 
+@FeignClient(value = "staff",url = "${fegin.db.url}")
 @Repository
-@FeignClient(name = "yzl-staff-db")
 public interface StaffWorkFeginService {
 
     @ApiOperation(value = "查询员工工作经历信息", notes = "查询员工工作经历信息")
     @RequestMapping(value = "/work/list", method = RequestMethod.GET,consumes = "application/json")
-    ComResponse<StaffWorkListDto> list(String staffNo);
+    ComResponse<StaffWorkListDto> list(@RequestParam("staffNo") String staffNo);
 
     @ApiOperation(value = "删除工作经历信息", notes = "删除工作经历信息")
     @RequestMapping(value = "/work/deleteById", method = RequestMethod.GET,consumes = "application/json")
-    ComResponse<Integer> deleteById(Integer id);
+    ComResponse<Integer> deleteById(@RequestParam("id") Integer id);
 
     @ApiOperation(value = "添加工作经历信息", notes = "添加工作经历信息")
     @RequestMapping(value = "/work/insert", method = RequestMethod.POST,consumes = "application/json")
@@ -44,7 +45,7 @@ public interface StaffWorkFeginService {
     ComResponse<Integer> updateList (@RequestBody StaffWorkUpdateListPo staffWorkUpdateListPo);
 
     @ApiOperation(value = "保存工作经历信息", notes = "保存工作经历信息")
-    @RequestMapping(value = "/work/saveUpDate", method = RequestMethod.GET,consumes = "application/json")
-    ComResponse<Integer> saveUpDate(StaffWorkItemPo staffWorkItemPo);
+    @RequestMapping(value = "/work/saveUpDate", method = RequestMethod.POST,consumes = "application/json")
+    ComResponse<Integer> saveUpDate(@RequestBody StaffWorkItemPo staffWorkItemPo);
 
 }

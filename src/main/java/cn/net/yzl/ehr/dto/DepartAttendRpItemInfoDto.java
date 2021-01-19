@@ -28,6 +28,9 @@ public class DepartAttendRpItemInfoDto implements Serializable {
     @ApiModelProperty(value = "考勤奖惩项扣款信息表", name = "attendRpDtoList")
     private List<DepartAttendRpDto> attendRpDtoList;
 
+    @ApiModelProperty(value = "标题", name = "title")
+    private String title;
+
 
 
 }

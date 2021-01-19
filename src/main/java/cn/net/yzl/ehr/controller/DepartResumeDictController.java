@@ -26,7 +26,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/resumeDict")
-@Api(value = "字典配置-面试轮次", tags = {"字典配置-面试轮次"})
+@Api(value = "字典配置-面试轮次", tags = {"字典配置"})
 public class DepartResumeDictController {
 
     @Autowired

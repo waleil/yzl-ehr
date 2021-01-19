@@ -23,7 +23,7 @@ import javax.validation.constraints.NotNull;
 
 @RestController
 @RequestMapping("/conf/resume")
-@Api(value = "配置模块", tags = {"配置模块-面试流程配置"})
+@Api(value = "配置模块-面试流程配置", tags = {"配置模块"})
 @Valid
 public class DepartResumeController {
 

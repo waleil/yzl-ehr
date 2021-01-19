@@ -35,7 +35,7 @@ public class DepartTrainingRuleDto implements Serializable {
     /**
      * 培训方式(1:线下,2,线上)
      */
-    @ApiModelProperty(value = "培训方式:1线下,2线上")
+    @ApiModelProperty(value = "培训方式:0线上 1线下")
     private Byte way;
 
     /**

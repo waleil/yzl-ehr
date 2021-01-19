@@ -5,24 +5,11 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.io.Serializable;
 import java.util.Date;
 
-/**
- * 员工异动信息记录表
- * 
- * @author
- * @date： 2020-12-30 21:11:37
- */
 @Data
-public class StaffAbnorRecordDto {
-    @ApiModelProperty("主键 唯一id")
-    private Integer id;
-
-/*    @ApiModelProperty(value = "员工工号",hidden = true)
-    private String staffNo;
-
-    @ApiModelProperty(value = "员工姓名",hidden = true)
-    private String staffName;*/
+public class StaffTrainDto implements Serializable {
 
     @ApiModelProperty("异动类型(字典表 )")
     private Integer type;
@@ -64,27 +51,34 @@ public class StaffAbnorRecordDto {
     private Double adjustSalaryLater;
 
     @ApiModelProperty("异动时间")
+    @JsonFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date abnorTime;
+
+    @ApiModelProperty("调整前岗位等级")
+    private Integer adjustPostLevelFront;
+
+    @ApiModelProperty("调整前岗位等级名")
+    private String adjustPostLevelFrontName;
+
+
+    @ApiModelProperty("调整后岗位等级")
+    private Integer adjustPostLevelLater;
+
+    @ApiModelProperty("调整后岗位等级名")
+    private String adjustPostLevelLaterName;
+
 
     @ApiModelProperty("转正时间")
     @JsonFormat(pattern="yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date positiveTime;
 
+    @ApiModelProperty("商品编码")
+    private String productCode;
 
-    @ApiModelProperty("调整前岗位等级")
-    private Integer adjustPostLevelFront;
-
-    @ApiModelProperty("调整后岗位等级")
-    private Integer adjustPostLevelLater;
-
-    @ApiModelProperty("调整前岗位等级名")
-    private String adjustPostLevelFrontName;
-
-    @ApiModelProperty("调整后岗位等级名")
-    private String adjustPostLevelLaterName;
-
-
+    @ApiModelProperty("培训课程名称")
+    private String  courseName;
 
 
 }

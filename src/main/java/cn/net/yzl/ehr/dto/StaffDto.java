@@ -1,183 +1,243 @@
 package cn.net.yzl.ehr.dto;
 
-
-import lombok.Builder;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * staff
+ * @author
+ */
 @Data
-@Builder(toBuilder = true)
 public class StaffDto implements Serializable {
-    /**
-     * 唯一标识
-     */
+    @ApiModelProperty("id 唯一标识")
     private Integer id;
 
-    /**
-     * 工号
-     */
-    private Integer no;
+    @ApiModelProperty("工号")
+    private String no;
 
-    /**
-     * 姓名
-     */
+    @ApiModelProperty("员工姓名")
     private String name;
 
-    /**
-     * 手机号
-     */
+    @ApiModelProperty("英文名")
+    private String enName;
+
+    @ApiModelProperty("手机号")
     private String phone;
 
-    /**
-     * 邮箱
-     */
-    private String email;
-
-    /**
-     * 工作地点:指向系统字典表
-     1总部,2:桥西,3:邢台,4:方北,5:北京
-     */
-    private Byte workplaceId;
-
-    /**
-     * 在岗状态(0:无效,1:试用,2:正式,3:离职,4:实习)
-     */
-    private Byte workStatus;
-
-    /**
-     * 账号状态 (0:停用,1:正常)
-     */
-    private Byte accountStatus;
-
-    /**
-     * 培训状态 (0:未培训,1:已培训,2:培训完成)
-     */
-    private Byte trainStatus;
-
-    /**
-     * 异动状态(1:正常,2:待优化,3:待劝退,4:已离职)
-     */
-    private Byte abnormalStatus;
-
-    /**
-     * 异动时间(最新的)
-     */
-    private Date abnormalTime;
-
-    /**
-     * 加盐后密码
-     */
-    private String password;
-
-    /**
-     * 盐
-     */
-    private String salt;
-
-    /**
-     * 名族标识
-     */
-    private Integer nationId;
-
-    /**
-     * 身份证
-     */
-    private String idCard;
-
-    /**
-     * 住址
-     */
-    private String address;
-
-    /**
-     * 入职时间
-     */
-    private Date entryTime;
-
-    /**
-     * 性别(0:未知1:男,2:女)
-     */
+    @ApiModelProperty("性别 0:男,1:女")
     private Byte sex;
 
-    /**
-     * 学历(指向字典表)
-     */
-    private Integer educationId;
+    @ApiModelProperty("邮箱")
+    private String email;
 
-    /**
-     * 政治面貌
-     */
-    private String political;
+    @ApiModelProperty("工作地点 字典表 type: workarea")
+    private Integer workplaceCode;
 
-    /**
-     * 生日
-     */
-    private Date birth;
+    @ApiModelProperty("属性(1:正编,2:外包)")
+    private Byte nature;
 
-    /**
-     * 紧急联系人
-     */
-    private String emergency;
+    @ApiModelProperty("合作方id")
+    private Integer partnerCode;
 
-    /**
-     * 转正时间
-     */
-    private Date positiveTime;
+    @ApiModelProperty("职场id(字典表)")
+    private Integer workCode;
 
-    /**
-     * 银行卡号
-     */
-    private String card;
+    @ApiModelProperty("在职状态(字典表)")
+    private Byte workStatus;
 
-    /**
-     * 订单结算中心
-     */
+    @ApiModelProperty("在岗状态 (0：已入职，1.未入职)")
+    private Integer postStatusCode;
+
+    @ApiModelProperty("账号状态 0正常 1停用")
+    private Byte accountStatus;
+
+    @ApiModelProperty("异动状态(指向字典）")
+    private Integer abnoStatusCode;
+
+    @ApiModelProperty("入职次数")
+    private Byte entryTimes;
+
+    @ApiModelProperty("头像地址")
+    private String imgUrl;
+
+    @ApiModelProperty("民族编号")
+    private Integer nationCode;
+
+    @ApiModelProperty("学历名称(指向字典)")
+    private Integer degreeCode;
+
+    @ApiModelProperty("身份证号")
+    private String idCardNo;
+
+    @ApiModelProperty("专业")
+    private String major;
+
+    @ApiModelProperty("政治面貌(字典表)")
+    private Integer politicsStatusCode;
+
+    @ApiModelProperty("生日")
+    @JsonFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date birthdate;
+
+    @ApiModelProperty("紧急联系电话")
+    private String emergencyPhone;
+
+    @ApiModelProperty("紧急联系人")
+    private String emergencyContact;
+
+    @ApiModelProperty("开户行(暂定)")
+    private Integer bankId;
+
+    @ApiModelProperty("开户行名称")
+    private String bankName;
+
+    @ApiModelProperty("银行卡号")
+    private String bankCard;
+
+    @ApiModelProperty("订单结算中心")
     private String orderClearingCenter;
 
-    /**
-     * 薪酬结算中心
-     */
+    @ApiModelProperty("薪酬结算中心")
     private String payClearingCenter;
 
-    /**
-     * 钉钉userid
-     */
-    private String dingUserId;
+    @ApiModelProperty("微信号")
+    private String wechat;
 
-    /**
-     * 钉钉唯一表示
-     */
-    private String dingUnionId;
+    @ApiModelProperty("是否有销售经验 0否 1是")
+    private Byte salesFlag;
 
-    /**
-     * 状态(0:删除,1:有效)
-     */
-    private Byte isDel;
+    @ApiModelProperty("培训次数")
+    private Integer trainingTimes;
 
-    /**
-     * 创建时间
-     */
+    @ApiModelProperty("培训状态(0.未完成,1.已完成)")
+    private Integer trainingStatus;
+
+    @ApiModelProperty("培训成绩(字典表)")
+    private Integer trainingGrade;
+
+    @ApiModelProperty("入岗状态 0待入岗 1已入岗")
+    private Byte enterStatus;
+
+    @ApiModelProperty("介绍人工号")
+    private String introdNo;
+
+    @ApiModelProperty("是否住宿 0否 1是")
+    private Byte putUp;
+
+    @ApiModelProperty("是否是储备人才 0否 1是")
+    private Byte reserveTalent;
+
+    @ApiModelProperty("保险备注")
+    private String insuraRemark;
+
+    @ApiModelProperty("创建人")
+    private String creator;
+
+    @ApiModelProperty("创建时间")
+    @JsonFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date createTime;
 
-    /**
-     * 创建人id
-     */
-    private Integer createId;
+    @ApiModelProperty("修改人")
+    private String updator;
 
-    /**
-     * 更新时间
-     */
+    @ApiModelProperty("修改时间")
+    @JsonFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date updateTime;
 
-    /**
-     * 更新人id
-     */
-    private Integer updateId;
+    @ApiModelProperty("是否删除 0正常 1删除")
+    private Byte isDel;
+
+    @ApiModelProperty("老系统员工编号")
+    private Integer oldStaffId;
+
+    @ApiModelProperty("入职时间")
+    @JsonFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date entryTime;
+
+    @ApiModelProperty("入岗时间")
+    @JsonFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date postTime;
+
+    @ApiModelProperty("转正时间")
+    @JsonFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date positiveTime;
+
+    @ApiModelProperty("离职时间")
+    @JsonFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date dimissionTime;
+
+    @ApiModelProperty("最后异动时间")
+    @JsonFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date lastAbnorTime;
+
+    @ApiModelProperty("异动次数")
+    private Integer abnorTimes;
+
+    @ApiModelProperty("薪资核算结算日")
+    @JsonFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date payrollAccountingDate;
+
+    @ApiModelProperty("领用的物品")
+    private String article;
+
+    @ApiModelProperty("角色id")
+    private Integer roleId;
+
+    @ApiModelProperty("工作地点名")
+    private String workplaceName;
+
+    @ApiModelProperty("职场名")
+    private String workName;
+
+    @ApiModelProperty("异动状态名")
+    private String abnoStatusName;
+
+    @ApiModelProperty("学历名")
+    private String degreeName;
+
+    @ApiModelProperty("政治面貌名")
+    private String politicsStatusName;
+
+    @ApiModelProperty("培训成绩名")
+    private String trainingGradeName;
+
+    @ApiModelProperty("合作方名")
+    private String partnerName;
+
+    @ApiModelProperty("角色名")
+    private String roleName;
+
+    @ApiModelProperty("在职状态名")
+    private  String workStatusName;
+
+    @ApiModelProperty("培训完成度名")
+    private  String trainingCompletionName;
+
+    @ApiModelProperty("培训完成度")
+    private Integer trainingCompletion;
+
+    @ApiModelProperty("民族")
+    private String nationName;
 
 
+    private List<StaffAddrListDto> addrListDtoList;
 
-    private List<String> permsList;
+    private static final long serialVersionUID = 1L;
+
+
 }
