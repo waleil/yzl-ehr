@@ -63,7 +63,14 @@ public class StaffServiceImpl implements StaffService {
         return result;
     }
 
-
+    @Override
+    public ComResponse<Integer> deleteById(Integer id, String updator) {
+        ComResponse<Integer> result =  staffFeginService.deleteById(id,updator);
+        if (result==null){
+            return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
+        }
+        return ComResponse.success();
+    }
 
     @Override
     public ComResponse<Integer> insert(List<StaffInsertPo> insertPos) {
@@ -91,7 +98,18 @@ public class StaffServiceImpl implements StaffService {
         return result;
     }
 
-
+    @Override
+    public ComResponse<Integer> saveUpDate(StaffItemPo staffItemPo) {
+        ComResponse<Integer> result =  staffFeginService.saveUpDate(staffItemPo);
+        if (result==null){
+            return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
+        }else if (result.getCode()==200 && result.getData()==null){
+            return ComResponse.fail(ResponseCodeEnums.SAVE_DATA_ERROR_CODE.getCode(),ResponseCodeEnums.SAVE_DATA_ERROR_CODE.getMessage());
+        }if (result.getData()!=null){
+            return ComResponse.success();
+        }
+        return result;
+    }
 
 
 }

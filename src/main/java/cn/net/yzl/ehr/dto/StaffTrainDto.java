@@ -56,23 +56,15 @@ public class StaffTrainDto implements Serializable {
     private Date abnorTime;
 
     @ApiModelProperty("调整前岗位等级")
-    private Integer adjustPostLevelFront;
-
-    @ApiModelProperty("调整前岗位等级名")
-    private String adjustPostLevelFrontName;
-
+    private String adjustPostLevelFront;
 
     @ApiModelProperty("调整后岗位等级")
-    private Integer adjustPostLevelLater;
-
-    @ApiModelProperty("调整后岗位等级名")
-    private String adjustPostLevelLaterName;
-
+    private String adjustPostLevelLater;
 
     @ApiModelProperty("转正时间")
     @JsonFormat(pattern="yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date positiveTime;
+    private Date positive_time;
 
     @ApiModelProperty("商品编码")
     private String productCode;

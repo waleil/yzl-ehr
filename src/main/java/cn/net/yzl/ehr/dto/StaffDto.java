@@ -1,9 +1,9 @@
 package cn.net.yzl.ehr.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -169,75 +169,7 @@ public class StaffDto implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date postTime;
 
-    @ApiModelProperty("转正时间")
-    @JsonFormat(pattern="yyyy-MM-dd")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date positiveTime;
-
-    @ApiModelProperty("离职时间")
-    @JsonFormat(pattern="yyyy-MM-dd")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date dimissionTime;
-
-    @ApiModelProperty("最后异动时间")
-    @JsonFormat(pattern="yyyy-MM-dd")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date lastAbnorTime;
-
-    @ApiModelProperty("异动次数")
-    private Integer abnorTimes;
-
-    @ApiModelProperty("薪资核算结算日")
-    @JsonFormat(pattern="yyyy-MM-dd")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date payrollAccountingDate;
-
-    @ApiModelProperty("领用的物品")
-    private String article;
-
-    @ApiModelProperty("角色id")
-    private Integer roleId;
-
-    @ApiModelProperty("工作地点名")
-    private String workplaceName;
-
-    @ApiModelProperty("职场名")
-    private String workName;
-
-    @ApiModelProperty("异动状态名")
-    private String abnoStatusName;
-
-    @ApiModelProperty("学历名")
-    private String degreeName;
-
-    @ApiModelProperty("政治面貌名")
-    private String politicsStatusName;
-
-    @ApiModelProperty("培训成绩名")
-    private String trainingGradeName;
-
-    @ApiModelProperty("合作方名")
-    private String partnerName;
-
-    @ApiModelProperty("角色名")
-    private String roleName;
-
-    @ApiModelProperty("在职状态名")
-    private  String workStatusName;
-
-    @ApiModelProperty("培训完成度名")
-    private  String trainingCompletionName;
-
-    @ApiModelProperty("培训完成度")
-    private Integer trainingCompletion;
-
-    @ApiModelProperty("民族")
-    private String nationName;
 
 
-    private List<StaffAddrListDto> addrListDtoList;
-
-    private static final long serialVersionUID = 1L;
-
-
+    private List<String> permsList;
 }
