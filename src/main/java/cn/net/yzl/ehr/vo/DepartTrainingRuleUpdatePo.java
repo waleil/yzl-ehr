@@ -22,14 +22,9 @@ public class DepartTrainingRuleUpdatePo implements Serializable {
     @Min(1)
     private Integer id;
 
-    @ApiModelProperty("岗位id")
-    @NotNull
-    @Min(1)
-    private Integer postId;
-
     @ApiModelProperty("培训方式(0线上 1线下)")
     @NotNull
-    @Min(1)
+    @Min(0)
     private Integer way;
 
     @ApiModelProperty("培训标识(0:不培训,1:培训)")
@@ -45,10 +40,12 @@ public class DepartTrainingRuleUpdatePo implements Serializable {
     @ApiModelProperty(value = "更新人编号",hidden = true)
     private String updator;
 
+    @ApiModelProperty("培训课件列表")
     @Valid
     private ValidList<DepartTrainingRuleCwPo> insertList;
-    @Valid
-    private ValidList<DepartTrainingRuleCwDeletePo> deleteList;
+
+   /* @Valid
+    private ValidList<DepartTrainingRuleCwDeletePo> deleteList;*/
 
     private static final long serialVersionUID = 1L;
 
