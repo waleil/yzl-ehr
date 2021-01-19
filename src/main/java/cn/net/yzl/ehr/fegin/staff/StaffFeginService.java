@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 @FeignClient(value = "staff",url = "${fegin.db.url}")
-//@FeignClient(name = "yzl-staff-db")
+//@FeignClient(name = "yzl-staff-api")
 @Repository
 public interface StaffFeginService {
 
@@ -62,7 +62,9 @@ public interface StaffFeginService {
     @RequestMapping(value = "/staff/find", method = RequestMethod.GET)
     ComResponse<StaffDto> findByStaffNo(@RequestParam("staffNO")  String staffNO);
 
-
+    @ApiOperation(value = "删除员工基本信息",notes = "删除员工基本信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/staff/deleteById",method = RequestMethod.GET)
+    ComResponse<Integer> deleteById(@RequestParam("id")  Integer id,@RequestParam("updator") String updator);
 
     @ApiOperation(value = "添加员工基本信息", notes = "添加员工基本信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/staff/insert",method = RequestMethod.POST)
@@ -72,6 +74,8 @@ public interface StaffFeginService {
     @RequestMapping(value = "/staff/upadte",method = RequestMethod.POST)
     ComResponse<Integer> update (@RequestBody StaffUpdatePo updatePo);
 
-
+    @ApiOperation(value = "保存员工基本信息", notes = "保存员工基本信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value ="/staff/saveUpDate",method = RequestMethod.POST)
+    ComResponse<Integer> saveUpDate(@RequestBody StaffItemPo itemPo);
 
 }

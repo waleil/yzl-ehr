@@ -3,8 +3,12 @@ spring:
     name: yzl-ehr
   profiles:
     active: dev
+  main:
+    allow-bean-definition-overriding: true
   cloud:
     nacos:
+
+      server-addr: 192.168.32.33:8848,192.168.32.34:8848,192.168.32.35:8848
       discovery:
         service: ${spring.application.name}
         enabled: true
@@ -12,12 +16,22 @@ spring:
         encode: UTF-8
         enabled: true
         file-extension: yaml
-  main:
-    allow-bean-definition-overriding: true
+    sentinel:
+      transport:
+        dashboard: localhost:8080
+
 server:
   port: 18080
 
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
 
 
 
