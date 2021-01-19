@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
-@Repository
-@FeignClient(name = "yzl-staff-db")
-public interface StaffEntryPostFeginService {
-
-    @ApiOperation(value = "员工入岗", notes = "员工入岗")
-    @RequestMapping(value = "/entrypost/insert", method = RequestMethod.POST,consumes = "application/json")
-    ComResponse<Integer> insert(@RequestParam("staffNo") String staffNo);
-
-
-}
+//@Repository
+//@FeignClient(name = "yzl-staff-db")
+//public interface StaffEntryPostFeginService {
+//
+//    @ApiOperation(value = "员工入岗", notes = "员工入岗")
+//    @RequestMapping(value = "/entrypost/insert", method = RequestMethod.POST,consumes = "application/json")
+//    ComResponse<Integer> insert(@RequestParam("staffNo") String staffNo);
+//
+//
+//}
