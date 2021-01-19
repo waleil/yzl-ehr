@@ -22,36 +22,36 @@ public class StaffWorkController {
     @Autowired
     private StaffWorkService staffWorkService;
 
-    @ApiOperation(value = "员工档案-查询员工工作经历信息",notes = "查询员工工作经历信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "工作经历信息-查询员工工作经历信息",notes = "查询员工工作经历信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     ComResponse<StaffWorkListDto> list(String staffNo) {
         return staffWorkService.list(staffNo);
     }
 
-    @ApiOperation(value = "员工档案-删除工作经历信息",notes = "删除工作经历信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "工作经历信息-删除工作经历信息",notes = "删除工作经历信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/deleteById",method = RequestMethod.GET)
     ComResponse<Integer> deleteById(Integer id) {
         return staffWorkService .deleteById(id);
     }
 
-    @ApiOperation(value = "员工档案-添加工作经历信息", notes = "添加工作经历信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "工作经历信息-添加工作经历信息", notes = "添加工作经历信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/insert",method = RequestMethod.POST)
     ComResponse<Integer> insert(@RequestBody StaffWorkInsertListPo staffWorkList) {
         return staffWorkService.insert(staffWorkList);
     }
-    @ApiOperation(value = "员工档案-修改工作经历信息", notes = "修改工作经历信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "工作经历信息-修改工作经历信息", notes = "修改工作经历信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/update",method = RequestMethod.POST)
     ComResponse<Integer> update (@RequestBody StaffWorkUpdatePo WorkPo){
         return staffWorkService.update(WorkPo);
     }
-    @ApiOperation(value = "员工档案-批量修改工作经历信息", notes = "批量修改工作经历信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "工作经历信息-批量修改工作经历信息", notes = "批量修改工作经历信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/updatelist",method = RequestMethod.POST)
     ComResponse<Integer> updateList (@RequestBody StaffWorkUpdateListPo staffWorkUpdateListPo){
         return staffWorkService.updatelist(staffWorkUpdateListPo);
     }
-    @ApiOperation(value = "员工档案-保存工作经历信息", notes = "保存工作经历信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "工作经历信息-保存工作经历信息", notes = "保存工作经历信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value ="/saveUpDate",method = RequestMethod.POST)
-    ComResponse<Integer> saveUpDate(StaffWorkItemPo staffWorkItemPo){
+    ComResponse<Integer> saveUpDate(@RequestBody StaffWorkItemPo staffWorkItemPo){
         return staffWorkService.saveUpDate(staffWorkItemPo);
     }
 

@@ -38,7 +38,7 @@ public class StaffWorkPo implements Serializable {
     private String certifier;
     @ApiModelProperty(value = "证明人电话", name = "certifier_phone")
     private String certifierPhone;
-    @ApiModelProperty(value = "经历类型", name = "type")
+    @ApiModelProperty(value = "经历类型：0入职前经历 1入职后经历", name = "type")
     private Integer type;
     @ApiModelProperty(value = "创建时间", name = "create_time")
     private Date createTime;
