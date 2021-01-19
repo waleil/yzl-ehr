@@ -135,7 +135,8 @@ public class StaffDetailsDto implements Serializable {
 
 
 
-
+    @ApiModelProperty(value = "头像路径", name = "imgUrl")
+    private String imgUrl;
 
 
 
