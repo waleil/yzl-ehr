@@ -10,9 +10,10 @@ import cn.net.yzl.ehr.dto.StaffDetailsDto;
 import cn.net.yzl.ehr.dto.StaffDto;
 import cn.net.yzl.ehr.dto.StaffListDto;
 import cn.net.yzl.ehr.fegin.staff.StaffFeginService;
-import cn.net.yzl.ehr.pojo.StaffItemPo;
+import cn.net.yzl.ehr.pojo.StaffInsertPo;
 import cn.net.yzl.ehr.pojo.StaffSwitchStatePo;
 import cn.net.yzl.ehr.pojo.StaffSwitchTalentPoolPo;
+import cn.net.yzl.ehr.pojo.StaffUpdatePo;
 import cn.net.yzl.ehr.service.StaffService;
 import cn.net.yzl.ehr.vo.StaffParamsVO;
 import io.swagger.annotations.Api;
@@ -102,25 +103,17 @@ public class StaffController {
         return staffService.find(staffNO);
     }
 
-   /* @ApiOperation(value = "删除员工基本信息",notes = "删除员工基本信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @RequestMapping(value = "/deleteById",method = RequestMethod.GET)
-    ComResponse<Integer> deleteById(Integer id,String updator) {
-        return staffService .deleteById(id,updator);
-    }
+
 
     @ApiOperation(value = "添加员工基本信息", notes = "添加员工基本信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/insert",method = RequestMethod.POST)
     ComResponse<Integer> insert(@RequestBody List<StaffInsertPo> insertPos) {
-        return staffService.insert( insertPos);
+        return staffService.insert(insertPos);
     }
     @ApiOperation(value = "修改员工基本信息", notes = "修改员工基本信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/upadte",method = RequestMethod.POST)
     ComResponse<Integer> update (@RequestBody StaffUpdatePo updatePo) {
         return staffService.update(updatePo);
-    }*/
-    @ApiOperation(value = "保存员工基本信息", notes = "保存员工基本信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @RequestMapping(value ="/saveUpDate",method = RequestMethod.POST)
-    ComResponse<Integer> saveUpDate(@RequestBody StaffItemPo itemPo){
-        return staffService.saveUpDate(itemPo);
     }
+
 }

@@ -1,7 +1,9 @@
 package cn.net.yzl.ehr.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -67,6 +69,8 @@ public class StaffPo implements Serializable {
     /**
      * 异动时间(最新的)
      */
+    @JsonFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date abnormalTime;
 
     /**
@@ -97,6 +101,8 @@ public class StaffPo implements Serializable {
     /**
      * 入职时间
      */
+    @JsonFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date entryTime;
 
     /**
@@ -117,6 +123,8 @@ public class StaffPo implements Serializable {
     /**
      * 生日
      */
+    @JsonFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birth;
 
     /**
@@ -127,6 +135,8 @@ public class StaffPo implements Serializable {
     /**
      * 转正时间
      */
+    @JsonFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date positiveTime;
 
     /**
@@ -162,6 +172,8 @@ public class StaffPo implements Serializable {
     /**
      * 创建时间
      */
+    @JsonFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date createTime;
 
     /**
@@ -172,6 +184,8 @@ public class StaffPo implements Serializable {
     /**
      * 更新时间
      */
+    @JsonFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date updateTime;
 
     /**
