@@ -1,5 +1,6 @@
 package cn.net.yzl.ehr.controller;
 
+import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.util.FastDFSClientWrapper;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class FastDFSController {
     private FastDFSClientWrapper client;
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
-    public String upload(MultipartFile file) throws IOException {
-        return client.uploadFile(file);
+    public ComResponse<String> upload(MultipartFile file) throws IOException {
+        return ComResponse.success(client.uploadFile(file));
     }
 }
