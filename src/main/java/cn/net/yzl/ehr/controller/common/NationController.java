@@ -22,7 +22,7 @@ public class NationController {
     private NationFeginService nationFeginService;
 
 
-    @ApiOperation(value = "国家字典-获取所有的国家编码", notes = "国家字典-获取所有的国家编码", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "民族字典-获取所有的民族编码", notes = "民族字典-获取所有的民族编码", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/getAllNation", method = RequestMethod.GET)
     ComResponse<List<NationDto>> getAllNation(){
       return nationFeginService.getAllNation();
