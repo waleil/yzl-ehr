@@ -7,15 +7,13 @@ import cn.net.yzl.ehr.dto.StaffListDto;
 import cn.net.yzl.ehr.pojo.*;
 import cn.net.yzl.ehr.vo.StaffParamsVO;
 import cn.net.yzl.staff.dto.StaffDetailsDto;
+import cn.net.yzl.staff.vo.UpdatePasswordPo;
 import cn.net.yzl.staff.vo.staff.StaffInfoUpdateVO;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -43,7 +41,7 @@ public interface StaffFeginService {
     ComResponse<Integer> switchAccount(@RequestBody StaffSwitchStatePo staffSwitchStatePo);
 
     @RequestMapping(value = "/staff/resetPassword", method = RequestMethod.POST)
-    ComResponse<String> resetPassword(@RequestParam("userNo") String userNo,@RequestParam("creator") String creator);
+    ComResponse<String> resetPassword(@RequestBody UpdatePasswordPo updatePasswordPo );
 
 
     //查询员工基本信息

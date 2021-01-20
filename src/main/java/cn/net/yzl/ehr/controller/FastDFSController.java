@@ -20,7 +20,6 @@ public class FastDFSController {
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public String upload(MultipartFile file) throws IOException {
-        String path = client.uploadFile(file);
-        return path;
+        return client.uploadFile(file);
     }
 }
