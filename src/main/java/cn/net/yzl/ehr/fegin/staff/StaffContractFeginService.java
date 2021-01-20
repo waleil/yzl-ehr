@@ -16,17 +16,17 @@ import java.util.List;
 
 
 @Repository
-//@FeignClient(value = "staff",url = "${fegin.db.url}")
-@FeignClient(name = "yzl-staff-db")
+@FeignClient(value = "staff",url = "${fegin.db.url}")
+//@FeignClient(name = "yzl-staff-db")
 public interface StaffContractFeginService {
 
     @ApiOperation(value = "查询员工合同信息", notes = "查询员工合同信息")
     @RequestMapping(value = "/contract/findByStringNo", method = RequestMethod.GET)
-    ComResponse<List<StaffContartListDto>> findByStringNo(@RequestParam String staffNo);
+    ComResponse<List<StaffContartListDto>> findByStringNo(@RequestParam("staffNo") String staffNo);
 
     @ApiOperation(value = "新建员工合同信息", notes = "新建员工合同信息")
     @RequestMapping(value = "/contract/insert", method = RequestMethod.GET,consumes = "application/json")
-    ComResponse<Integer> insert(StaffCFInsertPo staffCFInsertPo);
+    ComResponse<Integer> insert( @RequestBody  StaffCFInsertPo staffCFInsertPo);
 
 
 }
