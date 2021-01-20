@@ -8,6 +8,7 @@ import cn.net.yzl.ehr.fegin.staff.StaffFeginService;
 import cn.net.yzl.ehr.pojo.*;
 import cn.net.yzl.ehr.service.StaffService;
 import cn.net.yzl.ehr.vo.StaffParamsVO;
+import cn.net.yzl.staff.vo.UpdatePasswordPo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,7 +50,10 @@ public class StaffServiceImpl implements StaffService {
 
     @Override
     public ComResponse<String> resetPassword(String userNo, String creator) {
-        return staffFeginService.resetPassword(userNo,creator);
+        UpdatePasswordPo updatePasswordPo = new UpdatePasswordPo();
+        updatePasswordPo.setUserNo(userNo);
+        updatePasswordPo.setStaffNo(creator);
+        return staffFeginService.resetPassword(updatePasswordPo);
     }
 
 

@@ -7,6 +7,7 @@ import cn.net.yzl.ehr.dto.StaffDetailsDto;
 import cn.net.yzl.ehr.dto.StaffListDto;
 import cn.net.yzl.ehr.pojo.*;
 import cn.net.yzl.ehr.vo.StaffParamsVO;
+import cn.net.yzl.staff.vo.UpdatePasswordPo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
@@ -19,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 import java.util.Map;
 
-@FeignClient(value = "staff",url = "${fegin.db.url}")
-//@FeignClient(name = "yzl-staff-api")
+//@FeignClient(value = "staff",url = "${fegin.db.url}")
+@FeignClient(name = "yzl-staff-db")
 @Repository
 public interface StaffFeginService {
 
@@ -52,11 +53,8 @@ public interface StaffFeginService {
     @RequestMapping(value = "/staff/switchAccount", method = RequestMethod.POST)
     ComResponse<Integer> switchAccount(@RequestBody StaffSwitchStatePo staffSwitchStatePo);
 
-    @RequestMapping(value = "/staff/resetPassword", method = RequestMethod.POST)
-    ComResponse<String> resetPassword(@RequestParam("userNo") String userNo,@RequestParam("creator") String creator);
-
-
-    //查询员工基本信息
+    @RequestMapping(value = "/staff/resetPasswordByNo", method = RequestMethod.POST)
+    ComResponse<String> resetPassword(@RequestBody UpdatePasswordPo updatePasswordPo);
 
     @ApiOperation(value = "删除员工基本信息",notes = "删除员工基本信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/staff/deleteById",method = RequestMethod.GET)
