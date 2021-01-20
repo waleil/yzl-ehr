@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping(value="/sysDic")
-@RestController
-@Api(value = "字典数据", tags = {"字典数据接口"})
+//@RequestMapping(value="/sysDic")
+//@RestController
+//@Api(value = "字典数据", tags = {"字典数据接口"})
 public class SysDicDataController {
 
   /*  @Autowired

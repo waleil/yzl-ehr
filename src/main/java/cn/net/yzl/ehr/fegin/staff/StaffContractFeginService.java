@@ -15,6 +15,7 @@ import java.util.List;
 
 
 @Repository
+//@FeignClient(value = "staff",url = "${fegin.db.url}")
 @FeignClient(name = "yzl-staff-db")
 public interface StaffContractFeginService {
 

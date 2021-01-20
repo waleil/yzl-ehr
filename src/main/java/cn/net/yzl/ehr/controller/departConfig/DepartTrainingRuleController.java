@@ -1,4 +1,4 @@
-package cn.net.yzl.ehr.controller;
+package cn.net.yzl.ehr.controller.departConfig;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;

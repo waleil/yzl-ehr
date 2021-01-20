@@ -37,6 +37,8 @@ public class DepartResumeServiceImpl implements DepartResumeService {
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
         }else if(addResult.getCode()!=200 ){
             return ComResponse.fail(addResult.getCode(),addResult.getMessage());
+        }else if(addResult.getCode()==200 && addResult.getData()==0){
+            return ComResponse.fail(ResponseCodeEnums.NO_MATCHING_RESULT_CODE.getCode(),ResponseCodeEnums.NO_MATCHING_RESULT_CODE.getMessage());
         }
         return  ComResponse.success();
     }
