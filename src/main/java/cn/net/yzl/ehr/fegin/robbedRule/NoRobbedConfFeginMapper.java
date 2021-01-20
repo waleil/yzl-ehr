@@ -20,7 +20,7 @@ import java.util.List;
 public interface NoRobbedConfFeginMapper {
 
     @RequestMapping(value = "/noRobbedConf/add", method = RequestMethod.POST)
-    ComResponse<DepartDto> add(@RequestBody NoRobbedConfVO noRobbedConfVO);
+    ComResponse<String> add(@RequestBody NoRobbedConfVO noRobbedConfVO);
     @RequestMapping(value = "/noRobbedConf/getNoRobbedConfList", method = RequestMethod.GET)
     ComResponse<List<NoRobbedConfDto>> getNoRobbedConfList(@RequestParam("startTime") String startTime,@RequestParam("endTime") String endTime,@RequestParam("enable") Integer enable);
     @RequestMapping(value = "/noRobbedConf/stop", method = RequestMethod.GET)
