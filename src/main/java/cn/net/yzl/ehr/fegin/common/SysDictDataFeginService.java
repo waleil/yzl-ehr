@@ -1,4 +1,4 @@
-package cn.net.yzl.ehr.fegin.sysDictData;
+package cn.net.yzl.ehr.fegin.common;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.dto.SysDictDataDto;

@@ -1,19 +1,11 @@
 package cn.net.yzl.ehr.service.impl;
 
 import cn.net.yzl.common.entity.ComResponse;
-import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.common.enums.ResponseCodeEnums;
-import cn.net.yzl.ehr.dto.StaffBaseDto;
-import cn.net.yzl.ehr.dto.StaffDetailsDto;
-import cn.net.yzl.ehr.dto.StaffListDto;
 import cn.net.yzl.ehr.dto.StaffWorkListDto;
-import cn.net.yzl.ehr.fegin.staff.StaffFeginService;
 import cn.net.yzl.ehr.fegin.staff.StaffWorkFeginService;
 import cn.net.yzl.ehr.pojo.*;
-import cn.net.yzl.ehr.service.StaffService;
 import cn.net.yzl.ehr.service.StaffWorkService;
-import cn.net.yzl.ehr.vo.StaffParamsVO;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

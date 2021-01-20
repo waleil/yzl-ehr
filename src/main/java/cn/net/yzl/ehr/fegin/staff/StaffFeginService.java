@@ -3,10 +3,11 @@ package cn.net.yzl.ehr.fegin.staff;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.dto.StaffBaseDto;
-import cn.net.yzl.ehr.dto.StaffDetailsDto;
 import cn.net.yzl.ehr.dto.StaffListDto;
 import cn.net.yzl.ehr.pojo.*;
 import cn.net.yzl.ehr.vo.StaffParamsVO;
+import cn.net.yzl.staff.dto.StaffDetailsDto;
+import cn.net.yzl.staff.vo.staff.StaffInfoUpdateVO;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
@@ -23,17 +24,6 @@ import java.util.Map;
 //@FeignClient(name = "yzl-staff-api")
 @Repository
 public interface StaffFeginService {
-
-
-
-
-//    @RequestMapping(value = "/staff/create", method = RequestMethod.POST,consumes = "application/json")
-//    ComResponse<StaffPo> create(@RequestBody StaffPo staffPo);
-//
-//    @RequestMapping(value = "/staff/dingTalkUser/create", method = RequestMethod.POST,consumes = "application/json")
-//    ComResponse<Boolean> createDingTalkUser(@RequestBody DingTalkUserPo dingTalkUserPo);
-//    @RequestMapping(value = "/staff/insertStaffDepartList", method = RequestMethod.POST,consumes = "application/json")
-//    void insertStaffDepartList(@RequestBody List<StaffDepartPostPo> staffDepartList);
 
     @RequestMapping(value = "/staff/getOneByMap", method = RequestMethod.POST,consumes = "application/json")
     ComResponse<StaffBaseDto> getOneByMap(@RequestBody Map<String, Object> map);
@@ -57,11 +47,10 @@ public interface StaffFeginService {
 
 
     //查询员工基本信息
-
-    @ApiOperation(value = "删除员工基本信息",notes = "删除员工基本信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/staff/deleteById",method = RequestMethod.GET)
     ComResponse<Integer> deleteById(@RequestParam("id")  Integer id,@RequestParam("updator") String updator);
 
 
-
+    @RequestMapping(value = "/staff/update", method = RequestMethod.POST)
+    ComResponse<StaffDetailsDto> update(@RequestBody StaffInfoUpdateVO staffInfoUpdateVO);
 }

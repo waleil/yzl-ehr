@@ -6,13 +6,14 @@ import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.dto.StaffBaseDto;
-import cn.net.yzl.ehr.dto.StaffDetailsDto;
 import cn.net.yzl.ehr.dto.StaffListDto;
 import cn.net.yzl.ehr.fegin.staff.StaffFeginService;
 import cn.net.yzl.ehr.pojo.StaffSwitchStatePo;
 import cn.net.yzl.ehr.pojo.StaffSwitchTalentPoolPo;
 import cn.net.yzl.ehr.service.StaffService;
 import cn.net.yzl.ehr.vo.StaffParamsVO;
+import cn.net.yzl.staff.dto.StaffDetailsDto;
+import cn.net.yzl.staff.vo.staff.StaffInfoUpdateVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -89,6 +91,10 @@ public class StaffController {
     ComResponse<String> resetPassword(@RequestParam("userNo") String userNo,@ApiIgnore @CurrentStaffNo String staffNo){
         return staffService.resetPassword(userNo,staffNo);
     }
-
+    @ApiOperation(value = "员工基本信息-修改", notes = "员工基本信息-修改")
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    ComResponse<StaffDetailsDto> update(@RequestBody @Validated StaffInfoUpdateVO staffInfoUpdateVO) throws ParseException {
+        return staffFeginService.update(staffInfoUpdateVO);
+    }
 
 }

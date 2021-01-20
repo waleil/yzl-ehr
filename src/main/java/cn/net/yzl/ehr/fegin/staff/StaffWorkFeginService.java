@@ -1,13 +1,8 @@
 package cn.net.yzl.ehr.fegin.staff;
 
 import cn.net.yzl.common.entity.ComResponse;
-import cn.net.yzl.common.entity.Page;
-import cn.net.yzl.ehr.dto.StaffBaseDto;
-import cn.net.yzl.ehr.dto.StaffDetailsDto;
-import cn.net.yzl.ehr.dto.StaffListDto;
 import cn.net.yzl.ehr.dto.StaffWorkListDto;
 import cn.net.yzl.ehr.pojo.*;
-import cn.net.yzl.ehr.vo.StaffParamsVO;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Repository;
