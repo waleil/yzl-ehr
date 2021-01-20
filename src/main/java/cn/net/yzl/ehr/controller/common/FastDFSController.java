@@ -1,5 +1,6 @@
 package cn.net.yzl.ehr.controller.common;
 
+import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.util.FastDFSClientWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -21,8 +22,8 @@ public class FastDFSController {
     private FastDFSClientWrapper client;
     @ApiOperation(value = "文件上传", notes = "文件上传")
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
-    public String upload(MultipartFile file) throws IOException {
+    public ComResponse<String> upload(MultipartFile file) throws IOException {
         String path = client.uploadFile(file);
-        return path;
+        return ComResponse.success(path);
     }
 }
