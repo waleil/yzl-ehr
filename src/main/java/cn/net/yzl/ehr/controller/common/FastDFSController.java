@@ -20,6 +20,7 @@ public class FastDFSController {
 
     @Autowired
     private FastDFSClientWrapper client;
+
     @ApiOperation(value = "文件上传", notes = "文件上传")
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public ComResponse<String> upload(MultipartFile file) throws IOException {

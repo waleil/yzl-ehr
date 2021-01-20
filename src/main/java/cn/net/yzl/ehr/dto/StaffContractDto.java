@@ -40,16 +40,6 @@ public class StaffContractDto implements Serializable {
     private Integer addStatus;
     @ApiModelProperty(value = "合同状态（0:过期，1:过期中最近一份，2:新建合同，3:启用中）", name = "content_status")
     private Integer contentStatus;
-    @ApiModelProperty(value = "创建时间", name = "create_time")
-    private Date createTime;
-    @ApiModelProperty(value = "创建人", name = "creator")
-    private Integer creator;
-    @ApiModelProperty(value = "修改时间", name = "update_time")
-    private Date updateTime;
-    @ApiModelProperty(value = "修改人", name = "updator")
-    private String updator;
-    @ApiModelProperty(value = "是否删除", name = "is_del")
-    private Integer isDel;
 
     private static final long serialVersionUID = 1L;
 
