@@ -28,17 +28,9 @@ public interface StaffService {
     ComResponse<Integer> swtichStaffTalentPoolAccount(StaffSwitchTalentPoolPo staffSwitchTalentPoolPo,String staffNo);
 
     ComResponse<Integer> switchAccount(StaffSwitchStatePo staffSwitchStatePo,String staffNo);
-
     ComResponse<String> resetPassword(String userNo,String creator);
-
-    ComResponse<StaffDto> find (String staffNO);
-
     ComResponse<Integer> deleteById (Integer id,String updator);
 
-    ComResponse<Integer> insert (List<StaffInsertPo> insertPos);
 
-    ComResponse<Integer> update (StaffUpdatePo updatePo);
-
-    ComResponse<Integer> saveUpDate (StaffItemPo staffItemPo);
 
 }

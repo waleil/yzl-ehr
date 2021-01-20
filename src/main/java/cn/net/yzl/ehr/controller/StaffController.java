@@ -7,10 +7,8 @@ import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.dto.StaffBaseDto;
 import cn.net.yzl.ehr.dto.StaffDetailsDto;
-import cn.net.yzl.ehr.dto.StaffDto;
 import cn.net.yzl.ehr.dto.StaffListDto;
 import cn.net.yzl.ehr.fegin.staff.StaffFeginService;
-import cn.net.yzl.ehr.pojo.StaffItemPo;
 import cn.net.yzl.ehr.pojo.StaffSwitchStatePo;
 import cn.net.yzl.ehr.pojo.StaffSwitchTalentPoolPo;
 import cn.net.yzl.ehr.service.StaffService;
@@ -20,13 +18,10 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
-
 import javax.validation.Valid;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 
@@ -96,31 +91,4 @@ public class StaffController {
     }
 
 
-    @ApiOperation(value = "查询员工基本信息",notes = "查询员工基本信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @RequestMapping(value = "/find", method = RequestMethod.GET)
-    ComResponse<StaffDto> find(@RequestParam("staffNO") String staffNO) {
-        return staffService.find(staffNO);
-    }
-
-   /* @ApiOperation(value = "删除员工基本信息",notes = "删除员工基本信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @RequestMapping(value = "/deleteById",method = RequestMethod.GET)
-    ComResponse<Integer> deleteById(Integer id,String updator) {
-        return staffService .deleteById(id,updator);
-    }
-
-    @ApiOperation(value = "添加员工基本信息", notes = "添加员工基本信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @RequestMapping(value = "/insert",method = RequestMethod.POST)
-    ComResponse<Integer> insert(@RequestBody List<StaffInsertPo> insertPos) {
-        return staffService.insert( insertPos);
-    }
-    @ApiOperation(value = "修改员工基本信息", notes = "修改员工基本信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @RequestMapping(value = "/upadte",method = RequestMethod.POST)
-    ComResponse<Integer> update (@RequestBody StaffUpdatePo updatePo) {
-        return staffService.update(updatePo);
-    }*/
-    @ApiOperation(value = "保存员工基本信息", notes = "保存员工基本信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @RequestMapping(value ="/saveUpDate",method = RequestMethod.POST)
-    ComResponse<Integer> saveUpDate(@RequestBody StaffItemPo itemPo){
-        return staffService.saveUpDate(itemPo);
-    }
 }
