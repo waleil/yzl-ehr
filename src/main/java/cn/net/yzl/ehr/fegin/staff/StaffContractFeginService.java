@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -20,8 +21,8 @@ import java.util.List;
 public interface StaffContractFeginService {
 
     @ApiOperation(value = "查询员工合同信息", notes = "查询员工合同信息")
-    @RequestMapping(value = "/contract/findByStringNo", method = RequestMethod.GET,consumes = "application/json")
-    ComResponse<List<StaffContartListDto>> findByStringNo(String staffNo);
+    @RequestMapping(value = "/contract/findByStringNo", method = RequestMethod.GET)
+    ComResponse<List<StaffContartListDto>> findByStringNo(@RequestParam String staffNo);
 
     @ApiOperation(value = "新建员工合同信息", notes = "新建员工合同信息")
     @RequestMapping(value = "/contract/insert", method = RequestMethod.GET,consumes = "application/json")
