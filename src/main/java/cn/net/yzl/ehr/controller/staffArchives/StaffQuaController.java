@@ -48,24 +48,26 @@ public class StaffQuaController {
         return staffQuaService.deleteById(id,staffNo);
     }
 
+     */
 
-    @ApiOperation(value = "资质证书—添加员工资质证书", notes = "添加员工资质证书", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+
+    @ApiOperation(value = "资质证书—编辑员工资质证书", notes = "编辑员工资质证书", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/insert",method = RequestMethod.POST)
     @ApiImplicitParams(
             @ApiImplicitParam(name = "id", value = "员工教育经历编号", required = true, paramType = "query")
     )
-    ComResponse<Integer> insert(@RequestBody @Validated List<StaffQuaInsertPo> insertList) {
+    ComResponse<Integer> insert(@RequestBody @Validated StaffQuaInsertPo insertList) {
         return staffQuaService.insert(insertList);
     }
 
 
-    @ApiOperation(value = "资质证书—修改员工资质证书", notes = "添加员工资质证书", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+ /*   @ApiOperation(value = "资质证书—修改员工资质证书", notes = "添加员工资质证书", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/upaDteQua",method = RequestMethod.POST)
     ComResponse<Integer> UpDate (@RequestBody @Validated StaffQuaUpdatePo updatePo ){
         return staffQuaService.updateQua(updatePo);
-    }
-*/
-    @ApiOperation(value = "资质证书—保存员工资质证书", notes = "保存员工资质证书", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    }*/
+
+  /*  @ApiOperation(value = "资质证书—保存员工资质证书", notes = "保存员工资质证书", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value ="/saveUpDate",method = RequestMethod.POST)
     ComResponse<Integer> saveUpDate(@RequestBody @Validated StaffQuaItemPo itemPo , @ApiIgnore @CurrentStaffNo String staffNo){
         itemPo.getInsertList().forEach(x->{
@@ -78,7 +80,7 @@ public class StaffQuaController {
             x.setUpdator(staffNo);
         });
         return staffQuaService.saveUpDate(itemPo);
-    }
+    }*/
 
 
 

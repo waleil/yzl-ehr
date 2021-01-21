@@ -13,7 +13,7 @@ public interface StaffQuaService {
 
     ComResponse<Integer> deleteById (Integer id,String updator);
 
-    ComResponse<Integer> insert (List<StaffQuaInsertPo> insertPo);
+    ComResponse<Integer> insert (StaffQuaInsertPo insertPo);
 
     ComResponse<Integer> updateQua (StaffQuaUpdatePo updatePo);
 
