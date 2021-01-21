@@ -4,6 +4,7 @@ import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.enums.ResponseCodeEnums;
 import cn.net.yzl.ehr.dto.StaffEduListDto;
 import cn.net.yzl.ehr.fegin.staff.StaffEduFeginService;
+import cn.net.yzl.ehr.fegin.staff.StaffEntryPostFeginService;
 import cn.net.yzl.ehr.fegin.staff.StaffFamilyFeginService;
 import cn.net.yzl.ehr.pojo.*;
 import cn.net.yzl.ehr.service.StaffEduService;
@@ -18,15 +19,15 @@ import java.util.List;
 public class StaffEntryPostServiceImpl implements StaffEntryPostService {
 
     @Autowired
-    private StaffEntryPostService staffEntryPostService;
+    private StaffEntryPostFeginService staffEntryPostFeginService;
 
 
     @Override
     public ComResponse<Integer> insert(String staffNo) {
-        ComResponse<Integer> result =  staffEntryPostService.insert(staffNo);
+        ComResponse<Integer> result =  staffEntryPostFeginService.insert(staffNo);
         if (result==null){
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
         }
-        return ComResponse.success();
+        return result;
     }
 }
