@@ -19,6 +19,11 @@ public class DepartPostUpdatePo implements Serializable {
     @Min(0)
     private Integer id;
 
+    @ApiModelProperty("部门岗位id")
+    @NotNull
+    @Min(0)
+    private Integer departId;
+
     @ApiModelProperty("岗位id")
     @NotNull
     @Min(0)

@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-//@FeignClient(name = "yzl-staff-db")
 @FeignClient(value = "staff",url = "${fegin.db.url}")
 public interface StaffWorkFeginService {
 

@@ -28,6 +28,7 @@ public class PostLevelUpdatePo implements Serializable {
     private String name;
 
     @ApiModelProperty("岗位编号")
+    @NotNull
     @Min(value = 0)
     private Integer postId;
 
