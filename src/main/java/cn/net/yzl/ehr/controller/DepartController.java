@@ -10,6 +10,7 @@ import cn.net.yzl.ehr.service.DepartService;
 import cn.net.yzl.ehr.vo.DepartBusinessAttrVO;
 import cn.net.yzl.ehr.vo.DepartUpdateVO;
 import cn.net.yzl.ehr.vo.DepartVO;
+import cn.net.yzl.staff.pojo.PostLevelUpdatePo;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -109,8 +110,8 @@ public class DepartController {
     @ApiOperation(value = "获取部门属性列表", notes = "获取部门属性列表", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/getDepartAttrList", method = RequestMethod.GET)
     ComResponse<List<DepartAttrDto>> getDepartAttrList() {
-
         return departService.getDepartAttrList();
     }
+
 
 }

@@ -5,6 +5,7 @@ import cn.net.yzl.ehr.util.FastDFSClientWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,6 +19,9 @@ import java.io.IOException;
 @Api(value = "公共接口", tags = {"公共接口"})
 public class FastDFSController {
 
+    @Value("${file.prefix}")
+    private String filePrefix;
+
     @Autowired
     private FastDFSClientWrapper client;
 
@@ -25,6 +29,6 @@ public class FastDFSController {
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public ComResponse<String> upload(MultipartFile file) throws IOException {
         String path = client.uploadFile(file);
-        return ComResponse.success(path);
+        return ComResponse.success(path).setMessage(filePrefix+"/"+path);
     }
 }

@@ -8,6 +8,7 @@ import cn.net.yzl.ehr.pojo.*;
 import cn.net.yzl.ehr.vo.StaffParamsVO;
 import cn.net.yzl.staff.dto.StaffDetailsDto;
 import cn.net.yzl.staff.vo.UpdatePasswordPo;
+import cn.net.yzl.staff.vo.staff.StaffInfoSaveVO;
 import cn.net.yzl.staff.vo.staff.StaffInfoUpdateVO;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -53,4 +54,6 @@ public interface StaffFeginService {
 
     @RequestMapping(value = "/staff/update", method = RequestMethod.POST)
     ComResponse<StaffDetailsDto> update(@RequestBody StaffInfoUpdateVO staffInfoUpdateVO);
+    @RequestMapping(value = "/staff/save", method = RequestMethod.POST)
+    ComResponse<StaffDetailsDto> save(@RequestBody StaffInfoSaveVO staffInfoSaveVO);
 }
