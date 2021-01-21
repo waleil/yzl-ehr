@@ -4,9 +4,9 @@ import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.dto.PostLevelDto;
 import cn.net.yzl.ehr.dto.PostLevelListDto;
-import cn.net.yzl.ehr.pojo.PostLevelPo;
 import cn.net.yzl.ehr.pojo.PostLevelUpdatePo;
 import cn.net.yzl.ehr.service.PostLevelService;
+import cn.net.yzl.ehr.util.ValidList;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,13 +37,12 @@ public class PostLevelController {
         return postLevelService.getById(id);
     }
 
-    @ApiOperation(value = "删除岗位级别", notes = "删除岗位级别", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+ /*   @ApiOperation(value = "删除岗位级别", notes = "删除岗位级别", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     ComResponse<Integer> delete(@RequestParam("id") @NotNull @Min(0) Integer id, @CurrentStaffNo @ApiIgnore String staffNo){
         return postLevelService.delete(id,staffNo);
     }
 
-    @ApiOperation(value = "新建岗位级别", notes = "新建岗位级别", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/addPostLevel", method = RequestMethod.POST)
     ComResponse<Integer> addPostLevel(@RequestBody @Validated PostLevelPo postLevelPo, @CurrentStaffNo @ApiIgnore String staffNo){
         return postLevelService.addPostLevel(postLevelPo,staffNo);
@@ -55,11 +54,11 @@ public class PostLevelController {
         return postLevelService.addBatch(postLevelList);
     }*/
 
-    @ApiOperation(value = "编辑岗位级别", notes = "编辑岗位级别", consumes = MediaType.APPLICATION_JSON_VALUE)
+    /*@ApiOperation(value = "编辑岗位级别", notes = "编辑岗位级别", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     ComResponse<Integer> update(@RequestBody @Validated PostLevelUpdatePo postLevel, @CurrentStaffNo @ApiIgnore String staffNo){
         return postLevelService.update(postLevel,staffNo);
-    }
+    }*/
 
     @ApiOperation(value = "查询岗位级别列表", notes = "查询岗位级别列表", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/getList", method = RequestMethod.GET)
@@ -79,4 +78,10 @@ public class PostLevelController {
         return postLevelService.getStaffTotalForPostLevel(postLevelId);
     }
 
+
+    @ApiOperation(value = "编辑岗位的岗位级别", notes = "编辑岗位的岗位级别", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/saveUpdate", method = RequestMethod.POST)
+    ComResponse<Integer> saveUpdate(@RequestBody @Validated ValidList<PostLevelUpdatePo> postLevel,@CurrentStaffNo @ApiIgnore String staffNo){
+        return postLevelService.saveUpdate(postLevel,staffNo);
+    }
 }

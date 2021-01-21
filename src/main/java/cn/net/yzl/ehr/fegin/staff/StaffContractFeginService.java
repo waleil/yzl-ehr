@@ -16,8 +16,8 @@ import java.util.List;
 
 
 @Repository
-//@FeignClient(value = "staff",url = "${fegin.db.url}")
-@FeignClient(name = "yzl-staff-db")
+@FeignClient(value = "staff",url = "${fegin.db.url}")
+//@FeignClient(name = "yzl-staff-db")
 public interface StaffContractFeginService {
 
     @ApiOperation(value = "查询员工合同信息", notes = "查询员工合同信息")
