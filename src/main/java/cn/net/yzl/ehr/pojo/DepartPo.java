@@ -104,5 +104,7 @@ public class DepartPo implements Serializable {
     private String updator;
     @ApiModelProperty(value = "业务属性code", name = "attrCode")
     private Integer attrCode;
+    @ApiModelProperty(value = "自动入岗设置天数", name = "entrySetting")
+    private Integer entrySetting;
 
 }
