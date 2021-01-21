@@ -13,13 +13,13 @@ public class StaffContractInsertPo implements Serializable {
     @ApiModelProperty(value = "员工表工号", name = "staff_no")
     private String staffNo;
     @ApiModelProperty(value = "合同开始时间", name = "start_date")
-    private Date startDate;
+    private String startDate;
     @ApiModelProperty(value = "合同束时间", name = "end_date")
-    private Date endDate;
+    private String endDate;
     @ApiModelProperty(value = "工作邮箱", name = "work_email")
     private String workEmail;
     @ApiModelProperty(value = "试用期到期日", name = "probation_endtime")
-    private Date probationEndtime;
+    private String probationEndtime;
     @ApiModelProperty(value = "试用期时长（月）", name = "probation_months")
     private Double probationMonths;
     @ApiModelProperty(value = "薪资", name = "salary")

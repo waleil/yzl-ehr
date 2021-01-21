@@ -25,6 +25,10 @@ public class StaffParamsVO implements Serializable {
     private Integer postStatusCode;
     @ApiModelProperty(value = "在职状态", name = "workStatusCode")
     private Integer workStatusCode;
+    @ApiModelProperty(value = "异动状态(20.正常,21.待优化,22.待劝退)", name = "abnoStatusCode")
+    private Integer abnoStatusCode;
+    @ApiModelProperty(value = "是否加入人才池(0否 1是)", name = "reserveTalent")
+    private Integer reserveTalent;
     @ApiModelProperty(value = "页数", name = "pageNo",required = true)
     @Min(1)
     Integer pageNo;

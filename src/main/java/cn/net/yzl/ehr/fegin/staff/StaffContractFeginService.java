@@ -10,21 +10,23 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
 
 @Repository
+//@FeignClient(value = "staff",url = "${fegin.db.url}")
 @FeignClient(name = "yzl-staff-db")
 public interface StaffContractFeginService {
 
     @ApiOperation(value = "查询员工合同信息", notes = "查询员工合同信息")
-    @RequestMapping(value = "/contract/findByStringNo", method = RequestMethod.GET,consumes = "application/json")
-    ComResponse<List<StaffContartListDto>> findByStringNo(String staffNo);
+    @RequestMapping(value = "/contract/findByStringNo", method = RequestMethod.GET)
+    ComResponse<List<StaffContartListDto>> findByStringNo(@RequestParam("staffNo") String staffNo);
 
     @ApiOperation(value = "新建员工合同信息", notes = "新建员工合同信息")
-    @RequestMapping(value = "/contract/insert", method = RequestMethod.GET,consumes = "application/json")
-    ComResponse<Integer> insert(StaffCFInsertPo staffCFInsertPo);
+    @RequestMapping(value = "/contract/insert", method = RequestMethod.POST,consumes = "application/json")
+    ComResponse<Integer> insert( @RequestBody  StaffCFInsertPo staffCFInsertPo);
 
 
 }

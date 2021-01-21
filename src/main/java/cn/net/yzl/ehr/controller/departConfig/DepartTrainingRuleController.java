@@ -1,4 +1,4 @@
-package cn.net.yzl.ehr.controller;
+package cn.net.yzl.ehr.controller.departConfig;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
@@ -28,15 +28,12 @@ public class DepartTrainingRuleController {
     @Autowired
     private DepartTrainingRuleService departTrainingRuleService;
 
-
-
     @ApiOperation(value = "岗位培训-新增岗位培训配置", notes = "新增岗位培训配置", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     ComResponse<Integer> add(@RequestBody @Validated DepartTrainingRulePo departTrainingRulePo, @CurrentStaffNo @ApiIgnore String staffNo) {
         departTrainingRulePo.setCreator(staffNo);
         return departTrainingRuleService.add(departTrainingRulePo);
     }
-
 
     @ApiOperation(value = "岗位培训-获取部门的培训配置列表", notes = "获取部门的培训配置列表", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/getByDepartId", method = RequestMethod.GET)
@@ -46,7 +43,6 @@ public class DepartTrainingRuleController {
     public ComResponse<List<DepartTrainingRuleDto>> getDepartTraininRuleById( @NotNull @Min(0) Integer departId){
         return   departTrainingRuleService.getByDepartId(departId);
     }
-
 
     @ApiOperation(value = "岗位培训-删除培训配置", notes = "删除培训配置", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @ApiImplicitParams({

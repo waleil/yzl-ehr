@@ -1,4 +1,4 @@
-package cn.net.yzl.ehr.controller;
+package cn.net.yzl.ehr.controller.temp;
 
 
 

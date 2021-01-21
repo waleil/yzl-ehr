@@ -1,4 +1,4 @@
-package cn.net.yzl.ehr.controller;
+package cn.net.yzl.ehr.controller.departConfig;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
@@ -74,8 +74,4 @@ public class DepartPostController {
     }
 
 
-    public static void main(String[] args) {
-        System.err.println(0b110000>>5<<5);
-        System.err.println(0b100000);
-    }
 }

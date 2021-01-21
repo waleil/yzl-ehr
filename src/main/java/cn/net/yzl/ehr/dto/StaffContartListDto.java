@@ -1,5 +1,6 @@
 package cn.net.yzl.ehr.dto;
 
+import cn.net.yzl.staff.dto.StaffContractFileDto;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -12,12 +13,7 @@ public class StaffContartListDto {
     @Valid
     @ApiModelProperty(value="合同信息",name="staffContractDto")
     private StaffContractDto staffContractDto;
-    //电子版合同
-    @Valid
-    @ApiModelProperty(value="电子版合同",name="staffContractFileDtos")
-    private List<StaffContractFileDto> staffContractFileDtos;
-    //其他资质
-    @Valid
-    @ApiModelProperty(value="其他资质",name="staffContractFiles")
+    //合同文件及资质
+    @ApiModelProperty(value="合同文件及资质",name="staffContractFiles")
     private List<StaffContractFileDto> staffContractFiles;
 }

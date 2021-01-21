@@ -1,4 +1,4 @@
-package cn.net.yzl.ehr.controller;
+package cn.net.yzl.ehr.controller.temp;
 
 import cn.net.yzl.ehr.pojo.OfficeSupplies;
 import cn.net.yzl.ehr.pojo.OfficeSuppliesChangeRecord;
@@ -14,11 +14,6 @@ public class OfficeSuppliesController {
 
     @Autowired
     private OfficeSuppliesService officeSuppliesService;
-
-
-
-
-
 
     @ApiOperation(value="新增办公物品",notes="新增办公物品",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public int insertSelective(OfficeSupplies record) {

@@ -7,6 +7,7 @@ import lombok.Data;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
@@ -31,6 +32,11 @@ public class DepartResumeUpdateListPo implements Serializable {
         @Min(0)
         private Integer postId;
 
+        @ApiModelProperty("部门岗位id")
+        @NotNull
+        @Min(0)
+        private Integer departPostId;
+
         @ApiModelProperty(value = "配置编码")
         @NotNull
         @Min(0)
@@ -51,8 +57,7 @@ public class DepartResumeUpdateListPo implements Serializable {
         private String stepId;
 
         @ApiModelProperty("面试人id")
-        @NotNull
-        @Min(0)
+        @NotBlank
         private String leaderNo;
 
 

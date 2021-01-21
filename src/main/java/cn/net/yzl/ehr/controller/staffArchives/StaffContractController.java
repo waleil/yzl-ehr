@@ -1,4 +1,4 @@
-package cn.net.yzl.ehr.controller;
+package cn.net.yzl.ehr.controller.staffArchives;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.dto.StaffContartListDto;
@@ -31,7 +31,7 @@ public class StaffContractController {
     }
 
     @ApiOperation(value = "合同信息-新建员工合同信息",notes = "新建员工合同信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @RequestMapping(value = "/insert", method = RequestMethod.GET)
+    @RequestMapping(value = "/insert", method = RequestMethod.POST)
     ComResponse<Integer> insert(@RequestBody StaffCFInsertPo staffCFInsertPo) {
         return staffContartService.insert(staffCFInsertPo);
     }

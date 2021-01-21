@@ -1,10 +1,8 @@
-package cn.net.yzl.ehr.controller;
+package cn.net.yzl.ehr.controller.common;
 
 import cn.net.yzl.common.entity.ComResponse;
-import cn.net.yzl.common.enums.ResponseCodeEnums;
 import cn.net.yzl.ehr.dto.SysDictDataDto;
-import cn.net.yzl.ehr.fegin.sysDictData.SysDictDataFeginService;
-import cn.net.yzl.ehr.service.SysDictService;
+import cn.net.yzl.ehr.fegin.common.SysDictDataFeginService;
 import cn.net.yzl.ehr.vo.SysDictDataVO;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +19,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/sysDic")
-@Api(value = "字典接口", tags = {"字典接口"})
+@Api(value = "公共接口", tags = {"公共接口"})
 @Valid
 public class SysDictController {
 
     @Autowired
     private SysDictDataFeginService sysDictDataFeginService;
 
-    @ApiOperation(value = "根据类型获取字典集合", notes = "根据类型获取字典集合", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "字典-根据类型获取字典集合", notes = "字典-根据类型获取字典集合", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "dictType", value = "" +
                     "在岗状态:post_status," +
@@ -52,7 +50,7 @@ public class SysDictController {
         return sysDictDataFeginService.getByType(dictType);
     }
 
-    @ApiOperation(value = "添加字典或者删除", notes = "添加字典或者删除", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "字典-添加字典或者删除", notes = "字典-添加字典或者删除", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/addOrUpdate", method = RequestMethod.POST)
     ComResponse<Integer> addOrUpdate(@RequestBody  @Validated List<SysDictDataVO> dictDataList){
         return sysDictDataFeginService.addOrUpdate(dictDataList);
