@@ -22,10 +22,8 @@ public interface StaffAbnorFeginService {
     @RequestMapping(value = "/abnor/updateStaffChangeStatus", method = RequestMethod.POST)
     public ComResponse<Integer> updateStaffChangeStatus(@RequestBody StaffSwitchStatePo staffSwitchStatePo) ;
 
-
     @RequestMapping(value = "/abnor/executeStaffChange", method = RequestMethod.POST)
     public ComResponse<Integer> executeStaffChange(@RequestBody StaffAbnorRecordPo staffChangePo);
-
 
     @RequestMapping(value = "/abnor/getStaffAbnorRecord", method = RequestMethod.GET)
     public ComResponse<StaffAbnorRecordListDto> getStaffAbnorRecord(@RequestParam("staffNo")  String staffNo) ;

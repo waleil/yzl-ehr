@@ -18,9 +18,7 @@ import java.util.Date;
 @Data
 public class StaffEduInsertPo implements Serializable {
 
-    @ApiModelProperty(value = "员工教育编号", name = "id")
-    @NotNull
-    @Min(0)
+    @ApiModelProperty(value = "员工教育编号", name = "id",hidden = true)
     private Integer id;
 
     @ApiModelProperty(value = "员工表工号", name = "staffNo")

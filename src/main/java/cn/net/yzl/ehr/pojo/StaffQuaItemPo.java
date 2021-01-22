@@ -7,10 +7,10 @@ import javax.validation.Valid;
 
 @Data
 public class StaffQuaItemPo {
-    @Valid
-    private ValidList<StaffQuaInsertPo> insertList;
-    @Valid
-    private ValidList<StaffQuaUpdatePo> updateList;
-    @Valid
-    private ValidList<StaffQuaDeletePo> deleteList;
+
+    private StaffQuaInsertPo insert;
+
+    private StaffQuaUpdatePo update;
+
+    private StaffQuaDeletePo delete;
 }

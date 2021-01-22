@@ -41,7 +41,7 @@ public class StaffQuaServiceImpl  implements StaffQuaService {
     }
 
     @Override
-    public ComResponse<Integer> insert(List<StaffQuaInsertPo> insertPo) {
+    public ComResponse<Integer> insert(StaffQuaInsertPo insertPo) {
         ComResponse<Integer> result =  staffQuaFeginService.insert(insertPo);
         if (result==null){
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());

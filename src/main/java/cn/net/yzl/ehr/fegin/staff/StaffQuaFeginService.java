@@ -31,7 +31,7 @@ public interface StaffQuaFeginService {
 
     @ApiOperation(value = "添加员工资质证书", notes = "添加员工资质证书", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/staffQua/insert",method = RequestMethod.POST)
-    ComResponse<Integer> insert(@RequestBody  List<StaffQuaInsertPo> insertPo);
+    ComResponse<Integer> insert(@RequestBody  StaffQuaInsertPo insertPo);
 
     @ApiOperation(value = "修改员工资质证书", notes = "修改员工资质证书", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/staffQua/upadteQua",method = RequestMethod.POST)
