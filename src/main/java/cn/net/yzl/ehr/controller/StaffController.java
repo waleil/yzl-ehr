@@ -13,7 +13,6 @@ import cn.net.yzl.ehr.pojo.StaffSwitchTalentPoolPo;
 import cn.net.yzl.ehr.service.StaffService;
 import cn.net.yzl.ehr.vo.StaffParamsVO;
 import cn.net.yzl.staff.dto.StaffDetailsDto;
-import cn.net.yzl.staff.vo.staff.StaffInfoSaveVO;
 import cn.net.yzl.staff.vo.staff.StaffInfoUpdateVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
