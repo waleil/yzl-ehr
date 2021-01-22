@@ -1,6 +1,6 @@
 package cn.net.yzl.ehr.pojo;
 
-import cn.net.yzl.ehr.util.ValidList;
+
 import cn.net.yzl.staff.pojo.StaffContractFileInsertPo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
@@ -77,6 +77,7 @@ public class StaffCFInsertPo {
 
     @ApiModelProperty(value = "合同状态（0:过期，1:过期中最近一份，2:新建合同，3:启用中）", name = "contentStatus",hidden = true)
     private Integer contentStatus;
+
     @ApiModelProperty(value = "创建人", name = "creator",hidden = true)
     private String creator;
 
