@@ -19,7 +19,7 @@ public class PostLevelUpdatePo implements Serializable {
 
 
 
-    @ApiModelProperty("岗位等级编号")
+    @ApiModelProperty("岗位等级编号,min=1,经更改岗位下无等级数据，则上传一条id为0，postId有值的数据")
     @Min(value = 0)
     private Integer id;
 
