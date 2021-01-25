@@ -71,7 +71,6 @@ public class StaffAbnorRecordDto {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date positiveTime;
 
-
     @ApiModelProperty("调整前岗位等级")
     private Integer adjustPostLevelFront;
 
