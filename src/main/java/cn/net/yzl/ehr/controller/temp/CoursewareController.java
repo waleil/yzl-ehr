@@ -50,11 +50,11 @@ public class CoursewareController {
     //包括模糊查询以及无条件查询
     @ApiOperation(value = "查询课件", notes = "查询课件")
     @RequestMapping(value = "/searchcourse", method = RequestMethod.GET)
-    ComResponse<Page<CourseWarePo>> searchCourseWare(@RequestParam (value = "keyword",required = false)String keyword, @RequestParam ("pageNum")Integer pageNum, @RequestParam(value = "pageSize") Integer pageSize) {
-        if(StringUtils.isEmpty(keyword)){
+    ComResponse<Page<CourseWarePo>> searchCourseWare(@RequestParam (value = "keyword",required = false)String keyword, @RequestParam ("pageNum")Integer pageNum, @RequestParam(value = "pageSize") Integer pageSize, @RequestParam(value = "typeId")Integer typeId) {
+        if(StringUtils.isEmpty(keyword)&&StringUtils.isEmpty(typeId)){
             return courseWareService.searchCourseWare(pageNum,pageSize);
         }else{
-            return courseWareService.selectKeywordByName(keyword,pageNum,pageSize);
+            return courseWareService.selectKeywordByName(keyword,pageNum,pageSize,typeId );
         }
     }
 

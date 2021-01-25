@@ -26,7 +26,7 @@ public interface CoursewareService {
     //查询课件
     ComResponse<Page<CourseWarePo>> searchCourseWare(Integer pageNum, Integer pageSize);
     //模糊查询
-    ComResponse<Page<CourseWarePo>> selectKeywordByName(String Keyword, Integer pageNum, Integer pageSize);
+    ComResponse<Page<CourseWarePo>> selectKeywordByName(String Keyword, Integer pageNum, Integer pageSize,Integer typeId);
 
     //查询所有的课程类型
     ComResponse<List<CourseWareCategoryDto>>  selectCourseWareCategoryAll();

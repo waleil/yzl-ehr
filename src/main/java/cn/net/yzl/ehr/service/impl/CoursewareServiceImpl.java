@@ -47,8 +47,8 @@ public class CoursewareServiceImpl implements CoursewareService {
     }
 
     @Override
-    public ComResponse<Page<CourseWarePo>> selectKeywordByName(String keyword, Integer pageNum, Integer pageSize) {
-        return courseWareFeginService.searchCourseWareByName(keyword,pageNum,pageSize);
+    public ComResponse<Page<CourseWarePo>> selectKeywordByName(String keyword, Integer pageNum, Integer pageSize,Integer typeId) {
+        return courseWareFeginService.searchCourseWareByName(keyword,pageNum,pageSize,typeId);
     }
 
 
