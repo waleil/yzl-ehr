@@ -23,10 +23,10 @@ public interface CoursewareService {
     ComResponse<Integer> updateCourseWare(CourseWarePo courseWarePo);
     //根据id查询编号
     ComResponse<CourseWarePo> selectCourseWareByPrimaryKey(Integer id);
-    //查询所有数据
-    ComResponse<Page<CourseWarePo>> selectCourseAll(Integer pageNum, Integer pageSize);
+    //查询课件
+    ComResponse<Page<CourseWarePo>> searchCourseWare(Integer pageNum, Integer pageSize);
     //模糊查询
-    ComResponse<Page<CourseWarePo>> selectKeyword(String Keyword, Integer pageNum, Integer pageSize);
+    ComResponse<Page<CourseWarePo>> selectKeywordByName(String Keyword, Integer pageNum, Integer pageSize);
 
     //查询所有的课程类型
     ComResponse<List<CourseWareCategoryDto>>  selectCourseWareCategoryAll();

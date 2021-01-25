@@ -41,7 +41,11 @@ public interface CourseWareFeginService {
 
     @ApiOperation(value = "查询课件", notes = "查询课件")
     @RequestMapping(value = "/trainCourseWare/searchcourse", method = RequestMethod.GET)
-    ComResponse<Page<CourseWarePo>> searchCourseWare(@RequestParam (value = "keyword",required = false)String keyword, @RequestParam (value = "pageNum")Integer pageNum, @RequestParam(value = "pageSize") Integer pageSize);
+    ComResponse<Page<CourseWarePo>> searchCourseWare(@RequestParam (value = "pageNum")Integer pageNum, @RequestParam(value = "pageSize") Integer pageSize);
+
+    @ApiOperation(value = "根据课件名模糊查询课件", notes = "根据课件名模糊查询课件")
+    @RequestMapping(value = "/trainCourseWare/searchcourseByName", method = RequestMethod.GET)
+    ComResponse<Page<CourseWarePo>> searchCourseWareByName(@RequestParam (value = "keyword",required = false)String keyword, @RequestParam (value = "pageNum")Integer pageNum, @RequestParam(value = "pageSize") Integer pageSize);
 
     @ApiOperation(value = "查询课件类型", notes = "查询课件类型")
     @RequestMapping(value = "/trainCourseWare/selectCourseWareCategory", method = RequestMethod.GET)

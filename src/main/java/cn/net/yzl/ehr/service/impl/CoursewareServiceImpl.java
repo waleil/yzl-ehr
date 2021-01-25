@@ -42,14 +42,15 @@ public class CoursewareServiceImpl implements CoursewareService {
     }
 
     @Override
-    public ComResponse<Page<CourseWarePo>> selectCourseAll(Integer pageNum, Integer pageSize) {
-        return courseWareFeginService.searchCourseWare("",pageNum,pageNum);
+    public ComResponse<Page<CourseWarePo>> searchCourseWare(Integer pageNum, Integer pageSize) {
+        return courseWareFeginService.searchCourseWare(pageNum,pageSize);
     }
 
     @Override
-    public ComResponse<Page<CourseWarePo>> selectKeyword(String keyword, Integer pageNum, Integer pageSize) {
-        return courseWareFeginService.searchCourseWare(keyword,pageNum,pageSize);
+    public ComResponse<Page<CourseWarePo>> selectKeywordByName(String keyword, Integer pageNum, Integer pageSize) {
+        return courseWareFeginService.searchCourseWareByName(keyword,pageNum,pageSize);
     }
+
 
     @Override
     public ComResponse<List<CourseWareCategoryDto>> selectCourseWareCategoryAll() {
