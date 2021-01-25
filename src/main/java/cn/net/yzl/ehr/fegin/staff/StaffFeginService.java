@@ -20,14 +20,16 @@ import java.util.List;
 import java.util.Map;
 
 @FeignClient(value = "staff",url = "${fegin.db.url}")
+//@FeignClient(value = "yzl-staff-db")
 @Repository
 public interface StaffFeginService {
 
     @RequestMapping(value = "/staff/getOneByMap", method = RequestMethod.POST,consumes = "application/json")
     ComResponse<StaffBaseDto> getOneByMap(@RequestBody Map<String, Object> map);
 
+    @ApiOperation(value = "根据staffno查询用户详情", notes = "根据UserNo查询用户详情")
     @RequestMapping(value = "/staff/getDetailsByNo", method = RequestMethod.GET)
-    ComResponse<StaffDetailsDto> getDetailsByNo(@RequestParam("staffNo") String staffNo);
+    ComResponse<StaffDetailsDto> getDetailsByNo(@RequestParam("staffNo") String  staffNo);
 
     @RequestMapping(value = "/staff/getByParams", method = RequestMethod.GET)
     ComResponse<List<StaffBaseDto>> getByParams(@RequestParam("params")String params);
