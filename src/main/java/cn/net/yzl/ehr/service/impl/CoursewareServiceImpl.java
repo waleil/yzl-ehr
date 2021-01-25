@@ -1,15 +1,21 @@
 package cn.net.yzl.ehr.service.impl;
 
+import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.common.util.AssemblerResultUtil;
+import cn.net.yzl.ehr.dto.CourseWareCategoryDto;
 import cn.net.yzl.ehr.dto.CoursewareDto;
+import cn.net.yzl.ehr.fegin.temp.CourseWareFeginService;
 import cn.net.yzl.ehr.mapper.CoursewareMapper;
 import cn.net.yzl.ehr.pojo.Courseware;
 import cn.net.yzl.ehr.pojo.CoursewareCategory;
 import cn.net.yzl.ehr.pojo.CoursewareDepart;
 import cn.net.yzl.ehr.service.CoursewareService;
 import cn.net.yzl.ehr.vojo.QueryCoursewareParam;
+import cn.net.yzl.staff.pojo.CourseWareCategoryPo;
+import cn.net.yzl.staff.pojo.CourseWarePo;
 import com.github.pagehelper.PageHelper;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,101 +25,39 @@ import java.util.List;
 @Service
 public class CoursewareServiceImpl implements CoursewareService {
     @Autowired
-    private CoursewareMapper coursewareMapper;
-
-
+    private CourseWareFeginService courseWareFeginService;
     @Override
-    @Transactional
-    public int insertCourseware(Courseware courseware) {
-        int j=0;
-        int i=coursewareMapper.insertCoursewareSelective(courseware);
-        List<CoursewareDepart> departList=courseware.getDepartList();
-        List<CoursewareCategory> categoryList = courseware.getCategoryList();
-        if(departList!=null && departList.size()>0){
-        departList.forEach(x-> {
-                    x.setCoursewareId(courseware.getId());
-                    x.setCreator(courseware.getCreator());
-                }
-        );
-         j=coursewareMapper.insertCoursewareDepartSelective(departList);
-        }
-        if (categoryList != null && categoryList.size() > 0) {
-            categoryList.forEach(x -> {
-                        x.setCoursewareId(courseware.getId());
-                        x.setCreator(courseware.getCreator());
-                    }
-            );
-            coursewareMapper.insertCoursewareCategorySelective(categoryList);
-        }
-        return i;
+    public ComResponse<Integer> insertCourseWare(CourseWarePo courseWarePo) {
+        return courseWareFeginService.insertCourseWare(courseWarePo);
     }
 
     @Override
-    @Transactional
-    public int updateCourseware(Courseware record) {
-       int i= coursewareMapper.updateByPrimaryKeySelective(record);
-       if(i>0) {
-           //目前采取清除旧关系数据，重新生成课件-部门关系数据方式
-           CoursewareDepart depart = new CoursewareDepart();
-           depart.setCoursewareId(record.getId());
-           depart.setIsDel(1);
-           CoursewareCategory category=new CoursewareCategory();
-           category.setCoursewareId(record.getId());
-           category.setIsDel(1);
-           coursewareMapper.updateDepartStateByCoursewareId(depart);
-           coursewareMapper.updateCategoryStateByCoursewareId(category);
-           List<CoursewareDepart> departList = record.getDepartList();
-           List<CoursewareCategory> categoryList = record.getCategoryList();
-           if (departList != null && departList.size() > 0) {
-               departList.forEach(x -> {
-                           x.setCoursewareId(record.getId());
-                           x.setCreator(record.getCreator());
-                       }
-               );
-               coursewareMapper.insertCoursewareDepartSelective(departList);
-           }
-           if (categoryList != null && categoryList.size() > 0) {
-               categoryList.forEach(x -> {
-                           x.setCoursewareId(record.getId());
-                           x.setCreator(record.getCreator());
-                       }
-               );
-               coursewareMapper.insertCoursewareCategorySelective(categoryList);
-           }
-       }
-        return i;
+    public ComResponse<Integer> updateCourseWare(CourseWarePo courseWarePo) {
+        return courseWareFeginService.updateCourseWare(courseWarePo);
     }
 
     @Override
-    public CoursewareDto getCoursewareById(Integer id) {
-        CoursewareDto courseware = coursewareMapper.selectByPrimaryKey(id);
-        return courseware;
+    public ComResponse<CourseWarePo> selectCourseWareByPrimaryKey(Integer id) {
+        return courseWareFeginService.selectcourseitem(id);
     }
 
     @Override
-    public Page<CoursewareDto> getCoursewareByPage(QueryCoursewareParam param) {
-        PageHelper.startPage(param.getPageNo(),param.getPageSize());
-        List<CoursewareDto> coursewareList = coursewareMapper.selectList(param);
-        Page<CoursewareDto> coursewarePage= AssemblerResultUtil.resultAssembler(coursewareList);
-        return coursewarePage;
+    public ComResponse<Page<CourseWarePo>> selectCourseAll(Integer pageNum, Integer pageSize) {
+        return courseWareFeginService.searchCourseWare("",pageNum,pageNum);
     }
 
     @Override
-    public int updateStatusById(Courseware record) {
-        int i=coursewareMapper.updateStateByCoursewareId(record);
-        return i;
+    public ComResponse<Page<CourseWarePo>> selectKeyword(String keyword, Integer pageNum, Integer pageSize) {
+        return courseWareFeginService.searchCourseWare(keyword,pageNum,pageSize);
     }
 
     @Override
-    public int updateStatusByList(List<Courseware> coursewareList) {
-        for(Courseware courseware:coursewareList){
-             coursewareMapper.updateStateByCoursewareId(courseware);
-        }
-        return coursewareList.size();
+    public ComResponse<List<CourseWareCategoryDto>> selectCourseWareCategoryAll() {
+        return courseWareFeginService.selectCourseWareCategory();
     }
 
     @Override
-    public int deleteByPrimaryKey(int coursewareId){
-        return coursewareMapper.deleteByPrimaryKey(coursewareId);
+    public ComResponse<Integer> saveCourseWareCategory(List<CourseWareCategoryPo> list) {
+        return courseWareFeginService.saveCourseWareCategory(list);
     }
 }

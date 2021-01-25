@@ -1,7 +1,8 @@
 package cn.net.yzl.ehr.service;
 
-import cn.net.yzl.ehr.dto.CoursewareCategoryDictDto;
-import cn.net.yzl.ehr.vojo.UpdateCoursewareCategoryParam;
+import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.ehr.dto.CourseWareCategoryDto;
+import cn.net.yzl.staff.pojo.CourseWareCategoryPo;
 
 import java.util.List;
 
@@ -11,9 +12,9 @@ public interface CoursewareCategoryDictService {
      * 查询课件列表
      * @return
      */
-    List<CoursewareCategoryDictDto> getCoursewareCategoryByPage();
-
-    int updateCoursewareCategoryList(UpdateCoursewareCategoryParam param);
+//    ComResponse<List<CourseWareCategoryDto>> getCoursewareCategoryByPage();
+//
+//    ComResponse<Integer> saveCoursewareCategoryList(List<CourseWareCategoryPo> list);
 
     /**
      * 更改课件列表
