@@ -36,7 +36,6 @@ public interface DepartPostFeginMapper {
     @RequestMapping(value = "/departPost/updatePost", method = RequestMethod.POST, consumes = "application/json")
     ComResponse<Integer> updatePost(@RequestBody DepartPostUpdatePo post);
 
-
     @RequestMapping(value = "/departPost/deletePost", method = RequestMethod.GET)
     ComResponse<Integer> delete(@RequestParam("id")  Integer id,@RequestParam("staffNo") String staffNo) ;
 
