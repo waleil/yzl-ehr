@@ -61,6 +61,7 @@ public class MyWebAppConfigurer  implements WebMvcConfigurer {
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/noRobbedConf/**");
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/chooseClassConf/**");
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/recruit/**");
+        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/deduct/**");
     }
 
     /**
