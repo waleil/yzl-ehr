@@ -43,7 +43,6 @@ public class StaffCFInsertPo {
     private Date probationEndtime;
 
     @ApiModelProperty(value = "试用期时长（月）", name = "probationMonths")
-    @NotNull
     @Min(0)
     private Double probationMonths;
 

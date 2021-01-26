@@ -4,6 +4,7 @@ import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.dto.StaffEduListDto;
 import cn.net.yzl.ehr.dto.StaffQuaListDto;
 import cn.net.yzl.ehr.pojo.*;
+import cn.net.yzl.staff.dto.StaffQuaDto;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
@@ -23,7 +24,7 @@ public interface StaffQuaFeginService {
 
     @ApiOperation(value = "查询员工资质证书",notes = "查询员工资质证书",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/staffQua/findByStaffNo", method = RequestMethod.GET)
-    ComResponse<StaffQuaListDto> findByStaffNo(@RequestParam("staffNO")  String staffNO);
+    ComResponse<StaffQuaDto> findByStaffNo(@RequestParam("staffNO")  String staffNO);
 
     @ApiOperation(value = "删除员工资质证书",notes = "删除员工资质证书",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/staffQua/deleteById",method = RequestMethod.GET)

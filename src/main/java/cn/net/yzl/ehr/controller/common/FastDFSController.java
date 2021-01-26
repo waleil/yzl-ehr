@@ -2,11 +2,11 @@ package cn.net.yzl.ehr.controller.common;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.util.FastDFSClientWrapper;
+import cn.net.yzl.staff.dto.common.FileDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,8 +27,12 @@ public class FastDFSController {
 
     @ApiOperation(value = "文件上传", notes = "文件上传")
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
-    public ComResponse<String> upload(MultipartFile file) throws IOException {
+    public ComResponse<FileDto> upload(MultipartFile file) throws IOException {
         String path = client.uploadFile(file);
-        return ComResponse.success(path).setMessage(filePrefix+"/"+path);
+        FileDto fileDto=new FileDto();
+        fileDto.setPath(path);
+        fileDto.setAccessPath(filePrefix+"/"+path);
+        fileDto.setFileName(file.getResource().getFilename());
+        return ComResponse.success(fileDto);
     }
 }

@@ -16,6 +16,7 @@ import java.util.Map;
 
 @Repository
 @FeignClient(value = "staff",url = "${fegin.db.url}")
+//@FeignClient("yzl-staff-db")
 public interface StaffWorkFeginService {
 
     @ApiOperation(value = "查询员工工作经历信息", notes = "查询员工工作经历信息")

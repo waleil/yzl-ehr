@@ -9,6 +9,7 @@ import cn.net.yzl.ehr.pojo.StaffQuaInsertPo;
 import cn.net.yzl.ehr.pojo.StaffQuaItemPo;
 import cn.net.yzl.ehr.pojo.StaffQuaUpdatePo;
 import cn.net.yzl.ehr.service.StaffQuaService;
+import cn.net.yzl.staff.dto.StaffQuaDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -34,7 +35,7 @@ public class StaffQuaController {
             @ApiImplicitParam(name = "StaffNo", value = "员工工号", required = true, paramType = "query")
     )
     @RequestMapping(value = "/findByStaffNo", method = RequestMethod.GET)
-    ComResponse<StaffQuaListDto> findByStaffNo(@RequestParam("StaffNo") String StaffNo) {
+    ComResponse<StaffQuaDto> findByStaffNo(@RequestParam("StaffNo") String StaffNo) {
         return staffQuaService.findByStaffNo(StaffNo);
     }
 
@@ -53,9 +54,6 @@ public class StaffQuaController {
 
     @ApiOperation(value = "资质证书—编辑员工资质证书", notes = "编辑员工资质证书", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/insert",method = RequestMethod.POST)
-    @ApiImplicitParams(
-            @ApiImplicitParam(name = "id", value = "员工教育经历编号", required = true, paramType = "query")
-    )
     ComResponse<Integer> insert(@RequestBody @Validated StaffQuaInsertPo insertList) {
         return staffQuaService.insert(insertList);
     }
