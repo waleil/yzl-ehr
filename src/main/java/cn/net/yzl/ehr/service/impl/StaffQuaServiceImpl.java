@@ -9,6 +9,7 @@ import cn.net.yzl.ehr.pojo.StaffQuaInsertPo;
 import cn.net.yzl.ehr.pojo.StaffQuaItemPo;
 import cn.net.yzl.ehr.pojo.StaffQuaUpdatePo;
 import cn.net.yzl.ehr.service.StaffQuaService;
+import cn.net.yzl.staff.dto.StaffQuaDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +22,8 @@ public class StaffQuaServiceImpl  implements StaffQuaService {
 
 
     @Override
-    public ComResponse<StaffQuaListDto> findByStaffNo(String staffNO) {
-        ComResponse<StaffQuaListDto>  result = staffQuaFeginService.findByStaffNo(staffNO);
+    public ComResponse<StaffQuaDto> findByStaffNo(String staffNO) {
+        ComResponse<StaffQuaDto> result = staffQuaFeginService.findByStaffNo(staffNO);
         if (result==null){
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
         }else if (result.getCode()==200 && result.getData()==null){
