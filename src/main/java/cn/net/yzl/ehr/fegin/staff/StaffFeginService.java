@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
-//@FeignClient(value = "staff",url = "${fegin.db.url}")
-@FeignClient(value = "yzl-staff-db")
+@FeignClient(value = "staff",url = "${fegin.db.url}")
+//@FeignClient(value = "yzl-staff-db")
 @Repository
 public interface StaffFeginService {
 
