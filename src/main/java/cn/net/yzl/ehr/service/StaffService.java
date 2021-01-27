@@ -17,6 +17,7 @@ public interface StaffService {
     // 获取用户详情
     ComResponse<StaffDetailsDto> getDetailsByNo(String staffNo);
 
+    ComResponse<List<StaffDetailsDto>> getDetailsListByNo(List<String> list);
 
     ComResponse<List<StaffBaseDto>> getByParams(String params);
 

@@ -58,6 +58,11 @@ public class StaffController {
     public ComResponse<StaffDetailsDto> getDetailsByNo(@NotBlank String staffNo) {
         return staffService.getDetailsByNo(staffNo);
     }
+    @ApiOperation(value = "根据多个用户工号批量获取详情信息", notes = "根据多个用户工号批量获取详情信息")
+    @RequestMapping(value = "/getDetailsByNo", method = RequestMethod.POST)
+    public ComResponse<List<StaffDetailsDto>> getDetailsByNo(@RequestBody List<String> list) {
+        return staffService.getDetailsListByNo(list);
+    }
     @ApiOperation(value = "模糊查询用户信息", notes = "模糊查询用户信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "params", value = "参数", required = true, dataType = "String", paramType = "query")

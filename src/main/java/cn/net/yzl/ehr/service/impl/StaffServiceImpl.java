@@ -28,6 +28,11 @@ public class StaffServiceImpl implements StaffService {
     }
 
     @Override
+    public ComResponse<List<StaffDetailsDto>> getDetailsListByNo(List<String> list) {
+        return staffFeginService.getDetailsListByNo(list);
+    }
+
+    @Override
     public ComResponse<List<StaffBaseDto>> getByParams(String params) {
         return staffFeginService.getByParams(params);
     }

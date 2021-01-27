@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
-@FeignClient(value = "staff",url = "${fegin.db.url}")
-//@FeignClient(value = "yzl-staff-db")
+//@FeignClient(value = "staff",url = "${fegin.db.url}")
+@FeignClient(value = "yzl-staff-db")
 @Repository
 public interface StaffFeginService {
 
@@ -30,6 +30,10 @@ public interface StaffFeginService {
     @ApiOperation(value = "根据staffno查询用户详情", notes = "根据UserNo查询用户详情")
     @RequestMapping(value = "/staff/getDetailsByNo", method = RequestMethod.GET)
     ComResponse<StaffDetailsDto> getDetailsByNo(@RequestParam("staffNo") String  staffNo);
+
+    @ApiOperation(value = "根据多个staffno批量查询用户详情", notes = "根据staffno批量查询用户详情")
+    @RequestMapping(value = "/staff/getDetailsListByNo", method = RequestMethod.POST)
+    ComResponse<List<StaffDetailsDto>> getDetailsListByNo(@RequestBody List<String> list);
 
     @RequestMapping(value = "/staff/getByParams", method = RequestMethod.GET)
     ComResponse<List<StaffBaseDto>> getByParams(@RequestParam("params")String params);
