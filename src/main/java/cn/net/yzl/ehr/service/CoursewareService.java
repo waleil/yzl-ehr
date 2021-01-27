@@ -1,57 +1,38 @@
 package cn.net.yzl.ehr.service;
 
+import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
-import cn.net.yzl.ehr.dto.CoursewareCategoryDictDto;
+import cn.net.yzl.ehr.dto.CourseWareCategoryDto;
 import cn.net.yzl.ehr.dto.CoursewareDto;
 import cn.net.yzl.ehr.pojo.Courseware;
 import cn.net.yzl.ehr.vojo.QueryCoursewareParam;
+import cn.net.yzl.staff.pojo.CourseWareCategoryPo;
+import cn.net.yzl.staff.pojo.CourseWarePo;
+import io.swagger.models.auth.In;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Map;
 
 public interface CoursewareService {
-    /**
-     * 新增课件
-     * @param courseware
-     * @return
-     */
-    int insertCourseware(Courseware courseware);
-    /**
-     * 更改课件
-     * @param record
-     * @return
-     */
-    int updateCourseware(Courseware record);
-    /**
-     * 查看课件详情
-     * @param id
-     * @return
-     */
-    CoursewareDto getCoursewareById(Integer id);
-    /**
-     * 分页查询课件
-     * @param param
-     * @return
-     */
-    Page<CoursewareDto> getCoursewareByPage(QueryCoursewareParam param);
-    /**
-     * 更改课件审批状态
-     * @param record
-     * @return
-     */
-    int updateStatusById(Courseware record);
-    /**
-     * 批量更改课件状态
-     * @param courseware
-     * @return
-     */
-    int updateStatusByList(List<Courseware> courseware);
-    /**
-     * 删除课件
-     * @param coursewareId
-     * @return
-     */
-    public int deleteByPrimaryKey(int coursewareId);
+
+    //添加课程
+    ComResponse<Integer>  insertCourseWare(CourseWarePo courseWarePo);
+    //更新课程
+    ComResponse<Integer> updateCourseWare(CourseWarePo courseWarePo);
+    //根据id查询编号
+    ComResponse<CourseWarePo> selectCourseWareByPrimaryKey(Integer id);
+    //查询课件
+    ComResponse<Page<CourseWarePo>> searchCourseWare(Integer pageNum, Integer pageSize);
+    //模糊查询
+    ComResponse<Page<CourseWarePo>> selectKeywordByName(String Keyword, Integer pageNum, Integer pageSize,Integer typeId);
+
+    //查询所有的课程类型
+    ComResponse<List<CourseWareCategoryDto>>  selectCourseWareCategoryAll();
+
+    //保存课程类型数据
+    ComResponse<Integer> saveCourseWareCategory(List<CourseWareCategoryPo> list);
     
 
 }

@@ -20,17 +20,20 @@ import java.util.List;
 import java.util.Map;
 
 @FeignClient(value = "staff",url = "${fegin.db.url}")
-//@FeignClient(name = "yzl-staff-api")
+//@FeignClient(value = "yzl-staff-db")
 @Repository
 public interface StaffFeginService {
 
     @RequestMapping(value = "/staff/getOneByMap", method = RequestMethod.POST,consumes = "application/json")
     ComResponse<StaffBaseDto> getOneByMap(@RequestBody Map<String, Object> map);
 
+    @ApiOperation(value = "根据staffno查询用户详情", notes = "根据UserNo查询用户详情")
     @RequestMapping(value = "/staff/getDetailsByNo", method = RequestMethod.GET)
-    ComResponse<StaffDetailsDto> getDetailsByNo(@RequestParam("staffNo") String staffNo);
+    ComResponse<StaffDetailsDto> getDetailsByNo(@RequestParam("staffNo") String  staffNo);
+
     @RequestMapping(value = "/staff/getByParams", method = RequestMethod.GET)
     ComResponse<List<StaffBaseDto>> getByParams(@RequestParam("params")String params);
+
     @ApiOperation(value = "模糊查询员工列表", notes = "模糊查询员工列表")
     @RequestMapping(value = "/staff/getListByParams", method = RequestMethod.POST)
     ComResponse<Page<StaffListDto>> getListByParams(@RequestBody StaffParamsVO staffParamsVO);
@@ -44,16 +47,14 @@ public interface StaffFeginService {
     @RequestMapping(value = "/staff/resetPassword", method = RequestMethod.POST)
     ComResponse<String> resetPassword(@RequestBody UpdatePasswordPo updatePasswordPo );
 
-
     //查询员工基本信息
-
     @ApiOperation(value = "删除员工基本信息",notes = "删除员工基本信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/staff/deleteById",method = RequestMethod.GET)
     ComResponse<Integer> deleteById(@RequestParam("id")  Integer id,@RequestParam("updator") String updator);
 
-
     @RequestMapping(value = "/staff/update", method = RequestMethod.POST)
     ComResponse<StaffDetailsDto> update(@RequestBody StaffInfoUpdateVO staffInfoUpdateVO);
+
     @RequestMapping(value = "/staff/save", method = RequestMethod.POST)
     ComResponse<StaffDetailsDto> save(@RequestBody StaffInfoSaveVO staffInfoSaveVO);
 }

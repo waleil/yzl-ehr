@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 import java.util.Map;
 
-
-@FeignClient(value = "staff",url = "${fegin.db.url}")
 @Repository
+@FeignClient(value = "staff",url = "${fegin.db.url}")
+//@FeignClient("yzl-staff-db")
 public interface StaffWorkFeginService {
 
     @ApiOperation(value = "查询员工工作经历信息", notes = "查询员工工作经历信息")

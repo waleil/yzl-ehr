@@ -25,7 +25,7 @@ public class StaffAbnorRecordPo {
     @NotBlank
     private String staffNo;
 
-    @ApiModelProperty("异动类型(2:调岗,5:调薪,7:辞退)")
+    @ApiModelProperty("异动类型(字典表)")
     @NotNull
     @Min(0)
     private Integer type;

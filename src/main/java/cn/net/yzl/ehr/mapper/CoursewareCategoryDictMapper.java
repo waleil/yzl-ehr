@@ -1,18 +1,18 @@
 package cn.net.yzl.ehr.mapper;
 
 
-import cn.net.yzl.ehr.dto.CoursewareCategoryDictDto;
+import cn.net.yzl.staff.pojo.CourseWareCategoryPo;
 
 import java.util.List;
 
 public interface CoursewareCategoryDictMapper {
 
-    List<CoursewareCategoryDictDto> selectList();
+    List<CourseWareCategoryPo> selectList();
 
-    int insertList(List<CoursewareCategoryDictDto> dictList);
+    int insertList(List<CourseWareCategoryPo> dictList);
 
-    int insert(CoursewareCategoryDictDto dictDto);
+    int insert(CourseWareCategoryPo dictDto);
 
-    int updateByPrimaryKeySelective(CoursewareCategoryDictDto dictDto);
+    int updateByPrimaryKeySelective(CourseWareCategoryPo dictDto);
 
 }

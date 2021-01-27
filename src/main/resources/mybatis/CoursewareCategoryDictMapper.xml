@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.net.yzl.ehr.mapper.CoursewareCategoryDictMapper">
-  <resultMap id="BaseResultMap" type="cn.net.yzl.ehr.dto.CoursewareCategoryDictDto">
+  <resultMap id="BaseResultMap" type="cn.net.yzl.ehr.dto.CourseWareCategoryDto">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
   </resultMap>
@@ -20,7 +20,7 @@
         select t.name,#{creator} as creator from courseware_category_dict
         (#{item.name,jdbcType=VARCHAR},#{item.creator,jdbcType=INTEGER})-->
 
-  <insert id="insert" parameterType="cn.net.yzl.ehr.dto.CoursewareCategoryDictDto">
+  <insert id="insert" parameterType="cn.net.yzl.ehr.dto.CourseWareCategoryDto">
     <if test="name != null and creator!=null">
       insert into courseware_category_dict (name,creator) select #{name,jdbcType=VARCHAR} as name ,#{creator,jdbcType=INTEGER} as creator
       from dual where not EXISTS ( select 1 from courseware_category_dict where name=#{name,jdbcType=VARCHAR} )
