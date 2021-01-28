@@ -59,4 +59,11 @@ public class StaffAbnorController {
         ComResponse<List<StaffTrainDto>>  staffTrain = staffAbnorService.find(staffNo);
         return staffTrain;
     }
+
+    @ApiOperation(value = "员工旅程分页查询", notes = "员工旅程分页查询", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/getStaffTrainPage", method = RequestMethod.GET)
+    public ComResponse<List<StaffTrainDto>> findPage(@RequestParam("staffNo") String staffNo,@RequestParam("pageNum")Integer pageNum,@RequestParam("pageSize")Integer pageSize){
+        ComResponse<List<StaffTrainDto>>  staffTrain = staffAbnorService.findPage(staffNo,pageNum,pageSize);
+        return staffTrain;
+    }
 }

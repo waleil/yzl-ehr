@@ -11,9 +11,6 @@ import cn.net.yzl.ehr.service.StaffAbnorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -68,6 +65,16 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
         return listComResponse;
     }
 
+    @Override
+    public ComResponse<List<StaffTrainDto>> findPage(String staffNo, Integer pageNum, Integer pageSize) {
+        ComResponse<List<StaffTrainDto>> listComResponse = staffAbnorFeginService.findPage(staffNo,pageNum,pageSize);
+        if (listComResponse==null){
+            ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
+        }else if (listComResponse.getData()!=null && listComResponse.getCode() == 200){
+            ComResponse.success();
+        }
+        return listComResponse;
+    }
 
 
 }
