@@ -48,6 +48,6 @@ public interface BusinessPostFeginService {
     public ComResponse<List<PostLevelIndicatorsDto>> getAllPostIndcatorsList(@RequestParam("postLevelId") Integer postLevelId);
 
 
-    @RequestMapping(value = "/addOrUpdatePostIndicators", method = RequestMethod.POST)
+    @RequestMapping(value = "/businessPost/addOrUpdatePostIndicators", method = RequestMethod.POST)
     public ComResponse<Integer> addOrUpdatePostIndicators(@RequestBody List<PostLevelIndicatorsVO> postLevelIndicatorsVOList);
 }

@@ -31,6 +31,10 @@ public interface StaffFeginService {
     @RequestMapping(value = "/staff/getDetailsByNo", method = RequestMethod.GET)
     ComResponse<StaffDetailsDto> getDetailsByNo(@RequestParam("staffNo") String  staffNo);
 
+    @ApiOperation(value = "根据多个staffno批量查询用户详情", notes = "根据staffno批量查询用户详情")
+    @RequestMapping(value = "/staff/getDetailsListByNo", method = RequestMethod.POST)
+    ComResponse<List<StaffDetailsDto>> getDetailsListByNo(@RequestBody List<String> list);
+
     @RequestMapping(value = "/staff/getByParams", method = RequestMethod.GET)
     ComResponse<List<StaffBaseDto>> getByParams(@RequestParam("params")String params);
 
