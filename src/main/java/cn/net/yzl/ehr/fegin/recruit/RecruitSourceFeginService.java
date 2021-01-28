@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.fegin.recruit;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.dto.StaffUpRpListDto;
 import cn.net.yzl.ehr.dto.StaffUpTrainListDto;
 import cn.net.yzl.ehr.pojo.*;
@@ -21,8 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Repository
-@FeignClient(value = "staff",url = "${fegin.db.url}")
-//@FeignClient(name = "yzl-staff-db")
+//@FeignClient(value = "staff",url = "${fegin.db.url}")
+@FeignClient(name = "yzl-staff-db")
 public interface RecruitSourceFeginService {
 
 
@@ -50,6 +51,10 @@ public interface RecruitSourceFeginService {
     @ApiOperation(value ="续费" ,notes ="续费",consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/recruit/getRecruitInfo",method = RequestMethod.POST)
     ComResponse<Integer> getRecruitInfo(@RequestBody RecruitSourceUpdatePo updatePo);
+
+    @ApiOperation(value ="分页" ,notes ="分页",consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/recruit/queryPage",method = RequestMethod.GET)
+    ComResponse<Page<RecruitSourceDto>>queryPage(@RequestParam("pageSize") Integer pageSize, @RequestParam("pageNum")Integer pageNum);
 
 
 }

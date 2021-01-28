@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.controller.recruit;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.recruit.RecruitSourceFeginService;
 import cn.net.yzl.ehr.service.recruit.RecruitSourceService;
@@ -69,5 +70,10 @@ public class RecruitSourceController {
         return recruitSourceService.getRecruitInfo(updatePo);
     }
 
+    @ApiOperation(value ="人事管理—招聘渠道分页" ,notes ="分页",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/queryPage",method = RequestMethod.POST)
+    ComResponse<Page<RecruitSourceDto>> queryPage(Integer pageSize, Integer pageNum) {
+        return recruitSourceService.queryPage(pageSize, pageNum);
+    }
 
 }

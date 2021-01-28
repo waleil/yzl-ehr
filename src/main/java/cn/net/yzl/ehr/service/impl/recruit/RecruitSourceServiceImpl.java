@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.service.impl.recruit;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.common.enums.ResponseCodeEnums;
 import cn.net.yzl.ehr.fegin.recruit.RecruitSourceFeginService;
 import cn.net.yzl.staff.dto.recruit.RecruitSourceDto;
@@ -95,5 +96,10 @@ public class RecruitSourceServiceImpl implements RecruitSourceService {
             return ComResponse.success();
         }
         return result;
+    }
+
+    @Override
+    public ComResponse<Page<RecruitSourceDto>> queryPage(Integer pageSize, Integer pageNum) {
+        return sourceFeginService.queryPage(pageSize, pageNum);
     }
 }
