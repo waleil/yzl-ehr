@@ -23,5 +23,6 @@ public class PostLevelIndicatorsDto implements Serializable {
     private Integer indicatorsType;
     @ApiModelProperty(value = "指标名称", name = "indicatorsName")
     private String indicatorsName;
-
+    @ApiModelProperty(value = "指标值", name = "indicatorsvalue")
+    private double indicatorsValue;
 }
