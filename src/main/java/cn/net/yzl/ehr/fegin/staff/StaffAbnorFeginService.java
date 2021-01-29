@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Repository
-//@FeignClient(name = "yzl-staff-db")
-@FeignClient(value = "staff",url = "${fegin.db.url}")
+@FeignClient(name = "yzl-staff-db")
+//@FeignClient(value = "staff",url = "${fegin.db.url}")
 public interface StaffAbnorFeginService {
 
     @RequestMapping(value = "/abnor/updateStaffChangeStatus", method = RequestMethod.POST)
@@ -30,4 +30,7 @@ public interface StaffAbnorFeginService {
 
     @RequestMapping(value = "/abnor/getStaffTrain",method = RequestMethod.GET)
     public ComResponse<List<StaffTrainDto>> find(@RequestParam("staffNo") String staffNo);
+
+    @RequestMapping(value = "/abnor/getStaffTrainPage", method = RequestMethod.GET)
+    public ComResponse<List<StaffTrainDto>> findPage(@RequestParam("staffNo") String staffNo, @RequestParam("pageNum")Integer pageNum, @RequestParam("pageSize")Integer pageSize);
 }

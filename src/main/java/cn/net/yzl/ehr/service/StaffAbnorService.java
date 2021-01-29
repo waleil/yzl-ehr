@@ -19,4 +19,6 @@ public interface StaffAbnorService {
     public ComResponse<StaffAbnorRecordListDto> getStaffAbnorRecord(String staffNo) ;
 
     ComResponse<List<StaffTrainDto>> find (String staffNo);
+
+    ComResponse<List<StaffTrainDto>> findPage (String staffNo, Integer pageNum, Integer pageSize);
 }
