@@ -3,6 +3,7 @@ package cn.net.yzl.ehr.service;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.dto.StaffAbnorRecordListDto;
 import cn.net.yzl.ehr.dto.StaffTrainDto;
+import cn.net.yzl.ehr.dto.StaffTrainInfoDto;
 import cn.net.yzl.ehr.pojo.StaffAbnorRecordPo;
 import cn.net.yzl.ehr.pojo.StaffSwitchStatePo;
 
@@ -18,7 +19,7 @@ public interface StaffAbnorService {
 
     public ComResponse<StaffAbnorRecordListDto> getStaffAbnorRecord(String staffNo) ;
 
-    ComResponse<List<StaffTrainDto>> find (String staffNo);
+    ComResponse<List<StaffTrainInfoDto>> find (String staffNo);
 
-    ComResponse<List<StaffTrainDto>> findPage (String staffNo, Integer pageNum, Integer pageSize);
+    ComResponse<List<StaffTrainInfoDto>> findPage (String staffNo, Integer pageNum, Integer pageSize);
 }
