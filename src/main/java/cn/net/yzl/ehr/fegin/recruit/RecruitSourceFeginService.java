@@ -7,6 +7,7 @@ import cn.net.yzl.ehr.dto.StaffUpTrainListDto;
 import cn.net.yzl.ehr.pojo.*;
 import cn.net.yzl.staff.dto.recruit.RecruitSourceDto;
 import cn.net.yzl.staff.pojo.recruit.RecruitSourceInsertPo;
+import cn.net.yzl.staff.pojo.recruit.RecruitSourceListPo;
 import cn.net.yzl.staff.pojo.recruit.RecruitSourceUpdateListPo;
 import cn.net.yzl.staff.pojo.recruit.RecruitSourceUpdatePo;
 import io.swagger.annotations.ApiOperation;
@@ -28,8 +29,8 @@ public interface RecruitSourceFeginService {
 
 
     @ApiOperation(value = "查询",notes = "查询",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @RequestMapping(value = "/recruit/queryRecruit", method = RequestMethod.GET)
-    ComResponse<RecruitSourceDto> queryRecruit(@RequestParam("id") Integer id);
+    @RequestMapping(value = "/recruit/queryRecruit", method = RequestMethod.POST)
+    ComResponse<List<RecruitSourceDto>> queryRecruit(@RequestBody RecruitSourceListPo recruitSourceListPo);
 
     @ApiOperation(value = "删除信息",notes = "删除信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/recruit/deleteById",method = RequestMethod.GET)
@@ -54,7 +55,7 @@ public interface RecruitSourceFeginService {
 
     @ApiOperation(value ="分页" ,notes ="分页",consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/recruit/queryPage",method = RequestMethod.GET)
-    ComResponse<Page<RecruitSourceDto>>queryPage(@RequestParam("pageSize") Integer pageSize, @RequestParam("pageNum")Integer pageNum);
+    ComResponse<Page<RecruitSourceDto>>queryPage(@RequestBody RecruitSourceListPo recruitSourceListPo,@RequestParam("pageSize") Integer pageSize, @RequestParam("pageNum")Integer pageNum);
 
 
 }
