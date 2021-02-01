@@ -4,6 +4,7 @@ import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.dto.StaffAbnorRecordListDto;
 import cn.net.yzl.ehr.dto.StaffTrainDto;
+import cn.net.yzl.ehr.dto.StaffTrainInfoDto;
 import cn.net.yzl.ehr.pojo.StaffAbnorRecordPo;
 import cn.net.yzl.ehr.pojo.StaffSwitchStatePo;
 import cn.net.yzl.ehr.service.StaffAbnorService;
@@ -55,15 +56,15 @@ public class StaffAbnorController {
             @ApiImplicitParam(name = "staffNo", value = "员工编号", required = true, paramType = "query")
     )
     @RequestMapping(value = "/getStaffTrain", method = RequestMethod.GET)
-    public ComResponse<List<StaffTrainDto>> find(@RequestParam("staffNo") String staffNo){
-        ComResponse<List<StaffTrainDto>>  staffTrain = staffAbnorService.find(staffNo);
+    public ComResponse<List<StaffTrainInfoDto>> find(@RequestParam("staffNo") String staffNo){
+        ComResponse<List<StaffTrainInfoDto>>  staffTrain = staffAbnorService.find(staffNo);
         return staffTrain;
     }
 
     @ApiOperation(value = "员工旅程分页查询", notes = "员工旅程分页查询", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/getStaffTrainPage", method = RequestMethod.GET)
-    public ComResponse<List<StaffTrainDto>> findPage(@RequestParam("staffNo") String staffNo,@RequestParam("pageNum")Integer pageNum,@RequestParam("pageSize")Integer pageSize){
-        ComResponse<List<StaffTrainDto>>  staffTrain = staffAbnorService.findPage(staffNo,pageNum,pageSize);
+    public ComResponse<List<StaffTrainInfoDto>> findPage(@RequestParam("staffNo") String staffNo,@RequestParam("pageNum")Integer pageNum,@RequestParam("pageSize")Integer pageSize){
+        ComResponse<List<StaffTrainInfoDto>>  staffTrain = staffAbnorService.findPage(staffNo,pageNum,pageSize);
         return staffTrain;
     }
 }
