@@ -6,6 +6,7 @@ import cn.net.yzl.common.enums.ResponseCodeEnums;
 import cn.net.yzl.ehr.fegin.recruit.RecruitSourceFeginService;
 import cn.net.yzl.staff.dto.recruit.RecruitSourceDto;
 import cn.net.yzl.staff.pojo.recruit.RecruitSourceInsertPo;
+import cn.net.yzl.staff.pojo.recruit.RecruitSourceListPo;
 import cn.net.yzl.staff.pojo.recruit.RecruitSourceUpdateListPo;
 import cn.net.yzl.staff.pojo.recruit.RecruitSourceUpdatePo;
 import cn.net.yzl.ehr.service.recruit.RecruitSourceService;
@@ -31,8 +32,8 @@ public class RecruitSourceServiceImpl implements RecruitSourceService {
     }
 
     @Override
-    public ComResponse<RecruitSourceDto> queryRecruit(Integer id) {
-        ComResponse<RecruitSourceDto> result = sourceFeginService.queryRecruit(id);
+    public ComResponse<List<RecruitSourceDto>> queryRecruit(RecruitSourceListPo recruitSourceListPo) {
+        ComResponse<List<RecruitSourceDto>> result = sourceFeginService.queryRecruit(recruitSourceListPo);
         if (result==null){
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
         }else if (result.getCode()==200 && result.getData()==null){
@@ -99,7 +100,7 @@ public class RecruitSourceServiceImpl implements RecruitSourceService {
     }
 
     @Override
-    public ComResponse<Page<RecruitSourceDto>> queryPage(Integer pageSize, Integer pageNum) {
-        return sourceFeginService.queryPage(pageSize, pageNum);
+    public ComResponse<Page<RecruitSourceDto>> queryPage(RecruitSourceListPo recruitSourceListPo,Integer pageSize, Integer pageNum) {
+        return sourceFeginService.queryPage(recruitSourceListPo,pageSize, pageNum);
     }
 }

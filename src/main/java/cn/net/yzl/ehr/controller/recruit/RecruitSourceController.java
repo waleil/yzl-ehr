@@ -7,6 +7,7 @@ import cn.net.yzl.ehr.fegin.recruit.RecruitSourceFeginService;
 import cn.net.yzl.ehr.service.recruit.RecruitSourceService;
 import cn.net.yzl.staff.dto.recruit.RecruitSourceDto;
 import cn.net.yzl.staff.pojo.recruit.RecruitSourceInsertPo;
+import cn.net.yzl.staff.pojo.recruit.RecruitSourceListPo;
 import cn.net.yzl.staff.pojo.recruit.RecruitSourceUpdateListPo;
 import cn.net.yzl.staff.pojo.recruit.RecruitSourceUpdatePo;
 import io.swagger.annotations.Api;
@@ -31,9 +32,9 @@ public class RecruitSourceController {
     private RecruitSourceService recruitSourceService;
 
     @ApiOperation(value = "人事管理—查询招聘渠道",notes = "查询",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @RequestMapping(value = "/queryRecruit", method = RequestMethod.GET)
-    ComResponse<RecruitSourceDto> queryRecruit(Integer id){
-        return recruitSourceService.queryRecruit(id);
+    @RequestMapping(value = "/queryRecruit", method = RequestMethod.POST)
+    ComResponse<List<RecruitSourceDto>> queryRecruit(@RequestBody RecruitSourceListPo recruitSourceListPo){
+        return recruitSourceService.queryRecruit(recruitSourceListPo);
     }
 
     @ApiOperation(value = "人事管理—删除招聘渠道",notes = "删除信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
@@ -72,8 +73,8 @@ public class RecruitSourceController {
 
     @ApiOperation(value ="人事管理—招聘渠道分页" ,notes ="分页",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/queryPage",method = RequestMethod.POST)
-    ComResponse<Page<RecruitSourceDto>> queryPage(Integer pageSize, Integer pageNum) {
-        return recruitSourceService.queryPage(pageSize, pageNum);
+    ComResponse<Page<RecruitSourceDto>> queryPage(@RequestBody RecruitSourceListPo recruitSourceListPo,Integer pageSize, Integer pageNum) {
+        return recruitSourceService.queryPage(recruitSourceListPo,pageSize, pageNum);
     }
 
 }

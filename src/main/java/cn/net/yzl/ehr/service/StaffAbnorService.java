@@ -22,9 +22,9 @@ public interface StaffAbnorService {
 
     public ComResponse<StaffAbnorRecordListDto> getStaffAbnorRecord(String staffNo) ;
 
-    ComResponse<List<StaffTrainDto>> find (String staffNo);
+    ComResponse<List<StaffTrainInfoDto>> find (String staffNo);
 
-    ComResponse<List<StaffTrainDto>> findPage (String staffNo, Integer pageNum, Integer pageSize);
+    ComResponse<List<StaffTrainInfoDto>> findPage (String staffNo, Integer pageNum, Integer pageSize);
 
-    ComResponse<Page<StaffTrainDto>> findRecordsByPageParam(@RequestBody @Validated AbnorRecordPo abnorRecordPo);
+    ComResponse<Page<StaffTrainInfoDto>> findRecordsByPageParam(@RequestBody @Validated AbnorRecordPo abnorRecordPo);
 }
