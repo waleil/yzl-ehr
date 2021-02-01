@@ -1,10 +1,12 @@
 package cn.net.yzl.ehr.fegin.staff;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.dto.StaffAbnorRecordListDto;
 import cn.net.yzl.ehr.dto.StaffTrainDto;
 import cn.net.yzl.ehr.pojo.StaffAbnorRecordPo;
 import cn.net.yzl.ehr.pojo.StaffSwitchStatePo;
+import cn.net.yzl.staff.pojo.AbnorRecordPo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,4 +35,8 @@ public interface StaffAbnorFeginService {
 
     @RequestMapping(value = "/abnor/getStaffTrainPage", method = RequestMethod.GET)
     public ComResponse<List<StaffTrainDto>> findPage(@RequestParam("staffNo") String staffNo, @RequestParam("pageNum")Integer pageNum, @RequestParam("pageSize")Integer pageSize);
+
+    @RequestMapping(value = "/abnor/findRecordsByPageParam", method = RequestMethod.POST)
+    public ComResponse<Page<StaffTrainDto>> findRecordsByPageParam(@RequestBody AbnorRecordPo abnorRecordPo) ;
+
 }
