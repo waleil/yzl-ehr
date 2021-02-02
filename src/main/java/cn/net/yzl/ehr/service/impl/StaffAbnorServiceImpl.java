@@ -123,63 +123,64 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
     public ComResponse<List<StaffTrainInfoDto>> findPage(String staffNo, Integer pageNum, Integer pageSize) {
         ComResponse<List<StaffTrainDto>> listComResponse = staffAbnorFeginService.findPage(staffNo,pageNum,pageSize);
         List<StaffTrainInfoDto>list = new ArrayList<>();
-        for (StaffTrainDto datum : listComResponse.getData()) {
-            if(datum.getType()==26){
-                StaffTrainInfoDto staffTrainInfoDto = new StaffTrainInfoDto();
-                staffTrainInfoDto.setTypeName(datum.getTypeName());
-                staffTrainInfoDto.setAbnorTime(datum.getAbnorTime());
-                staffTrainInfoDto.setContent(datum.getContent());
-                staffTrainInfoDto.setAdjustFront(datum.getAdjustPostNameFront());
-                staffTrainInfoDto.setAdjustLater(datum.getAdjustPostNameLater());
-                list.add(staffTrainInfoDto);
-            }if (datum.getType()==23|| datum.getType()==30||datum.getType()==31||datum.getType()==68){
-                StaffTrainInfoDto staffTrainInfoDto = new StaffTrainInfoDto();
-                staffTrainInfoDto.setTypeName(datum.getTypeName());
-                staffTrainInfoDto.setAbnorTime(datum.getAbnorTime());
-                staffTrainInfoDto.setContent(datum.getContent());
-                staffTrainInfoDto.setAdjustFront(datum.getAdjustDepartNameFront());
-                staffTrainInfoDto.setAdjustLater(datum.getAdjustPostNameLater());
-                list.add(staffTrainInfoDto);
-            }if (datum.getType()==24 || datum.getType()==69){
-                StaffTrainInfoDto staffTrainInfoDto = new StaffTrainInfoDto();
-                staffTrainInfoDto.setTypeName(datum.getTypeName());
-                staffTrainInfoDto.setAbnorTime(datum.getAbnorTime());
-                staffTrainInfoDto.setContent(datum.getContent());
-                staffTrainInfoDto.setAdjustLater(datum.getAdjustDepartNameLater());
-                staffTrainInfoDto.setAdjustLater(datum.getAdjustPostNameLater());
-                list.add(staffTrainInfoDto);
-            }if (datum.getType()==27){
-                StaffTrainInfoDto staffTrainInfoDto = new StaffTrainInfoDto();
-                staffTrainInfoDto.setTypeName(datum.getTypeName());
-                staffTrainInfoDto.setAbnorTime(datum.getAbnorTime());
-                staffTrainInfoDto.setContent(datum.getContent());
-                staffTrainInfoDto.setAdjustLater(datum.getAdjustDepartNameLater());
-                staffTrainInfoDto.setAdjustLater(datum.getAdjustPostNameLater());
-                list.add(staffTrainInfoDto);
-            }if (datum.getType()==72 || datum.getType()== 73){
-                StaffTrainInfoDto staffTrainInfoDto = new StaffTrainInfoDto();
-                staffTrainInfoDto.setTypeName(datum.getTypeName());
-                staffTrainInfoDto.setAbnorTime(datum.getAbnorTime());
-                staffTrainInfoDto.setContent(datum.getContent());
-                staffTrainInfoDto.setAdjustFront(datum.getAdjustPostLevelNameFront());
-                staffTrainInfoDto.setAdjustLater(datum.getAdjustPostLevelNameFront());
-                list.add(staffTrainInfoDto);
-            }if (datum.getType()==29){
-                StaffTrainInfoDto staffTrainInfoDto = new StaffTrainInfoDto();
-                staffTrainInfoDto.setTypeName(datum.getTypeName());
-                staffTrainInfoDto.setAbnorTime(datum.getAbnorTime());
-                staffTrainInfoDto.setContent(datum.getContent());
-                staffTrainInfoDto.setAdjustFront(String.valueOf(datum.getAdjustSalaryFront()));
-                staffTrainInfoDto.setAdjustLater(String.valueOf(datum.getAdjustSalaryLater()));
-                list.add(staffTrainInfoDto);
+        if(listComResponse.getData()!=null){
+            for (StaffTrainDto datum : listComResponse.getData()) {
+                if(datum.getType()==26){
+                    StaffTrainInfoDto staffTrainInfoDto = new StaffTrainInfoDto();
+                    staffTrainInfoDto.setTypeName(datum.getTypeName());
+                    staffTrainInfoDto.setAbnorTime(datum.getAbnorTime());
+                    staffTrainInfoDto.setContent(datum.getContent());
+                    staffTrainInfoDto.setAdjustFront(datum.getAdjustPostNameFront());
+                    staffTrainInfoDto.setAdjustLater(datum.getAdjustPostNameLater());
+                    list.add(staffTrainInfoDto);
+                }if (datum.getType()==23|| datum.getType()==30||datum.getType()==31||datum.getType()==68){
+                    StaffTrainInfoDto staffTrainInfoDto = new StaffTrainInfoDto();
+                    staffTrainInfoDto.setTypeName(datum.getTypeName());
+                    staffTrainInfoDto.setAbnorTime(datum.getAbnorTime());
+                    staffTrainInfoDto.setContent(datum.getContent());
+                    staffTrainInfoDto.setAdjustFront(datum.getAdjustDepartNameFront());
+                    staffTrainInfoDto.setAdjustLater(datum.getAdjustPostNameLater());
+                    list.add(staffTrainInfoDto);
+                }if (datum.getType()==24 || datum.getType()==69){
+                    StaffTrainInfoDto staffTrainInfoDto = new StaffTrainInfoDto();
+                    staffTrainInfoDto.setTypeName(datum.getTypeName());
+                    staffTrainInfoDto.setAbnorTime(datum.getAbnorTime());
+                    staffTrainInfoDto.setContent(datum.getContent());
+                    staffTrainInfoDto.setAdjustLater(datum.getAdjustDepartNameLater());
+                    staffTrainInfoDto.setAdjustLater(datum.getAdjustPostNameLater());
+                    list.add(staffTrainInfoDto);
+                }if (datum.getType()==27){
+                    StaffTrainInfoDto staffTrainInfoDto = new StaffTrainInfoDto();
+                    staffTrainInfoDto.setTypeName(datum.getTypeName());
+                    staffTrainInfoDto.setAbnorTime(datum.getAbnorTime());
+                    staffTrainInfoDto.setContent(datum.getContent());
+                    staffTrainInfoDto.setAdjustLater(datum.getAdjustDepartNameLater());
+                    staffTrainInfoDto.setAdjustLater(datum.getAdjustPostNameLater());
+                    list.add(staffTrainInfoDto);
+                }if (datum.getType()==72 || datum.getType()== 73){
+                    StaffTrainInfoDto staffTrainInfoDto = new StaffTrainInfoDto();
+                    staffTrainInfoDto.setTypeName(datum.getTypeName());
+                    staffTrainInfoDto.setAbnorTime(datum.getAbnorTime());
+                    staffTrainInfoDto.setContent(datum.getContent());
+                    staffTrainInfoDto.setAdjustFront(datum.getAdjustPostLevelNameFront());
+                    staffTrainInfoDto.setAdjustLater(datum.getAdjustPostLevelNameFront());
+                    list.add(staffTrainInfoDto);
+                }if (datum.getType()==29){
+                    StaffTrainInfoDto staffTrainInfoDto = new StaffTrainInfoDto();
+                    staffTrainInfoDto.setTypeName(datum.getTypeName());
+                    staffTrainInfoDto.setAbnorTime(datum.getAbnorTime());
+                    staffTrainInfoDto.setContent(datum.getContent());
+                    staffTrainInfoDto.setAdjustFront(String.valueOf(datum.getAdjustSalaryFront()));
+                    staffTrainInfoDto.setAdjustLater(String.valueOf(datum.getAdjustSalaryLater()));
+                    list.add(staffTrainInfoDto);
+                }
             }
         }
-        if (list==null){
-            ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
-        }else if (listComResponse.getData()!=null && listComResponse.getCode() == 200){
-            ComResponse.success();
+        if (list.size()==0){
+            return ComResponse.fail(ResponseCodeEnums.NO_DATA_CODE.getCode(),ResponseCodeEnums.NO_DATA_CODE.getMessage());
+        }else {
+            return ComResponse.success(list);
         }
-        return ComResponse.success(list);
     }
 
 
