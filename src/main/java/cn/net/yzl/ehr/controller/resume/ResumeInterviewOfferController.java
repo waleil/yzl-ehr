@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.controller.resume;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.resume.ResumeInterviewOfferFeginService;
 import cn.net.yzl.staff.vo.resume.ResumeInterviewOfferInsertVO;
 import io.swagger.annotations.Api;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
 @RequestMapping("/resume/offer")
@@ -24,7 +26,7 @@ public class ResumeInterviewOfferController {
 
     @ApiOperation(value = "简历列表-发送offer", notes = "简历列表-发送offer", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/sendOffer", method = RequestMethod.POST)
-    ComResponse<String> sendOffer(@RequestBody @Validated ResumeInterviewOfferInsertVO resumeInterviewOfferInsertVO) throws IllegalAccessException {
+    ComResponse<String> sendOffer(@RequestBody @Validated ResumeInterviewOfferInsertVO resumeInterviewOfferInsertVO,@ApiIgnore @CurrentStaffNo String staffNo) throws IllegalAccessException {
         return resumeInterviewOfferFeginService.sendOffer(resumeInterviewOfferInsertVO);
     }
 

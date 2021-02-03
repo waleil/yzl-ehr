@@ -27,7 +27,7 @@ public interface StaffScheduleFeginService {
     ComResponse<Page<StaffScheduleDto>> getListByParams(@RequestBody  StaffScheduleParamsVO staffScheduleParamsVO);
 
     @RequestMapping(value = "/getDetailByStaffNoAndTime", method = RequestMethod.GET)
-    ComResponse<StaffScheduleDetailDto> getDetailByStaffNoAndTime(@ApiIgnore @CurrentStaffNo String staffNo, @DateTimeFormat(pattern="yyyy-MM") Date time);
+    ComResponse<StaffScheduleDetailDto> getDetailByStaffNoAndTime(@RequestParam("staffNo") String staffNo, @RequestParam("time") String time);
 
 
 }

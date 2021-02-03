@@ -46,7 +46,7 @@ public class StaffScheduleController {
             @ApiImplicitParam(name = "time", value = "时间(yyyy-mm)", required = true, dataType = "String", paramType = "query")
     })
     @RequestMapping(value = "/getDetailByStaffNoAndTime", method = RequestMethod.GET)
-    ComResponse<StaffScheduleDetailDto> getDetailByStaffNoAndTime(@ApiIgnore @CurrentStaffNo String staffNo, @DateTimeFormat(pattern="yyyy-MM") Date time) throws ParseException {
+    ComResponse<StaffScheduleDetailDto> getDetailByStaffNoAndTime(@ApiIgnore @CurrentStaffNo String staffNo, String time) throws ParseException {
         return staffScheduleFeginService.getDetailByStaffNoAndTime(staffNo,time);
     }
 
