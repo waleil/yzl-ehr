@@ -15,12 +15,10 @@ import cn.net.yzl.ehr.vo.StaffParamsVO;
 
 
 import cn.net.yzl.staff.dto.StaffDetailsDto;
+import cn.net.yzl.staff.dto.StaffInfoDto;
 import cn.net.yzl.staff.vo.staff.StaffInfoSaveVO;
 import cn.net.yzl.staff.vo.staff.StaffInfoUpdateVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -48,7 +46,6 @@ public class StaffController {
     public ComResponse<StaffDetailsDto> getCurrentDetails(@ApiIgnore @CurrentStaffNo String staffNo) {
         return staffService.getDetailsByNo(staffNo);
     }
-
 
     @ApiOperation(value = "根据用户工号获取详情信息", notes = "根据用户工号获取详情信息")
     @RequestMapping(value = "/getDetailsByNo", method = RequestMethod.GET)
@@ -93,12 +90,10 @@ public class StaffController {
 
     @ApiOperation(value = "重置员工密码", notes = "重置员工密码")
     @RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "userNo", value = "用户工号", required = true, dataType = "String", paramType = "query")
-    })
-    ComResponse<String> resetPassword(@RequestParam("userNo") String userNo,@ApiIgnore @CurrentStaffNo String staffNo){
+    ComResponse<String> resetPassword(@RequestParam @ApiParam(name = "userNo", value = "员工工号") String userNo, @ApiIgnore @CurrentStaffNo String staffNo){
         return staffService.resetPassword(userNo,staffNo);
     }
+
     @ApiOperation(value = "员工基本信息-修改", notes = "员工基本信息-修改")
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     ComResponse<StaffDetailsDto> update(@RequestBody @Validated StaffInfoUpdateVO staffInfoUpdateVO) throws ParseException {
@@ -111,4 +106,9 @@ public class StaffController {
         return staffFeginService.save(staffInfoSaveVO);
     }
 
+    @ApiOperation(value = "员工信息-员工异动需要的信息", notes = "员工信息-员工异动需要的信息")
+    @RequestMapping(value = "/getInfoByNoForAbnor", method = RequestMethod.POST)
+    public ComResponse<StaffInfoDto> getInfoByNoForAbnor(String staffNo){
+        return staffService.getInfoByNoForAbnor(staffNo);
+    }
 }

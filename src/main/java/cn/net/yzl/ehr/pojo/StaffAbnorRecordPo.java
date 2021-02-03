@@ -18,6 +18,7 @@ import java.util.Date;
 @ApiModel(value = "员工异动操作", description = "员工异动操作")
 @Data
 public class StaffAbnorRecordPo {
+
     @ApiModelProperty(value = "异动编号",hidden = true)
     private Integer id;
 
@@ -76,20 +77,15 @@ public class StaffAbnorRecordPo {
     @JsonFormat(pattern="yyyy-MM-dd")
     @NotBlank
     private String abnorTime;
-    /*@ApiModelProperty("异动时间")
+
+    @ApiModelProperty(value = "是否已执行:0.否,1.是",hidden = true)
+    private String isExecute;
+
+    @ApiModelProperty("薪资结算日期")
     @JsonFormat(pattern="yyyy-MM-dd")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date abnorTime;*/
+    private String positiveTime;
 
-    @ApiModelProperty("创建人")
-    @NotBlank
+    @ApiModelProperty(value = "创建人",hidden = true)
     private String creator;
-
-    /*@ApiModelProperty(value="修改人",hidden = true)
-    private String updator;
-
-    @ApiModelProperty(value = "是否删除 0正常 1删除",hidden = true)
-    private Integer isDel;*/
-
 
 }

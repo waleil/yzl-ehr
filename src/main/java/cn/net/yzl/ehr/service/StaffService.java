@@ -7,6 +7,8 @@ import cn.net.yzl.ehr.dto.StaffListDto;
 import cn.net.yzl.ehr.pojo.*;
 import cn.net.yzl.ehr.vo.StaffParamsVO;
 import cn.net.yzl.staff.dto.StaffDetailsDto;
+import cn.net.yzl.staff.dto.StaffInfoDto;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -29,6 +31,6 @@ public interface StaffService {
     ComResponse<String> resetPassword(String userNo,String creator);
     ComResponse<Integer> deleteById (Integer id,String updator);
 
-
+    ComResponse<StaffInfoDto> getInfoByNoForAbnor(String staffNo);
 
 }

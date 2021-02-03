@@ -10,6 +10,7 @@ import cn.net.yzl.ehr.pojo.StaffAbnorRecordPo;
 import cn.net.yzl.ehr.pojo.StaffSwitchStatePo;
 import cn.net.yzl.ehr.service.StaffAbnorService;
 import cn.net.yzl.staff.pojo.AbnorRecordPo;
+import cn.net.yzl.staff.pojo.RunAbnorRecordPo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.constraints.NotBlank;
+import java.text.ParseException;
 import java.util.List;
 
 
@@ -42,6 +44,12 @@ public class StaffAbnorController {
     @RequestMapping(value = "/executeStaffChange", method = RequestMethod.POST)
     public ComResponse<Integer> executeStaffChange(@RequestBody @Validated StaffAbnorRecordPo staffChangePo, @CurrentStaffNo @ApiIgnore String staffNo){
         return staffAbnorService.executeStaffChange(staffChangePo,staffNo);
+    }
+
+    @ApiOperation(value = "员工异动-执行即时变动操作", notes = "员工异动-执行即时变动操作", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/runStaffChange", method = RequestMethod.POST)
+    public ComResponse<Integer> runStaffChange(@RequestBody RunAbnorRecordPo staffChangePo, @CurrentStaffNo @ApiIgnore String staffNo) throws ParseException{
+        return staffAbnorService.runStaffChange(staffChangePo,staffNo);
     }
 
     @ApiOperation(value = "员工异动-查询员工异动记录", notes = "查询员工异动记录", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
