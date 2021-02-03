@@ -41,7 +41,7 @@ public class StaffScheduleController {
         return staffScheduleFeginService.getListByParams(staffScheduleParamsVO);
     }
 
-    @ApiOperation(value = "排班-根据员工工号和时间获取排班详情", notes = "排班-根据员工工号和时间获取排班详情", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "个人中心-时间获取排班详情", notes = "个人中心-根据员工工号和时间获取排班详情", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "time", value = "时间(yyyy-mm)", required = true, dataType = "String", paramType = "query")
     })
