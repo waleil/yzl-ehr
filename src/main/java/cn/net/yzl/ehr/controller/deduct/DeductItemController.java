@@ -19,7 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/deduct")
-@Api(value = "扣款类型", tags = {"扣款类型"})
+@Api(value = "扣款类型", tags = {"奖惩管理"})
 public class DeductItemController {
     @Autowired
     private DeductItemService deductItemService;

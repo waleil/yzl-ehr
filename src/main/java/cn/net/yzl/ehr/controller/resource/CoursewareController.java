@@ -1,4 +1,4 @@
-package cn.net.yzl.ehr.controller.temp;
+package cn.net.yzl.ehr.controller.resource;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
@@ -21,7 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/courseware")
-@Api(value="课件接口",tags = {"课件接口"})
+@Api(value="培训课件管理",tags = {"公共资源管理"})
 public class CoursewareController {
 
     @Autowired
