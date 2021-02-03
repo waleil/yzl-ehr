@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.controller.resume;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.resume.ResumeInterviewFeginService;
 import cn.net.yzl.staff.dto.resume.ResumeInterviewTimeDto;
 import cn.net.yzl.staff.vo.resume.ResumeInterviewInsertVO;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.constraints.NotBlank;
 import java.util.List;
@@ -43,17 +45,14 @@ public class ResumeInterviewController {
 
     @ApiOperation(value = "个人中心-我的面试", notes = "个人中心-我的面试", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/getResumeInterviewTimeDtoByStaffNo", method = RequestMethod.GET)
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "staffNo", value = "面试官的工号", required = true, dataType = "String", paramType = "query")
-    })
-    ComResponse<List<ResumeInterviewTimeDto>> getResumeInterviewTimeDtoByStaffNo(@NotBlank String staffNo) {
+    ComResponse<List<ResumeInterviewTimeDto>> getResumeInterviewTimeDtoByStaffNo(@ApiIgnore @CurrentStaffNo String staffNo) {
         return resumeInterviewFeginService.getResumeInterviewTimeDtoByStaffNo(staffNo);
     }
 
 
     @ApiOperation(value = "个人中心-提交", notes = "个人中心-提交", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/submit", method = RequestMethod.POST)
-    ComResponse<String> submit(@RequestBody @Validated ResumeInterviewUpdateVO resumeInterviewUpdateVO) {
+    ComResponse<String> submit(@RequestBody @Validated ResumeInterviewUpdateVO resumeInterviewUpdateVO,@ApiIgnore @CurrentStaffNo String staffNo) {
         return resumeInterviewFeginService.submit(resumeInterviewUpdateVO);
     }
 

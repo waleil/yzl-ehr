@@ -2,6 +2,7 @@ package cn.net.yzl.ehr.controller.resume;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
+import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.resume.ResumeDepartStaffFeginService;
 import cn.net.yzl.staff.dto.resume.ResumeDepartStaffListDto;
 import cn.net.yzl.staff.vo.resume.ResumeDepartStaffParamsVO;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
 @RequestMapping("/resume/departStaff")
@@ -37,7 +39,8 @@ public class ResumeDepartStaffController {
 
     @ApiOperation(value = "个人中心-待筛选-分页列表", notes = "个人中心-待筛选-分页列表", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/getResumeDepartStaffList", method = RequestMethod.POST)
-    ComResponse<Page<ResumeDepartStaffListDto>> getResumeDepartStaffList(@RequestBody @Validated ResumeDepartStaffParamsVO resumeDepartStaffParamsVO) {
+    ComResponse<Page<ResumeDepartStaffListDto>> getResumeDepartStaffList(@RequestBody @Validated ResumeDepartStaffParamsVO resumeDepartStaffParamsVO, @ApiIgnore @CurrentStaffNo String staffNo) {
+        resumeDepartStaffParamsVO.setStaffNo(staffNo);
         return resumeDepartStaffFeginService.getResumeDepartStaffList(resumeDepartStaffParamsVO);
     }
 
