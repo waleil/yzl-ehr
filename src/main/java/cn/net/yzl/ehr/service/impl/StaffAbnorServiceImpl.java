@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.service.impl;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.common.enums.ResponseCodeEnums;
 import cn.net.yzl.ehr.dto.StaffAbnorRecordListDto;
 import cn.net.yzl.ehr.dto.StaffTrainDto;
@@ -9,9 +10,12 @@ import cn.net.yzl.ehr.fegin.staff.StaffAbnorFeginService;
 import cn.net.yzl.ehr.pojo.StaffAbnorRecordPo;
 import cn.net.yzl.ehr.pojo.StaffSwitchStatePo;
 import cn.net.yzl.ehr.service.StaffAbnorService;
+import cn.net.yzl.staff.pojo.AbnorRecordPo;
+import cn.net.yzl.staff.pojo.RunAbnorRecordPo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -181,6 +185,27 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
         }else {
             return ComResponse.success(list);
         }
+    }
+
+    @Override
+    public ComResponse<Page<StaffTrainDto>> findRecordsByPageParam(AbnorRecordPo abnorRecordPo) {
+        ComResponse<Page<StaffTrainDto>> recordsByPageParam = staffAbnorFeginService.findRecordsByPageParam(abnorRecordPo);
+        if (recordsByPageParam==null){
+            ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
+        }else if (recordsByPageParam.getData()!=null && recordsByPageParam.getCode() == 200){
+            ComResponse.success();
+        }
+        return recordsByPageParam;
+    }
+
+    @Override
+    public ComResponse<Integer> runStaffChange(RunAbnorRecordPo staffChangePo,String staffNo) throws ParseException {
+        staffChangePo.setCreator(staffNo);
+        ComResponse<Integer> integerComResponse = staffAbnorFeginService.runStaffChange(staffChangePo);
+        if (integerComResponse==null){
+            ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
+        }
+        return integerComResponse;
     }
 
 

@@ -8,6 +8,7 @@ import cn.net.yzl.ehr.fegin.staff.StaffFeginService;
 import cn.net.yzl.ehr.pojo.*;
 import cn.net.yzl.ehr.service.StaffService;
 import cn.net.yzl.ehr.vo.StaffParamsVO;
+import cn.net.yzl.staff.dto.StaffInfoDto;
 import cn.net.yzl.staff.vo.UpdatePasswordPo;
 import cn.net.yzl.staff.dto.StaffDetailsDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,9 +74,14 @@ public class StaffServiceImpl implements StaffService {
         return ComResponse.success();
     }
 
-
-
-
+    @Override
+    public ComResponse<StaffInfoDto> getInfoByNoForAbnor(String staffNo) {
+        ComResponse<StaffInfoDto> infoByNoForAbnor = staffFeginService.getInfoByNoForAbnor(staffNo);
+        if (infoByNoForAbnor==null){
+            return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
+        }
+        return infoByNoForAbnor;
+    }
 
 
 }
