@@ -1,4 +1,4 @@
-package cn.net.yzl.ehr.service;
+package cn.net.yzl.ehr.service.resource;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.dto.CourseWareCategoryDto;

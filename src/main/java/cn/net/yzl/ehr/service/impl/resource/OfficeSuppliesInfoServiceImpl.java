@@ -1,11 +1,12 @@
-package cn.net.yzl.ehr.service.impl.office;
+package cn.net.yzl.ehr.service.impl.resource;
 
 import cn.net.yzl.common.entity.ComResponse;
-import cn.net.yzl.ehr.fegin.office.OfficeSuppliesInfoFeginService;
-import cn.net.yzl.ehr.service.office.OfficeSuppliesInfoService;
+import cn.net.yzl.ehr.fegin.resource.OfficeSuppliesInfoFeginService;
+import cn.net.yzl.ehr.service.resource.OfficeSuppliesInfoService;
 import cn.net.yzl.staff.dto.office.OfficeSuppliesInfoDto;
 import cn.net.yzl.staff.pojo.office.OfficeSuppliesInfoInsertPo;
 import cn.net.yzl.staff.pojo.office.OfficeSuppliesInfoUpdatePo;
+import cn.net.yzl.staff.pojo.office.OfficeSuppliesTypePo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +35,18 @@ public class OfficeSuppliesInfoServiceImpl implements OfficeSuppliesInfoService 
     @Override
     public ComResponse<Integer> update(OfficeSuppliesInfoUpdatePo updatePo) {
         return officeSuppliesInfoFeginService.update(updatePo);
+    }
+
+    @Override
+    public ComResponse<Integer> saveUpDateOffice(List<OfficeSuppliesTypePo> officeSuppliesTypePos,String staffNo) {
+        for (OfficeSuppliesTypePo officeSuppliesTypePo : officeSuppliesTypePos) {
+            if(officeSuppliesTypePo.getId()==null||officeSuppliesTypePo.getId()==0){
+                officeSuppliesTypePo.setCreator(staffNo);
+            }else {
+                officeSuppliesTypePo.setUpdator(staffNo);
+            }
+        }
+        return officeSuppliesInfoFeginService.saveUpDateOffice(officeSuppliesTypePos);
     }
 
 

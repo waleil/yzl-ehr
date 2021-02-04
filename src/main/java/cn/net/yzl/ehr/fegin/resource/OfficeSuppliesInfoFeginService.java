@@ -1,4 +1,4 @@
-package cn.net.yzl.ehr.fegin.office;
+package cn.net.yzl.ehr.fegin.resource;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
@@ -10,10 +10,12 @@ import cn.net.yzl.staff.pojo.CourseWarePo;
 import cn.net.yzl.staff.pojo.office.OfficeSuppliesInfoInsertPo;
 import cn.net.yzl.staff.pojo.office.OfficeSuppliesInfoScreenPo;
 import cn.net.yzl.staff.pojo.office.OfficeSuppliesInfoUpdatePo;
+import cn.net.yzl.staff.pojo.office.OfficeSuppliesTypePo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Repository;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -48,4 +50,8 @@ public interface OfficeSuppliesInfoFeginService {
     @ApiOperation(value ="办公物品领取记录分页" ,notes ="办公物品领取记录分页",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/office/queryPage",method = RequestMethod.POST)
     ComResponse<Page<OfficeSuppliesRecordDto>> queryPage(@RequestBody OfficeSuppliesInfoScreenPo screenPo, @RequestParam("pageSize") Integer pageSize, @RequestParam("pageNum") Integer pageNum);
+
+    @ApiOperation(value = "办公物品类型管理-新增/编辑办公用品类型", notes = "办公物品类型管理-新增/编辑办公用品类型", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/office/insert", method = RequestMethod.POST)
+    ComResponse<Integer> saveUpDateOffice(@RequestBody @Validated List<OfficeSuppliesTypePo> officeSuppliesTypePos);
 }

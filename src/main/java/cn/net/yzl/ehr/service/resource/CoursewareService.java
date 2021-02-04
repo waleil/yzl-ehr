@@ -1,4 +1,4 @@
-package cn.net.yzl.ehr.service;
+package cn.net.yzl.ehr.service.resource;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
@@ -32,7 +32,7 @@ public interface CoursewareService {
     ComResponse<List<CourseWareCategoryDto>>  selectCourseWareCategoryAll();
 
     //保存课程类型数据
-    ComResponse<Integer> saveCourseWareCategory(List<CourseWareCategoryPo> list);
+    ComResponse<Integer> saveCourseWareCategory(List<CourseWareCategoryPo> list,String staffNo);
     
 
 }
