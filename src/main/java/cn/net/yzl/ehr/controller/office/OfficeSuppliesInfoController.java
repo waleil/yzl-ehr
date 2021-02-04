@@ -2,6 +2,7 @@ package cn.net.yzl.ehr.controller.office;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
+import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.service.office.OfficeSuppliesInfoService;
 import cn.net.yzl.ehr.service.office.OfficeSuppliesRecordService;
 import cn.net.yzl.staff.dto.office.OfficeSuppliesInfoDto;
@@ -14,6 +15,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 
@@ -36,14 +38,14 @@ public class OfficeSuppliesInfoController {
 
     @ApiOperation(value = "添加办公物品信息", notes = "添加办公物品信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
-    ComResponse<Integer> insert(@RequestBody OfficeSuppliesInfoInsertPo insertPo) {
-        return officeSuppliesInfoService.insert(insertPo);
+    ComResponse<Integer> insert(@RequestBody OfficeSuppliesInfoInsertPo insertPo, @CurrentStaffNo @ApiIgnore String staffNo) {
+        return officeSuppliesInfoService.insert(insertPo,staffNo);
     }
 
     @ApiOperation(value = "修改办公物品信息", notes = "修改办公物品信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    ComResponse<Integer> update(@RequestBody OfficeSuppliesInfoUpdatePo updatePo) {
-        return officeSuppliesInfoService.update(updatePo);
+    ComResponse<Integer> update(@RequestBody OfficeSuppliesInfoUpdatePo updatePo ,@CurrentStaffNo @ApiIgnore String staffNo) {
+        return officeSuppliesInfoService.update(updatePo,staffNo);
     }
 
     @ApiOperation(value = "删除办公物品信息", notes = "删除办公物品信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
