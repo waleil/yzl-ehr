@@ -1,18 +1,9 @@
-package cn.net.yzl.ehr.service.impl;
+package cn.net.yzl.ehr.service.impl.resource;
 
-import cn.net.yzl.common.entity.ComResponse;
-import cn.net.yzl.common.enums.ResponseCodeEnums;
-import cn.net.yzl.ehr.dto.CourseWareCategoryDto;
-import cn.net.yzl.ehr.fegin.temp.CourseWareFeginService;
-import cn.net.yzl.ehr.mapper.CoursewareCategoryDictMapper;
-import cn.net.yzl.ehr.service.CoursewareCategoryDictService;
-import cn.net.yzl.ehr.vojo.UpdateCoursewareCategoryParam;
-import cn.net.yzl.staff.pojo.CourseWareCategoryPo;
+import cn.net.yzl.ehr.fegin.resource.CourseWareFeginService;
+import cn.net.yzl.ehr.service.resource.CoursewareCategoryDictService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 public class CoursewareCategoryDictServiceImpl implements CoursewareCategoryDictService {
