@@ -36,11 +36,11 @@ public interface OfficeSuppliesInfoFeginService {
 
     @ApiOperation(value = "添加办公物品信息", notes = "添加办公物品信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/office/insert", method = RequestMethod.POST)
-    ComResponse<Integer> insert(@RequestBody OfficeSuppliesInfoInsertPo insertPo);
+    ComResponse<Integer> insert(@RequestBody OfficeSuppliesInfoInsertPo insertPo,@RequestParam("staffNo")String staffNo);
 
     @ApiOperation(value = "编辑办公物品信息", notes = "编辑办公物品信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/office/update", method = RequestMethod.POST)
-    ComResponse<Integer> update(@RequestBody OfficeSuppliesInfoUpdatePo updatePo);
+    ComResponse<Integer> update(@RequestBody OfficeSuppliesInfoUpdatePo updatePo,@RequestParam("staffNo")String staffNo);
 
     @ApiOperation(value = "删除办公物品信息", notes = "删除办公物品信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/office/deleteById", method = RequestMethod.POST)

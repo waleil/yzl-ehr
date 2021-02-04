@@ -13,9 +13,9 @@ public interface OfficeSuppliesInfoService {
 
     ComResponse<List<OfficeSuppliesInfoDto>> queryAll();
 
-    ComResponse<Integer> insert(OfficeSuppliesInfoInsertPo insertPo);
+    ComResponse<Integer> insert(OfficeSuppliesInfoInsertPo insertPo,String staffNo);
 
-    ComResponse<Integer> update(OfficeSuppliesInfoUpdatePo updatePo);
+    ComResponse<Integer> update(OfficeSuppliesInfoUpdatePo updatePo,String staffNo);
 
     //新增/编辑办公用品类型
     ComResponse<Integer> saveUpDateOffice (List<OfficeSuppliesTypePo> officeSuppliesTypePos,String staffNo);
