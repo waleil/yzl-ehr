@@ -1,24 +1,14 @@
-package cn.net.yzl.ehr.service.impl;
+package cn.net.yzl.ehr.service.impl.resource;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
-import cn.net.yzl.common.util.AssemblerResultUtil;
 import cn.net.yzl.ehr.dto.CourseWareCategoryDto;
-import cn.net.yzl.ehr.dto.CoursewareDto;
-import cn.net.yzl.ehr.fegin.temp.CourseWareFeginService;
-import cn.net.yzl.ehr.mapper.CoursewareMapper;
-import cn.net.yzl.ehr.pojo.Courseware;
-import cn.net.yzl.ehr.pojo.CoursewareCategory;
-import cn.net.yzl.ehr.pojo.CoursewareDepart;
-import cn.net.yzl.ehr.service.CoursewareService;
-import cn.net.yzl.ehr.vojo.QueryCoursewareParam;
+import cn.net.yzl.ehr.fegin.resource.CourseWareFeginService;
+import cn.net.yzl.ehr.service.resource.CoursewareService;
 import cn.net.yzl.staff.pojo.CourseWareCategoryPo;
 import cn.net.yzl.staff.pojo.CourseWarePo;
-import com.github.pagehelper.PageHelper;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -58,7 +48,14 @@ public class CoursewareServiceImpl implements CoursewareService {
     }
 
     @Override
-    public ComResponse<Integer> saveCourseWareCategory(List<CourseWareCategoryPo> list) {
+    public ComResponse<Integer> saveCourseWareCategory(List<CourseWareCategoryPo> list,String staffNo) {
+        for (CourseWareCategoryPo courseWareCategoryPo : list) {
+            if(courseWareCategoryPo.getId()==null||courseWareCategoryPo.getId()==0){
+                courseWareCategoryPo.setCreator(staffNo);
+            }else {
+                courseWareCategoryPo.setUpdator(staffNo);
+            }
+        }
         return courseWareFeginService.saveCourseWareCategory(list);
     }
 }

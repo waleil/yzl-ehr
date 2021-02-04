@@ -1,9 +1,9 @@
-package cn.net.yzl.ehr.service.impl.office;
+package cn.net.yzl.ehr.service.impl.resource;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
-import cn.net.yzl.ehr.fegin.office.OfficeSuppliesInfoFeginService;
-import cn.net.yzl.ehr.service.office.OfficeSuppliesRecordService;
+import cn.net.yzl.ehr.fegin.resource.OfficeSuppliesInfoFeginService;
+import cn.net.yzl.ehr.service.resource.OfficeSuppliesRecordService;
 import cn.net.yzl.staff.dto.office.OfficeSuppliesRecordDto;
 import cn.net.yzl.staff.pojo.office.OfficeSuppliesInfoScreenPo;
 import org.springframework.beans.factory.annotation.Autowired;
