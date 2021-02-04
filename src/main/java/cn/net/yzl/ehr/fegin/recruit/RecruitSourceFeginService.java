@@ -23,14 +23,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Repository
-@FeignClient(value = "staff",url = "${fegin.db.url}")
-//@FeignClient(name = "yzl-staff-db")
+//@FeignClient(value = "staff",url = "${fegin.db.url}")
+@FeignClient(name = "yzl-staff-db")
 public interface RecruitSourceFeginService {
 
 
     @ApiOperation(value = "查询",notes = "查询",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/recruit/queryRecruit", method = RequestMethod.POST)
     ComResponse<List<RecruitSourceDto>> queryRecruit(@RequestBody RecruitSourceListPo recruitSourceListPo);
+
+    @ApiOperation(value = "查询已启用",notes = "查询已启用",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/recruit/queryState", method = RequestMethod.GET)
+    ComResponse<List<RecruitSourceDto>> queryState();
 
     @ApiOperation(value = "删除信息",notes = "删除信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/recruit/deleteById",method = RequestMethod.GET)

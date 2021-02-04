@@ -17,6 +17,8 @@ public interface RecruitSourceService {
 
     ComResponse<List<RecruitSourceDto>> queryRecruit(RecruitSourceListPo recruitSourceListPo);
 
+    ComResponse<List<RecruitSourceDto>> queryState();
+
     ComResponse<Integer> addRecruit(RecruitSourceInsertPo insertPo);
 
     ComResponse<Integer> modity(@RequestBody RecruitSourceUpdateListPo updateListPo);
