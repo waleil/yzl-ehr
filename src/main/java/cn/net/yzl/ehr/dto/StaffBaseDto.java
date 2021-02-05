@@ -13,6 +13,8 @@ import java.io.Serializable;
 public class StaffBaseDto implements Serializable {
     @ApiModelProperty(value="用户工号",name="userNo")
     private String userNo;
+    @ApiModelProperty(value="用户工号",name="staffNo")
+    private String staffNo;
     @ApiModelProperty(value="用户英文名称",name="enName")
     private String enName;
     @ApiModelProperty(value="电子邮件",name="email")
