@@ -40,7 +40,7 @@ public class StaffAbnorController {
         return staffAbnorService.updateStaffChangeStatus(staffSwitchStatePo,staffNo);
     }
 
-    @ApiOperation(value = "员工异动-执行异动操作", notes = "执行异动操作", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "员工异动-设定执行异动操作", notes = "员工异动-设定执行异动操作", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/executeStaffChange", method = RequestMethod.POST)
     public ComResponse<Integer> executeStaffChange(@RequestBody @Validated StaffAbnorRecordPo staffChangePo, @CurrentStaffNo @ApiIgnore String staffNo){
         return staffAbnorService.executeStaffChange(staffChangePo,staffNo);

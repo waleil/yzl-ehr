@@ -4,42 +4,61 @@ import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.staff.dto.DepartDto;
 import cn.net.yzl.staff.dto.DepartPostDto;
+import cn.net.yzl.staff.dto.DepartResumeNodeStaffDto;
 import cn.net.yzl.staff.dto.resume.ResumeDetailDto;
 import cn.net.yzl.staff.dto.resume.ResumeListDto;
+import cn.net.yzl.staff.util.StaffBeanUtils;
 import cn.net.yzl.staff.vo.resume.ResumeDbVO;
 import cn.net.yzl.staff.vo.resume.ResumeDepartStaffVO;
 import cn.net.yzl.staff.vo.resume.ResumeInsertVO;
 import cn.net.yzl.staff.vo.resume.ResumeParamsVO;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.MediaType;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 
-@FeignClient(value = "ResumeFeginService",url = "${fegin.db.url}/resume")
+@FeignClient(value = "ResumeFeginService",url = "${fegin.db.url}")
+//@FeignClient(name = "yzl-staff-db")
 public interface ResumeFeginService{
 
 
 
 
-    @RequestMapping(value = "/getRecruitDepartDtoList", method = RequestMethod.GET)
+    @RequestMapping(value = "/resume/getRecruitDepartDtoList", method = RequestMethod.GET)
     ComResponse<List<DepartDto>> getRecruitDepartDtoList();
-    @RequestMapping(value = "/getRecruitDepartPostDtoList", method = RequestMethod.GET)
+    @RequestMapping(value = "/resume/getRecruitDepartPostDtoList", method = RequestMethod.GET)
     ComResponse<List<DepartPostDto>> getRecruitDepartPostDtoList(@RequestParam("departId") Integer departId);
-    @RequestMapping(value = "/getListByParams", method = RequestMethod.POST)
+    @RequestMapping(value = "/resume/getListByParams", method = RequestMethod.POST)
     ComResponse<Page<ResumeListDto>> getListByParams(@RequestBody ResumeParamsVO resumeParamsVO);
-    @RequestMapping(value = "/addOrUpdate", method = RequestMethod.POST)
+    @RequestMapping(value = "/resume/addOrUpdate", method = RequestMethod.POST)
     ComResponse<String> addOrUpdate(@RequestBody ResumeInsertVO resumeParamsVO);
-    @RequestMapping(value = "/getResumeDetail", method = RequestMethod.GET)
+    @RequestMapping(value = "/resume/getResumeDetail", method = RequestMethod.GET)
     ComResponse<ResumeDetailDto> getResumeDetail(@RequestParam("resumeId") Integer resumeId);
-    @RequestMapping(value = "/saveResumeToDB", method = RequestMethod.POST)
+    @RequestMapping(value = "/resume/saveResumeToDB", method = RequestMethod.POST)
     ComResponse<String> saveResumeToDB(@RequestBody ResumeDbVO resumeDbVO);
-    @RequestMapping(value = "/delResume", method = RequestMethod.GET)
+    @RequestMapping(value = "/resume/delResume", method = RequestMethod.GET)
     ComResponse<String> delResume(@RequestParam("resumeId") Integer resumeId);
-    @RequestMapping(value = "/sendToDepart", method = RequestMethod.POST)
-    ComResponse<String> sendToDepart( @RequestBody ResumeDepartStaffVO resumeDepartStaffVO);
-    @RequestMapping(value = "/noPass", method = RequestMethod.GET)
+    @RequestMapping(value = "/resume/noPass", method = RequestMethod.GET)
     ComResponse<String> noPass(@RequestParam("resumeId") Integer resumeId);
 
+    @RequestMapping(value = "/resume/delBatchResume", method = RequestMethod.POST)
+    ComResponse<String> delBatchResume(@RequestBody List<Integer> resumeIds);
+    @RequestMapping(value = "/resume/noBatchPass", method = RequestMethod.POST)
+    ComResponse<String> noBatchPass(List<Integer> resumeIds);
 
-
+    @RequestMapping(value = "/resume/sendTo", method = RequestMethod.POST)
+    ComResponse<String> sendTo( @RequestBody  ResumeDepartStaffVO resumeDepartStaffVO);
+    @RequestMapping(value = "/resume/sendToBatchDepart", method = RequestMethod.POST)
+    ComResponse<String> sendToBatchDepart(@RequestBody List<Integer> resumeIds, @RequestParam("staffNo") String staffNo);
+    @RequestMapping(value = "/resume/sendToDepart", method = RequestMethod.GET)
+    ComResponse<String> sendToDepart(@RequestParam("resumeId") Integer resumeId,@RequestParam("staffNo") String staffNo);
+    @RequestMapping(value = "/resume/getDepartResumeNodeStaffList", method = RequestMethod.GET)
+    ComResponse<List<DepartResumeNodeStaffDto>> getDepartResumeNodeStaffList(@RequestParam("nextResumeNodeId") Integer nextResumeNodeId);
 }

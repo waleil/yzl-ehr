@@ -26,25 +26,40 @@ import springfox.documentation.annotations.ApiIgnore;
 
 @Repository
 //@FeignClient(value = "staff",url = "${fegin.db.url}")
-@FeignClient("yzl-staff-db")
+@FeignClient(name = "yzl-staff-db")
 public interface ParkingVehicleFeginService {
 
     @ApiOperation(value = "入司车辆管理-车位占用中列表查询",notes = "入司车辆管理-车位占用中列表查询",consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/parking/selectList", method = RequestMethod.POST)
     ComResponse<Page<ParkingVehicleDto>> selectList(@RequestBody ParkingVehicleListPo parkingVehicleListPo,@RequestParam("pageNum")Integer pageNum,@RequestParam("pageSize")Integer pageSize);
 
+
     @ApiOperation(value = "入司车辆管理-回收车位",notes = "入司车辆管理-回收车位",consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/parking/insertRecover", method = RequestMethod.POST)
     ComResponse<Integer> insertRecover(@RequestBody ParkingRecoverInsertPo parkingRecoverInsertPo);
+
     @ApiOperation(value = "入司车辆管理-已清退列表查询",notes = "入司车辆管理-已清退列表查询",consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/parking/selectRecoverList", method = RequestMethod.POST)
     ComResponse<Page<ParkingRecoverDto>> selectRecoverList(@RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize);
 
+
     @ApiOperation(value = "入司车辆管理-排队中列表查询",notes = "入司车辆管理-排队中列表查询",consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/parking/selectApplyList", method = RequestMethod.POST)
     ComResponse<Page<ParkingApplyDto>> selectApplyList(@RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize);
+
+
     @ApiOperation(value = "入司车辆管理-插队",notes = "入司车辆管理-插队",consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/parking/updateApply", method = RequestMethod.POST)
     ComResponse<Integer> updateApply(@RequestParam("id") Integer id,@RequestParam("updator") String updator);
+
+
+    @ApiOperation(value = "入司车辆管理-车位设置",notes = "入司车辆管理-车位设置",consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/parking/insertParkingSet", method = RequestMethod.POST)
+    ComResponse<Integer> insertParkingSet(@RequestBody ParkingSetPo parkingSetPo);
+
+
+    @ApiOperation(value = "入司车辆管理-统计车位",notes = "入司车辆管理-统计车位",consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/parking/selectStatisticalList", method = RequestMethod.POST)
+    ComResponse  selectStatisticalList();
 
 }

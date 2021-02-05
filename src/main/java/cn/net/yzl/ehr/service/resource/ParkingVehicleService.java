@@ -28,4 +28,8 @@ public interface ParkingVehicleService {
    //插队
    ComResponse<Integer> updateApply(Integer id,String updator);
 
+   //车位设置
+    ComResponse<Integer> insertParkingSet(ParkingSetPo parkingSetPo);
+   //查询车位
+   ComResponse selectStatisticalList();
 }

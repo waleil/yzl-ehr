@@ -4,6 +4,7 @@ import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.fegin.resource.OfficeSuppliesInfoFeginService;
 import cn.net.yzl.ehr.service.resource.OfficeSuppliesInfoService;
 import cn.net.yzl.staff.dto.office.OfficeSuppliesInfoDto;
+import cn.net.yzl.staff.dto.office.OfficeTypeDto;
 import cn.net.yzl.staff.pojo.office.OfficeSuppliesInfoInsertPo;
 import cn.net.yzl.staff.pojo.office.OfficeSuppliesInfoUpdatePo;
 import cn.net.yzl.staff.pojo.office.OfficeSuppliesTypePo;
@@ -30,13 +31,13 @@ public class OfficeSuppliesInfoServiceImpl implements OfficeSuppliesInfoService 
     @Override
     public ComResponse<Integer> insert(OfficeSuppliesInfoInsertPo insertPo,String staffNo) {
         insertPo.setCreator(staffNo);
-        return officeSuppliesInfoFeginService.insert(insertPo,staffNo);
+        return officeSuppliesInfoFeginService.insert(insertPo);
     }
 
     @Override
     public ComResponse<Integer> update(OfficeSuppliesInfoUpdatePo updatePo,String staffNo) {
         updatePo.setUpdator(staffNo);
-        return officeSuppliesInfoFeginService.update(updatePo,staffNo);
+        return officeSuppliesInfoFeginService.update(updatePo);
     }
 
     @Override
@@ -49,6 +50,11 @@ public class OfficeSuppliesInfoServiceImpl implements OfficeSuppliesInfoService 
             }
         }
         return officeSuppliesInfoFeginService.saveUpDateOffice(officeSuppliesTypePos);
+    }
+
+    @Override
+    public ComResponse<List<OfficeTypeDto>> selectList() {
+        return officeSuppliesInfoFeginService.selectList();
     }
 
 

@@ -26,7 +26,9 @@ import springfox.documentation.annotations.ApiIgnore;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.text.ParseException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/staff")
@@ -69,7 +71,17 @@ public class StaffController {
         return staffService.getByParams(params);
 
     }
+    @ApiOperation(value = "根据身份证id获取用户基本信息", notes = "根据身份证id获取用户基本信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "idCardNo", value = "身份证号", required = true, dataType = "String", paramType = "query")
+    })
+    @RequestMapping(value = "/getByIdCardNo", method = RequestMethod.GET)
+    public ComResponse<StaffBaseDto> getByIdCardNo(@NotBlank String idCardNo) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("idCardNo",idCardNo);
+        return staffFeginService.getOneByMap(map);
 
+    }
     @ApiOperation(value = "模糊查询员工列表", notes = "模糊查询员工列表")
     @RequestMapping(value = "/getListByParams", method = RequestMethod.POST)
     ComResponse<Page<StaffListDto>> getListByParams(@RequestBody @Validated StaffParamsVO staffParamsVO) {

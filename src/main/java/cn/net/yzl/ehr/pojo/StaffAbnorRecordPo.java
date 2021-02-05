@@ -50,6 +50,20 @@ public class StaffAbnorRecordPo {
     @ApiModelProperty("调整后部门名")
     private String adjustDepartNameLater;
 
+    @ApiModelProperty("调整前上级部门")
+    @Min(1)
+    private Integer adjustParentDepartFront;
+
+    @ApiModelProperty("调整前上级部门名")
+    private String adjustParentDepartNameFront;
+
+    @ApiModelProperty("调整后上级部门")
+    @Min(1)
+    private Integer adjustParentDepartLater;
+
+    @ApiModelProperty("调整后上级部门名")
+    private String adjustParentDepartNameLater;
+
     @ApiModelProperty("调整前岗位")
     @NotNull
     @Min(0)
@@ -64,6 +78,28 @@ public class StaffAbnorRecordPo {
 
     @ApiModelProperty("调整后岗位名")
     private String adjustPostNameLater;
+
+    @ApiModelProperty("调整前岗位等级")
+    @Min(0)
+    private Integer adjustPostLevelFront;
+
+    @ApiModelProperty("调整前岗位等级名")
+    private String adjustPostLevelFrontName;
+
+    @ApiModelProperty("调整后岗位等级")
+    @Min(0)
+    private Integer adjustPostLevelLater;
+
+    @ApiModelProperty("调整后岗位等级名")
+    private String adjustPostLevelLaterName;
+
+    @ApiModelProperty("调整前部门岗位编号")
+    @Min(0)
+    private Integer adjustDepartPostFront;
+
+    @ApiModelProperty("调整后部门岗位编号")
+    @Min(0)
+    private Integer adjustDepartPostLater;
 
     @ApiModelProperty("调整前薪资")
     @NotNull

@@ -43,6 +43,16 @@ public class SysDictController {
                     "合作方:partner," +
                     "假勤类型:false_name," +
                     "社保类型:social" +
+                    "工资计算时间:salary_sign"+
+                    "异动类型:abnormal_type"+
+                    "面试入库原因:resume_depart"+
+                    "面试初试意向:intention"+
+                    "面试类型:interview_type"+
+                    "通知类型:notice"+
+                    "面试结果:interview_result"+
+                    "入岗状态:post_status"+
+                    "培训完成度:training_completion"+
+                    "选班班次:class"+
                     "", required = true, paramType = "query")
     })
     @RequestMapping(value = "/getByType", method = RequestMethod.GET)
