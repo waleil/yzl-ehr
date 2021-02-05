@@ -101,7 +101,7 @@ public class StaffController {
     }
 
     @ApiOperation(value = "重置员工密码", notes = "重置员工密码")
-    @RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
+    @RequestMapping(value = "/resetPassword", method = RequestMethod.GET)
     ComResponse<String> resetPassword(@RequestParam @ApiParam(name = "userNo", value = "员工工号") String userNo, @ApiIgnore @CurrentStaffNo String staffNo){
         return staffService.resetPassword(userNo,staffNo);
     }
@@ -119,7 +119,7 @@ public class StaffController {
     }
 
     @ApiOperation(value = "员工信息-员工异动需要的信息", notes = "员工信息-员工异动需要的信息")
-    @RequestMapping(value = "/getInfoByNoForAbnor", method = RequestMethod.POST)
+    @RequestMapping(value = "/getInfoByNoForAbnor", method = RequestMethod.GET)
     public ComResponse<StaffInfoDto> getInfoByNoForAbnor(String staffNo){
         return staffService.getInfoByNoForAbnor(staffNo);
     }

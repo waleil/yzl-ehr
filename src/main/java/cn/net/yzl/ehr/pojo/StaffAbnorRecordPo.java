@@ -32,16 +32,13 @@ public class StaffAbnorRecordPo {
     private Integer type;
 
     @ApiModelProperty("异动内容")
-    @NotBlank
     private String content;
 
     @ApiModelProperty("调整前部门")
-    @NotNull
     @Min(1)
     private Integer adjustDepartFront;
 
     @ApiModelProperty("调整前部门名")
-    @NotBlank
     private String adjustDepartNameFront;
 
     @ApiModelProperty("调整后部门")
@@ -65,15 +62,14 @@ public class StaffAbnorRecordPo {
     private String adjustParentDepartNameLater;
 
     @ApiModelProperty("调整前岗位")
-    @NotNull
     @Min(0)
     private Integer adjustPostFront;
 
     @ApiModelProperty("调整前岗位名")
-    @NotBlank
     private String adjustPostNameFront;
 
     @ApiModelProperty("调整后岗位")
+    @Min(0)
     private Integer adjustPostLater;
 
     @ApiModelProperty("调整后岗位名")
