@@ -30,13 +30,13 @@ public class OfficeSuppliesInfoServiceImpl implements OfficeSuppliesInfoService 
     @Override
     public ComResponse<Integer> insert(OfficeSuppliesInfoInsertPo insertPo,String staffNo) {
         insertPo.setCreator(staffNo);
-        return officeSuppliesInfoFeginService.insert(insertPo,staffNo);
+        return officeSuppliesInfoFeginService.insert(insertPo);
     }
 
     @Override
     public ComResponse<Integer> update(OfficeSuppliesInfoUpdatePo updatePo,String staffNo) {
         updatePo.setUpdator(staffNo);
-        return officeSuppliesInfoFeginService.update(updatePo,staffNo);
+        return officeSuppliesInfoFeginService.update(updatePo);
     }
 
     @Override

@@ -20,8 +20,8 @@ import java.text.ParseException;
 import java.util.List;
 
 @Repository
-@FeignClient(name = "yzl-staff-db")
-//@FeignClient(value = "staff",url = "${fegin.db.url}")
+//@FeignClient(name = "yzl-staff-db")
+@FeignClient(value = "staff",url = "${fegin.db.url}")
 public interface StaffAbnorFeginService {
 
     @RequestMapping(value = "/abnor/updateStaffChangeStatus", method = RequestMethod.POST)
