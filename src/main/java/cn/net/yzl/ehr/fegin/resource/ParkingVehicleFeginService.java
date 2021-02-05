@@ -46,5 +46,5 @@ public interface ParkingVehicleFeginService {
     @ApiOperation(value = "入司车辆管理-插队",notes = "入司车辆管理-插队",consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/parking/updateApply", method = RequestMethod.POST)
     ComResponse<Integer> updateApply(@RequestParam("id") Integer id,@RequestParam("updator") String updator);
-    
+
 }
