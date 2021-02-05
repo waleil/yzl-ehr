@@ -4,6 +4,7 @@ import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.common.enums.ResponseCodeEnums;
 import cn.net.yzl.ehr.dto.StaffWorkListDto;
+import cn.net.yzl.ehr.fegin.resource.ParkingVehicleFeginService;
 import cn.net.yzl.ehr.fegin.staff.StaffWorkFeginService;
 import cn.net.yzl.ehr.pojo.StaffWorkInsertListPo;
 import cn.net.yzl.ehr.pojo.StaffWorkItemPo;
@@ -12,9 +13,11 @@ import cn.net.yzl.ehr.pojo.StaffWorkUpdatePo;
 import cn.net.yzl.ehr.service.StaffWorkService;
 import cn.net.yzl.ehr.service.resource.ParkingVehicleService;
 import cn.net.yzl.staff.dto.parking.ParkingApplyDto;
+import cn.net.yzl.staff.dto.parking.ParkingConfigCountDto;
 import cn.net.yzl.staff.dto.parking.ParkingRecoverDto;
 import cn.net.yzl.staff.dto.parking.ParkingVehicleDto;
 import cn.net.yzl.staff.pojo.parking.ParkingRecoverInsertPo;
+import cn.net.yzl.staff.pojo.parking.ParkingSetPo;
 import cn.net.yzl.staff.pojo.parking.ParkingVehicleListPo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +25,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class ParkingVehicleServiceImpl implements ParkingVehicleService {
 
+    @Autowired
+    private ParkingVehicleFeginService parkingVehicleFeginService;
 
     @Override
     public ComResponse<Page<ParkingVehicleDto>> selectList(ParkingVehicleListPo parkingVehicleListPo) {
@@ -46,5 +51,15 @@ public class ParkingVehicleServiceImpl implements ParkingVehicleService {
     @Override
     public ComResponse<Integer> updateApply(Integer id, Integer sortNo) {
         return null;
+    }
+
+    @Override
+    public ComResponse<Integer> insertParkingSet(ParkingSetPo parkingSetPo) {
+        return parkingVehicleFeginService.insertParkingSet(parkingSetPo);
+    }
+
+    @Override
+    public ComResponse<ParkingConfigCountDto> selectStatisticalList() {
+        return parkingVehicleFeginService.selectStatisticalList();
     }
 }

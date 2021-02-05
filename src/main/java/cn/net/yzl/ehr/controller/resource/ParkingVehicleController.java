@@ -11,6 +11,7 @@ import cn.net.yzl.staff.dto.parking.ParkingVehicleDto;
 import cn.net.yzl.staff.pojo.deduct.DeductItemInsertPo;
 import cn.net.yzl.staff.pojo.deduct.DeductItemUpdatePo;
 import cn.net.yzl.staff.pojo.parking.ParkingRecoverInsertPo;
+import cn.net.yzl.staff.pojo.parking.ParkingSetPo;
 import cn.net.yzl.staff.pojo.parking.ParkingVehicleListPo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -56,6 +57,19 @@ public class ParkingVehicleController {
     @RequestMapping(value = "/updateApply", method = RequestMethod.POST)
     ComResponse<Integer> updateApply(@RequestParam("id") Integer id, @RequestParam("sortNo") Integer sortNo) {
         return parkingVehicleService.updateApply(id,sortNo);
+    }
+
+    @ApiOperation(value = "入司车辆管理-车位设置",notes = "入司车辆管理-车位设置",consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/insertParkingSet", method = RequestMethod.POST)
+    ComResponse<Integer> insertParkingSet(@RequestBody ParkingSetPo parkingSetPo) {
+        return parkingVehicleService.insertParkingSet(parkingSetPo);
+    }
+
+
+    @ApiOperation(value = "入司车辆管理-统计车位",notes = "入司车辆管理-统计车位",consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/selectStatisticalList", method = RequestMethod.POST)
+    ComResponse  selectStatisticalList() {
+        return parkingVehicleService.selectStatisticalList();
     }
 
 }

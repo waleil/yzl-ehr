@@ -6,6 +6,7 @@ import cn.net.yzl.staff.dto.parking.ParkingApplyDto;
 import cn.net.yzl.staff.dto.parking.ParkingRecoverDto;
 import cn.net.yzl.staff.dto.parking.ParkingVehicleDto;
 import cn.net.yzl.staff.pojo.parking.ParkingRecoverInsertPo;
+import cn.net.yzl.staff.pojo.parking.ParkingSetPo;
 import cn.net.yzl.staff.pojo.parking.ParkingVehicleListPo;
 
 public interface ParkingVehicleService {
@@ -25,4 +26,8 @@ public interface ParkingVehicleService {
 
    //插队
    ComResponse<Integer> updateApply(Integer id, Integer sortNo);
+   //车位设置
+    ComResponse<Integer> insertParkingSet(ParkingSetPo parkingSetPo);
+   //查询车位
+   ComResponse selectStatisticalList();
 }
