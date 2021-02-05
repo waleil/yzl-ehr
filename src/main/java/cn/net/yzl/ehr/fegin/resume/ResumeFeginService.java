@@ -61,4 +61,7 @@ public interface ResumeFeginService{
     ComResponse<String> sendToDepart(@RequestParam("resumeId") Integer resumeId,@RequestParam("staffNo") String staffNo);
     @RequestMapping(value = "/resume/getDepartResumeNodeStaffList", method = RequestMethod.GET)
     ComResponse<List<DepartResumeNodeStaffDto>> getDepartResumeNodeStaffList(@RequestParam("nextResumeNodeId") Integer nextResumeNodeId);
+
+    @RequestMapping(value = "/resume/interviewNoPass", method = RequestMethod.GET)
+    ComResponse<String> interviewNoPass(@RequestParam("resumeId") Integer resumeId);
 }

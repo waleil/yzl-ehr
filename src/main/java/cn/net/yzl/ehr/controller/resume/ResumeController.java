@@ -144,6 +144,16 @@ public class ResumeController {
         return resumeFeginService.noPass(resumeId);
     }
 
+
+    @ApiOperation(value = "简历列表-面试中-未通过", notes = "简历列表-面试中-未通过", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/interviewNoPass", method = RequestMethod.GET)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "resumeId", value = "简历id", required = true, dataType = "Int", paramType = "query")
+    })
+    ComResponse<String> interviewNoPass( Integer resumeId) {
+        return resumeFeginService.interviewNoPass(resumeId);
+    }
+
     @ApiOperation(value = "简历列表-待筛选-批量未通过", notes = "简历列表-待筛选-批量未通过", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/noBatchPass", method = RequestMethod.POST)
     ComResponse<String> noBatchPass( @RequestBody @NotEmpty List<Integer> resumeIds) {
