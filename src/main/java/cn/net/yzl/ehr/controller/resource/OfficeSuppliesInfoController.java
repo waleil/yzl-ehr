@@ -51,7 +51,7 @@ public class OfficeSuppliesInfoController {
 
     @ApiOperation(value = "删除办公物品信息", notes = "删除办公物品信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/deleteById", method = RequestMethod.POST)
-    ComResponse<Integer> deleteById (@RequestParam("id")Integer id, @RequestParam("itemRemaining")Integer itemRemaining , @RequestParam("updator") String updator) {
+    ComResponse<Integer> deleteById (@RequestParam("id")Integer id, @RequestParam("itemRemaining")Integer itemRemaining ,@ApiIgnore @CurrentStaffNo String updator) {
         return officeSuppliesInfoService.deleteById(id, itemRemaining, updator);
     }
 
