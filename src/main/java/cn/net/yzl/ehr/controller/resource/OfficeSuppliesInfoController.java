@@ -7,6 +7,7 @@ import cn.net.yzl.ehr.service.resource.OfficeSuppliesInfoService;
 import cn.net.yzl.ehr.service.resource.OfficeSuppliesRecordService;
 import cn.net.yzl.staff.dto.office.OfficeSuppliesInfoDto;
 import cn.net.yzl.staff.dto.office.OfficeSuppliesRecordDto;
+import cn.net.yzl.staff.dto.office.OfficeTypeDto;
 import cn.net.yzl.staff.pojo.office.OfficeSuppliesInfoInsertPo;
 import cn.net.yzl.staff.pojo.office.OfficeSuppliesInfoScreenPo;
 import cn.net.yzl.staff.pojo.office.OfficeSuppliesInfoUpdatePo;
@@ -66,4 +67,11 @@ public class OfficeSuppliesInfoController {
     ComResponse<Integer> saveUpDateOffice(@RequestBody List<OfficeSuppliesTypePo> officeSuppliesTypePos,@ApiIgnore @CurrentStaffNo String staffNo) {
         return officeSuppliesInfoService.saveUpDateOffice(officeSuppliesTypePos,staffNo);
     }
+
+    @ApiOperation(value = "查询办公物品类型信息", notes = "查询办公物品类型信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/selectList", method = RequestMethod.GET)
+    ComResponse<List<OfficeTypeDto>> selectList() {
+        return officeSuppliesInfoService.selectList();
+    }
+
 }
