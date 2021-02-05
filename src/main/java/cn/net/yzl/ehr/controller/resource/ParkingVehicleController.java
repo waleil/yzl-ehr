@@ -61,17 +61,5 @@ public class ParkingVehicleController {
         return parkingVehicleService.updateApply(id,updator);
     }
 
-    @ApiOperation(value = "入司车辆管理-车位设置",notes = "入司车辆管理-车位设置",consumes = MediaType.APPLICATION_JSON_VALUE)
-    @RequestMapping(value = "/insertParkingSet", method = RequestMethod.POST)
-    ComResponse<Integer> insertParkingSet(@RequestBody ParkingSetPo parkingSetPo) {
-        return parkingVehicleService.insertParkingSet(parkingSetPo);
-    }
-
-
-    @ApiOperation(value = "入司车辆管理-统计车位",notes = "入司车辆管理-统计车位",consumes = MediaType.APPLICATION_JSON_VALUE)
-    @RequestMapping(value = "/selectStatisticalList", method = RequestMethod.POST)
-    ComResponse  selectStatisticalList() {
-        return parkingVehicleService.selectStatisticalList();
-    }
 
 }

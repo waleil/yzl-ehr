@@ -52,13 +52,5 @@ public class ParkingVehicleServiceImpl implements ParkingVehicleService {
         return parkingVehicleFeginService.updateApply(id,updator);
     }
 
-    @Override
-    public ComResponse<Integer> insertParkingSet(ParkingSetPo parkingSetPo) {
-        return parkingVehicleFeginService.insertParkingSet(parkingSetPo);
-    }
 
-    @Override
-    public ComResponse<ParkingConfigCountDto> selectStatisticalList() {
-        return parkingVehicleFeginService.selectStatisticalList();
-    }
 }
