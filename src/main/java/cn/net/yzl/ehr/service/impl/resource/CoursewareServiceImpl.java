@@ -10,6 +10,7 @@ import cn.net.yzl.staff.pojo.CourseWarePo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -17,12 +18,16 @@ public class CoursewareServiceImpl implements CoursewareService {
     @Autowired
     private CourseWareFeginService courseWareFeginService;
     @Override
-    public ComResponse<Integer> insertCourseWare(CourseWarePo courseWarePo) {
+    public ComResponse<Integer> insertCourseWare(CourseWarePo courseWarePo,String creator) {
+        courseWarePo.setCreator(creator);
+        courseWarePo.setCreateTime(new Date());
         return courseWareFeginService.insertCourseWare(courseWarePo);
     }
 
     @Override
-    public ComResponse<Integer> updateCourseWare(CourseWarePo courseWarePo) {
+    public ComResponse<Integer> updateCourseWare(CourseWarePo courseWarePo,String updator) {
+        courseWarePo.setUpdator(updator);
+        courseWarePo.setUpdateTime(new Date());
         return courseWareFeginService.updateCourseWare(courseWarePo);
     }
 
