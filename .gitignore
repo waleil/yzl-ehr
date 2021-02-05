@@ -65,3 +65,4 @@ build/
 /src/main/resources/bootstrap.yml
 /src/main/resources/*.yml
 /src/main/resources/*.yml
+/src/main/resources/*.yml
