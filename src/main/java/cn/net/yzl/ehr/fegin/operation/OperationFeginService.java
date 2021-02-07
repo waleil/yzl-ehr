@@ -22,14 +22,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Repository
 public interface OperationFeginService {
     @ApiOperation(value = "分页查询操作日志", notes = "分页查询操作日志")
-    @PostMapping("/selectOperationPageList")
+    @PostMapping("operation/selectOperationPageList")
     public ComResponse<Page<OperationDto>> selectOperationPageList(@RequestBody OperationPageVo operationPageVo);
 
     @ApiOperation(value = "分页查询操作日志详情", notes = "分页查询操作日志详情")
-    @PostMapping("/selectOperationItemPageList")
+    @PostMapping("operation/selectOperationItemPageList")
     public ComResponse<Page<OperationDto>> selectOperationItemPageList(@RequestBody OperationPageVo operationPageVo);
 
     @ApiOperation(value = "外部新增接口", notes = "外部新增接口")
-    @PostMapping("/insertOperation")
+    @PostMapping("operation/insertOperation")
     public ComResponse insertOperation(@RequestBody OperationVo operationVo);
 }
