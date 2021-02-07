@@ -53,7 +53,7 @@ public interface OfficeSuppliesInfoFeginService {
     ComResponse<Page<OfficeSuppliesRecordDto>> queryPage(@RequestBody OfficeSuppliesInfoScreenPo screenPo, @RequestParam("pageSize") Integer pageSize, @RequestParam("pageNum") Integer pageNum);
 
     @ApiOperation(value = "办公物品类型管理-新增/编辑办公用品类型", notes = "办公物品类型管理-新增/编辑办公用品类型", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @RequestMapping(value = "/office/insert", method = RequestMethod.POST)
+    @RequestMapping(value = "/office/saveUpDateOffice", method = RequestMethod.POST)
     ComResponse<Integer> saveUpDateOffice(@RequestBody @Validated List<OfficeSuppliesTypePo> officeSuppliesTypePos);
 
     @ApiOperation(value = "查询办公物品信息", notes = "查询办公物品信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
