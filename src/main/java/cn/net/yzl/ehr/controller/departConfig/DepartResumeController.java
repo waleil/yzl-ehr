@@ -2,13 +2,17 @@ package cn.net.yzl.ehr.controller.departConfig;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
+import cn.net.yzl.common.util.SnowFlakeUtil;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.dto.DepartResumeDto;
 import cn.net.yzl.ehr.dto.DepartResumeItemDto;
+import cn.net.yzl.ehr.dto.DepartResumeNodeDto;
+import cn.net.yzl.ehr.fegin.departResume.DepartResumeFeignService;
 import cn.net.yzl.ehr.pojo.DepartResumeInsertListPo;
 import cn.net.yzl.ehr.pojo.DepartResumeUpdateListPo;
 import cn.net.yzl.ehr.service.DepartResumeService;
 
+import cn.net.yzl.logger.utils.SnowFlake;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +24,7 @@ import springfox.documentation.annotations.ApiIgnore;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @RestController
 @RequestMapping("/conf/resume")
@@ -29,6 +34,8 @@ public class DepartResumeController {
 
     @Autowired
     private DepartResumeService departResumeService;
+    @Autowired
+    private DepartResumeFeignService departResumeFeignService;
 
     @ApiOperation(value = "面试流程-创建面试流程配置", notes = "面试流程-创建面试流程配置", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/add", method = RequestMethod.POST)
@@ -51,11 +58,11 @@ public class DepartResumeController {
         return departResumeService.getByDepartId(departId,pageNo,pageSize);
     }
 
-/*    @ApiOperation(value = "面试流程-获取岗位的面试流程信息", notes = "面试流程-获取岗位的面试流程信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @RequestMapping(value = "/getByPostId", method = RequestMethod.GET)
-    ComResponse<DepartResumeDto> getByPostId(@RequestParam("departId") @NotNull @Min(1)  Integer departId, @RequestParam("postId") @NotNull @Min(1) Integer postId) {
-        return departResumeService.getByPostId(departId,postId);
-    }*/
+ @ApiOperation(value = "面试流程-根据部门岗位id获取面试流程节点", notes = "面试流程-获取岗位的面试流程信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/getByDepartPostId", method = RequestMethod.GET)
+    ComResponse<List<DepartResumeNodeDto>> getByDepartPostId(@RequestParam("departPostId") @NotNull @Min(1)  Integer departPostId) {
+        return departResumeFeignService.getByDepartPostId(departPostId);
+    }
 
     @ApiOperation(value = "面试流程-用配置ip获取流程信息", notes = "面试流程-用配置ip获取流程信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/getByResumeId", method = RequestMethod.GET)
