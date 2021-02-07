@@ -39,8 +39,8 @@ public class ParkingVehicleController {
 
     @ApiOperation(value = "入司车辆管理-回收车位",notes = "入司车辆管理-回收车位",consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/insertRecover", method = RequestMethod.POST)
-    ComResponse<Integer> insertRecover(@RequestBody ParkingRecoverInsertPo parkingRecoverInsertPo) {
-        return parkingVehicleService.insertRecover(parkingRecoverInsertPo);
+    ComResponse<Integer> insertRecover(@RequestBody ParkingRecoverInsertPo parkingRecoverInsertPo,@ApiIgnore @CurrentStaffNo String staffNo) {
+        return parkingVehicleService.insertRecover(parkingRecoverInsertPo,staffNo);
     }
 
     @ApiOperation(value = "入司车辆管理-已清退列表查询",notes = "入司车辆管理-已清退列表查询",consumes = MediaType.APPLICATION_JSON_VALUE)

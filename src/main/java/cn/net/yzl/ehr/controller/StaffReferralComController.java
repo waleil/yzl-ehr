@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/staff/staffwork")
+@RequestMapping("/staffreferral")
 @Api(value = "转介绍提成设置", tags = {"转介绍提成设置"})
 public class StaffReferralComController {
     @Autowired

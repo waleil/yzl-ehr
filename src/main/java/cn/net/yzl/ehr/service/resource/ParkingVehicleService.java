@@ -17,7 +17,7 @@ public interface ParkingVehicleService {
 
 
    //回收车位
-   ComResponse<Integer> insertRecover(ParkingRecoverInsertPo parkingRecoverInsertPo);
+   ComResponse<Integer> insertRecover(ParkingRecoverInsertPo parkingRecoverInsertPo,String staffNo);
 
    //已清退列表查询
    ComResponse<Page<ParkingRecoverDto>> selectRecoverList(Integer pageNum, Integer pageSize);

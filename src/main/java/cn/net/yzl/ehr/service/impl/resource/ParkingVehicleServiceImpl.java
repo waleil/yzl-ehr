@@ -22,6 +22,8 @@ import cn.net.yzl.staff.pojo.parking.ParkingVehicleListPo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class ParkingVehicleServiceImpl implements ParkingVehicleService {
 
@@ -33,7 +35,9 @@ public class ParkingVehicleServiceImpl implements ParkingVehicleService {
     }
 
     @Override
-    public ComResponse<Integer> insertRecover(ParkingRecoverInsertPo parkingRecoverInsertPo) {
+    public ComResponse<Integer> insertRecover(ParkingRecoverInsertPo parkingRecoverInsertPo,String staffNo) {
+        parkingRecoverInsertPo.setUpdator(staffNo);
+        parkingRecoverInsertPo.setUpdateTime(new Date());
         return parkingVehicleFeginService.insertRecover(parkingRecoverInsertPo);
     }
 
