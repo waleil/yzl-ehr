@@ -58,8 +58,8 @@ public class OfficeSuppliesInfoController {
 
     @ApiOperation(value ="办公物品领取记录分页" ,notes ="办公物品领取记录分页",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/queryPage",method = RequestMethod.POST)
-    ComResponse<Page<OfficeSuppliesRecordDto>> queryPage(@RequestBody OfficeSuppliesInfoScreenPo screenPo, @RequestParam("pageSize") Integer pageSize, @RequestParam("pageNum") Integer pageNum,@RequestParam("itemName")String itemName){
-        return officeSuppliesRecordService.queryPage(screenPo,pageNum,pageSize,itemName);
+    ComResponse<Page<OfficeSuppliesRecordDto>> queryPage(@RequestBody OfficeSuppliesInfoScreenPo screenPo, @RequestParam("pageSize") Integer pageSize, @RequestParam("pageNum") Integer pageNum,@RequestParam("itemId")Integer itemId){
+        return officeSuppliesRecordService.queryPage(screenPo,pageNum,pageSize,itemId);
     }
 
     @ApiOperation(value = "新增/编辑办公用品类型", notes = "新增/编辑办公用品类型", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
