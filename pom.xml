@@ -37,6 +37,14 @@
             <artifactId>yzl-logger</artifactId>
             <version>1.0-RELEASE</version>
         </dependency>
+
+        <!--菜单角色权限服务common依赖-->
+        <dependency>
+            <groupId>cn.net.yzl</groupId>
+            <artifactId>yzl-common-pm</artifactId>
+            <version>1.1-RELEASE</version>
+        </dependency>
+
         <!--taobao sdk-->
         <dependency>
             <groupId>cn.net.yzl</groupId>
