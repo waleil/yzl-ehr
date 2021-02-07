@@ -25,6 +25,7 @@ public interface OperationFeginService {
     @PostMapping("/selectOperationPageList")
     public ComResponse<Page<OperationDto>> selectOperationPageList(@RequestBody OperationPageVo operationPageVo);
 
+
     @ApiOperation(value = "分页查询操作日志详情", notes = "分页查询操作日志详情")
     @PostMapping("/selectOperationItemPageList")
     public ComResponse<Page<OperationDto>> selectOperationItemPageList(@RequestBody OperationPageVo operationPageVo);
