@@ -27,14 +27,14 @@ public class CoursewareController {
 
     @ApiOperation(value = "新增课件", notes = "新增课件", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/insertcourse", method = RequestMethod.POST)
-    ComResponse<Integer> insertCourseWare(@RequestBody CourseWarePo courseWarePo) {
-        return courseWareService.insertCourseWare(courseWarePo);
+    ComResponse<Integer> insertCourseWare(@RequestBody CourseWarePo courseWarePo,@ApiIgnore @CurrentStaffNo String creator) {
+        return courseWareService.insertCourseWare(courseWarePo,creator);
     }
 
     @ApiOperation(value = "编辑课件", notes = "编辑课件", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/updatecourse", method = RequestMethod.POST)
-    ComResponse<Integer> updateCourseWare(@RequestBody CourseWarePo courseWarePo) {
-        return courseWareService.updateCourseWare(courseWarePo);
+    ComResponse<Integer> updateCourseWare(@RequestBody CourseWarePo courseWarePo,@ApiIgnore @CurrentStaffNo String updator) {
+        return courseWareService.updateCourseWare(courseWarePo,updator);
     }
 
     @ApiOperation(value = "查看课件详情", notes = "查看课件详情")

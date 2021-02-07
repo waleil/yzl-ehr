@@ -1,4 +1,3 @@
-
 spring:
   cloud:
     nacos:
@@ -27,5 +26,4 @@ spring:
         namespace: 1668ab9a-def9-4a51-9c04-6bbbdf40b162
         username: ehr
         password: ehr
-
 

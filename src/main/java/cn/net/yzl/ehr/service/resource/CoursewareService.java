@@ -18,9 +18,9 @@ import java.util.Map;
 public interface CoursewareService {
 
     //添加课程
-    ComResponse<Integer>  insertCourseWare(CourseWarePo courseWarePo);
+    ComResponse<Integer>  insertCourseWare(CourseWarePo courseWarePo,String creator);
     //更新课程
-    ComResponse<Integer> updateCourseWare(CourseWarePo courseWarePo);
+    ComResponse<Integer> updateCourseWare(CourseWarePo courseWarePo,String updator);
     //根据id查询编号
     ComResponse<CourseWarePo> selectCourseWareByPrimaryKey(Integer id);
     //查询课件
