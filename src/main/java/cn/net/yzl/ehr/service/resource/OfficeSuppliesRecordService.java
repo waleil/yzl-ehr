@@ -8,5 +8,5 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 public interface OfficeSuppliesRecordService {
-    ComResponse<Page<OfficeSuppliesRecordDto>> queryPage(OfficeSuppliesInfoScreenPo screenPo, Integer pageSize, Integer pageNum,Integer itemId);
+    ComResponse<Page<OfficeSuppliesRecordDto>> queryPage(OfficeSuppliesInfoScreenPo screenPo, Integer pageNum, Integer pageSize,Integer itemId);
 }

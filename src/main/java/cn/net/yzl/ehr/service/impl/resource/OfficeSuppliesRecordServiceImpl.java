@@ -17,7 +17,7 @@ public class OfficeSuppliesRecordServiceImpl implements OfficeSuppliesRecordServ
     private OfficeSuppliesInfoFeginService officeSuppliesInfoFeginService;
 
     @Override
-    public ComResponse<Page<OfficeSuppliesRecordDto>> queryPage(OfficeSuppliesInfoScreenPo screenPo, Integer pageSize, Integer pageNum,Integer itemId) {
+    public ComResponse<Page<OfficeSuppliesRecordDto>> queryPage(OfficeSuppliesInfoScreenPo screenPo, Integer pageNum, Integer pageSize,Integer itemId) {
          return officeSuppliesInfoFeginService.queryPage(screenPo,pageNum,pageSize,itemId);
     }
 }
