@@ -56,7 +56,7 @@ public interface OfficeSuppliesInfoFeginService {
     @RequestMapping(value = "/office/saveUpDateOffice", method = RequestMethod.POST)
     ComResponse<Integer> saveUpDateOffice(@RequestBody @Validated List<OfficeSuppliesTypePo> officeSuppliesTypePos);
 
-    @ApiOperation(value = "查询办公物品信息", notes = "查询办公物品信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "查询办公物品类型信息", notes = "查询办公物品类型信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/office/selectList", method = RequestMethod.GET)
     ComResponse<List<OfficeTypeDto>> selectList();
 }

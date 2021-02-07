@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author yangxiaopeng
  */
 @RestController
-@RequestMapping("/operation")
+@RequestMapping("/operator")
 @Api(value = "操作日志", tags = {"操作日志"})
 public class OperationController  {
     @Autowired
