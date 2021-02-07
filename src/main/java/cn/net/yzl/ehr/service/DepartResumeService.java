@@ -17,7 +17,7 @@ public interface DepartResumeService {
     ComResponse<Page<DepartResumeItemDto>> getByDepartId(Integer departId, Integer pageNo,
                                                          Integer pageSize);
 
-    ComResponse<DepartResumeDto> getByPostId( Integer departId,  Integer postId) ;
+//    ComResponse<DepartResumeDto> getByPostId( Integer departId,  Integer postId) ;
 
     ComResponse<DepartResumeDto> getByResumeId(Integer resumeId) ;
 
