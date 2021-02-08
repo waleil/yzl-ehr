@@ -24,21 +24,19 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Configuration
 @AutoConfigureAfter(DataSourceConfiguration.class)
-@MapperScan(basePackages="cn.net.yzl.ehr.mapper")
+@MapperScan(basePackages={"cn.net.yzl.ehr.mapper","cn.net.yzl.pm.mapper"})
 public class MybatisConfiguration {
 
 	private static Logger log = LoggerFactory.getLogger(MybatisConfiguration.class);
 
 	//XxxMapper.xml文件所在路径
 	  @Value("${mysql.datasource.mapperLocations}")
-      private String mapperLocations;
+      private String[] mapperLocations;
 
      //  加载全局的配置文件
       @Value("${mysql.datasource.configLocation}")
@@ -63,11 +61,16 @@ public class MybatisConfiguration {
             
             // 读取配置 
             sessionFactoryBean.setTypeAliasesPackage("cn.net.yzl.ehr.pojo");
-            
-            //设置mapper.xml文件所在位置 
-            Resource[] resources = new PathMatchingResourcePatternResolver().getResources(mapperLocations);
-            sessionFactoryBean.setMapperLocations(resources);
-         //设置mybatis-config.xml配置文件位置
+            List<Resource> resList = new ArrayList<>();
+            //设置mapper.xml文件所在位置
+            for (String mapperLocation : mapperLocations) {
+                Resource[] resources = new PathMatchingResourcePatternResolver().getResources(mapperLocation);
+                List<Resource> list = Arrays.asList(resources);
+                resList.addAll(list);
+
+            }
+            sessionFactoryBean.setMapperLocations(resList.stream().toArray(Resource[]::new));
+            //设置mybatis-config.xml配置文件位置
             sessionFactoryBean.setConfigLocation(new DefaultResourceLoader().getResource(configLocation));
 
             //添加分页插件、打印sql插件
