@@ -4,6 +4,7 @@ import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.common.enums.ResponseCodeEnums;
 import cn.net.yzl.ehr.fegin.recruit.RecruitSourceFeginService;
+import cn.net.yzl.ehr.util.FastDFSClientWrapper;
 import cn.net.yzl.staff.dto.recruit.RecruitSourceDto;
 import cn.net.yzl.staff.pojo.recruit.RecruitSourceInsertPo;
 import cn.net.yzl.staff.pojo.recruit.RecruitSourceListPo;
@@ -58,6 +59,7 @@ public class RecruitSourceServiceImpl implements RecruitSourceService {
     public ComResponse<Integer> addRecruit(RecruitSourceInsertPo insertPo) {
         ComResponse<Integer> result = sourceFeginService.addRecruit(insertPo);
         if (result==null){
+
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
         }else if (result.getCode()==200 && result.getData()<1){
             return ComResponse.fail(ResponseCodeEnums.SAVE_DATA_ERROR_CODE.getCode(),ResponseCodeEnums.SAVE_DATA_ERROR_CODE.getMessage());

@@ -37,7 +37,6 @@ public class ParkingVehicleServiceImpl implements ParkingVehicleService {
     @Override
     public ComResponse<Integer> insertRecover(ParkingRecoverInsertPo parkingRecoverInsertPo,String staffNo) {
         parkingRecoverInsertPo.setUpdator(staffNo);
-        parkingRecoverInsertPo.setUpdateTime(new Date());
         return parkingVehicleFeginService.insertRecover(parkingRecoverInsertPo);
     }
 
