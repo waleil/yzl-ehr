@@ -42,7 +42,7 @@
         <dependency>
             <groupId>cn.net.yzl</groupId>
             <artifactId>yzl-common-pm</artifactId>
-            <version>1.1-RELEASE</version>
+            <version>1.2-RELEASE</version>
         </dependency>
 
         <!--taobao sdk-->
@@ -159,7 +159,7 @@
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml-schemas</artifactId>
             <version>3.17</version>
-        </dependency>
+         </dependency>
 
     </dependencies>
 

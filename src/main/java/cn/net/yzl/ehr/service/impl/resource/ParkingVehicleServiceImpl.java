@@ -30,8 +30,8 @@ public class ParkingVehicleServiceImpl implements ParkingVehicleService {
     @Autowired
     private ParkingVehicleFeginService parkingVehicleFeginService;
     @Override
-    public ComResponse<Page<ParkingVehicleDto>> selectList(ParkingVehicleListPo parkingVehicleListPo,Integer pageNum,Integer pageSize) {
-        return parkingVehicleFeginService.selectList(parkingVehicleListPo,pageNum,pageSize);
+    public ComResponse<Page<ParkingVehicleDto>> selectList(ParkingVehicleListPo parkingVehicleListPo) {
+        return parkingVehicleFeginService.selectList(parkingVehicleListPo);
     }
 
     @Override
@@ -42,13 +42,13 @@ public class ParkingVehicleServiceImpl implements ParkingVehicleService {
     }
 
     @Override
-    public ComResponse<Page<ParkingRecoverDto>> selectRecoverList(Integer pageNum, Integer pageSize) {
-        return parkingVehicleFeginService.selectRecoverList(pageNum,pageSize);
+    public ComResponse<Page<ParkingRecoverDto>> selectRecoverList(ParkingVehicleListPo parkingVehicleListPo) {
+        return parkingVehicleFeginService.selectRecoverList(parkingVehicleListPo);
     }
 
     @Override
-    public ComResponse<Page<ParkingApplyDto>> selectApplyList(Integer pageNum, Integer pageSize) {
-        return parkingVehicleFeginService.selectApplyList(pageNum,pageSize);
+    public ComResponse<Page<ParkingApplyDto>> selectApplyList(ParkingVehicleListPo parkingVehicleListPo) {
+        return parkingVehicleFeginService.selectApplyList(parkingVehicleListPo);
     }
 
     @Override
