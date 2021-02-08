@@ -22,8 +22,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -179,23 +177,35 @@ public class ResumeController {
     void noBatchPass(@RequestParam("state") Integer state, HttpServletResponse response) {
 
         try {
-            ExcelWriter writer = ExcelUtil.getBigWriter();
+            ExcelWriter writer = ExcelUtil.getWriter();
             writer.renameSheet("简历列表");     //甚至sheet的名称
             // 构建表头信息
-            if(state==8){
+            if(state==7){
                 writer.addHeaderAlias("entryTime","入职时间");
             }
-            writer.addHeaderAlias("staffNo", "员工工号");   //设置head的名称， 此时的顺寻就是导出的顺序，
             writer.addHeaderAlias("name", "姓名");
+            writer.addHeaderAlias("sex","性别");
             writer.addHeaderAlias("phone", "手机号");
-            writer.addHeaderAlias("email", "邮箱");
+            if(state!=7){
+                writer.addHeaderAlias("email", "邮箱");
+                writer.addHeaderAlias("resumeEduDto.degreeName", "学历");
+                writer.addHeaderAlias("resumeEduDto.schoolName", "毕业院校");
+                writer.addHeaderAlias("","就读时间");
+            }else{
+
+            }
+            writer.addHeaderAlias("staffNo", "员工工号");   //设置head的名称， 此时的顺寻就是导出的顺序，
             writer.addHeaderAlias("workCodeStr", "工作地点");
 
             writer.addHeaderAlias("status_name", "状态");
             writer.addHeaderAlias("approvalStatus_name", "审核状态");
+            ResumeParamsVO resumeParamsVO = new ResumeParamsVO();
+            resumeParamsVO.setState(state);
+            ComResponse<Page<ResumeListDto>> listByParams = resumeFeginService.getListByParams(resumeParamsVO);
+            List<ResumeListDto> items = listByParams.getData().getItems();
             List list=null;
 //            List<RecordInfoDetailsDTO> list = query(); //查询出所有的需要导出的数据
-            writer.write(list, true);
+            writer.write(items, true);
             writer.setOnlyAlias(true);
             response.reset();
             response.setContentType("application/vnd.ms-excel;charset=utf-8");

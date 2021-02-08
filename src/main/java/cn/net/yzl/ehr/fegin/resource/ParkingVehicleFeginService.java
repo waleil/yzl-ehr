@@ -25,13 +25,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import springfox.documentation.annotations.ApiIgnore;
 
 @Repository
-@FeignClient(value = "staff",url = "${fegin.db.url}")
 //@FeignClient(name = "yzl-staff-db")
+@FeignClient(value = "staff",url = "${fegin.db.url}")
 public interface ParkingVehicleFeginService {
 
     @ApiOperation(value = "入司车辆管理-车位占用中列表查询",notes = "入司车辆管理-车位占用中列表查询",consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/parking/selectList", method = RequestMethod.POST)
-    ComResponse<Page<ParkingVehicleDto>> selectList(@RequestBody ParkingVehicleListPo parkingVehicleListPo,@RequestParam("pageNum")Integer pageNum,@RequestParam("pageSize")Integer pageSize);
+    ComResponse<Page<ParkingVehicleDto>> selectList(@RequestBody ParkingVehicleListPo parkingVehicleListPo);
 
 
     @ApiOperation(value = "入司车辆管理-回收车位",notes = "入司车辆管理-回收车位",consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -40,12 +40,12 @@ public interface ParkingVehicleFeginService {
 
     @ApiOperation(value = "入司车辆管理-已清退列表查询",notes = "入司车辆管理-已清退列表查询",consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/parking/selectRecoverList", method = RequestMethod.POST)
-    ComResponse<Page<ParkingRecoverDto>> selectRecoverList(@RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize);
+    ComResponse<Page<ParkingRecoverDto>> selectRecoverList(@RequestBody ParkingVehicleListPo parkingVehicleListPo);
 
 
     @ApiOperation(value = "入司车辆管理-排队中列表查询",notes = "入司车辆管理-排队中列表查询",consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/parking/selectApplyList", method = RequestMethod.POST)
-    ComResponse<Page<ParkingApplyDto>> selectApplyList(@RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize);
+    ComResponse<Page<ParkingApplyDto>> selectApplyList(@RequestBody ParkingVehicleListPo parkingVehicleListPo);
 
 
     @ApiOperation(value = "入司车辆管理-插队",notes = "入司车辆管理-插队",consumes = MediaType.APPLICATION_JSON_VALUE)

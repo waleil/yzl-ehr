@@ -33,8 +33,8 @@ public class ParkingVehicleController {
 
     @ApiOperation(value = "入司车辆管理-车位占用中列表查询",notes = "入司车辆管理-车位占用中列表查询",consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/selectList", method = RequestMethod.POST)
-    ComResponse<Page<ParkingVehicleDto>> selectList(@RequestBody ParkingVehicleListPo parkingVehicleListPo,@RequestParam("pageNum")Integer pageNum,@RequestParam("pageSize")Integer pageSize) {
-        return parkingVehicleService.selectList(parkingVehicleListPo,pageNum,pageSize);
+    ComResponse<Page<ParkingVehicleDto>> selectList(@RequestBody ParkingVehicleListPo parkingVehicleListPo) {
+        return parkingVehicleService.selectList(parkingVehicleListPo);
     }
 
     @ApiOperation(value = "入司车辆管理-回收车位",notes = "入司车辆管理-回收车位",consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -45,14 +45,14 @@ public class ParkingVehicleController {
 
     @ApiOperation(value = "入司车辆管理-已清退列表查询",notes = "入司车辆管理-已清退列表查询",consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/selectRecoverList", method = RequestMethod.POST)
-    ComResponse<Page<ParkingRecoverDto>> selectRecoverList(@RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize) {
-        return parkingVehicleService.selectRecoverList(pageNum,pageSize);
+    ComResponse<Page<ParkingRecoverDto>> selectRecoverList(@RequestBody ParkingVehicleListPo parkingVehicleListPo) {
+        return parkingVehicleService.selectRecoverList(parkingVehicleListPo);
     }
 
     @ApiOperation(value = "入司车辆管理-排队中列表查询",notes = "入司车辆管理-排队中列表查询",consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/selectApplyList", method = RequestMethod.POST)
-    ComResponse<Page<ParkingApplyDto>> selectApplyList(@RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize) {
-        return parkingVehicleService.selectApplyList(pageNum,pageSize);
+    ComResponse<Page<ParkingApplyDto>> selectApplyList(@RequestBody ParkingVehicleListPo parkingVehicleListPo) {
+        return parkingVehicleService.selectApplyList(parkingVehicleListPo);
     }
 
     @ApiOperation(value = "入司车辆管理-插队",notes = "入司车辆管理-插队",consumes = MediaType.APPLICATION_JSON_VALUE)
