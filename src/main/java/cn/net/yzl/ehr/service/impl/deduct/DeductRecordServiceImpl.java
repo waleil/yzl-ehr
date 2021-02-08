@@ -8,6 +8,7 @@ import cn.net.yzl.ehr.service.deduct.DeductItemService;
 import cn.net.yzl.ehr.service.deduct.DeductReocrdService;
 import cn.net.yzl.staff.dto.deduct.DeductItemDto;
 import cn.net.yzl.staff.dto.deduct.DeductRecordDto;
+import cn.net.yzl.staff.dto.deduct.DeductStaffInfoDto;
 import cn.net.yzl.staff.pojo.deduct.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,8 +54,17 @@ public class DeductRecordServiceImpl implements DeductReocrdService {
         } else if (result.getCode() == 200 && result.getData() < 1) {
             return ComResponse.fail(ResponseCodeEnums.SAVE_DATA_ERROR_CODE.getCode(), ResponseCodeEnums.SAVE_DATA_ERROR_CODE.getMessage());
         }
-        if (result.getData() > 0) {
-            return ComResponse.success();
+
+        return result;
+    }
+
+    @Override
+    public ComResponse<DeductStaffInfoDto> selectstaff(String noOrName) {
+        ComResponse<DeductStaffInfoDto> result = deductRecordFeginService.selectstaff(noOrName);
+        if (result == null) {
+            return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(), ResponseCodeEnums.API_ERROR_CODE.getMessage());
+        } else if (result.getCode() == 200 && result.getData()==null ) {
+            return ComResponse.fail(ResponseCodeEnums.SAVE_DATA_ERROR_CODE.getCode(), ResponseCodeEnums.SAVE_DATA_ERROR_CODE.getMessage());
         }
         return result;
     }
