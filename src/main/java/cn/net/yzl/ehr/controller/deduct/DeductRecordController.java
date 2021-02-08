@@ -5,16 +5,14 @@ import cn.net.yzl.ehr.service.deduct.DeductItemService;
 import cn.net.yzl.ehr.service.deduct.DeductReocrdService;
 import cn.net.yzl.staff.dto.deduct.DeductItemDto;
 import cn.net.yzl.staff.dto.deduct.DeductRecordDto;
+import cn.net.yzl.staff.dto.deduct.DeductStaffInfoDto;
 import cn.net.yzl.staff.pojo.deduct.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -44,5 +42,10 @@ public class DeductRecordController {
         return deductReocrdService.insertDeductRecord(deductRecordInsertPo);
     }
 
+    @ApiOperation(value = "根据员工工号或姓名查询员工信息", notes = "根据员工工号或姓名查询员工信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/selectstaff", method = RequestMethod.POST)
+    ComResponse<DeductStaffInfoDto> selectstaff(@RequestParam("noOrName")String noOrName){
+        return deductReocrdService.selectstaff(noOrName);
+    }
 
 }

@@ -84,7 +84,7 @@ public class SalaryFrontLineRuleController {
 
     @ApiOperation(value = "获取部门下一线岗位列表", notes = "获取部门下一线岗位列表")
     @RequestMapping(value = "/getListByDepartId", method = RequestMethod.GET)
-    public ComResponse<List<SalaryRuleDepartPostDto>> getListByDepartId(@Param("departId") Integer departId, @Param("ruleType") Integer ruleType) {
+    public ComResponse<List<SalaryRuleDepartPostDto>> getListByDepartId(@RequestParam("departId") Integer departId, @RequestParam("ruleType") Integer ruleType) {
         return salaryFrontLineService.getListByDepartId(departId,ruleType);
     }
 
