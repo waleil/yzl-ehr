@@ -25,8 +25,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import springfox.documentation.annotations.ApiIgnore;
 
 @Repository
-@FeignClient(value = "staff",url = "${fegin.db.url}")
 //@FeignClient(name = "yzl-staff-db")
+@FeignClient(value = "staff",url = "${fegin.db.url}")
 public interface ParkingVehicleFeginService {
 
     @ApiOperation(value = "入司车辆管理-车位占用中列表查询",notes = "入司车辆管理-车位占用中列表查询",consumes = MediaType.APPLICATION_JSON_VALUE)
