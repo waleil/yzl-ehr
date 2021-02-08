@@ -5,8 +5,9 @@ import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.dto.CourseWareCategoryDto;
 import cn.net.yzl.ehr.service.resource.CoursewareService;
-import cn.net.yzl.staff.pojo.CourseWareCategoryPo;
-import cn.net.yzl.staff.pojo.CourseWarePo;
+import cn.net.yzl.staff.pojo.courseWare.CourseSelectPo;
+import cn.net.yzl.staff.pojo.courseWare.CourseWareCategoryPo;
+import cn.net.yzl.staff.pojo.courseWare.CourseWarePo;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -47,12 +48,12 @@ public class CoursewareController {
     //这里还得做个分页查询、
     //包括模糊查询以及无条件查询
     @ApiOperation(value = "查询课件", notes = "查询课件")
-    @RequestMapping(value = "/searchcourse", method = RequestMethod.GET)
-    ComResponse<Page<CourseWarePo>> searchCourseWare(@RequestParam (value = "keyword",required = false)String keyword, @RequestParam ("pageNum")Integer pageNum, @RequestParam(value = "pageSize") Integer pageSize, @RequestParam(value = "typeId",required = false)Integer typeId) {
-        if(StringUtils.isEmpty(keyword)&&StringUtils.isEmpty(typeId)){
-            return courseWareService.searchCourseWare(pageNum,pageSize);
+    @RequestMapping(value = "/searchcourse", method = RequestMethod.POST)
+    ComResponse<Page<CourseWarePo>> searchCourseWare(@RequestBody CourseSelectPo courseSelectPo) {
+        if(StringUtils.isEmpty(courseSelectPo.getKeyword())&&StringUtils.isEmpty(courseSelectPo.getKeyword())){
+            return courseWareService.searchCourseWare(courseSelectPo.getPageNum(),courseSelectPo.getPageSize());
         }else{
-            return courseWareService.selectKeywordByName(keyword,pageNum,pageSize,typeId );
+            return courseWareService.selectKeywordByName(courseSelectPo);
         }
     }
 
@@ -64,7 +65,7 @@ public class CoursewareController {
 
     @ApiOperation(value = "新增/编辑课件类型", notes = "新增/编辑课件类型", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/savecoursecategory", method = RequestMethod.POST)
-    public ComResponse<Integer> save(@RequestBody(required = false) List<CourseWareCategoryPo> list,@ApiIgnore @CurrentStaffNo String staffNo) {
+    public ComResponse<Integer> save(@RequestBody(required = false) List<CourseWareCategoryPo> list, @ApiIgnore @CurrentStaffNo String staffNo) {
         return courseWareService.saveCourseWareCategory(list,staffNo);
     }
 

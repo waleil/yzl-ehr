@@ -5,8 +5,9 @@ import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.dto.CourseWareCategoryDto;
 import cn.net.yzl.ehr.fegin.resource.CourseWareFeginService;
 import cn.net.yzl.ehr.service.resource.CoursewareService;
-import cn.net.yzl.staff.pojo.CourseWareCategoryPo;
-import cn.net.yzl.staff.pojo.CourseWarePo;
+import cn.net.yzl.staff.pojo.courseWare.CourseSelectPo;
+import cn.net.yzl.staff.pojo.courseWare.CourseWareCategoryPo;
+import cn.net.yzl.staff.pojo.courseWare.CourseWarePo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,8 +41,8 @@ public class CoursewareServiceImpl implements CoursewareService {
     }
 
     @Override
-    public ComResponse<Page<CourseWarePo>> selectKeywordByName(String keyword, Integer pageNum, Integer pageSize,Integer typeId) {
-        return courseWareFeginService.searchCourseWareByName(keyword,pageNum,pageSize,typeId);
+    public ComResponse<Page<CourseWarePo>> selectKeywordByName(CourseSelectPo courseSelectPo) {
+        return courseWareFeginService.searchCourseWareByName(courseSelectPo);
     }
 
 

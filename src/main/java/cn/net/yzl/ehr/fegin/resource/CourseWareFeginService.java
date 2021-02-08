@@ -8,8 +8,9 @@ import cn.net.yzl.ehr.pojo.StaffWorkInsertListPo;
 import cn.net.yzl.ehr.pojo.StaffWorkItemPo;
 import cn.net.yzl.ehr.pojo.StaffWorkUpdateListPo;
 import cn.net.yzl.ehr.pojo.StaffWorkUpdatePo;
-import cn.net.yzl.staff.pojo.CourseWareCategoryPo;
-import cn.net.yzl.staff.pojo.CourseWarePo;
+import cn.net.yzl.staff.pojo.courseWare.CourseSelectPo;
+import cn.net.yzl.staff.pojo.courseWare.CourseWareCategoryPo;
+import cn.net.yzl.staff.pojo.courseWare.CourseWarePo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
@@ -23,8 +24,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Repository
-//@FeignClient(name = "yzl-staff-db")
-@FeignClient(value = "staff",url = "${fegin.db.url}")
+@FeignClient(name = "yzl-staff-db")
+//@FeignClient(value = "staff",url = "${fegin.db.url}")
 public interface CourseWareFeginService {
 
     @ApiOperation(value = "新增课件", notes = "新增课件", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -40,12 +41,12 @@ public interface CourseWareFeginService {
     ComResponse<CourseWarePo> selectcourseitem(@RequestParam("id") Integer id);
 
     @ApiOperation(value = "查询课件", notes = "查询课件")
-    @RequestMapping(value = "/trainCourseWare/searchcourse", method = RequestMethod.GET)
+    @RequestMapping(value = "/trainCourseWare/searchcourse", method = RequestMethod.POST)
     ComResponse<Page<CourseWarePo>> searchCourseWare(@RequestParam (value = "pageNum")Integer pageNum, @RequestParam(value = "pageSize") Integer pageSize);
 
     @ApiOperation(value = "根据课件名模糊查询课件", notes = "根据课件名模糊查询课件")
-    @RequestMapping(value = "/trainCourseWare/searchcourseByName", method = RequestMethod.GET)
-    ComResponse<Page<CourseWarePo>> searchCourseWareByName(@RequestParam (value = "keyword",required = false)String keyword, @RequestParam (value = "pageNum")Integer pageNum, @RequestParam(value = "pageSize") Integer pageSize,@RequestParam(value = "typeId")Integer typeId);
+    @RequestMapping(value = "/trainCourseWare/searchcourseByName", method = RequestMethod.POST)
+    ComResponse<Page<CourseWarePo>> searchCourseWareByName(@RequestBody CourseSelectPo courseSelectPo);
 
     @ApiOperation(value = "查询课件类型", notes = "查询课件类型")
     @RequestMapping(value = "/trainCourseWare/selectCourseWareCategory", method = RequestMethod.GET)

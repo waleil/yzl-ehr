@@ -2,7 +2,6 @@ package cn.net.yzl.ehr.service.resource;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.dto.CourseWareCategoryDto;
-import cn.net.yzl.staff.pojo.CourseWareCategoryPo;
 
 import java.util.List;
 

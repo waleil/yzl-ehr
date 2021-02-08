@@ -1,7 +1,7 @@
 package cn.net.yzl.ehr.mapper;
 
 
-import cn.net.yzl.staff.pojo.CourseWareCategoryPo;
+import cn.net.yzl.staff.pojo.courseWare.CourseWareCategoryPo;
 
 import java.util.List;
 
