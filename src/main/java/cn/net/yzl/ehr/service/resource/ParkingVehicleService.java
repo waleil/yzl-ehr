@@ -13,17 +13,17 @@ import cn.net.yzl.staff.pojo.parking.ParkingVehicleListPo;
 public interface ParkingVehicleService {
 
    //车位占用中列表查询
-   ComResponse<Page<ParkingVehicleDto>> selectList(ParkingVehicleListPo parkingVehicleListPo,Integer pageNum,Integer pageSize);
+   ComResponse<Page<ParkingVehicleDto>> selectList(ParkingVehicleListPo parkingVehicleListPo);
 
 
    //回收车位
    ComResponse<Integer> insertRecover(ParkingRecoverInsertPo parkingRecoverInsertPo,String staffNo);
 
    //已清退列表查询
-   ComResponse<Page<ParkingRecoverDto>> selectRecoverList(Integer pageNum, Integer pageSize);
+   ComResponse<Page<ParkingRecoverDto>> selectRecoverList(ParkingVehicleListPo parkingVehicleListPo);
 
    //排队中列表查询
-   ComResponse<Page<ParkingApplyDto>> selectApplyList(Integer pageNum, Integer pageSize);
+   ComResponse<Page<ParkingApplyDto>> selectApplyList(ParkingVehicleListPo parkingVehicleListPo);
 
    //插队
    ComResponse<Integer> updateApply(Integer id,String updator);
