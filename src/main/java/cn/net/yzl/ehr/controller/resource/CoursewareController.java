@@ -5,6 +5,7 @@ import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.dto.CourseWareCategoryDto;
 import cn.net.yzl.ehr.service.resource.CoursewareService;
+
 import cn.net.yzl.staff.pojo.CourseWareCategoryPo;
 import cn.net.yzl.staff.pojo.CourseWarePo;
 import io.swagger.annotations.*;
@@ -27,7 +28,7 @@ public class CoursewareController {
 
     @ApiOperation(value = "新增课件", notes = "新增课件", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/insertcourse", method = RequestMethod.POST)
-    ComResponse<Integer> insertCourseWare(@RequestBody CourseWarePo courseWarePo,@ApiIgnore @CurrentStaffNo String creator) {
+    ComResponse<Integer> insertCourseWare(@RequestBody CourseWarePo courseWarePo, @ApiIgnore @CurrentStaffNo String creator) {
         return courseWareService.insertCourseWare(courseWarePo,creator);
     }
 
@@ -64,7 +65,7 @@ public class CoursewareController {
 
     @ApiOperation(value = "新增/编辑课件类型", notes = "新增/编辑课件类型", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/savecoursecategory", method = RequestMethod.POST)
-    public ComResponse<Integer> save(@RequestBody(required = false) List<CourseWareCategoryPo> list,@ApiIgnore @CurrentStaffNo String staffNo) {
+    public ComResponse<Integer> save(@RequestBody(required = false) List<CourseWareCategoryPo> list, @ApiIgnore @CurrentStaffNo String staffNo) {
         return courseWareService.saveCourseWareCategory(list,staffNo);
     }
 
