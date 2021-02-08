@@ -47,9 +47,9 @@ public class DepartTrainingRuleServiceImpl implements DepartTrainingRuleService 
         ComResponse<Integer> result=departTrainingRuleService.update(itemUpdatePo);
         if(result==null ){
             ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
-        }else if(result.getData()==null ){
-            ComResponse.fail(ResponseCodeEnums.UPDATE_DATA_ERROR_CODE.getCode(),ResponseCodeEnums.UPDATE_DATA_ERROR_CODE.getMessage());
-        }else if(result.getData()==0){
+        }else if(result.getCode()!=200 ){
+            ComResponse.fail(result.getCode(),result.getMessage());
+        }else if(result.getCode()==200 && result.getData()==0){
             ComResponse.fail(ResponseCodeEnums.NO_MATCHING_RESULT_CODE.getCode(),ResponseCodeEnums.NO_MATCHING_RESULT_CODE.getMessage());
         }
         return ComResponse.success();

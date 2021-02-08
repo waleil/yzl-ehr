@@ -17,7 +17,7 @@ public class StaffSwitchStatePo implements Serializable {
     @NotBlank
     private String staffNo;
 
-    @ApiModelProperty("账号状态 0正常 1停用")
+    @ApiModelProperty("异动状态 20.正常 21.待优化 22.待劝退")
     @NotNull
     @Min(0)
     private Integer state;

@@ -11,6 +11,12 @@ import java.util.Date;
 @Data
 public class StaffTrainDto implements Serializable {
 
+    @ApiModelProperty("员工工号")
+    private String staffNo;
+
+    @ApiModelProperty("员工姓名")
+    private String staffName;
+
     @ApiModelProperty("异动类型(字典表 )")
     private Integer type;
 
@@ -32,6 +38,18 @@ public class StaffTrainDto implements Serializable {
     @ApiModelProperty("调整后部门名")
     private String adjustDepartNameLater;
 
+    @ApiModelProperty("调整前上级部门")
+    private Integer adjustParentDepartFront;
+
+    @ApiModelProperty("调整前上级部门名")
+    private String adjustParentDepartNameFront;
+
+    @ApiModelProperty("调整后上级部门")
+    private Integer adjustParentDepartLater;
+
+    @ApiModelProperty("调整后上级部门名")
+    private String adjustParentDepartNameLater;
+
     @ApiModelProperty("调整前岗位")
     private Integer adjustPostFront;
 
@@ -43,6 +61,12 @@ public class StaffTrainDto implements Serializable {
 
     @ApiModelProperty("调整后岗位名")
     private String adjustPostNameLater;
+
+    @ApiModelProperty("调整前部门岗位编号")
+    private Integer adjustDepartPostFront;
+
+    @ApiModelProperty("调整后部门岗位编号")
+    private Integer adjustDepartPostLater;
 
     @ApiModelProperty("调整前薪资")
     private Double adjustSalaryFront;
@@ -56,23 +80,21 @@ public class StaffTrainDto implements Serializable {
     private Date abnorTime;
 
     @ApiModelProperty("调整前岗位等级")
-    private Integer adjustPostLevelFront;
+    private String adjustPostLevelFront;
 
     @ApiModelProperty("调整前岗位等级名")
-    private String adjustPostLevelFrontName;
-
+    private String adjustPostLevelNameFront;
 
     @ApiModelProperty("调整后岗位等级")
-    private Integer adjustPostLevelLater;
+    private String adjustPostLevelLater;
 
     @ApiModelProperty("调整后岗位等级名")
-    private String adjustPostLevelLaterName;
-
+    private String adjustPostLevelNameLater;
 
     @ApiModelProperty("转正时间")
     @JsonFormat(pattern="yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date positiveTime;
+    private Date positive_time;
 
     @ApiModelProperty("商品编码")
     private String productCode;

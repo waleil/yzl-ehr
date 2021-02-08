@@ -1,12 +1,10 @@
 package cn.net.yzl.ehr.dto;
 
-
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
 public class StaffAddrListDto {
-
     @ApiModelProperty("地址类别：(0.户口所在地,1.现地址)")
     private Integer type;
     @ApiModelProperty("省id")
@@ -29,4 +27,3 @@ public class StaffAddrListDto {
     private String  address;
 
 }
-

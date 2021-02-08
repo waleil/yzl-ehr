@@ -17,8 +17,9 @@ import java.io.Serializable;
 @Data
 public class PostLevelUpdatePo implements Serializable {
 
-    @ApiModelProperty("岗位等级编号")
-    @NotNull
+
+
+    @ApiModelProperty("岗位等级编号,min=1,经更改岗位下无等级数据，则上传一条id为0，postId有值的数据")
     @Min(value = 0)
     private Integer id;
 
@@ -26,7 +27,12 @@ public class PostLevelUpdatePo implements Serializable {
     @NotBlank
     private String name;
 
-    @ApiModelProperty("岗位排序")
+    @ApiModelProperty("岗位编号")
+    @NotNull
+    @Min(value = 0)
+    private Integer postId;
+
+    @ApiModelProperty("级别排序")
     @NotNull
     @Min(1)
     private Integer sort;

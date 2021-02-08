@@ -1,13 +1,8 @@
 package cn.net.yzl.ehr.fegin.staff;
 
 import cn.net.yzl.common.entity.ComResponse;
-import cn.net.yzl.common.entity.Page;
-import cn.net.yzl.ehr.dto.StaffBaseDto;
-import cn.net.yzl.ehr.dto.StaffDetailsDto;
-import cn.net.yzl.ehr.dto.StaffListDto;
 import cn.net.yzl.ehr.dto.StaffWorkListDto;
 import cn.net.yzl.ehr.pojo.*;
-import cn.net.yzl.ehr.vo.StaffParamsVO;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Repository;
@@ -19,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 import java.util.Map;
 
-
-@FeignClient(value = "staff",url = "${fegin.db.url}")
 @Repository
+@FeignClient(value = "staff",url = "${fegin.db.url}")
+//@FeignClient("yzl-staff-db")
 public interface StaffWorkFeginService {
 
     @ApiOperation(value = "查询员工工作经历信息", notes = "查询员工工作经历信息")

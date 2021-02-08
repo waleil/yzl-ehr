@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.Min;
 import java.util.Date;
 
 /**
@@ -45,6 +46,20 @@ public class StaffAbnorRecordDto {
     @ApiModelProperty("调整后部门名")
     private String adjustDepartNameLater;
 
+    @ApiModelProperty("调整前上级部门")
+    @Min(1)
+    private Integer adjustParentDepartFront;
+
+    @ApiModelProperty("调整前上级部门名")
+    private String adjustParentDepartNameFront;
+
+    @ApiModelProperty("调整后上级部门")
+    @Min(1)
+    private Integer adjustParentDepartLater;
+
+    @ApiModelProperty("调整后上级部门名")
+    private String adjustParentDepartNameLater;
+
     @ApiModelProperty("调整前岗位")
     private Integer adjustPostFront;
 
@@ -56,6 +71,12 @@ public class StaffAbnorRecordDto {
 
     @ApiModelProperty("调整后岗位名")
     private String adjustPostNameLater;
+
+    @ApiModelProperty("调整前部门岗位编号")
+    private Integer adjustDepartPostFront;
+
+    @ApiModelProperty("调整后部门岗位编号")
+    private Integer adjustDepartPostLater;
 
     @ApiModelProperty("调整前薪资")
     private Double adjustSalaryFront;
@@ -70,7 +91,6 @@ public class StaffAbnorRecordDto {
     @JsonFormat(pattern="yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date positiveTime;
-
 
     @ApiModelProperty("调整前岗位等级")
     private Integer adjustPostLevelFront;

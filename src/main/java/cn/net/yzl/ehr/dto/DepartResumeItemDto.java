@@ -3,10 +3,15 @@ package cn.net.yzl.ehr.dto;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Data
 public class DepartResumeItemDto implements Serializable {
+
+    @ApiModelProperty("部门岗位id")
+    private Integer departPostId;
 
     @ApiModelProperty("部门id")
     private Integer departId;

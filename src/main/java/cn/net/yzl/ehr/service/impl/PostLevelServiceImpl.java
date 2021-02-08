@@ -5,12 +5,12 @@ import cn.net.yzl.common.enums.ResponseCodeEnums;
 import cn.net.yzl.ehr.dto.PostLevelDto;
 import cn.net.yzl.ehr.dto.PostLevelListDto;
 import cn.net.yzl.ehr.fegin.post.PostLevelFeginMapper;
-import cn.net.yzl.ehr.pojo.PostLevelPo;
 import cn.net.yzl.ehr.pojo.PostLevelUpdatePo;
 import cn.net.yzl.ehr.service.PostLevelService;
+import cn.net.yzl.ehr.util.ValidList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.List;
 
@@ -32,7 +32,7 @@ public class PostLevelServiceImpl implements PostLevelService {
         return result;
     }
 
-    @Override
+   /* @Override
     public ComResponse<Integer> delete(Integer id, String staffNo) {
         ComResponse<Integer> result = postLevelMapper.delete(id, staffNo);
         if(result==null){
@@ -54,25 +54,14 @@ public class PostLevelServiceImpl implements PostLevelService {
         }
         return result;
     }
-
-    @Override
-    public ComResponse<Integer> update(PostLevelUpdatePo postLevel,String staffNo) {
-        postLevel.setUpdator(staffNo);
-        ComResponse<Integer> result = postLevelMapper.update(postLevel);
-        if(result==null){
-            return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
-        }else if(result.getCode()==200 &&  result.getData()<1){
-            return ComResponse.fail(ResponseCodeEnums.NO_MATCHING_RESULT_CODE.getCode(),ResponseCodeEnums.NO_MATCHING_RESULT_CODE.getMessage());
-        }
-        return result;
-    }
+*/
 
     @Override
     public ComResponse<List<PostLevelDto>> getList() {
         ComResponse<List<PostLevelDto>> result = postLevelMapper.getList();
         if(result==null){
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
-        }else if(result.getCode()==200 &&  result.getData()==null){
+        }else if(result.getCode()==200 && result.getData()==null){
             return ComResponse.nodata();
         }
         return result;
@@ -92,6 +81,18 @@ public class PostLevelServiceImpl implements PostLevelService {
     @Override
     public ComResponse<Integer> getStaffTotalForPostLevel(Integer postLevelId) {
         ComResponse<Integer> result = postLevelMapper.getStaffTotalForPostLevel(postLevelId);
+        if(result==null){
+            return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
+        }
+        return result;
+    }
+
+    @Override
+    public ComResponse<Integer> saveUpdate(ValidList<PostLevelUpdatePo> postLevelUpdatePo, String staffNo) {
+        postLevelUpdatePo.forEach(x->{
+            x.setUpdator(staffNo);
+        });
+        ComResponse<Integer> result = postLevelMapper.saveUpdate(postLevelUpdatePo);
         if(result==null){
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
         }

@@ -4,14 +4,15 @@ import cn.net.yzl.ehr.util.ValidList;
 import lombok.Data;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Data
 public class StaffWorkItemPo {
     @Valid
-    private ValidList<StaffWorkInsertPo> insertList;
+    private List<StaffWorkInsertPo> insertList;
     @Valid
-    private ValidList<StaffWorkUpdatePo> updateList;
+    private List<StaffWorkUpdatePo> updateList;
     @Valid
-    private ValidList<StaffWorkDeletePo> deleteList;
+    private List<StaffWorkDeletePo> deleteList;
     
 }

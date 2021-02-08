@@ -58,7 +58,16 @@ public class MyWebAppConfigurer  implements WebMvcConfigurer {
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/staffFamily/**");
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/staffGrowUp/**");
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/staffQua/**");
-
+        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/noRobbedConf/**");
+        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/chooseClassConf/**");
+        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/recruit/**");
+        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/deduct/**");
+        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/resume/**");
+        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/departLevel/**");
+        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/office/**");
+        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/courseware/**");
+        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/parking/**");
+        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/attend/**");
     }
 
     /**

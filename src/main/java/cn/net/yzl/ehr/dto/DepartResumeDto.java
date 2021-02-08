@@ -3,6 +3,8 @@ package cn.net.yzl.ehr.dto;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -27,6 +29,9 @@ public class DepartResumeDto {
 
     @ApiModelProperty("岗位名称")
     private String postName;
+
+    @ApiModelProperty("部门岗位id")
+    private Integer departPostId;
 
     @ApiModelProperty("配置编码")
     private String resumeId;

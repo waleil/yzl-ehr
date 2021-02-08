@@ -37,6 +37,8 @@ public class DepartResumeServiceImpl implements DepartResumeService {
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
         }else if(addResult.getCode()!=200 ){
             return ComResponse.fail(addResult.getCode(),addResult.getMessage());
+        }else if(addResult.getCode()==200 && addResult.getData()==0){
+            return ComResponse.fail(ResponseCodeEnums.NO_MATCHING_RESULT_CODE.getCode(),ResponseCodeEnums.NO_MATCHING_RESULT_CODE.getMessage());
         }
         return  ComResponse.success();
     }
@@ -55,18 +57,18 @@ public class DepartResumeServiceImpl implements DepartResumeService {
         return  byDepartId;
     }
 
-    @Override
-    public ComResponse<DepartResumeDto> getByPostId(Integer departId, Integer postId) {
-        ComResponse<DepartResumeDto> byPostId = departResumeFeginService.getByPostId(departId, postId);
-        if(byPostId==null){
-            return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
-        }else if(byPostId.getCode()!=200 ){
-            return ComResponse.fail(byPostId.getCode(),byPostId.getMessage());
-        }else if(byPostId.getCode()==200 && byPostId.getData()==null){
-            return ComResponse.nodata();
-        }
-        return  byPostId;
-    }
+//    @Override
+//    public ComResponse<DepartResumeDto> getByPostId(Integer departId, Integer postId) {
+//        ComResponse<DepartResumeDto> byPostId = departResumeFeginService.getByPostId(departId, postId);
+//        if(byPostId==null){
+//            return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
+//        }else if(byPostId.getCode()!=200 ){
+//            return ComResponse.fail(byPostId.getCode(),byPostId.getMessage());
+//        }else if(byPostId.getCode()==200 && byPostId.getData()==null){
+//            return ComResponse.nodata();
+//        }
+//        return  byPostId;
+//    }
 
     @Override
     public ComResponse<DepartResumeDto> getByResumeId(Integer resumeId) {

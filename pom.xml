@@ -10,7 +10,7 @@
     <artifactId>yzl-ehr</artifactId>
     <name>yzl-ehr</name>
     <description>Demo project for Spring Boot</description>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
 
     <dependencies>
 
@@ -25,12 +25,26 @@
             <artifactId>yzl-common</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+
+        <dependency>
+            <groupId>cn.net.yzl</groupId>
+            <artifactId>yzl-staff-model</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
         <!--logger-->
         <dependency>
             <groupId>cn.net.yzl</groupId>
             <artifactId>yzl-logger</artifactId>
             <version>1.0-RELEASE</version>
         </dependency>
+
+        <!--菜单角色权限服务common依赖-->
+        <dependency>
+            <groupId>cn.net.yzl</groupId>
+            <artifactId>yzl-common-pm</artifactId>
+            <version>1.2-RELEASE</version>
+        </dependency>
+
         <!--taobao sdk-->
         <dependency>
             <groupId>cn.net.yzl</groupId>
@@ -122,27 +136,43 @@
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
         <!--hystrix-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.cloud</groupId>-->
+        <!--            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>-->
+        <!--        </dependency>-->
         <!--actuator-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-actuator</artifactId>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.boot</groupId>-->
+        <!--            <artifactId>spring-boot-starter-actuator</artifactId>-->
+        <!--        </dependency>-->
 
-<!--        <dependency>-->
-<!--            <groupId>com.alibaba.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>com.alibaba.cloud</groupId>-->
+        <!--            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>-->
+        <!--        </dependency>-->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>4.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml-schemas</artifactId>
+            <version>3.17</version>
+         </dependency>
 
+        <dependency>
+            <groupId>cn.net.yzl</groupId>
+            <artifactId>yzl-cti-common</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
 
     </dependencies>
 
 
 
     <build>
+        <finalName>yzl-ehr</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -150,27 +180,37 @@
             </plugin>
         </plugins>
     </build>
+    <repositories>
+        <repository>
+            <id>nexus</id>
+            <url>http://192.168.32.31/nexus/conetent/repositories/snapshots</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 
-<!--    <repositories>-->
-<!--        <repository>-->
-<!--            <id>nexus</id>-->
-<!--            <url>http://nexus.staff.yuzhilin.net.cn/nexus/conetent/repositories/snapshots</url>-->
-<!--            <snapshots>-->
-<!--                <enabled>true</enabled>-->
-<!--            </snapshots>-->
-<!--        </repository>-->
-<!--    </repositories>-->
-<!--    <pluginRepositories>-->
-<!--        <pluginRepository>-->
-<!--            <id>nexus</id>-->
-<!--            <name>Nexus Snapshot Repository</name>-->
-<!--            <url>http://192.168.32.31/nexus/content/groups/public/</url>-->
-<!--            <releases>-->
-<!--                <enabled>true</enabled>-->
-<!--            </releases>-->
-<!--            <snapshots>-->
-<!--                <enabled>false</enabled>-->
-<!--            </snapshots>-->
-<!--        </pluginRepository>-->
-<!--    </pluginRepositories>-->
+    <!--    <repositories>-->
+    <!--        <repository>-->
+    <!--            <id>nexus</id>-->
+    <!--            <url>http://nexus.staff.yuzhilin.net.cn/nexus/conetent/repositories/snapshots</url>-->
+    <!--            <snapshots>-->
+    <!--                <enabled>true</enabled>-->
+    <!--            </snapshots>-->
+    <!--        </repository>-->
+    <!--    </repositories>-->
+    <!--    <pluginRepositories>-->
+    <!--        <pluginRepository>-->
+    <!--            <id>nexus</id>-->
+    <!--            <name>Nexus Snapshot Repository</name>-->
+    <!--            <url>http://192.168.32.31/nexus/content/groups/public/</url>-->
+    <!--            <releases>-->
+    <!--                <enabled>true</enabled>-->
+    <!--            </releases>-->
+    <!--            <snapshots>-->
+    <!--                <enabled>true</enabled>-->
+    <!--&lt;!&ndash;                <updatePolicy>always</updatePolicy>&ndash;&gt;-->
+    <!--            </snapshots>-->
+    <!--        </pluginRepository>-->
+    <!--    </pluginRepositories>-->
 </project>
