@@ -55,7 +55,8 @@ public class RecruitSourceServiceImpl implements RecruitSourceService {
     }
 
     @Override
-    public ComResponse<Integer> addRecruit(RecruitSourceInsertPo insertPo) {
+    public ComResponse<Integer> addRecruit(RecruitSourceInsertPo insertPo,String staffNo) {
+        insertPo.setCreator(staffNo);
         ComResponse<Integer> result = sourceFeginService.addRecruit(insertPo);
         if (result==null){
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
@@ -84,7 +85,8 @@ public class RecruitSourceServiceImpl implements RecruitSourceService {
 
 
     @Override
-    public ComResponse<Integer> update(RecruitSourceUpdatePo updatePo) {
+    public ComResponse<Integer> update(RecruitSourceUpdatePo updatePo,String staffNo) {
+        updatePo.setUpdator(staffNo);
         ComResponse<Integer> result = sourceFeginService.update(updatePo);
         if (result==null){
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
@@ -98,7 +100,8 @@ public class RecruitSourceServiceImpl implements RecruitSourceService {
     }
 
     @Override
-    public ComResponse<Integer> getRecruitInfo(RecruitSourceUpdatePo updatePo) {
+    public ComResponse<Integer> getRecruitInfo(RecruitSourceUpdatePo updatePo,String staffNo) {
+        updatePo.setUpdator(staffNo);
         ComResponse<Integer> result = sourceFeginService.getRecruitInfo(updatePo);
         if (result==null){
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
@@ -111,7 +114,7 @@ public class RecruitSourceServiceImpl implements RecruitSourceService {
     }
 
     @Override
-    public ComResponse<Page<RecruitSourceDto>> queryPage(RecruitSourceListPo recruitSourceListPo,Integer pageSize, Integer pageNum) {
-        return sourceFeginService.queryPage(recruitSourceListPo,pageSize, pageNum);
+    public ComResponse<Page<RecruitSourceDto>> queryPage(RecruitSourceListPo recruitSourceListPo) {
+        return sourceFeginService.queryPage(recruitSourceListPo);
     }
 }
