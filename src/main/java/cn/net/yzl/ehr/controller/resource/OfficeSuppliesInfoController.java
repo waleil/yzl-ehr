@@ -73,5 +73,5 @@ public class OfficeSuppliesInfoController {
     ComResponse<List<OfficeTypeDto>> selectList() {
         return officeSuppliesInfoService.selectList();
     }
-
+    
 }
