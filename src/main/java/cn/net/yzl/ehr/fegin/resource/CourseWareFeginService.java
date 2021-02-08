@@ -3,11 +3,7 @@ package cn.net.yzl.ehr.fegin.resource;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.dto.CourseWareCategoryDto;
-import cn.net.yzl.ehr.dto.StaffWorkListDto;
-import cn.net.yzl.ehr.pojo.StaffWorkInsertListPo;
-import cn.net.yzl.ehr.pojo.StaffWorkItemPo;
-import cn.net.yzl.ehr.pojo.StaffWorkUpdateListPo;
-import cn.net.yzl.ehr.pojo.StaffWorkUpdatePo;
+
 import cn.net.yzl.staff.pojo.courseWare.CourseSelectPo;
 import cn.net.yzl.staff.pojo.courseWare.CourseWareCategoryPo;
 import cn.net.yzl.staff.pojo.courseWare.CourseWarePo;
@@ -24,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Repository
-//@FeignClient(name = "yzl-staff-db")
-@FeignClient(value = "staff",url = "${fegin.db.url}")
+@FeignClient(name = "yzl-staff-db")
+//@FeignClient(value = "staff",url = "${fegin.db.url}")
 public interface CourseWareFeginService {
 
     @ApiOperation(value = "新增课件", notes = "新增课件", consumes = MediaType.APPLICATION_JSON_VALUE)

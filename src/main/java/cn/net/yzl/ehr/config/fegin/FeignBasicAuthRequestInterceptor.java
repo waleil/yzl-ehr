@@ -6,6 +6,7 @@ import cn.net.yzl.ehr.authorization.Interceptor.AuthorizationInterceptor;
 import cn.net.yzl.logger.common.XBasicUtil;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -27,11 +28,13 @@ public class FeignBasicAuthRequestInterceptor implements RequestInterceptor {
         if (headerNames != null) {
             String traceId = request.getHeader("traceId");
             String spanId = request.getHeader("spanId");
+            String userId = request.getHeader("userId");
             String cspanId = XBasicUtil.uuid();
             String url = requestTemplate.url();
             String params = requestTemplate.getRequestVariables().toString();
-            log.info("{app:yzl-ehr,traceId:{},spanId:{},cspanId:{},url:{},params:{}}",traceId,spanId,cspanId,url,params);
+            log.info("{app:yzl-ehr,traceId:{},spanId:{},cspanId:{},userId:{},url:{},params:{}}",traceId,spanId,cspanId,userId,url,params);
             requestTemplate.header("spanId",cspanId);
+            if (StringUtils.isNotBlank(userId)) requestTemplate.header("userId", userId);
         }
 //        Enumeration<String> bodyNames = request.getParameterNames();
 //        StringBuffer body =new StringBuffer();

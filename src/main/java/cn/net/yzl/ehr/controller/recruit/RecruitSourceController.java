@@ -53,34 +53,34 @@ public class RecruitSourceController {
 
     @ApiOperation(value = "招聘渠道—添加招聘渠道",notes = "添加",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/addRecruit", method = RequestMethod.POST)
-    ComResponse<Integer> addRecruit(@RequestBody  @Validated RecruitSourceInsertPo insertPo){
-        return recruitSourceService.addRecruit(insertPo);
+    ComResponse<Integer> addRecruit(@RequestBody RecruitSourceInsertPo insertPo, @CurrentStaffNo @ApiIgnore String staffNo){
+        return recruitSourceService.addRecruit(insertPo,staffNo);
     }
 
     @ApiOperation(value ="招聘渠道—修改招聘渠道" ,notes ="修改",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 
     @RequestMapping(value = "/update",method = RequestMethod.POST)
-    ComResponse<Integer> update (@RequestBody @Validated RecruitSourceUpdatePo updatePo){
-        return recruitSourceService.update(updatePo);
+    ComResponse<Integer> update (@RequestBody RecruitSourceUpdatePo updatePo ,@CurrentStaffNo @ApiIgnore String staffNo){
+        return recruitSourceService.update(updatePo,staffNo);
     }
 
 
     @ApiOperation(value ="招聘渠道—批量修改招聘渠道状态" ,notes ="批量修改",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/modity",method = RequestMethod.POST)
-    ComResponse<Integer> modity (@RequestBody RecruitSourceUpdateListPo updateListPo){
+    ComResponse<Integer> modity (@RequestBody RecruitSourceUpdateListPo updateListPo,@ApiIgnore @CurrentStaffNo String staffNo){
         return recruitSourceService.modity(updateListPo);
     }
 
     @ApiOperation(value ="招聘渠道—招聘渠道续费" ,notes ="续费",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/getRecruitInfo",method = RequestMethod.POST)
-    ComResponse<Integer> getRecruitInfo(@RequestBody RecruitSourceUpdatePo updatePo){
-        return recruitSourceService.getRecruitInfo(updatePo);
+    ComResponse<Integer> getRecruitInfo(@RequestBody RecruitSourceUpdatePo updatePo,@ApiIgnore @CurrentStaffNo String staffNo){
+        return recruitSourceService.getRecruitInfo(updatePo,staffNo);
     }
 
     @ApiOperation(value ="招聘渠道—招聘渠道分页" ,notes ="分页",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/queryPage",method = RequestMethod.POST)
-    ComResponse<Page<RecruitSourceDto>> queryPage(@RequestBody RecruitSourceListPo recruitSourceListPo,Integer pageSize, Integer pageNum) {
-        return recruitSourceService.queryPage(recruitSourceListPo,pageSize, pageNum);
+    ComResponse<Page<RecruitSourceDto>> queryPage(@RequestBody RecruitSourceListPo recruitSourceListPo) {
+        return recruitSourceService.queryPage(recruitSourceListPo);
     }
 
 }

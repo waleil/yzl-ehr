@@ -19,7 +19,7 @@ public class CoursewareServiceImpl implements CoursewareService {
     @Autowired
     private CourseWareFeginService courseWareFeginService;
     @Override
-    public ComResponse<Integer> insertCourseWare(CourseWarePo courseWarePo,String creator) {
+    public ComResponse<Integer> insertCourseWare(CourseWarePo courseWarePo, String creator) {
         courseWarePo.setCreator(creator);
         return courseWareFeginService.insertCourseWare(courseWarePo);
     }
@@ -52,7 +52,7 @@ public class CoursewareServiceImpl implements CoursewareService {
     }
 
     @Override
-    public ComResponse<Integer> saveCourseWareCategory(List<CourseWareCategoryPo> list,String staffNo) {
+    public ComResponse<Integer> saveCourseWareCategory(List<CourseWareCategoryPo> list, String staffNo) {
         for (CourseWareCategoryPo courseWareCategoryPo : list) {
             if(courseWareCategoryPo.getId()==null||courseWareCategoryPo.getId()==0){
                 courseWareCategoryPo.setCreator(staffNo);

@@ -28,7 +28,7 @@ public class CoursewareController {
 
     @ApiOperation(value = "新增课件", notes = "新增课件", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/insertcourse", method = RequestMethod.POST)
-    ComResponse<Integer> insertCourseWare(@RequestBody CourseWarePo courseWarePo,@ApiIgnore @CurrentStaffNo String creator) {
+    ComResponse<Integer> insertCourseWare(@RequestBody CourseWarePo courseWarePo, @ApiIgnore @CurrentStaffNo String creator) {
         return courseWareService.insertCourseWare(courseWarePo,creator);
     }
 
