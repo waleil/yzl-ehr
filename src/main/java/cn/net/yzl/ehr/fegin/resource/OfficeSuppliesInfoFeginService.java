@@ -6,8 +6,6 @@ import cn.net.yzl.ehr.dto.CourseWareCategoryDto;
 import cn.net.yzl.staff.dto.office.OfficeSuppliesInfoDto;
 import cn.net.yzl.staff.dto.office.OfficeSuppliesRecordDto;
 import cn.net.yzl.staff.dto.office.OfficeTypeDto;
-import cn.net.yzl.staff.pojo.CourseWareCategoryPo;
-import cn.net.yzl.staff.pojo.CourseWarePo;
 import cn.net.yzl.staff.pojo.office.OfficeSuppliesInfoInsertPo;
 import cn.net.yzl.staff.pojo.office.OfficeSuppliesInfoScreenPo;
 import cn.net.yzl.staff.pojo.office.OfficeSuppliesInfoUpdatePo;

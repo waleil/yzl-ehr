@@ -19,16 +19,7 @@ public class DeductItemServiceImpl implements DeductItemService {
 
     @Override
     public ComResponse<Integer> insert(DeductItemInsertPo insertPo) {
-        ComResponse<Integer> result = deductItemFeginService.insert(insertPo);
-        if (result == null) {
-            return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(), ResponseCodeEnums.API_ERROR_CODE.getMessage());
-        } else if (result.getCode() == 200 && result.getData() < 1) {
-            return ComResponse.fail(ResponseCodeEnums.SAVE_DATA_ERROR_CODE.getCode(), ResponseCodeEnums.SAVE_DATA_ERROR_CODE.getMessage());
-        }
-        if (result.getData() > 0) {
-            return ComResponse.success();
-        }
-        return result;
+        return deductItemFeginService.insert(insertPo);
     }
 
     @Override

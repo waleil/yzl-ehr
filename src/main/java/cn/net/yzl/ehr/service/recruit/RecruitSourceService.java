@@ -19,13 +19,13 @@ public interface RecruitSourceService {
 
     ComResponse<List<RecruitSourceDto>> queryState();
 
-    ComResponse<Integer> addRecruit(RecruitSourceInsertPo insertPo);
+    ComResponse<Integer> addRecruit(RecruitSourceInsertPo insertPo,String staffNo);
 
-    ComResponse<Integer> modity(@RequestBody RecruitSourceUpdateListPo updateListPo);
+    ComResponse<Integer> modity(RecruitSourceUpdateListPo updateListPo);
 
-    ComResponse<Integer> update(RecruitSourceUpdatePo updatePo);
+    ComResponse<Integer> update(RecruitSourceUpdatePo updatePo,String staffNo);
 
-    ComResponse<Integer> getRecruitInfo(@RequestBody RecruitSourceUpdatePo updatePo);
+    ComResponse<Integer> getRecruitInfo( RecruitSourceUpdatePo updatePo,String staffNo);
 
-    ComResponse<Page<RecruitSourceDto>> queryPage(@RequestBody RecruitSourceListPo recruitSourceListPo,Integer pageSize, Integer pageNum);
+    ComResponse<Page<RecruitSourceDto>> queryPage(RecruitSourceListPo recruitSourceListPo);
 }

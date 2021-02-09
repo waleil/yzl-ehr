@@ -59,7 +59,7 @@ public interface RecruitSourceFeginService {
 
     @ApiOperation(value ="分页" ,notes ="分页",consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/recruit/queryPage",method = RequestMethod.GET)
-    ComResponse<Page<RecruitSourceDto>>queryPage(@RequestBody RecruitSourceListPo recruitSourceListPo,@RequestParam("pageSize") Integer pageSize, @RequestParam("pageNum")Integer pageNum);
+    ComResponse<Page<RecruitSourceDto>>queryPage(@RequestBody RecruitSourceListPo recruitSourceListPo);
 
 
 }

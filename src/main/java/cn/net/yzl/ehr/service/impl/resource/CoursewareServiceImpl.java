@@ -5,8 +5,9 @@ import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.dto.CourseWareCategoryDto;
 import cn.net.yzl.ehr.fegin.resource.CourseWareFeginService;
 import cn.net.yzl.ehr.service.resource.CoursewareService;
-import cn.net.yzl.staff.pojo.CourseWareCategoryPo;
-import cn.net.yzl.staff.pojo.CourseWarePo;
+import cn.net.yzl.staff.pojo.courseWare.CourseSelectPo;
+import cn.net.yzl.staff.pojo.courseWare.CourseWareCategoryPo;
+import cn.net.yzl.staff.pojo.courseWare.CourseWarePo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,16 +19,14 @@ public class CoursewareServiceImpl implements CoursewareService {
     @Autowired
     private CourseWareFeginService courseWareFeginService;
     @Override
-    public ComResponse<Integer> insertCourseWare(CourseWarePo courseWarePo,String creator) {
+    public ComResponse<Integer> insertCourseWare(CourseWarePo courseWarePo, String creator) {
         courseWarePo.setCreator(creator);
-        courseWarePo.setCreateTime(new Date());
         return courseWareFeginService.insertCourseWare(courseWarePo);
     }
 
     @Override
     public ComResponse<Integer> updateCourseWare(CourseWarePo courseWarePo,String updator) {
         courseWarePo.setUpdator(updator);
-        courseWarePo.setUpdateTime(new Date());
         return courseWareFeginService.updateCourseWare(courseWarePo);
     }
 
@@ -42,8 +41,8 @@ public class CoursewareServiceImpl implements CoursewareService {
     }
 
     @Override
-    public ComResponse<Page<CourseWarePo>> selectKeywordByName(String keyword, Integer pageNum, Integer pageSize,Integer typeId) {
-        return courseWareFeginService.searchCourseWareByName(keyword,pageNum,pageSize,typeId);
+    public ComResponse<Page<CourseWarePo>> selectKeywordByName(CourseSelectPo courseSelectPo) {
+        return courseWareFeginService.searchCourseWareByName(courseSelectPo);
     }
 
 
@@ -53,7 +52,7 @@ public class CoursewareServiceImpl implements CoursewareService {
     }
 
     @Override
-    public ComResponse<Integer> saveCourseWareCategory(List<CourseWareCategoryPo> list,String staffNo) {
+    public ComResponse<Integer> saveCourseWareCategory(List<CourseWareCategoryPo> list, String staffNo) {
         for (CourseWareCategoryPo courseWareCategoryPo : list) {
             if(courseWareCategoryPo.getId()==null||courseWareCategoryPo.getId()==0){
                 courseWareCategoryPo.setCreator(staffNo);

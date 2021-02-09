@@ -2,6 +2,7 @@ package cn.net.yzl.ehr.fegin.deduct;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.staff.dto.deduct.DeductRecordDto;
+import cn.net.yzl.staff.dto.deduct.DeductStaffInfoDto;
 import cn.net.yzl.staff.pojo.deduct.DeductRecordInsertPo;
 import cn.net.yzl.staff.pojo.deduct.DeductRecordListPo;
 import cn.net.yzl.staff.pojo.deduct.DeductRecordUpdatePo;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -32,4 +34,8 @@ public interface DeductRecordFeginService {
     @ApiOperation(value = "新建扣款申请", notes = "新建扣款申请",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/deductRecord/insertDeductRecord", method = RequestMethod.POST)
     ComResponse<Integer> insertDeductRecord(@RequestBody DeductRecordInsertPo deductRecordInsertPo);
+
+    @ApiOperation(value = "根据员工工号或姓名查询员工信息", notes = "根据员工工号或姓名查询员工信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/deductRecord/selectstaff", method = RequestMethod.POST)
+    ComResponse<DeductStaffInfoDto> selectstaff(@RequestParam("noOrName")String noOrName);
 }
