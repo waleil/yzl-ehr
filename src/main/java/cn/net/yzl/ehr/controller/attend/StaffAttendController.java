@@ -44,7 +44,7 @@ public class StaffAttendController {
     @ApiOperation(value = "考勤详情-获取每天的考勤信息", notes = "考勤详情-获取每天的考勤信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/getStaffAttendDayList", method = RequestMethod.GET)
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "time", value = "时间 年-月(格式:yyyy-HH)", required = true, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "time", value = "时间 年-月(格式:yyyy-MM)", required = true, dataType = "String", paramType = "query"),
             @ApiImplicitParam(name = "staffNo", value = "员工工号(如果不传 查询是当前登录的用户的)", required = false, dataType = "String", paramType = "query")
     })
     ComResponse<List<StaffAttendDayDto>> getStaffAttendDayList(String time, String staffNo, @ApiIgnore @CurrentStaffNo String currentStaffNo) throws ParseException {
@@ -57,7 +57,7 @@ public class StaffAttendController {
     @ApiOperation(value = "考勤详情-获取每个月的统计", notes = "考勤详情-获取每个月的统计", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/getStaffAttendScheduleDto", method = RequestMethod.POST)
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "time", value = "时间 年-月(格式:yyyy-HH)", required = true, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "time", value = "时间 年-月(格式:yyyy-MM)", required = true, dataType = "String", paramType = "query"),
             @ApiImplicitParam(name = "staffNo", value = "员工工号(如果不传 查询是当前登录的用户的)", required = false, dataType = "String", paramType = "query")
     })
     ComResponse<StaffAttendScheduleDto> getStaffAttendScheduleDto(String time,String staffNo,@ApiIgnore @CurrentStaffNo String currentStaffNo) {
