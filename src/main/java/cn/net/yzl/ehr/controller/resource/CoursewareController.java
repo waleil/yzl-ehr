@@ -50,7 +50,7 @@ public class CoursewareController {
     @ApiOperation(value = "查询课件", notes = "查询课件")
     @RequestMapping(value = "/searchcourse", method = RequestMethod.POST)
     ComResponse<Page<CourseWarePo>> searchCourseWare(@RequestBody CourseSelectPo courseSelectPo) {
-        if(StringUtils.isEmpty(courseSelectPo.getKeyword())&&StringUtils.isEmpty(courseSelectPo.getKeyword())){
+        if(StringUtils.isEmpty(courseSelectPo.getKeyword())&&StringUtils.isEmpty(courseSelectPo.getTypeId())){
             return courseWareService.searchCourseWare(courseSelectPo.getPageNum(),courseSelectPo.getPageSize());
         }else{
             return courseWareService.selectKeywordByName(courseSelectPo);
