@@ -8,6 +8,7 @@ import cn.net.yzl.ehr.pojo.*;
 import cn.net.yzl.ehr.vo.StaffParamsVO;
 import cn.net.yzl.staff.dto.StaffDetailsDto;
 import cn.net.yzl.staff.dto.StaffInfoDto;
+import cn.net.yzl.staff.dto.StatisticalStaffDto;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -33,4 +34,5 @@ public interface StaffService {
 
     ComResponse<StaffInfoDto> getInfoByNoForAbnor(String staffNo);
 
+    ComResponse<StatisticalStaffDto> getStaffTotalData();
 }

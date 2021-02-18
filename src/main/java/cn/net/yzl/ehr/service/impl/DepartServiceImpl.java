@@ -79,13 +79,11 @@ public class DepartServiceImpl implements DepartService {
 
     @Override
     public ComResponse<Integer> addBusinessAtrr(DepartBusinessAttrVO departBusinessAttrVO) {
-
         return departFeginService.addBusinessAtrr(departBusinessAttrVO);
     }
 
     @Override
     public ComResponse<List<DepartAttrDto>> getDepartAttrList() {
-
         return departFeginService.getDepartAttrList();
     }
 
