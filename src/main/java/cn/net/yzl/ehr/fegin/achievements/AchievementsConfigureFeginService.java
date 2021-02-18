@@ -14,6 +14,7 @@ import java.util.List;
 
 
 @FeignClient(value = "AchievementsConfigureFeginService",url = "${fegin.db.url}/achievementsConfigure")
+//@FeignClient(value = "AchievementsConfigureFeginService",url = "http://127.0.0.1:38080/achievementsConfigure")
 public interface AchievementsConfigureFeginService {
 
     @PostMapping("/list")
