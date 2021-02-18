@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.controller.performance;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.performance.PerformanceFeginService;
 import cn.net.yzl.staff.dto.perfomance.PerformanceDepartDto;
 import cn.net.yzl.staff.dto.perfomance.PerformanceDto;
@@ -30,7 +31,7 @@ import java.util.List;
  * @author biebaojie
  */
 @RestController
-@RequestMapping("/func/performance")
+@RequestMapping("/performance")
 @Api(value = "职能管理-绩效", tags = {"职能管理-绩效"})
 public class PerformanceController {
 
@@ -66,7 +67,8 @@ public class PerformanceController {
     })
     @ApiOperation(value = "职能管理-填报绩效-组织架构", notes = "职能管理-填报绩效-组织架构", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/queryFillPerformanceDepartList", method = RequestMethod.GET)
-    public ComResponse<List<PerformanceDepartDto>> queryFillPerformanceDepartList(PerformanceVo performanceVo) {
+    public ComResponse<List<PerformanceDepartDto>> queryFillPerformanceDepartList(PerformanceVo performanceVo, @CurrentStaffNo String staffNo) {
+        performanceVo.setStaffNo(staffNo);
         return performanceFeginService.queryFillPerformanceDepartList(performanceVo);
     }
 

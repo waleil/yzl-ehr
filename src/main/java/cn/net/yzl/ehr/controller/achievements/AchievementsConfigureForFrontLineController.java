@@ -20,7 +20,7 @@ import springfox.documentation.annotations.ApiIgnore;
 import java.util.List;
 
 
-@RequestMapping(value="/AchievementsConfigureForFrontLine")
+@RequestMapping(value="/achievementsConfigureForFrontLine")
 @RestController
 @Api(value = "一线管理-绩效系数配置", tags = {"一线管理-绩效系数配置"})
 public class AchievementsConfigureForFrontLineController {
