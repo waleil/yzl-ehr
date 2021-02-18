@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.constraints.NotBlank;
@@ -47,14 +48,14 @@ public class ProcessItemController {
 
     @ApiOperation(value = "审批项目添加",notes = "审批项目添加",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/item/insert", method = RequestMethod.POST)
-    ComResponse<Integer> insertProcessItem (@RequestBody @Validated ProcessItemVo processItemVo, @CurrentStaffNo @ApiIgnore String staffNo){
-        return processItemService.insertProcessItem(processItemVo,staffNo);
+    ComResponse<Integer> insertProcessItem (MultipartFile file,@RequestBody @Validated ProcessItemVo processItemVo, @CurrentStaffNo @ApiIgnore String staffNo){
+        return processItemService.insertProcessItem(file,processItemVo,staffNo);
     }
 
     @ApiOperation(value = "审批项目修改",notes = "审批项目修改",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/item/update", method = RequestMethod.POST)
-    ComResponse<Integer> updateProcessItem (@RequestBody @Validated ProcessItemVo processItemVo, @CurrentStaffNo @ApiIgnore String staffNo){
-        return processItemService.updateProcessItem(processItemVo,staffNo);
+    ComResponse<Integer> updateProcessItem (MultipartFile file,@RequestBody @Validated ProcessItemVo processItemVo, @CurrentStaffNo @ApiIgnore String staffNo){
+        return processItemService.updateProcessItem(file,processItemVo,staffNo);
     }
 
     @ApiOperation(value = "审批项目删除",notes = "审批项目删除",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
