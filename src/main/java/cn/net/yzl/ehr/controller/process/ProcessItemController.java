@@ -70,10 +70,16 @@ public class ProcessItemController {
         return processItemService.disableProcessItem(id,staffNo);
     }
 
-    @ApiOperation(value = "审批项目查询（根据审批类型）",notes = "审批项目查询（根据审批类型）",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "审批项目查询（根据审批类型id）",notes = "审批项目查询（根据审批类型id）",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/item/select", method = RequestMethod.GET)
     ComResponse<List<ProcessItemDto>> selectProcessItem (@RequestParam("id") Integer id){
         return processItemService.selectProcessItem(id);
+    }
+
+    @ApiOperation(value = "审批项目详情查询（根据审批项目id）",notes = "审批项目详情查询（根据审批项目id）",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/item/detail", method = RequestMethod.GET)
+    ComResponse<ProcessItemDto> selectProcessItemDetail (@RequestParam("id") Integer id){
+        return processItemService.selectProcessItemDetail(id);
     }
 
     @ApiOperation(value = "流程类型及项目展示",notes = "流程类型及项目展示",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
