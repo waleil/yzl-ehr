@@ -19,6 +19,7 @@ import java.util.List;
 @RequestMapping("/staff")
 @Api(value = "合同信息", tags = {"员工档案"})
 public class StaffContractController {
+
     @Autowired
     private StaffWorkService staffWorkService;
 

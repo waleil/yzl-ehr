@@ -67,9 +67,9 @@ public class StaffListDto implements Serializable {
     private Integer workCode;
     @ApiModelProperty(value = "职场", name = "workCodeStr")
     private String workCodeStr;
-    @ApiModelProperty(value = "在岗状态", name = "postStatusCode")
+    @ApiModelProperty(value = "在职状态", name = "postStatusCode")
     private Integer postStatusCode;
-    @ApiModelProperty(value = "在岗状态名称", name = "postStatusCodeStr")
+    @ApiModelProperty(value = "在职状态名称", name = "postStatusCodeStr")
     private String postStatusCodeStr;
     @ApiModelProperty(value = "账号状态 0正常 1停用", name = "accountStatus")
     private Integer accountStatus;
@@ -96,9 +96,9 @@ public class StaffListDto implements Serializable {
     private Integer trainingGrade;
     @ApiModelProperty(value = "培训成绩", name = "trainingGradeName")
     private String trainingGradeName;
-    @ApiModelProperty(value = "在职业状态code", name = "workStatus")
-    private Integer workStatus;
-    @ApiModelProperty(value = "在职业状态", name = "workStatusName")
-    private String workStatusName;
+    @ApiModelProperty(value = "入岗状态code", name = "enterStatus")
+    private Integer enterStatus;
+    @ApiModelProperty(value = "入岗状态", name = "enterStatusName")
+    private String enterStatusName;
 
 }

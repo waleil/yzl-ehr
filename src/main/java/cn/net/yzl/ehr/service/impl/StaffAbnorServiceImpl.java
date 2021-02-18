@@ -53,9 +53,7 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
     public ComResponse<StaffAbnorRecordListDto> getStaffAbnorRecord(String staffNo) {
         ComResponse<StaffAbnorRecordListDto> comResponse = staffAbnorFeginService.getStaffAbnorRecord(staffNo);
         if(comResponse==null){
-            ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
-        }else if(comResponse.getCode()==200 && comResponse.getData()!=null){
-            ComResponse.success();
+            return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
         }
         return comResponse;
     }
@@ -117,8 +115,6 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
         }
         if (list==null){
             ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
-        }else if (listComResponse.getData()!=null && listComResponse.getCode() == 200){
-            ComResponse.success();
         }
         return ComResponse.success(list);
     }
