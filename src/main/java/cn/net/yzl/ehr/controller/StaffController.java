@@ -16,6 +16,7 @@ import cn.net.yzl.ehr.vo.StaffParamsVO;
 
 import cn.net.yzl.staff.dto.StaffDetailsDto;
 import cn.net.yzl.staff.dto.StaffInfoDto;
+import cn.net.yzl.staff.dto.StatisticalStaffDto;
 import cn.net.yzl.staff.vo.staff.StaffInfoSaveVO;
 import cn.net.yzl.staff.vo.staff.StaffInfoUpdateVO;
 import io.swagger.annotations.*;
@@ -122,5 +123,11 @@ public class StaffController {
     @RequestMapping(value = "/getInfoByNoForAbnor", method = RequestMethod.GET)
     public ComResponse<StaffInfoDto> getInfoByNoForAbnor(String staffNo){
         return staffService.getInfoByNoForAbnor(staffNo);
+    }
+
+    @ApiOperation(value = "工作台-员工统计", notes = "工作台-员工统计")
+    @RequestMapping(value = "/getStaffTotalData", method = RequestMethod.GET)
+    public ComResponse<StatisticalStaffDto> getStaffTotalData() {
+        return staffFeginService.getStaffTotalData();
     }
 }

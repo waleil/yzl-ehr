@@ -26,7 +26,7 @@ public class ResumeInterviewOfferController {
 
     @ApiOperation(value = "简历列表-发送offer", notes = "简历列表-发送offer", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/sendOffer", method = RequestMethod.POST)
-    ComResponse<String> sendOffer(@RequestBody @Validated ResumeInterviewOfferInsertVO resumeInterviewOfferInsertVO,@ApiIgnore @CurrentStaffNo String staffNo) throws IllegalAccessException {
+    ComResponse<String> sendOffer(@RequestBody  ResumeInterviewOfferInsertVO resumeInterviewOfferInsertVO,@ApiIgnore @CurrentStaffNo String staffNo) throws IllegalAccessException {
         return resumeInterviewOfferFeginService.sendOffer(resumeInterviewOfferInsertVO);
     }
 

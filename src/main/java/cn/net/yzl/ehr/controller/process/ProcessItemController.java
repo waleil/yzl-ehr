@@ -1,0 +1,91 @@
+package cn.net.yzl.ehr.controller.process;
+
+import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
+import cn.net.yzl.ehr.service.process.ProcessItemService;
+import cn.net.yzl.staff.dto.SysDictDataDto;
+import cn.net.yzl.staff.dto.process.ProcessItemDto;
+import cn.net.yzl.staff.dto.process.ProcessTypeDto;
+import cn.net.yzl.staff.vo.process.ProcessItemVo;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import springfox.documentation.annotations.ApiIgnore;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.util.List;
+
+@RestController
+@RequestMapping("/process")
+@Api(value = "系统管理-流程管理",tags = {"系统管理"})
+public class ProcessItemController {
+
+    @Autowired
+    private ProcessItemService processItemService;
+
+    @ApiOperation(value = "审批类型查询",notes = "审批类型查询",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/type/queryAll", method = RequestMethod.GET)
+    ComResponse<List<SysDictDataDto>> queryProcessTypeAll(){
+        return processItemService.queryProcessTypeAll();
+    }
+
+    @ApiOperation(value = "审批类型添加",notes = "审批类型添加",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/type/insert", method = RequestMethod.POST)
+    ComResponse<Integer> insertProcessType (@RequestParam("name") @NotBlank String name, @CurrentStaffNo @ApiIgnore String staffNo){
+        return processItemService.insertProcessType(name,staffNo);
+    }
+
+    @ApiOperation(value = "审批类型删除",notes = "审批类型删除",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/type/delete", method = RequestMethod.POST)
+    ComResponse<Integer> deleteProcessType (@RequestParam("dictCode") @NotNull Integer dictCode){
+        return processItemService.deleteProcessType(dictCode);
+    }
+
+    @ApiOperation(value = "审批项目添加",notes = "审批项目添加",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/item/insert", method = RequestMethod.POST)
+    ComResponse<Integer> insertProcessItem (MultipartFile file,@RequestBody @Validated ProcessItemVo processItemVo, @CurrentStaffNo @ApiIgnore String staffNo){
+        return processItemService.insertProcessItem(file,processItemVo,staffNo);
+    }
+
+    @ApiOperation(value = "审批项目修改",notes = "审批项目修改",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/item/update", method = RequestMethod.POST)
+    ComResponse<Integer> updateProcessItem (MultipartFile file,@RequestBody @Validated ProcessItemVo processItemVo, @CurrentStaffNo @ApiIgnore String staffNo){
+        return processItemService.updateProcessItem(file,processItemVo,staffNo);
+    }
+
+    @ApiOperation(value = "审批项目删除",notes = "审批项目删除",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/item/delete", method = RequestMethod.POST)
+    ComResponse<Integer> deleteProcessItem (@RequestParam("id") Integer id,@CurrentStaffNo @ApiIgnore String staffNo){
+        return processItemService.deleteProcessItem(id,staffNo);
+    }
+
+    @ApiOperation(value = "审批项目禁用",notes = "审批项目禁用",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/item/disable", method = RequestMethod.POST)
+    ComResponse<Integer> disableProcessItem (@RequestParam("id") Integer id,@CurrentStaffNo @ApiIgnore String staffNo){
+        return processItemService.disableProcessItem(id,staffNo);
+    }
+
+    @ApiOperation(value = "审批项目查询（根据审批类型id）",notes = "审批项目查询（根据审批类型id）",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/item/select", method = RequestMethod.GET)
+    ComResponse<List<ProcessItemDto>> selectProcessItem (@RequestParam("id") Integer id){
+        return processItemService.selectProcessItem(id);
+    }
+
+    @ApiOperation(value = "审批项目详情查询（根据审批项目id）",notes = "审批项目详情查询（根据审批项目id）",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/item/detail", method = RequestMethod.GET)
+    ComResponse<ProcessItemDto> selectProcessItemDetail (@RequestParam("id") Integer id){
+        return processItemService.selectProcessItemDetail(id);
+    }
+
+    @ApiOperation(value = "流程类型及项目展示",notes = "流程类型及项目展示",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/item/display", method = RequestMethod.GET)
+    ComResponse<List<ProcessTypeDto>> processItemDisplay (@CurrentStaffNo @ApiIgnore String staffNo){
+        return processItemService.processItemDisplay(staffNo);
+    }
+
+}

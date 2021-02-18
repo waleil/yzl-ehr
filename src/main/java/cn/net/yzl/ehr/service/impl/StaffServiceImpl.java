@@ -9,6 +9,7 @@ import cn.net.yzl.ehr.pojo.*;
 import cn.net.yzl.ehr.service.StaffService;
 import cn.net.yzl.ehr.vo.StaffParamsVO;
 import cn.net.yzl.staff.dto.StaffInfoDto;
+import cn.net.yzl.staff.dto.StatisticalStaffDto;
 import cn.net.yzl.staff.vo.UpdatePasswordPo;
 import cn.net.yzl.staff.dto.StaffDetailsDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,6 +82,11 @@ public class StaffServiceImpl implements StaffService {
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
         }
         return infoByNoForAbnor;
+    }
+
+    @Override
+    public ComResponse<StatisticalStaffDto> getStaffTotalData() {
+        return staffFeginService.getStaffTotalData();
     }
 
 

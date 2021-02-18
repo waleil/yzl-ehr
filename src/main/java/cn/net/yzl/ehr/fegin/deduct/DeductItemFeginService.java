@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
 
 @Repository
-//@FeignClient(value = "staff",url = "${fegin.db.url}")
-@FeignClient(value = "staff",url = "127.0.0.1:38080/")
+@FeignClient(value = "staff",url = "${fegin.db.url}")
+//@FeignClient(value = "staff",url = "127.0.0.1:38080/")
 //@FeignClient(name = "yzl-staff-db")
 public interface DeductItemFeginService {
 
