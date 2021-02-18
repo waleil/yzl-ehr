@@ -5,10 +5,7 @@ import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.attend.StaffAttendFeginService;
-import cn.net.yzl.staff.dto.attend.StaffAttendDayDto;
-import cn.net.yzl.staff.dto.attend.StaffAttendImportResultDto;
-import cn.net.yzl.staff.dto.attend.StaffAttendListDto;
-import cn.net.yzl.staff.dto.attend.StaffAttendScheduleDto;
+import cn.net.yzl.staff.dto.attend.*;
 import cn.net.yzl.staff.util.StaffBeanUtils;
 import cn.net.yzl.staff.vo.attend.StaffAttendParamsVO;
 import io.swagger.annotations.Api;
@@ -18,10 +15,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import java.text.ParseException;
@@ -75,5 +69,11 @@ public class StaffAttendController {
     })
     ComResponse<List<StaffAttendImportResultDto>> importStaffAttend(String url) {
         return staffAttendFeginService.importStaffAttend(url);
+    }
+
+    @ApiOperation(value = "考勤详情-考勤账户信息", notes = "考勤详情-考勤账户信息", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/getStaffAttendAccountDto", method = RequestMethod.GET)
+    ComResponse<StaffAttendAccountDto> getStaffAttendAccountDto(@ApiIgnore @CurrentStaffNo String staffNo) {
+        return staffAttendFeginService.getStaffAttendAccountDto(staffNo);
     }
 }
