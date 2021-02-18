@@ -35,6 +35,7 @@ public class AchievementsConfigureForFrontLineController {
     ComResponse<Page<AchievementsConfigureDto>> list(@RequestBody AchievementsConfigureListVo request) {
         return achievementsConfigureService.list(request);
     }
+
     //保存
     @ApiOperation(value = "绩效系数配置-保存", notes = "绩效系数配置-保存")
     @PostMapping("/save")
