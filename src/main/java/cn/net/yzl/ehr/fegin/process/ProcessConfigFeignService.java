@@ -30,8 +30,8 @@ public interface ProcessConfigFeignService {
 
     @RequestMapping(value = "/config/pageSelect", method = RequestMethod.GET)
     ComResponse<Page<ProcessDto>> pageSelectProcessConfig(@RequestParam("processName") String processName,
-                                                          @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date startTime,
-                                                          @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date endTime,
+                                                          @RequestParam("startTime") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date startTime,
+                                                          @RequestParam("endTime") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date endTime,
                                                           @RequestParam("processType") Integer processType,
                                                           @RequestParam(value = "pageNum",defaultValue = "0") Integer pageNum,
                                                           @RequestParam(value = "pageSize",defaultValue = "10") Integer pageSize) ;
