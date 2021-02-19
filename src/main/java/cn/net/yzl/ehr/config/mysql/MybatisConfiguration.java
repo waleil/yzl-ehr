@@ -29,13 +29,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Configuration
 @AutoConfigureAfter(DataSourceConfiguration.class)
-@MapperScan(basePackages={"cn.net.yzl.ehr.mapper","cn.net.yzl.pm.mapper"})
+@MapperScan(basePackages={"cn.net.yzl.ehr.mapper","cn.net.yzl.pm.mapper","cn.net.yzl.msg.mapper"})
 public class MybatisConfiguration {
 
 	private static Logger log = LoggerFactory.getLogger(MybatisConfiguration.class);
 
 	//XxxMapper.xml文件所在路径
-	  @Value("${mysql.datasource.mapperLocations}")
+    @Value("#{'${mysql.datasource.mapperLocations}'.split(',')}")
       private String[] mapperLocations;
 
      //  加载全局的配置文件
