@@ -1,17 +1,18 @@
 package cn.net.yzl.ehr.controller.resume;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
+import cn.net.yzl.ehr.dto.resume.ResumeExportDto;
 import cn.net.yzl.ehr.fegin.resume.ResumeFeginService;
 import cn.net.yzl.staff.dto.DepartDto;
 import cn.net.yzl.staff.dto.DepartPostDto;
 import cn.net.yzl.staff.dto.DepartResumeNodeStaffDto;
-import cn.net.yzl.staff.dto.resume.ResumeDetailDto;
-import cn.net.yzl.staff.dto.resume.ResumeListDto;
+import cn.net.yzl.staff.dto.resume.*;
 import cn.net.yzl.staff.pojo.StaffPo;
 import cn.net.yzl.staff.util.StaffBeanUtils;
 import cn.net.yzl.staff.vo.resume.ResumeDbVO;
@@ -173,45 +174,197 @@ public class ResumeController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "state", value = "状态 0 待筛选  1筛选未通过  2筛选通过待面试 3面试中 4面试未通过 5面试通过待入职 6:推送中 7:面试通过已入职  8放入简历库", required = true, dataType = "Int", paramType = "query")
     })
-    @RequestMapping(value = "/export", method = RequestMethod.POST)
-    void noBatchPass(@RequestParam("state") Integer state, HttpServletResponse response) {
-
+    @RequestMapping(value = "/export", method = RequestMethod.GET)
+   public void noBatchPass(@RequestParam("state") Integer state, HttpServletResponse response) {
+        String execName="简历列表";
         try {
             ExcelWriter writer = ExcelUtil.getWriter();
             writer.renameSheet("简历列表");     //甚至sheet的名称
-            // 构建表头信息
-            if(state==7){
-                writer.addHeaderAlias("entryTime","入职时间");
+            if(state==0){ // 待筛选
+                execName="待筛选";
+                writer.addHeaderAlias("name", "姓名");
+                writer.addHeaderAlias("sex","性别");
+                writer.addHeaderAlias("phone", "手机号");
+                writer.addHeaderAlias("email","邮箱");
+                writer.addHeaderAlias("degreeName","学历");
+                writer.addHeaderAlias("schoolName","毕业院校");
+                writer.addHeaderAlias("startEndTime","就读时间");
+                writer.addHeaderAlias("postName","应聘岗位");
+                writer.addHeaderAlias("departName","岗位部门");
+                writer.addHeaderAlias("pDepartName","上级架构");
+                writer.addHeaderAlias("sourceName","来源渠道");
+                writer.addHeaderAlias("intentionName","初试意向");
+                writer.addHeaderAlias("entryTimes","入司次数");
+                writer.addHeaderAlias("fileName","附件简历");
+                writer.addHeaderAlias("createTime","录入时间");
+                writer.addHeaderAlias("creator","录入人");
+            }else if(state==1){
+                execName="1筛选未通过";
+                writer.addHeaderAlias("name", "姓名");
+                writer.addHeaderAlias("sex","性别");
+                writer.addHeaderAlias("phone", "手机号");
+                writer.addHeaderAlias("email","邮箱");
+                writer.addHeaderAlias("degreeName","学历");
+                writer.addHeaderAlias("schoolName","毕业院校");
+                writer.addHeaderAlias("startEndTime","就读时间");
+                writer.addHeaderAlias("postName","应聘岗位");
+                writer.addHeaderAlias("departName","岗位部门");
+                writer.addHeaderAlias("pDepartName","上级架构");
+                writer.addHeaderAlias("sourceName","来源渠道");
+                writer.addHeaderAlias("entryTimes","入司次数");
+                writer.addHeaderAlias("fileName","附件简历");
+                writer.addHeaderAlias("resumeDepartStaffDesc","备注");
+                writer.addHeaderAlias("createTime","录入时间");
+                writer.addHeaderAlias("creator","录入人");
+            }else if (state==2){
+                execName="筛选通过待面试";
+                writer.addHeaderAlias("name", "姓名");
+                writer.addHeaderAlias("sex","性别");
+                writer.addHeaderAlias("phone", "手机号");
+                writer.addHeaderAlias("email","邮箱");
+                writer.addHeaderAlias("degreeName","学历");
+                writer.addHeaderAlias("schoolName","毕业院校");
+                writer.addHeaderAlias("startEndTime","就读时间");
+                writer.addHeaderAlias("postName","应聘岗位");
+                writer.addHeaderAlias("departName","岗位部门");
+                writer.addHeaderAlias("pDepartName","上级架构");
+                writer.addHeaderAlias("sourceName","来源渠道");
+                writer.addHeaderAlias("entryTimes","入司次数");
+                writer.addHeaderAlias("fileName","附件简历");
+                writer.addHeaderAlias("resumeDepartStaffDesc","备注");
+                writer.addHeaderAlias("createTime","录入时间");
+                writer.addHeaderAlias("creator","录入人");
+            }else if (state==3){
+                execName="面试中";
+                writer.addHeaderAlias("name", "姓名");
+                writer.addHeaderAlias("sex","性别");
+                writer.addHeaderAlias("phone", "手机号");
+                writer.addHeaderAlias("email","邮箱");
+                writer.addHeaderAlias("degreeName","学历");
+                writer.addHeaderAlias("schoolName","毕业院校");
+                writer.addHeaderAlias("postName","应聘岗位");
+                writer.addHeaderAlias("departName","岗位部门");
+                writer.addHeaderAlias("pDepartName","上级架构");
+                writer.addHeaderAlias("sourceName","来源渠道");
+                writer.addHeaderAlias("entryTimes","入司次数");
+                writer.addHeaderAlias("fileName","附件简历");
+                writer.addHeaderAlias("resumeNodeName","面试轮次");
+                writer.addHeaderAlias("resultCodeName","面试结果");
+                writer.addHeaderAlias("evaluate","备注");
+                writer.addHeaderAlias("interviewTime","面试时间");
+                writer.addHeaderAlias("createTime","录入时间");
+                writer.addHeaderAlias("creator","录入人");
+            }else if (state==4){
+                execName="面试未通过";
+                writer.addHeaderAlias("name", "姓名");
+                writer.addHeaderAlias("sex","性别");
+                writer.addHeaderAlias("phone", "手机号");
+                writer.addHeaderAlias("email","邮箱");
+                writer.addHeaderAlias("degreeName","学历");
+                writer.addHeaderAlias("schoolName","毕业院校");
+                writer.addHeaderAlias("postName","应聘岗位");
+                writer.addHeaderAlias("departName","岗位部门");
+                writer.addHeaderAlias("pDepartName","上级架构");
+                writer.addHeaderAlias("sourceName","来源渠道");
+                writer.addHeaderAlias("entryTimes","入司次数");
+                writer.addHeaderAlias("fileName","附件简历");
+                writer.addHeaderAlias("interviewTime","面试时间");
+                writer.addHeaderAlias("evaluate","备注");
+                writer.addHeaderAlias("createTime","录入时间");
+                writer.addHeaderAlias("creator","录入人");
             }
-            writer.addHeaderAlias("name", "姓名");
-            writer.addHeaderAlias("sex","性别");
-            writer.addHeaderAlias("phone", "手机号");
-            if(state!=7){
-                writer.addHeaderAlias("email", "邮箱");
-                writer.addHeaderAlias("resumeEduDto.degreeName", "学历");
-                writer.addHeaderAlias("resumeEduDto.schoolName", "毕业院校");
-                writer.addHeaderAlias("","就读时间");
-            }else{
-
+            else if (state==5){
+                execName="面试通过待入职";
+                writer.addHeaderAlias("name", "姓名");
+                writer.addHeaderAlias("sex","性别");
+                writer.addHeaderAlias("phone", "手机号");
+                writer.addHeaderAlias("email","邮箱");
+                writer.addHeaderAlias("degreeName","学历");
+                writer.addHeaderAlias("schoolName","毕业院校");
+                writer.addHeaderAlias("postName","应聘岗位");
+                writer.addHeaderAlias("departName","岗位部门");
+                writer.addHeaderAlias("pDepartName","上级架构");
+                writer.addHeaderAlias("sourceName","来源渠道");
+                writer.addHeaderAlias("entryTimes","入司次数");
+                writer.addHeaderAlias("fileName","附件简历");
+                writer.addHeaderAlias("evaluate","备注");
+                writer.addHeaderAlias("createTime","录入时间");
+                writer.addHeaderAlias("creator","录入人");
             }
-            writer.addHeaderAlias("staffNo", "员工工号");   //设置head的名称， 此时的顺寻就是导出的顺序，
-            writer.addHeaderAlias("workCodeStr", "工作地点");
+            else if (state==7){
+                execName="面试通过已入职";
+                writer.addHeaderAlias("entryTime", "入职时间");
+                writer.addHeaderAlias("name", "姓名");
+                writer.addHeaderAlias("sex","性别");
+                writer.addHeaderAlias("phone", "手机号");
+                writer.addHeaderAlias("postName","岗位");
+                writer.addHeaderAlias("departName","岗位部门");
+                writer.addHeaderAlias("pDepartName","上级架构");
+                writer.addHeaderAlias("natureStr","属性");
+                writer.addHeaderAlias("sourceName","来源渠道");
+                writer.addHeaderAlias("partnerCodeStr","合作方");
+                writer.addHeaderAlias("workCodeStr","职场");
+                writer.addHeaderAlias("schoolName","毕业院校");
+                writer.addHeaderAlias("startEndTime","就读时间");
+                writer.addHeaderAlias("fileName","附件简历");
+                writer.addHeaderAlias("contractFile","劳动合同");
+                writer.addHeaderAlias("backCard","银行卡号");
+                writer.addHeaderAlias("article","领取物品");
+                writer.addHeaderAlias("entryTimes","入司次数");
+            }
+            else if (state==8){
+                execName="放入简历库";
+                writer.addHeaderAlias("name", "姓名");
+                writer.addHeaderAlias("sex","性别");
+                writer.addHeaderAlias("degreeName","学历");
+                writer.addHeaderAlias("schoolName","毕业院校");
+                writer.addHeaderAlias("startEndTime","时间");
+                writer.addHeaderAlias("phone", "手机号");
+                writer.addHeaderAlias("email","邮箱");
+                writer.addHeaderAlias("departName","岗位部门");
+                writer.addHeaderAlias("postName","应聘岗位");
+                writer.addHeaderAlias("pDepartName","上级架构");
+                writer.addHeaderAlias("sourceName","来源渠道");
+                writer.addHeaderAlias("fileName","附件简历");
+                writer.addHeaderAlias("rdCreateTime","入库时间");
+                writer.addHeaderAlias("reasonCodeName","入库原因");
+                writer.addHeaderAlias("intentionName","初试意向");
+                writer.addHeaderAlias("entryTimes","入司次数");
 
-            writer.addHeaderAlias("status_name", "状态");
-            writer.addHeaderAlias("approvalStatus_name", "审核状态");
+                writer.addHeaderAlias("createTime","录入时间");
+                writer.addHeaderAlias("creator","录入人");
+            }
+
+
             ResumeParamsVO resumeParamsVO = new ResumeParamsVO();
             resumeParamsVO.setState(state);
+            resumeParamsVO.setPageSize(100000);
             ComResponse<Page<ResumeListDto>> listByParams = resumeFeginService.getListByParams(resumeParamsVO);
             List<ResumeListDto> items = listByParams.getData().getItems();
-            List list=null;
+            List list=new ArrayList();
 //            List<RecordInfoDetailsDTO> list = query(); //查询出所有的需要导出的数据
-            writer.write(items, true);
+            if(items!=null || items.size()>0){
+                for (ResumeListDto item : items) {
+                    ResumeExportDto resumeExportDto = new ResumeExportDto();
+                    try{
+                        BeanUtil.copyProperties(item,resumeExportDto);
+
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    list.add(resumeExportDto);
+                }
+            }
             writer.setOnlyAlias(true);
+            writer.write(list, true);
             response.reset();
             response.setContentType("application/vnd.ms-excel;charset=utf-8");
-            response.setHeader("Content-Disposition", "attachment; filename="+ URLEncoder.encode("所有数据", "UTF-8")+".xlsx");   //中文名称需要特殊处理
+//            response.setContentType("application/octet-stream");
+//            execName = new String(execName.getBytes("UTF-8"),"ISO8859-1");
+            response.setHeader("Content-Disposition", "attachment; filename="+ URLEncoder.encode(execName, "UTF-8")+".xlsx");   //中文名称需要特殊处理
+//            response.setHeader("Content-Disposition", "attachment; filename="+ execName+".xlsx");   //中文名称需要特殊处理
+            writer.autoSizeColumnAll();
             writer.flush(response.getOutputStream());
-
             writer.close();
         } catch (Exception e) {
             //如果导出异常，则生成一个空的文件
