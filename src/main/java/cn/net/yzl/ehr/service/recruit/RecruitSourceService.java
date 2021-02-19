@@ -21,7 +21,7 @@ public interface RecruitSourceService {
 
     ComResponse<Integer> addRecruit(RecruitSourceInsertPo insertPo,String staffNo);
 
-    ComResponse<Integer> modity(RecruitSourceUpdateListPo updateListPo);
+    ComResponse<Integer> modity(RecruitSourceUpdateListPo updateListPo,String staffNo);
 
     ComResponse<Integer> update(RecruitSourceUpdatePo updatePo,String staffNo);
 
