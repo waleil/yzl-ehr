@@ -82,10 +82,16 @@ public class ProcessItemController {
         return processItemService.selectProcessItemDetail(id);
     }
 
-    @ApiOperation(value = "流程类型及项目展示",notes = "流程类型及项目展示",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @RequestMapping(value = "/item/display", method = RequestMethod.GET)
+    @ApiOperation(value = "流程类型及项目展示(流程管理页面接口)",notes = "流程类型及项目展示(流程管理页面接口)",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/item/manager", method = RequestMethod.GET)
     ComResponse<List<ProcessTypeDto>> processItemDisplay (@CurrentStaffNo @ApiIgnore String staffNo){
         return processItemService.processItemDisplay(staffNo);
+    }
+
+    @ApiOperation(value = "流程类型及项目展示(发起流程页面接口)",notes = "流程类型及项目展示(发起流程页面接口)",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/item/show", method = RequestMethod.GET)
+    ComResponse<List<ProcessTypeDto>> processItemDisplayByUser (@CurrentStaffNo @ApiIgnore String staffNo){
+        return processItemService.processItemDisplayByUser(staffNo);
     }
 
 }

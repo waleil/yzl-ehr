@@ -1,9 +1,9 @@
 package cn.net.yzl.ehr.fegin.performance;
 
 import cn.net.yzl.common.entity.ComResponse;
-import cn.net.yzl.staff.dto.perfomance.PerformanceDepartDto;
-import cn.net.yzl.staff.dto.perfomance.PerformanceDto;
-import cn.net.yzl.staff.dto.perfomance.PerformanceOrgStaffDto;
+import cn.net.yzl.staff.dto.performance.PerformanceDepartDto;
+import cn.net.yzl.staff.dto.performance.PerformanceDto;
+import cn.net.yzl.staff.dto.performance.PerformanceOrgStaffDto;
 import cn.net.yzl.staff.pojo.performance.PerformanceOrgTargetPo;
 import cn.net.yzl.staff.pojo.performance.PerformancePersonTargetPo;
 import cn.net.yzl.staff.vo.performance.PerformanceApproveVo;

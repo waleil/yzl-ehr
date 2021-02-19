@@ -32,4 +32,6 @@ public interface ProcessItemService {
 
     ComResponse<List<ProcessTypeDto>> processItemDisplay(String staffNo);
 
+    ComResponse<List<ProcessTypeDto>> processItemDisplayByUser(String staffNo);
+
 }

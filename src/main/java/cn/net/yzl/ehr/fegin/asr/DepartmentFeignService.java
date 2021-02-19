@@ -37,9 +37,9 @@ public interface DepartmentFeignService {
      * @date: 2021/02/04 11:17 上午
      * @return: cn.net.yzl.common.entity.ComResponse<cn.net.yzl.model.dto.DepartmentDto>
      */
-    @DeleteMapping(value = "department/v1/delete/{id}")
+    @DeleteMapping(value = "department/v1/delete/by/id")
     @ApiOperation(value = "删除asr组织架构", httpMethod = "DELETE")
-    ComResponse<Boolean> delDepartment(@PathVariable String id) ;
+    ComResponse<Boolean> delDepartment(@RequestParam("id") String id) ;
 
     /**
      * @author wanghuasheng
