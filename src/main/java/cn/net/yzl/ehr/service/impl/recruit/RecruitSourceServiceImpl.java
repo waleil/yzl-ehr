@@ -6,10 +6,7 @@ import cn.net.yzl.common.enums.ResponseCodeEnums;
 import cn.net.yzl.ehr.fegin.recruit.RecruitSourceFeginService;
 import cn.net.yzl.ehr.util.FastDFSClientWrapper;
 import cn.net.yzl.staff.dto.recruit.RecruitSourceDto;
-import cn.net.yzl.staff.pojo.recruit.RecruitSourceInsertPo;
-import cn.net.yzl.staff.pojo.recruit.RecruitSourceListPo;
-import cn.net.yzl.staff.pojo.recruit.RecruitSourceUpdateListPo;
-import cn.net.yzl.staff.pojo.recruit.RecruitSourceUpdatePo;
+import cn.net.yzl.staff.pojo.recruit.*;
 import cn.net.yzl.ehr.service.recruit.RecruitSourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -119,5 +116,19 @@ public class RecruitSourceServiceImpl implements RecruitSourceService {
     @Override
     public ComResponse<Page<RecruitSourceDto>> queryPage(RecruitSourceListPo recruitSourceListPo) {
         return sourceFeginService.queryPage(recruitSourceListPo);
+    }
+
+    @Override
+    public ComResponse<Integer> updateState(RecruitSourceUpdateStatePo updatePo, String staffNo) {
+        updatePo.setUpdator(staffNo);
+        ComResponse<Integer> result = sourceFeginService.updateState(updatePo);
+        if (result==null){
+            return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
+        }else if (result.getCode()==200 && result.getData()==null){
+            return ComResponse.fail(ResponseCodeEnums.SAVE_DATA_ERROR_CODE.getCode(),ResponseCodeEnums.SAVE_DATA_ERROR_CODE.getMessage());
+        }if (result.getData()!=null){
+            return ComResponse.success();
+        }
+        return result;
     }
 }

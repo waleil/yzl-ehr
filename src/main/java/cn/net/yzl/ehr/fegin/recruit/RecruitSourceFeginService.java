@@ -6,10 +6,7 @@ import cn.net.yzl.ehr.dto.StaffUpRpListDto;
 import cn.net.yzl.ehr.dto.StaffUpTrainListDto;
 import cn.net.yzl.ehr.pojo.*;
 import cn.net.yzl.staff.dto.recruit.RecruitSourceDto;
-import cn.net.yzl.staff.pojo.recruit.RecruitSourceInsertPo;
-import cn.net.yzl.staff.pojo.recruit.RecruitSourceListPo;
-import cn.net.yzl.staff.pojo.recruit.RecruitSourceUpdateListPo;
-import cn.net.yzl.staff.pojo.recruit.RecruitSourceUpdatePo;
+import cn.net.yzl.staff.pojo.recruit.*;
 import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -60,6 +57,10 @@ public interface RecruitSourceFeginService {
     @ApiOperation(value ="分页" ,notes ="分页",consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/recruit/queryPage",method = RequestMethod.GET)
     ComResponse<Page<RecruitSourceDto>>queryPage(@RequestBody RecruitSourceListPo recruitSourceListPo);
+
+    @ApiOperation(value ="停用" ,notes ="停用",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/recruit/updateState",method = RequestMethod.POST)
+    ComResponse<Integer> updateState (@RequestBody RecruitSourceUpdateStatePo updatePo);
 
 
 }

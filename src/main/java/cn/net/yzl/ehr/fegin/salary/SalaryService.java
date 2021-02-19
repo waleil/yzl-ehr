@@ -2,7 +2,9 @@ package cn.net.yzl.ehr.fegin.salary;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
+import cn.net.yzl.staff.dto.salary.MySalaryDto;
 import cn.net.yzl.staff.dto.salary.SalaryDto;
+import cn.net.yzl.staff.vo.salary.MySalaryVo;
 import cn.net.yzl.staff.vo.salary.SalaryFinanceVo;
 import cn.net.yzl.staff.vo.salary.SalaryVo;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -26,10 +28,11 @@ public interface SalaryService {
     @RequestMapping(value = "/importSalary", method = RequestMethod.GET)
     ComResponse<Boolean> importSalary(@RequestParam("url") String url);
 
-    //导出数据
-
     //提交财务
     @PostMapping("/postToFinance")
     ComResponse<Void>  postToFinance(@RequestBody List<SalaryFinanceVo> list);
 
+    //我得工资
+    @RequestMapping(value = "/getMySalary", method = RequestMethod.GET)
+    ComResponse<MySalaryDto> getMySalary(MySalaryVo request);
 }
