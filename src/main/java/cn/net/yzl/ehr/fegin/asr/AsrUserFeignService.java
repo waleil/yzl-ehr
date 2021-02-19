@@ -43,9 +43,9 @@ public interface AsrUserFeignService {
      * @date: 2021/02/04 11:17 上午
      * @return: cn.net.yzl.common.entity.ComResponse<Boolean>
      */
-    @DeleteMapping(value = "asrUser/v1/delete/{uid}")
+    @DeleteMapping(value = "asrUser/v1/delete/by/uid")
     @ApiOperation(value = "删除用户", httpMethod = "DELETE")
-    ComResponse<Boolean> deleteUser(@PathVariable String uid) ;
+    ComResponse<Boolean> deleteUser(@RequestParam("uid") String uid) ;
     /**
      * @author wangshuaidong
      * @description 查询所有Role列表

@@ -102,4 +102,9 @@ public class ProcessItemServiceImpl implements ProcessItemService {
     public ComResponse<List<ProcessTypeDto>> processItemDisplay(String staffNo) {
         return processItemFeignService.processItemDisplay(staffNo);
     }
+
+    @Override
+    public ComResponse<List<ProcessTypeDto>> processItemDisplayByUser(String staffNo) {
+        return processItemFeignService.processItemDisplayByUser(staffNo);
+    }
 }

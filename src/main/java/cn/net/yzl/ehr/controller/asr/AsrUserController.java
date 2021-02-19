@@ -66,9 +66,9 @@ public class AsrUserController {
      * @date: 2021/02/04 11:17 上午
      * @return: cn.net.yzl.common.entity.ComResponse<Boolean>
      */
-    @DeleteMapping(value = "v1/delete/{uid}")
+    @DeleteMapping(value = "v1/delete/by/uid")
     @ApiOperation(value = "删除用户", httpMethod = "DELETE")
-    public ComResponse<Boolean> deleteUser(@PathVariable String uid) {
+    public ComResponse<Boolean> deleteUser(@RequestParam("uid") String uid) {
         log.info("进入到删除用户接口。。。");
         return asrUserFeignService.deleteUser(uid);
     }
