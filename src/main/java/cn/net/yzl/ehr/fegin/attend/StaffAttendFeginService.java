@@ -3,10 +3,7 @@ package cn.net.yzl.ehr.fegin.attend;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
-import cn.net.yzl.staff.dto.attend.StaffAttendDayDto;
-import cn.net.yzl.staff.dto.attend.StaffAttendImportResultDto;
-import cn.net.yzl.staff.dto.attend.StaffAttendListDto;
-import cn.net.yzl.staff.dto.attend.StaffAttendScheduleDto;
+import cn.net.yzl.staff.dto.attend.*;
 import cn.net.yzl.staff.vo.attend.StaffAttendParamsVO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -28,7 +25,9 @@ public interface StaffAttendFeginService {
     @RequestMapping(value = "/getStaffAttendScheduleDto", method = RequestMethod.POST)
     ComResponse<StaffAttendScheduleDto> getStaffAttendScheduleDto(@RequestParam("time")String time, @RequestParam("staffNo")String staffNo);
     @RequestMapping(value = "/importStaffAttend", method = RequestMethod.GET)
-    ComResponse<List<StaffAttendImportResultDto>> importStaffAttend(@Param("url") String url);
+    ComResponse<List<StaffAttendImportResultDto>> importStaffAttend(@RequestParam("url") String url);
     @RequestMapping(value = "/getStaffAttendListByParams", method = RequestMethod.POST)
     ComResponse<Page<StaffAttendListDto>> getStaffAttendListByParams(@RequestBody StaffAttendParamsVO staffAttendParamsVO);
+    @RequestMapping(value = "/getStaffAttendAccountDto", method = RequestMethod.GET)
+    ComResponse<StaffAttendAccountDto> getStaffAttendAccountDto(@RequestParam("staffNo")String staffNo);
 }

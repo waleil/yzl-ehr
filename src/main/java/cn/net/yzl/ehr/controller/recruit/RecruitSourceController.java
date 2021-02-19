@@ -68,7 +68,7 @@ public class RecruitSourceController {
     @ApiOperation(value ="招聘渠道—批量修改招聘渠道状态" ,notes ="批量修改",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/modity",method = RequestMethod.POST)
     ComResponse<Integer> modity (@RequestBody RecruitSourceUpdateListPo updateListPo,@ApiIgnore @CurrentStaffNo String staffNo){
-        return recruitSourceService.modity(updateListPo);
+        return recruitSourceService.modity(updateListPo,staffNo);
     }
 
     @ApiOperation(value ="招聘渠道—招聘渠道续费" ,notes ="续费",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)

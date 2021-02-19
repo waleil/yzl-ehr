@@ -22,7 +22,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/salaryFrontLineRule")
-@Api(value = "一线管理-薪酬核算规则", tags = {"线管理-薪酬核算规则"})
+@Api(value = "一线管理-薪酬核算规则", tags = {"一线管理-薪酬核算规则"})
 public class SalaryFrontLineRuleController {
     @Autowired
     private SalaryFrontLineRuleFeginService salaryFrontLineService;
@@ -91,6 +91,7 @@ public class SalaryFrontLineRuleController {
     @ApiOperation(value = "一线管理-薪酬核算规则配置-设置规则对应岗位", notes = "一线管理-薪酬核算规则配置-设置规则对应岗位")
     @PostMapping("/ruleDepartPostConfig")
     ComResponse<Boolean> ruleDepartPostConfig(@RequestBody SalaryRulePostVo salaryRulePostVo) {
+        salaryRulePostVo.setStaffType(1);
         return salaryFrontLineService.ruleDepartPostConfig(salaryRulePostVo);
     }
 }

@@ -8,6 +8,7 @@ import cn.net.yzl.ehr.pojo.*;
 import cn.net.yzl.ehr.vo.StaffParamsVO;
 import cn.net.yzl.staff.dto.StaffDetailsDto;
 import cn.net.yzl.staff.dto.StaffInfoDto;
+import cn.net.yzl.staff.dto.StatisticalStaffDto;
 import cn.net.yzl.staff.pojo.RunAbnorRecordPo;
 import cn.net.yzl.staff.vo.UpdatePasswordPo;
 import cn.net.yzl.staff.vo.staff.StaffInfoSaveVO;
@@ -69,5 +70,7 @@ public interface StaffFeginService {
     @RequestMapping(value = "/staff/getInfoByNoForAbnor", method = RequestMethod.GET)
     ComResponse<StaffInfoDto> getInfoByNoForAbnor(@RequestParam("staffNo") String staffNo);
 
+    @RequestMapping(value = "/staff/getStaffTotalData", method = RequestMethod.GET)
+    ComResponse<StatisticalStaffDto> getStaffTotalData();
 
 }

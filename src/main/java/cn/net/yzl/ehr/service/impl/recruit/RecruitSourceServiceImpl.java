@@ -72,7 +72,8 @@ public class RecruitSourceServiceImpl implements RecruitSourceService {
     }
 
     @Override
-    public ComResponse<Integer> modity(RecruitSourceUpdateListPo updateListPo) {
+    public ComResponse<Integer> modity(RecruitSourceUpdateListPo updateListPo,String staffNo) {
+        updateListPo.setUpdator(staffNo);
         ComResponse<Integer> result =sourceFeginService.modity(updateListPo);
         if (result==null){
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
