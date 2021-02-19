@@ -1,6 +1,8 @@
 package cn.net.yzl.ehr.controller.attend;
 
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.poi.excel.ExcelUtil;
+import cn.hutool.poi.excel.ExcelWriter;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
@@ -18,6 +20,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.servlet.http.HttpServletResponse;
+import java.net.URLEncoder;
 import java.text.ParseException;
 import java.util.List;
 
@@ -67,8 +71,30 @@ public class StaffAttendController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "url", value = "文件路径(相对路径)", required = true, dataType = "String", paramType = "query"),
     })
-    ComResponse<List<StaffAttendImportResultDto>> importStaffAttend(String url) {
-        return staffAttendFeginService.importStaffAttend(url);
+    void importStaffAttend(String url, HttpServletResponse response) {
+        ExcelWriter writer = ExcelUtil.getWriter();
+        writer.renameSheet("考勤结果");     //甚至sheet的名称
+        ComResponse<List<StaffAttendImportResultDto>> result =  staffAttendFeginService.importStaffAttend(url);
+        List<StaffAttendImportResultDto> list = result.getData();
+        try {
+            writer.addHeaderAlias("staffNo", "员工工号");
+            writer.addHeaderAlias("result", "导入结果");
+            writer.addHeaderAlias("resultDesc", "resultDesc");
+            writer.addHeaderAlias("time", "时间");
+            writer.setOnlyAlias(true);
+            writer.write(list, true);
+            response.reset();
+            response.setContentType("application/vnd.ms-excel;charset=utf-8");
+//            response.setContentType("application/octet-stream");
+//            execName = new String(execName.getBytes("UTF-8"),"ISO8859-1");
+            response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode("attend_result", "UTF-8") + ".xlsx");   //中文名称需要特殊处理
+//            response.setHeader("Content-Disposition", "attachment; filename="+ execName+".xlsx");   //中文名称需要特殊处理
+            writer.autoSizeColumnAll();
+            writer.flush(response.getOutputStream());
+            writer.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @ApiOperation(value = "考勤详情-考勤账户信息", notes = "考勤详情-考勤账户信息", consumes = MediaType.APPLICATION_JSON_VALUE)
