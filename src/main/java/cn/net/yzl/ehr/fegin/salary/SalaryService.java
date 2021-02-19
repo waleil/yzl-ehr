@@ -28,8 +28,6 @@ public interface SalaryService {
     @RequestMapping(value = "/importSalary", method = RequestMethod.GET)
     ComResponse<Boolean> importSalary(@RequestParam("url") String url);
 
-    //导出数据
-
     //提交财务
     @PostMapping("/postToFinance")
     ComResponse<Void>  postToFinance(@RequestBody List<SalaryFinanceVo> list);
