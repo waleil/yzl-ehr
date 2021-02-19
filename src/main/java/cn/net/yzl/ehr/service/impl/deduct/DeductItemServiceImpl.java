@@ -18,7 +18,8 @@ public class DeductItemServiceImpl implements DeductItemService {
     private DeductItemFeginService  deductItemFeginService;
 
     @Override
-    public ComResponse<Integer> insert(DeductItemInsertPo insertPo) {
+    public ComResponse<Integer> insert(DeductItemInsertPo insertPo,String staffNo) {
+        insertPo.setCreator(staffNo);
         return deductItemFeginService.insert(insertPo);
     }
 
@@ -34,7 +35,8 @@ public class DeductItemServiceImpl implements DeductItemService {
     }
 
     @Override
-    public ComResponse<Integer> updateByState(DeductItemUpdatePo updatePo) {
+    public ComResponse<Integer> updateByState(DeductItemUpdatePo updatePo,String staffNo) {
+        updatePo.setUpdator(staffNo);
         ComResponse<Integer> result = deductItemFeginService.updateByState(updatePo);
         if (result == null) {
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(), ResponseCodeEnums.API_ERROR_CODE.getMessage());
