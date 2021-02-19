@@ -59,9 +59,9 @@ public class DepartmentController {
      * @date: 2021/02/04 11:17 上午
      * @return: cn.net.yzl.common.entity.ComResponse<cn.net.yzl.model.dto.DepartmentDto>
      */
-    @DeleteMapping(value = "v1/delete/{id}")
+    @DeleteMapping(value = "v1/delete/by/id")
     @ApiOperation(value = "删除asr组织架构", httpMethod = "DELETE")
-    public ComResponse<Boolean> delDepartment(@PathVariable String id) {
+    public ComResponse<Boolean> delDepartment(@RequestParam("id") String id) {
         log.info("进入到删除ASR组织架构接口。。。id：{}", id);
         return departmentFeignService.delDepartment(id);
     }
