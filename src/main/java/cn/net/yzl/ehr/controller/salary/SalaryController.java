@@ -2,6 +2,7 @@ package cn.net.yzl.ehr.controller.salary;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
+import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.salary.SalaryService;
 import cn.net.yzl.staff.dto.salary.MySalaryDto;
 import cn.net.yzl.staff.dto.salary.SalaryDto;
@@ -14,6 +15,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 
@@ -56,4 +58,13 @@ public class SalaryController {
         salaryService.postToFinance(list);
         return ComResponse.success();
     }
+
+    //我得工资
+    @ApiOperation(value = "我得工资-一线职能共用", notes = "我得工资-一线职能共用")
+    @PostMapping("/getMySalary")
+    ComResponse<MySalaryDto> getMySalary(@ApiIgnore @CurrentStaffNo String staffNo,@RequestBody MySalaryVo request) {
+        request.setStaffNo(staffNo);
+        return salaryService.getMySalary(request);
+    }
+
 }

@@ -19,6 +19,7 @@ public interface AchievementsConfigureFeginService {
 
     @PostMapping("/list")
     ComResponse<Page<AchievementsConfigureDto>> list(AchievementsConfigureListVo achievementsConfigureListVo);
+
     @PostMapping("/save")
     ComResponse<Boolean> save(List<AchievementsConfigureSaveVo> request);
 
