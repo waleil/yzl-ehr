@@ -35,7 +35,7 @@ public interface StaffRecruitFeginService {
 
     @ApiOperation(value = "查询单个招聘任务详情",notes = "查询单个招聘任务详情",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/staffRecruit/getById", method = RequestMethod.GET)
-    public ComResponse<StaffRecruitDto> getById(@RequestParam Integer id) ;
+    public ComResponse<StaffRecruitDto> getById(@RequestParam("id") Integer id) ;
 
     @ApiOperation(value = "设置简历跟进时长",notes = "设置简历跟进时长",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/staffRecruit/updateResumeFollowTime", method = RequestMethod.GET)
