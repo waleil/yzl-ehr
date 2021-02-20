@@ -21,7 +21,7 @@ import java.util.List;
  * @Description
  */
 @RestController
-@RequestMapping("/salaryFrontLineRule")
+@RequestMapping("/salaryNotFrontLineRule")
 @Api(value = "一线管理-薪酬核算规则", tags = {"一线管理-薪酬核算规则"})
 public class SalaryNotFrontLineRuleController {
     @Autowired
