@@ -5,12 +5,13 @@ import cn.net.yzl.staff.dto.SysDictDataDto;
 import cn.net.yzl.staff.dto.process.ProcessItemDto;
 import cn.net.yzl.staff.dto.process.ProcessTypeDto;
 import cn.net.yzl.staff.vo.process.ProcessItemVo;
+import cn.net.yzl.staff.vo.process.ProcessTypeVo;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 public interface ProcessItemService {
-    ComResponse<Integer> insertProcessType(String name, String staffNo);
+    ComResponse<Integer> insertProcessType(ProcessTypeVo processTypeVo, String staffNo);
 
     ComResponse<List<SysDictDataDto>> queryProcessTypeAll();
 

@@ -10,6 +10,7 @@ import cn.net.yzl.staff.dto.process.ProcessItemDto;
 import cn.net.yzl.staff.dto.process.ProcessTypeDto;
 import cn.net.yzl.staff.exception.BaseParamsException;
 import cn.net.yzl.staff.vo.process.ProcessItemVo;
+import cn.net.yzl.staff.vo.process.ProcessTypeVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +37,8 @@ public class ProcessItemServiceImpl implements ProcessItemService {
 
 
     @Override
-    public ComResponse<Integer> insertProcessType(String name, String staffNo) {
-        return processItemFeignService.insertProcessType(name,staffNo);
+    public ComResponse<Integer> insertProcessType(ProcessTypeVo processTypeVo, String staffNo) {
+        return processItemFeignService.insertProcessType(processTypeVo,staffNo);
     }
 
     @Override
