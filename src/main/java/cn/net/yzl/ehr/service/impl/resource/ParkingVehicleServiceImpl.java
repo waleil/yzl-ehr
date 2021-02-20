@@ -64,4 +64,9 @@ public class ParkingVehicleServiceImpl implements ParkingVehicleService {
     public ComResponse<ParkingConfigCountDto> selectStatisticalList() {
         return parkingVehicleFeginService.selectStatisticalList();
     }
+
+    @Override
+    public ComResponse timerUpdate() {
+        return parkingVehicleFeginService.timerUpdate();
+    }
 }

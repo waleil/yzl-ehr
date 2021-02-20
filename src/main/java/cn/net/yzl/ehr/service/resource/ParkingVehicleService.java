@@ -32,4 +32,7 @@ public interface ParkingVehicleService {
     ComResponse<Integer> insertParkingSet(ParkingSetPo parkingSetPo);
    //查询车位
    ComResponse selectStatisticalList();
+
+   //定时扫描
+   ComResponse timerUpdate();
 }
