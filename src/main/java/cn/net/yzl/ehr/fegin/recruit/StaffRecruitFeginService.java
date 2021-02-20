@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Repository
-@FeignClient(value = "staff",url = "${fegin.db.url}")
+@FeignClient(value = "staffRecruit",url = "${fegin.db.url}")
 //@FeignClient(name = "yzl-staff-db")
 public interface StaffRecruitFeginService {
 
