@@ -52,7 +52,7 @@ public class StaffRecruitController {
 
     @ApiOperation(value = "查询单个招聘任务详情",notes = "查询单个招聘任务详情",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/getById", method = RequestMethod.GET)
-    public ComResponse<StaffRecruitDto> getById(@RequestParam @NotNull @Min(0) Integer id) {
+    public ComResponse<StaffRecruitDto> getById(@RequestParam("id") @NotNull @Min(0) Integer id) {
         return staffRecruitService.getById(id);
     }
 
