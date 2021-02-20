@@ -8,7 +8,6 @@ import cn.net.yzl.staff.dto.salaryRule.SalaryRuleDepartPostDto;
 import cn.net.yzl.staff.vo.salaryRule.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
@@ -22,14 +21,14 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/salaryFrontLineRule")
-@Api(value = "一线管理-薪酬核算规则", tags = {"线管理-薪酬核算规则"})
+@Api(value = "一线管理-薪酬核算规则", tags = {"一线管理-薪酬核算规则"})
 public class SalaryFrontLineRuleController {
     @Autowired
     private SalaryFrontLineRuleFeginService salaryFrontLineService;
 
     @ApiOperation(value = "一线管理-薪酬核算规则配置-查看", notes = "一线管理-薪酬核算规则配置-查看")
     @PostMapping("/ruleList")
-    ComResponse<SalaryFrontLineRuleDto> ruleList(SalaryFrontLineRuleDetailVo salaryFrontLineRuleDetailVo) {
+    ComResponse<SalaryFrontLineRuleDto> ruleList(@RequestBody SalaryFrontLineRuleDetailVo salaryFrontLineRuleDetailVo) {
         return salaryFrontLineService.ruleList(salaryFrontLineRuleDetailVo);
     }
 
@@ -91,6 +90,7 @@ public class SalaryFrontLineRuleController {
     @ApiOperation(value = "一线管理-薪酬核算规则配置-设置规则对应岗位", notes = "一线管理-薪酬核算规则配置-设置规则对应岗位")
     @PostMapping("/ruleDepartPostConfig")
     ComResponse<Boolean> ruleDepartPostConfig(@RequestBody SalaryRulePostVo salaryRulePostVo) {
+        salaryRulePostVo.setStaffType(1);
         return salaryFrontLineService.ruleDepartPostConfig(salaryRulePostVo);
     }
 }

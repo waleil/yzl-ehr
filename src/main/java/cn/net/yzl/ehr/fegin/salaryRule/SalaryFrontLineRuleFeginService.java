@@ -4,7 +4,6 @@ import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.staff.dto.salaryRule.SalaryFrontLineRuleDto;
 import cn.net.yzl.staff.dto.salaryRule.SalaryRuleDepartPostDto;
 import cn.net.yzl.staff.vo.salaryRule.*;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +15,7 @@ public interface SalaryFrontLineRuleFeginService {
 
 
     @PostMapping("/ruleList")
-    ComResponse<SalaryFrontLineRuleDto> ruleList(SalaryFrontLineRuleDetailVo salaryFrontLineRuleDetailVo);
+    ComResponse<SalaryFrontLineRuleDto> ruleList(@RequestBody SalaryFrontLineRuleDetailVo salaryFrontLineRuleDetailVo);
 
     @PostMapping("/rule1")
     ComResponse<Boolean> rule1(@RequestBody SalaryFrontLineRuleEditVo1 salaryFrontLineRuleEditVo1);

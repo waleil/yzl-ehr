@@ -6,11 +6,10 @@ import cn.net.yzl.ehr.fegin.process.ProcessConfigFeignService;
 import cn.net.yzl.ehr.service.process.ProcessConfigService;
 import cn.net.yzl.staff.dto.process.ProcessConfigDetailDto;
 import cn.net.yzl.staff.dto.process.ProcessDto;
+import cn.net.yzl.staff.vo.process.ProcessConfigPageVo;
 import cn.net.yzl.staff.vo.process.ProcessConfigVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Date;
 
 @Service
 public class ProcessConfigServiceImpl implements ProcessConfigService {
@@ -34,8 +33,8 @@ public class ProcessConfigServiceImpl implements ProcessConfigService {
     }
 
     @Override
-    public ComResponse<Page<ProcessDto>> pageSelectProcessConfig(String processName, Date startTime, Date endTime, Integer processType, Integer pageNum, Integer pageSize) {
-        return processConfigFeignService.pageSelectProcessConfig(processName,startTime,endTime,processType,pageNum,pageSize);
+    public ComResponse<Page<ProcessDto>> pageSelectProcessConfig(ProcessConfigPageVo processConfigPageVo) {
+        return processConfigFeignService.pageSelectProcessConfig(processConfigPageVo);
     }
 
     @Override

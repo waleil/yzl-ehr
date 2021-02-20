@@ -1,9 +1,9 @@
 package cn.net.yzl.ehr.fegin.performance;
 
 import cn.net.yzl.common.entity.ComResponse;
-import cn.net.yzl.staff.dto.perfomance.PerformanceDepartDto;
-import cn.net.yzl.staff.dto.perfomance.PerformanceDto;
-import cn.net.yzl.staff.dto.perfomance.PerformanceOrgStaffDto;
+import cn.net.yzl.staff.dto.performance.FillPerformanceDepartDto;
+import cn.net.yzl.staff.dto.performance.PerformanceDto;
+import cn.net.yzl.staff.dto.performance.PerformanceOrgStaffDto;
 import cn.net.yzl.staff.pojo.performance.PerformanceOrgTargetPo;
 import cn.net.yzl.staff.pojo.performance.PerformancePersonTargetPo;
 import cn.net.yzl.staff.vo.performance.PerformanceApproveVo;
@@ -36,7 +36,7 @@ public interface PerformanceFeginService {
 
     @ApiOperation(value = "职能管理-填报绩效-组织架构", notes = "职能管理-填报绩效-组织架构", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/queryFillPerformanceDepartList", method = RequestMethod.GET)
-    ComResponse<List<PerformanceDepartDto>> queryFillPerformanceDepartList(@SpringQueryMap PerformanceVo performanceVo);
+    ComResponse<List<FillPerformanceDepartDto>> queryFillPerformanceDepartList(@SpringQueryMap PerformanceVo performanceVo);
 
     @ApiOperation(value = "职能管理-绩效考核-组织架构", notes = "职能管理-绩效考核-组织架构", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/queryPerformanceByNo", method = RequestMethod.GET)

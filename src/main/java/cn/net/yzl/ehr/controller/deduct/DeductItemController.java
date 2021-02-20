@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.controller.deduct;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.service.deduct.DeductItemService;
 import cn.net.yzl.staff.dto.deduct.DeductItemDto;
 import cn.net.yzl.staff.pojo.deduct.DeductItemInsertPo;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 
@@ -32,15 +34,15 @@ public class DeductItemController {
 
     @ApiOperation(value = "添加扣款类型",notes = "添加",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
-    ComResponse<Integer> insert(@RequestBody @Validated DeductItemInsertPo insertPo){
-        return deductItemService.insert(insertPo);
+    ComResponse<Integer> insert(@RequestBody @Validated DeductItemInsertPo insertPo,@ApiIgnore @CurrentStaffNo String staffNo){
+        return deductItemService.insert(insertPo,staffNo);
     }
 
     @ApiOperation(value ="修改扣款类型" ,notes ="修改",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 
     @RequestMapping(value = "/updateByState",method = RequestMethod.POST)
-    ComResponse<Integer> updateByState (@RequestBody @Validated DeductItemUpdatePo updatePo){
-        return deductItemService.updateByState(updatePo);
+    ComResponse<Integer> updateByState (@RequestBody @Validated DeductItemUpdatePo updatePo,@ApiIgnore @CurrentStaffNo String staffNo){
+        return deductItemService.updateByState(updatePo,staffNo);
     }
 
 }
