@@ -5,13 +5,13 @@ import cn.net.yzl.staff.dto.SysDictDataDto;
 import cn.net.yzl.staff.dto.process.ProcessItemDto;
 import cn.net.yzl.staff.dto.process.ProcessTypeDto;
 import cn.net.yzl.staff.vo.process.ProcessItemVo;
+import cn.net.yzl.staff.vo.process.ProcessTypeVo;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Repository;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -24,7 +24,7 @@ public interface ProcessItemFeignService {
     ComResponse<List<SysDictDataDto>> queryProcessTypeAll();
 
     @RequestMapping(value = "/type/insert", method = RequestMethod.POST)
-    ComResponse<Integer> insertProcessType (@RequestParam("name") @NotBlank String name, @RequestParam("staffNo") String staffNo);
+    ComResponse<Integer> insertProcessType (@RequestBody @Validated ProcessTypeVo processTypeVo, @RequestParam("staffNo") String staffNo);
 
     @RequestMapping(value = "/type/delete", method = RequestMethod.POST)
     ComResponse<Integer> deleteProcessType (@RequestParam("dictCode") @NotNull Integer dictCode);
