@@ -24,7 +24,7 @@ public interface FindApproveService {
 
     @GetMapping("v1/findProcessInfoList")
     @ApiOperation(value = "获取流程展示信息")
-    ComResponse<List<ProcessNodeDTO>> findProcessInfoList(@RequestParam @NotNull Integer processId);
+    ComResponse<List<ProcessNodeDTO>> findProcessInfoList(@RequestParam("processId") @NotNull Integer processId);
 
     @PostMapping("v1/getMyProcessInfoList")
     @ApiOperation(value = "获取我的流程信息")
@@ -32,9 +32,9 @@ public interface FindApproveService {
 
     @GetMapping("v1/getApproveInfoList")
     @ApiOperation(value = "审批页详情显示")
-    ComResponse<ApproveInfoDTO> getApproveInfoList(@RequestParam @NotNull Integer processId,
-                                                   @RequestParam @NotNull String processAuditId,
-                                                   @RequestParam @NotNull String leaveNo);
+    ComResponse<ApproveInfoDTO> getApproveInfoList(@RequestParam("processId") @NotNull Integer processId,
+                                                   @RequestParam("processAuditId") @NotNull String processAuditId,
+                                                   @RequestParam("leaveNo") @NotNull String leaveNo);
 
     @PostMapping("v1/saveApproveInfo")
     @ApiOperation(value = "保存审批信息，并修改审批状态")
