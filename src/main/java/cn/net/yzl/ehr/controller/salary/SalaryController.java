@@ -66,7 +66,21 @@ public class SalaryController {
             ComResponse<Page<SalaryDto>> list = salaryService.list(salaryVo);
             pageTotal = list.getData().getPageParam().getPageTotal();
             salaryVo.setPageNo(2);
-            export(list.getData().getItems(),new String[]{"期间","员工姓名","身份证号","工号","在职状态","入职时间","离职时间"},new String[]{"salaryDate","staffName","idCard","staffNo","entryStatus","entryDate","quitDate"},writer);
+            export(list.getData().getItems(),new String[]{"期间","员工姓名","身份证号","工号","在职状态","入职时间","离职时间",
+                            "职务","上级架构","部门","开户银行","银行卡号","岗位工资","基本薪资","签收金额","提成比例","销售提成",
+                            "团队提成","团队绩效","转介绍提成","培训补贴","薪资奖金","其它奖金","现金奖励","积分兑换","结余工资",
+                            "全勤","加班费"," 迟到/早退/忘记打卡","应出勤","实际出勤","旷工","质检/考勤/行政扣款","应发工资",
+                            "养老保险","医疗保险","失业险","工伤","生育","商业","住房公积金","住宿费扣款","停车费扣款",
+                            "个人保险扣款","个人所得税","实发薪资","发放状态","是否参保","是否大学生","是否实习生","社保合计","提交状态",
+                            "审核状态"},
+                    new String[]{"salaryDate","staffName","idCard","staffNo","entryStatus","entryDate","quitDate","postName",
+                            "parentDepartName","departName","bankName","bankCard","postMoney","basicMoney","signMoney","commissionRatio",
+                            "saleCommission","teamCommission","teamAchievements","referralCommission","trainMoney","salaryBonusMoney",
+                            "otherBonusMoney","cashMoney","pointsExchangeMoney","balanceMoney","fullAtteBonusMoney","overtimePayMoney","deductionMoney",
+                            "attendanceDays","attendanceRealDays","compassionateDays","attendanceDedu","payMoney","endowInsurDedu","medicalInsurDedu",
+                            "unemployInsurDedu","empInjuInsurDedu","materInsurDedu","busInsurDedu","housProvFundDedu","accomFeeDedu",
+                            "parkFeeDedu","personalInsurDedu","individualIncomeTax","realMoney","delayStatus","insuredStatus",
+                            "studentStatus","internshipStatus","socialSecurityTotal","submitStatus","checkStatus"},writer);
         }else {
             for(int pageNo=2;pageNo<pageTotal;pageNo++){
                 salaryVo.setPageNo(pageNo);
@@ -80,8 +94,12 @@ public class SalaryController {
                         "个人保险扣款","个人所得税","实发薪资","发放状态","是否参保","是否大学生","是否实习生","社保合计","提交状态",
                         "审核状态"},new String[]{"salaryDate","staffName","idCard","staffNo","entryStatus","entryDate","quitDate","postName",
                         "parentDepartName","departName","bankName","bankCard","postMoney","basicMoney","signMoney","commissionRatio",
-                        "saleCommission","","","","","",
-                        "","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""},writer);
+                        "saleCommission","teamCommission","teamAchievements","referralCommission","trainMoney","salaryBonusMoney",
+                        "otherBonusMoney","cashMoney","pointsExchangeMoney","balanceMoney","fullAtteBonusMoney","overtimePayMoney","deductionMoney",
+                        "attendanceDays","attendanceRealDays","compassionateDays","attendanceDedu","payMoney","endowInsurDedu","medicalInsurDedu",
+                        "unemployInsurDedu","empInjuInsurDedu","materInsurDedu","busInsurDedu","housProvFundDedu","accomFeeDedu",
+                        "parkFeeDedu","personalInsurDedu","individualIncomeTax","realMoney","delayStatus","insuredStatus",
+                        "studentStatus","internshipStatus","socialSecurityTotal","submitStatus","checkStatus"},writer);
             }
         }
         closeStream(response,"工资表", writer);

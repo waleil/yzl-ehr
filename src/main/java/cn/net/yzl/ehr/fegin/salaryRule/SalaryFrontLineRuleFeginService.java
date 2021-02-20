@@ -15,7 +15,7 @@ public interface SalaryFrontLineRuleFeginService {
 
 
     @PostMapping("/ruleList")
-    ComResponse<SalaryFrontLineRuleDto> ruleList(SalaryFrontLineRuleDetailVo salaryFrontLineRuleDetailVo);
+    ComResponse<SalaryFrontLineRuleDto> ruleList(@RequestBody SalaryFrontLineRuleDetailVo salaryFrontLineRuleDetailVo);
 
     @PostMapping("/rule1")
     ComResponse<Boolean> rule1(@RequestBody SalaryFrontLineRuleEditVo1 salaryFrontLineRuleEditVo1);

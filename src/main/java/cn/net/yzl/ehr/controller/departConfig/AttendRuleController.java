@@ -2,6 +2,7 @@ package cn.net.yzl.ehr.controller.departConfig;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
+import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.dto.DepartAttendRuleDto;
 import cn.net.yzl.ehr.dto.DepartPostDto;
 import cn.net.yzl.ehr.dto.PostDto;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -40,24 +42,33 @@ public class AttendRuleController {
 
     @ApiOperation(value = "考勤配置-考勤规则-定时打卡:正常", notes = "考勤配置-考勤规则-定时打卡:正常", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/normal/addOrUpdate", method = RequestMethod.POST, consumes = "application/json")
-    ComResponse<Integer> addOrUpdateNormal(@RequestBody @Validated DepartAttendRuleNormalVO departAttendRuleNormalVO) {
-        return attendRuleService.addOrUpdateNormal(departAttendRuleNormalVO);
+    ComResponse<Integer> addOrUpdateNormal(@RequestBody @Validated DepartAttendRuleNormalVO departAttendRuleNormalVO, @ApiIgnore @CurrentStaffNo String staffNo) {
+        departAttendRuleNormalVO.setCreator(staffNo);
+        departAttendRuleNormalVO.setUpdator(staffNo);
+        return attendRuleService.addOrUpdateNormal(departAttendRuleNormalVO,staffNo);
     }
     @ApiOperation(value = "考勤配置-考勤规则-定时打卡:可抢", notes = "考勤配置-考勤规则-定时打卡:可抢", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/robbed/addOrUpdate", method = RequestMethod.POST, consumes = "application/json")
-    ComResponse<Integer> addOrUpdateRobbed(@RequestBody @Validated DepartAttendRuleRobbedVO departAttendRuleRobbedVO) {
-        return attendRuleService.addOrUpdateRobbed(departAttendRuleRobbedVO);
+    ComResponse<Integer> addOrUpdateRobbed(@RequestBody @Validated DepartAttendRuleRobbedVO departAttendRuleRobbedVO, @ApiIgnore @CurrentStaffNo String staffNo) {
+        departAttendRuleRobbedVO.setCreator(staffNo);
+        departAttendRuleRobbedVO.setUpdator(staffNo);
+        return attendRuleService.addOrUpdateRobbed(departAttendRuleRobbedVO,staffNo);
     }
     @ApiOperation(value = "考勤配置-考勤规则-定时打卡:弹性", notes = "考勤配置-考勤规则-定时打卡:弹性", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/elastic/addOrUpdate", method = RequestMethod.POST, consumes = "application/json")
-    ComResponse<Integer> addOrUpdateElastic(@RequestBody @Validated DepartAttendRuleElasticVO departAttendRuleElasticVO) {
-        return attendRuleService.addOrUpdateElastic(departAttendRuleElasticVO);
+    ComResponse<Integer> addOrUpdateElastic(@RequestBody @Validated DepartAttendRuleElasticVO departAttendRuleElasticVO, @ApiIgnore @CurrentStaffNo String staffNo) {
+        departAttendRuleElasticVO.setCreator(staffNo);
+        departAttendRuleElasticVO.setUpdator(staffNo);
+        return attendRuleService.addOrUpdateElastic(departAttendRuleElasticVO,staffNo);
     }
 
     @ApiOperation(value = "考勤配置-考勤规则-定时打卡:不打卡", notes = "考勤配置-考勤规则-定时打卡:不打卡", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/punch/addOrUpdate", method = RequestMethod.POST, consumes = "application/json")
-    ComResponse<Integer> addOrUpdatePunch(@RequestBody @Validated DepartAttendRuleNoPunchVO departAttendRuleNoPunchVO) {
-        return attendRuleService.addOrUpdatePunch(departAttendRuleNoPunchVO);
+
+    ComResponse<Integer> addOrUpdatePunch(@RequestBody @Validated DepartAttendRuleNoPunchVO departAttendRuleNoPunchVO, @ApiIgnore @CurrentStaffNo String staffNo) {
+        departAttendRuleNoPunchVO.setCreator(staffNo);
+        departAttendRuleNoPunchVO.setUpdator(staffNo);
+        return attendRuleService.addOrUpdatePunch(departAttendRuleNoPunchVO,staffNo);
     }
 
     @ApiOperation(value = "考勤配置-考勤规则-根据部门id获取考勤规则分页信息", notes = "考勤配置-考勤规则-根据部门id获取考勤规则分页信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)

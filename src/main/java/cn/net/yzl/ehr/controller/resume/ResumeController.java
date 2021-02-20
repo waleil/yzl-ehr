@@ -62,8 +62,8 @@ public class ResumeController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "departId", value = "部门id", required = true, dataType = "Int", paramType = "query")
     })
-    ComResponse<List<DepartPostDto>> getRecruitDepartPostDtoList(@NotNull @Min(0) Integer departId) {
-        return resumeFeginService.getRecruitDepartPostDtoList(departId);
+    ComResponse<List<DepartPostDto>> getRecruitDepartPostDtoList(@NotNull @Min(0) Integer departId,@ApiIgnore @CurrentStaffNo String staffNo) {
+        return resumeFeginService.getRecruitDepartPostDtoList(departId,staffNo);
     }
 
     @ApiOperation(value = "简历列表-获取简历列表", notes = "建立列表-获取简历列表", consumes = MediaType.APPLICATION_JSON_VALUE)
