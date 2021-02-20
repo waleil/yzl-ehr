@@ -10,6 +10,7 @@ import cn.net.yzl.staff.dto.process.ProcessItemDto;
 import cn.net.yzl.staff.dto.process.ProcessTypeDto;
 import cn.net.yzl.staff.exception.BaseParamsException;
 import cn.net.yzl.staff.vo.process.ProcessItemVo;
+import cn.net.yzl.staff.vo.process.ProcessTypeVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +37,9 @@ public class ProcessItemServiceImpl implements ProcessItemService {
 
 
     @Override
-    public ComResponse<Integer> insertProcessType(String name, String staffNo) {
-        return processItemFeignService.insertProcessType(name,staffNo);
+    public ComResponse<Integer> insertProcessType(ProcessTypeVo processTypeVo, String staffNo) {
+        processTypeVo.setCreator(staffNo);
+        return processItemFeignService.insertProcessType(processTypeVo);
     }
 
     @Override
@@ -61,7 +63,8 @@ public class ProcessItemServiceImpl implements ProcessItemService {
             throw new BaseParamsException(ResponseCodeEnums.SAVE_DATA_ERROR_CODE.getCode(),"审批项目图标添加失败!");
         }
         processItemVo.setIcon(filePrefix+"/"+path);
-        return processItemFeignService.insertProcessItem(processItemVo,staffNo);
+        processItemVo.setCreator(staffNo);
+        return processItemFeignService.insertProcessItem(processItemVo);
     }
 
     @Override
@@ -75,7 +78,8 @@ public class ProcessItemServiceImpl implements ProcessItemService {
             throw new BaseParamsException(ResponseCodeEnums.UPDATE_DATA_ERROR_CODE.getCode(),"审批项目图标修改失败!");
         }
         processItemVo.setIcon(filePrefix+"/"+path);
-        return processItemFeignService.updateProcessItem(processItemVo,staffNo);
+        processItemVo.setCreator(staffNo);
+        return processItemFeignService.updateProcessItem(processItemVo);
     }
 
     @Override

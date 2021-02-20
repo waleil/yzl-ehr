@@ -89,8 +89,15 @@ public class SalaryFrontLineRuleController {
 
     @ApiOperation(value = "一线管理-薪酬核算规则配置-设置规则对应岗位", notes = "一线管理-薪酬核算规则配置-设置规则对应岗位")
     @PostMapping("/ruleDepartPostConfig")
-    ComResponse<Boolean> ruleDepartPostConfig(@RequestBody SalaryRulePostVo salaryRulePostVo) {
+    ComResponse<Boolean> ruleDepartPostConfig(@RequestBody SalaryRulePostVo salaryRulePostVo,@ApiIgnore @CurrentStaffNo String staffNo) {
         salaryRulePostVo.setStaffType(1);
+        salaryRulePostVo.setCreator(staffNo);
         return salaryFrontLineService.ruleDepartPostConfig(salaryRulePostVo);
+    }
+
+    @ApiOperation(value = "一线管理-薪酬核算规则开关", notes = "一线管理-薪酬核算规则开关")
+    @PostMapping("/ruleSwitch")
+    ComResponse<Void> ruleSwitch(@RequestBody SalaryRuleSwitch salaryRuleSwitch) {
+        return salaryFrontLineService.ruleSwitch(salaryRuleSwitch);
     }
 }

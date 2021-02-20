@@ -3,7 +3,7 @@ package cn.net.yzl.ehr.fegin.performance;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.staff.dto.performance.FillPerformanceDepartDto;
 import cn.net.yzl.staff.dto.performance.PerformanceDto;
-import cn.net.yzl.staff.dto.performance.PerformanceOrgStaffDto;
+import cn.net.yzl.staff.dto.performance.RaterPerformanceDepartDto;
 import cn.net.yzl.staff.pojo.performance.PerformanceOrgTargetPo;
 import cn.net.yzl.staff.pojo.performance.PerformancePersonTargetPo;
 import cn.net.yzl.staff.vo.performance.PerformanceApproveVo;
@@ -40,7 +40,7 @@ public interface PerformanceFeginService {
 
     @ApiOperation(value = "职能管理-绩效考核-组织架构", notes = "职能管理-绩效考核-组织架构", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/queryPerformanceByNo", method = RequestMethod.GET)
-    ComResponse<List<PerformanceOrgStaffDto>> queryApprovePerformanceOrgStaff(@SpringQueryMap PerformanceVo performanceVo);
+    ComResponse<List<RaterPerformanceDepartDto>> queryApprovePerformanceOrgStaff(@SpringQueryMap PerformanceVo performanceVo);
 
     @ApiOperation(value = "职能管理-填报绩效-获取绩效信息", notes = "职能管理-填报绩效-获取绩效信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/queryPerformanceByNo", method = RequestMethod.GET)

@@ -26,7 +26,7 @@ public interface SalaryService {
 
     //导入数据
     @RequestMapping(value = "/importSalary", method = RequestMethod.GET)
-    ComResponse<Boolean> importSalary(@RequestParam("url") String url);
+    ComResponse<Boolean> importSalary(@RequestParam("url") String url,@RequestParam("staffType") Integer staffType);
 
     //提交财务
     @PostMapping("/postToFinance")

@@ -7,6 +7,7 @@ import cn.net.yzl.staff.dto.SysDictDataDto;
 import cn.net.yzl.staff.dto.process.ProcessItemDto;
 import cn.net.yzl.staff.dto.process.ProcessTypeDto;
 import cn.net.yzl.staff.vo.process.ProcessItemVo;
+import cn.net.yzl.staff.vo.process.ProcessTypeVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.annotations.ApiIgnore;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -34,10 +34,10 @@ public class ProcessItemController {
         return processItemService.queryProcessTypeAll();
     }
 
-    @ApiOperation(value = "审批类型添加",notes = "审批类型添加",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "审批类型添加",notes = "审批类型添加",consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/type/insert", method = RequestMethod.POST)
-    ComResponse<Integer> insertProcessType (@RequestParam("name") @NotBlank String name, @CurrentStaffNo @ApiIgnore String staffNo){
-        return processItemService.insertProcessType(name,staffNo);
+    ComResponse<Integer> insertProcessType (@RequestBody @Validated ProcessTypeVo processTypeVo, @CurrentStaffNo @ApiIgnore String staffNo){
+        return processItemService.insertProcessType(processTypeVo,staffNo);
     }
 
     @ApiOperation(value = "审批类型删除",notes = "审批类型删除",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
@@ -46,15 +46,15 @@ public class ProcessItemController {
         return processItemService.deleteProcessType(dictCode);
     }
 
-    @ApiOperation(value = "审批项目添加",notes = "审批项目添加",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "审批项目添加",notes = "审批项目添加")
     @RequestMapping(value = "/item/insert", method = RequestMethod.POST)
-    ComResponse<Integer> insertProcessItem (MultipartFile file,@RequestBody @Validated ProcessItemVo processItemVo, @CurrentStaffNo @ApiIgnore String staffNo){
+    ComResponse<Integer> insertProcessItem (MultipartFile file,ProcessItemVo processItemVo, @CurrentStaffNo @ApiIgnore String staffNo){
         return processItemService.insertProcessItem(file,processItemVo,staffNo);
     }
 
     @ApiOperation(value = "审批项目修改",notes = "审批项目修改",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/item/update", method = RequestMethod.POST)
-    ComResponse<Integer> updateProcessItem (MultipartFile file,@RequestBody @Validated ProcessItemVo processItemVo, @CurrentStaffNo @ApiIgnore String staffNo){
+    ComResponse<Integer> updateProcessItem (MultipartFile file,ProcessItemVo processItemVo, @CurrentStaffNo @ApiIgnore String staffNo){
         return processItemService.updateProcessItem(file,processItemVo,staffNo);
     }
 
