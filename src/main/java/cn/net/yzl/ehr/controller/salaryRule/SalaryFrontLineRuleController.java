@@ -28,7 +28,7 @@ public class SalaryFrontLineRuleController {
 
     @ApiOperation(value = "一线管理-薪酬核算规则配置-查看", notes = "一线管理-薪酬核算规则配置-查看")
     @PostMapping("/ruleList")
-    ComResponse<SalaryFrontLineRuleDto> ruleList(SalaryFrontLineRuleDetailVo salaryFrontLineRuleDetailVo) {
+    ComResponse<SalaryFrontLineRuleDto> ruleList(@RequestBody SalaryFrontLineRuleDetailVo salaryFrontLineRuleDetailVo) {
         return salaryFrontLineService.ruleList(salaryFrontLineRuleDetailVo);
     }
 
