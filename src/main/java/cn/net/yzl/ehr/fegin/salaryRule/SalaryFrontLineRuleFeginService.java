@@ -46,4 +46,8 @@ public interface SalaryFrontLineRuleFeginService {
 
     @PostMapping("/ruleDepartPostConfig")
     ComResponse<Boolean> ruleDepartPostConfig(@RequestBody SalaryRulePostVo salaryRulePostVo);
+
+
+    @PostMapping("/ruleSwitch")
+    ComResponse<Void> ruleSwitch(@RequestBody SalaryRuleSwitch salaryRuleSwitch);
 }
