@@ -38,7 +38,8 @@ public class ProcessItemServiceImpl implements ProcessItemService {
 
     @Override
     public ComResponse<Integer> insertProcessType(ProcessTypeVo processTypeVo, String staffNo) {
-        return processItemFeignService.insertProcessType(processTypeVo,staffNo);
+        processTypeVo.setCreator(staffNo);
+        return processItemFeignService.insertProcessType(processTypeVo);
     }
 
     @Override
@@ -62,7 +63,8 @@ public class ProcessItemServiceImpl implements ProcessItemService {
             throw new BaseParamsException(ResponseCodeEnums.SAVE_DATA_ERROR_CODE.getCode(),"审批项目图标添加失败!");
         }
         processItemVo.setIcon(filePrefix+"/"+path);
-        return processItemFeignService.insertProcessItem(processItemVo,staffNo);
+        processItemVo.setCreator(staffNo);
+        return processItemFeignService.insertProcessItem(processItemVo);
     }
 
     @Override
@@ -76,7 +78,8 @@ public class ProcessItemServiceImpl implements ProcessItemService {
             throw new BaseParamsException(ResponseCodeEnums.UPDATE_DATA_ERROR_CODE.getCode(),"审批项目图标修改失败!");
         }
         processItemVo.setIcon(filePrefix+"/"+path);
-        return processItemFeignService.updateProcessItem(processItemVo,staffNo);
+        processItemVo.setCreator(staffNo);
+        return processItemFeignService.updateProcessItem(processItemVo);
     }
 
     @Override

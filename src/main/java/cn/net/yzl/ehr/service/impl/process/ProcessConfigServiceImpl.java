@@ -22,7 +22,8 @@ public class ProcessConfigServiceImpl implements ProcessConfigService {
 
     @Override
     public ComResponse<Integer> insertProcessConfig(ProcessConfigVo processConfigVo, String staffNo) {
-        return processConfigFeignService.insertProcessConfig(processConfigVo,staffNo);
+        processConfigVo.setCreator(staffNo);
+        return processConfigFeignService.insertProcessConfig(processConfigVo);
     }
 
     @Override

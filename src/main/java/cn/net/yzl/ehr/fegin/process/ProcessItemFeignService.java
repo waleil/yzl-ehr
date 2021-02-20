@@ -17,6 +17,7 @@ import java.util.List;
 
 @Repository
 @FeignClient(value = "staff",url = "${fegin.db.url}/process")
+
 @RefreshScope
 public interface ProcessItemFeignService {
 
@@ -24,16 +25,16 @@ public interface ProcessItemFeignService {
     ComResponse<List<SysDictDataDto>> queryProcessTypeAll();
 
     @RequestMapping(value = "/type/insert", method = RequestMethod.POST)
-    ComResponse<Integer> insertProcessType (@RequestBody @Validated ProcessTypeVo processTypeVo, @RequestParam("staffNo") String staffNo);
+    ComResponse<Integer> insertProcessType (@RequestBody  ProcessTypeVo processTypeVo);
 
     @RequestMapping(value = "/type/delete", method = RequestMethod.POST)
     ComResponse<Integer> deleteProcessType (@RequestParam("dictCode") @NotNull Integer dictCode);
 
     @RequestMapping(value = "/item/insert", method = RequestMethod.POST)
-    ComResponse<Integer> insertProcessItem (@RequestBody @Validated ProcessItemVo processItemVo, @RequestParam("staffNo") String staffNo);
+    ComResponse<Integer> insertProcessItem (@RequestBody @Validated ProcessItemVo processItemVo);
 
     @RequestMapping(value = "/item/update", method = RequestMethod.POST)
-    ComResponse<Integer> updateProcessItem (@RequestBody @Validated ProcessItemVo processItemVo, @RequestParam("staffNo") String staffNo);
+    ComResponse<Integer> updateProcessItem (@RequestBody @Validated ProcessItemVo processItemVo);
 
     @RequestMapping(value = "/item/delete", method = RequestMethod.POST)
     ComResponse<Integer> deleteProcessItem (@RequestParam("id") Integer id,@RequestParam("staffNo") String staffNo);
