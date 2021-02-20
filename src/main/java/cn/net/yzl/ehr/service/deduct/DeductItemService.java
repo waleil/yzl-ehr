@@ -8,9 +8,9 @@ import cn.net.yzl.staff.pojo.deduct.DeductItemUpdatePo;
 import java.util.List;
 
 public interface DeductItemService {
-    ComResponse<Integer> insert(DeductItemInsertPo insertPo);
+    ComResponse<Integer> insert(DeductItemInsertPo insertPo,String staffNo);
 
     ComResponse<List<DeductItemDto>> queryAll();
 
-    ComResponse<Integer> updateByState(DeductItemUpdatePo updatePo);
+    ComResponse<Integer> updateByState(DeductItemUpdatePo updatePo,String staffNo);
 }

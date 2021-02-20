@@ -6,10 +6,7 @@ import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.recruit.RecruitSourceFeginService;
 import cn.net.yzl.ehr.service.recruit.RecruitSourceService;
 import cn.net.yzl.staff.dto.recruit.RecruitSourceDto;
-import cn.net.yzl.staff.pojo.recruit.RecruitSourceInsertPo;
-import cn.net.yzl.staff.pojo.recruit.RecruitSourceListPo;
-import cn.net.yzl.staff.pojo.recruit.RecruitSourceUpdateListPo;
-import cn.net.yzl.staff.pojo.recruit.RecruitSourceUpdatePo;
+import cn.net.yzl.staff.pojo.recruit.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -81,6 +78,13 @@ public class RecruitSourceController {
     @RequestMapping(value = "/queryPage",method = RequestMethod.POST)
     ComResponse<Page<RecruitSourceDto>> queryPage(@RequestBody RecruitSourceListPo recruitSourceListPo) {
         return recruitSourceService.queryPage(recruitSourceListPo);
+    }
+
+    @ApiOperation(value ="招聘渠道—修改招聘渠道停用" ,notes ="停用",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+
+    @RequestMapping(value = "/updateState",method = RequestMethod.POST)
+    ComResponse<Integer> updateState (@RequestBody RecruitSourceUpdateStatePo updatePo , @CurrentStaffNo @ApiIgnore String staffNo){
+        return recruitSourceService.updateState(updatePo,staffNo);
     }
 
 }

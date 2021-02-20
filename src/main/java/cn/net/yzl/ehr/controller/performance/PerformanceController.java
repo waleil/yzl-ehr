@@ -3,7 +3,7 @@ package cn.net.yzl.ehr.controller.performance;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.performance.PerformanceFeginService;
-import cn.net.yzl.staff.dto.performance.PerformanceDepartDto;
+import cn.net.yzl.staff.dto.performance.FillPerformanceDepartDto;
 import cn.net.yzl.staff.dto.performance.PerformanceDto;
 import cn.net.yzl.staff.pojo.performance.PerformanceOrgTargetPo;
 import cn.net.yzl.staff.pojo.performance.PerformancePersonTargetPo;
@@ -45,12 +45,9 @@ public class PerformanceController {
      * @param staffNo 用户编号
      * @return 填报周期
      */
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "staffNo", value = "员工编号", required = true, dataType = "String", paramType = "query")
-    })
-    @ApiOperation(value = "职能管理-填报绩效-周期列表", notes = "职能管理-填报绩效-周期列表", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "职能管理-填报绩效-查询周期列表", notes = "职能管理-填报绩效-查询周期列表", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/queryFillTimes", method = RequestMethod.GET)
-    public ComResponse<List<String>> queryFillTimes(String staffNo) {
+    public ComResponse<List<String>> queryFillTimes(@ApiIgnore @CurrentStaffNo String staffNo) {
         return performanceFeginService.queryFillTimes(staffNo);
     }
 
@@ -68,7 +65,7 @@ public class PerformanceController {
     })
     @ApiOperation(value = "职能管理-填报绩效-组织架构", notes = "职能管理-填报绩效-组织架构", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/queryFillPerformanceDepartList", method = RequestMethod.GET)
-    public ComResponse<List<PerformanceDepartDto>> queryFillPerformanceDepartList(PerformanceVo performanceVo, @ApiIgnore @CurrentStaffNo String staffNo) {
+    public ComResponse<List<FillPerformanceDepartDto>> queryFillPerformanceDepartList(PerformanceVo performanceVo, @ApiIgnore @CurrentStaffNo String staffNo) {
         performanceVo.setStaffNo(staffNo);
         return performanceFeginService.queryFillPerformanceDepartList(performanceVo);
     }
@@ -83,7 +80,7 @@ public class PerformanceController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "performanceNo", value = "绩效编号", required = true, dataType = "String", paramType = "query")
     })
-    @ApiOperation(value = "职能管理-填报绩效-获取绩效信息", notes = "职能管理-填报绩效-获取绩效信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "职能管理-填报绩效-查询绩效信息", notes = "职能管理-填报绩效-查询绩效信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/queryPerformanceByNo", method = RequestMethod.GET)
     public ComResponse<PerformanceDto> queryPerformanceByNo(@RequestParam("performanceNo") Long performanceNo) {
         return performanceFeginService.queryPerformanceByNo(performanceNo);

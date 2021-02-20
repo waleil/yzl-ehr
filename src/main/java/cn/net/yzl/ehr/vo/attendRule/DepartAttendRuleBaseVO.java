@@ -49,6 +49,8 @@ public class DepartAttendRuleBaseVO implements Serializable {
     @ApiModelProperty(value="分页的标识(1:是,0:不是)",name="pageFlag",hidden = true)
     private Integer pageFlag;
 
+    protected String creator;
+    protected String updator;
 
 
 }

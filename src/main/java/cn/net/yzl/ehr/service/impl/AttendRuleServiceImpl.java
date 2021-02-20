@@ -44,22 +44,22 @@ public class AttendRuleServiceImpl implements AttendRuleService {
 //    }
 
     @Override
-    public ComResponse<Integer> addOrUpdateNormal(DepartAttendRuleNormalVO departAttendRuleNormalVO) {
+    public ComResponse<Integer> addOrUpdateNormal(DepartAttendRuleNormalVO departAttendRuleNormalVO,String staffNo) {
         return attendRuleFeginService.addOrUpdateNormal(departAttendRuleNormalVO);
     }
 
     @Override
-    public ComResponse<Integer> addOrUpdateRobbed(DepartAttendRuleRobbedVO departAttendRuleRobbedVO) {
+    public ComResponse<Integer> addOrUpdateRobbed(DepartAttendRuleRobbedVO departAttendRuleRobbedVO,String staffNo) {
         return attendRuleFeginService.addOrUpdateRobbed(departAttendRuleRobbedVO);
     }
 
     @Override
-    public ComResponse<Integer> addOrUpdateElastic(DepartAttendRuleElasticVO departAttendRuleElasticVO) {
+    public ComResponse<Integer> addOrUpdateElastic(DepartAttendRuleElasticVO departAttendRuleElasticVO,String staffNo) {
         return attendRuleFeginService.addOrUpdateElastic(departAttendRuleElasticVO);
     }
 
     @Override
-    public ComResponse<Integer> addOrUpdatePunch(DepartAttendRuleNoPunchVO departAttendRuleNoPunchVO) {
+    public ComResponse<Integer> addOrUpdatePunch(DepartAttendRuleNoPunchVO departAttendRuleNoPunchVO,String staffNo) {
         return attendRuleFeginService.addOrUpdatePunch(departAttendRuleNoPunchVO);
     }
 

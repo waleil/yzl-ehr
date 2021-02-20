@@ -102,5 +102,9 @@ public class StaffTrainDto implements Serializable {
     @ApiModelProperty("培训课程名称")
     private String  courseName;
 
+    @ApiModelProperty("调整人")
+    private String creator;
 
+    @ApiModelProperty("调整人姓名")
+    private String creatorName;
 }
