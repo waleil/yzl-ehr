@@ -62,4 +62,8 @@ public interface ParkingVehicleFeginService {
     @RequestMapping(value = "/parking/selectStatisticalList", method = RequestMethod.POST)
     ComResponse  selectStatisticalList();
 
+    @ApiOperation(value = "入司车辆管理-定时扫描车辆入司停放",notes = "入司车辆管理-定时扫描车辆入司停放",consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/timerUpdate", method = RequestMethod.POST)
+    ComResponse  timerUpdate();
+
 }

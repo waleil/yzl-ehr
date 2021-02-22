@@ -30,7 +30,7 @@ public class ProcessConfigController {
     @Autowired
     private ProcessConfigService processConfigService;
 
-    @ApiOperation(value = "审批流程配置添加",notes = "审批流程配置添加",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "审批流程配置添加",notes = "审批流程配置添加",consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/config/insert", method = RequestMethod.POST)
     ComResponse<Integer> insertProcessConfig (@RequestBody @Validated ProcessConfigVo processConfigVo, @CurrentStaffNo @ApiIgnore String staffNo){
         return processConfigService.insertProcessConfig(processConfigVo,staffNo);

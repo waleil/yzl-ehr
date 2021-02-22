@@ -60,6 +60,13 @@ public class SalaryFrontLineRuleController {
         return salaryFrontLineService.rule4(salaryFrontLineRuleEditVo4);
     }
 
+    @ApiOperation(value = "一线管理-薪酬核算规则配置-规则五", notes = "一线管理-薪酬核算规则配置-规则五")
+    @PostMapping("/rule5")
+    public ComResponse<Boolean> rule5(@RequestBody SalaryFrontLineRuleEditVo5 salaryFrontLineRuleEditVo5, @ApiIgnore @CurrentStaffNo String staffNo) {
+        salaryFrontLineRuleEditVo5.setStaffNo(staffNo);
+        return salaryFrontLineService.rule5(salaryFrontLineRuleEditVo5);
+    }
+
     @ApiOperation(value = "一线管理-薪酬核算规则配置-规则六", notes = "一线管理-薪酬核算规则配置-规则六")
     @PostMapping("/rule6")
     ComResponse<Boolean> rule6(@RequestBody SalaryFrontLineRuleEditVo6 salaryFrontLineRuleEditVo6,@ApiIgnore @CurrentStaffNo String staffNo) {
@@ -89,8 +96,15 @@ public class SalaryFrontLineRuleController {
 
     @ApiOperation(value = "一线管理-薪酬核算规则配置-设置规则对应岗位", notes = "一线管理-薪酬核算规则配置-设置规则对应岗位")
     @PostMapping("/ruleDepartPostConfig")
-    ComResponse<Boolean> ruleDepartPostConfig(@RequestBody SalaryRulePostVo salaryRulePostVo) {
+    ComResponse<Boolean> ruleDepartPostConfig(@RequestBody SalaryRulePostVo salaryRulePostVo,@ApiIgnore @CurrentStaffNo String staffNo) {
         salaryRulePostVo.setStaffType(1);
+        salaryRulePostVo.setCreator(staffNo);
         return salaryFrontLineService.ruleDepartPostConfig(salaryRulePostVo);
+    }
+
+    @ApiOperation(value = "一线管理-薪酬核算规则开关", notes = "一线管理-薪酬核算规则开关")
+    @PostMapping("/ruleSwitch")
+    ComResponse<Void> ruleSwitch(@RequestBody SalaryRuleSwitch salaryRuleSwitch) {
+        return salaryFrontLineService.ruleSwitch(salaryRuleSwitch);
     }
 }

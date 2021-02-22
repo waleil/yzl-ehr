@@ -22,7 +22,7 @@ import java.util.List;
 public interface ProcessConfigFeignService {
 
     @RequestMapping(value = "/process/config/insert", method = RequestMethod.POST)
-    ComResponse<Integer> insertProcessConfig (@RequestBody @Validated ProcessConfigVo processConfigVo, @RequestParam("staffNo") String staffNo);
+    ComResponse<Integer> insertProcessConfig (@RequestBody @Validated ProcessConfigVo processConfigVo);
 
     @RequestMapping(value = "/process/config/delete", method = RequestMethod.POST)
     ComResponse<Integer> deleteProcessConfig (@RequestParam("id") Integer id,@RequestParam("staffNo") String staffNo);

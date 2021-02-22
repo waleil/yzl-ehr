@@ -3,14 +3,29 @@ package cn.net.yzl.ehr.fegin.salaryRule;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.staff.dto.salaryRule.SalaryFrontLineRuleDto;
 import cn.net.yzl.staff.dto.salaryRule.SalaryRuleDepartPostDto;
-import cn.net.yzl.staff.vo.salaryRule.*;
+import cn.net.yzl.staff.vo.salaryRule.SalaryFrontLineRuleDetailVo;
+import cn.net.yzl.staff.vo.salaryRule.SalaryFrontLineRuleEditVo1;
+import cn.net.yzl.staff.vo.salaryRule.SalaryFrontLineRuleEditVo2;
+import cn.net.yzl.staff.vo.salaryRule.SalaryFrontLineRuleEditVo3;
+import cn.net.yzl.staff.vo.salaryRule.SalaryFrontLineRuleEditVo4;
+import cn.net.yzl.staff.vo.salaryRule.SalaryFrontLineRuleEditVo5;
+import cn.net.yzl.staff.vo.salaryRule.SalaryFrontLineRuleEditVo6;
+import cn.net.yzl.staff.vo.salaryRule.SalaryFrontLineRuleEditVo7;
+import cn.net.yzl.staff.vo.salaryRule.SalaryFrontLineRuleEditVo9;
+import cn.net.yzl.staff.vo.salaryRule.SalaryRulePostVo;
+import cn.net.yzl.staff.vo.salaryRule.SalaryRuleSwitch;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
 
 @FeignClient(value = "SalaryFrontLineRuleFeginService",url = "${fegin.db.url}/salaryFrontLineRule")
+//@FeignClient(value = "SalaryFrontLineRuleFeginService",url = "http://localhost:38080/salaryFrontLineRule")
 public interface SalaryFrontLineRuleFeginService {
 
 
@@ -46,4 +61,11 @@ public interface SalaryFrontLineRuleFeginService {
 
     @PostMapping("/ruleDepartPostConfig")
     ComResponse<Boolean> ruleDepartPostConfig(@RequestBody SalaryRulePostVo salaryRulePostVo);
+
+
+    @PostMapping("/ruleSwitch")
+    ComResponse<Void> ruleSwitch(@RequestBody SalaryRuleSwitch salaryRuleSwitch);
+
+    @PostMapping("/rule5")
+    ComResponse<Boolean> rule5(SalaryFrontLineRuleEditVo5 salaryFrontLineRuleEditVo5);
 }

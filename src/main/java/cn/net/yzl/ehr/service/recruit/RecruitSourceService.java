@@ -3,6 +3,7 @@ package cn.net.yzl.ehr.service.recruit;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.staff.dto.recruit.RecruitSourceDto;
+import cn.net.yzl.staff.dto.recruit.RecruitSourceExpenseDto;
 import cn.net.yzl.staff.pojo.recruit.*;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -27,4 +28,6 @@ public interface RecruitSourceService {
     ComResponse<Page<RecruitSourceDto>> queryPage(RecruitSourceListPo recruitSourceListPo);
 
     ComResponse<Integer> updateState(RecruitSourceUpdateStatePo updatePo, String staffNo);
+
+    ComResponse <List<RecruitSourceExpenseDto>> selectBySourceExpense(Integer sourceId);
 }
