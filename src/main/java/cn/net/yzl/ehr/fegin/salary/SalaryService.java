@@ -15,8 +15,8 @@ import java.util.List;
  * @Date 2021/2/19
  * @Description
  */
-//@FeignClient(value = "SalaryService",url = "${fegin.db.url}/salary")
-@FeignClient(value = "SalaryService",url = "localhost:38080/salary")
+@FeignClient(value = "SalaryService",url = "${fegin.db.url}/salary")
+//@FeignClient(value = "SalaryService",url = "localhost:38080/salary")
 public interface SalaryService {
 
     @PostMapping("/list")

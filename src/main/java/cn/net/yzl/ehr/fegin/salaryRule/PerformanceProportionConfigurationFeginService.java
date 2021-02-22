@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
  * @Date 2021/2/4
  * @Description
  */
-//@FeignClient(value = "PerformanceProportionConfigurationFeginService",url = "${fegin.db.url}/performanceProportionConfiguration")
-@FeignClient(value = "PerformanceProportionConfigurationFeginService",url = "http://localhost:38080/performanceProportionConfiguration")
+@FeignClient(value = "PerformanceProportionConfigurationFeginService",url = "${fegin.db.url}/performanceProportionConfiguration")
+//@FeignClient(value = "PerformanceProportionConfigurationFeginService",url = "http://localhost:38080/performanceProportionConfiguration")
 public interface PerformanceProportionConfigurationFeginService {
 
     //列表
