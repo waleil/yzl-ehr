@@ -17,7 +17,6 @@ import java.util.List;
 
 @Repository
 @FeignClient(value = "staff",url = "${fegin.db.url}/process")
-
 @RefreshScope
 public interface ProcessItemFeignService {
 
