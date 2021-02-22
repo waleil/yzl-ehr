@@ -36,10 +36,8 @@ public class DepartTrainingRuleDto implements Serializable {
     @ApiModelProperty(value = "部门岗位id")
     private Integer departPostId;
 
-    /**
-     * 培训方式(1:线下,2,线上)
-     */
-    @ApiModelProperty(value = "培训方式:0线上 1线下")
+
+    @ApiModelProperty(value = "培训方式:0线下 1线上")
     private Byte way;
 
     /**

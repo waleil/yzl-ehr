@@ -35,7 +35,7 @@ public class DepartTrainingRulePo implements Serializable {
     @Min(1)
     private Integer departPostId;
 
-    @ApiModelProperty("培训方式(0线上 1线下)")
+    @ApiModelProperty("培训方式(0线下 1线上)")
     @NotNull
     @Min(0)
     private int way;
