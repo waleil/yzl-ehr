@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@FeignClient(value = "departmentService",url = "${fegin.db.url}")
+@FeignClient(value = "departmentService",url = "${fegin.asr.url}")
 public interface DepartmentFeignService {
 
     /**

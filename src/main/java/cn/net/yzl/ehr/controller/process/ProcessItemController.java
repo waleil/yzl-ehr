@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.constraints.NotNull;
@@ -47,15 +46,15 @@ public class ProcessItemController {
     }
 
     @ApiOperation(value = "审批项目添加",notes = "审批项目添加")
-    @RequestMapping(value = "/item/insert", method = RequestMethod.POST)
-    ComResponse<Integer> insertProcessItem (MultipartFile file,ProcessItemVo processItemVo, @CurrentStaffNo @ApiIgnore String staffNo){
-        return processItemService.insertProcessItem(file,processItemVo,staffNo);
+    @RequestMapping(value = "/item/insert", method = RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
+    ComResponse<Integer> insertProcessItem (@RequestBody @Validated ProcessItemVo processItemVo, @CurrentStaffNo @ApiIgnore String staffNo){
+        return processItemService.insertProcessItem(processItemVo,staffNo);
     }
 
-    @ApiOperation(value = "审批项目修改",notes = "审批项目修改",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "审批项目修改",notes = "审批项目修改",consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/item/update", method = RequestMethod.POST)
-    ComResponse<Integer> updateProcessItem (MultipartFile file,ProcessItemVo processItemVo, @CurrentStaffNo @ApiIgnore String staffNo){
-        return processItemService.updateProcessItem(file,processItemVo,staffNo);
+    ComResponse<Integer> updateProcessItem (@RequestBody @Validated ProcessItemVo processItemVo, @CurrentStaffNo @ApiIgnore String staffNo){
+        return processItemService.updateProcessItem(processItemVo,staffNo);
     }
 
     @ApiOperation(value = "审批项目删除",notes = "审批项目删除",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
@@ -68,6 +67,12 @@ public class ProcessItemController {
     @RequestMapping(value = "/item/disable", method = RequestMethod.POST)
     ComResponse<Integer> disableProcessItem (@RequestParam("id") Integer id,@CurrentStaffNo @ApiIgnore String staffNo){
         return processItemService.disableProcessItem(id,staffNo);
+    }
+
+    @ApiOperation(value = "审批项目启用",notes = "审批项目启用",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/item/enable", method = RequestMethod.POST)
+    ComResponse<Integer> enableProcessItem (@RequestParam("id") Integer id,@RequestParam("staffNo") String staffNo){
+        return processItemService.enableProcessItem(id,staffNo);
     }
 
     @ApiOperation(value = "审批项目查询（根据审批类型id）",notes = "审批项目查询（根据审批类型id）",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)

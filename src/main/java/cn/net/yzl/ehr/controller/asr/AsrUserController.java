@@ -24,7 +24,7 @@ import java.util.List;
  */
 @RestController
 @Slf4j
-@Api(tags = "asr组织架构")
+@Api(tags = "asr用户管理")
 @RequestMapping("asrUser")
 public class AsrUserController {
 

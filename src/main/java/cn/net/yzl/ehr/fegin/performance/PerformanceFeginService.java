@@ -2,12 +2,15 @@ package cn.net.yzl.ehr.fegin.performance;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.staff.dto.performance.FillPerformanceDepartDto;
+import cn.net.yzl.staff.dto.performance.MyPerformanceDto;
 import cn.net.yzl.staff.dto.performance.PerformanceDto;
+import cn.net.yzl.staff.dto.performance.PerformanceRaterDto;
 import cn.net.yzl.staff.dto.performance.RaterPerformanceDepartDto;
 import cn.net.yzl.staff.pojo.performance.PerformanceOrgTargetPo;
 import cn.net.yzl.staff.pojo.performance.PerformancePersonTargetPo;
 import cn.net.yzl.staff.vo.performance.PerformanceApproveVo;
 import cn.net.yzl.staff.vo.performance.PerformanceNoVo;
+import cn.net.yzl.staff.vo.performance.PerformanceReturnVo;
 import cn.net.yzl.staff.vo.performance.PerformanceVo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -27,6 +30,7 @@ import java.util.List;
  * @author biebaojie
  */
 @FeignClient(value = "PerformanceFeginService", url = "${fegin.db.url}/performance")
+//@FeignClient(value = "PerformanceFeginService", url = "http://localhost:38080/performance")
 @RefreshScope
 public interface PerformanceFeginService {
 
@@ -39,8 +43,8 @@ public interface PerformanceFeginService {
     ComResponse<List<FillPerformanceDepartDto>> queryFillPerformanceDepartList(@SpringQueryMap PerformanceVo performanceVo);
 
     @ApiOperation(value = "职能管理-绩效考核-组织架构", notes = "职能管理-绩效考核-组织架构", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @RequestMapping(value = "/queryPerformanceByNo", method = RequestMethod.GET)
-    ComResponse<List<RaterPerformanceDepartDto>> queryApprovePerformanceOrgStaff(@SpringQueryMap PerformanceVo performanceVo);
+    @RequestMapping(value = "/queryRaterPerformanceDepartList", method = RequestMethod.GET)
+    ComResponse<List<RaterPerformanceDepartDto>> queryRaterPerformanceDepartList(@SpringQueryMap PerformanceVo performanceVo);
 
     @ApiOperation(value = "职能管理-填报绩效-获取绩效信息", notes = "职能管理-填报绩效-获取绩效信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/queryPerformanceByNo", method = RequestMethod.GET)
@@ -78,4 +82,19 @@ public interface PerformanceFeginService {
     @RequestMapping(value = "/approvePerformance", method = RequestMethod.POST)
     ComResponse<Integer> approvePerformance(@RequestBody PerformanceApproveVo approvePerformanceVo);
 
+    @ApiOperation(value = "职能管理-绩效考核-提交绩效", notes = "职能管理-绩效考核-提交绩效", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/insertPerformanceRater", method = RequestMethod.POST)
+    ComResponse<Integer> insertPerformanceRater(@RequestBody PerformanceRaterDto performanceRaterDto);
+
+    @ApiOperation(value = "职能管理-绩效考核-查询评分列表", notes = "职能管理-绩效考核-查询评分列表", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/queryPerformanceRaterList", method = RequestMethod.GET)
+    ComResponse<List<PerformanceRaterDto>> queryPerformanceRaterList(@RequestParam("performanceNo") Long performanceNo);
+
+    @ApiOperation(value = "职能管理-绩效考核-打回绩效", notes = "职能管理-绩效考核-打回绩效", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/returnPerformance", method = RequestMethod.POST)
+    ComResponse<Integer> returnPerformance(PerformanceReturnVo performanceReturnVo);
+
+    @ApiOperation(value = "个人中心-我的绩效-查询个人绩效", notes = "个人中心-我的绩效-查询个人绩效", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/queryMyPerformance", method = RequestMethod.GET)
+    ComResponse<MyPerformanceDto> queryMyPerformance(@RequestParam("fillTime") String fillTime, @RequestParam("staffNo") String staffNo);
 }

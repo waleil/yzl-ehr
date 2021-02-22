@@ -1,14 +1,12 @@
 package cn.net.yzl.ehr.service.impl.process;
 
 import cn.net.yzl.common.entity.ComResponse;
-import cn.net.yzl.common.enums.ResponseCodeEnums;
 import cn.net.yzl.ehr.fegin.process.ProcessItemFeignService;
 import cn.net.yzl.ehr.service.process.ProcessItemService;
 import cn.net.yzl.ehr.util.FastDFSClientWrapper;
 import cn.net.yzl.staff.dto.SysDictDataDto;
 import cn.net.yzl.staff.dto.process.ProcessItemDto;
 import cn.net.yzl.staff.dto.process.ProcessTypeDto;
-import cn.net.yzl.staff.exception.BaseParamsException;
 import cn.net.yzl.staff.vo.process.ProcessItemVo;
 import cn.net.yzl.staff.vo.process.ProcessTypeVo;
 import org.slf4j.Logger;
@@ -16,9 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -53,8 +49,16 @@ public class ProcessItemServiceImpl implements ProcessItemService {
     }
 
     @Override
-    public ComResponse<Integer> insertProcessItem(MultipartFile file,ProcessItemVo processItemVo, String staffNo) {
-        String path = null;
+    public ComResponse<Integer> insertProcessItem(ProcessItemVo processItemVo, String staffNo) {
+        /*String path = null;
+        if(file != null){
+            String fileType = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")+1);
+            if(!"png".equals(fileType) && !"jpg".equals(fileType)){
+                throw new BaseParamsException(ResponseCodeEnums.SAVE_DATA_ERROR_CODE.getCode(),"请选择png或者jpg格式的图片!");
+            }
+        }else{
+            throw new BaseParamsException(ResponseCodeEnums.SAVE_DATA_ERROR_CODE.getCode(),"请选择上传的图片!");
+        }
         try {
             path = client.uploadFile(file);
         } catch (IOException e) {
@@ -62,23 +66,29 @@ public class ProcessItemServiceImpl implements ProcessItemService {
             logger.info("审批项目图标添加失败");
             throw new BaseParamsException(ResponseCodeEnums.SAVE_DATA_ERROR_CODE.getCode(),"审批项目图标添加失败!");
         }
-        processItemVo.setIcon(filePrefix+"/"+path);
+        processItemVo.setIcon(filePrefix+"/"+path);*/
         processItemVo.setCreator(staffNo);
         return processItemFeignService.insertProcessItem(processItemVo);
     }
 
     @Override
-    public ComResponse<Integer> updateProcessItem(MultipartFile file,ProcessItemVo processItemVo, String staffNo) {
-        String path = null;
-        try {
-            path = client.uploadFile(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-            logger.info("审批项目图标修改失败");
-            throw new BaseParamsException(ResponseCodeEnums.UPDATE_DATA_ERROR_CODE.getCode(),"审批项目图标修改失败!");
-        }
-        processItemVo.setIcon(filePrefix+"/"+path);
-        processItemVo.setCreator(staffNo);
+    public ComResponse<Integer> updateProcessItem(ProcessItemVo processItemVo, String staffNo) {
+        /*String path = null;
+        if(file != null){
+            String fileType = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")+1);
+            if(!"png".equals(fileType) && !"jpg".equals(fileType)){
+                throw new BaseParamsException(ResponseCodeEnums.SAVE_DATA_ERROR_CODE.getCode(),"请选择png或者jpg格式的图片!");
+            }
+            try {
+                path = client.uploadFile(file);
+            } catch (IOException e) {
+                e.printStackTrace();
+                logger.info("审批项目图标修改失败");
+                throw new BaseParamsException(ResponseCodeEnums.UPDATE_DATA_ERROR_CODE.getCode(),"审批项目图标修改失败!");
+            }
+            processItemVo.setIcon(filePrefix+"/"+path);
+        }*/
+        processItemVo.setUpdator(staffNo);
         return processItemFeignService.updateProcessItem(processItemVo);
     }
 
@@ -90,6 +100,11 @@ public class ProcessItemServiceImpl implements ProcessItemService {
     @Override
     public ComResponse<Integer> disableProcessItem(Integer id, String staffNo) {
         return processItemFeignService.disableProcessItem(id,staffNo);
+    }
+
+    @Override
+    public ComResponse<Integer> enableProcessItem(Integer id, String staffNo) {
+        return processItemFeignService.enableProcessItem(id,staffNo);
     }
 
     @Override

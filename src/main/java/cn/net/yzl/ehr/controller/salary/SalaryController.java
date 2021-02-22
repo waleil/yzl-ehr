@@ -9,9 +9,7 @@ import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.salary.SalaryService;
 import cn.net.yzl.staff.dto.salary.MySalaryDto;
 import cn.net.yzl.staff.dto.salary.SalaryDto;
-import cn.net.yzl.staff.vo.salary.MySalaryVo;
-import cn.net.yzl.staff.vo.salary.SalaryFinanceVo;
-import cn.net.yzl.staff.vo.salary.SalaryVo;
+import cn.net.yzl.staff.vo.salary.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -39,14 +37,14 @@ public class SalaryController {
 
 
 
-    @ApiOperation(value = "一线工资发放列表(人资)", notes = "一线工资发放列表(人资)")
+    @ApiOperation(value = "工资发放列表(一线/职能共用)", notes = "工资发放列表(一线/职能共用)")
     @PostMapping("/list")
     ComResponse<Page<SalaryDto>> list(@RequestBody SalaryVo salaryVo) {
         return salaryService.list(salaryVo);
     }
 
     //导入数据
-    @ApiOperation(value = "一线工资发放列表(人资)-导入数据", notes = "一线工资发放列表(人资)-导入数据")
+    @ApiOperation(value = "工资发放列表(一线/职能共用)-导入数据", notes = "工资发放列表(一线/职能共用)-导入数据")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "url", value = "文件全路径", required = true, dataType = "String"),
             @ApiImplicitParam(name = "staffType", value = "一线员工1，非一线员工2", required = true, dataType = "String"),
@@ -57,7 +55,7 @@ public class SalaryController {
     }
 
     //导出数据
-    @ApiOperation(value = "一线工资发放列表(人资)-导出", notes = "一线工资发放列表(人资)-导出")
+    @ApiOperation(value = "一线工资发放列表(一线/职能共用)-导出", notes = "工资发放列表(一线/职能共用)-导出")
     @PostMapping(value = "/exportSalary")
     void exportSalary(@RequestBody SalaryVo salaryVo, HttpServletResponse response) throws IOException{
 
@@ -107,13 +105,36 @@ public class SalaryController {
 
     }
     //提交财务
-    @ApiOperation(value = "一线工资发放列表(人资)-提交财务", notes = "一线工资发放列表(人资)-提交财务")
+    @ApiOperation(value = "工资发放列表(一线/职能共用)-提交财务", notes = "工资发放列表(一线/职能共用)-提交财务")
     @PostMapping("/postToFinance")
-    ComResponse<Void>  postToFinance(@RequestBody List<SalaryFinanceVo> list) {
+    ComResponse<Void>  postToFinance(@RequestBody List<SalaryFinanceVo> list,@ApiIgnore @CurrentStaffNo String staffNo) {
+        list.forEach(t -> {
+            t.setUpdator(staffNo);
+        });
         salaryService.postToFinance(list);
         return ComResponse.success();
     }
+    //财务审核通过/驳回
+    @ApiOperation(value = "工资发放列表-财务审核通过/驳回(一线/职能共用)", notes = "工资发放列表-财务审核通过/驳回(一线/职能共用)")
+    @PostMapping("/financePassOrReject")
+    ComResponse<Void>  financePassOrReject(@RequestBody List<SalaryFinanceCheckVo> list,@ApiIgnore @CurrentStaffNo String staffNo) {
+        list.forEach(t -> {
+            t.setUpdator(staffNo);
+        });
+        salaryService.financePassOrReject(list);
+        return ComResponse.success();
+    }
 
+    //发放
+    @ApiOperation(value = "工资发放列表-发放(一线/职能共用)", notes = "工资发放列表-发放(一线/职能共用)")
+    @PostMapping("/financeGrantMoney")
+    ComResponse<Void>  financeGrantMoney(@RequestBody List<SalaryFinanceGrantVo> list,@ApiIgnore @CurrentStaffNo String staffNo) {
+        list.forEach(t -> {
+            t.setUpdator(staffNo);
+        });
+        salaryService.financeGrantMoney(list);
+        return ComResponse.success();
+    }
     //我得工资
     @ApiOperation(value = "我得工资-一线职能共用", notes = "我得工资-一线职能共用")
     @PostMapping("/getMySalary")
