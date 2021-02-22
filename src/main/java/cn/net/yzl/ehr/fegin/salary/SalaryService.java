@@ -4,9 +4,7 @@ import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.staff.dto.salary.MySalaryDto;
 import cn.net.yzl.staff.dto.salary.SalaryDto;
-import cn.net.yzl.staff.vo.salary.MySalaryVo;
-import cn.net.yzl.staff.vo.salary.SalaryFinanceVo;
-import cn.net.yzl.staff.vo.salary.SalaryVo;
+import cn.net.yzl.staff.vo.salary.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +29,12 @@ public interface SalaryService {
     //提交财务
     @PostMapping("/postToFinance")
     ComResponse<Void>  postToFinance(@RequestBody List<SalaryFinanceVo> list);
+
+    @PostMapping("financePassOrReject")
+    ComResponse<Void>  financePassOrReject(@RequestBody List<SalaryFinanceCheckVo> list);
+
+    @PostMapping("financeGrantMoney")
+    ComResponse<Void>  financeGrantMoney(@RequestBody List<SalaryFinanceGrantVo> list);
 
     //我得工资
     @RequestMapping(value = "/getMySalary", method = RequestMethod.GET)

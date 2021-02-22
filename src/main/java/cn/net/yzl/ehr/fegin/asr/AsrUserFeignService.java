@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@FeignClient(value = "asrUserService",url = "${fegin.db.url}")
+@FeignClient(value = "asrUserService",url = "${fegin.asr.url}")
 public interface AsrUserFeignService {
 
 
