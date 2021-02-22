@@ -78,15 +78,21 @@ public class ProcessItemServiceImpl implements ProcessItemService {
     @Override
     public ComResponse<Integer> updateProcessItem(MultipartFile file,ProcessItemVo processItemVo, String staffNo) {
         String path = null;
-        try {
-            path = client.uploadFile(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-            logger.info("审批项目图标修改失败");
-            throw new BaseParamsException(ResponseCodeEnums.UPDATE_DATA_ERROR_CODE.getCode(),"审批项目图标修改失败!");
+        if(file != null){
+            String fileType = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")+1);
+            if(!"png".equals(fileType) && !"jpg".equals(fileType)){
+                throw new BaseParamsException(ResponseCodeEnums.SAVE_DATA_ERROR_CODE.getCode(),"请选择png或者jpg格式的图片!");
+            }
+            try {
+                path = client.uploadFile(file);
+            } catch (IOException e) {
+                e.printStackTrace();
+                logger.info("审批项目图标修改失败");
+                throw new BaseParamsException(ResponseCodeEnums.UPDATE_DATA_ERROR_CODE.getCode(),"审批项目图标修改失败!");
+            }
+            processItemVo.setIcon(filePrefix+"/"+path);
         }
-        processItemVo.setIcon(filePrefix+"/"+path);
-        processItemVo.setCreator(staffNo);
+        processItemVo.setUpdator(staffNo);
         return processItemFeignService.updateProcessItem(processItemVo);
     }
 
