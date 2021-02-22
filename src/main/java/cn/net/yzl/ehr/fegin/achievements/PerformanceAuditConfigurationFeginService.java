@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 //@FeignClient(value = "PerformanceAuditConfigurationFeginService",url = "http://127.0.0.1:38080/performanceAuditConfiguration")
 public interface PerformanceAuditConfigurationFeginService {
 
-    @PostMapping("/getById")
+    @PostMapping("/getByDepartId")
     ComResponse<PerformanceAuditConfigurationDto> getById(PerformanceAuditConfigurationDetailVo request);
 
     @PostMapping("/save")

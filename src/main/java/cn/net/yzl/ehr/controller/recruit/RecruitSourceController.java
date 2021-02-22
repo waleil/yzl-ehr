@@ -6,6 +6,7 @@ import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.recruit.RecruitSourceFeginService;
 import cn.net.yzl.ehr.service.recruit.RecruitSourceService;
 import cn.net.yzl.staff.dto.recruit.RecruitSourceDto;
+import cn.net.yzl.staff.dto.recruit.RecruitSourceExpenseDto;
 import cn.net.yzl.staff.pojo.recruit.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -85,6 +86,11 @@ public class RecruitSourceController {
     @RequestMapping(value = "/updateState",method = RequestMethod.POST)
     ComResponse<Integer> updateState (@RequestBody RecruitSourceUpdateStatePo updatePo , @CurrentStaffNo @ApiIgnore String staffNo){
         return recruitSourceService.updateState(updatePo,staffNo);
+    }
+    @ApiOperation(value = "招聘渠道—查询操作记录",notes = "查询操作记录",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/selectBySourceExpense", method = RequestMethod.POST)
+    ComResponse <List<RecruitSourceExpenseDto>> selectBySourceExpense(@RequestParam("sourceId")Integer sourceId){
+        return recruitSourceService.selectBySourceExpense(sourceId);
     }
 
 }

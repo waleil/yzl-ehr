@@ -6,6 +6,7 @@ import cn.net.yzl.common.enums.ResponseCodeEnums;
 import cn.net.yzl.ehr.fegin.recruit.RecruitSourceFeginService;
 import cn.net.yzl.ehr.util.FastDFSClientWrapper;
 import cn.net.yzl.staff.dto.recruit.RecruitSourceDto;
+import cn.net.yzl.staff.dto.recruit.RecruitSourceExpenseDto;
 import cn.net.yzl.staff.pojo.recruit.*;
 import cn.net.yzl.ehr.service.recruit.RecruitSourceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -131,4 +132,12 @@ public class RecruitSourceServiceImpl implements RecruitSourceService {
         }
         return result;
     }
+
+    @Override
+    public ComResponse<List<RecruitSourceExpenseDto>> selectBySourceExpense(Integer sourceId) {
+        return sourceFeginService.selectBySourceExpense(sourceId);
+
+
+    }
+
 }
