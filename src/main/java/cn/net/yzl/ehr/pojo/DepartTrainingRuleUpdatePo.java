@@ -33,7 +33,7 @@ public class DepartTrainingRuleUpdatePo implements Serializable {
     private Integer postId;
 
     /**
-     * 培训方式(1:线下,2,线上)
+     * 培训方式(0:线下,1.线上)
      */
     @NotNull
     @Min(0)

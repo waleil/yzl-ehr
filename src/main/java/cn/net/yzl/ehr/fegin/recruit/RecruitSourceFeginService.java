@@ -64,7 +64,7 @@ public interface RecruitSourceFeginService {
     ComResponse<Integer> updateState (@RequestBody RecruitSourceUpdateStatePo updatePo);
 
     @ApiOperation(value = "查询操作记录",notes = "查询操作记录",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @RequestMapping(value = "/recruit/selectBySourceExpense", method = RequestMethod.POST)
+    @RequestMapping(value = "/recruit/selectBySourceExpense", method = RequestMethod.GET)
     ComResponse <List<RecruitSourceExpenseDto>> selectBySourceExpense(@RequestParam("sourceId")Integer sourceId);
 
 
