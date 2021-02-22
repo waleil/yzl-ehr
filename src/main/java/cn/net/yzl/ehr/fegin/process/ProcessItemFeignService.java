@@ -41,6 +41,9 @@ public interface ProcessItemFeignService {
     @RequestMapping(value = "/item/disable", method = RequestMethod.POST)
     ComResponse<Integer> disableProcessItem (@RequestParam("id") Integer id,@RequestParam("staffNo") String staffNo);
 
+    @RequestMapping(value = "/item/enable", method = RequestMethod.POST)
+    ComResponse<Integer> enableProcessItem (@RequestParam("id") Integer id,@RequestParam("staffNo") String staffNo);
+
     @RequestMapping(value = "/item/select", method = RequestMethod.GET)
     ComResponse<List<ProcessItemDto>> selectProcessItem (@RequestParam("id") Integer id);
 
