@@ -10,12 +10,15 @@ import cn.net.yzl.staff.pojo.recruit.StaffRecruitPo;
 import cn.net.yzl.staff.pojo.recruit.StaffRecruitSelectPo;
 import cn.net.yzl.staff.pojo.recruit.StaffRecruitUpdatePo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class StaffRecruitServiceImpl implements StaffRecruitService {
+
+
     @Autowired
     private StaffRecruitFeginService staffRecruitFeginService;
 

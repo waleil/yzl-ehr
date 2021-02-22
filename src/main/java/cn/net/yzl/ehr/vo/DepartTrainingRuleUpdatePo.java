@@ -22,7 +22,7 @@ public class DepartTrainingRuleUpdatePo implements Serializable {
     @Min(1)
     private Integer id;
 
-    @ApiModelProperty("培训方式(0线上 1线下)")
+    @ApiModelProperty("培训方式(0线下 1线上)")
     @NotNull
     @Min(0)
     private Integer way;
