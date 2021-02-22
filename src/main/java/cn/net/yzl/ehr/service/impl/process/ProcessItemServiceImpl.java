@@ -55,6 +55,14 @@ public class ProcessItemServiceImpl implements ProcessItemService {
     @Override
     public ComResponse<Integer> insertProcessItem(MultipartFile file,ProcessItemVo processItemVo, String staffNo) {
         String path = null;
+        if(file != null){
+            String fileType = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")+1);
+            if(!"png".equals(fileType) && !"jpg".equals(fileType)){
+                throw new BaseParamsException(ResponseCodeEnums.SAVE_DATA_ERROR_CODE.getCode(),"请选择png或者jpg格式的图片!");
+            }
+        }else{
+            throw new BaseParamsException(ResponseCodeEnums.SAVE_DATA_ERROR_CODE.getCode(),"请选择上传的图片!");
+        }
         try {
             path = client.uploadFile(file);
         } catch (IOException e) {
