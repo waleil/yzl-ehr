@@ -35,7 +35,7 @@ public interface AsrUserFeignService {
      * @return: cn.net.yzl.common.entity.ComResponse<cn.net.yzl.model.dto.DepartmentDto>
      */
     @GetMapping(value = "asrUser/v1/query/user/by/uid")
-    @ApiOperation(value = "查询asr组织架构", httpMethod = "GET")
+    @ApiOperation(value = "获取员工信息", httpMethod = "GET")
     ComResponse<AsrUserPageVO.AsrUserVO> getUser(@RequestParam(value = "uid") String uid);
     /**
      * @author wangshuaidong
