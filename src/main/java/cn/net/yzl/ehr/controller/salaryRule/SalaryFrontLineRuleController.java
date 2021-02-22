@@ -60,6 +60,13 @@ public class SalaryFrontLineRuleController {
         return salaryFrontLineService.rule4(salaryFrontLineRuleEditVo4);
     }
 
+    @ApiOperation(value = "一线管理-薪酬核算规则配置-规则五", notes = "一线管理-薪酬核算规则配置-规则五")
+    @PostMapping("/rule5")
+    public ComResponse<Boolean> rule5(@RequestBody SalaryFrontLineRuleEditVo5 salaryFrontLineRuleEditVo5, @ApiIgnore @CurrentStaffNo String staffNo) {
+        salaryFrontLineRuleEditVo5.setStaffNo(staffNo);
+        return salaryFrontLineService.rule5(salaryFrontLineRuleEditVo5);
+    }
+
     @ApiOperation(value = "一线管理-薪酬核算规则配置-规则六", notes = "一线管理-薪酬核算规则配置-规则六")
     @PostMapping("/rule6")
     ComResponse<Boolean> rule6(@RequestBody SalaryFrontLineRuleEditVo6 salaryFrontLineRuleEditVo6,@ApiIgnore @CurrentStaffNo String staffNo) {

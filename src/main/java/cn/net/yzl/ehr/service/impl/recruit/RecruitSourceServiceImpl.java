@@ -62,7 +62,7 @@ public class RecruitSourceServiceImpl implements RecruitSourceService {
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
         }else if (result.getCode()==200 && result.getData()<1){
             return ComResponse.fail(ResponseCodeEnums.SAVE_DATA_ERROR_CODE.getCode(),ResponseCodeEnums.SAVE_DATA_ERROR_CODE.getMessage());
-        }if (result.getData()>0){
+        }if (result.getData()!=null){
             return ComResponse.success();
         }
         return result;
