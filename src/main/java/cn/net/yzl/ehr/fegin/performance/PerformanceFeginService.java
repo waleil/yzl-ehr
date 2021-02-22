@@ -9,6 +9,7 @@ import cn.net.yzl.staff.dto.performance.RaterPerformanceDepartDto;
 import cn.net.yzl.staff.pojo.performance.PerformanceOrgTargetPo;
 import cn.net.yzl.staff.pojo.performance.PerformancePersonTargetPo;
 import cn.net.yzl.staff.vo.performance.PerformanceApproveVo;
+import cn.net.yzl.staff.vo.performance.PerformanceCreateVo;
 import cn.net.yzl.staff.vo.performance.PerformanceNoVo;
 import cn.net.yzl.staff.vo.performance.PerformanceReturnVo;
 import cn.net.yzl.staff.vo.performance.PerformanceVo;
@@ -76,7 +77,7 @@ public interface PerformanceFeginService {
 
     @ApiOperation(value = "职能管理-填报绩效-提交绩效", notes = "职能管理-填报绩效-提交绩效", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/submitPerformance", method = RequestMethod.POST)
-    ComResponse<Integer> submitPerformance(@RequestBody PerformanceNoVo performanceNoVo);
+    ComResponse<Integer> submitPerformance(@RequestBody PerformanceCreateVo performanceCreateVo);
 
     @ApiOperation(value = "职能管理-填报绩效-审核绩效", notes = "职能管理-填报绩效-审核绩效", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/approvePerformance", method = RequestMethod.POST)
