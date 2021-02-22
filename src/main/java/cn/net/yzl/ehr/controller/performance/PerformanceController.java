@@ -8,10 +8,8 @@ import cn.net.yzl.staff.dto.performance.MyPerformanceDto;
 import cn.net.yzl.staff.dto.performance.PerformanceDto;
 import cn.net.yzl.staff.dto.performance.PerformanceRaterDto;
 import cn.net.yzl.staff.dto.performance.RaterPerformanceDepartDto;
-import cn.net.yzl.staff.pojo.performance.PerformanceOrgTargetPo;
-import cn.net.yzl.staff.pojo.performance.PerformancePersonTargetPo;
 import cn.net.yzl.staff.vo.performance.PerformanceApproveVo;
-import cn.net.yzl.staff.vo.performance.PerformanceNoVo;
+import cn.net.yzl.staff.vo.performance.PerformanceCreateVo;
 import cn.net.yzl.staff.vo.performance.PerformanceReturnVo;
 import cn.net.yzl.staff.vo.performance.PerformanceVo;
 import io.swagger.annotations.Api;
@@ -108,92 +106,93 @@ public class PerformanceController {
         return performanceFeginService.queryPerformanceByNo(performanceNo);
     }
 
-    /**
-     * 新增组织绩效
-     *
-     * @param performanceOrgTarget 实例对象
-     * @return 影响行数
-     */
-    @ApiOperation(value = "职能管理-填报绩效-新增组织绩效", notes = "职能管理-填报绩效-新增组织绩效", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @RequestMapping(value = "/insertPerformanceOrgTarget", method = RequestMethod.POST)
-    public ComResponse<Integer> insertPerformanceOrgTarget(@RequestBody @Validated PerformanceOrgTargetPo performanceOrgTarget, @ApiIgnore @CurrentStaffNo String staffNo) {
-        performanceOrgTarget.setCreator(staffNo);
-        return performanceFeginService.insertPerformanceOrgTarget(performanceOrgTarget);
-    }
-
-    /**
-     * 编辑组织绩效
-     *
-     * @param performanceOrgTarget 实例对象
-     * @return 影响行数
-     */
-    @ApiOperation(value = "职能管理-填报绩效-修改组织绩效", notes = "职能管理-填报绩效-修改组织绩效", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @RequestMapping(value = "/updatePerformanceOrgTarget", method = RequestMethod.POST)
-    public ComResponse<Integer> updatePerformanceOrgTarget(@RequestBody @Validated PerformanceOrgTargetPo performanceOrgTarget, @ApiIgnore @CurrentStaffNo String staffNo) {
-        performanceOrgTarget.setUpdator(staffNo);
-        return performanceFeginService.updatePerformanceOrgTarget(performanceOrgTarget);
-    }
-
-    /**
-     * 删除组织绩效
-     *
-     * @param performanceNoVo 组织绩效编号
-     * @return 影响行数
-     */
-    @ApiOperation(value = "职能管理-填报绩效-删除组织绩效", notes = "职能管理-填报绩效-删除组织绩效", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @RequestMapping(value = "/deleteByOrgPerformanceNo", method = RequestMethod.POST)
-    public ComResponse<Integer> deleteByOrgPerformanceNo(@RequestBody @Validated PerformanceNoVo performanceNoVo) {
-        return performanceFeginService.deleteByOrgPerformanceNo(performanceNoVo);
-    }
-
-    /**
-     * 新增个人绩效
-     *
-     * @param performancePersonTarget 实例对象
-     * @return 影响行数
-     */
-    @ApiOperation(value = "职能管理-填报绩效-新增个人绩效", notes = "职能管理-填报绩效-新增个人绩效", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @RequestMapping(value = "/insertPerformancePersonTarget", method = RequestMethod.POST)
-    public ComResponse<Integer> insertPerformancePersonTarget(@RequestBody @Validated PerformancePersonTargetPo performancePersonTarget, @ApiIgnore @CurrentStaffNo String staffNo) {
-        performancePersonTarget.setCreator(staffNo);
-        return performanceFeginService.insertPerformancePersonTarget(performancePersonTarget);
-    }
-
-    /**
-     * 修改个人绩效
-     *
-     * @param performancePersonTarget 实例对象
-     * @return 影响行数
-     */
-    @ApiOperation(value = "职能管理-填报绩效-修改个人绩效", notes = "职能管理-填报绩效-修改个人绩效", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @RequestMapping(value = "/updatePerformancePersonTarget", method = RequestMethod.POST)
-    public ComResponse<Integer> updatePerformancePersonTarget(@RequestBody @Validated PerformancePersonTargetPo performancePersonTarget, @ApiIgnore @CurrentStaffNo String staffNo) {
-        performancePersonTarget.setUpdator(staffNo);
-        return performanceFeginService.updatePerformancePersonTarget(performancePersonTarget);
-    }
-
-    /**
-     * 删除个人绩效
-     *
-     * @param performanceNoVo 个人绩效编号
-     * @return 影响行数
-     */
-    @ApiOperation(value = "职能管理-填报绩效-删除个人绩效", notes = "职能管理-填报绩效-删除个人绩效", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @RequestMapping(value = "/deleteByPersonPerformanceNo", method = RequestMethod.POST)
-    public ComResponse<Integer> deleteByPersonPerformanceNo(@RequestBody @Validated PerformanceNoVo performanceNoVo) {
-        return performanceFeginService.deleteByPersonPerformanceNo(performanceNoVo);
-    }
+//    /**
+//     * 新增组织绩效
+//     *
+//     * @param performanceOrgTarget 实例对象
+//     * @return 影响行数
+//     */
+//    @ApiOperation(value = "职能管理-填报绩效-新增组织绩效", notes = "职能管理-填报绩效-新增组织绩效", consumes = MediaType.APPLICATION_JSON_VALUE)
+//    @RequestMapping(value = "/insertPerformanceOrgTarget", method = RequestMethod.POST)
+//    public ComResponse<Integer> insertPerformanceOrgTarget(@RequestBody @Validated PerformanceOrgTargetPo performanceOrgTarget, @ApiIgnore @CurrentStaffNo String staffNo) {
+//        performanceOrgTarget.setCreator(staffNo);
+//        return performanceFeginService.insertPerformanceOrgTarget(performanceOrgTarget);
+//    }
+//
+//    /**
+//     * 编辑组织绩效
+//     *
+//     * @param performanceOrgTarget 实例对象
+//     * @return 影响行数
+//     */
+//    @ApiOperation(value = "职能管理-填报绩效-修改组织绩效", notes = "职能管理-填报绩效-修改组织绩效", consumes = MediaType.APPLICATION_JSON_VALUE)
+//    @RequestMapping(value = "/updatePerformanceOrgTarget", method = RequestMethod.POST)
+//    public ComResponse<Integer> updatePerformanceOrgTarget(@RequestBody @Validated PerformanceOrgTargetPo performanceOrgTarget, @ApiIgnore @CurrentStaffNo String staffNo) {
+//        performanceOrgTarget.setUpdator(staffNo);
+//        return performanceFeginService.updatePerformanceOrgTarget(performanceOrgTarget);
+//    }
+//
+//    /**
+//     * 删除组织绩效
+//     *
+//     * @param performanceNoVo 组织绩效编号
+//     * @return 影响行数
+//     */
+//    @ApiOperation(value = "职能管理-填报绩效-删除组织绩效", notes = "职能管理-填报绩效-删除组织绩效", consumes = MediaType.APPLICATION_JSON_VALUE)
+//    @RequestMapping(value = "/deleteByOrgPerformanceNo", method = RequestMethod.POST)
+//    public ComResponse<Integer> deleteByOrgPerformanceNo(@RequestBody @Validated PerformanceNoVo performanceNoVo) {
+//        return performanceFeginService.deleteByOrgPerformanceNo(performanceNoVo);
+//    }
+//
+//    /**
+//     * 新增个人绩效
+//     *
+//     * @param performancePersonTarget 实例对象
+//     * @return 影响行数
+//     */
+//    @ApiOperation(value = "职能管理-填报绩效-新增个人绩效", notes = "职能管理-填报绩效-新增个人绩效", consumes = MediaType.APPLICATION_JSON_VALUE)
+//    @RequestMapping(value = "/insertPerformancePersonTarget", method = RequestMethod.POST)
+//    public ComResponse<Integer> insertPerformancePersonTarget(@RequestBody @Validated PerformancePersonTargetPo performancePersonTarget, @ApiIgnore @CurrentStaffNo String staffNo) {
+//        performancePersonTarget.setCreator(staffNo);
+//        return performanceFeginService.insertPerformancePersonTarget(performancePersonTarget);
+//    }
+//
+//    /**
+//     * 修改个人绩效
+//     *
+//     * @param performancePersonTarget 实例对象
+//     * @return 影响行数
+//     */
+//    @ApiOperation(value = "职能管理-填报绩效-修改个人绩效", notes = "职能管理-填报绩效-修改个人绩效", consumes = MediaType.APPLICATION_JSON_VALUE)
+//    @RequestMapping(value = "/updatePerformancePersonTarget", method = RequestMethod.POST)
+//    public ComResponse<Integer> updatePerformancePersonTarget(@RequestBody @Validated PerformancePersonTargetPo performancePersonTarget, @ApiIgnore @CurrentStaffNo String staffNo) {
+//        performancePersonTarget.setUpdator(staffNo);
+//        return performanceFeginService.updatePerformancePersonTarget(performancePersonTarget);
+//    }
+//
+//    /**
+//     * 删除个人绩效
+//     *
+//     * @param performanceNoVo 个人绩效编号
+//     * @return 影响行数
+//     */
+//    @ApiOperation(value = "职能管理-填报绩效-删除个人绩效", notes = "职能管理-填报绩效-删除个人绩效", consumes = MediaType.APPLICATION_JSON_VALUE)
+//    @RequestMapping(value = "/deleteByPersonPerformanceNo", method = RequestMethod.POST)
+//    public ComResponse<Integer> deleteByPersonPerformanceNo(@RequestBody @Validated PerformanceNoVo performanceNoVo) {
+//        return performanceFeginService.deleteByPersonPerformanceNo(performanceNoVo);
+//    }
 
     /**
      * 提交绩效
      *
-     * @param performanceNoVo 绩效编号
+     * @param performanceCreateVo 绩效
      * @return 影响行数
      */
     @ApiOperation(value = "职能管理-填报绩效-提交绩效", notes = "职能管理-填报绩效-提交绩效", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/submitPerformance", method = RequestMethod.POST)
-    public ComResponse<Integer> submitPerformance(@RequestBody @Validated PerformanceNoVo performanceNoVo) {
-        return performanceFeginService.submitPerformance(performanceNoVo);
+    public ComResponse<Integer> submitPerformance(@RequestBody @Validated PerformanceCreateVo performanceCreateVo, @ApiIgnore @CurrentStaffNo String staffNo) {
+        performanceCreateVo.setCreator(staffNo);
+        return performanceFeginService.submitPerformance(performanceCreateVo);
     }
 
     /**

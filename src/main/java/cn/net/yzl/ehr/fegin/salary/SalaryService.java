@@ -15,8 +15,8 @@ import java.util.List;
  * @Date 2021/2/19
  * @Description
  */
-@FeignClient(value = "SalaryService",url = "${fegin.db.url}/salary")
-//@FeignClient(value = "SalaryService",url = "localhost:38080/salary")
+//@FeignClient(value = "SalaryService",url = "${fegin.db.url}/salary")
+@FeignClient(value = "SalaryService",url = "localhost:38080/salary")
 public interface SalaryService {
 
     @PostMapping("/list")
@@ -30,9 +30,11 @@ public interface SalaryService {
     @PostMapping("/postToFinance")
     ComResponse<Void>  postToFinance(@RequestBody List<SalaryFinanceVo> list);
 
+    //财务通过/驳回
     @PostMapping("financePassOrReject")
     ComResponse<Void>  financePassOrReject(@RequestBody List<SalaryFinanceCheckVo> list);
 
+    //财务发放
     @PostMapping("financeGrantMoney")
     ComResponse<Void>  financeGrantMoney(@RequestBody List<SalaryFinanceGrantVo> list);
 
