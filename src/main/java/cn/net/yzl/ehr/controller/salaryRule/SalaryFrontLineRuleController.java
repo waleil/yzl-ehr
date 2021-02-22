@@ -107,4 +107,10 @@ public class SalaryFrontLineRuleController {
     ComResponse<Void> ruleSwitch(@RequestBody SalaryRuleSwitch salaryRuleSwitch) {
         return salaryFrontLineService.ruleSwitch(salaryRuleSwitch);
     }
+
+    @ApiOperation(value = "一线管理-薪酬核算规则开关查询", notes = "一线管理-薪酬核算规则开关查询")
+    @PostMapping("/ruleOnStatus")
+    ComResponse<Integer> ruleOnStatus() {
+        return salaryFrontLineService.ruleOnStatus();
+    }
 }
