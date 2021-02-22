@@ -21,7 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/process")
-@Api(value = "系统管理-流程管理",tags = {"系统管理"})
+@Api(value = "系统管理-流程管理",tags = {"系统管理-流程管理"})
 public class ProcessItemController {
 
     @Autowired
