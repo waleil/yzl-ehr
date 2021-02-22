@@ -71,7 +71,7 @@ public class ProcessItemController {
 
     @ApiOperation(value = "审批项目启用",notes = "审批项目启用",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/item/enable", method = RequestMethod.POST)
-    ComResponse<Integer> enableProcessItem (@RequestParam("id") Integer id,@RequestParam("staffNo") String staffNo){
+    ComResponse<Integer> enableProcessItem (@RequestParam("id") Integer id,@CurrentStaffNo @ApiIgnore String staffNo){
         return processItemService.enableProcessItem(id,staffNo);
     }
 
