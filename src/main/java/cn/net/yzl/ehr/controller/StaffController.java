@@ -129,9 +129,4 @@ public class StaffController {
         return staffFeginService.getStaffTotalData();
     }
 
-    @ApiOperation(value = "模糊查询员工列表", notes = "模糊查询员工列表")
-    @RequestMapping(value = "/getStaffListByPage", method = RequestMethod.POST)
-    ComResponse<Page<StaffListDto>> getStaffListByPage(@RequestBody @Validated StaffParamsVO staffParamsVO) throws IllegalAccessException {
-        return staffFeginService.getListByParams(staffParamsVO);
-    }
 }
