@@ -3,9 +3,10 @@ package cn.net.yzl.ehr.fegin.staff;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.dto.StaffAbnorRecordListDto;
-import cn.net.yzl.ehr.dto.StaffTrainDto;
+
 import cn.net.yzl.ehr.pojo.StaffAbnorRecordPo;
 import cn.net.yzl.ehr.pojo.StaffSwitchStatePo;
+import cn.net.yzl.staff.dto.StaffTrainDto;
 import cn.net.yzl.staff.pojo.AbnorRecordPo;
 import cn.net.yzl.staff.pojo.RunAbnorRecordPo;
 import org.springframework.cloud.openfeign.FeignClient;
