@@ -18,6 +18,8 @@ public interface ProcessConfigService {
 
     ComResponse<Integer> disableProcessConfig(Integer id, String staffNo);
 
+    ComResponse<Integer> enableProcessConfig(Integer id, Integer processItemId, String staffNo);
+
     ComResponse<Page<ProcessDto>> pageSelectProcessConfig(ProcessConfigPageVo processConfigPageVo);
 
     ComResponse<ProcessConfigDetailDto> processConfigDetail(Integer id);

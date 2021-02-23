@@ -2,6 +2,7 @@ package cn.net.yzl.ehr.controller;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.fegin.TrainingCourseClient;
+import cn.net.yzl.staff.dto.train.CoursewareDto;
 import cn.net.yzl.staff.dto.train.TrainInfoAllDto;
 import cn.net.yzl.staff.pojo.train.*;
 import cn.net.yzl.staff.vo.train.SignInputScore;
@@ -168,5 +169,20 @@ public class TrainingCourseController {
     @GetMapping("getPartner")
     public ComResponse<List<Map<String,Object>>> getPartner(@RequestParam("type") String type){
         return trainingCourseClient.getPartner(type);
+    }
+
+    @ApiOperation(value = "课件查询",notes = "课件查询")
+    @GetMapping("listCourseware")
+    public ComResponse<List<CoursewareDto>> listCourseware(
+            @ApiParam(value = "课件名称")@RequestParam(value = "name",required = false) String name,
+            @ApiParam(value = "分页参数:页码")@RequestParam(value = "pageNum",defaultValue = "0") Integer pageNum,
+            @ApiParam(value = "分页参数:每页数量")@RequestParam(value = "pageSize",defaultValue = "10") Integer pageSize) {
+        return trainingCourseClient.listCoursewareDto(name, pageNum, pageSize);
+    }
+
+    @ApiOperation(value = "商品列表",notes = "商品列表")
+    @GetMapping(value = "productList")
+    public ComResponse productList(@ApiParam(value = "编码或名称")@RequestParam(value = "name")String name,@ApiParam(value = "分页页数")@RequestParam(value = "pageNo",defaultValue = "0")Integer pageNo,@ApiParam(value = "分页条数")@RequestParam(value = "pageSize",defaultValue = "10")Integer pageSize){
+        return trainingCourseClient.productList(name,pageNo,pageSize);
     }
 }

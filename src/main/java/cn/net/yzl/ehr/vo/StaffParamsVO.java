@@ -23,6 +23,13 @@ public class StaffParamsVO implements Serializable {
     private Integer departPostId;
     @ApiModelProperty(value = "属性(1:正编,2:外包)", name = "nature")
     private Integer nature;
+
+    @ApiModelProperty(value = "合作方(字典type=partner)", name = "nature")
+    private Integer partnerCode;
+
+    @ApiModelProperty(value = "职场(字典type=workplace)", name = "nature")
+    private Integer workCode;
+
     @ApiModelProperty(value = "在职状态(字典type=post_status)", name = "postStatusCode")
     private Integer postStatusCode;
     @ApiModelProperty(value = "在职标识(0.离职,1.在职)", name = "workStatusCode")

@@ -2,7 +2,6 @@ package cn.net.yzl.ehr.controller;
 
 
 import cn.net.yzl.common.entity.ComResponse;
-
 import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.dto.StaffBaseDto;
@@ -12,8 +11,6 @@ import cn.net.yzl.ehr.pojo.StaffSwitchStatePo;
 import cn.net.yzl.ehr.pojo.StaffSwitchTalentPoolPo;
 import cn.net.yzl.ehr.service.StaffService;
 import cn.net.yzl.ehr.vo.StaffParamsVO;
-
-
 import cn.net.yzl.staff.dto.StaffDetailsDto;
 import cn.net.yzl.staff.dto.StaffInfoDto;
 import cn.net.yzl.staff.dto.StatisticalStaffDto;
@@ -24,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.text.ParseException;
@@ -130,4 +128,5 @@ public class StaffController {
     public ComResponse<StatisticalStaffDto> getStaffTotalData() {
         return staffFeginService.getStaffTotalData();
     }
+
 }
