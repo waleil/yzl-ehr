@@ -48,6 +48,12 @@ public class ProcessConfigController {
         return processConfigService.disableProcessConfig(id,staffNo);
     }
 
+    @ApiOperation(value = "审批流程配置启用",notes = "审批流程配置启用",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/config/enable", method = RequestMethod.POST)
+    ComResponse<Integer> enableProcessConfig (@RequestParam("id") Integer id,@RequestParam("staffNo") String staffNo){
+        return processConfigService.enableProcessConfig(id,staffNo);
+    }
+
 
     @ApiOperation(value = "审批流程配置分页查询",notes = "审批流程配置分页查询",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/config/pageSelect", method = RequestMethod.POST)
