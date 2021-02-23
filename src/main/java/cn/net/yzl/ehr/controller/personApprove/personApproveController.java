@@ -27,26 +27,26 @@ public class personApproveController {
 
 
     @PostMapping("v1/getApproveInfoListDTOList")
-    @ApiOperation(value = "审批查询")
+    @ApiOperation(value = "人事审批审批查询")
     public ComResponse<Page<ApproveInfoListDTO>> findApproveInfoList(@RequestBody ApproveQueryDTO approveQueryDTO) {
 
         return findApproveService.findApproveInfoList(approveQueryDTO);
     }
     @GetMapping("v1/findProcessInfoList")
-    @ApiOperation(value = "获取流程展示信息")
+    @ApiOperation(value = "人事审批流程展示信息")
     public ComResponse<List<ProcessNodeDTO>> findProcessInfoList(@RequestParam @NotNull Integer processId) {
 
         return findApproveService.findProcessInfoList(processId);
     }
 
     @PostMapping("v1/getMyProcessInfoList")
-    @ApiOperation(value = "获取我的流程信息")
+    @ApiOperation(value = "我的流程我的审批展示信息")
     public ComResponse<Page<ApproveInfoListDTO>> getMyProcessInfoList(@RequestBody ApproveQueryDTO approveQueryDTO) {
 
         return findApproveService.getMyProcessInfoList(approveQueryDTO);
     }
     @GetMapping("v1/getApproveInfoList")
-    @ApiOperation(value = "审批页详情显示")
+    @ApiOperation(value = "我的流程审批页详情显示")
     public ComResponse<ApproveInfoDTO> getApproveInfoList(@RequestParam @NotNull Integer processId,
                                                           @RequestParam @NotNull String processAuditId,
                                                           @RequestParam @NotNull String leaveNo) {
@@ -54,7 +54,7 @@ public class personApproveController {
         return findApproveService.getApproveInfoList(processId,processAuditId,leaveNo);
     }
     @PostMapping("v1/saveApproveInfo")
-    @ApiOperation(value = "保存审批信息，并修改审批状态")
+    @ApiOperation(value = "我的流程审批页保存审批信息，并修改审批状态")
     public ComResponse<Boolean> saveApproveInfo(@RequestBody ApproveProcessInfo approveProcessInfo) {
 
         return findApproveService.saveApproveInfo(approveProcessInfo);

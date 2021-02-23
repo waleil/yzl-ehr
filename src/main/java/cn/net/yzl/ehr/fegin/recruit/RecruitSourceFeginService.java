@@ -5,7 +5,9 @@ import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.dto.StaffUpRpListDto;
 import cn.net.yzl.ehr.dto.StaffUpTrainListDto;
 import cn.net.yzl.ehr.pojo.*;
+import cn.net.yzl.staff.dto.recruit.RecruitOperatingRecordDto;
 import cn.net.yzl.staff.dto.recruit.RecruitSourceDto;
+import cn.net.yzl.staff.dto.recruit.RecruitSourceExpenseDto;
 import cn.net.yzl.staff.pojo.recruit.*;
 import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Param;
@@ -61,6 +63,11 @@ public interface RecruitSourceFeginService {
     @ApiOperation(value ="停用" ,notes ="停用",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/recruit/updateState",method = RequestMethod.POST)
     ComResponse<Integer> updateState (@RequestBody RecruitSourceUpdateStatePo updatePo);
+
+    @ApiOperation(value = "查询操作记录",notes = "查询操作记录",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/recruit/selectByPrimaryKey", method = RequestMethod.GET)
+    ComResponse <List<RecruitOperatingRecordDto>> selectByPrimaryKey(@RequestParam("resourceId") Integer resourceId);
+
 
 
 }

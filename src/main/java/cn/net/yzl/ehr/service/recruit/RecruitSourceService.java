@@ -2,9 +2,14 @@ package cn.net.yzl.ehr.service.recruit;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
+import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
+import cn.net.yzl.staff.dto.recruit.RecruitOperatingRecordDto;
 import cn.net.yzl.staff.dto.recruit.RecruitSourceDto;
+import cn.net.yzl.staff.dto.recruit.RecruitSourceExpenseDto;
 import cn.net.yzl.staff.pojo.recruit.*;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 
@@ -27,4 +32,6 @@ public interface RecruitSourceService {
     ComResponse<Page<RecruitSourceDto>> queryPage(RecruitSourceListPo recruitSourceListPo);
 
     ComResponse<Integer> updateState(RecruitSourceUpdateStatePo updatePo, String staffNo);
+
+    ComResponse <List<RecruitOperatingRecordDto>> selectByPrimaryKey( Integer resourceId,  String staffNo);
 }

@@ -28,6 +28,7 @@ import java.util.List;
 @Api(value = "待招任务", tags = {"人事管理"})
 public class StaffRecruitController {
 
+
     @Autowired
     private StaffRecruitService staffRecruitService;
 
@@ -67,7 +68,7 @@ public class StaffRecruitController {
     @RequestMapping(value = "/batchDistributeTask", method = RequestMethod.POST)
     public ComResponse<Integer> batchDistributeTask(@RequestBody @Validated ValidList<RecruitedTaskPo> recruitedTaskPos, @CurrentStaffNo @ApiIgnore String staffNo) {
         recruitedTaskPos.forEach(x->{
-            x.setUpdator(staffNo);
+            x.setCreator(staffNo);
         });
         return staffRecruitService.batchDistributeTask(recruitedTaskPos);
     }
