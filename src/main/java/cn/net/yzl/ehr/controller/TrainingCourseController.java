@@ -182,7 +182,7 @@ public class TrainingCourseController {
 
     @ApiOperation(value = "商品列表",notes = "商品列表")
     @GetMapping(value = "productList")
-    public ComResponse productList(@ApiParam(value = "编码或名称")@RequestParam(value = "name")String name){
-        return trainingCourseClient.productList(name);
+    public ComResponse productList(@ApiParam(value = "编码或名称")@RequestParam(value = "name")String name,@ApiParam(value = "分页页数")@RequestParam(value = "pageNo",defaultValue = "0")Integer pageNo,@ApiParam(value = "分页条数")@RequestParam(value = "pageSize",defaultValue = "10")Integer pageSize){
+        return trainingCourseClient.productList(name,pageNo,pageSize);
     }
 }

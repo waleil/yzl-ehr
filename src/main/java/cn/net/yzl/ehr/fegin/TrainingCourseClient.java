@@ -93,5 +93,5 @@ public interface TrainingCourseClient {
     ComResponse<List<CoursewareDto>> listCoursewareDto(@RequestParam("name") String name, @RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize);
 
     @GetMapping("/productList")
-    ComResponse productList(@RequestParam("name") String name);
+    ComResponse productList(@RequestParam("name") String name,@RequestParam("name")  Integer pageNo,@RequestParam("name")  Integer pageSize);
 }
