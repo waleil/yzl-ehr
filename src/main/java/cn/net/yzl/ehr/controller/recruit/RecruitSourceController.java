@@ -89,7 +89,7 @@ public class RecruitSourceController {
         return recruitSourceService.updateState(updatePo,staffNo);
     }
     @ApiOperation(value = "招聘渠道—查询操作记录",notes = "查询操作记录",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @RequestMapping(value = "/selectBySourceExpense", method = RequestMethod.GET)
+    @RequestMapping(value = "/selectByPrimaryKey", method = RequestMethod.GET)
     ComResponse <List<RecruitOperatingRecordDto>> selectByPrimaryKey(@RequestParam("resourceId") Integer resourceId,@CurrentStaffNo @ApiIgnore String staffNo){
         return recruitSourceService.selectByPrimaryKey(resourceId,staffNo);
     }
