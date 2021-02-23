@@ -174,9 +174,15 @@ public class TrainingCourseController {
     @ApiOperation(value = "课件查询",notes = "课件查询")
     @GetMapping("listCourseware")
     public ComResponse<List<CoursewareDto>> listCourseware(
-            @ApiParam(value = "分页参数:页码")@RequestParam(value = "name",required = false) String name,
+            @ApiParam(value = "课件名称")@RequestParam(value = "name",required = false) String name,
             @ApiParam(value = "分页参数:页码")@RequestParam(value = "pageNum",defaultValue = "0") Integer pageNum,
             @ApiParam(value = "分页参数:每页数量")@RequestParam(value = "pageSize",defaultValue = "10") Integer pageSize) {
         return trainingCourseClient.listCoursewareDto(name, pageNum, pageSize);
+    }
+
+    @ApiOperation(value = "商品列表",notes = "商品列表")
+    @GetMapping(value = "productList")
+    public ComResponse productList(@ApiParam(value = "编码或名称")@RequestParam(value = "name")String name){
+        return trainingCourseClient.productList(name);
     }
 }
