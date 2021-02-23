@@ -4,12 +4,12 @@ import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.dto.StaffBaseDto;
 import cn.net.yzl.ehr.dto.StaffListDto;
-import cn.net.yzl.ehr.pojo.*;
+import cn.net.yzl.ehr.pojo.StaffSwitchStatePo;
+import cn.net.yzl.ehr.pojo.StaffSwitchTalentPoolPo;
 import cn.net.yzl.ehr.vo.StaffParamsVO;
 import cn.net.yzl.staff.dto.StaffDetailsDto;
 import cn.net.yzl.staff.dto.StaffInfoDto;
 import cn.net.yzl.staff.dto.StatisticalStaffDto;
-import cn.net.yzl.staff.pojo.RunAbnorRecordPo;
 import cn.net.yzl.staff.vo.UpdatePasswordPo;
 import cn.net.yzl.staff.vo.staff.StaffInfoSaveVO;
 import cn.net.yzl.staff.vo.staff.StaffInfoUpdateVO;
@@ -18,9 +18,11 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Repository;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
@@ -72,5 +74,8 @@ public interface StaffFeginService {
 
     @RequestMapping(value = "/staff/getStaffTotalData", method = RequestMethod.GET)
     ComResponse<StatisticalStaffDto> getStaffTotalData();
+
+    @RequestMapping(value = "/staff/getListByParams", method = RequestMethod.POST)
+    ComResponse<Page<cn.net.yzl.staff.dto.StaffListDto>> getListByParams(@RequestBody @Validated cn.net.yzl.staff.vo.StaffParamsVO staffParamsVO) ;
 
 }
