@@ -30,6 +30,9 @@ public interface ProcessConfigFeignService {
     @RequestMapping(value = "/process/config/disable", method = RequestMethod.POST)
     ComResponse<Integer> disableProcessConfig (@RequestParam("id") Integer id,@RequestParam("staffNo") String staffNo);
 
+    @RequestMapping(value = "/process/config/enable", method = RequestMethod.POST)
+    ComResponse<Integer> enableProcessConfig (@RequestParam("id") Integer id,@RequestParam("staffNo") String staffNo);
+
     @RequestMapping(value = "/process/config/pageSelect", method = RequestMethod.POST)
     ComResponse<Page<ProcessDto>> pageSelectProcessConfig(@RequestBody @Validated ProcessConfigPageVo processConfigPageVo) ;
 

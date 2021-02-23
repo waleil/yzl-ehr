@@ -37,6 +37,11 @@ public class ProcessConfigServiceImpl implements ProcessConfigService {
     }
 
     @Override
+    public ComResponse<Integer> enableProcessConfig(Integer id, String staffNo) {
+        return processConfigFeignService.enableProcessConfig(id,staffNo);
+    }
+
+    @Override
     public ComResponse<Page<ProcessDto>> pageSelectProcessConfig(ProcessConfigPageVo processConfigPageVo) {
         return processConfigFeignService.pageSelectProcessConfig(processConfigPageVo);
     }

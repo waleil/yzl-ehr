@@ -3,14 +3,18 @@ package cn.net.yzl.ehr.service.impl.recruit;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.common.enums.ResponseCodeEnums;
+import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.recruit.RecruitSourceFeginService;
 import cn.net.yzl.ehr.util.FastDFSClientWrapper;
+import cn.net.yzl.staff.dto.recruit.RecruitOperatingRecordDto;
 import cn.net.yzl.staff.dto.recruit.RecruitSourceDto;
 import cn.net.yzl.staff.dto.recruit.RecruitSourceExpenseDto;
 import cn.net.yzl.staff.pojo.recruit.*;
 import cn.net.yzl.ehr.service.recruit.RecruitSourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 
@@ -134,8 +138,10 @@ public class RecruitSourceServiceImpl implements RecruitSourceService {
     }
 
     @Override
-    public ComResponse<List<RecruitSourceExpenseDto>> selectBySourceExpense(Integer sourceId) {
-        return sourceFeginService.selectBySourceExpense(sourceId);
+    public ComResponse <List<RecruitOperatingRecordDto>> selectByPrimaryKey( Integer resourceId,String staffNo) {
+        RecruitOperatingRecordDto recruitOperatingRecordDto = new RecruitOperatingRecordDto();
+        recruitOperatingRecordDto.setCreator(staffNo);
+        return sourceFeginService.selectByPrimaryKey(resourceId);
 
 
     }
