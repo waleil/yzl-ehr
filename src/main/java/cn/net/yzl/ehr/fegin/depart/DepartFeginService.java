@@ -22,6 +22,7 @@ import java.util.List;
  * 部门的 fegin client
  */
 //@FeignClient(name = "yzl-staff-api")
+//@FeignClient(name = "yzl-staff-db")
 @FeignClient(value = "depart",url = "${fegin.db.url}")
 @Repository
 public interface DepartFeginService {
