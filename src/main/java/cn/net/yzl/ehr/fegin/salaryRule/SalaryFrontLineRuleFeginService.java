@@ -68,4 +68,7 @@ public interface SalaryFrontLineRuleFeginService {
 
     @PostMapping("/rule5")
     ComResponse<Boolean> rule5(SalaryFrontLineRuleEditVo5 salaryFrontLineRuleEditVo5);
+
+    @PostMapping("ruleOnStatus")
+    ComResponse<Integer> ruleOnStatus();
 }
