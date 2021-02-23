@@ -23,7 +23,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/processActive")
-@Api(tags = "流程相关操作")
+@Api(tags = "发起流程")
 public class ProcessActiveController {
     @Autowired
     private FindProcessNodeService findProcessNodeService;
@@ -32,7 +32,7 @@ public class ProcessActiveController {
     private FastDFSClientWrapper client;
 
     @GetMapping("v1/findProcessInfoList")
-    @ApiOperation(value = "获取流程展示信息")
+    @ApiOperation(value = "获取流程每个节点信息")
     public ComResponse<List<ProcessNodeDTO>> findProcessInfoList(@RequestParam @NotNull Integer processId,
                                                                  @RequestParam @NotNull @CurrentStaffNo String staffNo) {
 
