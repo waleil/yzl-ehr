@@ -89,7 +89,7 @@ public interface TrainingCourseClient {
     @GetMapping("/getPartner")
     ComResponse<List<Map<String,Object>>> getPartner(@RequestParam("type") String type);
 
-    @GetMapping("/getPartner")
+    @GetMapping("/listCoursewareDto")
     ComResponse<List<CoursewareDto>> listCoursewareDto(@RequestParam("name") String name, @RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize);
 
     @GetMapping("/productList")
