@@ -131,7 +131,7 @@ public class StaffController {
 
     @ApiOperation(value = "模糊查询员工列表", notes = "模糊查询员工列表")
     @RequestMapping(value = "/getStaffListByPage", method = RequestMethod.POST)
-    ComResponse<Page<cn.net.yzl.staff.dto.StaffListDto>> getStaffListByPage(@RequestBody @Validated cn.net.yzl.staff.vo.StaffParamsVO staffParamsVO) throws IllegalAccessException {
+    ComResponse<Page<StaffListDto>> getStaffListByPage(@RequestBody @Validated StaffParamsVO staffParamsVO) throws IllegalAccessException {
         return staffFeginService.getListByParams(staffParamsVO);
     }
 }
