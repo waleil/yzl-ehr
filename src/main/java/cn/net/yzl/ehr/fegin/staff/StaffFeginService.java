@@ -17,7 +17,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Repository;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -74,8 +73,5 @@ public interface StaffFeginService {
 
     @RequestMapping(value = "/staff/getStaffTotalData", method = RequestMethod.GET)
     ComResponse<StatisticalStaffDto> getStaffTotalData();
-
-    @RequestMapping(value = "/staff/getListByParams", method = RequestMethod.POST)
-    ComResponse<Page<cn.net.yzl.staff.dto.StaffListDto>> getListByParams(@RequestBody @Validated cn.net.yzl.staff.vo.StaffParamsVO staffParamsVO) ;
 
 }
