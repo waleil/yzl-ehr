@@ -23,8 +23,8 @@ public interface SalaryService {
     ComResponse<Page<SalaryDto>> list(@RequestBody SalaryVo salaryVo);
 
     //导入数据
-    @RequestMapping(value = "/importSalary", method = RequestMethod.GET)
-    ComResponse<Boolean> importSalary(@RequestParam("url") String url,@RequestParam("staffType") Integer staffType);
+    @PostMapping(value = "/importSalary")
+    ComResponse<Boolean> importSalary(@RequestBody SalaryImportVo salaryImportVo);
 
     //提交财务
     @PostMapping("/postToFinance")
