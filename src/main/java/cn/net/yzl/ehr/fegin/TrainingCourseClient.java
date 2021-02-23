@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.fegin;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.staff.dto.train.CoursewareDto;
 import cn.net.yzl.staff.dto.train.TrainInfoAllDto;
 import cn.net.yzl.staff.pojo.train.*;
 import cn.net.yzl.staff.vo.train.SignInputScore;
@@ -87,4 +88,7 @@ public interface TrainingCourseClient {
 
     @GetMapping("/getPartner")
     ComResponse<List<Map<String,Object>>> getPartner(@RequestParam("type") String type);
+
+    @GetMapping("/getPartner")
+    ComResponse<List<CoursewareDto>> listCoursewareDto(@RequestParam("name") String name, @RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize);
 }

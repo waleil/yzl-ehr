@@ -17,7 +17,7 @@ import java.util.List;
 
 @Repository
 //@FeignClient(name = "yzl-staff-db")
-@FeignClient(value = "post",url = "${fegin.db.url}")
+@FeignClient(value = "departPost",url = "${fegin.db.url}")
 @RefreshScope
 public interface DepartPostFeginMapper {
 

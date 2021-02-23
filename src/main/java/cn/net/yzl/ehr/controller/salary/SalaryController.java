@@ -45,13 +45,10 @@ public class SalaryController {
 
     //导入数据
     @ApiOperation(value = "工资发放列表(一线/职能共用)-导入数据", notes = "工资发放列表(一线/职能共用)-导入数据")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "url", value = "文件全路径", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "staffType", value = "一线员工1，非一线员工2", required = true, dataType = "String"),
-    })
-    @RequestMapping(value = "/importSalary", method = RequestMethod.GET)
-    ComResponse<Boolean> importSalary(@RequestParam("url") String url,@RequestParam("staffType") Integer staffType) {
-        return salaryService.importSalary(url,staffType);
+    @PostMapping("importSalary")
+    ComResponse<Boolean> importSalary(@RequestBody SalaryImportVo salaryImportVo,@ApiIgnore @CurrentStaffNo String staffNo) {
+        salaryImportVo.setStaffNo(staffNo);
+        return salaryService.importSalary(salaryImportVo);
     }
 
     //导出数据
