@@ -25,8 +25,8 @@ import java.util.List;
  *
  * @author biebaojie
  */
-//@FeignClient(value = "PerformanceFeignService", url = "${fegin.db.url}/performance")
-@FeignClient(value = "PerformanceFeignService", url = "http://localhost:38080/performance")
+@FeignClient(value = "PerformanceFeignService", url = "${fegin.db.url}/performance")
+//@FeignClient(value = "PerformanceFeignService", url = "http://localhost:38080/performance")
 @RefreshScope
 public interface PerformanceFeignService {
 
