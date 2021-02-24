@@ -22,7 +22,7 @@ public interface StaffAttendFeginService {
 
     @RequestMapping(value = "/getStaffAttendDayList", method = RequestMethod.GET)
     ComResponse<List<StaffAttendDayDto>> getStaffAttendDayList(@RequestParam("time") String time, @RequestParam("staffNo")String staffNo);
-    @RequestMapping(value = "/getStaffAttendScheduleDto", method = RequestMethod.POST)
+    @RequestMapping(value = "/getStaffAttendScheduleDto", method = RequestMethod.GET)
     ComResponse<StaffAttendScheduleDto> getStaffAttendScheduleDto(@RequestParam("time")String time, @RequestParam("staffNo")String staffNo);
     @RequestMapping(value = "/importStaffAttend", method = RequestMethod.GET)
     ComResponse<List<StaffAttendImportResultDto>> importStaffAttend(@RequestParam("url") String url);
