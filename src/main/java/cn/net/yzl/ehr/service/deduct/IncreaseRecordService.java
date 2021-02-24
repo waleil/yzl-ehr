@@ -19,4 +19,9 @@ public interface IncreaseRecordService {
 
     //取消奖金
     ComResponse<Integer> updateStateById(Integer id);
+
+    //启用
+    ComResponse<Integer> updateIncreaseStateById(Integer id);
+    //删除
+    ComResponse<Integer> deleteById(Integer id, String updator);
 }
