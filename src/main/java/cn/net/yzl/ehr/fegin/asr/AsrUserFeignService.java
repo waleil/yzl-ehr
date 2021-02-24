@@ -24,9 +24,9 @@ public interface AsrUserFeignService {
     @ApiOperation(value = "查询asr用户列表", httpMethod = "GET")
     ComResponse<AsrUserPageVO> getUserList(@RequestParam(value = "pageno", defaultValue = "1") Integer pageno,
                                                   @RequestParam(value = "pagesize", defaultValue = "10") Integer pagesize,
-                                                  @RequestParam(value = "userJobNumber") String userJobNumber,
-                                                  @RequestParam(value = "userName") String userName,
-                                                  @RequestParam(value = "userGroupId") String userGroupId) ;
+                                           @RequestParam(value = "userJobNumber",required = false) String userJobNumber,
+                                           @RequestParam(value = "userName",required = false) String userName,
+                                           @RequestParam(value = "userGroupId",required = false) String userGroupId) ;
 
     /**
      * @author wanghuasheng
