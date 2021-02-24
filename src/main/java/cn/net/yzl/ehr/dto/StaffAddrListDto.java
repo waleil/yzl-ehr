@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 public class StaffAddrListDto {
-    @ApiModelProperty("地址类别：(0.户口所在地,1.现地址)")
+    @ApiModelProperty("地址类别：(0.户口所在地,1.现居地址)")
     private Integer type;
     @ApiModelProperty("省id")
     private Integer provinceId ;
