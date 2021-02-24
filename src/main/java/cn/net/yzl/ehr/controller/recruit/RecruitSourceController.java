@@ -42,6 +42,13 @@ public class RecruitSourceController {
         return recruitSourceService.queryState();
     }
 
+    @ApiOperation(value = "招聘渠道—查询所有渠道",notes = "查询所有渠道",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/queryAll", method = RequestMethod.GET)
+    ComResponse<List<RecruitSourceDto>> queryAll(){
+     return   recruitSourceService.queryAll();
+    }
+
+
     @ApiOperation(value = "招聘渠道—删除招聘渠道",notes = "删除信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/deleteById",method = RequestMethod.GET)
     ComResponse<Integer> deleteById(@RequestParam("id") Integer id, @CurrentStaffNo @ApiIgnore String updator) {
@@ -93,5 +100,7 @@ public class RecruitSourceController {
     ComResponse <List<RecruitOperatingRecordDto>> selectByPrimaryKey(@RequestParam("resourceId") Integer resourceId,@CurrentStaffNo @ApiIgnore String staffNo){
         return recruitSourceService.selectByPrimaryKey(resourceId,staffNo);
     }
+
+
 
 }
