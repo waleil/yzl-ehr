@@ -39,7 +39,7 @@ public class AsrUserController {
      * @return: cn.net.yzl.common.entity.ComResponse<cn.net.yzl.model.dto.DepartmentDto>
      */
     @GetMapping(value = "v1/query")
-    @ApiOperation(value = "查询asr组织架构", httpMethod = "GET")
+    @ApiOperation(value = "查询asr用户列表", httpMethod = "GET")
     public ComResponse<AsrUserPageVO> getUserList(@RequestParam(value = "pageno", defaultValue = "1") Integer pageno,
                                                   @RequestParam(value = "pagesize", defaultValue = "10") Integer pagesize,
                                                   @RequestParam(value = "userJobNumber") String userJobNumber,
@@ -55,7 +55,7 @@ public class AsrUserController {
      * @return: cn.net.yzl.common.entity.ComResponse<cn.net.yzl.model.dto.DepartmentDto>
      */
     @GetMapping(value = "v1/query/user/by/uid")
-    @ApiOperation(value = "查询asr组织架构", httpMethod = "GET")
+    @ApiOperation(value = "查询asr用户信息", httpMethod = "GET")
     public ComResponse<AsrUserPageVO.AsrUserVO> getUser(@RequestParam(value = "uid") String uid) {
         return  asrUserFeignService.getUser(uid);
     }
