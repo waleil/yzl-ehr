@@ -25,8 +25,8 @@ import java.util.List;
  *
  * @author biebaojie
  */
-@FeignClient(value = "PerformanceFeignService", url = "${fegin.db.url}/performance")
-//@FeignClient(value = "PerformanceFeignService", url = "http://localhost:38080/performance")
+//@FeignClient(value = "PerformanceFeignService", url = "${fegin.db.url}/performance")
+@FeignClient(value = "PerformanceFeignService", url = "http://localhost:38080/performance")
 @RefreshScope
 public interface PerformanceFeignService {
 
@@ -52,7 +52,7 @@ public interface PerformanceFeignService {
      * 职能管理-填报绩效-获取绩效信息
      */
     @RequestMapping(value = "/queryPerformanceByNo", method = RequestMethod.GET)
-    ComResponse<PerformanceDto> queryPerformanceByNo(@RequestParam("performanceNo") Long performanceNo);
+    ComResponse<PerformanceDto> queryPerformanceByNo(@RequestParam("performanceNo") Long performanceNo, @RequestParam("staffNo") String staffNo);
 
     /**
      * 职能管理-填报绩效-提交绩效
