@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.controller.ultrcrm;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.service.ultrcrm.UltrMemberService;
 import cn.net.yzl.model.vo.MemberVo;
 import io.swagger.annotations.Api;
@@ -11,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/cti/ultrcrm/member")
@@ -31,11 +30,15 @@ public class UltrMemberController {
     @ApiOperation(value="调用Cti服务,获取组的成员")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "groupId", value = "组ID", required = true, dataType = "String", paramType = "query"),
-            @ApiImplicitParam(name = "groupType", value = "groupType:0:ACD组 1:业务组", required = true, dataType = "Integer", paramType = "query")
+            @ApiImplicitParam(name = "groupType", value = "groupType:0:ACD组 1:业务组", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "memberName", value = "成员工号ID", required = false, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "memberNo", value = "成员姓名", required = false, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "page", value = "页码", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "size", value = "每页条数", required = true, dataType = "int", paramType = "query")
     })
     @GetMapping(value = "/queryGroupMembers")
-    public ComResponse<List<MemberVo>> queryGroupMembers(String groupId , Integer groupType) {
-        List<MemberVo> memberList = memberService.findUltrMemberList(groupId, groupType);
+    public ComResponse<Page<MemberVo>> queryGroupMembers(@RequestParam(name = "groupId")String groupId , @RequestParam(name = "groupType")Integer groupType, @RequestParam(name = "page")Integer page, @RequestParam(name = "size")Integer size,@RequestParam(name = "memberName",required = false)String memberName,@RequestParam(name = "memberNo",required = false)String memberNo) {
+        Page<MemberVo> memberList = memberService.findUltrMemberList(groupId, groupType, page, size, memberName, memberNo);
         return ComResponse.success(memberList);
     }
 
@@ -86,7 +89,7 @@ public class UltrMemberController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "memberIds", value = "成员ID", required = true, dataType = "String", paramType = "query"),
             @ApiImplicitParam(name = "groupId", value = "组id", required = true, dataType = "String", paramType = "query"),
-            @ApiImplicitParam(name = "groupType", value = "组类型 0:ACD组 1:业务组", required = true, dataType = "Integer", paramType = "query")
+            @ApiImplicitParam(name = "groupType", value = "组类型 0:ACD组 1:业务组", required = true, dataType = "int", paramType = "query")
     })
     @GetMapping(value = "/bindMembersToGroup")
     public ComResponse<Boolean> bindMembersToGroup(@RequestParam(name = "memberIds") String memberIds,String groupId,Integer groupType) {
@@ -100,7 +103,7 @@ public class UltrMemberController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "memberIds", value = "成员ID", required = true, dataType = "String", paramType = "query"),
             @ApiImplicitParam(name = "groupId", value = "组id", required = true, dataType = "String", paramType = "query"),
-            @ApiImplicitParam(name = "groupType", value = "组类型 0:ACD组 1:业务组", required = true, dataType = "Integer", paramType = "query")
+            @ApiImplicitParam(name = "groupType", value = "组类型 0:ACD组 1:业务组", required = true, dataType = "int", paramType = "query")
     })
     @GetMapping(value = "/unbindMembersFromGroup")
     public ComResponse<Boolean> unbindMembersFromGroup(@RequestParam(name = "memberIds") String memberIds,String groupId,Integer groupType) {
