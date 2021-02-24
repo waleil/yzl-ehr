@@ -35,6 +35,10 @@ public interface RecruitSourceFeginService {
     @RequestMapping(value = "/recruit/queryState", method = RequestMethod.GET)
     ComResponse<List<RecruitSourceDto>> queryState();
 
+    @ApiOperation(value = "查询所有渠道",notes = "查询所有渠道",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/recruit/queryAll", method = RequestMethod.GET)
+    ComResponse<List<RecruitSourceDto>> queryAll();
+
     @ApiOperation(value = "删除信息",notes = "删除信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/recruit/deleteById",method = RequestMethod.GET)
     ComResponse<Integer> deleteById(@RequestParam("id") Integer id, @RequestParam("updator") String updator) ;

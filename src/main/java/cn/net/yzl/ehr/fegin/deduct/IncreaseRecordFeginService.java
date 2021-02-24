@@ -36,6 +36,15 @@ public interface IncreaseRecordFeginService {
     @ApiOperation(value = "取消奖金", notes = "取消奖金",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/increaseRecord/updateStateById", method = RequestMethod.POST)
     ComResponse<Integer> updateStateById(@RequestParam("id")Integer id);
+
+    @ApiOperation(value = "删除信息",notes = "删除信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/increaseRecord/deleteById",method = RequestMethod.GET)
+    ComResponse<Integer> deleteById(@RequestParam("id")  Integer id,@RequestParam("updator") String updator);
+
+    @ApiOperation(value = "启用", notes = "启用",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/increaseRecord/updateIncreaseStateById", method = RequestMethod.POST)
+    ComResponse<Integer> updateIncreaseStateById(@RequestParam("id")Integer id);
+
 }
 
 
