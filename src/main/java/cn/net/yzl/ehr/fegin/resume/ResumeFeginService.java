@@ -35,6 +35,8 @@ public interface ResumeFeginService{
     ComResponse<List<DepartDto>> getRecruitDepartDtoList();
     @RequestMapping(value = "/resume/getRecruitDepartPostDtoList", method = RequestMethod.GET)
     ComResponse<List<DepartPostDto>> getRecruitDepartPostDtoList(@RequestParam("departId") Integer departId,@RequestParam("staffNo")String staffNo);
+    @RequestMapping(value = "/resume/getRecruitDepartPostList", method = RequestMethod.GET)
+    ComResponse<List<DepartPostDto>> getRecruitDepartPostList(@RequestParam("departId") Integer departId);
     @RequestMapping(value = "/resume/getListByParams", method = RequestMethod.POST)
     ComResponse<Page<ResumeListDto>> getListByParams(@RequestBody ResumeParamsVO resumeParamsVO);
     @RequestMapping(value = "/resume/addOrUpdate", method = RequestMethod.POST)
