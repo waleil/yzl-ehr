@@ -15,7 +15,7 @@ import java.util.List;
 
 @Repository
 //@FeignClient(name = "yzl-staff-db")
-@FeignClient(value = "post",url = "${fegin.db.url}")
+@FeignClient(value = "departResumeDict",url = "${fegin.db.url}")
 public interface DepartResumeDictFeignService {
 
     @RequestMapping(value = "/resumeDict/getDictList", method = RequestMethod.GET)

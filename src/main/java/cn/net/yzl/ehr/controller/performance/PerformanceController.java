@@ -2,7 +2,7 @@ package cn.net.yzl.ehr.controller.performance;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
-import cn.net.yzl.ehr.fegin.performance.PerformanceFeginService;
+import cn.net.yzl.ehr.fegin.performance.PerformanceFeignService;
 import cn.net.yzl.staff.dto.performance.FillPerformanceDepartDto;
 import cn.net.yzl.staff.dto.performance.MyPerformanceDto;
 import cn.net.yzl.staff.dto.performance.PerformanceDto;
@@ -39,7 +39,7 @@ import java.util.List;
 public class PerformanceController {
 
     @Autowired
-    private PerformanceFeginService performanceFeginService;
+    private PerformanceFeignService performanceFeignService;
 
     /**
      * 获取填报周期列表
@@ -50,7 +50,7 @@ public class PerformanceController {
     @ApiOperation(value = "职能管理-填报绩效-查询周期列表", notes = "职能管理-填报绩效-查询周期列表", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/queryFillTimes", method = RequestMethod.GET)
     public ComResponse<List<String>> queryFillTimes(@ApiIgnore @CurrentStaffNo String staffNo) {
-        return performanceFeginService.queryFillTimes(staffNo);
+        return performanceFeignService.queryFillTimes(staffNo);
     }
 
     /**
@@ -69,7 +69,7 @@ public class PerformanceController {
     @RequestMapping(value = "/queryFillPerformanceDepartList", method = RequestMethod.GET)
     public ComResponse<List<FillPerformanceDepartDto>> queryFillPerformanceDepartList(PerformanceVo performanceVo, @ApiIgnore @CurrentStaffNo String staffNo) {
         performanceVo.setStaffNo(staffNo);
-        return performanceFeginService.queryFillPerformanceDepartList(performanceVo);
+        return performanceFeignService.queryFillPerformanceDepartList(performanceVo);
     }
 
     /**
@@ -88,7 +88,7 @@ public class PerformanceController {
     @RequestMapping(value = "/queryRaterPerformanceDepartList", method = RequestMethod.GET)
     public ComResponse<List<RaterPerformanceDepartDto>> queryRaterPerformanceDepartList(PerformanceVo performanceVo, @ApiIgnore @CurrentStaffNo String staffNo) {
         performanceVo.setStaffNo(staffNo);
-        return performanceFeginService.queryRaterPerformanceDepartList(performanceVo);
+        return performanceFeignService.queryRaterPerformanceDepartList(performanceVo);
     }
 
     /**
@@ -103,84 +103,8 @@ public class PerformanceController {
     @ApiOperation(value = "职能管理-填报绩效-查询绩效信息", notes = "职能管理-填报绩效-查询绩效信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/queryPerformanceByNo", method = RequestMethod.GET)
     public ComResponse<PerformanceDto> queryPerformanceByNo(@RequestParam("performanceNo") Long performanceNo) {
-        return performanceFeginService.queryPerformanceByNo(performanceNo);
+        return performanceFeignService.queryPerformanceByNo(performanceNo);
     }
-
-//    /**
-//     * 新增组织绩效
-//     *
-//     * @param performanceOrgTarget 实例对象
-//     * @return 影响行数
-//     */
-//    @ApiOperation(value = "职能管理-填报绩效-新增组织绩效", notes = "职能管理-填报绩效-新增组织绩效", consumes = MediaType.APPLICATION_JSON_VALUE)
-//    @RequestMapping(value = "/insertPerformanceOrgTarget", method = RequestMethod.POST)
-//    public ComResponse<Integer> insertPerformanceOrgTarget(@RequestBody @Validated PerformanceOrgTargetPo performanceOrgTarget, @ApiIgnore @CurrentStaffNo String staffNo) {
-//        performanceOrgTarget.setCreator(staffNo);
-//        return performanceFeginService.insertPerformanceOrgTarget(performanceOrgTarget);
-//    }
-//
-//    /**
-//     * 编辑组织绩效
-//     *
-//     * @param performanceOrgTarget 实例对象
-//     * @return 影响行数
-//     */
-//    @ApiOperation(value = "职能管理-填报绩效-修改组织绩效", notes = "职能管理-填报绩效-修改组织绩效", consumes = MediaType.APPLICATION_JSON_VALUE)
-//    @RequestMapping(value = "/updatePerformanceOrgTarget", method = RequestMethod.POST)
-//    public ComResponse<Integer> updatePerformanceOrgTarget(@RequestBody @Validated PerformanceOrgTargetPo performanceOrgTarget, @ApiIgnore @CurrentStaffNo String staffNo) {
-//        performanceOrgTarget.setUpdator(staffNo);
-//        return performanceFeginService.updatePerformanceOrgTarget(performanceOrgTarget);
-//    }
-//
-//    /**
-//     * 删除组织绩效
-//     *
-//     * @param performanceNoVo 组织绩效编号
-//     * @return 影响行数
-//     */
-//    @ApiOperation(value = "职能管理-填报绩效-删除组织绩效", notes = "职能管理-填报绩效-删除组织绩效", consumes = MediaType.APPLICATION_JSON_VALUE)
-//    @RequestMapping(value = "/deleteByOrgPerformanceNo", method = RequestMethod.POST)
-//    public ComResponse<Integer> deleteByOrgPerformanceNo(@RequestBody @Validated PerformanceNoVo performanceNoVo) {
-//        return performanceFeginService.deleteByOrgPerformanceNo(performanceNoVo);
-//    }
-//
-//    /**
-//     * 新增个人绩效
-//     *
-//     * @param performancePersonTarget 实例对象
-//     * @return 影响行数
-//     */
-//    @ApiOperation(value = "职能管理-填报绩效-新增个人绩效", notes = "职能管理-填报绩效-新增个人绩效", consumes = MediaType.APPLICATION_JSON_VALUE)
-//    @RequestMapping(value = "/insertPerformancePersonTarget", method = RequestMethod.POST)
-//    public ComResponse<Integer> insertPerformancePersonTarget(@RequestBody @Validated PerformancePersonTargetPo performancePersonTarget, @ApiIgnore @CurrentStaffNo String staffNo) {
-//        performancePersonTarget.setCreator(staffNo);
-//        return performanceFeginService.insertPerformancePersonTarget(performancePersonTarget);
-//    }
-//
-//    /**
-//     * 修改个人绩效
-//     *
-//     * @param performancePersonTarget 实例对象
-//     * @return 影响行数
-//     */
-//    @ApiOperation(value = "职能管理-填报绩效-修改个人绩效", notes = "职能管理-填报绩效-修改个人绩效", consumes = MediaType.APPLICATION_JSON_VALUE)
-//    @RequestMapping(value = "/updatePerformancePersonTarget", method = RequestMethod.POST)
-//    public ComResponse<Integer> updatePerformancePersonTarget(@RequestBody @Validated PerformancePersonTargetPo performancePersonTarget, @ApiIgnore @CurrentStaffNo String staffNo) {
-//        performancePersonTarget.setUpdator(staffNo);
-//        return performanceFeginService.updatePerformancePersonTarget(performancePersonTarget);
-//    }
-//
-//    /**
-//     * 删除个人绩效
-//     *
-//     * @param performanceNoVo 个人绩效编号
-//     * @return 影响行数
-//     */
-//    @ApiOperation(value = "职能管理-填报绩效-删除个人绩效", notes = "职能管理-填报绩效-删除个人绩效", consumes = MediaType.APPLICATION_JSON_VALUE)
-//    @RequestMapping(value = "/deleteByPersonPerformanceNo", method = RequestMethod.POST)
-//    public ComResponse<Integer> deleteByPersonPerformanceNo(@RequestBody @Validated PerformanceNoVo performanceNoVo) {
-//        return performanceFeginService.deleteByPersonPerformanceNo(performanceNoVo);
-//    }
 
     /**
      * 提交绩效
@@ -192,7 +116,7 @@ public class PerformanceController {
     @RequestMapping(value = "/submitPerformance", method = RequestMethod.POST)
     public ComResponse<Integer> submitPerformance(@RequestBody @Validated PerformanceCreateVo performanceCreateVo, @ApiIgnore @CurrentStaffNo String staffNo) {
         performanceCreateVo.setCreator(staffNo);
-        return performanceFeginService.submitPerformance(performanceCreateVo);
+        return performanceFeignService.submitPerformance(performanceCreateVo);
     }
 
     /**
@@ -205,7 +129,7 @@ public class PerformanceController {
     @RequestMapping(value = "/approvePerformance", method = RequestMethod.POST)
     public ComResponse<Integer> approvePerformance(@RequestBody @Validated PerformanceApproveVo approvePerformanceVo, @ApiIgnore @CurrentStaffNo String staffNo) {
         approvePerformanceVo.setApproverNo(staffNo);
-        return performanceFeginService.approvePerformance(approvePerformanceVo);
+        return performanceFeignService.approvePerformance(approvePerformanceVo);
     }
 
     /**
@@ -218,7 +142,7 @@ public class PerformanceController {
     @RequestMapping(value = "/insertPerformanceRater", method = RequestMethod.POST)
     public ComResponse<Integer> insertPerformanceRater(@RequestBody PerformanceRaterDto performanceRaterDto, @ApiIgnore @CurrentStaffNo String staffNo) {
         performanceRaterDto.setRaterNo(staffNo);
-        return performanceFeginService.insertPerformanceRater(performanceRaterDto);
+        return performanceFeignService.insertPerformanceRater(performanceRaterDto);
     }
 
     /**
@@ -233,7 +157,7 @@ public class PerformanceController {
     @ApiOperation(value = "职能管理-绩效考核-查询评分列表", notes = "职能管理-绩效考核-查询评分列表", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/queryPerformanceRaterList", method = RequestMethod.GET)
     public ComResponse<List<PerformanceRaterDto>> queryPerformanceRaterList(@RequestParam("performanceNo") Long performanceNo) {
-        return performanceFeginService.queryPerformanceRaterList(performanceNo);
+        return performanceFeignService.queryPerformanceRaterList(performanceNo);
     }
 
     /**
@@ -246,7 +170,7 @@ public class PerformanceController {
     @RequestMapping(value = "/returnPerformance", method = RequestMethod.POST)
     public ComResponse<Integer> returnPerformance(@RequestBody PerformanceReturnVo performanceReturnVo, @ApiIgnore @CurrentStaffNo String staffNo) {
         performanceReturnVo.setApproverNo(staffNo);
-        return performanceFeginService.returnPerformance(performanceReturnVo);
+        return performanceFeignService.returnPerformance(performanceReturnVo);
     }
 
     /**
@@ -262,7 +186,7 @@ public class PerformanceController {
     @ApiOperation(value = "个人中心-我的绩效-查询个人绩效", notes = "个人中心-我的绩效-查询个人绩效", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/queryMyPerformance", method = RequestMethod.GET)
     public ComResponse<MyPerformanceDto> queryMyPerformance(String fillTime, @ApiIgnore @CurrentStaffNo String staffNo) {
-        return performanceFeginService.queryMyPerformance(fillTime, staffNo);
+        return performanceFeignService.queryMyPerformance(fillTime, staffNo);
     }
 
 }

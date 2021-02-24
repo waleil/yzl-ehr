@@ -15,16 +15,16 @@ import java.util.List;
  * @Date 2021/2/19
  * @Description
  */
-//@FeignClient(value = "SalaryService",url = "${fegin.db.url}/salary")
-@FeignClient(value = "SalaryService",url = "localhost:38080/salary")
+@FeignClient(value = "SalaryService",url = "${fegin.db.url}/salary")
+//@FeignClient(value = "SalaryService",url = "localhost:38080/salary")
 public interface SalaryService {
 
     @PostMapping("/list")
     ComResponse<Page<SalaryDto>> list(@RequestBody SalaryVo salaryVo);
 
     //导入数据
-    @RequestMapping(value = "/importSalary", method = RequestMethod.GET)
-    ComResponse<Boolean> importSalary(@RequestParam("url") String url,@RequestParam("staffType") Integer staffType);
+    @PostMapping(value = "/importSalary")
+    ComResponse<Boolean> importSalary(@RequestBody SalaryImportVo salaryImportVo);
 
     //提交财务
     @PostMapping("/postToFinance")

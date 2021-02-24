@@ -22,7 +22,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/salaryNotFrontLineRule")
-@Api(value = "一线管理-薪酬核算规则", tags = {"一线管理-薪酬核算规则"})
+@Api(value = "职能管理-薪酬核算规则", tags = {"职能管理-薪酬核算规则"})
 public class SalaryNotFrontLineRuleController {
     @Autowired
     private SalaryNotFrontLineRuleFeginService salaryNotFrontLineRuleFeginService;
