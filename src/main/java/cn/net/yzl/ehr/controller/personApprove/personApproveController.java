@@ -35,12 +35,6 @@ public class personApproveController {
 
         return findApproveService.findApproveInfoList(approveQueryDTO);
     }
-    @GetMapping("v1/findProcessInfoList")
-    @ApiOperation(value = "人事审批流程展示信息")
-    public ComResponse<List<ProcessNodeDTO>> findProcessInfoList(@RequestParam @NotNull Integer processId) {
-
-        return findApproveService.findProcessInfoList(processId);
-    }
 
     @PostMapping("v1/getMyProcessInfoList")
     @ApiOperation(value = "我的流程我的审批展示信息")

@@ -18,16 +18,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
-@FeignClient(name="personApprove",url="${fegin.db.url}/personApprove")
-//@FeignClient(name="personApprove",url="localhost:38080/personApprove")
+//@FeignClient(name="personApprove",url="${fegin.db.url}/personApprove")
+@FeignClient(name="personApprove",url="localhost:38080/personApprove")
 public interface FindApproveService {
     @PostMapping("v1/getApproveInfoListDTOList")
     @ApiOperation(value = "审批查询")
     ComResponse<Page<ApproveInfoListDTO>> findApproveInfoList(@RequestBody ApproveQueryDTO approveQueryDTO);
 
-    @GetMapping("v1/findProcessInfoList")
-    @ApiOperation(value = "获取流程展示信息")
-    ComResponse<List<ProcessNodeDTO>> findProcessInfoList(@RequestParam("processId") @NotNull Integer processId);
+
 
     @PostMapping("v1/getMyProcessInfoList")
     @ApiOperation(value = "获取我的流程信息")
