@@ -57,13 +57,22 @@ public class ResumeController {
         return resumeFeginService.getRecruitDepartDtoList();
     }
 
-    @ApiOperation(value = "简历列表-获取需求部门对应的岗位列表", notes = "简历列表-获取需求部门对应的岗位列表", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "简历列表-获取需求部门对应的岗位列表(根据当前操作人筛选)", notes = "简历列表-获取需求部门对应的岗位列表(根据当前操作人筛选)", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/getRecruitDepartPostDtoList", method = RequestMethod.GET)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "departId", value = "部门id", required = true, dataType = "Int", paramType = "query")
     })
     ComResponse<List<DepartPostDto>> getRecruitDepartPostDtoList(@NotNull @Min(0) Integer departId,@ApiIgnore @CurrentStaffNo String staffNo) {
         return resumeFeginService.getRecruitDepartPostDtoList(departId,staffNo);
+    }
+
+    @ApiOperation(value = "简历列表-获取需求部门对应的岗位列表（不根据当前操作人筛选）", notes = "简历列表-获取需求部门对应的岗位列表（不根据当前操作人筛选）", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/getRecruitDepartPostList", method = RequestMethod.GET)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "departId", value = "部门id", required = true, dataType = "Int", paramType = "query")
+    })
+    ComResponse<List<DepartPostDto>> getRecruitDepartPostList(@NotNull @Min(0) Integer departId) {
+        return resumeFeginService.getRecruitDepartPostList(departId);
     }
 
     @ApiOperation(value = "简历列表-获取简历列表", notes = "建立列表-获取简历列表", consumes = MediaType.APPLICATION_JSON_VALUE)

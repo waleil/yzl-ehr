@@ -45,5 +45,17 @@ public class IncreaseRecordController {
         return increaseRecordService.updateStateById(id);
     }
 
+    @ApiOperation(value = "删除信息",notes = "删除信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/deleteById",method = RequestMethod.GET)
+    ComResponse<Integer> deleteById(@RequestParam("id")Integer id,@RequestParam("updator")String updator) {
+        return increaseRecordService .deleteById(id,updator);
+    }
+
+    @ApiOperation(value = "启用", notes = "启用",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/updateIncreaseStateById", method = RequestMethod.POST)
+    ComResponse<Integer> updateIncreaseStateById(@RequestParam("id")Integer id){
+        return increaseRecordService.updateStateById(id);
+    }
+
 
 }

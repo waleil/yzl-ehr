@@ -58,7 +58,7 @@ public class StaffAttendController {
     }
 
     @ApiOperation(value = "考勤详情-获取每个月的统计", notes = "考勤详情-获取每个月的统计", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @RequestMapping(value = "/getStaffAttendScheduleDto", method = RequestMethod.POST)
+    @RequestMapping(value = "/getStaffAttendScheduleDto", method = RequestMethod.GET)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "time", value = "时间 年-月(格式:yyyy-MM)", required = true, dataType = "String", paramType = "query"),
             @ApiImplicitParam(name = "staffNo", value = "员工工号(如果不传 查询是当前登录的用户的)", required = false, dataType = "String", paramType = "query")

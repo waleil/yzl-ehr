@@ -49,7 +49,7 @@ public class StaffCFInsertPo {
     @ApiModelProperty(value = "薪资", name = "salary")
     @NotNull
     @Min(0)
-    private Double salary;
+    private Integer salary;
 
     @ApiModelProperty(value = "月数（xx薪）", name = "months")
     @NotNull
@@ -59,12 +59,12 @@ public class StaffCFInsertPo {
     @ApiModelProperty(value = "季度奖金", name = "quarterlyBonus")
     @NotNull
     @Min(0)
-    private Double quarterlyBonus;
+    private Integer quarterlyBonus;
 
     @ApiModelProperty(value = "年度奖金", name = "annualBonus")
     @NotNull
     @Min(0)
-    private Double annualBonus;
+    private Integer annualBonus;
 
     @ApiModelProperty(value = "试用期薪资比例", name = "probationSalary")
     @NotNull

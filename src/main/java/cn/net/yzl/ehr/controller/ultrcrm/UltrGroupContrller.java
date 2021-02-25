@@ -28,7 +28,7 @@ public class UltrGroupContrller {
      */
     @ApiOperation(value="调用Cti服务获取组的信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "groupType", value = "0:ACD组 1:业务组 默认业务组", required = false, dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "groupType", value = "0:ACD组 1:业务组 默认业务组", required = false, dataType = "int", paramType = "query"),
             @ApiImplicitParam(name = "fatherId", value = "父ID 不传递返回1级分组", dataType = "String", paramType = "query", required = false)
     })
     @GetMapping(value = "/queryGroups")
@@ -57,7 +57,7 @@ public class UltrGroupContrller {
     @ApiOperation(value="调用Cti服务删除组")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "groupIds", value = "groupIds:组ID,", required = true, dataType = "String", paramType = "query"),
-            @ApiImplicitParam(name = "groupType", value = "groupType:0:ACD组 1:业务组", required = true, dataType = "Integer", paramType = "query")
+            @ApiImplicitParam(name = "groupType", value = "groupType:0:ACD组 1:业务组", required = true, dataType = "int", paramType = "query")
     })
     @GetMapping(value = "/delGroup")
     public ComResponse<Boolean> deleteGroup(@RequestParam(value = "groupIds") String groupIds,@RequestParam(value = "groupType") Integer groupType) {

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 @FeignClient(name="personApprove",url="${fegin.db.url}/processActive")
+//@FeignClient(name="personApprove",url="localhost:38080/processActive")
 public interface FindProcessNodeService {
     @GetMapping("v1/findProcessInfoList")
     @ApiOperation(value = "获取流程展示信息")

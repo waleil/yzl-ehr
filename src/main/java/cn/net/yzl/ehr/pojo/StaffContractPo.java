@@ -27,13 +27,13 @@ public class StaffContractPo implements Serializable {
     @ApiModelProperty(value = "试用期时长（月）", name = "probation_months")
     private Double probationMonths;
     @ApiModelProperty(value = "薪资", name = "salary")
-    private Double salary;
+    private Integer salary;
     @ApiModelProperty(value = "月数（xx薪）", name = "months")
     private Integer months;
     @ApiModelProperty(value = "季度奖金", name = "quarterly_bonus")
-    private Double quarterlyBonus;
+    private Integer quarterlyBonus;
     @ApiModelProperty(value = "年度奖金", name = "annual_bonus")
-    private Double annualBonus;
+    private Integer annualBonus;
     @ApiModelProperty(value = "试用期薪资比例", name = "probation_salary")
     private Double probationSalary;
     @ApiModelProperty(value = "合同到期时间是否不超过一个月（0:否，1:是）", name = "add_status")
