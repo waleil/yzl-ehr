@@ -2,7 +2,6 @@ package cn.net.yzl.ehr.fegin.processActiveService;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.staff.dto.personApprove.ApproveInviteDTO;
-import cn.net.yzl.staff.dto.personApprove.ApproveProcessListDTO;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.validation.annotation.Validated;
