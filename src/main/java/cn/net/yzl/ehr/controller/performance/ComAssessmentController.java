@@ -3,6 +3,7 @@ package cn.net.yzl.ehr.controller.performance;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.performance.ComAssessmentFeginService;
+import cn.net.yzl.staff.dto.achievements.StaffArchiveDto;
 import cn.net.yzl.staff.dto.salaryRule.PerforProConfDepartTreeDto;
 import cn.net.yzl.staff.vo.BiStaffTargetTaskVO;
 import io.swagger.annotations.Api;
@@ -20,6 +21,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import java.text.ParseException;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 职能管理-绩效
@@ -61,4 +63,13 @@ public class ComAssessmentController {
         return comAssessmentFeginService.getPerforProConfDepartTree(staffNo,time);
 
     }
+
+    @RequestMapping(value = "/getStaffArchievementsByDepartId", method = RequestMethod.GET)
+    ComResponse<List<StaffArchiveDto>> getStaffArchievementsByDepartId(@RequestParam(name = "departId") Integer departId,
+                                                                       @RequestParam(name = "time") String time) throws ParseException {
+
+        return comAssessmentFeginService.getStaffArchievementsByDepartId(departId,time);
+
+    }
+
 }

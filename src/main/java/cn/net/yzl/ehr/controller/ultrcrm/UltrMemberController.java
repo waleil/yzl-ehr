@@ -37,7 +37,13 @@ public class UltrMemberController {
             @ApiImplicitParam(name = "size", value = "每页条数", required = true, dataType = "int", paramType = "query")
     })
     @GetMapping(value = "/queryGroupMembers")
-    public ComResponse<Page<MemberVo>> queryGroupMembers(@RequestParam(name = "groupId")String groupId , @RequestParam(name = "groupType")Integer groupType, @RequestParam(name = "page")Integer page, @RequestParam(name = "size")Integer size,@RequestParam(name = "memberName",required = false)String memberName,@RequestParam(name = "memberNo",required = false)String memberNo) {
+    public ComResponse<Page<MemberVo>> queryGroupMembers(
+            @RequestParam(name = "groupId")String groupId ,
+            @RequestParam(name = "groupType")Integer groupType,
+            @RequestParam(name = "page")Integer page,
+            @RequestParam(name = "size")Integer size,
+            @RequestParam(name = "memberName",required = false)String memberName,
+            @RequestParam(name = "memberNo",required = false)String memberNo ) {
         Page<MemberVo> memberList = memberService.findUltrMemberList(groupId, groupType, page, size, memberName, memberNo);
         return ComResponse.success(memberList);
     }
@@ -92,7 +98,10 @@ public class UltrMemberController {
             @ApiImplicitParam(name = "groupType", value = "组类型 0:ACD组 1:业务组", required = true, dataType = "int", paramType = "query")
     })
     @GetMapping(value = "/bindMembersToGroup")
-    public ComResponse<Boolean> bindMembersToGroup(@RequestParam(name = "memberIds") String memberIds,String groupId,Integer groupType) {
+    public ComResponse<Boolean> bindMembersToGroup(
+            @RequestParam(name = "memberIds") String memberIds,
+            @RequestParam(name = "groupId")String groupId,
+            @RequestParam(name = "groupType")Integer groupType) {
         return memberService.bindUltrMembersToGroup(groupId, memberIds,groupType);
     }
 
@@ -106,7 +115,10 @@ public class UltrMemberController {
             @ApiImplicitParam(name = "groupType", value = "组类型 0:ACD组 1:业务组", required = true, dataType = "int", paramType = "query")
     })
     @GetMapping(value = "/unbindMembersFromGroup")
-    public ComResponse<Boolean> unbindMembersFromGroup(@RequestParam(name = "memberIds") String memberIds,String groupId,Integer groupType) {
+    public ComResponse<Boolean> unbindMembersFromGroup(
+            @RequestParam(name = "memberIds") String memberIds,
+            @RequestParam(name = "groupId")String groupId,
+            @RequestParam(name = "groupType")Integer groupType) {
         return memberService.unbindUltrMembersFromGroup(memberIds,groupId,groupType);
     }
 
