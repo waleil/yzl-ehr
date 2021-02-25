@@ -53,6 +53,27 @@ public class UltrGroupContrller {
     }
 
     /**
+     * 调用Cti服务编辑组
+     * @param groupId 组ID
+     * @param groupName 组名字
+     * @param groupType 组类型
+     * @return
+     */
+    @ApiOperation(value="调用Cti服务编辑组")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "groupId", value = "groupId:组ID,", required = true, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "groupType", value = "0:ACD组 1:业务组", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "groupName", value = "修改后的组名(不可包括|或-)", required = true, dataType = "String", paramType = "query")
+    })
+    @GetMapping(value = "/updateGroup")
+    public ComResponse<Boolean> updateGroup(
+            @RequestParam(value = "groupId") String groupId,
+            @RequestParam(value = "groupName") String groupName,
+            @RequestParam(value = "groupType") Integer groupType) {
+        return ultrGroupService.updateUltrGroup(groupId,groupType,groupName);
+    }
+
+    /**
      * 调用Cti服务删除组
      * @param groupIds 组ID
      */
@@ -62,7 +83,9 @@ public class UltrGroupContrller {
             @ApiImplicitParam(name = "groupType", value = "groupType:0:ACD组 1:业务组", required = true, dataType = "int", paramType = "query")
     })
     @GetMapping(value = "/delGroup")
-    public ComResponse<Boolean> deleteGroup(@RequestParam(value = "groupIds") String groupIds,@RequestParam(value = "groupType") Integer groupType) {
+    public ComResponse<Boolean> deleteGroup(
+            @RequestParam(value = "groupIds") String groupIds,
+            @RequestParam(value = "groupType") Integer groupType) {
         return ultrGroupService.deleteUltrGroup(groupIds, groupType);
     }
 
