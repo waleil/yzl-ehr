@@ -2,6 +2,7 @@ package cn.net.yzl.ehr.fegin.personApproveService;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
+import cn.net.yzl.staff.dto.ProcessProfession.ApprovePostInfoDTO;
 import cn.net.yzl.staff.dto.personApprove.ApproveInfoListDTO;
 import cn.net.yzl.staff.dto.personApprove.ApproveProcessInfo;
 import cn.net.yzl.staff.dto.personApprove.ApproveQueryDTO;
@@ -9,6 +10,7 @@ import cn.net.yzl.staff.dto.processNode.ApproveInfoDTO;
 import cn.net.yzl.staff.dto.processNode.ProcessNodeDTO;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,9 +35,7 @@ public interface FindApproveService {
 
     @GetMapping("v1/getApproveInfoList")
     @ApiOperation(value = "审批页详情显示")
-    ComResponse<ApproveInfoDTO> getApproveInfoList(@RequestParam("processId") @NotNull Integer processId,
-                                                   @RequestParam("processAuditId") @NotNull String processAuditId,
-                                                   @RequestParam("leaveNo") @NotNull String leaveNo);
+    ComResponse<ApproveInfoDTO> getApproveInfoList(@RequestBody @Validated ApprovePostInfoDTO approvePostInfoDTO);
 
     @PostMapping("v1/saveApproveInfo")
     @ApiOperation(value = "保存审批信息，并修改审批状态")

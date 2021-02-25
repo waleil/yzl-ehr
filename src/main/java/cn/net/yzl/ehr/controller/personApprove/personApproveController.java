@@ -3,6 +3,7 @@ package cn.net.yzl.ehr.controller.personApprove;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.fegin.personApproveService.FindApproveService;
+import cn.net.yzl.staff.dto.ProcessProfession.ApprovePostInfoDTO;
 import cn.net.yzl.staff.dto.personApprove.ApproveInfoListDTO;
 
 import cn.net.yzl.staff.dto.personApprove.ApproveProcessInfo;
@@ -12,7 +13,9 @@ import cn.net.yzl.staff.dto.processNode.ProcessNodeDTO;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
@@ -47,11 +50,9 @@ public class personApproveController {
     }
     @GetMapping("v1/getApproveInfoList")
     @ApiOperation(value = "我的流程审批页详情显示")
-    public ComResponse<ApproveInfoDTO> getApproveInfoList(@RequestParam @NotNull Integer processId,
-                                                          @RequestParam @NotNull String processAuditId,
-                                                          @RequestParam @NotNull String leaveNo) {
+    public ComResponse<ApproveInfoDTO> getApproveInfoList(@RequestBody @Validated ApprovePostInfoDTO approvePostInfoDTO) {
 
-        return findApproveService.getApproveInfoList(processId,processAuditId,leaveNo);
+        return findApproveService.getApproveInfoList(approvePostInfoDTO);
     }
     @PostMapping("v1/saveApproveInfo")
     @ApiOperation(value = "我的流程审批页保存审批信息，并修改审批状态")
