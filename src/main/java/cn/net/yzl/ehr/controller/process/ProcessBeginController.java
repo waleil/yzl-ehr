@@ -3,6 +3,7 @@ package cn.net.yzl.ehr.controller.process;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.fegin.processActiveService.FindProcessNodeService;
 import cn.net.yzl.ehr.fegin.processActiveService.saveProcessService;
+import cn.net.yzl.staff.dto.personApprove.ApproveInviteDTO;
 import cn.net.yzl.staff.dto.personApprove.ApproveProcessListDTO;
 import cn.net.yzl.staff.dto.processNode.StaffLeaveDTO;
 import io.swagger.annotations.Api;
@@ -25,9 +26,9 @@ public class ProcessBeginController {
 
     @PostMapping("v1/saveProcessInviteInfo")
     @ApiOperation(value = "保存招聘信息")
-    public ComResponse<Boolean> saveProcessLeaveInfo(@RequestBody @Valid ApproveProcessListDTO approveProcessListDTO) {
+    public ComResponse<Boolean> saveProcessLeaveInfo(@RequestBody @Valid ApproveInviteDTO approveInviteDTO) {
 
-        return saveProcessService.saveProcessInviteInfo(approveProcessListDTO);
+        return saveProcessService.saveProcessInviteInfo(approveInviteDTO);
     }
 
 }

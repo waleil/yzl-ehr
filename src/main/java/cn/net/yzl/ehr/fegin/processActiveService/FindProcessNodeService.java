@@ -2,7 +2,7 @@ package cn.net.yzl.ehr.fegin.processActiveService;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.staff.dto.personApprove.ApproveLeaveDTO;
-import cn.net.yzl.staff.dto.personApprove.ApproveProcessListDTO;
+
 import cn.net.yzl.staff.dto.processNode.ProcessNodeDTO;
 import cn.net.yzl.staff.dto.processNode.StaffLeaveDTO;
 import io.swagger.annotations.ApiOperation;
