@@ -3,12 +3,14 @@ package cn.net.yzl.ehr.fegin.performance;
 import cn.net.yzl.common.entity.ComResponse;
 
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
+import cn.net.yzl.staff.dto.achievements.StaffArchiveDto;
 import cn.net.yzl.staff.dto.salaryRule.PerforProConfDepartTreeDto;
 import cn.net.yzl.staff.vo.BiStaffTargetTaskVO;
 
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.cloud.openfeign.FeignClient;
 
 import org.springframework.http.MediaType;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import springfox.documentation.annotations.ApiIgnore;
 
 import java.text.ParseException;
+import java.util.List;
 
 
 /**
@@ -29,17 +32,15 @@ import java.text.ParseException;
 public interface ComAssessmentFeginService {
 
 
-
-
-
     @RequestMapping(value = "/getBiStaffTargetTaskSettingList", method = RequestMethod.GET)
     ComResponse<BiStaffTargetTaskVO> getBiStaffTargetTaskSettingList(@RequestParam(name = "undertakStaffCode") String undertakStaffCode,
                                                                      @RequestParam(name = "taskCycleTime") String taskCycleTime,
-                                                                     @RequestParam(name = "isPerformance",required = false) Integer isPerformance);
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "time", value = "考核时间(yyyy-MM)", dataType = "String", paramType = "query")
-    })
+                                                                     @RequestParam(name = "isPerformance", required = false) Integer isPerformance);
+
     @RequestMapping(value = "/getPerforProConfDepartTree", method = RequestMethod.GET)
     ComResponse<PerforProConfDepartTreeDto> getPerforProConfDepartTree(@RequestParam("staffNo") String staffNo,
-                                                                       @RequestParam(name = "time")  String time) ;
+                                                                       @RequestParam(name = "time") String time);
+
+    @RequestMapping(value = "/getStaffArchievementsByDepartId", method = RequestMethod.GET)
+    ComResponse<List<StaffArchiveDto>> getStaffArchievementsByDepartId(@RequestParam("departId") Integer departId, @RequestParam("time") String time);
 }
