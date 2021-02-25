@@ -1,7 +1,7 @@
 package cn.net.yzl.ehr.fegin.performance;
 
 import cn.net.yzl.common.entity.ComResponse;
-import cn.net.yzl.staff.dto.performance.FillPerformanceDepartDto;
+import cn.net.yzl.staff.dto.performance.FillPerformanceInfoDto;
 import cn.net.yzl.staff.dto.performance.MyPerformanceDto;
 import cn.net.yzl.staff.dto.performance.PerformanceDto;
 import cn.net.yzl.staff.dto.performance.PerformanceRaterDto;
@@ -40,7 +40,7 @@ public interface PerformanceFeignService {
      * 职能管理-填报绩效-组织架构
      */
     @RequestMapping(value = "/queryFillPerformanceDepartList", method = RequestMethod.GET)
-    ComResponse<List<FillPerformanceDepartDto>> queryFillPerformanceDepartList(@SpringQueryMap PerformanceVo performanceVo);
+    ComResponse<FillPerformanceInfoDto> queryFillPerformanceDepartList(@SpringQueryMap PerformanceVo performanceVo);
 
     /**
      * 职能管理-绩效考核-组织架构
