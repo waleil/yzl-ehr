@@ -1,11 +1,12 @@
 package cn.net.yzl.ehr.fegin.performance;
 
 import cn.net.yzl.common.entity.ComResponse;
-import cn.net.yzl.staff.dto.performance.FillPerformanceInfoDto;
+import cn.net.yzl.staff.dto.performance.FillPerformanceOrgDto;
 import cn.net.yzl.staff.dto.performance.MyPerformanceDto;
+import cn.net.yzl.staff.dto.performance.PerformanceApproveCountDto;
 import cn.net.yzl.staff.dto.performance.PerformanceDto;
 import cn.net.yzl.staff.dto.performance.PerformanceRaterDto;
-import cn.net.yzl.staff.dto.performance.RaterPerformanceDepartDto;
+import cn.net.yzl.staff.dto.performance.RaterPerformanceOrgDto;
 import cn.net.yzl.staff.vo.performance.PerformanceApproveVo;
 import cn.net.yzl.staff.vo.performance.PerformanceCreateVo;
 import cn.net.yzl.staff.vo.performance.PerformanceReturnVo;
@@ -40,13 +41,13 @@ public interface PerformanceFeignService {
      * 职能管理-填报绩效-组织架构
      */
     @RequestMapping(value = "/queryFillPerformanceDepartList", method = RequestMethod.GET)
-    ComResponse<FillPerformanceInfoDto> queryFillPerformanceDepartList(@SpringQueryMap PerformanceVo performanceVo);
+    ComResponse<FillPerformanceOrgDto> queryFillPerformanceDepartList(@SpringQueryMap PerformanceVo performanceVo);
 
     /**
      * 职能管理-绩效考核-组织架构
      */
     @RequestMapping(value = "/queryRaterPerformanceDepartList", method = RequestMethod.GET)
-    ComResponse<List<RaterPerformanceDepartDto>> queryRaterPerformanceDepartList(@SpringQueryMap PerformanceVo performanceVo);
+    ComResponse<RaterPerformanceOrgDto> queryRaterPerformanceDepartList(@SpringQueryMap PerformanceVo performanceVo);
 
     /**
      * 职能管理-填报绩效-获取绩效信息
@@ -89,4 +90,18 @@ public interface PerformanceFeignService {
      */
     @RequestMapping(value = "/queryMyPerformance", method = RequestMethod.GET)
     ComResponse<MyPerformanceDto> queryMyPerformance(@RequestParam("fillTime") String fillTime, @RequestParam("staffNo") String staffNo);
+
+    /**
+     * 职能管理-绩效考核-考核统计
+     */
+    @RequestMapping(value = "/queryPerformanceApproveCount", method = RequestMethod.GET)
+    ComResponse<PerformanceApproveCountDto> queryPerformanceApproveCount(@RequestParam("fillTime") String fillTime, @RequestParam("staffNo") String staffNo);
+
+    /**
+     * 是否负责人
+     *
+     * @return true: 负责人
+     */
+    @RequestMapping(value = "/isLeader", method = RequestMethod.GET)
+    ComResponse<Boolean> isLeader(@RequestParam("staffNo") String staffNo);
 }

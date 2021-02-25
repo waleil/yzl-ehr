@@ -3,11 +3,12 @@ package cn.net.yzl.ehr.controller.performance;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.performance.PerformanceFeignService;
-import cn.net.yzl.staff.dto.performance.FillPerformanceInfoDto;
+import cn.net.yzl.staff.dto.performance.FillPerformanceOrgDto;
 import cn.net.yzl.staff.dto.performance.MyPerformanceDto;
+import cn.net.yzl.staff.dto.performance.PerformanceApproveCountDto;
 import cn.net.yzl.staff.dto.performance.PerformanceDto;
 import cn.net.yzl.staff.dto.performance.PerformanceRaterDto;
-import cn.net.yzl.staff.dto.performance.RaterPerformanceDepartDto;
+import cn.net.yzl.staff.dto.performance.RaterPerformanceOrgDto;
 import cn.net.yzl.staff.vo.performance.PerformanceApproveVo;
 import cn.net.yzl.staff.vo.performance.PerformanceCreateVo;
 import cn.net.yzl.staff.vo.performance.PerformanceReturnVo;
@@ -67,7 +68,7 @@ public class PerformanceController {
     })
     @ApiOperation(value = "职能管理-填报绩效-组织架构", notes = "职能管理-填报绩效-组织架构", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/queryFillPerformanceDepartList", method = RequestMethod.GET)
-    public ComResponse<FillPerformanceInfoDto> queryFillPerformanceDepartList(PerformanceVo performanceVo, @ApiIgnore @CurrentStaffNo String staffNo) {
+    public ComResponse<FillPerformanceOrgDto> queryFillPerformanceDepartList(PerformanceVo performanceVo, @ApiIgnore @CurrentStaffNo String staffNo) {
         performanceVo.setStaffNo(staffNo);
         return performanceFeignService.queryFillPerformanceDepartList(performanceVo);
     }
@@ -86,7 +87,7 @@ public class PerformanceController {
     })
     @ApiOperation(value = "职能管理-绩效考核-组织架构", notes = "职能管理-绩效考核-组织架构", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/queryRaterPerformanceDepartList", method = RequestMethod.GET)
-    public ComResponse<List<RaterPerformanceDepartDto>> queryRaterPerformanceDepartList(PerformanceVo performanceVo, @ApiIgnore @CurrentStaffNo String staffNo) {
+    public ComResponse<RaterPerformanceOrgDto> queryRaterPerformanceDepartList(PerformanceVo performanceVo, @ApiIgnore @CurrentStaffNo String staffNo) {
         performanceVo.setStaffNo(staffNo);
         return performanceFeignService.queryRaterPerformanceDepartList(performanceVo);
     }
@@ -189,4 +190,18 @@ public class PerformanceController {
         return performanceFeignService.queryMyPerformance(fillTime, staffNo);
     }
 
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "fillTime", value = "填报周期", required = true, dataType = "String", paramType = "query"),
+    })
+    @ApiOperation(value = "职能管理-绩效考核-考核统计", notes = "职能管理-绩效考核-考核统计", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/queryPerformanceApproveCount", method = RequestMethod.GET)
+    public ComResponse<PerformanceApproveCountDto> queryPerformanceApproveCount(String fillTime, @ApiIgnore @CurrentStaffNo String staffNo) {
+        return performanceFeignService.queryPerformanceApproveCount(fillTime, staffNo);
+    }
+
+    @ApiOperation(value = "职能管理-绩效填报-是否负责人", notes = "职能管理-绩效填报-是否负责人", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/isLeader", method = RequestMethod.GET)
+    public ComResponse<Boolean> isLeader(@ApiIgnore @CurrentStaffNo String staffNo) {
+        return performanceFeignService.isLeader(staffNo);
+    }
 }
