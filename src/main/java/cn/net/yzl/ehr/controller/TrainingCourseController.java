@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.controller;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.fegin.TrainingCourseClient;
 import cn.net.yzl.staff.dto.train.CoursewareDto;
 import cn.net.yzl.staff.dto.train.TrainInfoAllDto;
@@ -87,7 +88,7 @@ public class TrainingCourseController {
 
     @ApiOperation(value = "培训课程查询", notes = "培训课程查询")
     @GetMapping("listCourse")
-    public ComResponse<List<TrainingCourseDetailPo>> list(
+    public ComResponse<Page<TrainingCourseDetailPo>> list(
             @ApiParam(value = "商品名称") @RequestParam(value = "courseName", required = false) String courseName,
             @ApiParam(value = "培训方式，0线上 1线下") @RequestParam(value = "online", required = false) Integer online,
             @ApiParam(value = "是否考试 0否 1是") @RequestParam(value = "exam", required = false) Integer exam,
@@ -173,7 +174,7 @@ public class TrainingCourseController {
 
     @ApiOperation(value = "课件查询",notes = "课件查询")
     @GetMapping("listCourseware")
-    public ComResponse<List<CoursewareDto>> listCourseware(
+    public ComResponse<Page<CoursewareDto>> listCourseware(
             @ApiParam(value = "课件名称")@RequestParam(value = "name",required = false) String name,
             @ApiParam(value = "分页参数:页码")@RequestParam(value = "pageNum",defaultValue = "0") Integer pageNum,
             @ApiParam(value = "分页参数:每页数量")@RequestParam(value = "pageSize",defaultValue = "10") Integer pageSize) {

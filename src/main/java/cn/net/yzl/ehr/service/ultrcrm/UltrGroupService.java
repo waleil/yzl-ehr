@@ -16,4 +16,6 @@ public interface UltrGroupService {
 
     // 调用Cti服务删除组
     ComResponse<Boolean> deleteUltrGroup(String groupIds, Integer groupType);
+
+    ComResponse<Boolean> updateUltrGroup(String groupId, Integer groupType, String groupName);
 }

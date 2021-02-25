@@ -49,4 +49,9 @@ public class UltrGroupServiceImpl implements UltrGroupService {
     public ComResponse<Boolean> deleteUltrGroup(String groupIds, Integer groupType) {
         return groupFeignService.delGroup(groupIds,groupType);
     }
+
+    @Override
+    public ComResponse<Boolean> updateUltrGroup(String groupId, Integer groupType, String groupName) {
+        return groupFeignService.updateUltrGroup(groupId,groupType,groupName);
+    }
 }
