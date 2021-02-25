@@ -174,7 +174,7 @@ public class TrainingCourseController {
 
     @ApiOperation(value = "课件查询",notes = "课件查询")
     @GetMapping("listCourseware")
-    public ComResponse<List<CoursewareDto>> listCourseware(
+    public ComResponse<Page<CoursewareDto>> listCourseware(
             @ApiParam(value = "课件名称")@RequestParam(value = "name",required = false) String name,
             @ApiParam(value = "分页参数:页码")@RequestParam(value = "pageNum",defaultValue = "0") Integer pageNum,
             @ApiParam(value = "分页参数:每页数量")@RequestParam(value = "pageSize",defaultValue = "10") Integer pageSize) {
