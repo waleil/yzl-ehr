@@ -32,7 +32,9 @@ public class UltrGroupContrller {
             @ApiImplicitParam(name = "fatherId", value = "父ID 不传递返回1级分组", dataType = "String", paramType = "query", required = false)
     })
     @GetMapping(value = "/queryGroups")
-    public ComResponse<List<Group>> queryGroups(@RequestParam("groupType") Integer groupType, String fatherId) {
+    public ComResponse<List<Group>> queryGroups(
+            @RequestParam(value = "groupType",required = false) Integer groupType,
+            @RequestParam(value = "fatherId",required = false) String fatherId) {
         List<Group> groupList = ultrGroupService.findUltrGroupInfo(groupType, fatherId);
         return ComResponse.success(groupList);
     }
