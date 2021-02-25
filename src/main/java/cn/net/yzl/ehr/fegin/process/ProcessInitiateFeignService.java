@@ -1,9 +1,7 @@
 package cn.net.yzl.ehr.fegin.process;
 
 import cn.net.yzl.common.entity.ComResponse;
-import cn.net.yzl.staff.vo.process.StaffAttendApprovalVo;
-import cn.net.yzl.staff.vo.process.StaffOutVo;
-import cn.net.yzl.staff.vo.process.StaffTravelVo;
+import cn.net.yzl.staff.vo.process.*;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Repository;
@@ -21,13 +19,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RefreshScope
 public interface ProcessInitiateFeignService {
 
-    @PostMapping("out/insert")
+    @PostMapping("/out/insert")
     ComResponse<Integer> insertProcessStaffOut(@RequestBody @Validated StaffOutVo staffOutVo);
 
-    @PostMapping("travel/insert")
+    @PostMapping("/travel/insert")
     ComResponse<Integer> insertProcessStaffTravel(@RequestBody @Validated StaffTravelVo staffTravelVo);
 
-    @PostMapping("attend/approval/insert")
+    @PostMapping("/attend/approval/insert")
     ComResponse<Integer> insertProcessStaffAttendApproval(@RequestBody @Validated StaffAttendApprovalVo staffAttendApprovalVo);
+
+    @PostMapping("/parking/space/insert")
+    public ComResponse<Integer> insertProcessStaffParkingSpace(@RequestBody @Validated StaffParkingSpaceVo staffParkingSpaceVo);
+
+    @PostMapping("/item/requisition/insert")
+    public ComResponse<Integer> insertProcessStaffItemRequisition(@RequestBody @Validated StaffItemRequisitionVo staffItemRequisitionVo);
 
 }

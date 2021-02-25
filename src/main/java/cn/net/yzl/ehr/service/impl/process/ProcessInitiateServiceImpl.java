@@ -36,4 +36,16 @@ public class ProcessInitiateServiceImpl implements ProcessInitiateService {
         staffAttendApprovalVo.setCreator(staffNo);
         return processInitiateFeignService.insertProcessStaffAttendApproval(staffAttendApprovalVo);
     }
+
+    @Override
+    public ComResponse<Integer> insertProcessStaffParkingSpace(StaffParkingSpaceVo staffParkingSpaceVo, String staffNo) {
+        staffParkingSpaceVo.setCreator(staffNo);
+        return processInitiateFeignService.insertProcessStaffParkingSpace(staffParkingSpaceVo);
+    }
+
+    @Override
+    public ComResponse<Integer> insertProcessStaffItemRequisition(StaffItemRequisitionVo staffItemRequisitionVo, String staffNo) {
+        staffItemRequisitionVo.setCreator(staffNo);
+        return processInitiateFeignService.insertProcessStaffItemRequisition(staffItemRequisitionVo);
+    }
 }

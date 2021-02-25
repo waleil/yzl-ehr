@@ -1,9 +1,7 @@
 package cn.net.yzl.ehr.service.process;
 
 import cn.net.yzl.common.entity.ComResponse;
-import cn.net.yzl.staff.vo.process.StaffAttendApprovalVo;
-import cn.net.yzl.staff.vo.process.StaffOutVo;
-import cn.net.yzl.staff.vo.process.StaffTravelVo;
+import cn.net.yzl.staff.vo.process.*;
 
 public interface ProcessInitiateService {
     //外出添加
@@ -12,7 +10,13 @@ public interface ProcessInitiateService {
     //出差添加
     ComResponse<Integer> insertProcessStaffTravel(StaffTravelVo staffTravelVo,String staffNo);
 
-    //出差考勤补卡
+    //考勤补卡
     ComResponse<Integer> insertProcessStaffAttendApproval(StaffAttendApprovalVo staffAttendApprovalVo,String staffNo);
+
+    //车位申请添加
+    ComResponse<Integer> insertProcessStaffParkingSpace(StaffParkingSpaceVo staffParkingSpaceVo, String staffNo);
+
+    //物品领用添加
+    ComResponse<Integer> insertProcessStaffItemRequisition(StaffItemRequisitionVo staffItemRequisitionVo, String staffNo);
 
 }
