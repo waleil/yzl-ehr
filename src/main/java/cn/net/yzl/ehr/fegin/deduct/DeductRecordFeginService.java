@@ -39,7 +39,7 @@ public interface DeductRecordFeginService {
     ComResponse<Integer> insertDeductRecord(@RequestBody DeductProcessDTO deductProcessDTO);
 
     @ApiOperation(value = "根据员工工号或姓名查询员工信息", notes = "根据员工工号或姓名查询员工信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @RequestMapping(value = "/deductRecord/selectstaff", method = RequestMethod.POST)
+    @RequestMapping(value = "/deductRecord/selectstaff", method = RequestMethod.GET)
     ComResponse<DeductStaffInfoDto> selectstaff(@RequestParam("noOrName")String noOrName);
 
     @ApiOperation(value = "修改执行流程", notes = "修改执行流程",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
