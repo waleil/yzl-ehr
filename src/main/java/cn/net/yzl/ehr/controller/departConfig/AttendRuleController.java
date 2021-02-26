@@ -6,6 +6,7 @@ import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.dto.DepartAttendRuleDto;
 import cn.net.yzl.ehr.dto.DepartPostDto;
 import cn.net.yzl.ehr.dto.PostDto;
+import cn.net.yzl.ehr.fegin.conf.AttendRuleFeginService;
 import cn.net.yzl.ehr.service.AttendRuleService;
 import cn.net.yzl.ehr.vo.attendRule.DepartAttendRuleElasticVO;
 import cn.net.yzl.ehr.vo.attendRule.DepartAttendRuleNoPunchVO;
@@ -18,10 +19,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.constraints.Max;
@@ -38,8 +36,17 @@ public class AttendRuleController {
 
     @Autowired
     private AttendRuleService attendRuleService;
+    @Autowired
+    private AttendRuleFeginService attendRuleFeginService;
 
-
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "attendRuleId", value = "考勤规则id", required = true, dataType = "Int", paramType = "query"),
+    })
+    @ApiOperation(value = "考勤配置-考勤规则-删除", notes = "考勤配置-考勤规则-删除", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/del", method = RequestMethod.GET)
+    ComResponse<Integer> del(@RequestParam("attendRuleId") Integer attendRuleId) {
+        return attendRuleFeginService.del(attendRuleId);
+    }
     @ApiOperation(value = "考勤配置-考勤规则-定时打卡:正常", notes = "考勤配置-考勤规则-定时打卡:正常", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/normal/addOrUpdate", method = RequestMethod.POST, consumes = "application/json")
     ComResponse<Integer> addOrUpdateNormal(@RequestBody @Validated DepartAttendRuleNormalVO departAttendRuleNormalVO, @ApiIgnore @CurrentStaffNo String staffNo) {
