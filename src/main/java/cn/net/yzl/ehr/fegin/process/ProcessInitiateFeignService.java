@@ -34,4 +34,7 @@ public interface ProcessInitiateFeignService {
     @PostMapping("/item/requisition/insert")
     public ComResponse<Integer> insertProcessStaffItemRequisition(@RequestBody @Validated StaffItemRequisitionVo staffItemRequisitionVo);
 
+    @PostMapping("/attend/exchange/insert")
+    ComResponse<Integer> insertProcessAttendExchange(@RequestBody @Validated StaffAttendExchangeVo staffAttendExchangeVo);
+
 }

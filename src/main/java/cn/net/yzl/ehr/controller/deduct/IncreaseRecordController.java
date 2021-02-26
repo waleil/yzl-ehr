@@ -40,7 +40,7 @@ public class IncreaseRecordController {
     }
 
     @ApiOperation(value = "取消奖金", notes = "取消奖金",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @RequestMapping(value = "/updateStateById", method = RequestMethod.POST)
+    @RequestMapping(value = "/updateStateById", method = RequestMethod.GET)
     ComResponse<Integer> updateStateById(@RequestParam("id")Integer id){
         return increaseRecordService.updateStateById(id);
     }
@@ -55,6 +55,12 @@ public class IncreaseRecordController {
     @RequestMapping(value = "/updateIncreaseStateById", method = RequestMethod.POST)
     ComResponse<Integer> updateIncreaseStateById(@RequestParam("id")Integer id){
         return increaseRecordService.updateStateById(id);
+    }
+
+    @ApiOperation(value = "修改执行状态", notes = "修改执行状态",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/updateExecuteState", method = RequestMethod.POST)
+    ComResponse<Integer> updateExecuteState(IncreaseRecordPo increaseRecordPo){
+        return increaseRecordService.updateExecuteState(increaseRecordPo);
     }
 
 

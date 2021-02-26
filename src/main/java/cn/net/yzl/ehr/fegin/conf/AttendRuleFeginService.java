@@ -57,4 +57,8 @@ public interface AttendRuleFeginService {
 
     @RequestMapping(value = "/conf/attendRule/getByDepartPostIdAndEnable", method = RequestMethod.GET)
     ComResponse<DepartAttendRuleDto> getByDepartPostIdAndEnable(@RequestParam("departPostId") Integer departPostId, @RequestParam("enable") Integer enable);
+
+
+    @RequestMapping(value = "/conf/attendRule/del", method = RequestMethod.GET)
+    ComResponse<Integer> del(@RequestParam("attendRuleId") Integer attendRuleId);
 }

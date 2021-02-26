@@ -54,4 +54,10 @@ public class ProcessInitiateController {
     public ComResponse<Integer> insertProcessStaffItemRequisition(@RequestBody @Validated StaffItemRequisitionVo staffItemRequisitionVo, @CurrentStaffNo @ApiIgnore String staffNo){
         return processInitiateService.insertProcessStaffItemRequisition(staffItemRequisitionVo,staffNo);
     }
+
+    @ApiOperation(value = "添加加班兑换申请",notes = "添加加班兑换申请",consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping("/attend/exchange/insert")
+    public ComResponse<Integer> insertProcessAttendExchange(@RequestBody @Validated StaffAttendExchangeVo staffAttendExchangeVo, @CurrentStaffNo @ApiIgnore String staffNo){
+        return processInitiateService.insertProcessAttendExchange(staffAttendExchangeVo,staffNo);
+    }
 }

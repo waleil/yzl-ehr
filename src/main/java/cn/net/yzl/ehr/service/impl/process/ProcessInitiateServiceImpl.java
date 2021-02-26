@@ -48,4 +48,10 @@ public class ProcessInitiateServiceImpl implements ProcessInitiateService {
         staffItemRequisitionVo.setCreator(staffNo);
         return processInitiateFeignService.insertProcessStaffItemRequisition(staffItemRequisitionVo);
     }
+
+    @Override
+    public ComResponse<Integer> insertProcessAttendExchange(StaffAttendExchangeVo staffAttendExchangeVo, String staffNo) {
+        staffAttendExchangeVo.setCreator(staffNo);
+        return processInitiateFeignService.insertProcessAttendExchange(staffAttendExchangeVo);
+    }
 }

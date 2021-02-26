@@ -19,4 +19,7 @@ public interface ProcessInitiateService {
     //物品领用添加
     ComResponse<Integer> insertProcessStaffItemRequisition(StaffItemRequisitionVo staffItemRequisitionVo, String staffNo);
 
+    //物品加班兑换
+    ComResponse<Integer> insertProcessAttendExchange(StaffAttendExchangeVo staffAttendExchangeVo, String staffNo);
+
 }

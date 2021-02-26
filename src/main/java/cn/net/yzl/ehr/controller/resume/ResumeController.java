@@ -24,6 +24,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -38,6 +39,7 @@ import javax.validation.constraints.NotNull;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -132,19 +134,26 @@ public class ResumeController {
         return resumeFeginService.delBatchResume(resumeIds);
     }
 
-    @ApiOperation(value = "简历列表-推送(待筛选或筛选未通过或简历库)", notes = "简历列表-推送(待筛选或筛选未通过或简历库)", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "简历列表-批量/单个推送(简历库)", notes = "简历列表-批量推送(简历库)", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/sendTo", method = RequestMethod.POST)
-    ComResponse<String> sendTo( @RequestBody @Validated ResumeDepartStaffVO resumeDepartStaffVO) throws IllegalAccessException {
-        resumeDepartStaffVO= StaffBeanUtils.setNullValue(resumeDepartStaffVO);
-
-        return resumeFeginService.sendTo(resumeDepartStaffVO);
+    ComResponse<String> sendToBeatch( @RequestBody  List<ResumeDepartStaffVO> resumeDepartStaffVOList) throws IllegalAccessException {
+        return resumeFeginService.sendToBeatch(resumeDepartStaffVOList);
     }
-    @ApiOperation(value = "简历列表-批量发送(待筛选或简历库)", notes = "简历列表-批量发送(待筛选或简历库)", consumes = MediaType.APPLICATION_JSON_VALUE)
+//    @ApiOperation(value = "简历列表-推送(待筛选或筛选未通过或简历库)", notes = "简历列表-推送(待筛选或筛选未通过或简历库)", consumes = MediaType.APPLICATION_JSON_VALUE)
+//    @RequestMapping(value = "/sendTo", method = RequestMethod.POST)
+//    ComResponse<String> sendTo( @RequestBody @Validated ResumeDepartStaffVO resumeDepartStaffVO) throws IllegalAccessException {
+//        resumeDepartStaffVO= StaffBeanUtils.setNullValue(resumeDepartStaffVO);
+//
+//        return resumeFeginService.sendTo(resumeDepartStaffVO);
+//    }
+
+
+    @ApiOperation(value = "简历列表-批量发送(待筛选)", notes = "简历列表-批量发送(待筛选)", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/sendToBatchDepart", method = RequestMethod.POST)
     ComResponse<String> sendToBatchDepart( @RequestBody @NotEmpty List<Integer> resumeIds, @ApiIgnore @CurrentStaffNo String staffNo) throws IllegalAccessException {
         return resumeFeginService.sendToBatchDepart(resumeIds,staffNo);
     }
-    @ApiOperation(value = "简历列表-单个发给部门(待筛选或简历库)", notes = "简历列表-单个发给部门(待筛选或简历库)", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "简历列表-单个发给部门(待筛选)", notes = "简历列表-单个发给部门(待筛选)", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/sendToDepart", method = RequestMethod.GET)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "resumeId", value = "简历id", required = true, dataType = "Integer", paramType = "query")
@@ -398,25 +407,24 @@ public class ResumeController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "url", value = "文件路径(相对路径)", required = true, dataType = "String", paramType = "query"),
     })
-    void importResumeList(String url, HttpServletResponse response) {
+    void importResumeList(String url, HttpServletResponse response, @ApiIgnore @CurrentStaffNo String staffNo) {
         ExcelWriter writer = ExcelUtil.getWriter();
         writer.renameSheet("简历导入结果");     //甚至sheet的名称
-        ComResponse<List<StaffAttendImportResultDto>> result =  resumeFeginService.importResumeList(url);
+        ComResponse<List<ResumeImportResultDto>> result =  resumeFeginService.importResumeList(url,staffNo);
 
 
-        List<StaffAttendImportResultDto> list = result.getData();
+        List<ResumeImportResultDto> list = result.getData();
         try {
-            writer.addHeaderAlias("staffNo", "员工工号");
+            writer.addHeaderAlias("departNo", "部门id");
             writer.addHeaderAlias("result", "导入结果");
             writer.addHeaderAlias("resultDesc", "resultDesc");
-            writer.addHeaderAlias("time", "时间");
             writer.setOnlyAlias(true);
             writer.write(list, true);
             response.reset();
             response.setContentType("application/vnd.ms-excel;charset=utf-8");
 //            response.setContentType("application/octet-stream");
 //            execName = new String(execName.getBytes("UTF-8"),"ISO8859-1");
-            response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode("attend_result", "UTF-8") + ".xlsx");   //中文名称需要特殊处理
+            response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode("resume_import_result", "UTF-8") + ".xlsx");   //中文名称需要特殊处理
 //            response.setHeader("Content-Disposition", "attachment; filename="+ execName+".xlsx");   //中文名称需要特殊处理
             writer.autoSizeColumnAll();
             writer.flush(response.getOutputStream());
@@ -425,5 +433,6 @@ public class ResumeController {
             e.printStackTrace();
         }
     }
+
 
 }

@@ -34,7 +34,7 @@ public interface IncreaseRecordFeginService {
     ComResponse<Integer> insertIncreaseRecord(@RequestBody IncreaseRecordInsertPo increaseRecordInsertPo);
 
     @ApiOperation(value = "取消奖金", notes = "取消奖金",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @RequestMapping(value = "/increaseRecord/updateStateById", method = RequestMethod.POST)
+    @RequestMapping(value = "/increaseRecord/updateStateById", method = RequestMethod.GET)
     ComResponse<Integer> updateStateById(@RequestParam("id")Integer id);
 
     @ApiOperation(value = "删除信息",notes = "删除信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
@@ -44,6 +44,11 @@ public interface IncreaseRecordFeginService {
     @ApiOperation(value = "启用", notes = "启用",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/increaseRecord/updateIncreaseStateById", method = RequestMethod.POST)
     ComResponse<Integer> updateIncreaseStateById(@RequestParam("id")Integer id);
+
+    @ApiOperation(value = "修改执行状态", notes = "修改执行状态",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/updateExecuteState", method = RequestMethod.POST)
+    ComResponse<Integer> updateExecuteState(IncreaseRecordPo increaseRecordPo);
+
 
 }
 

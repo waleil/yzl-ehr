@@ -47,16 +47,6 @@ public class ProcessActiveController {
         return findProcessNodeService.saveProcessLeaveInfo(approveLeaveDTO);
     }
 
-    @PostMapping("v1/upfile")
-    @ApiOperation(value = "上传文件信息")
-    public String upFile(@RequestParam @Null MultipartFile file) throws IOException {
-        String url ="";
-        if(StringUtils.isNotBlank(file.getOriginalFilename())){
-            url=client.uploadFile(file);
-        }
-
-        return url;
-    }
 
 
 }

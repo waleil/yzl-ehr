@@ -36,4 +36,7 @@ public interface ProcessItemService {
 
     ComResponse<List<ProcessTypeDto>> processItemDisplayByUser(String staffNo);
 
+    //根据流程项目code查询
+    ComResponse<ProcessItemDto> selectProcessByItemCode(String code);
+
 }

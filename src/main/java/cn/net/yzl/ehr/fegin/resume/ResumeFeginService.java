@@ -7,6 +7,7 @@ import cn.net.yzl.staff.dto.DepartPostDto;
 import cn.net.yzl.staff.dto.DepartResumeNodeStaffDto;
 import cn.net.yzl.staff.dto.attend.StaffAttendImportResultDto;
 import cn.net.yzl.staff.dto.resume.ResumeDetailDto;
+import cn.net.yzl.staff.dto.resume.ResumeImportResultDto;
 import cn.net.yzl.staff.dto.resume.ResumeListDto;
 import cn.net.yzl.staff.util.StaffBeanUtils;
 import cn.net.yzl.staff.vo.resume.ResumeDbVO;
@@ -67,6 +68,9 @@ public interface ResumeFeginService{
 
     @RequestMapping(value = "/resume/interviewNoPass", method = RequestMethod.GET)
     ComResponse<String> interviewNoPass(@RequestParam("resumeId") Integer resumeId);
+
     @RequestMapping(value = "/resume/importResumeList", method = RequestMethod.GET)
-    ComResponse<List<StaffAttendImportResultDto>> importResumeList(@RequestParam("url") String url);
+    ComResponse<List<ResumeImportResultDto>> importResumeList(@RequestParam("url") String url, @RequestParam("staffNo")String staffNo);
+    @RequestMapping(value = "/resume/sendToBeatch", method = RequestMethod.POST)
+    ComResponse<String> sendToBeatch(@RequestBody List<ResumeDepartStaffVO> resumeDepartStaffVOList);
 }
