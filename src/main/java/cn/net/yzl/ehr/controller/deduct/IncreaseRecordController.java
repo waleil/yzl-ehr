@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.controller.deduct;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.service.deduct.DeductReocrdService;
 import cn.net.yzl.ehr.service.deduct.IncreaseRecordService;
 import cn.net.yzl.staff.dto.deduct.DeductRecordDto;
@@ -11,6 +12,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 
@@ -47,8 +49,8 @@ public class IncreaseRecordController {
 
     @ApiOperation(value = "删除信息",notes = "删除信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/deleteById",method = RequestMethod.GET)
-    ComResponse<Integer> deleteById(@RequestParam("id")Integer id,@RequestParam("updator")String updator) {
-        return increaseRecordService .deleteById(id,updator);
+    ComResponse<Integer> deleteById(@RequestParam("id")Integer id, @CurrentStaffNo @ApiIgnore String staffNo) {
+        return increaseRecordService .deleteById(id,staffNo);
     }
 
     @ApiOperation(value = "启用", notes = "启用",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
@@ -59,7 +61,7 @@ public class IncreaseRecordController {
 
     @ApiOperation(value = "修改执行状态", notes = "修改执行状态",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/updateExecuteState", method = RequestMethod.POST)
-    ComResponse<Integer> updateExecuteState(IncreaseRecordPo increaseRecordPo){
+    ComResponse<Integer> updateExecuteState(@RequestBody IncreaseRecordPo increaseRecordPo){
         return increaseRecordService.updateExecuteState(increaseRecordPo);
     }
 

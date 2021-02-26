@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.data.annotation.Id;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -17,7 +18,6 @@ import java.util.Date;
 @ApiModel(value = "DepartDto", description = "部门实体信息")
 public class StaffListDto implements Serializable {
 
-
     @ApiModelProperty(value = "用户名称", name = "name")
     private String name;
     @ApiModelProperty(value = "拼音名", name = "enName")
@@ -27,6 +27,7 @@ public class StaffListDto implements Serializable {
     @ApiModelProperty(value = "电子邮件", name = "email")
     private String email;
     @ApiModelProperty(value = "员工工号", name = "staffNo")
+    @Id
     private String staffNo;
 
     @ApiModelProperty(value = "工作地点code", name = "workplaceCode")
@@ -53,6 +54,8 @@ public class StaffListDto implements Serializable {
     private Integer postId;
     @ApiModelProperty(value = "岗位名称", name = "postName")
     private String postName;
+    @ApiModelProperty(value = "岗位id", name = "departPostId")
+    private Integer departPostId;
 
     @ApiModelProperty(value = "岗位级别id", name = "postLevelId")
     private Integer postLevelId;
@@ -83,11 +86,14 @@ public class StaffListDto implements Serializable {
     private Integer entryTimes;
     @ApiModelProperty(value = "异动时间", name = "abnorTime")
     private Date abnorTime;
-
+    @ApiModelProperty(value = "入岗时间", name = "postTime")
+    private Date postTime;
     @ApiModelProperty(value = "离职时间", name = "dimissionTime")
     private Date dimissionTime;
     @ApiModelProperty(value = "薪资核算结算日", name = "payrollAccountingDate")
     private Date payrollAccountingDate;
+    @ApiModelProperty(value = "培训次数", name = "trainingTimes")
+    private Integer training_times;
     @ApiModelProperty(value = "培训完成度code", name = "trainingCompletion")
     private Integer trainingCompletion;
     @ApiModelProperty(value = "培训完成度", name = "trainingCompletionName")
@@ -98,7 +104,8 @@ public class StaffListDto implements Serializable {
     private String trainingGradeName;
     @ApiModelProperty(value = "入岗状态code", name = "enterStatus")
     private Integer enterStatus;
-    @ApiModelProperty(value = "入岗状态", name = "enterStatusName")
+    @ApiModelProperty(value = "入岗状态名称", name = "enterStatusName")
     private String enterStatusName;
+
 
 }

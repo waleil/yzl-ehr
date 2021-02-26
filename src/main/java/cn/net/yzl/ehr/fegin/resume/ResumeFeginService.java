@@ -68,6 +68,9 @@ public interface ResumeFeginService{
 
     @RequestMapping(value = "/resume/interviewNoPass", method = RequestMethod.GET)
     ComResponse<String> interviewNoPass(@RequestParam("resumeId") Integer resumeId);
+
     @RequestMapping(value = "/resume/importResumeList", method = RequestMethod.GET)
     ComResponse<List<ResumeImportResultDto>> importResumeList(@RequestParam("url") String url, @RequestParam("staffNo")String staffNo);
+    @RequestMapping(value = "/resume/sendToBeatch", method = RequestMethod.POST)
+    ComResponse<String> sendToBeatch(@RequestBody List<ResumeDepartStaffVO> resumeDepartStaffVOList);
 }

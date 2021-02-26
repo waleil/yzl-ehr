@@ -31,7 +31,8 @@ public class DeductRecordServiceImpl implements DeductReocrdService {
     }
 
     @Override
-    public ComResponse<Integer> updateStateById(DeductRecordUpdatePo deductRecordUpdatePo) {
+    public ComResponse<Integer> updateStateById(DeductRecordUpdatePo deductRecordUpdatePo,String staffNo) {
+
         ComResponse<Integer> result = deductRecordFeginService.updateStateById(deductRecordUpdatePo);
         if (result == null) {
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(), ResponseCodeEnums.API_ERROR_CODE.getMessage());
@@ -45,7 +46,8 @@ public class DeductRecordServiceImpl implements DeductReocrdService {
     }
 
     @Override
-    public ComResponse<Integer> insertDeductRecord(DeductProcessDTO deductProcessDTO) {
+    public ComResponse<Integer> insertDeductRecord(DeductProcessDTO deductProcessDTO,String staffNo) {
+        deductProcessDTO.getDeductRecordDto().setCreator(staffNo);
         ComResponse<Integer> result = deductRecordFeginService.insertDeductRecord(deductProcessDTO);
         return result;
     }
@@ -62,7 +64,7 @@ public class DeductRecordServiceImpl implements DeductReocrdService {
     }
 
     @Override
-    public ComResponse<Integer> updateExecuteState(DeductRecordStateUpdatePo deductRecordStateUpdatePo) {
+    public ComResponse<Integer> updateExecuteState(DeductRecordStateUpdatePo deductRecordStateUpdatePo,String staffNo) {
         ComResponse<Integer> result = deductRecordFeginService.updateExecuteState(deductRecordStateUpdatePo);
         if (result == null) {
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(), ResponseCodeEnums.API_ERROR_CODE.getMessage());
@@ -76,8 +78,8 @@ public class DeductRecordServiceImpl implements DeductReocrdService {
     }
 
     @Override
-    public ComResponse<ApproveDeductDto> queryById(Integer id) {
-        ComResponse<ApproveDeductDto>  result = deductRecordFeginService.queryById(id);
+    public ComResponse<ApproveDeductDto> queryById(String appNo) {
+        ComResponse<ApproveDeductDto>  result = deductRecordFeginService.queryById(appNo);
         if (result == null) {
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(), ResponseCodeEnums.API_ERROR_CODE.getMessage());
         } else if (result.getCode() == 200 && result.getData()==null) {

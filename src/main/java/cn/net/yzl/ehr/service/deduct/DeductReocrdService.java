@@ -10,18 +10,18 @@ public interface DeductReocrdService {
     ComResponse<List<DeductRecordDto>> getList(DeductRecordListPo deductRecordListPo);
 
     //停止扣款
-    ComResponse<Integer> updateStateById(DeductRecordUpdatePo deductRecordUpdatePo);
+    ComResponse<Integer> updateStateById(DeductRecordUpdatePo deductRecordUpdatePo,String staffNo);
 
     //新建扣款申请
-    ComResponse<Integer> insertDeductRecord(DeductProcessDTO deductProcessDTO);
+    ComResponse<Integer> insertDeductRecord(DeductProcessDTO deductProcessDTO,String staffNo);
     //根据员工工号或姓名查询员工信息
     ComResponse<DeductStaffInfoDto> selectstaff(String noOrName);
 
 
     //修改执行状态
-    ComResponse<Integer> updateExecuteState(DeductRecordStateUpdatePo deductRecordStateUpdatePo);
+    ComResponse<Integer> updateExecuteState(DeductRecordStateUpdatePo deductRecordStateUpdatePo,String staffNo);
 
     //查询扣款详情
-    ComResponse<ApproveDeductDto> queryById(Integer id);
+    ComResponse<ApproveDeductDto> queryById(String appNo);
 
 }

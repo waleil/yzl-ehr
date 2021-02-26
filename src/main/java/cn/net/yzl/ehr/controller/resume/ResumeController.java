@@ -134,19 +134,26 @@ public class ResumeController {
         return resumeFeginService.delBatchResume(resumeIds);
     }
 
-    @ApiOperation(value = "简历列表-推送(待筛选或筛选未通过或简历库)", notes = "简历列表-推送(待筛选或筛选未通过或简历库)", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "简历列表-批量/单个推送(简历库)", notes = "简历列表-批量推送(简历库)", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/sendTo", method = RequestMethod.POST)
-    ComResponse<String> sendTo( @RequestBody @Validated ResumeDepartStaffVO resumeDepartStaffVO) throws IllegalAccessException {
-        resumeDepartStaffVO= StaffBeanUtils.setNullValue(resumeDepartStaffVO);
-
-        return resumeFeginService.sendTo(resumeDepartStaffVO);
+    ComResponse<String> sendToBeatch( @RequestBody  List<ResumeDepartStaffVO> resumeDepartStaffVOList) throws IllegalAccessException {
+        return resumeFeginService.sendToBeatch(resumeDepartStaffVOList);
     }
-    @ApiOperation(value = "简历列表-批量发送(待筛选或简历库)", notes = "简历列表-批量发送(待筛选或简历库)", consumes = MediaType.APPLICATION_JSON_VALUE)
+//    @ApiOperation(value = "简历列表-推送(待筛选或筛选未通过或简历库)", notes = "简历列表-推送(待筛选或筛选未通过或简历库)", consumes = MediaType.APPLICATION_JSON_VALUE)
+//    @RequestMapping(value = "/sendTo", method = RequestMethod.POST)
+//    ComResponse<String> sendTo( @RequestBody @Validated ResumeDepartStaffVO resumeDepartStaffVO) throws IllegalAccessException {
+//        resumeDepartStaffVO= StaffBeanUtils.setNullValue(resumeDepartStaffVO);
+//
+//        return resumeFeginService.sendTo(resumeDepartStaffVO);
+//    }
+
+
+    @ApiOperation(value = "简历列表-批量发送(待筛选)", notes = "简历列表-批量发送(待筛选)", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/sendToBatchDepart", method = RequestMethod.POST)
     ComResponse<String> sendToBatchDepart( @RequestBody @NotEmpty List<Integer> resumeIds, @ApiIgnore @CurrentStaffNo String staffNo) throws IllegalAccessException {
         return resumeFeginService.sendToBatchDepart(resumeIds,staffNo);
     }
-    @ApiOperation(value = "简历列表-单个发给部门(待筛选或简历库)", notes = "简历列表-单个发给部门(待筛选或简历库)", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "简历列表-单个发给部门(待筛选)", notes = "简历列表-单个发给部门(待筛选)", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/sendToDepart", method = RequestMethod.GET)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "resumeId", value = "简历id", required = true, dataType = "Integer", paramType = "query")
