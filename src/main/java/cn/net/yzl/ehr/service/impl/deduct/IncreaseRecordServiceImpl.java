@@ -43,8 +43,8 @@ public class IncreaseRecordServiceImpl implements IncreaseRecordService {
     }
 
     @Override
-    public ComResponse<Integer> insertIncreaseRecord(IncreaseRecordInsertPo increaseRecordInsertPo) {
-        ComResponse<Integer> result = increaseRecordFeginService.insertIncreaseRecord(increaseRecordInsertPo);
+    public ComResponse<Integer> insertIncreaseRecord(IncreaseRecordPo increaseRecordPo) {
+        ComResponse<Integer> result = increaseRecordFeginService.insertIncreaseRecord(increaseRecordPo);
         if (result == null) {
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(), ResponseCodeEnums.API_ERROR_CODE.getMessage());
         } else if (result.getCode() == 200 && result.getData() < 1) {
