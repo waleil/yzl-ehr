@@ -62,11 +62,15 @@ public class DeductRecordController {
     ComResponse<ApproveDeductDto> queryById(@RequestParam ("id") String appNo) {
         return deductReocrdService.queryById(appNo);
     }
-    @ApiOperation(value = "催审", notes = "催审",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+   /* @ApiOperation(value = "催审", notes = "催审",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/examine", method = RequestMethod.POST)
-    ComResponse examine(@RequestBody MsgTemplateVo msgTemplateVo){
-        return ymsgInfoService.sendSysMsgInfo(msgTemplateVo);
+    ComResponse examine(@RequestBody MsgTemplateVo msgTemplateVo,@CurrentStaffNo @ApiIgnore String staffNo){
+        MsgTemplateVo templateVo = new MsgTemplateVo();
+        templateVo.setCode("EHR0002");
+        templateVo.setCreator(staffNo);
+        templateVo.setType();
+        return ymsgInfoService.sendSysMsgInfo(templateVo);
 
-    }
+    }*/
 
 }
