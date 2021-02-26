@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Repository
-//@FeignClient(value = "staff",url = "${fegin.db.url}")
-@FeignClient(name = "yzl-staff-db")
+@FeignClient(value = "staff",url = "${fegin.db.url}")
+//@FeignClient(name = "yzl-staff-db")
 public interface DeductRecordFeginService {
 
     @ApiOperation(value = "查询扣款列表信息", notes = "查询扣款列表信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
@@ -39,7 +39,7 @@ public interface DeductRecordFeginService {
     ComResponse<Integer> insertDeductRecord(@RequestBody DeductProcessDTO deductProcessDTO);
 
     @ApiOperation(value = "根据员工工号或姓名查询员工信息", notes = "根据员工工号或姓名查询员工信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @RequestMapping(value = "/deductRecord/selectstaff", method = RequestMethod.POST)
+    @RequestMapping(value = "/deductRecord/selectstaff", method = RequestMethod.GET)
     ComResponse<DeductStaffInfoDto> selectstaff(@RequestParam("noOrName")String noOrName);
 
     @ApiOperation(value = "修改执行流程", notes = "修改执行流程",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)

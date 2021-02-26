@@ -40,7 +40,7 @@ public class IncreaseRecordController {
     }
 
     @ApiOperation(value = "取消奖金", notes = "取消奖金",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @RequestMapping(value = "/updateStateById", method = RequestMethod.POST)
+    @RequestMapping(value = "/updateStateById", method = RequestMethod.GET)
     ComResponse<Integer> updateStateById(@RequestParam("id")Integer id){
         return increaseRecordService.updateStateById(id);
     }

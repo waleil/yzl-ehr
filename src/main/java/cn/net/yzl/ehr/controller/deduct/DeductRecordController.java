@@ -41,7 +41,7 @@ public class DeductRecordController {
     }
 
     @ApiOperation(value = "根据员工工号或姓名查询员工信息", notes = "根据员工工号或姓名查询员工信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @RequestMapping(value = "/selectstaff", method = RequestMethod.POST)
+    @RequestMapping(value = "/selectstaff", method = RequestMethod.GET)
     ComResponse<DeductStaffInfoDto> selectstaff(@RequestParam("noOrName")String noOrName){
         return deductReocrdService.selectstaff(noOrName);
     }
