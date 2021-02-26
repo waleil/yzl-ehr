@@ -2,10 +2,12 @@ package cn.net.yzl.ehr.controller.deduct;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
+import cn.net.yzl.ehr.fegin.process.ProcessConfigFeignService;
 import cn.net.yzl.ehr.service.deduct.DeductItemService;
 import cn.net.yzl.ehr.service.deduct.DeductReocrdService;
 import cn.net.yzl.msg.model.vo.MsgTemplateVo;
 import cn.net.yzl.msg.service.YMsgInfoService;
+import cn.net.yzl.staff.dto.StaffLevelDto;
 import cn.net.yzl.staff.dto.deduct.*;
 import cn.net.yzl.staff.pojo.deduct.*;
 import io.swagger.annotations.Api;
@@ -16,6 +18,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import java.util.Calendar;
 import java.util.List;
 
 @RestController
@@ -25,6 +28,8 @@ public class DeductRecordController {
     @Autowired
     private DeductReocrdService deductReocrdService;
 
+    @Autowired
+    private ProcessConfigFeignService processConfigFeignService;
     @Autowired
     private YMsgInfoService ymsgInfoService;
 
@@ -62,15 +67,30 @@ public class DeductRecordController {
     ComResponse<ApproveDeductDto> queryById(@RequestParam ("id") String appNo) {
         return deductReocrdService.queryById(appNo);
     }
-   /* @ApiOperation(value = "催审", notes = "催审",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "催审", notes = "催审",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/examine", method = RequestMethod.POST)
     ComResponse examine(@RequestBody MsgTemplateVo msgTemplateVo,@CurrentStaffNo @ApiIgnore String staffNo){
+        ComResponse<List<StaffLevelDto>> staffLevelByStaffNo = processConfigFeignService.getStaffLevelByStaffNo(staffNo, 1);
+        List<StaffLevelDto> data = staffLevelByStaffNo.getData();
+        if(null == data){
+            return ComResponse.fail(500,"没有上级");
+        }
         MsgTemplateVo templateVo = new MsgTemplateVo();
         templateVo.setCode("EHR0002");
         templateVo.setCreator(staffNo);
-        templateVo.setType();
+        templateVo.setUserCode(data.get(0).getStaffNo());
+        templateVo.setSystemCode(2);
+        Calendar calendar = Calendar.getInstance();
+        Integer year = calendar.get(Calendar.YEAR);
+        Integer month = (calendar.get(Calendar.MONTH)) + 1;
+        Integer day = calendar.get(Calendar.DAY_OF_MONTH);
+        Integer hour = calendar.get(Calendar.HOUR_OF_DAY);
+        Integer minute = calendar.get(Calendar.MINUTE);
+        Integer second = calendar.get(Calendar.SECOND);
+        String[] str = {data.get(0).getStaffNo(),year.toString(),month.toString(),day.toString(),hour.toString(),minute.toString(),second.toString()};
+        templateVo.setParams(str);
         return ymsgInfoService.sendSysMsgInfo(templateVo);
 
-    }*/
+    }
 
 }
