@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Repository
-@FeignClient(value = "staff",url = "${fegin.db.url}")
-//@FeignClient(name = "yzl-staff-db")
+//@FeignClient(value = "staff",url = "${fegin.db.url}")
+@FeignClient(name = "yzl-staff-db")
 public interface IncreaseRecordFeginService {
 
     @ApiOperation(value = "查询奖金列表信息", notes = "查询奖金列表信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
@@ -39,15 +39,15 @@ public interface IncreaseRecordFeginService {
 
     @ApiOperation(value = "删除信息",notes = "删除信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/increaseRecord/deleteById",method = RequestMethod.GET)
-    ComResponse<Integer> deleteById(@RequestParam("id")  Integer id,@RequestParam("updator") String updator);
+    ComResponse<Integer> deleteById(@RequestParam("id")  Integer id ,String staffNo);
 
     @ApiOperation(value = "启用", notes = "启用",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/increaseRecord/updateIncreaseStateById", method = RequestMethod.POST)
     ComResponse<Integer> updateIncreaseStateById(@RequestParam("id")Integer id);
 
     @ApiOperation(value = "修改执行状态", notes = "修改执行状态",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @RequestMapping(value = "/updateExecuteState", method = RequestMethod.POST)
-    ComResponse<Integer> updateExecuteState(IncreaseRecordPo increaseRecordPo);
+    @RequestMapping(value = "/increaseRecord/updateExecuteState", method = RequestMethod.POST)
+    ComResponse<Integer> updateExecuteState(@RequestBody IncreaseRecordPo increaseRecordPo);
 
 
 }

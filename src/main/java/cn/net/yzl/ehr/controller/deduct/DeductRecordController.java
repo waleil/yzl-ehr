@@ -59,8 +59,8 @@ public class DeductRecordController {
     }
     @ApiOperation(value = "查询扣款列表详情", notes = "查询扣款列表详情",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/queryById", method = RequestMethod.GET)
-    ComResponse<ApproveDeductDto> queryById(@RequestParam ("id") Integer id) {
-        return deductReocrdService.queryById(id);
+    ComResponse<ApproveDeductDto> queryById(@RequestParam ("id") String appNo) {
+        return deductReocrdService.queryById(appNo);
     }
     @ApiOperation(value = "催审", notes = "催审",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/examine", method = RequestMethod.POST)

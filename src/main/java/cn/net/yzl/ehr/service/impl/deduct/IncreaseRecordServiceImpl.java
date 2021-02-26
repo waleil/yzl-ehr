@@ -85,8 +85,8 @@ public class IncreaseRecordServiceImpl implements IncreaseRecordService {
     }
 
     @Override
-    public ComResponse<Integer> deleteById(Integer id, String updator) {
-        ComResponse<Integer> result =  increaseRecordFeginService.deleteById(id,updator);
+    public ComResponse<Integer> deleteById(Integer id ,String staffNo) {
+        ComResponse<Integer> result =  increaseRecordFeginService.deleteById(id,staffNo);
         if (result==null){
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
         }
