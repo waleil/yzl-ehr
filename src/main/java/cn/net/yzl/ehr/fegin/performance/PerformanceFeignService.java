@@ -104,4 +104,10 @@ public interface PerformanceFeignService {
      */
     @RequestMapping(value = "/isLeader", method = RequestMethod.GET)
     ComResponse<Boolean> isLeader(@RequestParam("staffNo") String staffNo);
+
+    /**
+     * 职能管理-绩效考核-查询绩效信息
+     */
+    @RequestMapping(value = "/queryRaterPerformanceByNo", method = RequestMethod.GET)
+    ComResponse<PerformanceDto> queryRaterPerformanceByNo(@SpringQueryMap PerformanceVo performanceVo);
 }
