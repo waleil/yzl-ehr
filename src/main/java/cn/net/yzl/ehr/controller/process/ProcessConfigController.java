@@ -24,7 +24,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/process")
-@Api(value = "人事管理-审批流程配置",tags = {"审批流程配置"})
+@Api(value = "人事管理-审批流程配置",tags = {"人事管理-审批流程配置"})
 public class ProcessConfigController {
 
     @Autowired
