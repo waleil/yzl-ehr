@@ -34,7 +34,7 @@ public interface IncreaseRecordFeginService {
     ComResponse<Integer> insertIncreaseRecord(@RequestBody IncreaseRecordInsertPo increaseRecordInsertPo);
 
     @ApiOperation(value = "取消奖金", notes = "取消奖金",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @RequestMapping(value = "/increaseRecord/updateStateById", method = RequestMethod.POST)
+    @RequestMapping(value = "/increaseRecord/updateStateById", method = RequestMethod.GET)
     ComResponse<Integer> updateStateById(@RequestParam("id")Integer id);
 
     @ApiOperation(value = "删除信息",notes = "删除信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
