@@ -92,4 +92,10 @@ public class IncreaseRecordServiceImpl implements IncreaseRecordService {
         }
         return ComResponse.success();
     }
+
+    @Override
+    public ComResponse<Integer> updateExecuteState(IncreaseRecordPo increaseRecordPo) {
+        ComResponse<Integer> result = increaseRecordFeginService.updateExecuteState(increaseRecordPo);
+        return result;
+    }
 }

@@ -24,4 +24,7 @@ public interface IncreaseRecordService {
     ComResponse<Integer> updateIncreaseStateById(Integer id);
     //删除
     ComResponse<Integer> deleteById(Integer id, String updator);
+
+    //修改执行状态
+    ComResponse<Integer>  updateExecuteState(IncreaseRecordPo increaseRecordPo);
 }

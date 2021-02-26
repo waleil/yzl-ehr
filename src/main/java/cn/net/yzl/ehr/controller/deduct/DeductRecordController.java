@@ -3,9 +3,7 @@ package cn.net.yzl.ehr.controller.deduct;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.service.deduct.DeductItemService;
 import cn.net.yzl.ehr.service.deduct.DeductReocrdService;
-import cn.net.yzl.staff.dto.deduct.DeductItemDto;
-import cn.net.yzl.staff.dto.deduct.DeductRecordDto;
-import cn.net.yzl.staff.dto.deduct.DeductStaffInfoDto;
+import cn.net.yzl.staff.dto.deduct.*;
 import cn.net.yzl.staff.pojo.deduct.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -38,14 +36,24 @@ public class DeductRecordController {
 
     @ApiOperation(value = "新建扣款申请", notes = "新建扣款申请",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/insertDeductRecord", method = RequestMethod.POST)
-    ComResponse<Integer> insertDeductRecord(@RequestBody DeductRecordInsertPo deductRecordInsertPo){
-        return deductReocrdService.insertDeductRecord(deductRecordInsertPo);
+    ComResponse<Integer> insertDeductRecord(@RequestBody DeductProcessDTO deductProcessDTO){
+        return deductReocrdService.insertDeductRecord(deductProcessDTO);
     }
 
     @ApiOperation(value = "根据员工工号或姓名查询员工信息", notes = "根据员工工号或姓名查询员工信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/selectstaff", method = RequestMethod.POST)
     ComResponse<DeductStaffInfoDto> selectstaff(@RequestParam("noOrName")String noOrName){
         return deductReocrdService.selectstaff(noOrName);
+    }
+    @ApiOperation(value = "修改执行流程", notes = "修改执行流程",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/updateExecuteState", method = RequestMethod.POST)
+    ComResponse<Integer> updateExecuteState(@RequestBody DeductRecordStateUpdatePo deductRecordStateUpdatePo){
+        return deductReocrdService.updateExecuteState(deductRecordStateUpdatePo);
+    }
+    @ApiOperation(value = "查询扣款列表详情", notes = "查询扣款列表详情",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/queryById", method = RequestMethod.GET)
+    ComResponse<ApproveDeductDto> queryById(@RequestParam ("id") Integer id) {
+        return deductReocrdService.queryById(id);
     }
 
 }

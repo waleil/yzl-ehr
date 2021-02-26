@@ -54,6 +54,6 @@ public interface FindApproveService {
      * @return
      */
     @GetMapping("v1/findCopyApproveInfo")
-    @ApiOperation(value = "我的流程抄送我的撤销功能")
+    @ApiOperation(value = "我的流程抄送我的功能")
     ComResponse<Page<ApproveInfoListDTO>> findCopyApproveInfo(ApproveQueryDTO approveQueryDTO);
 }

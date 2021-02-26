@@ -42,7 +42,7 @@ public class personApproveController {
 
         return findApproveService.getMyProcessInfoList(approveQueryDTO);
     }
-    @GetMapping("v1/getApproveInfoList")
+    @PostMapping("v1/getApproveInfoList")
     @ApiOperation(value = "我的流程审批页详情显示")
     public ComResponse<ApproveInfoDTO> getApproveInfoList(@RequestBody @Validated ApprovePostInfoDTO approvePostInfoDTO) {
 

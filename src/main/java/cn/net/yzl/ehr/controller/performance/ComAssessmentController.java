@@ -63,7 +63,7 @@ public class ComAssessmentController {
         return comAssessmentFeginService.getPerforProConfDepartTree(staffNo,time);
 
     }
-
+    @ApiOperation(value = "提成考核-根据部门id获取考核信息", notes = "提成考核-根据部门id获取考核信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/getStaffArchievementsByDepartId", method = RequestMethod.GET)
     ComResponse<List<StaffArchiveDto>> getStaffArchievementsByDepartId(@RequestParam(name = "departId") Integer departId,
                                                                        @RequestParam(name = "time") String time) throws ParseException {
