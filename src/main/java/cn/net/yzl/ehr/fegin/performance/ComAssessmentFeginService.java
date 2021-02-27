@@ -36,7 +36,7 @@ public interface ComAssessmentFeginService {
     ComResponse<BiStaffTargetTaskVO> getBiStaffTargetTaskSettingList(@RequestParam(name = "undertakStaffCode") String undertakStaffCode,
                                                                      @RequestParam(name = "taskCycleTime") String taskCycleTime,
                                                                      @RequestParam(name = "isPerformance", required = false) Integer isPerformance,
-                                                                     @RequestParam(name = "isPerformance") String staffNo);
+                                                                     @RequestParam(name = "staffNo") String staffNo);
 
     @RequestMapping(value = "/getPerforProConfDepartTree", method = RequestMethod.GET)
     ComResponse<PerforProConfDepartTreeDto> getPerforProConfDepartTree(@RequestParam("staffNo") String staffNo,
