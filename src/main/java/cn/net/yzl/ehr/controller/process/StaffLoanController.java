@@ -7,6 +7,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,7 +26,7 @@ public class StaffLoanController {
 
     @ApiOperation(value = "保存借款流程数据",notes = "保存借款流程数据")
     @PostMapping("v1/insertStaffLoan")
-    public ComResponse<Integer> insertStaffLoan(StaffLoanVo staffLoanVo){
+    public ComResponse<Integer> insertStaffLoan(@RequestBody StaffLoanVo staffLoanVo){
         return staffLoanFeignService.insertStaffLoan(staffLoanVo);
     }
 }
