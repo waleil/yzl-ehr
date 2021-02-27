@@ -6,6 +6,7 @@ import cn.net.yzl.staff.dto.performance.MyPerformanceDto;
 import cn.net.yzl.staff.dto.performance.PerformanceApproveCountDto;
 import cn.net.yzl.staff.dto.performance.PerformanceDto;
 import cn.net.yzl.staff.dto.performance.PerformanceRaterDto;
+import cn.net.yzl.staff.dto.performance.RaterLeaderDto;
 import cn.net.yzl.staff.dto.performance.RaterPerformanceOrgDto;
 import cn.net.yzl.staff.vo.performance.PerformanceApproveVo;
 import cn.net.yzl.staff.vo.performance.PerformanceCreateVo;
@@ -110,4 +111,10 @@ public interface PerformanceFeignService {
      */
     @RequestMapping(value = "/queryRaterPerformanceByNo", method = RequestMethod.GET)
     ComResponse<MyPerformanceDto> queryRaterPerformanceByNo(@SpringQueryMap PerformanceVo performanceVo);
+
+    /**
+     * 是否负责人
+     */
+    @RequestMapping(value = "/isRaterLeader", method = RequestMethod.GET)
+    ComResponse<RaterLeaderDto> isRaterLeader(@RequestParam("staffNo") String staffNo);
 }
