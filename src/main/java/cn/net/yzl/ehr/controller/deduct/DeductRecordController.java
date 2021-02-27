@@ -69,7 +69,7 @@ public class DeductRecordController {
     }
     @ApiOperation(value = "催审", notes = "催审",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/examine", method = RequestMethod.POST)
-    ComResponse examine(@RequestBody MsgTemplateVo msgTemplateVo,@CurrentStaffNo @ApiIgnore String staffNo){
+    ComResponse examine(@CurrentStaffNo @ApiIgnore String staffNo){
         ComResponse<List<StaffLevelDto>> staffLevelByStaffNo = processConfigFeignService.getStaffLevelByStaffNo(staffNo, 1);
         List<StaffLevelDto> data = staffLevelByStaffNo.getData();
         if(null == data){

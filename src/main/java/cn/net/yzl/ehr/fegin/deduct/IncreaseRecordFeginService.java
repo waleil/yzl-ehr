@@ -26,7 +26,7 @@ public interface IncreaseRecordFeginService {
 
 
     @ApiOperation(value = "查询奖金详情信息", notes = "查询奖金详情信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @RequestMapping(value = "/increaseRecord/selectone", method = RequestMethod.POST)
+    @RequestMapping(value = "/increaseRecord/selectone", method = RequestMethod.GET)
     ComResponse<IncreaseRecordDto> selectone(@RequestParam("id")Integer id);
 
     @ApiOperation(value = "添加奖金记录", notes = "添加奖金记录",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
@@ -39,7 +39,7 @@ public interface IncreaseRecordFeginService {
 
     @ApiOperation(value = "删除信息",notes = "删除信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/increaseRecord/deleteById",method = RequestMethod.GET)
-    ComResponse<Integer> deleteById(@RequestParam("id")  Integer id ,String staffNo);
+    ComResponse<Integer> deleteById(@RequestParam("id")  Integer id ,@RequestParam("updator") String staffNo);
 
     @ApiOperation(value = "启用", notes = "启用",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/increaseRecord/updateIncreaseStateById", method = RequestMethod.POST)
