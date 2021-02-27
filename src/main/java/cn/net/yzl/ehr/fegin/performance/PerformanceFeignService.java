@@ -109,5 +109,5 @@ public interface PerformanceFeignService {
      * 职能管理-绩效考核-查询绩效信息
      */
     @RequestMapping(value = "/queryRaterPerformanceByNo", method = RequestMethod.GET)
-    ComResponse<PerformanceDto> queryRaterPerformanceByNo(@SpringQueryMap PerformanceVo performanceVo);
+    ComResponse<MyPerformanceDto> queryRaterPerformanceByNo(@SpringQueryMap PerformanceVo performanceVo);
 }

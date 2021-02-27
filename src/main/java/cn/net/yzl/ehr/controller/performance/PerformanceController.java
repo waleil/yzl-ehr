@@ -112,7 +112,7 @@ public class PerformanceController {
     })
     @ApiOperation(value = "职能管理-绩效考核-查询绩效信息", notes = "职能管理-绩效考核-查询绩效信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/queryRaterPerformanceByNo", method = RequestMethod.GET)
-    public ComResponse<PerformanceDto> queryRaterPerformanceByNo(@RequestParam("performanceNo") Long performanceNo, @ApiIgnore @CurrentStaffNo String staffNo) {
+    public ComResponse<MyPerformanceDto> queryRaterPerformanceByNo(@RequestParam("performanceNo") Long performanceNo, @ApiIgnore @CurrentStaffNo String staffNo) {
         return performanceFeignService.queryRaterPerformanceByNo(new PerformanceVo(performanceNo, staffNo));
     }
 
