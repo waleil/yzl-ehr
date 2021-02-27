@@ -30,7 +30,7 @@ public interface FindProcessNodeService {
     @ApiOperation(value = "保存请假信息")
     ComResponse<Boolean> saveProcessLeaveInfo(@RequestBody @Valid ApproveLeaveDTO approveLeaveDTO);
 
-    @PostMapping("v1/getLeaveNumInfo")
+    @GetMapping("v1/getLeaveNumInfo")
     @ApiOperation(value = "获得年假信息")
     ComResponse<ApproveLeaveDayDTO> getLeaveNumInfo(@RequestParam("departId") Integer departId,
                                                            @RequestParam("sysDictDataId") Integer sysDictDataId,

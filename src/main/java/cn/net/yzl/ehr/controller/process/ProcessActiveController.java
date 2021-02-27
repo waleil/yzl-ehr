@@ -49,7 +49,7 @@ public class ProcessActiveController {
         return findProcessNodeService.saveProcessLeaveInfo(approveLeaveDTO);
     }
 
-    @PostMapping("v1/getLeaveNumInfo")
+    @GetMapping("v1/getLeaveNumInfo")
     @ApiOperation(value = "获得年假信息")
     public ComResponse<ApproveLeaveDayDTO> getLeaveNumInfo(@RequestParam @NotNull Integer departId,
                                                            @RequestParam @NotNull Integer sysDictDataId,
