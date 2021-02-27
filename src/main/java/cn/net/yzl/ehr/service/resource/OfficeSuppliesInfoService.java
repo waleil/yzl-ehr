@@ -23,5 +23,8 @@ public interface OfficeSuppliesInfoService {
 
     ComResponse<List<OfficeTypeDto>> selectList ();
 
+    //根据类型查物品信息
+    ComResponse<List<OfficeSuppliesInfoDto>> queryByTypeId (Integer typeId);
+
 
 }

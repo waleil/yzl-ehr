@@ -82,8 +82,8 @@ public class TrainingCourseController {
 
     @ApiOperation(value = "培训课程编辑", notes = "培训编辑")
     @PostMapping("editTrainInfo")
-    public ComResponse editTrainInfo(@RequestBody TrainInfoAllDto trainInfoAllDto) {
-        return trainingCourseClient.editTrainInfo(trainInfoAllDto);
+    public ComResponse editTrainInfo(@RequestBody TrainInfoAllVO trainInfoAllVO) {
+        return trainingCourseClient.editTrainInfo(trainInfoAllVO);
     }
 
     @ApiOperation(value = "培训课程查询", notes = "培训课程查询")

@@ -74,4 +74,11 @@ public class OfficeSuppliesInfoController {
         return officeSuppliesInfoService.selectList();
     }
 
+    @ApiOperation(value = "办公物品管理-查询类型下的物品", notes = "办公物品管理-查询类型下的物品", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/queryByTypeId", method = RequestMethod.GET)
+    ComResponse<List<OfficeSuppliesInfoDto>> queryByTypeId(Integer typeId) {
+        return officeSuppliesInfoService.queryByTypeId(typeId);
+    }
+
+
 }
