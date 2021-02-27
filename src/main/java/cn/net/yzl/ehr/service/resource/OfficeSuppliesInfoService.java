@@ -4,6 +4,7 @@ import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.staff.dto.office.OfficeSuppliesInfoDto;
 import cn.net.yzl.staff.dto.office.OfficeTypeDto;
 import cn.net.yzl.staff.pojo.office.OfficeSuppliesInfoInsertPo;
+import cn.net.yzl.staff.pojo.office.OfficeSuppliesInfoScreenPo;
 import cn.net.yzl.staff.pojo.office.OfficeSuppliesInfoUpdatePo;
 import cn.net.yzl.staff.pojo.office.OfficeSuppliesTypePo;
 

@@ -8,10 +8,7 @@ import cn.net.yzl.ehr.service.resource.OfficeSuppliesRecordService;
 import cn.net.yzl.staff.dto.office.OfficeSuppliesInfoDto;
 import cn.net.yzl.staff.dto.office.OfficeSuppliesRecordDto;
 import cn.net.yzl.staff.dto.office.OfficeTypeDto;
-import cn.net.yzl.staff.pojo.office.OfficeSuppliesInfoInsertPo;
-import cn.net.yzl.staff.pojo.office.OfficeSuppliesInfoScreenPo;
-import cn.net.yzl.staff.pojo.office.OfficeSuppliesInfoUpdatePo;
-import cn.net.yzl.staff.pojo.office.OfficeSuppliesTypePo;
+import cn.net.yzl.staff.pojo.office.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,6 +75,12 @@ public class OfficeSuppliesInfoController {
     @RequestMapping(value = "/queryByTypeId", method = RequestMethod.GET)
     ComResponse<List<OfficeSuppliesInfoDto>> queryByTypeId(Integer typeId) {
         return officeSuppliesInfoService.queryByTypeId(typeId);
+    }
+
+    @ApiOperation(value = "办公物品管理-添加领用记录", notes = "办公物品管理-添加领用记录", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/insertSelective", method = RequestMethod.POST)
+    ComResponse<Integer> insertSelective(@RequestBody OfficeSuppliesRecordInsertPo screenPo) {
+        return officeSuppliesRecordService.insertSelective(screenPo);
     }
 
 
