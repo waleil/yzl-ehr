@@ -57,5 +57,10 @@ public class OfficeSuppliesInfoServiceImpl implements OfficeSuppliesInfoService 
         return officeSuppliesInfoFeginService.selectList();
     }
 
+    @Override
+    public ComResponse<List<OfficeSuppliesInfoDto>> queryByTypeId(Integer typeId) {
+        return  officeSuppliesInfoFeginService.queryByTypeId(typeId);
+    }
+
 
 }

@@ -6,6 +6,7 @@ import cn.net.yzl.staff.dto.performance.MyPerformanceDto;
 import cn.net.yzl.staff.dto.performance.PerformanceApproveCountDto;
 import cn.net.yzl.staff.dto.performance.PerformanceDto;
 import cn.net.yzl.staff.dto.performance.PerformanceRaterDto;
+import cn.net.yzl.staff.dto.performance.RaterLeaderDto;
 import cn.net.yzl.staff.dto.performance.RaterPerformanceOrgDto;
 import cn.net.yzl.staff.vo.performance.PerformanceApproveVo;
 import cn.net.yzl.staff.vo.performance.PerformanceCreateVo;
@@ -109,5 +110,11 @@ public interface PerformanceFeignService {
      * 职能管理-绩效考核-查询绩效信息
      */
     @RequestMapping(value = "/queryRaterPerformanceByNo", method = RequestMethod.GET)
-    ComResponse<PerformanceDto> queryRaterPerformanceByNo(@SpringQueryMap PerformanceVo performanceVo);
+    ComResponse<MyPerformanceDto> queryRaterPerformanceByNo(@SpringQueryMap PerformanceVo performanceVo);
+
+    /**
+     * 是否负责人
+     */
+    @RequestMapping(value = "/isRaterLeader", method = RequestMethod.GET)
+    ComResponse<RaterLeaderDto> isRaterLeader(@RequestParam("staffNo") String staffNo);
 }
