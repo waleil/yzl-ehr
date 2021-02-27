@@ -58,6 +58,17 @@ public class RecruitSourceServiceImpl implements RecruitSourceService {
     }
 
     @Override
+    public ComResponse<List<RecruitSourceDto>> queryAll() {
+        ComResponse<List<RecruitSourceDto>> result = sourceFeginService.queryAll();
+        if (result==null){
+            return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
+        }else if (result.getCode()==200 && result.getData()==null){
+            return ComResponse.fail(ResponseCodeEnums.NO_DATA_CODE.getCode(),ResponseCodeEnums.NO_DATA_CODE.getMessage());
+        }
+        return result;
+    }
+
+    @Override
     public ComResponse<Integer> addRecruit(RecruitSourceInsertPo insertPo,String staffNo) {
         insertPo.setCreator(staffNo);
         ComResponse<Integer> result = sourceFeginService.addRecruit(insertPo);

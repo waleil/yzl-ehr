@@ -24,7 +24,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/process")
-@Api(value = "人事管理-审批流程配置",tags = {"审批流程配置"})
+@Api(value = "人事管理-审批流程配置",tags = {"人事管理-审批流程配置"})
 public class ProcessConfigController {
 
     @Autowired
@@ -50,8 +50,8 @@ public class ProcessConfigController {
 
     @ApiOperation(value = "审批流程配置启用",notes = "审批流程配置启用",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/config/enable", method = RequestMethod.POST)
-    ComResponse<Integer> enableProcessConfig (@RequestParam("id") Integer id,@CurrentStaffNo @ApiIgnore String staffNo){
-        return processConfigService.enableProcessConfig(id,staffNo);
+    ComResponse<Integer> enableProcessConfig (@RequestParam("id") Integer id,@RequestParam("processItemId") Integer processItemId,@CurrentStaffNo @ApiIgnore String staffNo){
+        return processConfigService.enableProcessConfig(id,processItemId,staffNo);
     }
 
 

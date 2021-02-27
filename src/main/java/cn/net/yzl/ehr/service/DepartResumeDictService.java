@@ -8,8 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
-@FeignClient(value = "post",url = "${fegin.db.url}")
+//@Repository
+//@FeignClient(value = "departResumeDict",url = "${fegin.db.url}")
 //@FeignClient(name = "yzl-staff-db")
 public interface DepartResumeDictService {
 

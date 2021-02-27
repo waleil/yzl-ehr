@@ -4,12 +4,15 @@ package cn.net.yzl.ehr.fegin.salaryRule;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.staff.dto.salaryRule.PerformanceProportionConfigurationListDto;
+import cn.net.yzl.staff.pojo.salaryRule.PerformanceProportionConfigurationPo;
 import cn.net.yzl.staff.vo.salaryRule.PerformanceProportionConfigurationDelVo;
 import cn.net.yzl.staff.vo.salaryRule.PerformanceProportionConfigurationListVo;
 import cn.net.yzl.staff.vo.salaryRule.PerformanceProportionConfigurationSaveVo;
 import cn.net.yzl.staff.vo.salaryRule.PerformanceProportionConfigurationUpdateVo;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 /**
@@ -17,7 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
  * @Date 2021/2/4
  * @Description
  */
-@FeignClient(value = "PerformanceProportionConfigurationFeginService",url = "${fegin.db.url}/performanceProportionConfiguration")
+@FeignClient(value = "PerformanceProportionConfigurationFeginService", url = "${fegin.db.url}/performanceProportionConfiguration")
 //@FeignClient(value = "PerformanceProportionConfigurationFeginService",url = "http://localhost:38080/performanceProportionConfiguration")
 public interface PerformanceProportionConfigurationFeginService {
 
@@ -36,4 +39,8 @@ public interface PerformanceProportionConfigurationFeginService {
     //删除
     @PostMapping("/del")
     ComResponse<Boolean> del(PerformanceProportionConfigurationDelVo request);
+
+    // 详情
+    @GetMapping("/show")
+    ComResponse<PerformanceProportionConfigurationPo> show(@RequestParam("departId") Integer departId);
 }

@@ -43,8 +43,8 @@ public class IncreaseRecordServiceImpl implements IncreaseRecordService {
     }
 
     @Override
-    public ComResponse<Integer> insertIncreaseRecord(IncreaseRecordInsertPo increaseRecordInsertPo) {
-        ComResponse<Integer> result = increaseRecordFeginService.insertIncreaseRecord(increaseRecordInsertPo);
+    public ComResponse<Integer> insertIncreaseRecord(IncreaseRecordPo increaseRecordPo) {
+        ComResponse<Integer> result = increaseRecordFeginService.insertIncreaseRecord(increaseRecordPo);
         if (result == null) {
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(), ResponseCodeEnums.API_ERROR_CODE.getMessage());
         } else if (result.getCode() == 200 && result.getData() < 1) {
@@ -67,6 +67,35 @@ public class IncreaseRecordServiceImpl implements IncreaseRecordService {
         if (result.getData() > 0) {
             return ComResponse.success();
         }
+        return result;
+    }
+
+    @Override
+    public ComResponse<Integer> updateIncreaseStateById(Integer id) {
+        ComResponse<Integer> result = increaseRecordFeginService.updateIncreaseStateById(id);
+        if (result == null) {
+            return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(), ResponseCodeEnums.API_ERROR_CODE.getMessage());
+        } else if (result.getCode() == 200 && result.getData() < 1) {
+            return ComResponse.fail(ResponseCodeEnums.SAVE_DATA_ERROR_CODE.getCode(), ResponseCodeEnums.SAVE_DATA_ERROR_CODE.getMessage());
+        }
+        if (result.getData() > 0) {
+            return ComResponse.success();
+        }
+        return result;
+    }
+
+    @Override
+    public ComResponse<Integer> deleteById(Integer id ,String staffNo) {
+        ComResponse<Integer> result =  increaseRecordFeginService.deleteById(id,staffNo);
+        if (result==null){
+            return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
+        }
+        return ComResponse.success();
+    }
+
+    @Override
+    public ComResponse<Integer> updateExecuteState(IncreaseRecordPo increaseRecordPo) {
+        ComResponse<Integer> result = increaseRecordFeginService.updateExecuteState(increaseRecordPo);
         return result;
     }
 }

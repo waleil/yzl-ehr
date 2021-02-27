@@ -1,6 +1,8 @@
 package cn.net.yzl.ehr.fegin;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.common.entity.Page;
+import cn.net.yzl.staff.dto.train.CoursewareDto;
 import cn.net.yzl.staff.dto.train.TrainInfoAllDto;
 import cn.net.yzl.staff.pojo.train.*;
 import cn.net.yzl.staff.vo.train.SignInputScore;
@@ -40,7 +42,7 @@ public interface TrainingCourseClient {
     ComResponse editTrainInfo(@RequestBody TrainInfoAllDto trainInfoAllDto);
 
     @GetMapping("/listCourse")
-    ComResponse<List<TrainingCourseDetailPo>> list(
+    ComResponse<Page<TrainingCourseDetailPo>> list(
             @ApiParam(value = "商品名称") @RequestParam(value = "courseName", required = false) String courseName,
             @ApiParam(value = "培训方式，0线上 1线下") @RequestParam(value = "online", required = false) Integer online,
             @ApiParam(value = "是否考试 0否 1是") @RequestParam(value = "exam", required = false) Integer exam,
@@ -87,4 +89,10 @@ public interface TrainingCourseClient {
 
     @GetMapping("/getPartner")
     ComResponse<List<Map<String,Object>>> getPartner(@RequestParam("type") String type);
+
+    @GetMapping("/listCoursewareDto")
+    ComResponse<Page<CoursewareDto>> listCoursewareDto(@RequestParam("name") String name, @RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize);
+
+    @GetMapping("/productList")
+    ComResponse productList(@RequestParam("name") String name,@RequestParam("pageNo")  Integer pageNo,@RequestParam("pageSize")  Integer pageSize);
 }

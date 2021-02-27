@@ -3,9 +3,10 @@ package cn.net.yzl.ehr.fegin.staff;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.dto.StaffAbnorRecordListDto;
-import cn.net.yzl.ehr.dto.StaffTrainDto;
+
 import cn.net.yzl.ehr.pojo.StaffAbnorRecordPo;
 import cn.net.yzl.ehr.pojo.StaffSwitchStatePo;
+import cn.net.yzl.staff.dto.StaffTrainDto;
 import cn.net.yzl.staff.pojo.AbnorRecordPo;
 import cn.net.yzl.staff.pojo.RunAbnorRecordPo;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -21,7 +22,7 @@ import java.util.List;
 
 @Repository
 //@FeignClient(name = "yzl-staff-db")
-@FeignClient(value = "staff",url = "${fegin.db.url}")
+@FeignClient(value = "staffAbnor",url = "${fegin.db.url}")
 public interface StaffAbnorFeginService {
 
     @RequestMapping(value = "/abnor/updateStaffChangeStatus", method = RequestMethod.POST)

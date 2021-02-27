@@ -24,13 +24,13 @@ public class StaffContartListDto {
     @ApiModelProperty(value = "试用期时长（月）", name = "probationMonths")
     private Double probationMonths;
     @ApiModelProperty(value = "薪资", name = "salary")
-    private Double salary;
+    private Integer salary;
     @ApiModelProperty(value = "月数（xx薪）", name = "months")
     private Integer months;
     @ApiModelProperty(value = "季度奖金", name = "quarterlyBonus")
-    private Double quarterlyBonus;
+    private Integer quarterlyBonus;
     @ApiModelProperty(value = "年度奖金", name = "annualBonus")
-    private Double annualBonus;
+    private Integer annualBonus;
     @ApiModelProperty(value = "试用期薪资比例", name = "probationSalary")
     private Double probationSalary;
     @ApiModelProperty(value = "合同到期时间是否不超过一个月（0:否，1:是）", name = "add_status")

@@ -1,14 +1,13 @@
 package cn.net.yzl.ehr.service.ultrcrm;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.model.vo.MemberVo;
-
-import java.util.List;
 
 public interface UltrMemberService {
 
     // 调用Cti服务,获取组的成员
-    List<MemberVo> findUltrMemberList(String groupId, Integer groupType);
+    Page<MemberVo> findUltrMemberList(String groupId, Integer groupType, Integer page, Integer size, String memberName, String memberNo);
 
     // 调用Cti服务,获取指定成员
     MemberVo findUltrMember(String memberId);

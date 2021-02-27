@@ -15,8 +15,16 @@ public interface IncreaseRecordService {
     ComResponse<IncreaseRecordDto> selectone(Integer id);
 
     //添加奖金记录
-    ComResponse<Integer> insertIncreaseRecord(IncreaseRecordInsertPo increaseRecordInsertPo);
+    ComResponse<Integer> insertIncreaseRecord(IncreaseRecordPo increaseRecordPo);
 
     //取消奖金
     ComResponse<Integer> updateStateById(Integer id);
+
+    //启用
+    ComResponse<Integer> updateIncreaseStateById(Integer id);
+    //删除
+    ComResponse<Integer> deleteById(Integer id,String staffNo);
+
+    //修改执行状态
+    ComResponse<Integer>  updateExecuteState(IncreaseRecordPo increaseRecordPo);
 }

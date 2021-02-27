@@ -23,4 +23,6 @@ public interface GroupFeignService {
     @RequestMapping(value = "/cti/buss/delGroup", method = RequestMethod.GET)
     ComResponse<Boolean> delGroup(@RequestParam("groupIds")String groupIds,@RequestParam("groupType")Integer groupType);
 
+    @RequestMapping(value = "/cti/buss/updateGroup", method = RequestMethod.GET)
+    ComResponse<Boolean> updateUltrGroup(@RequestParam(value = "groupId") String groupId,@RequestParam(value = "groupType") Integer groupType,@RequestParam(value = "groupName") String groupName);
 }

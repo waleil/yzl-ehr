@@ -4,6 +4,7 @@ import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.processActiveService.FindProcessNodeService;
 import cn.net.yzl.ehr.util.FastDFSClientWrapper;
+import cn.net.yzl.staff.dto.personApprove.ApproveLeaveDTO;
 import cn.net.yzl.staff.dto.processNode.ProcessNodeDTO;
 import cn.net.yzl.staff.dto.processNode.StaffLeaveDTO;
 
@@ -23,7 +24,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/processActive")
-@Api(tags = "流程相关操作")
+@Api(tags = "发起流程")
 public class ProcessActiveController {
     @Autowired
     private FindProcessNodeService findProcessNodeService;
@@ -32,7 +33,7 @@ public class ProcessActiveController {
     private FastDFSClientWrapper client;
 
     @GetMapping("v1/findProcessInfoList")
-    @ApiOperation(value = "获取流程展示信息")
+    @ApiOperation(value = "获取流程每个节点信息")
     public ComResponse<List<ProcessNodeDTO>> findProcessInfoList(@RequestParam @NotNull Integer processId,
                                                                  @RequestParam @NotNull @CurrentStaffNo String staffNo) {
 
@@ -41,21 +42,11 @@ public class ProcessActiveController {
 
     @PostMapping("v1/saveProcessLeaveInfo")
     @ApiOperation(value = "保存请假信息")
-    public ComResponse<Boolean> saveProcessLeaveInfo(@RequestBody @Valid StaffLeaveDTO staffLeaveDTO) {
+    public ComResponse<Boolean> saveProcessLeaveInfo(@RequestBody @Valid ApproveLeaveDTO approveLeaveDTO) {
 
-        return findProcessNodeService.saveProcessLeaveInfo(staffLeaveDTO);
+        return findProcessNodeService.saveProcessLeaveInfo(approveLeaveDTO);
     }
 
-    @PostMapping("v1/upfile")
-    @ApiOperation(value = "上传文件信息")
-    public String upFile(@RequestParam @Null MultipartFile file) throws IOException {
-        String url ="";
-        if(StringUtils.isNotBlank(file.getOriginalFilename())){
-            url=client.uploadFile(file);
-        }
-
-        return url;
-    }
 
 
 }

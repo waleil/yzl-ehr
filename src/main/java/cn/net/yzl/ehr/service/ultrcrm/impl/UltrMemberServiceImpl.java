@@ -1,14 +1,13 @@
 package cn.net.yzl.ehr.service.ultrcrm.impl;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.common.entity.Page;
+import cn.net.yzl.common.entity.PageParam;
 import cn.net.yzl.ehr.fegin.ultrcrm.MemberFeignService;
 import cn.net.yzl.ehr.service.ultrcrm.UltrMemberService;
 import cn.net.yzl.model.vo.MemberVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class UltrMemberServiceImpl implements UltrMemberService {
@@ -20,17 +19,33 @@ public class UltrMemberServiceImpl implements UltrMemberService {
      * 调用Cti服务,获取组的成员
      * @param groupId 组id
      * @param groupType 组类型 0:ACD组 1:业务组
+     * @param page 页码
+     * @param size 每页条数
+     * @param memberName 姓名
+     * @param memberNo 工号
      * @return
      */
     @Override
-    public List<MemberVo> findUltrMemberList(String groupId, Integer groupType) {
-        ComResponse<List<MemberVo>> comResponse = memberFeignService.queryGroupMembers(groupId, groupType);
-        if (null != comResponse && null != comResponse.getData()) {
-            return comResponse.getData();
+    public Page<MemberVo> findUltrMemberList(String groupId, Integer groupType, Integer page, Integer size, String memberName, String memberNo) {
+        ComResponse<Page<MemberVo>> pageComResponse = memberFeignService.queryGroupMembers(groupId, groupType, page, size, memberName, memberNo);
+        if (null != pageComResponse && null != pageComResponse.getData()) {
+            return pageComResponse.getData();
         }
-        return new ArrayList<>();
+        PageParam pageParam = new PageParam();
+        pageParam.setPageNo(page);
+        pageParam.setPageSize(size);
+        pageParam.setPageTotal(0);
+        pageParam.setTotalCount(0);
+        Page<MemberVo> pageNull = new Page<>();
+        pageNull.setPageParam(pageParam);
+        return pageNull;
     }
 
+    /**
+     * 通过工号获取员工信息
+     * @param memberId 工号
+     * @return
+     */
     @Override
     public MemberVo findUltrMember(String memberId) {
         ComResponse<MemberVo> memberVoComResponse = memberFeignService.queryMember(memberId);

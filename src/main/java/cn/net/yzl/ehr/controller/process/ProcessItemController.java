@@ -99,4 +99,10 @@ public class ProcessItemController {
         return processItemService.processItemDisplayByUser(staffNo);
     }
 
+    @ApiOperation(value = "根据流程项目code查询流程信息",notes = "根据流程项目code查询流程信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/config/info", method = RequestMethod.GET)
+    ComResponse<ProcessItemDto> selectProcessByItemCode (@RequestParam("code") String code){
+        return processItemService.selectProcessByItemCode(code);
+    }
+
 }
