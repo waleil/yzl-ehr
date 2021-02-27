@@ -5,6 +5,7 @@ import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.processActiveService.FindProcessNodeService;
 import cn.net.yzl.ehr.util.FastDFSClientWrapper;
 import cn.net.yzl.staff.dto.personApprove.ApproveLeaveDTO;
+import cn.net.yzl.staff.dto.personApprove.ApproveLeaveDayDTO;
 import cn.net.yzl.staff.dto.processNode.ProcessNodeDTO;
 import cn.net.yzl.staff.dto.processNode.StaffLeaveDTO;
 
@@ -15,6 +16,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -47,6 +49,13 @@ public class ProcessActiveController {
         return findProcessNodeService.saveProcessLeaveInfo(approveLeaveDTO);
     }
 
+    @PostMapping("v1/getLeaveNumInfo")
+    @ApiOperation(value = "获得年假信息")
+    public ComResponse<ApproveLeaveDayDTO> getLeaveNumInfo(@RequestParam @NotNull Integer departId,
+                                                           @RequestParam @NotNull Integer sysDictDataId,
+                                                           @CurrentStaffNo @ApiIgnore String staffNo) {
 
+        return findProcessNodeService.getLeaveNumInfo(departId,sysDictDataId,staffNo);
+    }
 
 }
