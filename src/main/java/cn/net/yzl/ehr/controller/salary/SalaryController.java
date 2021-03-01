@@ -21,6 +21,7 @@ import springfox.documentation.annotations.ApiIgnore;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.List;
 
 /**
@@ -164,7 +165,8 @@ public class SalaryController {
         //response为HttpServletResponse对象
         response.setContentType("application/vnd.ms-excel;charset=utf-8");
         //test.xls是弹出下载对话框的文件名，不能为中文，中文请自行编码
-        response.setHeader("Content-Disposition", "attachment;filename=" + new String((fileName + ".xlsx").getBytes(), "iso-8859-1"));
+        //response.setHeader("Content-Disposition", "attachment;filename=" + new String((fileName + ".xlsx").getBytes(), "iso-8859-1"));
+        response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName+ ".xlsx","UTF-8"));
         ServletOutputStream out = response.getOutputStream();
         writer.flush(out, true);
         // 关闭writer，释放内存
