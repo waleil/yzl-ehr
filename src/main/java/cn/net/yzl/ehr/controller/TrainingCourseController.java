@@ -140,7 +140,7 @@ public class TrainingCourseController {
             @ApiParam(value = "课程id")@RequestParam(value = "id")Integer id,
             @ApiParam(value = "分页参数:页码")@RequestParam(value = "pageNum",defaultValue = "0") Integer pageNum,
             @ApiParam(value = "分页参数:每页数量")@RequestParam(value = "pageSize",defaultValue = "10") Integer pageSize){
-        return trainingCourseClient.findSign(id,name,departCode,partner,workplace,postId,enterStatus,pageNum,pageSize);
+        return trainingCourseClient.findSign(name,departCode,partner,workplace,postId,enterStatus,id,pageNum,pageSize);
     }
 
     @ApiOperation(value = "培训员工签到",notes = "培训员工签到")
