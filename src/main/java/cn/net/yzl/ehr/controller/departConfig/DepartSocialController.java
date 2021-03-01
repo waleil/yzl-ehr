@@ -26,6 +26,7 @@ public class DepartSocialController {
     @Autowired
     private DepartSocialService departSocialService;
 
+
     @ApiOperation(value = "新增社保", notes = "新增社保", consumes = MediaType.APPLICATION_JSON_VALUE)
     @PostMapping("insertDepartSocial")
     public ComResponse insertDepartSocial(@RequestBody DepartSocialVo departSocialVo) {
@@ -118,4 +119,13 @@ public class DepartSocialController {
     }
 
 
+
+    @ApiOperation(value = "根据部门岗位id获取社保信息", notes = "根据部门岗位id获取社保信息")
+    @RequestMapping(value = "/getSocialItemsNameByDepartPostId", method = RequestMethod.GET)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "departPostId", value = "部门岗位id", required = true, dataType = "Int", paramType = "query")
+    })
+    public ComResponse<String> getSocialItemsNameByDepartPostId(@RequestParam Integer departPostId) {
+        return departSocialService.getSocialItemsNameByDepartPostId(departPostId);
+    }
 }
