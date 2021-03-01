@@ -65,4 +65,10 @@ public interface PerformanceRemindFeignService {
      */
     @RequestMapping(value = "/updateApproveRemind", method = RequestMethod.POST)
     ComResponse<Integer> updateApproveRemind(@RequestBody PerformanceApproveRemindDto approveRemindDto);
+
+    /**
+     * 发送绩效提醒(每小时执行一次)
+     */
+    @RequestMapping(value = "/sendPerformanceRemind", method = RequestMethod.GET)
+    ComResponse<Boolean> sendPerformanceRemind();
 }

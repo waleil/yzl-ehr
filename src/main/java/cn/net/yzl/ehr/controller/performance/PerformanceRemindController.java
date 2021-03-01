@@ -91,4 +91,10 @@ public class PerformanceRemindController {
         return performanceRemindFeignService.updateApproveRemind(approveRemindDto);
     }
 
+    @ApiOperation(value = "发送绩效提醒(每小时执行一次)", notes = "发送绩效提醒(每小时执行一次)", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/sendPerformanceRemind", method = RequestMethod.GET)
+    public ComResponse<Boolean> sendPerformanceRemind() {
+        return performanceRemindFeignService.sendPerformanceRemind();
+    }
+
 }
