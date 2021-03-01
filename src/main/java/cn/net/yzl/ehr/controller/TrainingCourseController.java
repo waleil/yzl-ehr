@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -185,5 +186,11 @@ public class TrainingCourseController {
     @GetMapping(value = "productList")
     public ComResponse productList(@ApiParam(value = "编码或名称")@RequestParam(value = "name")String name,@ApiParam(value = "分页页数")@RequestParam(value = "pageNo",defaultValue = "0")Integer pageNo,@ApiParam(value = "分页条数")@RequestParam(value = "pageSize",defaultValue = "10")Integer pageSize){
         return trainingCourseClient.productList(name,pageNo,pageSize);
+    }
+
+    @ApiModelProperty(value = "查询入岗时间",notes = "查询入岗时间")
+    @GetMapping("queryDateBycourseid")
+    public  ComResponse<Date> queryDateBycourseid(@ApiParam(value = "课程id") @RequestParam("courseId")Integer courseId){
+        return trainingCourseClient.queryDateBycourseid(courseId);
     }
 }

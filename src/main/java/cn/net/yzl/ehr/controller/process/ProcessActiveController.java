@@ -4,6 +4,7 @@ import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.processActiveService.FindProcessNodeService;
 import cn.net.yzl.ehr.util.FastDFSClientWrapper;
+import cn.net.yzl.ehr.util.MessageRemandAPI;
 import cn.net.yzl.staff.dto.personApprove.ApproveLeaveDTO;
 import cn.net.yzl.staff.dto.personApprove.ApproveLeaveDayDTO;
 import cn.net.yzl.staff.dto.processNode.ProcessNodeDTO;
@@ -45,8 +46,11 @@ public class ProcessActiveController {
     @PostMapping("v1/saveProcessLeaveInfo")
     @ApiOperation(value = "保存请假信息")
     public ComResponse<Boolean> saveProcessLeaveInfo(@RequestBody @Valid ApproveLeaveDTO approveLeaveDTO) {
-
-        return findProcessNodeService.saveProcessLeaveInfo(approveLeaveDTO);
+        ComResponse<Boolean> flag = findProcessNodeService.saveProcessLeaveInfo(approveLeaveDTO);
+        if (flag.getCode().equals(200)){
+            MessageRemandAPI.examine(approveLeaveDTO.getStaffLeaveDTO().getStaffNo());
+        }
+        return ComResponse.success();
     }
 
     @GetMapping("v1/getLeaveNumInfo")
