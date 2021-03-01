@@ -3,6 +3,7 @@ package cn.net.yzl.ehr.fegin.performance;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.staff.dto.performance.PerformanceApproveRemindDto;
+import cn.net.yzl.staff.dto.performance.PerformanceRemindDepartDto;
 import cn.net.yzl.staff.dto.performance.PerformanceRemindDto;
 import cn.net.yzl.staff.pojo.performance.PerformanceRemindPo;
 import cn.net.yzl.staff.vo.performance.PerformanceNoVo;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 /**
  * 职能部门-考评填报提醒服务
@@ -70,5 +73,5 @@ public interface PerformanceRemindFeignService {
      * 发送绩效提醒(每小时执行一次)
      */
     @RequestMapping(value = "/sendPerformanceRemind", method = RequestMethod.GET)
-    ComResponse<Boolean> sendPerformanceRemind();
+    ComResponse<List<PerformanceRemindDepartDto>> sendPerformanceRemind();
 }
