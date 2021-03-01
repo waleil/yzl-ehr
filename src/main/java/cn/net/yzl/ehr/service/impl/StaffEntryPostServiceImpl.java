@@ -10,9 +10,11 @@ import cn.net.yzl.ehr.pojo.*;
 import cn.net.yzl.ehr.service.StaffEduService;
 import cn.net.yzl.ehr.service.StaffEntryPostService;
 import cn.net.yzl.ehr.service.StaffFamilyService;
+import cn.net.yzl.staff.pojo.StaffEntryPostConfirmPo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.util.List;
 
 @Service
@@ -23,8 +25,8 @@ public class StaffEntryPostServiceImpl implements StaffEntryPostService {
 
 
     @Override
-    public ComResponse<Integer> insert(String staffNo) {
-        ComResponse<Integer> result =  staffEntryPostFeginService.insert(staffNo);
+    public ComResponse<Integer> insert(StaffEntryPostConfirmPo confirmPo) throws ParseException {
+        ComResponse<Integer> result =  staffEntryPostFeginService.insert(confirmPo);
         if (result==null){
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
         }
