@@ -87,7 +87,8 @@ public class DeductRecordController {
         Integer hour = calendar.get(Calendar.HOUR_OF_DAY);
         Integer minute = calendar.get(Calendar.MINUTE);
         Integer second = calendar.get(Calendar.SECOND);
-        String[] str = {data.get(0).getStaffNo(),year.toString(),month.toString(),day.toString(),hour.toString(),minute.toString(),second.toString()};
+        String s = year.toString()+"年"+month.toString()+"月"+day.toString()+"日"+hour.toString()+"时"+minute.toString()+"分"+second.toString()+"秒";
+        String[] str = {data.get(0).getStaffNo(),s};
         templateVo.setParams(str);
         return ymsgInfoService.sendSysMsgInfo(templateVo);
 
