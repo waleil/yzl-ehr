@@ -93,6 +93,12 @@ public class StaffController {
         return staffService.swtichStaffTalentPoolAccount(staffSwitchTalentPoolPo,staffNo);
     }
 
+    @ApiOperation(value = "批量将员工加入/移出人才池", notes = "批量将员工加入/移出人才池")
+    @RequestMapping(value = "/swtichBatchStaffTalentPoolAccount", method = RequestMethod.POST)
+    ComResponse<Integer> swtichBatchStaffTalentPoolAccount(@RequestBody List<StaffSwitchTalentPoolPo> staffSwitchTalentPoolPos,@ApiIgnore @CurrentStaffNo String staffNo){
+        return staffService.swtichBatchStaffTalentPoolAccount(staffSwitchTalentPoolPos,staffNo);
+    }
+
     @ApiOperation(value = "停用/启用员工账号", notes = "停用/启用员工账号")
     @RequestMapping(value = "/switchAccount", method = RequestMethod.POST)
     ComResponse<Integer> switchAccount(@RequestBody StaffSwitchStatePo staffSwitchStatePo,@ApiIgnore @CurrentStaffNo String staffNo){

@@ -183,6 +183,18 @@
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
 
+        <!-- 公共订单服务 -->
+        <dependency>
+            <groupId>cn.net.yzl.order</groupId>
+            <artifactId>yzl-order-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-data-mongodb</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
     </dependencies>
 
 
