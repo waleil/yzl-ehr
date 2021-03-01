@@ -22,8 +22,10 @@ import java.util.List;
 public interface StaffEntryPostFeginService {
 
 
-    @ApiOperation(value = "员工入岗",notes = "员工入岗",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/entrypost/insert",method = RequestMethod.POST,consumes = "application/json")
     ComResponse<Integer> insert(@RequestBody @Validated StaffEntryPostConfirmPo confirmPo) throws ParseException;
+
+    @RequestMapping(value = "/entrypost/updateAutomaticEntryDays",method = RequestMethod.GET)
+    ComResponse<Integer> updateAutomaticEntryDays(@RequestParam("days") Integer days,@RequestParam("staffNo") String staffNo);
 
 }

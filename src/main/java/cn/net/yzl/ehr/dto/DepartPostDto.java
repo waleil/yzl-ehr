@@ -64,8 +64,10 @@ public class DepartPostDto implements Serializable {
 
     @ApiModelProperty(value = "层级",hidden = true)
     private Integer level;
+
     @ApiModelProperty("任务id")
     private Integer recruitedTaskId;
+
     private static final long serialVersionUID = 1L;
 
 
