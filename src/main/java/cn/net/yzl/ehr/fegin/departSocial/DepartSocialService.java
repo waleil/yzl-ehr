@@ -71,5 +71,5 @@ public interface DepartSocialService {
 
     @ApiOperation(value = "根据部门岗位id获取社保信息", notes = "根据部门岗位id获取社保信息")
     @RequestMapping(value = "/getSocialItemsNameByDepartPostId", method = RequestMethod.GET)
-    public ComResponse<String> getSocialItemsNameByDepartPostId(@RequestParam Integer departPostId);
+    public ComResponse<String> getSocialItemsNameByDepartPostId(@RequestParam("departPostId") Integer departPostId);
 }
