@@ -17,7 +17,7 @@ import java.text.ParseException;
 
 @RestController
 @RequestMapping("/staff/entrypost")
-@Api(value = "员工入岗", tags = {"员工档案"})
+@Api(value = "人事管理", tags = {"人事管理"})
 public class StaffEntryPostController {
     @Autowired
     private StaffEntryPostService staffEntryPostService;
@@ -29,7 +29,7 @@ public class StaffEntryPostController {
     }
 
 
-    @ApiOperation(value = "更改自动入岗时间",notes = "更改自动入岗时间",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "员工入岗-更改自动入岗时间",notes = "更改自动入岗时间",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/entrypost/updateAutomaticEntryDays",method = RequestMethod.GET)
     ComResponse<Integer> updateAutomaticEntryDays(@RequestParam("days") Integer days, @CurrentStaffNo @ApiIgnore String staffNo){
         ComResponse<Integer> result =  staffEntryPostService.updateAutomaticEntryDays(days,staffNo);
