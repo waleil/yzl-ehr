@@ -154,10 +154,12 @@ public class TrainingCourseController {
     public ComResponse staffCourseGrade(@RequestBody @Validated List<SignInputScore> list) {
         return trainingCourseClient.staffCourseGrade(list);
     }
+
+    /*@ApiOperation(value = "",notes = "")
     @PostMapping("staffSign")
     public ComResponse staffSign(@RequestBody List<TrainStaffSignPo> list){
         return trainingCourseClient.staffSign(list);
-    }
+    }*/
 
     //@ApiOperation(value = "录入成绩",notes = )
 
@@ -189,7 +191,7 @@ public class TrainingCourseController {
         return trainingCourseClient.productList(name,pageNo,pageSize);
     }
 
-    @ApiModelProperty(value = "查询入岗时间",notes = "查询入岗时间")
+    @ApiOperation(value = "查询入岗时间",notes = "查询入岗时间")
     @GetMapping("queryDateBycourseid")
     public  ComResponse<Date> queryDateBycourseid(@ApiParam(value = "课程id") @RequestParam("courseId")Integer courseId){
         return trainingCourseClient.queryDateBycourseid(courseId);
