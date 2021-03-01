@@ -164,7 +164,7 @@ public class TrainingCourseController {
 
     @ApiOperation(value = "培训员工合格入岗",notes = "培训员工合格入岗")
     @PostMapping("staffEntryPost")
-    public ComResponse<Integer> staffEntryPost(TrainStaffRelationPo trainStaffRelationPo){
+    public ComResponse<Integer> staffEntryPost(@RequestBody TrainStaffRelationPo trainStaffRelationPo){
         return  trainingCourseClient.staffEntryPost(trainStaffRelationPo);
     }
 
