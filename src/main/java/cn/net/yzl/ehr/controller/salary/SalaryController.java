@@ -174,10 +174,10 @@ public class SalaryController {
         //response为HttpServletResponse对象
         response.setContentType("application/vnd.ms-excel;charset=utf-8");
         //test.xls是弹出下载对话框的文件名，不能为中文，中文请自行编码
-        fileName += ".xls";
-        response.setHeader("Content-Disposition", "attachment;filename=" + fileName + ";filename*=utf-8''" + URLEncoder.encode(fileName, "UTF-8"));
+        response.setHeader("Content-Disposition", "attachment; filename="+ URLEncoder.encode(fileName, "UTF-8")+".xls");
         ServletOutputStream out = response.getOutputStream();
-        writer.flush(out, true);
+        writer.autoSizeColumnAll();
+        writer.flush(out);
         // 关闭writer，释放内存
         writer.close();
         //此处记得关闭输出Servlet流
