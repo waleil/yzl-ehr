@@ -29,6 +29,9 @@ public interface ProcessItemService {
     //根据审批类型id查询
     ComResponse<List<ProcessItemDto>> selectProcessItem(Integer id);
 
+    //查询审批项目
+    ComResponse<List<ProcessItemDto>> selectProcessItemAll();
+
     //根据审批项目id查询
     ComResponse<ProcessItemDto> selectProcessItemDetail(Integer id);
 
