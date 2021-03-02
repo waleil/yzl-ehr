@@ -64,7 +64,7 @@ public class personApproveController {
 
     }
 
-    @GetMapping("v1/findCopyApproveInfo")
+    @PostMapping("v1/findCopyApproveInfo")
     @ApiOperation(value = "我的流程抄送我的撤销功能")
     public ComResponse<Page<ApproveInfoListDTO>> findCopyApproveInfo(@RequestBody ApproveQueryDTO approveQueryDTO) {
 
