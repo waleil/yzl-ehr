@@ -11,9 +11,7 @@ import cn.net.yzl.ehr.pojo.StaffWorkUpdatePo;
 import cn.net.yzl.staff.dto.parking.ParkingApplyDto;
 import cn.net.yzl.staff.dto.parking.ParkingRecoverDto;
 import cn.net.yzl.staff.dto.parking.ParkingVehicleDto;
-import cn.net.yzl.staff.pojo.parking.ParkingRecoverInsertPo;
-import cn.net.yzl.staff.pojo.parking.ParkingSetPo;
-import cn.net.yzl.staff.pojo.parking.ParkingVehicleListPo;
+import cn.net.yzl.staff.pojo.parking.*;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
@@ -23,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import springfox.documentation.annotations.ApiIgnore;
+
+import java.util.List;
 
 @Repository
 //@FeignClient(name = "yzl-staff-db")
@@ -63,7 +63,11 @@ public interface ParkingVehicleFeginService {
     ComResponse  selectStatisticalList();
 
     @ApiOperation(value = "入司车辆管理-定时扫描车辆入司停放",notes = "入司车辆管理-定时扫描车辆入司停放",consumes = MediaType.APPLICATION_JSON_VALUE)
-    @RequestMapping(value = "/timerUpdate", method = RequestMethod.POST)
-    ComResponse  timerUpdate();
+    @RequestMapping(value = "/parking/timerUpdate", method = RequestMethod.POST)
+    ComResponse<List<ParkingVehicleUpdatePo>>  timerUpdate();
+
+    @ApiOperation(value = "入司车辆管理-查询申请人信息",notes = "入司车辆管理-查询申请人信息",consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/parking/queryById", method = RequestMethod.POST)
+    ComResponse<ParkingVehiclePo> queryById(@RequestParam("id") Integer id);
 
 }
