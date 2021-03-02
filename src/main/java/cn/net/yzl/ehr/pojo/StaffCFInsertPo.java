@@ -20,14 +20,14 @@ public class StaffCFInsertPo {
     @NotBlank
     private String staffNo;
 
-    @ApiModelProperty(value = "合同开始时间", name = "endTime")
+    @ApiModelProperty(value = "合同开始时间", name = "startDate")
     @JsonFormat(pattern="yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull
     private Date startDate;
 
     @ApiModelProperty(value = "合同束时间", name = "endDate")
-    @JsonFormat(pattern = "yyyy-MM-DD")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull
     private Date endDate;
