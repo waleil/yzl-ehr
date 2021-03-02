@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.controller;
 
 
+import cn.hutool.core.util.StrUtil;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
@@ -11,6 +12,9 @@ import cn.net.yzl.ehr.pojo.StaffSwitchStatePo;
 import cn.net.yzl.ehr.pojo.StaffSwitchTalentPoolPo;
 import cn.net.yzl.ehr.service.StaffService;
 import cn.net.yzl.ehr.vo.StaffParamsVO;
+import cn.net.yzl.pm.entity.UserRole;
+import cn.net.yzl.pm.model.dto.UserRoleDTO;
+import cn.net.yzl.pm.service.UserRoleService;
 import cn.net.yzl.staff.dto.StaffDetailsDto;
 import cn.net.yzl.staff.dto.StaffInfoDto;
 import cn.net.yzl.staff.dto.StatisticalStaffDto;
@@ -25,6 +29,7 @@ import springfox.documentation.annotations.ApiIgnore;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -117,9 +122,30 @@ public class StaffController {
         return staffFeginService.update(staffInfoUpdateVO);
     }
 
+    @Autowired
+    private UserRoleService userRoleService;
     @ApiOperation(value = "员工基本信息-保存", notes = "员工基本信息-保存")
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     ComResponse<StaffDetailsDto> save(@RequestBody @Validated StaffInfoSaveVO staffInfoSaveVO) throws ParseException {
+        ComResponse<StaffDetailsDto> save = staffFeginService.save(staffInfoSaveVO);
+        if(save.getCode()==200){
+            // 添加角色
+            String roleIds = staffInfoSaveVO.getRoleIds();
+            if(StrUtil.isNotBlank(roleIds)){
+                String staffNo = staffInfoSaveVO.getStaffNo();
+                List<UserRole> userRoles = new ArrayList<>();
+                for (String s : roleIds.split(",")) {
+                    UserRole userRole = new UserRole();
+                    userRole.setUserCode(staffNo);
+                    userRole.setRoleId(Integer.parseInt(s));
+                userRoles.add(userRole);
+                }
+                UserRoleDTO userRoleDTO = new UserRoleDTO();
+                userRoleDTO.setUserRoleList(userRoles);
+                userRoleService.createUserRoleInfoList(userRoleDTO);
+            }
+
+        }
         return staffFeginService.save(staffInfoSaveVO);
     }
 
