@@ -55,7 +55,7 @@ public class PerformanceController {
     })
     @ApiOperation(value = "职能管理-绩效填报-查询周期列表", notes = "职能管理-绩效填报-查询周期列表", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/queryFillTimes", method = RequestMethod.GET)
-    public ComResponse<List<String>> queryFillTimes(@ApiIgnore @CurrentStaffNo String staffNo, @RequestParam("departId") Integer departId) {
+    public ComResponse<List<String>> queryFillTimes(@ApiIgnore @CurrentStaffNo String staffNo, @RequestParam(value = "departId", required = false) Integer departId) {
         return performanceFeignService.queryFillTimes(staffNo, departId);
     }
 

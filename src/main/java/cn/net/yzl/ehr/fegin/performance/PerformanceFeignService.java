@@ -37,7 +37,7 @@ public interface PerformanceFeignService {
      * 职能管理-填报绩效-周期列表
      */
     @RequestMapping(value = "/queryFillTimes", method = RequestMethod.GET)
-    ComResponse<List<String>> queryFillTimes(@RequestParam("staffNo") String staffNo, @RequestParam("departId") Integer departId);
+    ComResponse<List<String>> queryFillTimes(@RequestParam("staffNo") String staffNo, @RequestParam(value = "departId", required = false) Integer departId);
 
     /**
      * 职能管理-填报绩效-组织架构
