@@ -69,7 +69,7 @@ public class DeductRecordController {
     }
     @ApiOperation(value = "催审", notes = "催审",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/examine", method = RequestMethod.POST)
-    ComResponse examine(@RequestBody MsgTemplateVo msgTemplateVo,@CurrentStaffNo @ApiIgnore String staffNo){
+    ComResponse examine(@CurrentStaffNo @ApiIgnore String staffNo){
         ComResponse<List<StaffLevelDto>> staffLevelByStaffNo = processConfigFeignService.getStaffLevelByStaffNo(staffNo, 1);
         List<StaffLevelDto> data = staffLevelByStaffNo.getData();
         if(null == data){
@@ -87,7 +87,8 @@ public class DeductRecordController {
         Integer hour = calendar.get(Calendar.HOUR_OF_DAY);
         Integer minute = calendar.get(Calendar.MINUTE);
         Integer second = calendar.get(Calendar.SECOND);
-        String[] str = {data.get(0).getStaffNo(),year.toString(),month.toString(),day.toString(),hour.toString(),minute.toString(),second.toString()};
+        String s = year.toString()+"年"+month.toString()+"月"+day.toString()+"日"+hour.toString()+"时"+minute.toString()+"分"+second.toString()+"秒";
+        String[] str = {data.get(0).getStaffNo(),s};
         templateVo.setParams(str);
         return ymsgInfoService.sendSysMsgInfo(templateVo);
 

@@ -47,8 +47,9 @@ public class ComAssessmentController {
     @RequestMapping(value = "/getBiStaffTargetTaskSettingList", method = RequestMethod.GET)
     ComResponse<BiStaffTargetTaskVO> getBiStaffTargetTaskSettingList(@RequestParam(name = "undertakStaffCode") String undertakStaffCode,
                                                                      @RequestParam(name = "taskCycleTime") String taskCycleTime,
-                                                                     @RequestParam(name = "isPerformance",required = false) Integer isPerformance){
-        return  comAssessmentFeginService.getBiStaffTargetTaskSettingList(undertakStaffCode, taskCycleTime, isPerformance);
+                                                                     @RequestParam(name = "isPerformance",required = false) Integer isPerformance,
+                                                                     @CurrentStaffNo @ApiIgnore String staffNo){
+        return  comAssessmentFeginService.getBiStaffTargetTaskSettingList(undertakStaffCode, taskCycleTime, isPerformance,staffNo);
 
 
     }

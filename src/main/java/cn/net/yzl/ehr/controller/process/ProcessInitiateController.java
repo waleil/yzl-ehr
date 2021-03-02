@@ -19,7 +19,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
 @RequestMapping("/process")
-@Api(value = "流程发起-(外出,出差,补卡,车位,物品领用)",tags = "流程发起-(外出,出差,补卡,车位,物品领用)")
+@Api(value = "流程发起-(外出,出差,补卡,车位,物品领用,加班兑换)",tags = "流程发起-(外出,出差,补卡,车位,物品领用,加班兑换)")
 public class ProcessInitiateController {
 
     @Autowired

@@ -64,7 +64,7 @@ public class personApproveController {
 
     }
 
-    @GetMapping("v1/findCopyApproveInfo")
+    @PostMapping("v1/findCopyApproveInfo")
     @ApiOperation(value = "我的流程抄送我的撤销功能")
     public ComResponse<Page<ApproveInfoListDTO>> findCopyApproveInfo(@RequestBody ApproveQueryDTO approveQueryDTO) {
 
@@ -72,5 +72,14 @@ public class personApproveController {
         return findApproveService.findCopyApproveInfo(approveQueryDTO);
 
     }
+    @PostMapping("v1/getMystartApproveInfo")
+    @ApiOperation(value = "我的流程我发起的功能")
+    public ComResponse<Page<ApproveInfoListDTO>> getMystartApproveInfo(@RequestBody ApproveQueryDTO approveQueryDTO) {
+
+
+        return findApproveService.getMystartApproveInfo(approveQueryDTO);
+
+    }
+
 
 }

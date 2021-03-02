@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -39,7 +40,7 @@ public interface TrainingCourseClient {
     ComResponse<TrainInfoAllDto> selectTrainInfo(@RequestParam("id") Integer id);
 
     @PostMapping("/editTrainInfo")
-    ComResponse editTrainInfo(@RequestBody TrainInfoAllDto trainInfoAllDto);
+    ComResponse editTrainInfo(@RequestBody TrainInfoAllVO trainInfoAllVO);
 
     @GetMapping("/listCourse")
     ComResponse<Page<TrainingCourseDetailPo>> list(
@@ -65,13 +66,14 @@ public interface TrainingCourseClient {
     ComResponse findProduct();
 
     @GetMapping("/findSign")
-    ComResponse<List<Object>> findSign(
-            @ApiParam(value = "课程id")@RequestParam(value = "id")Integer id,
+    ComResponse<List<Object>>   findSign(
             @ApiParam(value = "员工姓名")@RequestParam(value = "name",required = false) String name,
             @ApiParam(value = "部门")@RequestParam(value = "departCode",required = false) Integer departCode,
             @ApiParam(value = "合作方")@RequestParam(value = "partner",required = false)Integer partner,
             @ApiParam(value = "职场")@RequestParam(value = "workplace",required = false) Integer workplace,
             @ApiParam(value = "岗位名称")@RequestParam(value = "postId",required = false) Integer postId,
+            @ApiParam(value = "入岗状态:180 待入岗 181 已入岗") @RequestParam(value = "enterStatus", required = false) Integer enterStatus,
+            @ApiParam(value = "课程id")@RequestParam(value = "id")Integer id,
             @ApiParam(value = "分页参数:页码")@RequestParam(value = "pageNum",defaultValue = "0") Integer pageNum,
             @ApiParam(value = "分页参数:每页数量")@RequestParam(value = "pageSize",defaultValue = "10") Integer pageSize);
 
@@ -95,4 +97,7 @@ public interface TrainingCourseClient {
 
     @GetMapping("/productList")
     ComResponse productList(@RequestParam("name") String name,@RequestParam("pageNo")  Integer pageNo,@RequestParam("pageSize")  Integer pageSize);
+
+    @GetMapping("queryDateBycourseid")
+    ComResponse<Date> queryDateBycourseid(@RequestParam("courseId") Integer courseId);
 }

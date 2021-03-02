@@ -6,10 +6,7 @@ import cn.net.yzl.ehr.dto.CourseWareCategoryDto;
 import cn.net.yzl.staff.dto.office.OfficeSuppliesInfoDto;
 import cn.net.yzl.staff.dto.office.OfficeSuppliesRecordDto;
 import cn.net.yzl.staff.dto.office.OfficeTypeDto;
-import cn.net.yzl.staff.pojo.office.OfficeSuppliesInfoInsertPo;
-import cn.net.yzl.staff.pojo.office.OfficeSuppliesInfoScreenPo;
-import cn.net.yzl.staff.pojo.office.OfficeSuppliesInfoUpdatePo;
-import cn.net.yzl.staff.pojo.office.OfficeSuppliesTypePo;
+import cn.net.yzl.staff.pojo.office.*;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
@@ -54,7 +51,15 @@ public interface OfficeSuppliesInfoFeginService {
     @RequestMapping(value = "/office/saveUpDateOffice", method = RequestMethod.POST)
     ComResponse<Integer> saveUpDateOffice(@RequestBody @Validated List<OfficeSuppliesTypePo> officeSuppliesTypePos);
 
-    @ApiOperation(value = "查询办公物品类型信息", notes = "查询办公物品类型信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "办公物品类型管理-查询办公物品类型信息", notes = "查询办公物品类型信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/office/selectList", method = RequestMethod.GET)
     ComResponse<List<OfficeTypeDto>> selectList();
+
+    @ApiOperation(value = "办公物品管理-查询类型下的物品", notes = "查询类型下的物品", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/office/queryByTypeId", method = RequestMethod.GET)
+    ComResponse<List<OfficeSuppliesInfoDto>> queryByTypeId(@RequestParam("typeId")Integer typeId);
+
+    @ApiOperation(value = "办公物品管理-添加领用记录", notes = "办公物品管理-添加领用记录", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/office/insertSelective", method = RequestMethod.POST)
+    ComResponse<Integer> insertSelective(@RequestBody OfficeSuppliesRecordInsertPo screenPo);
 }

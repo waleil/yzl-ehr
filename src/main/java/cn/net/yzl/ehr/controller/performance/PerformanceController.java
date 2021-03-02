@@ -8,6 +8,7 @@ import cn.net.yzl.staff.dto.performance.MyPerformanceDto;
 import cn.net.yzl.staff.dto.performance.PerformanceApproveCountDto;
 import cn.net.yzl.staff.dto.performance.PerformanceDto;
 import cn.net.yzl.staff.dto.performance.PerformanceRaterDto;
+import cn.net.yzl.staff.dto.performance.RaterLeaderDto;
 import cn.net.yzl.staff.dto.performance.RaterPerformanceOrgDto;
 import cn.net.yzl.staff.vo.performance.PerformanceApproveVo;
 import cn.net.yzl.staff.vo.performance.PerformanceCreateVo;
@@ -112,7 +113,7 @@ public class PerformanceController {
     })
     @ApiOperation(value = "职能管理-绩效考核-查询绩效信息", notes = "职能管理-绩效考核-查询绩效信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/queryRaterPerformanceByNo", method = RequestMethod.GET)
-    public ComResponse<PerformanceDto> queryRaterPerformanceByNo(@RequestParam("performanceNo") Long performanceNo, @ApiIgnore @CurrentStaffNo String staffNo) {
+    public ComResponse<MyPerformanceDto> queryRaterPerformanceByNo(@RequestParam("performanceNo") Long performanceNo, @ApiIgnore @CurrentStaffNo String staffNo) {
         return performanceFeignService.queryRaterPerformanceByNo(new PerformanceVo(performanceNo, staffNo));
     }
 
@@ -214,4 +215,12 @@ public class PerformanceController {
     public ComResponse<Boolean> isLeader(@ApiIgnore @CurrentStaffNo String staffNo) {
         return performanceFeignService.isLeader(staffNo);
     }
+
+
+    @ApiOperation(value = "职能管理-绩效考核-是否负责人", notes = "职能管理-绩效考核-是否负责人", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/isRaterLeader", method = RequestMethod.GET)
+    public ComResponse<RaterLeaderDto> isRaterLeader(@ApiIgnore @CurrentStaffNo String staffNo) {
+        return performanceFeignService.isRaterLeader(staffNo);
+    }
+
 }

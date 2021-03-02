@@ -6,6 +6,7 @@ import cn.net.yzl.ehr.service.resource.OfficeSuppliesInfoService;
 import cn.net.yzl.staff.dto.office.OfficeSuppliesInfoDto;
 import cn.net.yzl.staff.dto.office.OfficeTypeDto;
 import cn.net.yzl.staff.pojo.office.OfficeSuppliesInfoInsertPo;
+import cn.net.yzl.staff.pojo.office.OfficeSuppliesInfoScreenPo;
 import cn.net.yzl.staff.pojo.office.OfficeSuppliesInfoUpdatePo;
 import cn.net.yzl.staff.pojo.office.OfficeSuppliesTypePo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +57,12 @@ public class OfficeSuppliesInfoServiceImpl implements OfficeSuppliesInfoService 
     public ComResponse<List<OfficeTypeDto>> selectList() {
         return officeSuppliesInfoFeginService.selectList();
     }
+
+    @Override
+    public ComResponse<List<OfficeSuppliesInfoDto>> queryByTypeId(Integer typeId) {
+        return  officeSuppliesInfoFeginService.queryByTypeId(typeId);
+    }
+
 
 
 }
