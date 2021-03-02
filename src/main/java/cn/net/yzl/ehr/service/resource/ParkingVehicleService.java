@@ -6,9 +6,9 @@ import cn.net.yzl.staff.dto.parking.ParkingApplyDto;
 import cn.net.yzl.staff.dto.parking.ParkingConfigCountDto;
 import cn.net.yzl.staff.dto.parking.ParkingRecoverDto;
 import cn.net.yzl.staff.dto.parking.ParkingVehicleDto;
-import cn.net.yzl.staff.pojo.parking.ParkingRecoverInsertPo;
-import cn.net.yzl.staff.pojo.parking.ParkingSetPo;
-import cn.net.yzl.staff.pojo.parking.ParkingVehicleListPo;
+import cn.net.yzl.staff.pojo.parking.*;
+
+import java.util.List;
 
 public interface ParkingVehicleService {
 
@@ -34,5 +34,5 @@ public interface ParkingVehicleService {
    ComResponse selectStatisticalList();
 
    //定时扫描
-   ComResponse timerUpdate();
+   ComResponse<List<ParkingVehicleUpdatePo>> timerUpdate(String staffNo);
 }

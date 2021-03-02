@@ -9,6 +9,7 @@ import cn.net.yzl.staff.dto.personApprove.ApproveInfoListDTO;
 import cn.net.yzl.staff.dto.personApprove.ApproveProcessInfo;
 import cn.net.yzl.staff.dto.personApprove.ApproveQueryDTO;
 import cn.net.yzl.staff.dto.processNode.ApproveInfoDTO;
+import cn.net.yzl.staff.dto.processNode.ProcessAudit;
 import cn.net.yzl.staff.dto.processNode.ProcessNodeDTO;
 
 import io.swagger.annotations.Api;
@@ -65,8 +66,8 @@ public class personApproveController {
     }
 
     @PostMapping("v1/findCopyApproveInfo")
-    @ApiOperation(value = "我的流程抄送我的撤销功能")
-    public ComResponse<Page<ApproveInfoListDTO>> findCopyApproveInfo(@RequestBody ApproveQueryDTO approveQueryDTO) {
+    @ApiOperation(value = "我的流程抄送我的功能")
+    public ComResponse<Page<ProcessAudit>> findCopyApproveInfo(@RequestBody ApproveQueryDTO approveQueryDTO) {
 
 
         return findApproveService.findCopyApproveInfo(approveQueryDTO);

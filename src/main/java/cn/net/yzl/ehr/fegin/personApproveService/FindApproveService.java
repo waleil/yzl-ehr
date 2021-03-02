@@ -7,6 +7,7 @@ import cn.net.yzl.staff.dto.personApprove.ApproveInfoListDTO;
 import cn.net.yzl.staff.dto.personApprove.ApproveProcessInfo;
 import cn.net.yzl.staff.dto.personApprove.ApproveQueryDTO;
 import cn.net.yzl.staff.dto.processNode.ApproveInfoDTO;
+import cn.net.yzl.staff.dto.processNode.ProcessAudit;
 import cn.net.yzl.staff.dto.processNode.ProcessNodeDTO;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -18,8 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
-@FeignClient(name="personApprove",url="${fegin.db.url}/personApprove")
-//@FeignClient(name="personApprove",url="localhost:38080/personApprove")
+//@FeignClient(name="personApprove",url="${fegin.db.url}/personApprove")
+@FeignClient(name="personApprove",url="localhost:38080/personApprove")
 public interface FindApproveService {
     @PostMapping("v1/getApproveInfoListDTOList")
     @ApiOperation(value = "审批查询")
@@ -55,7 +56,7 @@ public interface FindApproveService {
      */
     @PostMapping("v1/findCopyApproveInfo")
     @ApiOperation(value = "我的流程抄送我的功能")
-    ComResponse<Page<ApproveInfoListDTO>> findCopyApproveInfo(ApproveQueryDTO approveQueryDTO);
+    ComResponse<Page<ProcessAudit>> findCopyApproveInfo(ApproveQueryDTO approveQueryDTO);
 
     @PostMapping("v1/getMystartApproveInfo")
     @ApiOperation(value = "我的流程我发起的功能")
