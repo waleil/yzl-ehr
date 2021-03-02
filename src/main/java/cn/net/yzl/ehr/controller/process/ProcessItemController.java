@@ -81,6 +81,12 @@ public class ProcessItemController {
         return processItemService.selectProcessItem(id);
     }
 
+    @ApiOperation(value = "审批项目查询",notes = "审批项目查询")
+    @RequestMapping(value = "/item/select/all", method = RequestMethod.GET)
+    ComResponse<List<ProcessItemDto>> selectProcessItemAll (){
+        return processItemService.selectProcessItemAll();
+    }
+
     @ApiOperation(value = "审批项目详情查询（根据审批项目id）",notes = "审批项目详情查询（根据审批项目id）",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/item/detail", method = RequestMethod.GET)
     ComResponse<ProcessItemDto> selectProcessItemDetail (@RequestParam("id") Integer id){

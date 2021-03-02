@@ -113,6 +113,11 @@ public class ProcessItemServiceImpl implements ProcessItemService {
     }
 
     @Override
+    public ComResponse<List<ProcessItemDto>> selectProcessItemAll() {
+        return processItemFeignService.selectProcessItemAll();
+    }
+
+    @Override
     public ComResponse<ProcessItemDto> selectProcessItemDetail(Integer id) {
         return processItemFeignService.selectProcessItemDetail(id);
     }
