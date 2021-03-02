@@ -32,7 +32,11 @@ public class ProcessBeginController {
     public ComResponse<Boolean> saveProcessLeaveInfo(@RequestBody @Valid ApproveInviteDTO approveInviteDTO) {
         ComResponse<Boolean> flag = saveProcessService.saveProcessInviteInfo(approveInviteDTO);
         if (flag.getCode().equals(200)){
-            MessageRemandAPI.examine(approveInviteDTO.getProcessStaffInviteDTO().getStaffNo());
+            try {
+                MessageRemandAPI.examine(approveInviteDTO.getProcessStaffInviteDTO().getStaffNo());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return ComResponse.success();
     }
@@ -41,7 +45,11 @@ public class ProcessBeginController {
     ComResponse<Boolean> savePositiveApplay (@RequestBody @Validated ApprovePostInfoListDTO approvePostInfoListDTO){
         ComResponse<Boolean> flag = saveProcessService.savePositiveApplay(approvePostInfoListDTO);
         if (flag.getCode().equals(200)){
-            MessageRemandAPI.examine(approvePostInfoListDTO.getProcessStaffPositiveDTO().getStaffNo());
+            try {
+                MessageRemandAPI.examine(approvePostInfoListDTO.getProcessStaffPositiveDTO().getStaffNo());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return ComResponse.success();
     }
@@ -50,7 +58,11 @@ public class ProcessBeginController {
     ComResponse<Boolean> saveDimissionApplay (@RequestBody @Validated ApproveDimissionInfoListDTO approveDimissionInfoListDTO){
         ComResponse<Boolean> flag = saveProcessService.saveDimissionApplay(approveDimissionInfoListDTO);
         if (flag.getCode().equals(200)){
-            MessageRemandAPI.examine(approveDimissionInfoListDTO.getProcessStaffDimissionDTO().getStaffNo());
+            try {
+                MessageRemandAPI.examine(approveDimissionInfoListDTO.getProcessStaffDimissionDTO().getStaffNo());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return ComResponse.success();
     }

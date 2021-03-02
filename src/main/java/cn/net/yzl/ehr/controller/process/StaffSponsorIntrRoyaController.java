@@ -2,6 +2,7 @@ package cn.net.yzl.ehr.controller.process;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.fegin.process.StaffSponsorIntrRoyaFeignService;
+import cn.net.yzl.ehr.util.MessageRemandAPI;
 import cn.net.yzl.staff.vo.process.StaffSponsorIntrRoyaVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -21,13 +22,19 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(value = "财务审批-转介绍提成流程",tags = "财务审批-转介绍提成流程")
 public class StaffSponsorIntrRoyaController {
 
+
     @Autowired
     private StaffSponsorIntrRoyaFeignService staffSponsorIntrRoyaFeignService;
 
     @ApiOperation(value = "保存转介绍提成流程数据",notes = "保存转介绍提成流程数据")
     @PostMapping("v1/insertStaffSponsorIntrRoya")
     public ComResponse<Integer> insertStaffSponsorIntrRoya(@RequestBody StaffSponsorIntrRoyaVo staffSponsorIntrRoyaVo){
-        return staffSponsorIntrRoyaFeignService.insertStaffSponsorIntrRoya(staffSponsorIntrRoyaVo);
+
+        ComResponse<Integer> integerComResponse = staffSponsorIntrRoyaFeignService.insertStaffSponsorIntrRoya(staffSponsorIntrRoyaVo);
+        if (integerComResponse.getCode().equals(200)){
+//            MessageRemandAPI.examine(approveLeaveDTO.getStaffLeaveDTO().getStaffNo());
+        }
+        return integerComResponse;
     }
 
 
