@@ -51,7 +51,7 @@ public class PerformanceController {
      * @return 填报周期
      */
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "departId", value = "部门Id", required = true, dataType = "Integer", paramType = "query")
+            @ApiImplicitParam(name = "departId", value = "部门Id", dataType = "Integer", paramType = "query")
     })
     @ApiOperation(value = "职能管理-绩效填报-查询周期列表", notes = "职能管理-绩效填报-查询周期列表", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/queryFillTimes", method = RequestMethod.GET)
