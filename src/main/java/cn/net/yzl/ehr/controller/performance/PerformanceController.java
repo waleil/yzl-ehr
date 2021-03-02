@@ -6,6 +6,7 @@ import cn.net.yzl.ehr.fegin.performance.PerformanceFeignService;
 import cn.net.yzl.staff.dto.performance.FillPerformanceOrgDto;
 import cn.net.yzl.staff.dto.performance.MyPerformanceDto;
 import cn.net.yzl.staff.dto.performance.PerformanceApproveCountDto;
+import cn.net.yzl.staff.dto.performance.PerformanceDepartDto;
 import cn.net.yzl.staff.dto.performance.PerformanceDto;
 import cn.net.yzl.staff.dto.performance.PerformanceRaterDto;
 import cn.net.yzl.staff.dto.performance.RaterLeaderDto;
@@ -49,10 +50,38 @@ public class PerformanceController {
      * @param staffNo 用户编号
      * @return 填报周期
      */
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "departId", value = "部门Id", required = true, dataType = "Integer", paramType = "query")
+    })
     @ApiOperation(value = "职能管理-绩效填报-查询周期列表", notes = "职能管理-绩效填报-查询周期列表", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/queryFillTimes", method = RequestMethod.GET)
-    public ComResponse<List<String>> queryFillTimes(@ApiIgnore @CurrentStaffNo String staffNo) {
-        return performanceFeignService.queryFillTimes(staffNo);
+    public ComResponse<List<String>> queryFillTimes(@ApiIgnore @CurrentStaffNo String staffNo, @RequestParam("departId") Integer departId) {
+        return performanceFeignService.queryFillTimes(staffNo, departId);
+    }
+
+
+    /**
+     * 查询填报部门负责
+     *
+     * @param staffNo 人员编号
+     * @return 部门信息
+     */
+    @ApiOperation(value = "职能管理-绩效填报-查询负责部门", notes = "职能管理-绩效填报-查询负责部门", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/queryFillPerformanceDepart", method = RequestMethod.GET)
+    public ComResponse<List<PerformanceDepartDto>> queryFillPerformanceDepart(@ApiIgnore @CurrentStaffNo String staffNo) {
+        return performanceFeignService.queryFillPerformanceDepart(staffNo);
+    }
+
+    /**
+     * 查询考核负责部门
+     *
+     * @param staffNo 人员编号
+     * @return 部门信息
+     */
+    @ApiOperation(value = "职能管理-绩效考核-查询负责部门", notes = "职能管理-绩效考核-查询负责部门", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/queryRaterPerformanceDepart", method = RequestMethod.GET)
+    public ComResponse<List<PerformanceDepartDto>> queryRaterPerformanceDepart(@ApiIgnore @CurrentStaffNo String staffNo) {
+        return performanceFeignService.queryRaterPerformanceDepart(staffNo);
     }
 
     /**

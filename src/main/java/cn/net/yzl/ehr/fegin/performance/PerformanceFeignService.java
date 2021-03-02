@@ -4,6 +4,7 @@ import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.staff.dto.performance.FillPerformanceOrgDto;
 import cn.net.yzl.staff.dto.performance.MyPerformanceDto;
 import cn.net.yzl.staff.dto.performance.PerformanceApproveCountDto;
+import cn.net.yzl.staff.dto.performance.PerformanceDepartDto;
 import cn.net.yzl.staff.dto.performance.PerformanceDto;
 import cn.net.yzl.staff.dto.performance.PerformanceRaterDto;
 import cn.net.yzl.staff.dto.performance.RaterLeaderDto;
@@ -36,7 +37,7 @@ public interface PerformanceFeignService {
      * 职能管理-填报绩效-周期列表
      */
     @RequestMapping(value = "/queryFillTimes", method = RequestMethod.GET)
-    ComResponse<List<String>> queryFillTimes(@RequestParam("staffNo") String staffNo);
+    ComResponse<List<String>> queryFillTimes(@RequestParam("staffNo") String staffNo, @RequestParam("departId") Integer departId);
 
     /**
      * 职能管理-填报绩效-组织架构
@@ -117,4 +118,16 @@ public interface PerformanceFeignService {
      */
     @RequestMapping(value = "/isRaterLeader", method = RequestMethod.GET)
     ComResponse<RaterLeaderDto> isRaterLeader(@RequestParam("staffNo") String staffNo);
+
+    /**
+     * 职能管理-绩效填报-查询负责部门
+     */
+    @RequestMapping(value = "/queryFillPerformanceDepart", method = RequestMethod.GET)
+    ComResponse<List<PerformanceDepartDto>> queryFillPerformanceDepart(@RequestParam("staffNo") String staffNo);
+
+    /**
+     * 职能管理-绩效考核-查询负责部门
+     */
+    @RequestMapping(value = "/queryRaterPerformanceDepart", method = RequestMethod.GET)
+    ComResponse<List<PerformanceDepartDto>> queryRaterPerformanceDepart(@RequestParam("staffNo") String staffNo);
 }
