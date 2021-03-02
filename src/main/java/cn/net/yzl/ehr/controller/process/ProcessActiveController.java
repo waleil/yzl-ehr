@@ -48,7 +48,11 @@ public class ProcessActiveController {
     public ComResponse<Boolean> saveProcessLeaveInfo(@RequestBody @Valid ApproveLeaveDTO approveLeaveDTO) {
         ComResponse<Boolean> flag = findProcessNodeService.saveProcessLeaveInfo(approveLeaveDTO);
         if (flag.getCode().equals(200)){
-            MessageRemandAPI.examine(approveLeaveDTO.getStaffLeaveDTO().getStaffNo());
+            try {
+                MessageRemandAPI.examine(approveLeaveDTO.getStaffLeaveDTO().getStaffNo());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return ComResponse.success();
     }

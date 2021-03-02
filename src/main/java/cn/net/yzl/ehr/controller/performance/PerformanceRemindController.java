@@ -114,6 +114,7 @@ public class PerformanceRemindController {
     @ApiOperation(value = "发送绩效提醒(每小时执行一次)", notes = "发送绩效提醒(每小时执行一次)", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/sendPerformanceRemind", method = RequestMethod.GET)
     public ComResponse<Boolean> sendPerformanceRemind() {
+        LOGGER.info("发送绩效提醒(每小时执行一次)");
         ComResponse<List<PerformanceRemindDepartDto>> response = performanceRemindFeignService.sendPerformanceRemind();
         if (200 == response.getCode()) {
             List<PerformanceRemindDepartDto> departList = response.getData();
@@ -133,6 +134,8 @@ public class PerformanceRemindController {
                     }
                 }
             }
+        } else {
+            LOGGER.error("定时考评提醒失败. error={}", response.getMessage());
         }
         return ComResponse.success(true);
     }
@@ -141,10 +144,11 @@ public class PerformanceRemindController {
         try {
             // 人员信息
             List<PerformanceRemindStaffDto> staffList = depart.getStaffList();
-            List<MailVo> mailList = new ArrayList<>();
             if (!CollectionUtils.isEmpty(staffList)) {
+                LOGGER.info("部门:{} 发送邮件考评填报提醒. remindType={}", depart.getDepartId(), depart.getRemindType());
                 for (PerformanceRemindStaffDto staff : staffList) {
-                    if (!StringUtils.isEmpty(staff.getEmail())) {
+                    List<MailVo> mailList = new ArrayList<>();
+                    if (!StringUtils.isEmpty(staff.getEmail()) && staff.getEmail().contains("@")) {
                         String subject;
                         String content;
                         if (1 == depart.getRemindType()) {
@@ -158,9 +162,10 @@ public class PerformanceRemindController {
                         }
                         mailList.add(new MailVo(staff.getEmail(), subject, staff.getStaffName() + content));
                     }
+                    SendTask.runTask(mailList);
                 }
             }
-            SendTask.runTask(mailList);
+
         } catch (Exception e) {
             LOGGER.error("考评填报提醒,发送邮件失败. depart={}", JsonUtil.toJsonStr(depart), e);
         }
@@ -171,6 +176,7 @@ public class PerformanceRemindController {
             // 人员信息
             List<PerformanceRemindStaffDto> staffList = depart.getStaffList();
             if (!CollectionUtils.isEmpty(staffList)) {
+                LOGGER.info("部门:{} 发送系统消息考评填报提醒. remindType={}", depart.getDepartId(), depart.getRemindType());
                 for (PerformanceRemindStaffDto staff : staffList) {
                     MsgTemplateVo msgTemplateVo = new MsgTemplateVo();
                     if (1 == depart.getRemindType()) {

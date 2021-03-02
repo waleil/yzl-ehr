@@ -146,7 +146,7 @@ public class StaffController {
             }
 
         }
-        return staffFeginService.save(staffInfoSaveVO);
+        return save;
     }
 
     @ApiOperation(value = "员工信息-员工异动需要的信息", notes = "员工信息-员工异动需要的信息")
