@@ -17,7 +17,7 @@ import java.util.List;
 
 @Repository
 @FeignClient(value = "staff",url = "${fegin.db.url}/process")
-@RefreshScope
+//@RefreshScope
 public interface ProcessItemFeignService {
 
     @RequestMapping(value = "/type/queryAll", method = RequestMethod.GET)

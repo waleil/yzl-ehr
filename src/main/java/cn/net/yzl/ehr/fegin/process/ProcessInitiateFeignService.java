@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @Repository
 @FeignClient(value = "staff",url = "${fegin.db.url}/process")
-@RefreshScope
+//@RefreshScope
 public interface ProcessInitiateFeignService {
 
     @PostMapping("/out/insert")

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Repository
 @FeignClient(value = "staff",url = "${fegin.db.url}/process")
-@RefreshScope
+//@RefreshScope
 public interface ProcessAuditFeignService {
 
     @RequestMapping(value = "/audit/update/state", method = RequestMethod.POST)
