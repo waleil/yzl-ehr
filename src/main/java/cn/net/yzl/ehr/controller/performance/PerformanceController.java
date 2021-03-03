@@ -9,7 +9,6 @@ import cn.net.yzl.staff.dto.performance.PerformanceApproveCountDto;
 import cn.net.yzl.staff.dto.performance.PerformanceDepartDto;
 import cn.net.yzl.staff.dto.performance.PerformanceDto;
 import cn.net.yzl.staff.dto.performance.PerformanceRaterDto;
-import cn.net.yzl.staff.dto.performance.RaterLeaderDto;
 import cn.net.yzl.staff.dto.performance.RaterPerformanceOrgDto;
 import cn.net.yzl.staff.vo.performance.PerformanceApproveVo;
 import cn.net.yzl.staff.vo.performance.PerformanceCreateVo;
@@ -248,7 +247,7 @@ public class PerformanceController {
 
     @ApiOperation(value = "职能管理-绩效考核-是否负责人", notes = "职能管理-绩效考核-是否负责人", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/isRaterLeader", method = RequestMethod.GET)
-    public ComResponse<RaterLeaderDto> isRaterLeader(@ApiIgnore @CurrentStaffNo String staffNo) {
+    public ComResponse<Boolean> isRaterLeader(@ApiIgnore @CurrentStaffNo String staffNo) {
         return performanceFeignService.isRaterLeader(staffNo);
     }
 
