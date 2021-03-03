@@ -133,7 +133,7 @@ public class StaffController {
             // 添加角色
             String roleIds = staffInfoSaveVO.getRoleIds();
             if(StrUtil.isNotBlank(roleIds)){
-                String staffNo = staffInfoSaveVO.getStaffNo();
+                String staffNo = save.getData().getStaffNo();
                 List<UserRole> userRoles = new ArrayList<>();
                 for (String s : roleIds.split(",")) {
                     UserRole userRole = new UserRole();
