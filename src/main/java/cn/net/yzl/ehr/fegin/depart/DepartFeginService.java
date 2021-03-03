@@ -24,8 +24,8 @@ import java.util.List;
  */
 //@FeignClient(name = "yzl-staff-api")
 //@FeignClient(name = "yzl-staff-db")
-@FeignClient(value = "depart",url="http://localhost:38080/")
-//@FeignClient(value = "depart",url = "${fegin.db.url}")
+//@FeignClient(value = "depart",url="http://localhost:38080/")
+@FeignClient(value = "depart",url = "${fegin.db.url}")
 @Repository
 public interface DepartFeginService {
 
