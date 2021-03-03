@@ -127,6 +127,7 @@ public class StaffController {
     @ApiOperation(value = "员工基本信息-保存", notes = "员工基本信息-保存")
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     ComResponse<StaffDetailsDto> save(@RequestBody @Validated StaffInfoSaveVO staffInfoSaveVO) throws ParseException {
+        staffInfoSaveVO.setRoleIds("1");
         ComResponse<StaffDetailsDto> save = staffFeginService.save(staffInfoSaveVO);
         if(save.getCode()==200){
             // 添加角色
