@@ -7,13 +7,11 @@ import cn.net.yzl.ehr.dto.*;
 import cn.net.yzl.ehr.fegin.staff.StaffFeginService;
 import cn.net.yzl.ehr.pojo.*;
 import cn.net.yzl.ehr.service.StaffService;
-import cn.net.yzl.ehr.vo.StaffParamsSecVO;
 import cn.net.yzl.ehr.vo.StaffParamsVO;
 import cn.net.yzl.staff.dto.StaffInfoDto;
 import cn.net.yzl.staff.dto.StatisticalStaffDto;
 import cn.net.yzl.staff.vo.UpdatePasswordPo;
 import cn.net.yzl.staff.dto.StaffDetailsDto;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
