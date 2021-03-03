@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  */
 
 @Repository
-@FeignClient(value = "staff",url = "${fegin.db.url}/process")
+@FeignClient(value = "ProcessInitiateFeign",url = "${fegin.db.url}/process")
 //@RefreshScope
 public interface ProcessInitiateFeignService {
 

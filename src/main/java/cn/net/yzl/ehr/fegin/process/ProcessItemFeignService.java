@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Repository
-@FeignClient(value = "staff",url = "${fegin.db.url}/process")
+@FeignClient(value = "ProcessItemFeign",url = "${fegin.db.url}/process")
 //@RefreshScope
 public interface ProcessItemFeignService {
 
