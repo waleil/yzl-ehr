@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 /**
@@ -57,4 +58,8 @@ public interface DepartFeginService {
     @ApiOperation(value = "获取部门属性列表", notes = "获取部门属性列表", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/depart/getDepartAttrList", method = RequestMethod.GET)
     ComResponse<List<DepartAttrDto>> getDepartAttrList();
+
+    @ApiOperation(value = "根据员工号获取部门列表(负责人)", notes = "根据员工号获取部门列表(负责人)", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/depart/getListByStaffNo", method = RequestMethod.GET)
+    ComResponse<List<cn.net.yzl.staff.dto.DepartDto>> getListByStaffNo(@RequestParam("staffNo") String staffNo);
 }
