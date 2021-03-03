@@ -19,8 +19,8 @@ import springfox.documentation.annotations.ApiIgnore;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
-@FeignClient(name="personApprove",url="${fegin.db.url}/processActive")
-//@FeignClient(name="processActive",url="localhost:38080/processActive")
+//@FeignClient(name="personApprove",url="${fegin.db.url}/processActive")
+@FeignClient(name="processActive",url="localhost:38080/processActive")
 public interface FindProcessNodeService {
     @GetMapping("v1/findProcessInfoList")
     @ApiOperation(value = "获取流程展示信息")

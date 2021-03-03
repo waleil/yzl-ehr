@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-@FeignClient(name="processsInvite",url="${fegin.db.url}/processsInvite")
-//@FeignClient(name="processsInvite",url="localhost:38080/processsInvite")
+//@FeignClient(name="processsInvite",url="${fegin.db.url}/processsInvite")
+@FeignClient(name="processsInvite",url="localhost:38080/processsInvite")
 public interface saveProcessService {
     @PostMapping("v1/saveProcessInviteInfo")
     @ApiOperation(value = "保存招聘信息")

@@ -64,5 +64,31 @@ public class MessageRemandAPI {
         return messageRemandAPI.ymsgInfoService.sendSysMsgInfo(templateVo);
 
     }
+    public static void processSendMessage(Integer processId){
+        ComResponse<List<StaffLevelDto>> personSend = messageRemandAPI.processConfigFeignService.getPersonSend(processId);
+        //List<StaffLevelDto> data = personSend.getData();
+        if(null == personSend){
+            throw new BaseParamsException(ResponseCodeEnums.API_ERROR_CODE.getCode(), "没有上级");
+        }
+        personSend.getData().forEach(map-> {
+            MsgTemplateVo templateVo = new MsgTemplateVo();
+            templateVo.setCode("EHR0002");
+            templateVo.setCreator(map.getStaffNo());
+            templateVo.setUserCode(map.getStaffNo());
+            templateVo.setSystemCode(2);
+            Calendar calendar = Calendar.getInstance();
+            Integer year = calendar.get(Calendar.YEAR);
+            Integer month = (calendar.get(Calendar.MONTH)) + 1;
+            Integer day = calendar.get(Calendar.DAY_OF_MONTH);
+            Integer hour = calendar.get(Calendar.HOUR_OF_DAY);
+            Integer minute = calendar.get(Calendar.MINUTE);
+            Integer second = calendar.get(Calendar.SECOND);
+            String s = year.toString() + "年" + month.toString() + "月" + day.toString() + "日" + hour.toString() + "时" + minute.toString() + "分" + second.toString() + "秒";
+            String[] str = {map.getStaffNo(), s};
+            templateVo.setParams(str);
+            messageRemandAPI.ymsgInfoService.sendSysMsgInfo(templateVo);
+        });
+
+    }
 
 }
