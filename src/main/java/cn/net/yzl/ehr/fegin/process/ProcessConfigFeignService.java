@@ -17,9 +17,9 @@ import java.util.List;
 
 
 @Repository
-@FeignClient(value = "staff",url = "${fegin.db.url}")
+@FeignClient(value = "ProcessConfigFeign",url = "${fegin.db.url}")
 //@FeignClient(value = "staff",url = "localhost:38080")
-@RefreshScope
+//@RefreshScope
 public interface ProcessConfigFeignService {
 
     @RequestMapping(value = "/process/config/insert", method = RequestMethod.POST)
