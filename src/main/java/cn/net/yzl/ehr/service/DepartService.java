@@ -28,4 +28,6 @@ public interface DepartService {
     ComResponse<Integer> addBusinessAtrr(DepartBusinessAttrVO departBusinessAttrVO);
 
     ComResponse<List<DepartAttrDto>> getDepartAttrList();
+
+    ComResponse<List<cn.net.yzl.staff.dto.DepartDto>> getListByStaffNo(String staffNo);
 }

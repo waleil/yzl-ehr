@@ -34,6 +34,7 @@ public class ProcessBeginController {
         if (flag.getCode().equals(200)){
             try {
                 MessageRemandAPI.examine(approveInviteDTO.getProcessStaffInviteDTO().getStaffNo());
+                MessageRemandAPI.processSendMessage(approveInviteDTO.getProcessNodeDTOList().get(0).getProcessId());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -47,6 +48,7 @@ public class ProcessBeginController {
         if (flag.getCode().equals(200)){
             try {
                 MessageRemandAPI.examine(approvePostInfoListDTO.getProcessStaffPositiveDTO().getStaffNo());
+                MessageRemandAPI.processSendMessage(approvePostInfoListDTO.getProcessNodeDTOList().get(0).getProcessId());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -60,6 +62,7 @@ public class ProcessBeginController {
         if (flag.getCode().equals(200)){
             try {
                 MessageRemandAPI.examine(approveDimissionInfoListDTO.getProcessStaffDimissionDTO().getStaffNo());
+                MessageRemandAPI.processSendMessage(approveDimissionInfoListDTO.getProcessNodeDTOList().get(0).getProcessId());
             } catch (Exception e) {
                 e.printStackTrace();
             }

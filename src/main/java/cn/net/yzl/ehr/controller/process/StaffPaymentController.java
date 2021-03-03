@@ -2,6 +2,7 @@ package cn.net.yzl.ehr.controller.process;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.fegin.process.StaffPaymentFeignService;
+import cn.net.yzl.ehr.util.MessageRemandAPI;
 import cn.net.yzl.staff.vo.process.StaffPaymentVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,7 +28,16 @@ public class StaffPaymentController {
     @ApiOperation(value = "保存付款流程数据",notes = "保存付款流程数据")
     @PostMapping("v1/insertStaffPayment")
     public ComResponse<Integer> insertStaffPayment(@RequestBody StaffPaymentVo staffPaymentVo){
-        return staffPaymentFeignService.insertStaffPayment(staffPaymentVo);
+        ComResponse<Integer> integerComResponse = staffPaymentFeignService.insertStaffPayment(staffPaymentVo);
+        if (integerComResponse.getCode().equals(200)){
+            try {
+                MessageRemandAPI.examine(staffPaymentVo.getStaffNo());
+                MessageRemandAPI.processSendMessage(staffPaymentVo.getProcessNodeDTOList().get(0).getProcessId());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return integerComResponse;
     }
 
 
