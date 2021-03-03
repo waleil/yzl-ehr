@@ -12,23 +12,29 @@ import cn.net.yzl.ehr.pojo.StaffWorkUpdateListPo;
 import cn.net.yzl.ehr.pojo.StaffWorkUpdatePo;
 import cn.net.yzl.ehr.service.StaffWorkService;
 import cn.net.yzl.ehr.service.resource.ParkingVehicleService;
+import cn.net.yzl.msg.model.vo.MsgTemplateVo;
+import cn.net.yzl.msg.service.YMsgInfoService;
 import cn.net.yzl.staff.dto.parking.ParkingApplyDto;
 import cn.net.yzl.staff.dto.parking.ParkingConfigCountDto;
 import cn.net.yzl.staff.dto.parking.ParkingRecoverDto;
 import cn.net.yzl.staff.dto.parking.ParkingVehicleDto;
-import cn.net.yzl.staff.pojo.parking.ParkingRecoverInsertPo;
-import cn.net.yzl.staff.pojo.parking.ParkingSetPo;
-import cn.net.yzl.staff.pojo.parking.ParkingVehicleListPo;
+import cn.net.yzl.staff.pojo.parking.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class ParkingVehicleServiceImpl implements ParkingVehicleService {
 
     @Autowired
     private ParkingVehicleFeginService parkingVehicleFeginService;
+
+    @Autowired
+    private YMsgInfoService ymsgInfoService;
+
     @Override
     public ComResponse<Page<ParkingVehicleDto>> selectList(ParkingVehicleListPo parkingVehicleListPo) {
         return parkingVehicleFeginService.selectList(parkingVehicleListPo);
@@ -37,7 +43,18 @@ public class ParkingVehicleServiceImpl implements ParkingVehicleService {
     @Override
     public ComResponse<Integer> insertRecover(ParkingRecoverInsertPo parkingRecoverInsertPo,String staffNo) {
         parkingRecoverInsertPo.setUpdator(staffNo);
-        return parkingVehicleFeginService.insertRecover(parkingRecoverInsertPo);
+        ComResponse<Integer> response = parkingVehicleFeginService.insertRecover(parkingRecoverInsertPo);
+        ComResponse<ParkingVehiclePo> comResponse = parkingVehicleFeginService.queryById(parkingRecoverInsertPo.getId());
+        MsgTemplateVo templateVo = new MsgTemplateVo();
+        templateVo.setCode("EHR0022");
+        templateVo.setCreator(staffNo);
+        // templateVo.setTitle("车位管理回收车位");
+        //templateVo.setUserCode(String.valueOf(comResponse.getData()));
+        Object[] objects = new Object[100];
+        objects[0] = comResponse.getData().getStaffNo();
+        templateVo.setParams(objects);
+        templateVo.setSystemCode(2);
+        return ymsgInfoService.sendSysMsgInfo(templateVo);
     }
 
     @Override
@@ -66,7 +83,23 @@ public class ParkingVehicleServiceImpl implements ParkingVehicleService {
     }
 
     @Override
-    public ComResponse timerUpdate() {
-        return parkingVehicleFeginService.timerUpdate();
+    public ComResponse<List<ParkingVehicleUpdatePo>> timerUpdate(String staffNo) {
+        ComResponse<List<ParkingVehicleUpdatePo>> list = parkingVehicleFeginService.timerUpdate();
+          /*  if(!CollectionUtils.isEmpty(list.getData())){
+                for (ParkingVehicleUpdatePo datum : list.getData()) {
+
+                    MsgTemplateVo templateVo = new MsgTemplateVo();
+                    templateVo.setCode("EHR0016");
+                    templateVo.setCreator(staffNo);
+                    // templateVo.setTitle("车位管理回收车位");
+                    //templateVo.setUserCode(String.valueOf(comResponse.getData()));
+                    Object[] objects = new Object[100];
+                    objects[0] = datum.getStaffNo();
+                    templateVo.setParams(objects);
+                    templateVo.setSystemCode(2);
+                    return ymsgInfoService.sendSysMsgInfo(templateVo);
+                }
+            }*/
+        return ComResponse.success(null);
     }
 }

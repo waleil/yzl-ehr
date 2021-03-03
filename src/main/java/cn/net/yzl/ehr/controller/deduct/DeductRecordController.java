@@ -64,7 +64,7 @@ public class DeductRecordController {
     }
     @ApiOperation(value = "查询扣款列表详情", notes = "查询扣款列表详情",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/queryById", method = RequestMethod.GET)
-    ComResponse<ApproveDeductDto> queryById(@RequestParam ("id") String appNo) {
+    ComResponse<ApproveDeductDto> queryById(@RequestParam ("appNo") String appNo) {
         return deductReocrdService.queryById(appNo);
     }
     @ApiOperation(value = "催审", notes = "催审",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
@@ -80,6 +80,7 @@ public class DeductRecordController {
         templateVo.setCreator(staffNo);
         templateVo.setUserCode(data.get(0).getStaffNo());
         templateVo.setSystemCode(2);
+       // templateVo.setTitle("奖惩管理催审");
         Calendar calendar = Calendar.getInstance();
         Integer year = calendar.get(Calendar.YEAR);
         Integer month = (calendar.get(Calendar.MONTH)) + 1;
