@@ -75,8 +75,8 @@ public class StaffTrainDto implements Serializable {
     private Integer adjustSalaryLater;
 
     @ApiModelProperty("异动时间")
-    @JsonFormat(pattern="yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private Date abnorTime;
 
     @ApiModelProperty("调整前岗位等级")
