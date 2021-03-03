@@ -113,5 +113,10 @@ public class DepartController {
         return departService.getDepartAttrList();
     }
 
+    @ApiOperation(value = "根据员工号获取部门列表(负责人)", notes = "根据员工号获取部门列表(负责人)", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/getListByStaffNo", method = RequestMethod.GET)
+    public ComResponse<List<cn.net.yzl.staff.dto.DepartDto>> getListByStaffNo(String staffNo){
+        return departService.getListByStaffNo(staffNo);
+    }
 
 }

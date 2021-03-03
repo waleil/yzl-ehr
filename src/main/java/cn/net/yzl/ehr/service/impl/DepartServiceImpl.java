@@ -12,6 +12,7 @@ import cn.net.yzl.ehr.vo.DepartUpdateVO;
 import cn.net.yzl.ehr.vo.DepartVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,6 +86,11 @@ public class DepartServiceImpl implements DepartService {
     @Override
     public ComResponse<List<DepartAttrDto>> getDepartAttrList() {
         return departFeginService.getDepartAttrList();
+    }
+
+    @Override
+    public ComResponse<List<cn.net.yzl.staff.dto.DepartDto>> getListByStaffNo(String staffNo){
+        return departFeginService.getListByStaffNo(staffNo);
     }
 
 
