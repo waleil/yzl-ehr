@@ -32,8 +32,14 @@ public class StaffSponsorIntrRoyaController {
 
         ComResponse<Integer> integerComResponse = staffSponsorIntrRoyaFeignService.insertStaffSponsorIntrRoya(staffSponsorIntrRoyaVo);
         if (integerComResponse.getCode().equals(200)){
-//            MessageRemandAPI.examine(approveLeaveDTO.getStaffLeaveDTO().getStaffNo());
+            try {
+                MessageRemandAPI.examine(staffSponsorIntrRoyaVo.getStaffNo());
+                MessageRemandAPI.processSendMessage(staffSponsorIntrRoyaVo.getProcessNodeDTOList().get(0).getProcessId());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+
         return integerComResponse;
     }
 

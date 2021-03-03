@@ -47,13 +47,14 @@ public class ProcessActiveController {
     @ApiOperation(value = "保存请假信息")
     public ComResponse<Boolean> saveProcessLeaveInfo(@RequestBody @Valid ApproveLeaveDTO approveLeaveDTO) {
         ComResponse<Boolean> flag = findProcessNodeService.saveProcessLeaveInfo(approveLeaveDTO);
-        if (flag.getCode().equals(200)){
+        //if (flag.getCode().equals(200)){
             try {
                 MessageRemandAPI.examine(approveLeaveDTO.getStaffLeaveDTO().getStaffNo());
+                MessageRemandAPI.processSendMessage(approveLeaveDTO.getProcessNodeDTOList().get(0).getProcessId());
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
+       // }
         return ComResponse.success();
     }
 
