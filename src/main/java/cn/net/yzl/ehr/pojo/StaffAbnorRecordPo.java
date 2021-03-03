@@ -106,7 +106,8 @@ public class StaffAbnorRecordPo {
     private Integer adjustSalaryLater;
 
     @ApiModelProperty("异动时间")
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     @NotBlank
     private String abnorTime;
 

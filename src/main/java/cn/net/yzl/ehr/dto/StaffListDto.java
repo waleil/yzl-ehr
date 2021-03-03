@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -86,6 +87,8 @@ public class StaffListDto implements Serializable {
     @ApiModelProperty(value = "入职次数", name = "entryTimes")
     private Integer entryTimes;
     @ApiModelProperty(value = "异动时间", name = "abnorTime")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private Date abnorTime;
     @ApiModelProperty(value = "入岗时间", name = "postTime")
     private Date postTime;
