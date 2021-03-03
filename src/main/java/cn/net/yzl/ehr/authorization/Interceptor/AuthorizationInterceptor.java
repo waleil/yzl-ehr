@@ -1,5 +1,6 @@
 package cn.net.yzl.ehr.authorization.Interceptor;
 
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.enums.ResponseCodeEnums;
@@ -7,6 +8,7 @@ import cn.net.yzl.common.util.UUIDGenerator;
 import cn.net.yzl.ehr.authorization.annotation.UnAuthorization;
 import cn.net.yzl.ehr.authorization.service.TokenManager;
 import cn.net.yzl.ehr.dto.StaffDto;
+import cn.net.yzl.ehr.fegin.oauth.OauthFeginService;
 import cn.net.yzl.ehr.permission.ReqPermissions;
 import cn.net.yzl.logger.common.XBasicUtil;
 import org.apache.commons.lang.StringUtils;
@@ -35,6 +37,8 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
     private static final Logger log = LoggerFactory.getLogger(AuthorizationInterceptor.class);
     @Autowired
     private TokenManager manager;
+    @Autowired
+    private OauthFeginService oauthFeginService;
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         // 如果不是映射到方法直接通过
@@ -44,16 +48,23 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
         String traceId = request.getHeader("traceId");
         String spanId = XBasicUtil.uuid();
         request.setAttribute("span",spanId);
-
         String gateway = request.getHeader("gateway");
-
+        String token = request.getHeader("token");
+        ComResponse<String> result = oauthFeginService.checkToken(token);
         // gateway 已经验证过
-        if("true".equals(gateway)){
+        if(StrUtil.isNotBlank(token) && result.getCode()==200){
             // 员工工号
-            String staffNo = request.getHeader("userNo");
+            String staffNo = result.getData();
+
+//            String staffNo = request.getHeader("userNo");
             request.setAttribute("CURRENT_USER_NO", staffNo);
             log.info("{traceId:{},spanId:{},userNo:{}}",traceId,spanId,staffNo);
             return true;
+        }else if (result.getCode()!=200){
+            response.setStatus(200);
+            response.setContentType("application/json;charset=UTF-8");
+            response.getWriter().append(JSONUtil.toJsonStr(result));
+            return false;
         }else {
             response.setStatus(200);
             ComResponse<String> rep = ComResponse.fail(ResponseCodeEnums.TOKEN_INVALID_ERROR_CODE.getCode(), ResponseCodeEnums.TOKEN_INVALID_ERROR_CODE.getMessage());
