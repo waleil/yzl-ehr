@@ -22,7 +22,6 @@ import java.util.List;
  * 认证
  */
 @FeignClient(name = "yzl-oauth")
-@Repository
 public interface OauthFeginService {
 
 
