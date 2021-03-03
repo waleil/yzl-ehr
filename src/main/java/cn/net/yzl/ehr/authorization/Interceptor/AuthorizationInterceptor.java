@@ -15,6 +15,7 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
@@ -38,6 +39,7 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
     @Autowired
     private TokenManager manager;
     @Autowired
+    @Lazy
     private OauthFeginService oauthFeginService;
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
