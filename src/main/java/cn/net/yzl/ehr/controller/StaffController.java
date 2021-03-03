@@ -126,7 +126,7 @@ public class StaffController {
     private UserRoleService userRoleService;
     @ApiOperation(value = "员工基本信息-保存", notes = "员工基本信息-保存")
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    ComResponse<StaffDetailsDto> save(@RequestBody @Validated StaffInfoSaveVO staffInfoSaveVO) throws ParseException {
+    ComResponse<StaffDetailsDto> save(@RequestBody @Validated StaffInfoSaveVO staffInfoSaveVO,@ApiIgnore @CurrentStaffNo String currentStaffNo) throws ParseException {
         staffInfoSaveVO.setRoleIds("1");
         ComResponse<StaffDetailsDto> save = staffFeginService.save(staffInfoSaveVO);
         if(save.getCode()==200){
@@ -139,6 +139,7 @@ public class StaffController {
                     UserRole userRole = new UserRole();
                     userRole.setUserCode(staffNo);
                     userRole.setRoleId(Integer.parseInt(s));
+                    userRole.setCreateCode(currentStaffNo);
                 userRoles.add(userRole);
                 }
                 UserRoleDTO userRoleDTO = new UserRoleDTO();
