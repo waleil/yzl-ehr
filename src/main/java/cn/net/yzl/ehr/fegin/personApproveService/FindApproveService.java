@@ -60,5 +60,5 @@ public interface FindApproveService {
 
     @PostMapping("v1/getMystartApproveInfo")
     @ApiOperation(value = "我的流程我发起的功能")
-    ComResponse<Page<ApproveInfoListDTO>> getMystartApproveInfo(ApproveQueryDTO approveQueryDTO);
+    ComResponse<Page<ProcessAudit>> getMystartApproveInfo(ApproveQueryDTO approveQueryDTO);
 }

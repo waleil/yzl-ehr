@@ -75,7 +75,7 @@ public class personApproveController {
     }
     @PostMapping("v1/getMystartApproveInfo")
     @ApiOperation(value = "我的流程我发起的功能")
-    public ComResponse<Page<ApproveInfoListDTO>> getMystartApproveInfo(@RequestBody ApproveQueryDTO approveQueryDTO) {
+    public ComResponse<Page<ProcessAudit>> getMystartApproveInfo(@RequestBody ApproveQueryDTO approveQueryDTO) {
 
 
         return findApproveService.getMystartApproveInfo(approveQueryDTO);
