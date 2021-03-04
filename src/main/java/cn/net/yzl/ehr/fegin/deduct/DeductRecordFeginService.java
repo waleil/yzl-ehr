@@ -49,4 +49,8 @@ public interface DeductRecordFeginService {
     @ApiOperation(value = "查询扣款列表信息", notes = "查询扣款列表信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/deductRecord/queryById", method = RequestMethod.GET)
     ComResponse<ApproveDeductDto> queryById(@RequestParam ("appNo") String appNo);
+
+    @ApiOperation(value = "新建停止扣款申请", notes = "新建停止扣款申请",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/insertStopDeductRecord", method = RequestMethod.POST)
+    ComResponse<Integer> insertStopDeductRecord(@RequestBody DeductProcessDTO deductProcessDTO);
 }

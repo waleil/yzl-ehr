@@ -87,4 +87,11 @@ public class DeductRecordServiceImpl implements DeductReocrdService {
         }
         return result;
     }
+
+    @Override
+    public ComResponse<Integer> insertStopDeductRecord(DeductProcessDTO deductProcessDTO ,String staffNo) {
+        deductProcessDTO.getDeductRecordDto().setCreator(staffNo);
+        ComResponse<Integer> result = deductRecordFeginService.insertStopDeductRecord(deductProcessDTO);
+        return result;
+    }
 }

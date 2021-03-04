@@ -95,4 +95,10 @@ public class DeductRecordController {
 
     }
 
+    @ApiOperation(value = "新建停止扣款申请", notes = "新建停止扣款申请",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/insertStopDeductRecord", method = RequestMethod.POST)
+    ComResponse<Integer> insertStopDeductRecord(@RequestBody DeductProcessDTO deductProcessDTO , @CurrentStaffNo @ApiIgnore String staffNo){
+        return deductReocrdService.insertStopDeductRecord(deductProcessDTO);
+    }
+
 }

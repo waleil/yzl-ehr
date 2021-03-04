@@ -24,4 +24,7 @@ public interface DeductReocrdService {
     //查询扣款详情
     ComResponse<ApproveDeductDto> queryById(String appNo);
 
+    //新建停止扣款详情
+    ComResponse<Integer> insertStopDeductRecord(DeductProcessDTO deductProcessDTO,String staffNo);
+
 }
