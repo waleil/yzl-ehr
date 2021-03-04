@@ -177,23 +177,27 @@ public class PerformanceRemindController {
             List<PerformanceRemindStaffDto> staffList = depart.getStaffList();
             if (!CollectionUtils.isEmpty(staffList)) {
                 LOGGER.info("部门:{} 发送系统消息考评填报提醒. remindType={}", depart.getDepartId(), depart.getRemindType());
+                List<MsgTemplateVo> list = new ArrayList<>();
                 for (PerformanceRemindStaffDto staff : staffList) {
                     MsgTemplateVo msgTemplateVo = new MsgTemplateVo();
                     if (1 == depart.getRemindType()) {
                         // 填报
                         msgTemplateVo.setCode("EHR0013");//模板编号
                         msgTemplateVo.setType(1);//模版类型
+                        msgTemplateVo.setTitle("职能管理-考评填报提醒-新建填报提醒");
                     } else {
                         // 考核
                         msgTemplateVo.setCode("EHR0014");//模板编号
                         msgTemplateVo.setType(1);//模版类型
+                        msgTemplateVo.setTitle("职能管理-考评填报提醒-考核提醒");
                     }
                     msgTemplateVo.setSystemCode(2);//1：crm，2：ehr，3：dmc，4：bi
                     msgTemplateVo.setParams(new Object[]{staff.getStaffName()});//模板参数
                     msgTemplateVo.setCreator(depart.getCreator());//发送人编号
                     msgTemplateVo.setUserCode(staff.getStaffNo());//接收人编号
-                    ymsgInfoService.sendSysMsgInfo(msgTemplateVo);
+                    list.add(msgTemplateVo);
                 }
+                ymsgInfoService.insertMsgTemplateBatch(list);
             }
         } catch (Exception e) {
             LOGGER.error("考评填报提醒,发送系统消息失败. depart={}", JsonUtil.toJsonStr(depart), e);
