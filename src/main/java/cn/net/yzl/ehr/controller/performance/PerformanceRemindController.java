@@ -8,7 +8,7 @@ import cn.net.yzl.ehr.fegin.performance.PerformanceRemindFeignService;
 import cn.net.yzl.msg.model.vo.MsgTemplateVo;
 import cn.net.yzl.msg.service.YMsgInfoService;
 import cn.net.yzl.order.model.vo.MailVo;
-import cn.net.yzl.order.util.SendTask;
+import cn.net.yzl.order.util.MailUtil;
 import cn.net.yzl.staff.constant.PerformanceConstant;
 import cn.net.yzl.staff.dto.performance.PerformanceApproveRemindDto;
 import cn.net.yzl.staff.dto.performance.PerformanceRemindDepartDto;
@@ -24,6 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -140,14 +141,15 @@ public class PerformanceRemindController {
         return ComResponse.success(true);
     }
 
-    private void sendEmailMsg(PerformanceRemindDepartDto depart) {
+    @Async
+    public void sendEmailMsg(PerformanceRemindDepartDto depart) {
         try {
             // 人员信息
             List<PerformanceRemindStaffDto> staffList = depart.getStaffList();
             if (!CollectionUtils.isEmpty(staffList)) {
                 LOGGER.info("部门:{} 发送邮件考评填报提醒. remindType={}", depart.getDepartId(), depart.getRemindType());
                 for (PerformanceRemindStaffDto staff : staffList) {
-                    List<MailVo> mailList = new ArrayList<>();
+                    //List<MailVo> mailList = new ArrayList<>();
                     if (!StringUtils.isEmpty(staff.getEmail()) && staff.getEmail().contains("@")) {
                         String subject;
                         String content;
@@ -160,9 +162,11 @@ public class PerformanceRemindController {
                             subject = "职能管理-考评填报提醒-考核提醒";
                             content = "你好，新一周期的绩效考核已开始，请前往查阅。";
                         }
-                        mailList.add(new MailVo(staff.getEmail(), subject, staff.getStaffName() + content));
+                        MailVo mailVo = new MailVo(staff.getEmail(), subject, staff.getStaffName() + content);
+                        //mailList.add(mailVo);
+                        MailUtil.sendMail(mailVo);
                     }
-                    SendTask.runTask(mailList);
+                    //SendTask.runTask(mailList);
                 }
             }
 
