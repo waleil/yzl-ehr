@@ -31,7 +31,8 @@ public class StaffLoanController {
         ComResponse<Integer> integerComResponse = staffLoanFeignService.insertStaffLoan(staffLoanVo);
         if (integerComResponse.getCode().equals(200)){
             try {
-                MessageRemandAPI.examine(staffLoanVo.getStaffNo());
+                MessageRemandAPI.examine(staffLoanVo.getStaffNo(),
+                        staffLoanVo.getProcessNodeDTOList().get(1).getStaffNo());
                 MessageRemandAPI.processSendMessage(staffLoanVo.getProcessNodeDTOList().get(0).getProcessId());
             } catch (Exception e) {
                 e.printStackTrace();

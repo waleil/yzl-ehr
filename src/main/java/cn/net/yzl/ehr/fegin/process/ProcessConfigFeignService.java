@@ -43,6 +43,20 @@ public interface ProcessConfigFeignService {
     @RequestMapping(value = "/staff/getStaffLevelByStaffNo", method = RequestMethod.GET)
     ComResponse<List<StaffLevelDto>> getStaffLevelByStaffNo(@RequestParam("staffNo") String staffNo, @RequestParam("flag") Integer flag) ;
 
+    /**
+     * 查询抄送人
+     * @param processId
+     * @return
+     */
     @GetMapping("/processsInvite/v1/getPersonSend")
     ComResponse<List<StaffLevelDto>> getPersonSend(@RequestParam("processId") Integer processId);
+
+    /**
+     * 查询下一个节点的审批人编号
+     * @param processAuditId
+     * @return
+     */
+    @GetMapping("/processsInvite/v1/getStaffNodeByStaffNo")
+    ComResponse<String> getStaffNodeByStaffNo(@RequestParam("processAuditId") String processAuditId,
+                                              @RequestParam("stepNo")Integer stepNo);
 }

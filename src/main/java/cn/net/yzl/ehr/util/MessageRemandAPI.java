@@ -40,16 +40,14 @@ public class MessageRemandAPI {
         messageRemandAPI = this;
         messageRemandAPI.processConfigFeignService = this.processConfigFeignService;
     }
-    public static ComResponse examine(String staffNo){
-        ComResponse<List<StaffLevelDto>> staffLevelByStaffNo = messageRemandAPI.processConfigFeignService.getStaffLevelByStaffNo(staffNo, 1);
-        List<StaffLevelDto> data = staffLevelByStaffNo.getData();
-        if(null == data){
-            throw new BaseParamsException(ResponseCodeEnums.API_ERROR_CODE.getCode(), "没有上级");
-        }
+    public static ComResponse examine(String staffNo,String approveNo){
+       // ComResponse<String> data = messageRemandAPI.processConfigFeignService.getStaffNodeByStaffNo(processAuditId,stepNo);
+        //String data = appNo;
+
         MsgTemplateVo templateVo = new MsgTemplateVo();
         templateVo.setCode("EHR0002");
         templateVo.setCreator(staffNo);
-        templateVo.setUserCode(data.get(0).getStaffNo());
+        templateVo.setUserCode(approveNo);
         templateVo.setSystemCode(2);
         Calendar calendar = Calendar.getInstance();
         Integer year = calendar.get(Calendar.YEAR);
@@ -59,7 +57,7 @@ public class MessageRemandAPI {
         Integer minute = calendar.get(Calendar.MINUTE);
         Integer second = calendar.get(Calendar.SECOND);
         String s = year.toString()+"年"+month.toString()+"月"+day.toString()+"日"+hour.toString()+"时"+minute.toString()+"分"+second.toString()+"秒";
-        String[] str = {data.get(0).getStaffNo(),s};
+        String[] str = {approveNo,s};
         templateVo.setParams(str);
         return messageRemandAPI.ymsgInfoService.sendSysMsgInfo(templateVo);
 

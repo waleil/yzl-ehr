@@ -26,7 +26,9 @@ public class StaffInvoiceController {
         ComResponse<Integer> integerComResponse = staffInvoiceFeignService.insertStaffInvoice(staffInvoiceVo);
         if (integerComResponse.getCode().equals(200)){
             try {
-                MessageRemandAPI.examine(staffInvoiceVo.getStaffNo());
+                MessageRemandAPI.examine(staffInvoiceVo.getStaffNo(),
+                        staffInvoiceVo.getProcessNodeDTOList().get(1).getStaffNo());
+
                 MessageRemandAPI.processSendMessage(staffInvoiceVo.getProcessNodeDTOList().get(0).getProcessId());
             } catch (Exception e) {
                 e.printStackTrace();

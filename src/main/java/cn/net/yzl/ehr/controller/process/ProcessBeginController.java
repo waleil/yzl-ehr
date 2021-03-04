@@ -33,7 +33,8 @@ public class ProcessBeginController {
         ComResponse<Boolean> flag = saveProcessService.saveProcessInviteInfo(approveInviteDTO);
         if (flag.getCode().equals(200)){
             try {
-                MessageRemandAPI.examine(approveInviteDTO.getProcessStaffInviteDTO().getStaffNo());
+                MessageRemandAPI.examine(approveInviteDTO.getProcessNodeDTOList().get(0).getStaffNo(),
+                        approveInviteDTO.getProcessNodeDTOList().get(1).getStaffNo());
                 MessageRemandAPI.processSendMessage(approveInviteDTO.getProcessNodeDTOList().get(0).getProcessId());
             } catch (Exception e) {
                 e.printStackTrace();
@@ -47,7 +48,8 @@ public class ProcessBeginController {
         ComResponse<Boolean> flag = saveProcessService.savePositiveApplay(approvePostInfoListDTO);
         if (flag.getCode().equals(200)){
             try {
-                MessageRemandAPI.examine(approvePostInfoListDTO.getProcessStaffPositiveDTO().getStaffNo());
+                MessageRemandAPI.examine(approvePostInfoListDTO.getProcessNodeDTOList().get(0).getStaffNo(),
+                        approvePostInfoListDTO.getProcessNodeDTOList().get(1).getStaffNo());
                 MessageRemandAPI.processSendMessage(approvePostInfoListDTO.getProcessNodeDTOList().get(0).getProcessId());
             } catch (Exception e) {
                 e.printStackTrace();
@@ -61,7 +63,8 @@ public class ProcessBeginController {
         ComResponse<Boolean> flag = saveProcessService.saveDimissionApplay(approveDimissionInfoListDTO);
         if (flag.getCode().equals(200)){
             try {
-                MessageRemandAPI.examine(approveDimissionInfoListDTO.getProcessStaffDimissionDTO().getStaffNo());
+                MessageRemandAPI.examine(approveDimissionInfoListDTO.getProcessNodeDTOList().get(0).getStaffNo(),
+                        approveDimissionInfoListDTO.getProcessNodeDTOList().get(1).getStaffNo());
                 MessageRemandAPI.processSendMessage(approveDimissionInfoListDTO.getProcessNodeDTOList().get(0).getProcessId());
             } catch (Exception e) {
                 e.printStackTrace();

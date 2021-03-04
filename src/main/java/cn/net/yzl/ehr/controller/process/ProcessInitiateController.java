@@ -32,7 +32,8 @@ public class ProcessInitiateController {
         ComResponse<Integer> integerComResponse = processInitiateService.insertProcessStaffOut(staffOutVo,staffNo);
         if (integerComResponse.getCode().equals(200)){
             try {
-                MessageRemandAPI.examine(staffNo);
+                MessageRemandAPI.examine(staffNo,
+                        staffOutVo.getProcessNodeDTOList().get(1).getStaffNo());
                 MessageRemandAPI.processSendMessage(staffOutVo.getProcessNodeDTOList().get(0).getProcessId());
             } catch (Exception e) {
                 e.printStackTrace();
@@ -47,7 +48,8 @@ public class ProcessInitiateController {
         ComResponse<Integer> integerComResponse = processInitiateService.insertProcessStaffTravel(staffTravelVo,staffNo);
         if (integerComResponse.getCode().equals(200)){
             try {
-                MessageRemandAPI.examine(staffNo);
+                MessageRemandAPI.examine(staffNo,
+                        staffTravelVo.getProcessNodeDTOList().get(1).getStaffNo());
                 MessageRemandAPI.processSendMessage(staffTravelVo.getProcessNodeDTOList().get(0).getProcessId());
             } catch (Exception e) {
                 e.printStackTrace();
@@ -62,7 +64,8 @@ public class ProcessInitiateController {
         ComResponse<Integer> integerComResponse = processInitiateService.insertProcessStaffAttendApproval(staffAttendApprovalVo,staffNo);
         if (integerComResponse.getCode().equals(200)){
             try {
-                MessageRemandAPI.examine(staffNo);
+                MessageRemandAPI.examine(staffNo,
+                        staffAttendApprovalVo.getProcessNodeDTOList().get(1).getStaffNo());
                 MessageRemandAPI.processSendMessage(staffAttendApprovalVo.getProcessNodeDTOList().get(0).getProcessId());
             } catch (Exception e) {
                 e.printStackTrace();
@@ -77,7 +80,8 @@ public class ProcessInitiateController {
         ComResponse<Integer> integerComResponse = processInitiateService.insertProcessStaffParkingSpace(staffParkingSpaceVo,staffNo);
         if (integerComResponse.getCode().equals(200)){
             try {
-                MessageRemandAPI.examine(staffNo);
+                MessageRemandAPI.examine(staffNo,
+                        staffParkingSpaceVo.getProcessNodeDTOList().get(1).getStaffNo());
                 MessageRemandAPI.processSendMessage(staffParkingSpaceVo.getProcessNodeDTOList().get(0).getProcessId());
             } catch (Exception e) {
                 e.printStackTrace();
@@ -92,7 +96,8 @@ public class ProcessInitiateController {
         ComResponse<Integer> integerComResponse = processInitiateService.insertProcessStaffItemRequisition(staffItemRequisitionVo,staffNo);
         if (integerComResponse.getCode().equals(200)){
             try {
-                MessageRemandAPI.examine(staffNo);
+                MessageRemandAPI.examine(staffNo,
+                        staffItemRequisitionVo.getProcessNodeDTOList().get(1).getStaffNo());
                 MessageRemandAPI.processSendMessage(staffItemRequisitionVo.getProcessNodeDTOList().get(0).getProcessId());
             } catch (Exception e) {
                 e.printStackTrace();
@@ -107,7 +112,8 @@ public class ProcessInitiateController {
         ComResponse<Integer> integerComResponse = processInitiateService.insertProcessAttendExchange(staffAttendExchangeVo,staffNo);
         if (integerComResponse.getCode().equals(200)){
             try {
-                MessageRemandAPI.examine(staffNo);
+                MessageRemandAPI.examine(staffNo,
+                        staffAttendExchangeVo.getProcessNodeDTOList().get(1).getStaffNo());
                 MessageRemandAPI.processSendMessage(staffAttendExchangeVo.getProcessNodeDTOList().get(0).getProcessId());
             } catch (Exception e) {
                 e.printStackTrace();

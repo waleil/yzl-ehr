@@ -32,7 +32,8 @@ public class StaffContractApprovalController {
         ComResponse<Integer> integerComResponse = staffContractApprovalFeignService.insertStaffContractApproval(staffContractApprovalVo);
         if (integerComResponse.getCode().equals(200)){
             try {
-                MessageRemandAPI.examine(staffContractApprovalVo.getStaffNo());
+                MessageRemandAPI.examine(staffContractApprovalVo.getStaffNo(),
+                        staffContractApprovalVo.getProcessNodeDTOList().get(1).getStaffNo());
                 MessageRemandAPI.processSendMessage(staffContractApprovalVo.getProcessNodeDTOList().get(0).getProcessId());
             } catch (Exception e) {
                 e.printStackTrace();
