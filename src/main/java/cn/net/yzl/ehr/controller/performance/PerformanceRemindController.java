@@ -8,7 +8,7 @@ import cn.net.yzl.ehr.fegin.performance.PerformanceRemindFeignService;
 import cn.net.yzl.msg.model.vo.MsgTemplateVo;
 import cn.net.yzl.msg.service.YMsgInfoService;
 import cn.net.yzl.order.model.vo.MailVo;
-import cn.net.yzl.order.util.MailUtil;
+import cn.net.yzl.order.util.SendTask;
 import cn.net.yzl.staff.constant.PerformanceConstant;
 import cn.net.yzl.staff.dto.performance.PerformanceApproveRemindDto;
 import cn.net.yzl.staff.dto.performance.PerformanceRemindDepartDto;
@@ -149,7 +149,7 @@ public class PerformanceRemindController {
             if (!CollectionUtils.isEmpty(staffList)) {
                 LOGGER.info("部门:{} 发送邮件考评填报提醒. remindType={}", depart.getDepartId(), depart.getRemindType());
                 for (PerformanceRemindStaffDto staff : staffList) {
-                    //List<MailVo> mailList = new ArrayList<>();
+                    List<MailVo> mailList = new ArrayList<>();
                     if (!StringUtils.isEmpty(staff.getEmail()) && staff.getEmail().contains("@")) {
                         String subject;
                         String content;
@@ -163,10 +163,10 @@ public class PerformanceRemindController {
                             content = "你好，新一周期的绩效考核已开始，请前往查阅。";
                         }
                         MailVo mailVo = new MailVo(staff.getEmail(), subject, staff.getStaffName() + content);
-                        //mailList.add(mailVo);
-                        MailUtil.sendMail(mailVo);
+                        mailList.add(mailVo);
+//                        MailUtil.sendMail(mailVo);
                     }
-                    //SendTask.runTask(mailList);
+                    SendTask.runTask(mailList);
                 }
             }
 
