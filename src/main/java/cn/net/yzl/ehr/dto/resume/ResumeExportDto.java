@@ -131,7 +131,14 @@ public class ResumeExportDto {
 
             degreeName=resumeEduDto.getDegreeName();
             schoolName=resumeEduDto.getSchoolName();
-            startEndTime= DateStaffUtils.dateToDateStr(resumeEduDto.getStartData(),"yyyy-MM-dd")+"--"+DateStaffUtils.dateToDateStr(resumeEduDto.getEndData(),"yyyy-MM-dd");
+            if(resumeEduDto.getStartData()!=null && resumeEduDto.getEndData()!=null){
+                startEndTime= DateStaffUtils.dateToDateStr(resumeEduDto.getStartData(),"yyyy-MM-dd")+"--"+DateStaffUtils.dateToDateStr(resumeEduDto.getEndData(),"yyyy-MM-dd");
+
+            }else if(resumeEduDto.getStartData()!=null){
+                startEndTime= DateStaffUtils.dateToDateStr(resumeEduDto.getStartData(),"yyyy-MM-dd")+"--";
+            }else if(resumeEduDto.getStartData()!=null){
+                startEndTime="--"+ DateStaffUtils.dateToDateStr(resumeEduDto.getEndData(),"yyyy-MM-dd");
+            }
             this.resumeEduDto = resumeEduDto;
         }
     }

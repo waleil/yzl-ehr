@@ -219,9 +219,9 @@ public class ResumeController {
                 writer.addHeaderAlias("creatorName","录入人");
                 writer.addHeaderAlias("creator","工号");
                 writer.addHeaderAlias("followUpTime","简历跟进时间点");
-                writer.addHeaderAlias("creator","跟进状态");
+                writer.addHeaderAlias("followUpStatusStr","跟进状态");
             }else if(state==1){
-                execName="1筛选未通过";
+                execName="筛选未通过";
                 writer.addHeaderAlias("name", "姓名");
                 writer.addHeaderAlias("sex","性别");
                 writer.addHeaderAlias("phone", "手机号");
