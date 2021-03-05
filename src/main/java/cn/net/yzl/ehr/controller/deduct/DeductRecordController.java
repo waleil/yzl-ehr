@@ -9,6 +9,7 @@ import cn.net.yzl.msg.model.vo.MsgTemplateVo;
 import cn.net.yzl.msg.service.YMsgInfoService;
 import cn.net.yzl.staff.dto.StaffLevelDto;
 import cn.net.yzl.staff.dto.deduct.*;
+import cn.net.yzl.staff.dto.process.ProcessDto;
 import cn.net.yzl.staff.pojo.deduct.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -69,18 +70,15 @@ public class DeductRecordController {
     }
     @ApiOperation(value = "催审", notes = "催审",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/examine", method = RequestMethod.POST)
-    ComResponse examine(@CurrentStaffNo @ApiIgnore String staffNo){
-        ComResponse<List<StaffLevelDto>> staffLevelByStaffNo = processConfigFeignService.getStaffLevelByStaffNo(staffNo, 1);
-        List<StaffLevelDto> data = staffLevelByStaffNo.getData();
-        if(null == data){
-            return ComResponse.fail(500,"没有上级");
-        }
+    ComResponse examine(@CurrentStaffNo @ApiIgnore String staffNo,@RequestParam("approveNo") String approveNo, @RequestParam("processId") Integer processId){
+        ComResponse<ProcessDto> processDtoComResponse = deductReocrdService.queryByName(processId);
+
         MsgTemplateVo templateVo = new MsgTemplateVo();
         templateVo.setCode("EHR0002");
         templateVo.setCreator(staffNo);
-        templateVo.setUserCode(data.get(0).getStaffNo());
+        templateVo.setUserCode(approveNo);
         templateVo.setSystemCode(2);
-       // templateVo.setTitle("奖惩管理催审");
+        templateVo.setTitle(processDtoComResponse.getData().getName());
         Calendar calendar = Calendar.getInstance();
         Integer year = calendar.get(Calendar.YEAR);
         Integer month = (calendar.get(Calendar.MONTH)) + 1;
@@ -89,7 +87,7 @@ public class DeductRecordController {
         Integer minute = calendar.get(Calendar.MINUTE);
         Integer second = calendar.get(Calendar.SECOND);
         String s = year.toString()+"年"+month.toString()+"月"+day.toString()+"日"+hour.toString()+"时"+minute.toString()+"分"+second.toString()+"秒";
-        String[] str = {data.get(0).getStaffNo(),s};
+        String[] str = {approveNo,s};
         templateVo.setParams(str);
         return ymsgInfoService.sendSysMsgInfo(templateVo);
 
