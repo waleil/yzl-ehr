@@ -5,6 +5,7 @@ import cn.net.yzl.staff.dto.deduct.ApproveDeductDto;
 import cn.net.yzl.staff.dto.deduct.DeductProcessDTO;
 import cn.net.yzl.staff.dto.deduct.DeductRecordDto;
 import cn.net.yzl.staff.dto.deduct.DeductStaffInfoDto;
+import cn.net.yzl.staff.dto.process.ProcessDto;
 import cn.net.yzl.staff.pojo.deduct.DeductRecordInsertPo;
 import cn.net.yzl.staff.pojo.deduct.DeductRecordListPo;
 import cn.net.yzl.staff.pojo.deduct.DeductRecordStateUpdatePo;
@@ -53,4 +54,9 @@ public interface DeductRecordFeginService {
     @ApiOperation(value = "新建停止扣款申请", notes = "新建停止扣款申请",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/deductRecord/insertStopDeductRecord", method = RequestMethod.POST)
     ComResponse<Integer> insertStopDeductRecord(@RequestBody DeductProcessDTO deductProcessDTO);
+
+    @ApiOperation(value = "查询流程名称", notes = "查询流程名称",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/deductRecord/queryByName", method = RequestMethod.GET)
+    ComResponse<ProcessDto> queryByName(@RequestParam ("processId") Integer processId);
+
 }
