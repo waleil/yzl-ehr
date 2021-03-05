@@ -21,7 +21,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Repository
-@FeignClient(value = "staff",url = "${fegin.db.url}")
+//@FeignClient(value = "staff",url = "${fegin.db.url}")
+@FeignClient(value = "staff",url = "localhost:38080")
 //@FeignClient(name = "yzl-staff-db")
 public interface DeductRecordFeginService {
 
