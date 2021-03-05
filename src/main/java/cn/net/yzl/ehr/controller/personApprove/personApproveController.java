@@ -61,7 +61,8 @@ public class personApproveController {
             try {
                 if (approveProcessInfo.getProcessNodeDTO().getTotalNode()>=approveProcessInfo.getProcessNodeDTO().getStepNo()) {
                     MessageRemandAPI.examine(userNo,
-                            approveProcessInfo.getApproveInfoListDTO().getApproveNo());
+                            approveProcessInfo.getApproveInfoListDTO().getApproveNo(),
+                            approveProcessInfo.getProcessNodeDTO().getProcessName());
                 }
                 // MessageRemandAPI.processSendMessage(staffReimbursementVo.getProcessNodeDTOList().get(0).getProcessId());
             } catch (Exception e) {

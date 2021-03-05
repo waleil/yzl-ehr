@@ -34,8 +34,10 @@ public class StaffSponsorIntrRoyaController {
         if (integerComResponse.getCode().equals(200)){
             try {
                 MessageRemandAPI.examine(staffSponsorIntrRoyaVo.getStaffNo(),
-                        staffSponsorIntrRoyaVo.getProcessNodeDTOList().get(1).getStaffNo());
-                MessageRemandAPI.processSendMessage(staffSponsorIntrRoyaVo.getProcessNodeDTOList().get(0).getProcessId());
+                        staffSponsorIntrRoyaVo.getProcessNodeDTOList().get(1).getStaffNo(),
+                        staffSponsorIntrRoyaVo.getProcessNodeDTOList().get(1).getProcessName());
+                MessageRemandAPI.processSendMessage(staffSponsorIntrRoyaVo.getProcessNodeDTOList().get(0).getProcessId(),
+                        staffSponsorIntrRoyaVo.getProcessNodeDTOList().get(1).getProcessName());
             } catch (Exception e) {
                 e.printStackTrace();
             }

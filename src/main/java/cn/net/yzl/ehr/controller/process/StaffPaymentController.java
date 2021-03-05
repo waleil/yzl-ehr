@@ -32,8 +32,10 @@ public class StaffPaymentController {
         if (integerComResponse.getCode().equals(200)){
             try {
                 MessageRemandAPI.examine(staffPaymentVo.getStaffNo(),
-                        staffPaymentVo.getProcessNodeDTOList().get(1).getStaffNo());
-                MessageRemandAPI.processSendMessage(staffPaymentVo.getProcessNodeDTOList().get(0).getProcessId());
+                        staffPaymentVo.getProcessNodeDTOList().get(1).getStaffNo(),
+                        staffPaymentVo.getProcessNodeDTOList().get(1).getProcessName());
+                MessageRemandAPI.processSendMessage(staffPaymentVo.getProcessNodeDTOList().get(0).getProcessId(),
+                        staffPaymentVo.getProcessNodeDTOList().get(1).getProcessName());
             } catch (Exception e) {
                 e.printStackTrace();
             }

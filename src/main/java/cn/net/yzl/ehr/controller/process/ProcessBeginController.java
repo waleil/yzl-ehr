@@ -34,8 +34,10 @@ public class ProcessBeginController {
         if (flag.getCode().equals(200)){
             try {
                 MessageRemandAPI.examine(approveInviteDTO.getProcessNodeDTOList().get(0).getStaffNo(),
-                        approveInviteDTO.getProcessNodeDTOList().get(1).getStaffNo());
-                MessageRemandAPI.processSendMessage(approveInviteDTO.getProcessNodeDTOList().get(0).getProcessId());
+                        approveInviteDTO.getProcessNodeDTOList().get(1).getStaffNo(),
+                        approveInviteDTO.getProcessNodeDTOList().get(0).getProcessName());
+                MessageRemandAPI.processSendMessage(approveInviteDTO.getProcessNodeDTOList().get(0).getProcessId(),
+                        approveInviteDTO.getProcessNodeDTOList().get(0).getProcessName());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -49,8 +51,10 @@ public class ProcessBeginController {
         if (flag.getCode().equals(200)){
             try {
                 MessageRemandAPI.examine(approvePostInfoListDTO.getProcessNodeDTOList().get(0).getStaffNo(),
-                        approvePostInfoListDTO.getProcessNodeDTOList().get(1).getStaffNo());
-                MessageRemandAPI.processSendMessage(approvePostInfoListDTO.getProcessNodeDTOList().get(0).getProcessId());
+                        approvePostInfoListDTO.getProcessNodeDTOList().get(1).getStaffNo(),
+                        approvePostInfoListDTO.getProcessNodeDTOList().get(0).getProcessName());
+                MessageRemandAPI.processSendMessage(approvePostInfoListDTO.getProcessNodeDTOList().get(0).getProcessId(),
+                        approvePostInfoListDTO.getProcessNodeDTOList().get(0).getProcessName());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -64,8 +68,10 @@ public class ProcessBeginController {
         if (flag.getCode().equals(200)){
             try {
                 MessageRemandAPI.examine(approveDimissionInfoListDTO.getProcessNodeDTOList().get(0).getStaffNo(),
-                        approveDimissionInfoListDTO.getProcessNodeDTOList().get(1).getStaffNo());
-                MessageRemandAPI.processSendMessage(approveDimissionInfoListDTO.getProcessNodeDTOList().get(0).getProcessId());
+                        approveDimissionInfoListDTO.getProcessNodeDTOList().get(1).getStaffNo(),
+                        approveDimissionInfoListDTO.getProcessNodeDTOList().get(0).getProcessName());
+                MessageRemandAPI.processSendMessage(approveDimissionInfoListDTO.getProcessNodeDTOList().get(0).getProcessId(),
+                        approveDimissionInfoListDTO.getProcessNodeDTOList().get(0).getProcessName());
             } catch (Exception e) {
                 e.printStackTrace();
             }
