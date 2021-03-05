@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.controller;
 
 
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
@@ -14,6 +15,7 @@ import cn.net.yzl.ehr.service.StaffService;
 import cn.net.yzl.ehr.vo.StaffParamsVO;
 import cn.net.yzl.pm.entity.UserRole;
 import cn.net.yzl.pm.model.dto.UserRoleDTO;
+import cn.net.yzl.pm.model.vo.UserRoleVO;
 import cn.net.yzl.pm.service.UserRoleService;
 import cn.net.yzl.staff.dto.StaffDetailsDto;
 import cn.net.yzl.staff.dto.StaffInfoDto;
@@ -29,10 +31,8 @@ import springfox.documentation.annotations.ApiIgnore;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/staff")
@@ -50,7 +50,9 @@ public class StaffController {
     @ApiOperation(value = "查询当前用户详情", notes = "查询当前用户详情")
     @RequestMapping(value = "/getCurrentDetails", method = RequestMethod.GET)
     public ComResponse<StaffDetailsDto> getCurrentDetails(@ApiIgnore @CurrentStaffNo String staffNo) {
-        return staffService.getDetailsByNo(staffNo);
+        ComResponse<StaffDetailsDto> detailsByNo = staffService.getDetailsByNo(staffNo);
+        getUserRoleInfo(detailsByNo);
+        return detailsByNo;
     }
 
     @ApiOperation(value = "根据用户工号获取详情信息", notes = "根据用户工号获取详情信息")
@@ -59,8 +61,26 @@ public class StaffController {
             @ApiImplicitParam(name = "staffNo", value = "用户工号", required = true, dataType = "String", paramType = "query")
     })
     public ComResponse<StaffDetailsDto> getDetailsByNo(@NotBlank String staffNo) {
-        return staffService.getDetailsByNo(staffNo);
+        ComResponse<StaffDetailsDto> detailsByNo = staffService.getDetailsByNo(staffNo);
+        getUserRoleInfo(detailsByNo);
+        return detailsByNo;
     }
+    private void getUserRoleInfo(ComResponse<StaffDetailsDto> detailsByNo){
+        if(detailsByNo.getData()!=null){
+            StaffDetailsDto data = detailsByNo.getData();
+            String staffNo = data.getStaffNo();
+            List<String> userLists = Arrays.asList(staffNo);
+            List<UserRoleVO> userRoleInfoByUserCodes = userRoleService.getUserRoleInfoByUserCodes(userLists);
+            if(CollectionUtil.isNotEmpty(userRoleInfoByUserCodes)){
+                List<String> rolesNames = userRoleInfoByUserCodes.stream().map(UserRoleVO::getRoleName).collect(Collectors.toList());
+                List<String> rolesIds = userRoleInfoByUserCodes.stream().map(UserRoleVO::getRoleId).map(String::valueOf).collect(Collectors.toList());
+                data.setRoleIds(String.join(",",rolesIds));
+                data.setRoleNames(String.join(",",rolesNames));
+            }
+        }
+    }
+
+
     @ApiOperation(value = "根据多个用户工号批量获取详情信息", notes = "根据多个用户工号批量获取详情信息")
     @RequestMapping(value = "/getDetailsByNo", method = RequestMethod.POST)
     public ComResponse<List<StaffDetailsDto>> getDetailsByNo(@RequestBody List<String> list) {
