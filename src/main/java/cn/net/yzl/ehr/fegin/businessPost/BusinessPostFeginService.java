@@ -32,7 +32,7 @@ public interface BusinessPostFeginService {
     @RequestMapping(value = "/businessPost/addBussnessAtrrPost", method = RequestMethod.POST)
     ComResponse<Integer> addBussnessAtrrPost(@RequestBody @Validated BusinessPostVO businessPostVO) ;
 
-    @RequestMapping(value = "/businessPost/getBusinessPostList", method = RequestMethod.GET)
+    @RequestMapping(value = "/businessPost/getBusinessPostListEhr", method = RequestMethod.GET)
     public ComResponse<List<BusinessPostDto>> getBusiPostListByAttr(@RequestParam("bussinessAtrrCode") Integer bussinessAtrrCode);
 
     @RequestMapping(value = "/businessPost/getPostListByBussinessAttrCode", method = RequestMethod.GET)
