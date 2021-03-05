@@ -36,7 +36,9 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.net.URLEncoder;
 import java.text.ParseException;
 import java.util.*;
@@ -194,103 +196,147 @@ public class StaffController {
 
     @ApiOperation(value = "员工列表-导出", notes = "员工列表-导出")
     @RequestMapping(value = "/staffListExcelExport", method = RequestMethod.POST)
-    public void staffListExcelExport(@RequestBody @Validated StaffParamsVO staffParamsVO, HttpServletResponse response) {
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "type", value = "导出列表类型:1.员工列表,2.部门员工列表,3.待优化列表,4.带劝退,5.人才储备池列表", required = true, dataType = "String", paramType = "query")
+    })
+    public void staffListExcelExport(@RequestBody @Validated StaffParamsVO staffParamsVO, @RequestParam("type") @NotNull @Min(1) Integer type, HttpServletResponse response) {
         String execName="resume_list";
+        ComResponse<Page<StaffListDto>> listByParams=null;
+        List<StaffListDto> list =null;
         try {
+
             ExcelWriter writer = ExcelUtil.getWriter();
-            writer.renameSheet("员工列表");     //甚至sheet的名称
+            //员工列表
+            switch (type){
+                case 1:
+                    writer.renameSheet("员工列表");     //甚至sheet的名称
+                    execName="员工列表导出";
+                    writer.addHeaderAlias("no", "工号");
+                    writer.addHeaderAlias("name", "姓名");
+                    writer.addHeaderAlias("phone","手机号");
+                    writer.addHeaderAlias("email","邮箱");
+                    writer.addHeaderAlias("workplaceCodeStr","工作地点");
+                    writer.addHeaderAlias("pDepartName","上级架构");
+                    writer.addHeaderAlias("sexName","性别");
+                    writer.addHeaderAlias("departName","部门");
+                    writer.addHeaderAlias("postName","岗位名称");
+                    writer.addHeaderAlias("postLevelName","岗位级别");
+                    writer.addHeaderAlias("natureName","属性");
+                    writer.addHeaderAlias("partnerName","合作方");
+                    writer.addHeaderAlias("workCodeStr","职场");
+                    writer.addHeaderAlias("postStatusCodeStr","在职状态");
+                    writer.addHeaderAlias("trainingTimes","培训次数");
+                    writer.addHeaderAlias("trainingGradeName","培训成绩");
+                    writer.addHeaderAlias("enterStatusName","入岗状态");
+                    writer.addHeaderAlias("postTime","入岗时间");
+                    writer.addHeaderAlias("accountStatusStr","账号状态");
+                    writer.addHeaderAlias("abnoStatusCodeStr","异动状态");
+                    writer.addHeaderAlias("abnorTime","异动时间");
+                    writer.addHeaderAlias("entryTimes","入司次数");
+                    writer.addHeaderAlias("dimissionTime","离职时间");
+                    writer.addHeaderAlias("departName","薪资核酸截止日");
+                    staffParamsVO.setPageNo(1);
+                    staffParamsVO.setPageSize(50000);
+                    listByParams = staffService.getListByParams(staffParamsVO);
+                    break;
+                case 2://部门员工列表
+                    writer.renameSheet("部门员工列表");     //甚至sheet的名称
+                    execName="部门员工列表导出";
+                    writer.addHeaderAlias("no", "工号");
+                    writer.addHeaderAlias("name", "姓名");
+                    writer.addHeaderAlias("phone","手机号");
+                    writer.addHeaderAlias("email","邮箱");
+                    writer.addHeaderAlias("workplaceCodeStr","工作地点");
+                    writer.addHeaderAlias("pDepartName","上级架构");
+                    writer.addHeaderAlias("departName","部门");
+                    writer.addHeaderAlias("postName","岗位名称");
+                    writer.addHeaderAlias("postLevelName","岗位级别");
+                    writer.addHeaderAlias("natureName","属性");
+                    writer.addHeaderAlias("postStatusCodeStr","在职状态");
+                    writer.addHeaderAlias("accountStatusStr","账号状态");
+                    writer.addHeaderAlias("enterStatusName","入岗状态");
+                    writer.addHeaderAlias("postTime","入岗时间");
+                    writer.addHeaderAlias("trainingCompletion","培训完成度");
+                    writer.addHeaderAlias("trainingGradeName","培训成绩");
+                    writer.addHeaderAlias("abnorTime","历史异动异动时间");
+                    writer.addHeaderAlias("entryTimes","入司次数");
+                    staffParamsVO.setPageNo(1);
+                    staffParamsVO.setPageSize(50000);
+                    listByParams = staffService.getListByParams(staffParamsVO);
+                    break;
+                case 3://待优化员工列表
+                    writer.renameSheet("待优化员工列表");     //甚至sheet的名称
+                    execName="待优化员工导出";
+                    writer.addHeaderAlias("no", "工号");
+                    writer.addHeaderAlias("name", "姓名");
+                    writer.addHeaderAlias("phone","手机号");
+                    writer.addHeaderAlias("email","邮箱");
+                    writer.addHeaderAlias("workplaceCodeStr","工作地点");
+                    writer.addHeaderAlias("pDepartName","上级架构");
+                    writer.addHeaderAlias("departName","部门");
+                    writer.addHeaderAlias("postName","岗位名称");
+                    writer.addHeaderAlias("postLevelName","岗位级别");
+                    writer.addHeaderAlias("natureName","属性");
+                    writer.addHeaderAlias("","原因");
+                    staffParamsVO.setPageNo(1);
+                    staffParamsVO.setPageSize(50000);
+                    listByParams = staffService.getListByParams(staffParamsVO);
+                    break;
+                case 4://待劝退员工列表
+                    writer.renameSheet("待劝退员工列表");     //甚至sheet的名称
+                    execName="待劝退员工导出";
+                    writer.addHeaderAlias("no", "工号");
+                    writer.addHeaderAlias("name", "姓名");
+                    writer.addHeaderAlias("phone","手机号");
+                    writer.addHeaderAlias("email","邮箱");
+                    writer.addHeaderAlias("workplaceCodeStr","工作地点");
+                    writer.addHeaderAlias("pDepartName","上级架构");
+                    writer.addHeaderAlias("departName","部门");
+                    writer.addHeaderAlias("postName","岗位名称");
+                    writer.addHeaderAlias("postLevelName","岗位级别");
+                    writer.addHeaderAlias("natureName","属性");
+                    writer.addHeaderAlias("","原因");
+                    staffParamsVO.setPageNo(1);
+                    staffParamsVO.setPageSize(50000);
+                    listByParams = staffService.getListByParams(staffParamsVO);
+                    break;
+                case 5://人才储备池
+                    writer.renameSheet("人才储备池员工列表");     //甚至sheet的名称
+                    execName="人才储备池员工导出";
+                    writer.addHeaderAlias("no", "工号");
+                    writer.addHeaderAlias("name", "姓名");
+                    writer.addHeaderAlias("phone","手机号");
+                    writer.addHeaderAlias("email","邮箱");
+                    writer.addHeaderAlias("workplaceCodeStr","工作地点");
+                    writer.addHeaderAlias("pDepartName","上级架构");
+                    writer.addHeaderAlias("departName","部门");
+                    writer.addHeaderAlias("postName","岗位名称");
+                    writer.addHeaderAlias("postLevelName","岗位级别");
+                    writer.addHeaderAlias("natureName","属性");
+                    writer.addHeaderAlias("accountStatusStr","账号状态");
+                    writer.addHeaderAlias("abnorTime","历史异动时间");
+                    writer.addHeaderAlias("entryTimes","入司次数");
 
-                execName="员工列表导出";
-                writer.addHeaderAlias("no", "工号");
-                writer.addHeaderAlias("name", "姓名");
-                writer.addHeaderAlias("phone","手机号");
-                writer.addHeaderAlias("email","邮箱");
-                writer.addHeaderAlias("workplaceCodeStr","工作地点");
+                    staffParamsVO.setPageNo(1);
+                    staffParamsVO.setPageSize(50000);
+                    listByParams = staffService.getListByParams(staffParamsVO);
+                    break;
+            }
+            if(listByParams!=null && listByParams.getData()!=null && listByParams.getData().getItems()!=null){
+                list = listByParams.getData().getItems();
+            }
 
-                writer.addHeaderAlias("pDepartName","上级架构");
-                writer.addHeaderAlias("sexName","性别");
-                writer.addHeaderAlias("departName","部门");
-                writer.addHeaderAlias("postName","岗位名称");
-                writer.addHeaderAlias("postLevelName","岗位级别");
-                writer.addHeaderAlias("natureName","属性");
-                writer.addHeaderAlias("partnerName","合作方");
-                writer.addHeaderAlias("workCodeStr","职场");
-                writer.addHeaderAlias("postStatusCodeStr","在职状态");
-                writer.addHeaderAlias("trainingTimes","培训次数");
-                writer.addHeaderAlias("trainingGradeName","培训成绩");
-                writer.addHeaderAlias("enterStatusName","入岗状态");
-                writer.addHeaderAlias("postTime","入岗时间");
-                writer.addHeaderAlias("accountStatusStr","账号状态");
-                writer.addHeaderAlias("abnoStatusCodeStr","异动状态");
-                writer.addHeaderAlias("abnorTime","异动时间");
-                writer.addHeaderAlias("entryTimes","入司次数");
-                writer.addHeaderAlias("dimissionTime","离职时间");
-                writer.addHeaderAlias("departName","薪资核酸截止日");
-
-            staffParamsVO.setPageNo(1);
-            staffParamsVO.setPageSize(100000);
-            ComResponse<Page<StaffListDto>> listByParams = staffService.getListByParams(staffParamsVO);
-
-            List<StaffListDto> list = listByParams.getData().getItems();
             writer.setOnlyAlias(true);
             writer.write(list, true);
             response.reset();
             response.setContentType("application/vnd.ms-excel;charset=utf-8");
             response.setHeader("Content-Disposition", "attachment; filename="+ URLEncoder.encode(execName, "UTF-8")+".xlsx");   //中文名称需要特殊处理
-//            response.setHeader("Content-Disposition", "attachment; filename="+ execName+".xlsx");   //中文名称需要特殊处理
             writer.autoSizeColumnAll();
             writer.flush(response.getOutputStream());
             writer.close();
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
-
-    @ApiOperation(value = "部门员工列表-导出", notes = "部门员工列表-导出")
-    @RequestMapping(value = "/departStaffListExcelExport", method = RequestMethod.POST)
-    public void departStaffListExcelExport(@RequestBody @Validated StaffParamsVO staffParamsVO, HttpServletResponse response) {
-        String execName="resume_list";
-        try {
-            ExcelWriter writer = ExcelUtil.getWriter();
-            writer.renameSheet("部门员工列表");     //甚至sheet的名称
-
-            execName="员工列表导出";
-            writer.addHeaderAlias("no", "工号");
-            writer.addHeaderAlias("name", "姓名");
-            writer.addHeaderAlias("phone","手机号");
-            writer.addHeaderAlias("email","邮箱");
-            writer.addHeaderAlias("workplaceCodeStr","工作地点");
-            writer.addHeaderAlias("pDepartName","上级架构");
-
-            writer.addHeaderAlias("departName","部门");
-            writer.addHeaderAlias("postName","岗位名称");
-            writer.addHeaderAlias("postLevelName","岗位级别");
-            writer.addHeaderAlias("natureName","属性");
-            writer.addHeaderAlias("postStatusCodeStr","在职状态");
-            writer.addHeaderAlias("accountStatusStr","账号状态");
-            writer.addHeaderAlias("enterStatusName","入岗状态");
-            writer.addHeaderAlias("postTime","入岗时间");
-            writer.addHeaderAlias("trainingCompletion","培训完成度");
-            writer.addHeaderAlias("trainingGradeName","培训成绩");
-            writer.addHeaderAlias("abnorTime","历史异动异动时间");
-            writer.addHeaderAlias("entryTimes","入司次数");
-
-            staffParamsVO.setPageNo(1);
-            staffParamsVO.setPageSize(100000);
-            ComResponse<Page<StaffListDto>> listByParams = staffService.getListByParams(staffParamsVO);
-
-            List<StaffListDto> list = listByParams.getData().getItems();
-            writer.setOnlyAlias(true);
-            writer.write(list, true);
-            response.reset();
-            response.setContentType("application/vnd.ms-excel;charset=utf-8");
-            response.setHeader("Content-Disposition", "attachment; filename="+ URLEncoder.encode(execName, "UTF-8")+".xlsx");   //中文名称需要特殊处理
-//            response.setHeader("Content-Disposition", "attachment; filename="+ execName+".xlsx");   //中文名称需要特殊处理
-            writer.autoSizeColumnAll();
-            writer.flush(response.getOutputStream());
-            writer.close();
-        } catch (Exception e) {
-        }
-    }
-
 
 }

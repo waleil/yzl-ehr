@@ -79,6 +79,8 @@ public class StaffListDto implements Serializable {
     private Integer postStatusCode;
     @ApiModelProperty(value = "在职状态名称", name = "postStatusCodeStr")
     private String postStatusCodeStr;
+    @ApiModelProperty(value = "在职标识(0.不在职，1.在职)", name = "workStatus")
+    private Integer workStatus;
     @ApiModelProperty(value = "账号状态 0正常 1停用", name = "accountStatus")
     private Integer accountStatus;
     @ApiModelProperty(value = "账号状态名称", name = "accountStatusStr")
@@ -117,31 +119,39 @@ public class StaffListDto implements Serializable {
     private Integer enterStatus;
     @ApiModelProperty(value = "入岗状态名称", name = "enterStatusName")
     private String enterStatusName;
+    @ApiModelProperty(value = "是否有异动历史(0.无,1.有)", name = "abnorHistory")
+    private Integer abnorHistory;
 
     public void setSex(Integer sex) {
-        this.sex=sex;
-        if(sex==0){
-        this.sexName = "男";
-        }else if(sex==1){
-        this.sexName = "女";
+        if(sex!=null) {
+            this.sex = sex;
+            if (sex == 0) {
+                this.sexName = "男";
+            } else if (sex == 1) {
+                this.sexName = "女";
+            }
         }
     }
 
     public void setNature(Integer nature) {
-        this.nature=nature;
-        if(nature==1){
-            this.natureName = "正编";
-        }else if(nature==2){
-            this.natureName = "外包";
+        if(nature!=null){
+            this.nature=nature;
+            if(nature==1){
+                this.natureName = "正编";
+            }else if(nature==2){
+                this.natureName = "外包";
+            }
         }
     }
 
     public void setAccountStatus(Integer accountStatus) {
-        this.accountStatus=accountStatus;
-        if(accountStatus==0){
-            this.accountStatusStr = "正常";
-        }else if(accountStatus==1){
-            this.accountStatusStr = "停用";
+        if(accountStatus!=null) {
+            this.accountStatus = accountStatus;
+            if (accountStatus == 0) {
+                this.accountStatusStr = "正常";
+            } else if (accountStatus == 1) {
+                this.accountStatusStr = "停用";
+            }
         }
     }
 }
