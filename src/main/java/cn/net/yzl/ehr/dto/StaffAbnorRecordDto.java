@@ -85,8 +85,8 @@ public class StaffAbnorRecordDto {
     private Integer adjustSalaryLater;
 
     @ApiModelProperty("异动时间")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private Date abnorTime;
 
     @ApiModelProperty("薪资结算日期时间")
@@ -107,8 +107,8 @@ public class StaffAbnorRecordDto {
     private String adjustPostLevelLaterName;
 
     @ApiModelProperty("异动创建时间")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date createTime;
 
 
