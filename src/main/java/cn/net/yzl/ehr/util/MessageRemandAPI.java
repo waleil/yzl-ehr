@@ -40,7 +40,7 @@ public class MessageRemandAPI {
         messageRemandAPI = this;
         messageRemandAPI.processConfigFeignService = this.processConfigFeignService;
     }
-    public static ComResponse examine(String staffNo,String approveNo){
+    public static ComResponse examine(String staffNo,String approveNo,String processName){
        // ComResponse<String> data = messageRemandAPI.processConfigFeignService.getStaffNodeByStaffNo(processAuditId,stepNo);
         //String data = appNo;
 
@@ -49,6 +49,7 @@ public class MessageRemandAPI {
         templateVo.setCreator(staffNo);
         templateVo.setUserCode(approveNo);
         templateVo.setSystemCode(2);
+        templateVo.setTitle(processName);
         Calendar calendar = Calendar.getInstance();
         Integer year = calendar.get(Calendar.YEAR);
         Integer month = (calendar.get(Calendar.MONTH)) + 1;
@@ -62,11 +63,11 @@ public class MessageRemandAPI {
         return messageRemandAPI.ymsgInfoService.sendSysMsgInfo(templateVo);
 
     }
-    public static void processSendMessage(Integer processId){
+    public static void processSendMessage(Integer processId,String processName){
         ComResponse<List<StaffLevelDto>> personSend = messageRemandAPI.processConfigFeignService.getPersonSend(processId);
         //List<StaffLevelDto> data = personSend.getData();
-        if(null == personSend){
-            throw new BaseParamsException(ResponseCodeEnums.API_ERROR_CODE.getCode(), "没有上级");
+        if(0 == personSend.getData().size()){
+            throw new BaseParamsException(ResponseCodeEnums.API_ERROR_CODE.getCode(), "没有抄送人！");
         }
         personSend.getData().forEach(map-> {
             MsgTemplateVo templateVo = new MsgTemplateVo();
@@ -74,6 +75,7 @@ public class MessageRemandAPI {
             templateVo.setCreator(map.getStaffNo());
             templateVo.setUserCode(map.getStaffNo());
             templateVo.setSystemCode(2);
+            templateVo.setTitle(processName);
             Calendar calendar = Calendar.getInstance();
             Integer year = calendar.get(Calendar.YEAR);
             Integer month = (calendar.get(Calendar.MONTH)) + 1;

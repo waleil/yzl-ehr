@@ -34,8 +34,10 @@ public class ProcessReimbursementController {
         if (integerComResponse.getCode().equals(200)){
             try {
                 MessageRemandAPI.examine(staffReimbursementVo.getStaffNo(),
-                        staffReimbursementVo.getProcessNodeDTOList().get(1).getStaffNo());
-                MessageRemandAPI.processSendMessage(staffReimbursementVo.getProcessNodeDTOList().get(0).getProcessId());
+                        staffReimbursementVo.getProcessNodeDTOList().get(1).getStaffNo(),
+                        staffReimbursementVo.getProcessNodeDTOList().get(1).getProcessName());
+                MessageRemandAPI.processSendMessage(staffReimbursementVo.getProcessNodeDTOList().get(0).getProcessId(),
+                        staffReimbursementVo.getProcessNodeDTOList().get(1).getProcessName());
             } catch (Exception e) {
                 e.printStackTrace();
             }

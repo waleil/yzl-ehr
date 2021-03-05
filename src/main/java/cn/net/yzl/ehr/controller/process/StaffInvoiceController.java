@@ -27,9 +27,11 @@ public class StaffInvoiceController {
         if (integerComResponse.getCode().equals(200)){
             try {
                 MessageRemandAPI.examine(staffInvoiceVo.getStaffNo(),
-                        staffInvoiceVo.getProcessNodeDTOList().get(1).getStaffNo());
+                        staffInvoiceVo.getProcessNodeDTOList().get(1).getStaffNo(),
+                        staffInvoiceVo.getProcessNodeDTOList().get(1).getProcessName());
 
-                MessageRemandAPI.processSendMessage(staffInvoiceVo.getProcessNodeDTOList().get(0).getProcessId());
+                MessageRemandAPI.processSendMessage(staffInvoiceVo.getProcessNodeDTOList().get(0).getProcessId(),
+                        staffInvoiceVo.getProcessNodeDTOList().get(1).getProcessName());
             } catch (Exception e) {
                 e.printStackTrace();
             }

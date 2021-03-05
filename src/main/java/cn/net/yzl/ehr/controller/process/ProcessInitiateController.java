@@ -33,8 +33,10 @@ public class ProcessInitiateController {
         if (integerComResponse.getCode().equals(200)){
             try {
                 MessageRemandAPI.examine(staffNo,
-                        staffOutVo.getProcessNodeDTOList().get(1).getStaffNo());
-                MessageRemandAPI.processSendMessage(staffOutVo.getProcessNodeDTOList().get(0).getProcessId());
+                        staffOutVo.getProcessNodeDTOList().get(1).getStaffNo(),
+                        staffOutVo.getProcessNodeDTOList().get(1).getProcessName());
+                MessageRemandAPI.processSendMessage(staffOutVo.getProcessNodeDTOList().get(0).getProcessId(),
+                        staffOutVo.getProcessNodeDTOList().get(0).getProcessName());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -49,8 +51,10 @@ public class ProcessInitiateController {
         if (integerComResponse.getCode().equals(200)){
             try {
                 MessageRemandAPI.examine(staffNo,
-                        staffTravelVo.getProcessNodeDTOList().get(1).getStaffNo());
-                MessageRemandAPI.processSendMessage(staffTravelVo.getProcessNodeDTOList().get(0).getProcessId());
+                        staffTravelVo.getProcessNodeDTOList().get(1).getStaffNo(),
+                        staffTravelVo.getProcessNodeDTOList().get(1).getProcessName());
+                MessageRemandAPI.processSendMessage(staffTravelVo.getProcessNodeDTOList().get(0).getProcessId(),
+                        staffTravelVo.getProcessNodeDTOList().get(0).getProcessName());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -65,8 +69,10 @@ public class ProcessInitiateController {
         if (integerComResponse.getCode().equals(200)){
             try {
                 MessageRemandAPI.examine(staffNo,
-                        staffAttendApprovalVo.getProcessNodeDTOList().get(1).getStaffNo());
-                MessageRemandAPI.processSendMessage(staffAttendApprovalVo.getProcessNodeDTOList().get(0).getProcessId());
+                        staffAttendApprovalVo.getProcessNodeDTOList().get(1).getStaffNo(),
+                        staffAttendApprovalVo.getProcessNodeDTOList().get(1).getProcessName());
+                MessageRemandAPI.processSendMessage(staffAttendApprovalVo.getProcessNodeDTOList().get(0).getProcessId(),
+                        staffAttendApprovalVo.getProcessNodeDTOList().get(0).getProcessName());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -81,8 +87,10 @@ public class ProcessInitiateController {
         if (integerComResponse.getCode().equals(200)){
             try {
                 MessageRemandAPI.examine(staffNo,
-                        staffParkingSpaceVo.getProcessNodeDTOList().get(1).getStaffNo());
-                MessageRemandAPI.processSendMessage(staffParkingSpaceVo.getProcessNodeDTOList().get(0).getProcessId());
+                        staffParkingSpaceVo.getProcessNodeDTOList().get(1).getStaffNo(),
+                        staffParkingSpaceVo.getProcessNodeDTOList().get(1).getProcessName());
+                MessageRemandAPI.processSendMessage(staffParkingSpaceVo.getProcessNodeDTOList().get(0).getProcessId(),
+                        staffParkingSpaceVo.getProcessNodeDTOList().get(0).getProcessName());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -97,8 +105,10 @@ public class ProcessInitiateController {
         if (integerComResponse.getCode().equals(200)){
             try {
                 MessageRemandAPI.examine(staffNo,
-                        staffItemRequisitionVo.getProcessNodeDTOList().get(1).getStaffNo());
-                MessageRemandAPI.processSendMessage(staffItemRequisitionVo.getProcessNodeDTOList().get(0).getProcessId());
+                        staffItemRequisitionVo.getProcessNodeDTOList().get(1).getStaffNo(),
+                        staffItemRequisitionVo.getProcessNodeDTOList().get(1).getProcessName());
+                MessageRemandAPI.processSendMessage(staffItemRequisitionVo.getProcessNodeDTOList().get(0).getProcessId(),
+                        staffItemRequisitionVo.getProcessNodeDTOList().get(0).getProcessName());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -113,8 +123,10 @@ public class ProcessInitiateController {
         if (integerComResponse.getCode().equals(200)){
             try {
                 MessageRemandAPI.examine(staffNo,
-                        staffAttendExchangeVo.getProcessNodeDTOList().get(1).getStaffNo());
-                MessageRemandAPI.processSendMessage(staffAttendExchangeVo.getProcessNodeDTOList().get(0).getProcessId());
+                        staffAttendExchangeVo.getProcessNodeDTOList().get(1).getStaffNo(),
+                        staffAttendExchangeVo.getProcessNodeDTOList().get(1).getProcessName());
+                MessageRemandAPI.processSendMessage(staffAttendExchangeVo.getProcessNodeDTOList().get(0).getProcessId(),
+                        staffAttendExchangeVo.getProcessNodeDTOList().get(1).getProcessName());
             } catch (Exception e) {
                 e.printStackTrace();
             }
