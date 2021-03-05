@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
@@ -29,7 +31,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Configuration
 @AutoConfigureAfter(DataSourceConfiguration.class)
-@MapperScan(basePackages={"cn.net.yzl.ehr.mapper","cn.net.yzl.pm.mapper","cn.net.yzl.msg.mapper"})
+@MapperScan(basePackages={"cn.net.yzl.ehr.mapper","cn.net.yzl.pm.mapper"})
 public class MybatisConfiguration {
 
 	private static Logger log = LoggerFactory.getLogger(MybatisConfiguration.class);
@@ -50,7 +52,7 @@ public class MybatisConfiguration {
 	private DataSource readDataSource;
 
 	
-	
+	@Primary
     @Bean(name="sqlSessionFactory")
     public SqlSessionFactory sqlSessionFactorys() throws Exception {
         log.info("--------------------  sqlSessionFactory init ---------------------");
@@ -148,7 +150,7 @@ public class MybatisConfiguration {
         return proxy;
     }
 
-
+    @Primary
     @Bean
     public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
     	return new SqlSessionTemplate(sqlSessionFactory);
