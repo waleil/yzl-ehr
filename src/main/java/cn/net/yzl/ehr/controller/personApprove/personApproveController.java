@@ -59,14 +59,19 @@ public class personApproveController {
         ComResponse<Boolean> flag = findApproveService.saveApproveInfo(approveProcessInfo);
         if (flag.getCode().equals(200)){
             try {
-                if (approveProcessInfo.getProcessNodeDTO().getTotalNode()>approveProcessInfo.getProcessNodeDTO().getStepNo()) {
-                    MessageRemandAPI.examine(userNo,
-                            approveProcessInfo.getApproveInfoListDTO().getApproveNo(),
+                if (approveProcessInfo.getProcessNodeDTO().getAuditResult().equals(3)) {
+                    MessageRemandAPI.revocationMessage(userNo,approveProcessInfo.getApproveInfoListDTO().getApplicationNo(),
                             approveProcessInfo.getProcessNodeDTO().getProcessName());
-                }else if (approveProcessInfo.getProcessNodeDTO().getTotalNode().equals(approveProcessInfo.getProcessNodeDTO().getStepNo())){
-                    MessageRemandAPI.examine(userNo,
-                            approveProcessInfo.getApproveInfoListDTO().getApplicationNo(),
-                            approveProcessInfo.getProcessNodeDTO().getProcessName());
+                } else {
+                    if (approveProcessInfo.getProcessNodeDTO().getTotalNode()>approveProcessInfo.getProcessNodeDTO().getStepNo()) {
+                        MessageRemandAPI.examine(userNo,
+                                approveProcessInfo.getApproveInfoListDTO().getApproveNo(),
+                                approveProcessInfo.getProcessNodeDTO().getProcessName());
+                    }else if (approveProcessInfo.getProcessNodeDTO().getTotalNode().equals(approveProcessInfo.getProcessNodeDTO().getStepNo())){
+                        MessageRemandAPI.examine(userNo,
+                                approveProcessInfo.getApproveInfoListDTO().getApplicationNo(),
+                                approveProcessInfo.getProcessNodeDTO().getProcessName());
+                    }
                 }
                 // MessageRemandAPI.processSendMessage(staffReimbursementVo.getProcessNodeDTOList().get(0).getProcessId());
             } catch (Exception e) {

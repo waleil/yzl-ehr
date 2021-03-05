@@ -91,4 +91,27 @@ public class MessageRemandAPI {
 
     }
 
+        public static void revocationMessage(String staffNo,String appNo,String processName){
+
+            MsgTemplateVo templateVo = new MsgTemplateVo();
+            templateVo.setCode("EHR0023");
+            templateVo.setCreator(staffNo);
+            templateVo.setUserCode(appNo);
+            templateVo.setSystemCode(2);
+            templateVo.setTitle(processName);
+            Calendar calendar = Calendar.getInstance();
+            Integer year = calendar.get(Calendar.YEAR);
+            Integer month = (calendar.get(Calendar.MONTH)) + 1;
+            Integer day = calendar.get(Calendar.DAY_OF_MONTH);
+            Integer hour = calendar.get(Calendar.HOUR_OF_DAY);
+            Integer minute = calendar.get(Calendar.MINUTE);
+            Integer second = calendar.get(Calendar.SECOND);
+            String s = year.toString() + "年" + month.toString() + "月" + day.toString() + "日" + hour.toString() + "时" + minute.toString() + "分" + second.toString() + "秒";
+            String[] str = {appNo, s};
+            templateVo.setParams(str);
+            messageRemandAPI.ymsgInfoService.sendSysMsgInfo(templateVo);
+
+    }
+
+
 }
