@@ -2,6 +2,7 @@ package cn.net.yzl.ehr.service.deduct;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.staff.dto.deduct.*;
+import cn.net.yzl.staff.dto.process.ProcessDto;
 import cn.net.yzl.staff.pojo.deduct.*;
 
 import java.util.List;
@@ -26,5 +27,8 @@ public interface DeductReocrdService {
 
     //新建停止扣款详情
     ComResponse<Integer> insertStopDeductRecord(DeductProcessDTO deductProcessDTO,String staffNo);
+
+    //查询流程名称
+    ComResponse<ProcessDto> queryByName (Integer processId);
 
 }
