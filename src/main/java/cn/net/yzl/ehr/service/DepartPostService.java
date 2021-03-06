@@ -24,6 +24,7 @@ public interface DepartPostService {
 
     ComResponse<String> updatePost(DepartPostUpdatePo post,String staffNo);
 
-    ComResponse<String> delete(  Integer id, String staffNo) ;
+    ComResponse<String> delete( Integer id, String staffNo) ;
 
+    public ComResponse<List<DepartPostDto>> getListWithoutResumeByDepartId(Integer departId) ;
 }

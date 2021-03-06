@@ -25,6 +25,7 @@ import cn.net.yzl.staff.dto.StaffDetailsDto;
 import cn.net.yzl.staff.dto.StaffInfoDto;
 import cn.net.yzl.staff.dto.StatisticalStaffDto;
 import cn.net.yzl.staff.dto.resume.ResumeListDto;
+import cn.net.yzl.staff.util.DateStaffUtils;
 import cn.net.yzl.staff.vo.resume.ResumeParamsVO;
 import cn.net.yzl.staff.vo.staff.StaffInfoSaveVO;
 import cn.net.yzl.staff.vo.staff.StaffInfoUpdateVO;
@@ -203,6 +204,7 @@ public class StaffController {
         String execName="resume_list";
         ComResponse<Page<StaffListDto>> listByParams=null;
         List<StaffListDto> list =null;
+        execName="staff";
         try {
 
             ExcelWriter writer = ExcelUtil.getWriter();
@@ -210,7 +212,6 @@ public class StaffController {
             switch (type){
                 case 1:
                     writer.renameSheet("员工列表");     //甚至sheet的名称
-                    execName="员工列表导出";
                     writer.addHeaderAlias("no", "工号");
                     writer.addHeaderAlias("name", "姓名");
                     writer.addHeaderAlias("phone","手机号");
@@ -241,7 +242,6 @@ public class StaffController {
                     break;
                 case 2://部门员工列表
                     writer.renameSheet("部门员工列表");     //甚至sheet的名称
-                    execName="部门员工列表导出";
                     writer.addHeaderAlias("no", "工号");
                     writer.addHeaderAlias("name", "姓名");
                     writer.addHeaderAlias("phone","手机号");
@@ -266,7 +266,6 @@ public class StaffController {
                     break;
                 case 3://待优化员工列表
                     writer.renameSheet("待优化员工列表");     //甚至sheet的名称
-                    execName="待优化员工导出";
                     writer.addHeaderAlias("no", "工号");
                     writer.addHeaderAlias("name", "姓名");
                     writer.addHeaderAlias("phone","手机号");
@@ -284,7 +283,6 @@ public class StaffController {
                     break;
                 case 4://待劝退员工列表
                     writer.renameSheet("待劝退员工列表");     //甚至sheet的名称
-                    execName="待劝退员工导出";
                     writer.addHeaderAlias("no", "工号");
                     writer.addHeaderAlias("name", "姓名");
                     writer.addHeaderAlias("phone","手机号");
@@ -302,7 +300,6 @@ public class StaffController {
                     break;
                 case 5://人才储备池
                     writer.renameSheet("人才储备池员工列表");     //甚至sheet的名称
-                    execName="人才储备池员工导出";
                     writer.addHeaderAlias("no", "工号");
                     writer.addHeaderAlias("name", "姓名");
                     writer.addHeaderAlias("phone","手机号");
