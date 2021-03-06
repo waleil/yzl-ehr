@@ -60,7 +60,8 @@ public class personApproveController {
         if (flag.getCode().equals(200)){
             try {
                 if (approveProcessInfo.getProcessNodeDTO().getAuditResult().equals(3)) {
-                    MessageRemandAPI.revocationMessage(userNo,approveProcessInfo.getApproveInfoListDTO().getApplicationNo(),
+                    MessageRemandAPI.revocationMessage(userNo,
+                            approveProcessInfo.getApproveInfoListDTO().getApplicationNo(),
                             approveProcessInfo.getProcessNodeDTO().getProcessName());
                 } else {
                     if (approveProcessInfo.getProcessNodeDTO().getTotalNode()>approveProcessInfo.getProcessNodeDTO().getStepNo()) {
@@ -68,7 +69,7 @@ public class personApproveController {
                                 approveProcessInfo.getApproveInfoListDTO().getApproveNo(),
                                 approveProcessInfo.getProcessNodeDTO().getProcessName());
                     }else if (approveProcessInfo.getProcessNodeDTO().getTotalNode().equals(approveProcessInfo.getProcessNodeDTO().getStepNo())){
-                        MessageRemandAPI.examine(userNo,
+                        MessageRemandAPI.revocationMessage(userNo,
                                 approveProcessInfo.getApproveInfoListDTO().getApplicationNo(),
                                 approveProcessInfo.getProcessNodeDTO().getProcessName());
                     }
