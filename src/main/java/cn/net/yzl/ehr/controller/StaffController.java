@@ -83,6 +83,7 @@ public class StaffController {
             if(data!=null ){
                 Integer nationCode = data.getNationCode();
                 Integer code = nationDto.getCode();
+
                 if(nationCode.equals(code)){
                     data.setNationCodeStr(nationDto.getName());
                 }
