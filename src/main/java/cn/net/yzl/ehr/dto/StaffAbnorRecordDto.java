@@ -89,7 +89,7 @@ public class StaffAbnorRecordDto {
     @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private Date abnorTime;
 
-    @ApiModelProperty("转正时间")
+    @ApiModelProperty("薪资结算日期时间")
     @JsonFormat(pattern="yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date positiveTime;
@@ -106,6 +106,10 @@ public class StaffAbnorRecordDto {
     @ApiModelProperty("调整后岗位等级名")
     private String adjustPostLevelLaterName;
 
+    @ApiModelProperty("异动创建时间")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    private Date createTime;
 
 
 

@@ -2,7 +2,9 @@ package cn.net.yzl.ehr.controller.personApprove;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
+import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.personApproveService.FindApproveService;
+import cn.net.yzl.ehr.util.MessageRemandAPI;
 import cn.net.yzl.staff.dto.ProcessProfession.ApprovePostInfoDTO;
 import cn.net.yzl.staff.dto.personApprove.ApproveInfoListDTO;
 
@@ -19,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -51,9 +54,32 @@ public class personApproveController {
     }
     @PostMapping("v1/saveApproveInfo")
     @ApiOperation(value = "我的流程审批页保存审批信息，并修改审批状态")
-    public ComResponse<Boolean> saveApproveInfo(@RequestBody ApproveProcessInfo approveProcessInfo) {
-
-        return findApproveService.saveApproveInfo(approveProcessInfo);
+    public ComResponse<Boolean> saveApproveInfo(@RequestBody ApproveProcessInfo approveProcessInfo, HttpServletRequest httpServletRequest) {
+        String userNo = httpServletRequest.getHeader("userNo");
+        ComResponse<Boolean> flag = findApproveService.saveApproveInfo(approveProcessInfo);
+        if (flag.getCode().equals(200)){
+            try {
+                if (approveProcessInfo.getProcessNodeDTO().getAuditResult().equals(3)) {
+                    MessageRemandAPI.revocationMessage(userNo,
+                            approveProcessInfo.getApproveInfoListDTO().getApplicationNo(),
+                            approveProcessInfo.getProcessNodeDTO().getProcessName());
+                } else {
+                    if (approveProcessInfo.getProcessNodeDTO().getTotalNode()>approveProcessInfo.getProcessNodeDTO().getStepNo()) {
+                        MessageRemandAPI.examine(userNo,
+                                approveProcessInfo.getApproveInfoListDTO().getApproveNo(),
+                                approveProcessInfo.getProcessNodeDTO().getProcessName());
+                    }else if (approveProcessInfo.getProcessNodeDTO().getTotalNode().equals(approveProcessInfo.getProcessNodeDTO().getStepNo())){
+                        MessageRemandAPI.revocationMessage(userNo,
+                                approveProcessInfo.getApproveInfoListDTO().getApplicationNo(),
+                                approveProcessInfo.getProcessNodeDTO().getProcessName());
+                    }
+                }
+                // MessageRemandAPI.processSendMessage(staffReimbursementVo.getProcessNodeDTOList().get(0).getProcessId());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return ComResponse.success();
     }
 
     @PostMapping("v1/updateCancelApproveInfo")

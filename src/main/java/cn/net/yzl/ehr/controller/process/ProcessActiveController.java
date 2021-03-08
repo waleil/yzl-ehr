@@ -49,8 +49,11 @@ public class ProcessActiveController {
         ComResponse<Boolean> flag = findProcessNodeService.saveProcessLeaveInfo(approveLeaveDTO);
         //if (flag.getCode().equals(200)){
             try {
-                MessageRemandAPI.examine(approveLeaveDTO.getStaffLeaveDTO().getStaffNo());
-                MessageRemandAPI.processSendMessage(approveLeaveDTO.getProcessNodeDTOList().get(0).getProcessId());
+                MessageRemandAPI.examine(approveLeaveDTO.getProcessNodeDTOList().get(0).getStaffNo(),
+                        approveLeaveDTO.getProcessNodeDTOList().get(1).getStaffNo(),
+                        approveLeaveDTO.getProcessNodeDTOList().get(0).getProcessName());
+                MessageRemandAPI.processSendMessage(approveLeaveDTO.getProcessNodeDTOList().get(0).getProcessId(),
+                        approveLeaveDTO.getProcessNodeDTOList().get(0).getProcessName());
             } catch (Exception e) {
                 e.printStackTrace();
             }

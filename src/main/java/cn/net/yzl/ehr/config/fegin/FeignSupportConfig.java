@@ -18,6 +18,6 @@ public class FeignSupportConfig {
 
 @Bean
     public Request.Options options(){
-        return new Request.Options(5000,10000);
+        return new Request.Options(50000,50000);
     }
 }

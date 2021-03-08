@@ -31,8 +31,11 @@ public class StaffPaymentController {
         ComResponse<Integer> integerComResponse = staffPaymentFeignService.insertStaffPayment(staffPaymentVo);
         if (integerComResponse.getCode().equals(200)){
             try {
-                MessageRemandAPI.examine(staffPaymentVo.getStaffNo());
-                MessageRemandAPI.processSendMessage(staffPaymentVo.getProcessNodeDTOList().get(0).getProcessId());
+                MessageRemandAPI.examine(staffPaymentVo.getStaffNo(),
+                        staffPaymentVo.getProcessNodeDTOList().get(1).getStaffNo(),
+                        staffPaymentVo.getProcessNodeDTOList().get(1).getProcessName());
+                MessageRemandAPI.processSendMessage(staffPaymentVo.getProcessNodeDTOList().get(0).getProcessId(),
+                        staffPaymentVo.getProcessNodeDTOList().get(1).getProcessName());
             } catch (Exception e) {
                 e.printStackTrace();
             }

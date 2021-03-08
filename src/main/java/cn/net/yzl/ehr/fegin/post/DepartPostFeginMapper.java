@@ -27,6 +27,9 @@ public interface DepartPostFeginMapper {
     @RequestMapping(value = "/departPost/getListByDepartId", method = RequestMethod.GET)
     public ComResponse<List<DepartPostDto>> getListByDepartId(@RequestParam("departId") Integer departId);
 
+    @RequestMapping(value = "/departPost/getWithoutResumeByDepartId", method = RequestMethod.GET)
+    public ComResponse<List<DepartPostDto>> getListWithoutResumeByDepartId(@RequestParam("departId") Integer departId);
+
     @RequestMapping(value = "/departPost/getPostByPostId", method = RequestMethod.GET)
     public ComResponse<DepartPostDto> getPostByPostId(@RequestParam("departId") Integer departId,@RequestParam("postId") Integer postId);
 
