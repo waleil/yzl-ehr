@@ -3,6 +3,7 @@ package cn.net.yzl.ehr.controller.process;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.service.process.ProcessInitiateService;
+import cn.net.yzl.ehr.util.MessageRemandAPI;
 import cn.net.yzl.staff.vo.process.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -28,36 +29,108 @@ public class ProcessInitiateController {
     @ApiOperation(value = "添加外出申请",notes = "添加外出申请",consumes = MediaType.APPLICATION_JSON_VALUE)
     @PostMapping(value = "/out/insert")
     public ComResponse<Integer> insertProcessStaffOut(@RequestBody @Validated StaffOutVo staffOutVo, @CurrentStaffNo @ApiIgnore String staffNo){
+        ComResponse<Integer> integerComResponse = processInitiateService.insertProcessStaffOut(staffOutVo,staffNo);
+        if (integerComResponse.getCode().equals(200)){
+            try {
+                MessageRemandAPI.examine(staffNo,
+                        staffOutVo.getProcessNodeDTOList().get(1).getStaffNo(),
+                        staffOutVo.getProcessNodeDTOList().get(1).getProcessName());
+                MessageRemandAPI.processSendMessage(staffOutVo.getProcessNodeDTOList().get(0).getProcessId(),
+                        staffOutVo.getProcessNodeDTOList().get(0).getProcessName());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         return processInitiateService.insertProcessStaffOut(staffOutVo,staffNo);
     }
 
     @ApiOperation(value = "添加出差申请",notes = "添加出差申请",consumes = MediaType.APPLICATION_JSON_VALUE)
     @PostMapping("/travel/insert")
     public ComResponse<Integer> insertProcessStaffTravel(@RequestBody @Validated StaffTravelVo staffTravelVo, @CurrentStaffNo @ApiIgnore String staffNo){
-        return processInitiateService.insertProcessStaffTravel(staffTravelVo,staffNo);
+        ComResponse<Integer> integerComResponse = processInitiateService.insertProcessStaffTravel(staffTravelVo,staffNo);
+        if (integerComResponse.getCode().equals(200)){
+            try {
+                MessageRemandAPI.examine(staffNo,
+                        staffTravelVo.getProcessNodeDTOList().get(1).getStaffNo(),
+                        staffTravelVo.getProcessNodeDTOList().get(1).getProcessName());
+                MessageRemandAPI.processSendMessage(staffTravelVo.getProcessNodeDTOList().get(0).getProcessId(),
+                        staffTravelVo.getProcessNodeDTOList().get(0).getProcessName());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return integerComResponse;
     }
 
     @ApiOperation(value = "添加考勤补卡申请",notes = "添加考勤补卡申请",consumes = MediaType.APPLICATION_JSON_VALUE)
     @PostMapping("/attend/approval/insert")
     public ComResponse<Integer> insertProcessStaffAttendApproval(@RequestBody @Validated StaffAttendApprovalVo staffAttendApprovalVo, @CurrentStaffNo @ApiIgnore String staffNo){
-        return processInitiateService.insertProcessStaffAttendApproval(staffAttendApprovalVo,staffNo);
+        ComResponse<Integer> integerComResponse = processInitiateService.insertProcessStaffAttendApproval(staffAttendApprovalVo,staffNo);
+        if (integerComResponse.getCode().equals(200)){
+            try {
+                MessageRemandAPI.examine(staffNo,
+                        staffAttendApprovalVo.getProcessNodeDTOList().get(1).getStaffNo(),
+                        staffAttendApprovalVo.getProcessNodeDTOList().get(1).getProcessName());
+                MessageRemandAPI.processSendMessage(staffAttendApprovalVo.getProcessNodeDTOList().get(0).getProcessId(),
+                        staffAttendApprovalVo.getProcessNodeDTOList().get(0).getProcessName());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return integerComResponse;
     }
 
     @ApiOperation(value = "添加车位申请",notes = "添加车位申请",consumes = MediaType.APPLICATION_JSON_VALUE)
     @PostMapping("/parking/space/insert")
     public ComResponse<Integer> insertProcessStaffParkingSpace(@RequestBody @Validated StaffParkingSpaceVo staffParkingSpaceVo, @CurrentStaffNo @ApiIgnore String staffNo){
-        return processInitiateService.insertProcessStaffParkingSpace(staffParkingSpaceVo,staffNo);
+        ComResponse<Integer> integerComResponse = processInitiateService.insertProcessStaffParkingSpace(staffParkingSpaceVo,staffNo);
+        if (integerComResponse.getCode().equals(200)){
+            try {
+                MessageRemandAPI.examine(staffNo,
+                        staffParkingSpaceVo.getProcessNodeDTOList().get(1).getStaffNo(),
+                        staffParkingSpaceVo.getProcessNodeDTOList().get(1).getProcessName());
+                MessageRemandAPI.processSendMessage(staffParkingSpaceVo.getProcessNodeDTOList().get(0).getProcessId(),
+                        staffParkingSpaceVo.getProcessNodeDTOList().get(0).getProcessName());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return integerComResponse;
     }
 
     @ApiOperation(value = "添加物品领用申请",notes = "添加物品领用申请",consumes = MediaType.APPLICATION_JSON_VALUE)
     @PostMapping("/item/requisition/insert")
     public ComResponse<Integer> insertProcessStaffItemRequisition(@RequestBody @Validated StaffItemRequisitionVo staffItemRequisitionVo, @CurrentStaffNo @ApiIgnore String staffNo){
-        return processInitiateService.insertProcessStaffItemRequisition(staffItemRequisitionVo,staffNo);
+        ComResponse<Integer> integerComResponse = processInitiateService.insertProcessStaffItemRequisition(staffItemRequisitionVo,staffNo);
+        if (integerComResponse.getCode().equals(200)){
+            try {
+                MessageRemandAPI.examine(staffNo,
+                        staffItemRequisitionVo.getProcessNodeDTOList().get(1).getStaffNo(),
+                        staffItemRequisitionVo.getProcessNodeDTOList().get(1).getProcessName());
+                MessageRemandAPI.processSendMessage(staffItemRequisitionVo.getProcessNodeDTOList().get(0).getProcessId(),
+                        staffItemRequisitionVo.getProcessNodeDTOList().get(0).getProcessName());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return integerComResponse;
     }
 
     @ApiOperation(value = "添加加班兑换申请",notes = "添加加班兑换申请",consumes = MediaType.APPLICATION_JSON_VALUE)
     @PostMapping("/attend/exchange/insert")
     public ComResponse<Integer> insertProcessAttendExchange(@RequestBody @Validated StaffAttendExchangeVo staffAttendExchangeVo, @CurrentStaffNo @ApiIgnore String staffNo){
-        return processInitiateService.insertProcessAttendExchange(staffAttendExchangeVo,staffNo);
+        ComResponse<Integer> integerComResponse = processInitiateService.insertProcessAttendExchange(staffAttendExchangeVo,staffNo);
+        if (integerComResponse.getCode().equals(200)){
+            try {
+                MessageRemandAPI.examine(staffNo,
+                        staffAttendExchangeVo.getProcessNodeDTOList().get(1).getStaffNo(),
+                        staffAttendExchangeVo.getProcessNodeDTOList().get(1).getProcessName());
+                MessageRemandAPI.processSendMessage(staffAttendExchangeVo.getProcessNodeDTOList().get(0).getProcessId(),
+                        staffAttendExchangeVo.getProcessNodeDTOList().get(1).getProcessName());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return integerComResponse;
     }
 }

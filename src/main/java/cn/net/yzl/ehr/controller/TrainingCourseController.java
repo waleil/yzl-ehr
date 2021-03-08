@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -135,10 +136,11 @@ public class TrainingCourseController {
             @ApiParam(value = "合作方")@RequestParam(value = "partner",required = false)Integer partner,
             @ApiParam(value = "职场")@RequestParam(value = "workplace",required = false) Integer workplace,
             @ApiParam(value = "岗位名称")@RequestParam(value = "postId",required = false) Integer postId,
+            @ApiParam(value = "入岗状态:180 待入岗 181 已入岗") @RequestParam(value = "enterStatus", required = false) Integer enterStatus,
             @ApiParam(value = "课程id")@RequestParam(value = "id")Integer id,
             @ApiParam(value = "分页参数:页码")@RequestParam(value = "pageNum",defaultValue = "0") Integer pageNum,
             @ApiParam(value = "分页参数:每页数量")@RequestParam(value = "pageSize",defaultValue = "10") Integer pageSize){
-        return trainingCourseClient.findSign(id,name,departCode,partner,workplace,postId,pageNum,pageSize);
+        return trainingCourseClient.findSign(name,departCode,partner,workplace,postId,enterStatus,id,pageNum,pageSize);
     }
 
     @ApiOperation(value = "培训员工签到",notes = "培训员工签到")
@@ -152,17 +154,19 @@ public class TrainingCourseController {
     public ComResponse staffCourseGrade(@RequestBody @Validated List<SignInputScore> list) {
         return trainingCourseClient.staffCourseGrade(list);
     }
+
+    /*@ApiOperation(value = "",notes = "")
     @PostMapping("staffSign")
     public ComResponse staffSign(@RequestBody List<TrainStaffSignPo> list){
         return trainingCourseClient.staffSign(list);
-    }
+    }*/
 
     //@ApiOperation(value = "录入成绩",notes = )
 
 
     @ApiOperation(value = "培训员工合格入岗",notes = "培训员工合格入岗")
     @PostMapping("staffEntryPost")
-    public ComResponse<Integer> staffEntryPost(TrainStaffRelationPo trainStaffRelationPo){
+    public ComResponse<Integer> staffEntryPost(@RequestBody TrainStaffRelationPo trainStaffRelationPo){
         return  trainingCourseClient.staffEntryPost(trainStaffRelationPo);
     }
 
@@ -185,5 +189,11 @@ public class TrainingCourseController {
     @GetMapping(value = "productList")
     public ComResponse productList(@ApiParam(value = "编码或名称")@RequestParam(value = "name")String name,@ApiParam(value = "分页页数")@RequestParam(value = "pageNo",defaultValue = "0")Integer pageNo,@ApiParam(value = "分页条数")@RequestParam(value = "pageSize",defaultValue = "10")Integer pageSize){
         return trainingCourseClient.productList(name,pageNo,pageSize);
+    }
+
+    @ApiOperation(value = "查询入岗时间",notes = "查询入岗时间")
+    @GetMapping("queryDateBycourseid")
+    public  ComResponse<Date> queryDateBycourseid(@ApiParam(value = "课程id") @RequestParam("courseId")Integer courseId){
+        return trainingCourseClient.queryDateBycourseid(courseId);
     }
 }

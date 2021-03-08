@@ -73,7 +73,7 @@ public class MyWebAppConfigurer  implements WebMvcConfigurer {
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/achievementsConfigureForFunc/**");
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/performanceAuditConfigurationForFrontLine/**");
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/performanceAuditConfigurationForFunc/**");
-        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/performance/**");
+        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/performance/**").excludePathPatterns("/performance/sendPerformanceRemind");
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/salary/**");
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/salaryFrontLineRule/**");
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/salaryNotFrontLineRule/**");
@@ -83,6 +83,7 @@ public class MyWebAppConfigurer  implements WebMvcConfigurer {
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/assessment/**");
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/deductRecord/**");
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/increaseRecord/**");
+        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/processActive/**");
 
     }
 

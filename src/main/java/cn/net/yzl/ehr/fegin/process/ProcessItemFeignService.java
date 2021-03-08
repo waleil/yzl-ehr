@@ -16,8 +16,8 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Repository
-@FeignClient(value = "staff",url = "${fegin.db.url}/process")
-@RefreshScope
+@FeignClient(value = "ProcessItemFeign",url = "${fegin.db.url}/process")
+//@RefreshScope
 public interface ProcessItemFeignService {
 
     @RequestMapping(value = "/type/queryAll", method = RequestMethod.GET)
@@ -46,6 +46,9 @@ public interface ProcessItemFeignService {
 
     @RequestMapping(value = "/item/select", method = RequestMethod.GET)
     ComResponse<List<ProcessItemDto>> selectProcessItem (@RequestParam("id") Integer id);
+
+    @RequestMapping(value = "/item/select/all", method = RequestMethod.GET)
+    ComResponse<List<ProcessItemDto>> selectProcessItemAll ();
 
     @RequestMapping(value = "/item/detail", method = RequestMethod.GET)
     ComResponse<ProcessItemDto> selectProcessItemDetail (@RequestParam("id") Integer id);

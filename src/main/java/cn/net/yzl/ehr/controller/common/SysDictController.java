@@ -52,6 +52,8 @@ public class SysDictController {
                     "面试结果:interview_result"+
                     "入岗状态:post_status"+
                     "培训完成度:training_completion"+
+                    "自动入岗时间(天):automatic_entry_days"+
+                    "简历跟进时间(天):resume_follow_time"+
                     "选班班次:class"+
                     "", required = true, paramType = "query")
     })

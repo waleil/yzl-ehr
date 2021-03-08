@@ -62,6 +62,30 @@ public class ResumeExportDto {
     @JsonFormat(pattern = "yyyy年MM月dd日")
     private Date rdCreateTime;
 
+    @JsonFormat(
+            pattern = "yyyy年MM月dd日"
+    )
+    protected Date followUpTime;
+    protected String followUpStr;
+    @ApiModelProperty(
+            value = "跟进状态(1:正常,2:超时)",
+            name = "followUpStatus"
+    )
+    protected Integer followUpStatus;
+
+    private String followUpStatusStr;
+    private String creatorName;
+    public Integer getFollowUpStatus() {
+        return followUpStatus;
+    }
+
+    public void setFollowUpStatus(Integer followUpStatus) {
+        if(followUpStatus!=null){
+            followUpStatusStr=followUpStatus==1?"正常":"超时";
+        }
+        this.followUpStatus = followUpStatus;
+    }
+
     public void setResumeDbDto(ResumeDbDto resumeDbDto) {
         if (resumeDbDto!=null){
             reasonCodeName=resumeDbDto.getReasonCodeName();
@@ -107,7 +131,14 @@ public class ResumeExportDto {
 
             degreeName=resumeEduDto.getDegreeName();
             schoolName=resumeEduDto.getSchoolName();
-            startEndTime= DateStaffUtils.dateToDateStr(resumeEduDto.getStartData(),"yyyy-MM-dd")+"--"+DateStaffUtils.dateToDateStr(resumeEduDto.getEndData(),"yyyy-MM-dd");
+            if(resumeEduDto.getStartData()!=null && resumeEduDto.getEndData()!=null){
+                startEndTime= DateStaffUtils.dateToDateStr(resumeEduDto.getStartData(),"yyyy-MM-dd")+"--"+DateStaffUtils.dateToDateStr(resumeEduDto.getEndData(),"yyyy-MM-dd");
+
+            }else if(resumeEduDto.getStartData()!=null){
+                startEndTime= DateStaffUtils.dateToDateStr(resumeEduDto.getStartData(),"yyyy-MM-dd")+"--";
+            }else if(resumeEduDto.getStartData()!=null){
+                startEndTime="--"+ DateStaffUtils.dateToDateStr(resumeEduDto.getEndData(),"yyyy-MM-dd");
+            }
             this.resumeEduDto = resumeEduDto;
         }
     }

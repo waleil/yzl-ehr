@@ -44,10 +44,19 @@ public class StaffServiceImpl implements StaffService {
         return staffFeginService.getListByParams(staffParamsVO);
     }
 
+
     @Override
     public ComResponse<Integer> swtichStaffTalentPoolAccount(StaffSwitchTalentPoolPo staffSwitchTalentPoolPo,String staffNo) {
         staffSwitchTalentPoolPo.setUpdator(staffNo);
         return staffFeginService.swtichStaffTalentPoolAccount(staffSwitchTalentPoolPo);
+    }
+
+    @Override
+    public ComResponse<Integer> swtichBatchStaffTalentPoolAccount(List<StaffSwitchTalentPoolPo> staffSwitchTalentPoolPos,String staffNo) {
+        staffSwitchTalentPoolPos.forEach(x->{
+            x.setUpdator(staffNo);
+        });
+        return staffFeginService.swtichBatchStaffTalentPoolAccount(staffSwitchTalentPoolPos);
     }
 
     @Override

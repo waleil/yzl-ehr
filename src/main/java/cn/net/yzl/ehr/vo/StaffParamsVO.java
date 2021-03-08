@@ -6,6 +6,7 @@ import lombok.Data;
 
 import javax.validation.constraints.Min;
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @ApiModel(value = "StaffParamsVO", description = "员工对象参数")
@@ -17,6 +18,8 @@ public class StaffParamsVO implements Serializable {
     private Integer workplaceCode;
     @ApiModelProperty(value = "部门id", name = "departId")
     private Integer departId;
+    @ApiModelProperty(value = "部门ids集合", name = "departIds")
+    private List<Integer> departIds;
     @ApiModelProperty(value = "岗位id", name = "postId")
     private Integer postId;
     @ApiModelProperty(value = "部门岗位id", name = "departPostId")

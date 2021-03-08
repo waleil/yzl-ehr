@@ -5,15 +5,15 @@ import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.service.deduct.DeductItemService;
 import cn.net.yzl.ehr.service.resource.ParkingVehicleService;
+import cn.net.yzl.msg.model.vo.MsgTemplateVo;
+import cn.net.yzl.msg.service.YMsgInfoService;
 import cn.net.yzl.staff.dto.deduct.DeductItemDto;
 import cn.net.yzl.staff.dto.parking.ParkingApplyDto;
 import cn.net.yzl.staff.dto.parking.ParkingRecoverDto;
 import cn.net.yzl.staff.dto.parking.ParkingVehicleDto;
 import cn.net.yzl.staff.pojo.deduct.DeductItemInsertPo;
 import cn.net.yzl.staff.pojo.deduct.DeductItemUpdatePo;
-import cn.net.yzl.staff.pojo.parking.ParkingRecoverInsertPo;
-import cn.net.yzl.staff.pojo.parking.ParkingSetPo;
-import cn.net.yzl.staff.pojo.parking.ParkingVehicleListPo;
+import cn.net.yzl.staff.pojo.parking.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +22,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import java.util.Calendar;
 import java.util.List;
 
 @RestController
@@ -30,6 +31,8 @@ import java.util.List;
 public class ParkingVehicleController {
     @Autowired
     private ParkingVehicleService parkingVehicleService;
+
+
 
     @ApiOperation(value = "入司车辆管理-车位占用中列表查询",notes = "入司车辆管理-车位占用中列表查询",consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/selectList", method = RequestMethod.POST)
@@ -76,7 +79,8 @@ public class ParkingVehicleController {
 
     @ApiOperation(value = "入司车辆管理-定时扫描车辆入司停放",notes = "入司车辆管理-定时扫描车辆入司停放",consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/timerUpdate", method = RequestMethod.POST)
-    ComResponse  timerUpdate() {
-        return parkingVehicleService.timerUpdate();
+    ComResponse<List<ParkingVehicleUpdatePo>>  timerUpdate(@ApiIgnore @CurrentStaffNo String staffNo) {
+        return parkingVehicleService.timerUpdate(staffNo);
+
     }
 }

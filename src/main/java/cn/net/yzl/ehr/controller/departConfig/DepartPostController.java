@@ -41,6 +41,13 @@ public class DepartPostController {
         return departPostService.getListByDepartId(departId);
     }
 
+    @ApiOperation(value = "获取部门下无面试配置的岗位列表", notes = "获取部门下无面试配置的岗位列表", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/getWithoutResumeByDepartId", method = RequestMethod.GET)
+    public ComResponse<List<DepartPostDto>> getListWithoutResumeByDepartId(Integer departId) {
+        return departPostService.getListWithoutResumeByDepartId(departId);
+    }
+
+
     @ApiOperation(value = "获取部门岗位信息", notes = "获取部门岗位信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "departId", value = "部门id", required = true,  paramType = "query"),

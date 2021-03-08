@@ -1,10 +1,12 @@
 package cn.net.yzl.ehr.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -39,9 +41,12 @@ public class StaffListDto implements Serializable {
      */
     @ApiModelProperty(value = "性别 0:男,1:女", name = "sex")
     private Integer sex;
-
+    @ApiModelProperty(value = "性别名称", name = "sexName")
+    private String sexName;
     @ApiModelProperty(value = "属性(1:正编,2:外包)", name = "nature")
     private Integer nature;
+    @ApiModelProperty(value = "属性名称", name = "natureName")
+    private String natureName;
     @ApiModelProperty(value = "上级架构部门id", name = "pDepartId")
     private Integer pDepartId;
     @ApiModelProperty(value = "上级部门名称", name = "pDepartName")
@@ -74,9 +79,12 @@ public class StaffListDto implements Serializable {
     private Integer postStatusCode;
     @ApiModelProperty(value = "在职状态名称", name = "postStatusCodeStr")
     private String postStatusCodeStr;
+    @ApiModelProperty(value = "在职标识(0.不在职，1.在职)", name = "workStatus")
+    private Integer workStatus;
     @ApiModelProperty(value = "账号状态 0正常 1停用", name = "accountStatus")
     private Integer accountStatus;
-
+    @ApiModelProperty(value = "账号状态名称", name = "accountStatusStr")
+    private String accountStatusStr;
     @ApiModelProperty(value = "异动状态code", name = "abnoStatusCode")
     private Integer abnoStatusCode;
     @ApiModelProperty(value = "异动状态", name = "abnoStatusCodeStr")
@@ -85,9 +93,14 @@ public class StaffListDto implements Serializable {
     @ApiModelProperty(value = "入职次数", name = "entryTimes")
     private Integer entryTimes;
     @ApiModelProperty(value = "异动时间", name = "abnorTime")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private Date abnorTime;
     @ApiModelProperty(value = "入岗时间", name = "postTime")
     private Date postTime;
+    @ApiModelProperty(value = "最近调入岗时间", name = "transferPostTime")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
+    private Date transferPostTime;
     @ApiModelProperty(value = "离职时间", name = "dimissionTime")
     private Date dimissionTime;
     @ApiModelProperty(value = "薪资核算结算日", name = "payrollAccountingDate")
@@ -106,6 +119,39 @@ public class StaffListDto implements Serializable {
     private Integer enterStatus;
     @ApiModelProperty(value = "入岗状态名称", name = "enterStatusName")
     private String enterStatusName;
+    @ApiModelProperty(value = "是否有异动历史(0.无,1.有)", name = "abnorHistory")
+    private Integer abnorHistory;
 
+    public void setSex(Integer sex) {
+        if(sex!=null) {
+            this.sex = sex;
+            if (sex == 0) {
+                this.sexName = "男";
+            } else if (sex == 1) {
+                this.sexName = "女";
+            }
+        }
+    }
 
+    public void setNature(Integer nature) {
+        if(nature!=null){
+            this.nature=nature;
+            if(nature==1){
+                this.natureName = "正编";
+            }else if(nature==2){
+                this.natureName = "外包";
+            }
+        }
+    }
+
+    public void setAccountStatus(Integer accountStatus) {
+        if(accountStatus!=null) {
+            this.accountStatus = accountStatus;
+            if (accountStatus == 0) {
+                this.accountStatusStr = "正常";
+            } else if (accountStatus == 1) {
+                this.accountStatusStr = "停用";
+            }
+        }
+    }
 }

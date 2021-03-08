@@ -216,9 +216,12 @@ public class ResumeController {
                 writer.addHeaderAlias("entryTimes","入司次数");
                 writer.addHeaderAlias("fileName","附件简历");
                 writer.addHeaderAlias("createTime","录入时间");
-                writer.addHeaderAlias("creator","录入人");
+                writer.addHeaderAlias("creatorName","录入人");
+                writer.addHeaderAlias("creator","工号");
+                writer.addHeaderAlias("followUpTime","简历跟进时间点");
+                writer.addHeaderAlias("followUpStatusStr","跟进状态");
             }else if(state==1){
-                execName="1筛选未通过";
+                execName="筛选未通过";
                 writer.addHeaderAlias("name", "姓名");
                 writer.addHeaderAlias("sex","性别");
                 writer.addHeaderAlias("phone", "手机号");
@@ -234,7 +237,8 @@ public class ResumeController {
                 writer.addHeaderAlias("fileName","附件简历");
                 writer.addHeaderAlias("resumeDepartStaffDesc","备注");
                 writer.addHeaderAlias("createTime","录入时间");
-                writer.addHeaderAlias("creator","录入人");
+                writer.addHeaderAlias("creatorName","录入人");
+                writer.addHeaderAlias("creator","工号");
             }else if (state==2){
                 execName="筛选通过待面试";
                 writer.addHeaderAlias("name", "姓名");
@@ -252,7 +256,8 @@ public class ResumeController {
                 writer.addHeaderAlias("fileName","附件简历");
                 writer.addHeaderAlias("resumeDepartStaffDesc","备注");
                 writer.addHeaderAlias("createTime","录入时间");
-                writer.addHeaderAlias("creator","录入人");
+                writer.addHeaderAlias("creatorName","录入人");
+                writer.addHeaderAlias("creator","工号");
             }else if (state==3){
                 execName="面试中";
                 writer.addHeaderAlias("name", "姓名");
@@ -272,7 +277,8 @@ public class ResumeController {
                 writer.addHeaderAlias("evaluate","备注");
                 writer.addHeaderAlias("interviewTime","面试时间");
                 writer.addHeaderAlias("createTime","录入时间");
-                writer.addHeaderAlias("creator","录入人");
+                writer.addHeaderAlias("creatorName","录入人");
+                writer.addHeaderAlias("creator","工号");
             }else if (state==4){
                 execName="面试未通过";
                 writer.addHeaderAlias("name", "姓名");
@@ -290,7 +296,8 @@ public class ResumeController {
                 writer.addHeaderAlias("interviewTime","面试时间");
                 writer.addHeaderAlias("evaluate","备注");
                 writer.addHeaderAlias("createTime","录入时间");
-                writer.addHeaderAlias("creator","录入人");
+                writer.addHeaderAlias("creatorName","录入人");
+                writer.addHeaderAlias("creator","工号");
             }
             else if (state==5){
                 execName="面试通过待入职";
@@ -308,7 +315,8 @@ public class ResumeController {
                 writer.addHeaderAlias("fileName","附件简历");
                 writer.addHeaderAlias("evaluate","备注");
                 writer.addHeaderAlias("createTime","录入时间");
-                writer.addHeaderAlias("creator","录入人");
+                writer.addHeaderAlias("creatorName","录入人");
+                writer.addHeaderAlias("creator","工号");
             }
             else if (state==7){
                 execName="面试通过已入职";

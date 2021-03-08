@@ -24,8 +24,8 @@ public class StaffTrainInfoDto  implements Serializable {
     private String adjustLater;
 
     @ApiModelProperty("异动时间")
-    @JsonFormat(pattern="yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private Date abnorTime;
 
 
