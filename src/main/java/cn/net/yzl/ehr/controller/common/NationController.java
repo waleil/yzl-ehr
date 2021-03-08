@@ -1,6 +1,8 @@
 package cn.net.yzl.ehr.controller.common;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.common.entity.Page;
+import cn.net.yzl.ehr.fegin.common.AreaFeginService;
 import cn.net.yzl.ehr.fegin.common.NationFeginService;
 import cn.net.yzl.staff.dto.common.NationDto;
 import io.swagger.annotations.Api;
@@ -20,12 +22,15 @@ public class NationController {
 
     @Autowired
     private NationFeginService nationFeginService;
+    @Autowired
+    private AreaFeginService areaFeginService;
 
 
     @ApiOperation(value = "民族字典-获取所有的民族编码", notes = "民族字典-获取所有的民族编码", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/getAllNation", method = RequestMethod.GET)
     ComResponse<List<NationDto>> getAllNation(){
-      return nationFeginService.getAllNation();
+        ComResponse<Page<NationDto>> allNation = areaFeginService.getAllNation();
+        return ComResponse.success(allNation.getData().getItems());
     }
 
 
