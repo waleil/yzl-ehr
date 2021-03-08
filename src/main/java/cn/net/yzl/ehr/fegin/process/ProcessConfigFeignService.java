@@ -18,7 +18,6 @@ import java.util.List;
 
 @Repository
 @FeignClient(value = "ProcessConfigFeign",url = "${fegin.db.url}")
-//@FeignClient(value = "staff",url = "localhost:38080")
 //@RefreshScope
 public interface ProcessConfigFeignService {
 
@@ -59,4 +58,7 @@ public interface ProcessConfigFeignService {
     @GetMapping("/processsInvite/v1/getStaffNodeByStaffNo")
     ComResponse<String> getStaffNodeByStaffNo(@RequestParam("processAuditId") String processAuditId,
                                               @RequestParam("stepNo")Integer stepNo);
+
+    @RequestMapping(value = "/staff/getUpStaffLevelByStaffNo", method = RequestMethod.GET)
+    ComResponse<StaffLevelDto> getUpStaffLevelByStaffNo( String staffNo, Integer currentDepartId);
 }
