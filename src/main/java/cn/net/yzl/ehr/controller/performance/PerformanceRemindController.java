@@ -217,7 +217,7 @@ public class PerformanceRemindController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "systemDate", value = "系统时间", required = true, dataType = "String", paramType = "query")
     })
-    @ApiOperation(value = "更新系统时间", notes = "更新系统时间", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "更新系统时间", notes = "更新系统时间", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/updateSystemDate", method = RequestMethod.GET)
     public ComResponse<Boolean> updateSystemDate(@RequestParam String systemDate) {
         return performanceRemindFeignService.updateSystemDate(systemDate);
