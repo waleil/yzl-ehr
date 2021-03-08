@@ -60,5 +60,5 @@ public interface ProcessConfigFeignService {
                                               @RequestParam("stepNo")Integer stepNo);
 
     @RequestMapping(value = "/staff/getUpStaffLevelByStaffNo", method = RequestMethod.GET)
-    ComResponse<StaffLevelDto> getUpStaffLevelByStaffNo( String staffNo, Integer currentDepartId);
+    ComResponse<StaffLevelDto> getUpStaffLevelByStaffNo(@RequestParam("staffNo") String staffNo,@RequestParam("currentDepartId") Integer currentDepartId);
 }
