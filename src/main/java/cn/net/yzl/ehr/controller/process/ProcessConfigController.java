@@ -77,4 +77,14 @@ public class ProcessConfigController {
     ComResponse<List<StaffLevelDto>> getStaffLevelByStaffNo(@RequestParam("staffNo") String staffNo, @RequestParam("flag") Integer flag) {
         return processConfigService.getStaffLevelByStaffNo(staffNo,flag);
     }
+
+    @ApiOperation(value = "获取员工的上级信息-ehr审批使用(根据用户或者当前负责的部门id)", notes = "获取员工的上级信息-ehr审批使用")
+    @RequestMapping(value = "/getUpStaffLevelByStaffNo", method = RequestMethod.GET)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "staffNo", value = "员工工号", required = false, dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "currentDepartId", value = "当前负责人负责的部门id", required = false, dataType = "Int", paramType = "query")
+    })
+    ComResponse<StaffLevelDto> getUpStaffLevelByStaffNo( String staffNo, Integer currentDepartId) {
+        return processConfigService.getUpStaffLevelByStaffNo(staffNo,currentDepartId);
+    }
 }
