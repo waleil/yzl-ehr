@@ -156,11 +156,11 @@ public class PerformanceRemindController {
                         if (1 == depart.getRemindType()) {
                             // 填报
                             subject = "职能管理-考评填报提醒-新建填报提醒";
-                            content = "你好，新一周期的绩效填报已开始，请前往填报。";
+                            content = "你好，" + depart.getCycleTime() + " 新一周期的绩效填报已开始，请前往填报。";
                         } else {
                             // 考核
                             subject = "职能管理-考评填报提醒-考核提醒";
-                            content = "你好，新一周期的绩效考核已开始，请前往查阅。";
+                            content = "你好，" + depart.getCycleTime() + " 新一周期的绩效考核已开始，请前往查阅。";
                         }
                         MailVo mailVo = new MailVo(staff.getEmail(), subject, staff.getStaffName() + content);
                         mailList.add(mailVo);
@@ -196,7 +196,7 @@ public class PerformanceRemindController {
                         msgTemplateVo.setTitle("职能管理-考评填报提醒-考核提醒");
                     }
                     msgTemplateVo.setSystemCode(2);//1：crm，2：ehr，3：dmc，4：bi
-                    msgTemplateVo.setParams(new Object[]{staff.getStaffName()});//模板参数
+                    msgTemplateVo.setParams(new Object[]{staff.getStaffName(), depart.getCycleTime()});//模板参数
                     msgTemplateVo.setCreator(depart.getCreator());//发送人编号
                     msgTemplateVo.setUserCode(staff.getStaffNo());//接收人编号
                     list.add(msgTemplateVo);
