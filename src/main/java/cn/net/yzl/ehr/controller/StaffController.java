@@ -13,6 +13,7 @@ import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.dto.StaffBaseDto;
 import cn.net.yzl.ehr.dto.StaffListDto;
 import cn.net.yzl.ehr.dto.resume.ResumeExportDto;
+import cn.net.yzl.ehr.fegin.common.AreaFeginService;
 import cn.net.yzl.ehr.fegin.staff.StaffFeginService;
 import cn.net.yzl.ehr.pojo.StaffSwitchStatePo;
 import cn.net.yzl.ehr.pojo.StaffSwitchTalentPoolPo;
@@ -56,6 +57,8 @@ public class StaffController {
     private StaffFeginService staffFeginService;
     @Autowired
     private StaffService staffService;
+    @Autowired
+    private AreaFeginService areaFeginService;
 
 
 
@@ -75,6 +78,17 @@ public class StaffController {
     public ComResponse<StaffDetailsDto> getDetailsByNo(@NotBlank String staffNo) {
         ComResponse<StaffDetailsDto> detailsByNo = staffService.getDetailsByNo(staffNo);
         getUserRoleInfo(detailsByNo);
+        areaFeginService.getAllNation().getData().getItems().stream().forEach(nationDto -> {
+            StaffDetailsDto data = detailsByNo.getData();
+            if(data!=null ){
+                Integer nationCode = data.getNationCode();
+                Integer code = nationDto.getCode();
+                if(nationCode.equals(code)){
+                    data.setNationCodeStr(nationDto.getName());
+                }
+            }
+        });
+
         return detailsByNo;
     }
     private void getUserRoleInfo(ComResponse<StaffDetailsDto> detailsByNo){

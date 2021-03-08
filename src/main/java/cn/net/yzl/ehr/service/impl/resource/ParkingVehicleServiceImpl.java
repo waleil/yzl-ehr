@@ -13,7 +13,7 @@ import cn.net.yzl.ehr.pojo.StaffWorkUpdateListPo;
 import cn.net.yzl.ehr.pojo.StaffWorkUpdatePo;
 import cn.net.yzl.ehr.service.StaffWorkService;
 import cn.net.yzl.ehr.service.resource.ParkingVehicleService;
-import cn.net.yzl.msg.feign.EhrFeignService;
+//import cn.net.yzl.msg.feign.EhrFeignService;
 import cn.net.yzl.msg.model.vo.MsgTemplateVo;
 import cn.net.yzl.msg.service.YMsgInfoService;
 import cn.net.yzl.staff.dto.StaffDetailsDto;
