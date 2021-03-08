@@ -3,6 +3,7 @@ package cn.net.yzl.ehr.controller;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
@@ -195,6 +196,8 @@ public class StaffController {
     }
 
 
+
+
     @ApiOperation(value = "员工列表-导出", notes = "员工列表-导出")
     @RequestMapping(value = "/staffListExcelExport", method = RequestMethod.POST)
     @ApiImplicitParams({
@@ -205,6 +208,7 @@ public class StaffController {
         ComResponse<Page<StaffListDto>> listByParams=null;
         List<StaffListDto> list =null;
         execName="staff";
+
         try {
 
             ExcelWriter writer = ExcelUtil.getWriter();
@@ -212,7 +216,7 @@ public class StaffController {
             switch (type){
                 case 1:
                     writer.renameSheet("员工列表");     //甚至sheet的名称
-                    writer.addHeaderAlias("no", "工号");
+                    writer.addHeaderAlias("staffNo", "工号");
                     writer.addHeaderAlias("name", "姓名");
                     writer.addHeaderAlias("phone","手机号");
                     writer.addHeaderAlias("email","邮箱");
@@ -235,14 +239,14 @@ public class StaffController {
                     writer.addHeaderAlias("abnorTime","异动时间");
                     writer.addHeaderAlias("entryTimes","入司次数");
                     writer.addHeaderAlias("dimissionTime","离职时间");
-                    writer.addHeaderAlias("departName","薪资核酸截止日");
+                    writer.addHeaderAlias("payrollAccountingDate","薪资核酸截止日");
                     staffParamsVO.setPageNo(1);
                     staffParamsVO.setPageSize(50000);
                     listByParams = staffService.getListByParams(staffParamsVO);
                     break;
                 case 2://部门员工列表
                     writer.renameSheet("部门员工列表");     //甚至sheet的名称
-                    writer.addHeaderAlias("no", "工号");
+                    writer.addHeaderAlias("staffNo", "工号");
                     writer.addHeaderAlias("name", "姓名");
                     writer.addHeaderAlias("phone","手机号");
                     writer.addHeaderAlias("email","邮箱");
@@ -266,7 +270,7 @@ public class StaffController {
                     break;
                 case 3://待优化员工列表
                     writer.renameSheet("待优化员工列表");     //甚至sheet的名称
-                    writer.addHeaderAlias("no", "工号");
+                    writer.addHeaderAlias("staffNo", "工号");
                     writer.addHeaderAlias("name", "姓名");
                     writer.addHeaderAlias("phone","手机号");
                     writer.addHeaderAlias("email","邮箱");
@@ -283,7 +287,7 @@ public class StaffController {
                     break;
                 case 4://待劝退员工列表
                     writer.renameSheet("待劝退员工列表");     //甚至sheet的名称
-                    writer.addHeaderAlias("no", "工号");
+                    writer.addHeaderAlias("staffNo", "工号");
                     writer.addHeaderAlias("name", "姓名");
                     writer.addHeaderAlias("phone","手机号");
                     writer.addHeaderAlias("email","邮箱");
@@ -300,7 +304,7 @@ public class StaffController {
                     break;
                 case 5://人才储备池
                     writer.renameSheet("人才储备池员工列表");     //甚至sheet的名称
-                    writer.addHeaderAlias("no", "工号");
+                    writer.addHeaderAlias("staffNo", "工号");
                     writer.addHeaderAlias("name", "姓名");
                     writer.addHeaderAlias("phone","手机号");
                     writer.addHeaderAlias("email","邮箱");
@@ -327,7 +331,7 @@ public class StaffController {
             writer.write(list, true);
             response.reset();
             response.setContentType("application/vnd.ms-excel;charset=utf-8");
-            response.setHeader("Content-Disposition", "attachment; filename="+ URLEncoder.encode(execName, "UTF-8")+".xlsx");   //中文名称需要特殊处理
+            response.setHeader("Content-Disposition", "attachment; filename="+ URLEncoder.encode(execName, "UTF-8")+DateUtil.today()+".xlsx");   //中文名称需要特殊处理
             writer.autoSizeColumnAll();
             writer.flush(response.getOutputStream());
             writer.close();
