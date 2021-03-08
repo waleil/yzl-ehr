@@ -208,4 +208,19 @@ public class PerformanceRemindController {
         }
     }
 
+    /**
+     * 更新系统时间
+     *
+     * @param systemDate 系统时间
+     * @return 执行结果
+     */
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "systemDate", value = "系统时间", required = true, dataType = "String", paramType = "query")
+    })
+    @ApiOperation(value = "更新系统时间", notes = "更新系统时间", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/updateSystemDate", method = RequestMethod.GET)
+    public ComResponse<Boolean> updateSystemDate(@RequestParam String systemDate) {
+        return performanceRemindFeignService.updateSystemDate(systemDate);
+    }
+
 }

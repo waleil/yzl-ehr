@@ -72,7 +72,9 @@ public class DeductRecordController {
     @RequestMapping(value = "/examine", method = RequestMethod.POST)
     ComResponse examine(@CurrentStaffNo @ApiIgnore String staffNo,@RequestParam("approveNo") String approveNo, @RequestParam("processId") Integer processId){
         ComResponse<ProcessDto> processDtoComResponse = deductReocrdService.queryByName(processId);
-
+        if (processDtoComResponse.getData()==null){
+            return ComResponse.fail(20110,"此名称不存在");
+        }
         MsgTemplateVo templateVo = new MsgTemplateVo();
         templateVo.setCode("EHR0002");
         templateVo.setCreator(staffNo);
