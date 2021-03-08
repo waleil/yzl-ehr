@@ -98,6 +98,12 @@ public class ProcessInitiateController {
         return integerComResponse;
     }
 
+    @ApiOperation(value = "查询车位申请通道(true:可用，false:不可用(车位申请通道已关闭！))",notes = "(true:可用，false:不可用(车位申请通道已关闭！))")
+    @GetMapping("/parking/space/select")
+    public ComResponse<Boolean> selectProcessStaffParkingSpace(){
+        return processInitiateService.selectProcessStaffParkingSpace();
+    }
+
     @ApiOperation(value = "添加物品领用申请",notes = "添加物品领用申请",consumes = MediaType.APPLICATION_JSON_VALUE)
     @PostMapping("/item/requisition/insert")
     public ComResponse<Integer> insertProcessStaffItemRequisition(@RequestBody @Validated StaffItemRequisitionVo staffItemRequisitionVo, @CurrentStaffNo @ApiIgnore String staffNo){

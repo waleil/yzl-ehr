@@ -16,6 +16,9 @@ public interface ProcessInitiateService {
     //车位申请添加
     ComResponse<Integer> insertProcessStaffParkingSpace(StaffParkingSpaceVo staffParkingSpaceVo, String staffNo);
 
+    //查询车位申请通道信息
+    ComResponse<Boolean> selectProcessStaffParkingSpace();
+
     //物品领用添加
     ComResponse<Integer> insertProcessStaffItemRequisition(StaffItemRequisitionVo staffItemRequisitionVo, String staffNo);
 

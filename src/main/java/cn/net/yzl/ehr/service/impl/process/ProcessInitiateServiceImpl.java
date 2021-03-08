@@ -44,6 +44,11 @@ public class ProcessInitiateServiceImpl implements ProcessInitiateService {
     }
 
     @Override
+    public ComResponse<Boolean> selectProcessStaffParkingSpace() {
+        return processInitiateFeignService.selectProcessStaffParkingSpace();
+    }
+
+    @Override
     public ComResponse<Integer> insertProcessStaffItemRequisition(StaffItemRequisitionVo staffItemRequisitionVo, String staffNo) {
         staffItemRequisitionVo.setCreator(staffNo);
         return processInitiateFeignService.insertProcessStaffItemRequisition(staffItemRequisitionVo);
