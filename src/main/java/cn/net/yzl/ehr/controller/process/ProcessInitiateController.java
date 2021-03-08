@@ -99,7 +99,7 @@ public class ProcessInitiateController {
     }
 
     @ApiOperation(value = "查询车位申请通道(true:可用，false:不可用(车位申请通道已关闭！))",notes = "(true:可用，false:不可用(车位申请通道已关闭！))")
-    @PostMapping("/parking/space/select")
+    @GetMapping("/parking/space/select")
     public ComResponse<Boolean> selectProcessStaffParkingSpace(){
         return processInitiateService.selectProcessStaffParkingSpace();
     }

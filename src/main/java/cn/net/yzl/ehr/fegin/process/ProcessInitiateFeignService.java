@@ -7,6 +7,7 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Repository;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -32,7 +33,7 @@ public interface ProcessInitiateFeignService {
     @PostMapping("/parking/space/insert")
     ComResponse<Integer> insertProcessStaffParkingSpace(@RequestBody @Validated StaffParkingSpaceVo staffParkingSpaceVo);
 
-    @PostMapping("/parking/space/select")
+    @GetMapping("/parking/space/select")
     ComResponse<Boolean> selectProcessStaffParkingSpace();
 
     @PostMapping("/item/requisition/insert")
