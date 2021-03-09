@@ -231,11 +231,14 @@ public class PerformanceController {
 
     @ApiImplicitParams({
             @ApiImplicitParam(name = "fillTime", value = "填报周期", required = true, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "departId", value = "部门Id", required = true, dataType = "Integer", paramType = "query")
     })
     @ApiOperation(value = "职能管理-绩效考核-考核统计", notes = "职能管理-绩效考核-考核统计", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/queryPerformanceApproveCount", method = RequestMethod.GET)
-    public ComResponse<PerformanceApproveCountDto> queryPerformanceApproveCount(String fillTime, @ApiIgnore @CurrentStaffNo String staffNo) {
-        return performanceFeignService.queryPerformanceApproveCount(fillTime, staffNo);
+    public ComResponse<PerformanceApproveCountDto> queryPerformanceApproveCount(@RequestParam("fillTime") String fillTime,
+                                                                                @ApiIgnore @CurrentStaffNo String staffNo,
+                                                                                @RequestParam("departId") Integer departId) {
+        return performanceFeignService.queryPerformanceApproveCount(fillTime, staffNo,departId);
     }
 
     @ApiOperation(value = "职能管理-绩效填报-是否负责人", notes = "职能管理-绩效填报-是否负责人", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
