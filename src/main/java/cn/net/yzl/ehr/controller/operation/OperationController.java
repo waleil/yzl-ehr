@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * cn.net.yzl.ehr.controller.operation
  * 2021/2/5 15:17
@@ -42,5 +44,52 @@ public class OperationController  {
     @PostMapping("/insertOperation")
     public ComResponse insertOperation(@RequestBody OperationVo operationVo){
         return operationFeginService.insertOperation(operationVo);
+    }
+
+
+    @ApiOperation(value = "获取IP接口", notes = "获取IP接口")
+    @PostMapping("/getIpAddress")
+    public ComResponse getIpAddress(@RequestBody HttpServletRequest request){
+        String ip = null;
+        try {
+           ip = getIp(request);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ComResponse.success(ip);
+    }
+
+    public String getIp(HttpServletRequest request) throws Exception {
+        String ip = request.getHeader("X-Forwarded-For");
+        if (ip != null) {
+            if (!ip.isEmpty() && !"unKnown".equalsIgnoreCase(ip)) {
+                int index = ip.indexOf(",");
+                if (index != -1) {
+                    return ip.substring(0, index);
+                } else {
+                    return ip;
+                }
+            }
+        }
+        ip = request.getHeader("X-Real-IP");
+        if (ip != null) {
+            if (!ip.isEmpty() && !"unKnown".equalsIgnoreCase(ip)) {
+                return ip;
+            }
+        }
+        ip = request.getHeader("Proxy-Client-IP");
+        if (ip != null) {
+            if (!ip.isEmpty() && !"unKnown".equalsIgnoreCase(ip)) {
+                return ip;
+            }
+        }
+        ip = request.getHeader("WL-Proxy-Client-IP");
+        if (ip != null) {
+            if (!ip.isEmpty() && !"unKnown".equalsIgnoreCase(ip)) {
+                return ip;
+            }
+        }
+        ip = request.getRemoteAddr();
+        return ip.equals("0:0:0:0:0:0:0:1") ? "127.0.0.1" : ip;
     }
 }
