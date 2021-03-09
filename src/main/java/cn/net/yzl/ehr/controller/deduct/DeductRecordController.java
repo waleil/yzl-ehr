@@ -70,7 +70,7 @@ public class DeductRecordController {
     }
     @ApiOperation(value = "催审", notes = "催审",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/examine", method = RequestMethod.POST)
-    ComResponse examine(@CurrentStaffNo @ApiIgnore String staffNo,@RequestParam("approveNo") String approveNo, @RequestParam("processId") Integer processId){
+    ComResponse examine(@CurrentStaffNo @ApiIgnore String staffNo,@RequestParam("approveNo") String approveNo, @RequestParam("approveName") String approveName,@RequestParam("processId") Integer processId){
         ComResponse<ProcessDto> processDtoComResponse = deductReocrdService.queryByName(processId);
         if (processDtoComResponse.getData()==null){
             return ComResponse.fail(20110,"此名称不存在");
@@ -80,6 +80,7 @@ public class DeductRecordController {
         templateVo.setCreator(staffNo);
         templateVo.setUserCode(approveNo);
         templateVo.setSystemCode(2);
+        templateVo.setSendName(approveName);
         templateVo.setTitle(processDtoComResponse.getData().getName());
         Calendar calendar = Calendar.getInstance();
         Integer year = calendar.get(Calendar.YEAR);
@@ -89,7 +90,8 @@ public class DeductRecordController {
         Integer minute = calendar.get(Calendar.MINUTE);
         Integer second = calendar.get(Calendar.SECOND);
         String s = year.toString()+"年"+month.toString()+"月"+day.toString()+"日"+hour.toString()+"时"+minute.toString()+"分"+second.toString()+"秒";
-        String[] str = {approveNo,s};
+        String format = String.format("%s%s%s%s", approveNo, "(", ")", approveName);
+        String[] str = {format,s};
         templateVo.setParams(str);
         return ymsgInfoService.sendSysMsgInfo(templateVo);
 
