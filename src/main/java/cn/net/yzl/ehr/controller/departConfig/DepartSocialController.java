@@ -15,6 +15,8 @@ import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController
@@ -123,9 +125,13 @@ public class DepartSocialController {
     @ApiOperation(value = "根据部门岗位id获取社保信息", notes = "根据部门岗位id获取社保信息")
     @RequestMapping(value = "/getSocialItemsNameByDepartPostId", method = RequestMethod.GET)
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "departPostId", value = "部门岗位id", required = true, dataType = "Int", paramType = "query")
+            @ApiImplicitParam(name = "departPostId", value = "部门岗位id", required = true, dataType = "Int", paramType = "query"),
+            @ApiImplicitParam(name = "zoneId", value = "工作地点编码", required = true, dataType = "Int", paramType = "query"),
+            @ApiImplicitParam(name = "salary", value = "工资", required = true, dataType = "Int", paramType = "query")
     })
-    public ComResponse<String> getSocialItemsNameByDepartPostId(@RequestParam Integer departPostId) {
-        return departSocialService.getSocialItemsNameByDepartPostId(departPostId);
+    public ComResponse<String> getSocialItemsNameByDepartPostId(@RequestParam("departPostId") @NotNull @Min(0) Integer departPostId,
+                                                                @RequestParam("zoneId") @NotNull @Min(0) Integer zoneId,
+                                                                @RequestParam("salary") @NotNull @Min(0) Integer salary) {
+        return departSocialService.getSocialItemsNameByDepartPostId(departPostId,zoneId,salary);
     }
 }

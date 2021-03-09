@@ -21,6 +21,7 @@ public class CoursewareServiceImpl implements CoursewareService {
     @Override
     public ComResponse<Integer> insertCourseWare(CourseWarePo courseWarePo, String creator) {
         courseWarePo.setCreator(creator);
+        courseWarePo.setUpdator(creator);
         return courseWareFeginService.insertCourseWare(courseWarePo);
     }
 
