@@ -1,8 +1,11 @@
 package cn.net.yzl.ehr.controller.resume;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.ehr.async.MsgSendAsync;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.resume.ResumeInterviewFeginService;
+import cn.net.yzl.msg.model.vo.MsgTemplateVo;
+import cn.net.yzl.msg.service.YMsgInfoService;
 import cn.net.yzl.staff.dto.resume.ResumeInterviewTimeDto;
 import cn.net.yzl.staff.vo.resume.ResumeInterviewInsertVO;
 import cn.net.yzl.staff.vo.resume.ResumeInterviewUpdateVO;
@@ -20,6 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.constraints.NotBlank;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -30,11 +35,19 @@ public class ResumeInterviewController {
 
     @Autowired
     private ResumeInterviewFeginService resumeInterviewFeginService;
+    @Autowired
+    private YMsgInfoService ymsgInfoService;
+    @Autowired
+    private MsgSendAsync msgSendAsync;
 
     @ApiOperation(value = "简历列表-安排面试", notes = "简历列表-安排面试", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/arrange", method = RequestMethod.POST)
-    ComResponse<String> arrange(@RequestBody @Validated ResumeInterviewInsertVO resumeInterviewInsertVO) throws IllegalAccessException {
-        return resumeInterviewFeginService.arrange(resumeInterviewInsertVO);
+    ComResponse<String> arrange(@RequestBody @Validated ResumeInterviewInsertVO resumeInterviewInsertVO,@ApiIgnore @CurrentStaffNo String staffNo) throws IllegalAccessException {
+
+        ComResponse<String> arrange = resumeInterviewFeginService.arrange(resumeInterviewInsertVO);
+
+        msgSendAsync.sendArrangeinfo(resumeInterviewInsertVO,staffNo);
+        return arrange;
     }
 
     @ApiOperation(value = "简历列表-修改面试时间", notes = "简历列表-修改面试时间", consumes = MediaType.APPLICATION_JSON_VALUE)
