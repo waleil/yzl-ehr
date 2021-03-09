@@ -129,7 +129,7 @@ public class StaffController {
     @RequestMapping(value = "/getByIdCardNo", method = RequestMethod.GET)
     public ComResponse<StaffBaseDto> getByIdCardNo( String idCardNo) {
 
-        if(StrUtil.isNotBlank(idCardNo)){
+        if(StrUtil.isBlank(idCardNo)){
             return ComResponse.nodata();
         }
         Map<String, Object> map = new HashMap<>();
