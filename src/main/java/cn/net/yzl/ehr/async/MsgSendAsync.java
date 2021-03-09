@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.async;
 
 
+import cn.hutool.core.util.StrUtil;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.dto.SysDictDataDto;
 import cn.net.yzl.ehr.fegin.common.SysDictDataFeginService;
@@ -46,7 +47,7 @@ public class MsgSendAsync {
      * @param resumeInterviewInsertVO
      * @param staffNo
      */
-    @Async
+//    @Async
     public void  sendArrangeinfo(ResumeInterviewInsertVO resumeInterviewInsertVO,String staffNo)  {
 
         MsgTemplateVo templateVo = new MsgTemplateVo();
@@ -117,32 +118,82 @@ public class MsgSendAsync {
      * @param staffNo
      */
     @Async
-    public void  sendToDepart(String staffNo ,Date  time ,String creator) {
+    public void  sendToDepart(String creator ,String staffNoAndName) {
+        if(StrUtil.isBlank(staffNoAndName)){
+            return;
+        }
+        String[] split = staffNoAndName.split(",");
+        if(split.length!=2){
+            return;
+        }
 
+        // 获取简历详情
         MsgTemplateVo templateVo = new MsgTemplateVo();
         templateVo.setCode("EHR0005");
         templateVo.setCreator(creator);
-        templateVo.setUserCode(staffNo);
+        templateVo.setUserCode(split[0]);
         templateVo.setSystemCode(2);
         templateVo.setTitle("待筛选");
         // {0}你好，于{1}，收到待筛选简历，请前往筛选。
-        String staffName=""; //面试官姓名
 
 
-        // 获取用户信息
-        ComResponse<StaffDetailsDto> detailsByNo = staffFeginService.getDetailsByNo(staffNo);
-        if(detailsByNo.getData()!=null){
-            staffName = detailsByNo.getData().getName();
-        }
         String timeStr="";// 时间
 
             try {
-                timeStr= DateStaffUtils.dateToDateStr(time, dateFormatStr);
+                timeStr= DateStaffUtils.dateToDateStr(new Date(), dateFormatStr);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-        String[] str = {staffName,timeStr};
+        String[] str = {split[1],timeStr};
         templateVo.setParams(str);
+        ymsgInfoService.sendSysMsgInfo(templateVo);
+
+    }
+
+
+
+    /**
+     *  消息发送 待选简历 更新
+     *
+     * @param staffNo  收消息 用户编号
+     *        creator  发消息 用户编号
+     * @param staffNo
+     */
+//    @Async
+    public void  resumeUpdateInfo(String send ,String to) {
+
+
+        // 获取简历详情
+        MsgTemplateVo templateVo = new MsgTemplateVo();
+        templateVo.setCode("EHR0020");
+        templateVo.setCreator(send);
+        templateVo.setUserCode(to);
+        templateVo.setSystemCode(2);
+        templateVo.setTitle("待选简历-结果");
+        // {0}你好，于{1}，收到待筛选简历，请前往筛选。
+        ymsgInfoService.sendSysMsgInfo(templateVo);
+
+    }
+
+    /**
+     *  消息发送 待选简历 更新
+     *
+     * @param staffNo  收消息 用户编号
+     *        creator  发消息 用户编号
+     * @param staffNo
+     */
+//    @Async
+    public void  resumeInterviewUpdateInfo(String send ,String to) {
+
+
+        // 获取简历详情
+        MsgTemplateVo templateVo = new MsgTemplateVo();
+        templateVo.setCode("EHR0021");
+        templateVo.setCreator(send);
+        templateVo.setUserCode(to);
+        templateVo.setSystemCode(2);
+        templateVo.setTitle("面试结果-通知");
+        // {0}你好，于{1}，收到待筛选简历，请前往筛选。
         ymsgInfoService.sendSysMsgInfo(templateVo);
 
     }

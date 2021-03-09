@@ -6,6 +6,7 @@ import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
+import cn.net.yzl.ehr.async.MsgSendAsync;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.dto.resume.ResumeExportDto;
 import cn.net.yzl.ehr.fegin.resume.ResumeFeginService;
@@ -52,6 +53,8 @@ public class ResumeController {
 
     @Autowired
     private ResumeFeginService resumeFeginService;
+    @Autowired
+    private MsgSendAsync msgSendAsync;
 
 
     @ApiOperation(value = "简历列表-获取需求部门列表", notes = "简历列表-获取需求部门列表", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
@@ -136,8 +139,14 @@ public class ResumeController {
 
     @ApiOperation(value = "简历列表-批量/单个推送(简历库)", notes = "简历列表-批量推送(简历库)", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/sendTo", method = RequestMethod.POST)
-    ComResponse<String> sendToBeatch( @RequestBody  List<ResumeDepartStaffVO> resumeDepartStaffVOList) throws IllegalAccessException {
-        return resumeFeginService.sendToBeatch(resumeDepartStaffVOList);
+    ComResponse<String> sendToBeatch( @RequestBody  List<ResumeDepartStaffVO> resumeDepartStaffVOList,@ApiIgnore @CurrentStaffNo String staffNo) throws IllegalAccessException {
+        ComResponse<String> re = resumeFeginService.sendToBeatch(resumeDepartStaffVOList);
+
+        if(re.getData()!=null){
+            msgSendAsync.sendToDepart(staffNo,re.getData());
+
+        }
+        return re;
     }
 //    @ApiOperation(value = "简历列表-推送(待筛选或筛选未通过或简历库)", notes = "简历列表-推送(待筛选或筛选未通过或简历库)", consumes = MediaType.APPLICATION_JSON_VALUE)
 //    @RequestMapping(value = "/sendTo", method = RequestMethod.POST)
@@ -151,7 +160,13 @@ public class ResumeController {
     @ApiOperation(value = "简历列表-批量发送(待筛选)", notes = "简历列表-批量发送(待筛选)", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/sendToBatchDepart", method = RequestMethod.POST)
     ComResponse<String> sendToBatchDepart( @RequestBody @NotEmpty List<Integer> resumeIds, @ApiIgnore @CurrentStaffNo String staffNo) throws IllegalAccessException {
-        return resumeFeginService.sendToBatchDepart(resumeIds,staffNo);
+        ComResponse<String> re = resumeFeginService.sendToBatchDepart(resumeIds, staffNo);
+        if(re.getData()!=null){
+            msgSendAsync.sendToDepart(staffNo,re.getData());
+
+        }
+
+        return re;
     }
     @ApiOperation(value = "简历列表-单个发给部门(待筛选)", notes = "简历列表-单个发给部门(待筛选)", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/sendToDepart", method = RequestMethod.GET)
@@ -159,7 +174,12 @@ public class ResumeController {
             @ApiImplicitParam(name = "resumeId", value = "简历id", required = true, dataType = "Integer", paramType = "query")
     })
     ComResponse<String> sendToDepart(Integer resumeId, @ApiIgnore @CurrentStaffNo String staffNo) throws IllegalAccessException {
-        return resumeFeginService.sendToDepart(resumeId,staffNo);
+        ComResponse<String> re = resumeFeginService.sendToDepart(resumeId, staffNo);
+        if(re.getData()!=null){
+            msgSendAsync.sendToDepart(staffNo,re.getData());
+
+        }
+        return re;
     }
 
 

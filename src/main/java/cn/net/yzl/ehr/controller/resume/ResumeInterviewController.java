@@ -43,7 +43,7 @@ public class ResumeInterviewController {
     @ApiOperation(value = "简历列表-安排面试", notes = "简历列表-安排面试", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/arrange", method = RequestMethod.POST)
     ComResponse<String> arrange(@RequestBody @Validated ResumeInterviewInsertVO resumeInterviewInsertVO,@ApiIgnore @CurrentStaffNo String staffNo) throws IllegalAccessException {
-
+        resumeInterviewInsertVO.setCreator(staffNo);
         ComResponse<String> arrange = resumeInterviewFeginService.arrange(resumeInterviewInsertVO);
 
         msgSendAsync.sendArrangeinfo(resumeInterviewInsertVO,staffNo);
@@ -59,6 +59,8 @@ public class ResumeInterviewController {
     @ApiOperation(value = "个人中心-我的面试", notes = "个人中心-我的面试", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/getResumeInterviewTimeDtoByStaffNo", method = RequestMethod.GET)
     ComResponse<List<ResumeInterviewTimeDto>> getResumeInterviewTimeDtoByStaffNo(@ApiIgnore @CurrentStaffNo String staffNo) {
+
+
         return resumeInterviewFeginService.getResumeInterviewTimeDtoByStaffNo(staffNo);
     }
 
@@ -66,7 +68,11 @@ public class ResumeInterviewController {
     @ApiOperation(value = "个人中心-提交", notes = "个人中心-提交", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/submit", method = RequestMethod.POST)
     ComResponse<String> submit(@RequestBody @Validated ResumeInterviewUpdateVO resumeInterviewUpdateVO,@ApiIgnore @CurrentStaffNo String staffNo) {
-        return resumeInterviewFeginService.submit(resumeInterviewUpdateVO);
+        ComResponse<String> rep = resumeInterviewFeginService.submit(resumeInterviewUpdateVO);
+        if(rep.getData()!=null){
+            msgSendAsync.resumeInterviewUpdateInfo(staffNo,rep.getData());
+        }
+        return rep;
     }
 
 
