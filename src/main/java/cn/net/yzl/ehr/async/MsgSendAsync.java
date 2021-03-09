@@ -61,7 +61,7 @@ public class MsgSendAsync {
         String interviewStaffNo = resumeInterviewInsertVO.getInterviewStaffNo();
         // 获取用户信息
         ComResponse<StaffDetailsDto> detailsByNo = staffFeginService.getDetailsByNo(interviewStaffNo);
-        if(detailsByNo.getData()!=null){
+        if(detailsByNo!=null && detailsByNo.getData()!=null){
             staffName = detailsByNo.getData().getName();
         }
 
