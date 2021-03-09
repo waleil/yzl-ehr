@@ -38,6 +38,8 @@ public class MsgSendAsync {
     @Autowired
     private YMsgInfoService ymsgInfoService;
 
+    private String dateFormatStr="yyyy年MM月dd日 HH时mm分ss秒"; // 时间格式化
+
     /**
      *  消息发送  发送安排面试的消息
      *
@@ -67,7 +69,7 @@ public class MsgSendAsync {
         Date interviewTime = resumeInterviewInsertVO.getInterviewTime();  // 面试时间
         if(interviewTime!=null){
             try {
-                interviewTimeStr= DateStaffUtils.dateToDateStr(interviewTime, "yyyy年MM月dd日 HH时mm分ss秒");
+                interviewTimeStr= DateStaffUtils.dateToDateStr(interviewTime, dateFormatStr);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -105,4 +107,43 @@ public class MsgSendAsync {
     }
 
 
+
+
+    /**
+     *  消息发送  发送（推送）给部门
+     *
+     * @param staffNo  收消息 用户编号
+     *        creator  发消息 用户编号
+     * @param staffNo
+     */
+    @Async
+    public void  sendToDepart(String staffNo ,Date  time ,String creator) {
+
+        MsgTemplateVo templateVo = new MsgTemplateVo();
+        templateVo.setCode("EHR0005");
+        templateVo.setCreator(creator);
+        templateVo.setUserCode(staffNo);
+        templateVo.setSystemCode(2);
+        templateVo.setTitle("待筛选");
+        // {0}你好，于{1}，收到待筛选简历，请前往筛选。
+        String staffName=""; //面试官姓名
+
+
+        // 获取用户信息
+        ComResponse<StaffDetailsDto> detailsByNo = staffFeginService.getDetailsByNo(staffNo);
+        if(detailsByNo.getData()!=null){
+            staffName = detailsByNo.getData().getName();
+        }
+        String timeStr="";// 时间
+
+            try {
+                timeStr= DateStaffUtils.dateToDateStr(time, dateFormatStr);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        String[] str = {staffName,timeStr};
+        templateVo.setParams(str);
+        ymsgInfoService.sendSysMsgInfo(templateVo);
+
+    }
 }

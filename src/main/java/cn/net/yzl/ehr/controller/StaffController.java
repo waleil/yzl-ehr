@@ -127,7 +127,11 @@ public class StaffController {
             @ApiImplicitParam(name = "idCardNo", value = "身份证号", required = true, dataType = "String", paramType = "query")
     })
     @RequestMapping(value = "/getByIdCardNo", method = RequestMethod.GET)
-    public ComResponse<StaffBaseDto> getByIdCardNo(@NotBlank String idCardNo) {
+    public ComResponse<StaffBaseDto> getByIdCardNo( String idCardNo) {
+
+        if(StrUtil.isNotBlank(idCardNo)){
+            return ComResponse.nodata();
+        }
         Map<String, Object> map = new HashMap<>();
         map.put("idCardNo",idCardNo);
         return staffFeginService.getOneByMap(map);
