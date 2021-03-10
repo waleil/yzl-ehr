@@ -139,4 +139,10 @@ public class ProcessInitiateController {
         }
         return integerComResponse;
     }
+
+    @ApiOperation(value = "查询用户当月的申请补卡次数",notes = "查询用户当月的申请补卡次数",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/attend/approval/count", method = RequestMethod.GET)
+    ComResponse<Integer> countProcessStaffAttendApproval (@CurrentStaffNo @ApiIgnore String staffNo){
+        return processInitiateService.countProcessStaffAttendApproval(staffNo);
+    }
 }

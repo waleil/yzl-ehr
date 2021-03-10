@@ -59,4 +59,9 @@ public class ProcessInitiateServiceImpl implements ProcessInitiateService {
         staffAttendExchangeVo.setCreator(staffNo);
         return processInitiateFeignService.insertProcessAttendExchange(staffAttendExchangeVo);
     }
+
+    @Override
+    public ComResponse<Integer> countProcessStaffAttendApproval(String staffNo) {
+        return processInitiateFeignService.countProcessStaffAttendApproval(staffNo);
+    }
 }
