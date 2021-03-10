@@ -25,4 +25,7 @@ public interface ProcessInitiateService {
     //物品加班兑换
     ComResponse<Integer> insertProcessAttendExchange(StaffAttendExchangeVo staffAttendExchangeVo, String staffNo);
 
+    //查询员工申请的补卡次数
+    ComResponse<Integer> countProcessStaffAttendApproval(String staffNo);
+
 }

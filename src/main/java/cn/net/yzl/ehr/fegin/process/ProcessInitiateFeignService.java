@@ -2,14 +2,11 @@ package cn.net.yzl.ehr.fegin.process;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.staff.vo.process.*;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Repository;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 流程发起-出勤休假
@@ -41,5 +38,8 @@ public interface ProcessInitiateFeignService {
 
     @PostMapping("/attend/exchange/insert")
     ComResponse<Integer> insertProcessAttendExchange(@RequestBody @Validated StaffAttendExchangeVo staffAttendExchangeVo);
+
+    @GetMapping(value = "/attend/approval/count")
+    ComResponse<Integer> countProcessStaffAttendApproval (@RequestParam("staffNo") String staffNo);
 
 }
