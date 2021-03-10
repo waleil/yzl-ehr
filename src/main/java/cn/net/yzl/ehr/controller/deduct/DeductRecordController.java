@@ -69,7 +69,7 @@ public class DeductRecordController {
         return deductReocrdService.queryById(appNo);
     }
     @ApiOperation(value = "催审", notes = "催审",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @RequestMapping(value = "/examine", method = RequestMethod.POST)
+    @RequestMapping(value = "/examine", method = RequestMethod.GET)
     ComResponse examine(@CurrentStaffNo @ApiIgnore String staffNo,@RequestParam("approveNo") String approveNo, @RequestParam("approveName") String approveName,@RequestParam("processId") Integer processId){
         ComResponse<ProcessDto> processDtoComResponse = deductReocrdService.queryByName(processId);
         if (processDtoComResponse.getData()==null){
@@ -90,7 +90,7 @@ public class DeductRecordController {
         Integer minute = calendar.get(Calendar.MINUTE);
         Integer second = calendar.get(Calendar.SECOND);
         String s = year.toString()+"年"+month.toString()+"月"+day.toString()+"日"+hour.toString()+"时"+minute.toString()+"分"+second.toString()+"秒";
-        String format = String.format("%s%s%s%s", approveNo, "(", ")", approveName);
+        String format = String.format("%s%s%s%s", approveName, "(", approveNo,")");
         String[] str = {format,s};
         templateVo.setParams(str);
         return ymsgInfoService.sendSysMsgInfo(templateVo);
