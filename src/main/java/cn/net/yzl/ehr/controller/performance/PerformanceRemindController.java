@@ -24,7 +24,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -120,19 +119,24 @@ public class PerformanceRemindController {
         if (200 == response.getCode()) {
             List<PerformanceRemindDepartDto> departList = response.getData();
             if (!CollectionUtils.isEmpty(departList)) {
+                List<MailVo> mailList = new ArrayList<>();
                 for (PerformanceRemindDepartDto depart : departList) {
                     if (1 == depart.getSendType()) {
                         // 发送系统消息
                         sendSystemMsg(depart);
                     } else if (3 == depart.getSendType()) {
                         // 发送邮件消息
-                        sendEmailMsg(depart);
+                        mailList.addAll(sendEmailMsg(depart));
                     } else {
                         // 发送系统消息
                         sendSystemMsg(depart);
                         // 发送邮件消息
-                        sendEmailMsg(depart);
+                        mailList.addAll(sendEmailMsg(depart));
                     }
+                }
+
+                if (mailList.size() > 0) {
+                    SendTask.runTask(mailList);
                 }
             }
         } else {
@@ -141,15 +145,14 @@ public class PerformanceRemindController {
         return ComResponse.success(true);
     }
 
-    @Async
-    public void sendEmailMsg(PerformanceRemindDepartDto depart) {
+    public List<MailVo> sendEmailMsg(PerformanceRemindDepartDto depart) {
+        List<MailVo> mailList = new ArrayList<>();
         try {
             // 人员信息
             List<PerformanceRemindStaffDto> staffList = depart.getStaffList();
             if (!CollectionUtils.isEmpty(staffList)) {
                 LOGGER.info("部门:{} 发送邮件考评填报提醒. remindType={}", depart.getDepartId(), depart.getRemindType());
                 for (PerformanceRemindStaffDto staff : staffList) {
-                    List<MailVo> mailList = new ArrayList<>();
                     if (!StringUtils.isEmpty(staff.getEmail()) && staff.getEmail().contains("@")) {
                         String subject;
                         String content;
@@ -164,15 +167,13 @@ public class PerformanceRemindController {
                         }
                         MailVo mailVo = new MailVo(staff.getEmail(), subject, staff.getStaffName() + content);
                         mailList.add(mailVo);
-//                        MailUtil.sendMail(mailVo);
                     }
-                    SendTask.runTask(mailList);
                 }
             }
-
         } catch (Exception e) {
             LOGGER.error("考评填报提醒,发送邮件失败. depart={}", JsonUtil.toJsonStr(depart), e);
         }
+        return mailList;
     }
 
     private void sendSystemMsg(PerformanceRemindDepartDto depart) {
