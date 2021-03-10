@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.controller.resume;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.async.MsgSendAsync;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.resume.ResumeInterviewFeginService;
@@ -16,10 +17,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.constraints.NotBlank;
@@ -64,7 +62,16 @@ public class ResumeInterviewController {
         return resumeInterviewFeginService.getResumeInterviewTimeDtoByStaffNo(staffNo);
     }
 
-
+    @ApiOperation(value = "个人中心-我的面试(分页)", notes = "个人中心-我的面试", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/getResumeInterviewTimeDtoPageByStaffNo", method = RequestMethod.GET)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "staffNo", value = "面试官的工号", required = true, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "pageNo", value = "第几页", required = true, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "pageSize", value = "每页的显示的行数", required = true, dataType = "String", paramType = "query")
+    })
+    ComResponse<Page<ResumeInterviewTimeDto>> getResumeInterviewTimeDtoPageByStaffNo(@NotBlank String staffNo, @RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "10") Integer pageSize) {
+        return resumeInterviewFeginService.getResumeInterviewTimeDtoPageByStaffNo(staffNo,pageNo,pageSize);
+    }
     @ApiOperation(value = "个人中心-提交", notes = "个人中心-提交", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/submit", method = RequestMethod.POST)
     ComResponse<String> submit(@RequestBody @Validated ResumeInterviewUpdateVO resumeInterviewUpdateVO,@ApiIgnore @CurrentStaffNo String staffNo) {
