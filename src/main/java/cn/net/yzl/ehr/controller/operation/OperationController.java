@@ -9,7 +9,7 @@ import cn.net.yzl.staff.vo.OperationPageVo;
 import cn.net.yzl.staff.vo.OperationVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import jdk.internal.jline.internal.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/operator")
 @Api(value = "操作日志", tags = {"操作日志"})
+@Slf4j
 public class OperationController  {
     @Autowired
     private StaffFeginService staffFeginService;
@@ -52,7 +53,7 @@ public class OperationController  {
             ip = getIp(request);
             operationVo.setMacAddr(ip);
             operationVo.setUserCode(request.getHeader("userId"));
-            Log.info("ip:{},userId:{}",ip,request.getHeader("userId"));
+            log.info("ip:{},userId:{}",ip,request.getHeader("userId"));
         } catch (Exception e) {
             e.printStackTrace();
         }
