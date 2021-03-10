@@ -5,10 +5,10 @@ import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.common.util.JsonUtil;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.performance.PerformanceRemindFeignService;
+import cn.net.yzl.ehr.util.SendTask;
 import cn.net.yzl.msg.model.vo.MsgTemplateVo;
 import cn.net.yzl.msg.service.YMsgInfoService;
 import cn.net.yzl.order.model.vo.MailVo;
-import cn.net.yzl.order.util.SendTask;
 import cn.net.yzl.staff.constant.PerformanceConstant;
 import cn.net.yzl.staff.dto.performance.PerformanceApproveRemindDto;
 import cn.net.yzl.staff.dto.performance.PerformanceRemindDepartDto;
@@ -24,6 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -55,6 +56,8 @@ public class PerformanceRemindController {
 
     @Autowired
     private YMsgInfoService ymsgInfoService;
+    @Autowired
+    private SendTask sendTask;
 
 
     @ApiImplicitParams({
@@ -136,7 +139,11 @@ public class PerformanceRemindController {
                 }
 
                 if (mailList.size() > 0) {
-                    SendTask.runTask(mailList);
+                    try {
+                        sendTask.runTask(mailList);
+                    } catch (Exception e) {
+                        LOGGER.error("考评填报提醒,发送邮件失败. ", e);
+                    }
                 }
             }
         } else {
@@ -176,7 +183,8 @@ public class PerformanceRemindController {
         return mailList;
     }
 
-    private void sendSystemMsg(PerformanceRemindDepartDto depart) {
+    @Async("performanceServiceExecutor")
+    public void sendSystemMsg(PerformanceRemindDepartDto depart) {
         try {
             // 人员信息
             List<PerformanceRemindStaffDto> staffList = depart.getStaffList();
