@@ -55,7 +55,7 @@ public class ParkingVehicleServiceImpl implements ParkingVehicleService {
         templateVo.setCode("EHR0022");
         templateVo.setCreator(staffNo);
          templateVo.setTitle("车位管理回收车位");
-        templateVo.setUserCode(String.valueOf(comResponse.getData()));
+        templateVo.setUserCode(String.valueOf(comResponse.getData().getStaffNo()));
         ComResponse<StaffDetailsDto> detailsByNo = staffFeginService.getDetailsByNo(comResponse.getData().getStaffNo());
         String name = detailsByNo.getData().getName();
         Object[] objects = new Object[100];
