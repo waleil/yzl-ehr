@@ -20,6 +20,7 @@ import org.springframework.stereotype.Component;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -195,6 +196,35 @@ public class MsgSendAsync {
         templateVo.setTitle("面试结果-通知");
         // {0}你好，于{1}，收到待筛选简历，请前往筛选。
         ymsgInfoService.sendSysMsgInfo(templateVo);
+
+    }
+
+    /**
+     * 简历超时
+     */
+    public void  resumeFllowUpStatus(Map<String,Object> map,String send) {
+        map.forEach((key,value)->{
+
+            // 获取简历详情
+            MsgTemplateVo templateVo = new MsgTemplateVo();
+            templateVo.setCode("EHR0006");
+            templateVo.setCreator(send);
+            templateVo.setUserCode(key);
+            templateVo.setSystemCode(2);
+            templateVo.setTitle("简历超时");
+            // {0}你好，于{1}，收到待筛选简历，请前往筛选。
+            String[] str = new String[0];
+            try {
+                str = new String[]{(String)value, DateStaffUtils.dateToDateStr(new Date(),dateFormatStr)};
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            templateVo.setParams(str);
+            ymsgInfoService.sendSysMsgInfo(templateVo);
+
+
+        });
+
 
     }
 }

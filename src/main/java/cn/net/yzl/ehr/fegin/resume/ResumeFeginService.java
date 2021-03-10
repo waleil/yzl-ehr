@@ -73,4 +73,8 @@ public interface ResumeFeginService{
     ComResponse<List<ResumeImportResultDto>> importResumeList(@RequestParam("url") String url, @RequestParam("staffNo")String staffNo);
     @RequestMapping(value = "/resume/sendToBeatch", method = RequestMethod.POST)
     ComResponse<String> sendToBeatch(@RequestBody List<ResumeDepartStaffVO> resumeDepartStaffVOList);
+
+    @RequestMapping(value = "/resume/updateFollowupStatus", method = RequestMethod.GET)
+    ComResponse<String> updateFollowupStatus();
+
 }

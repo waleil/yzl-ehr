@@ -2,10 +2,13 @@ package cn.net.yzl.ehr.controller.resume;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.io.IoUtil;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONUtil;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
+import cn.net.yzl.common.util.JsonUtil;
 import cn.net.yzl.ehr.async.MsgSendAsync;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.dto.resume.ResumeExportDto;
@@ -208,7 +211,15 @@ public class ResumeController {
         return resumeFeginService.noBatchPass(resumeIds);
     }
 
-
+    @ApiOperation(value = "简历超时状态修改(定时修改)", notes = "简历超时状态修改", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/updateFollowupStatus", method = RequestMethod.GET)
+    ComResponse<String> updateFollowupStatus(@ApiIgnore @CurrentStaffNo String staffNo) throws ParseException {
+        ComResponse<String> re = resumeFeginService.updateFollowupStatus();
+        if (StrUtil.isNotBlank(re.getData())){
+            msgSendAsync.resumeFllowUpStatus(JsonUtil.readJson2Map(re.getData()),staffNo);
+        }
+        return re;
+    }
     @ApiOperation(value = "简历列表-导出", notes = "简历列表-导出")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "state", value = "状态 0 待筛选  1筛选未通过  2筛选通过待面试 3面试中 4面试未通过 5面试通过待入职 6:推送中 7:面试通过已入职  8放入简历库", required = true, dataType = "Int", paramType = "query")
