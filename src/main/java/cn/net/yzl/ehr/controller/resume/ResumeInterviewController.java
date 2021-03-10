@@ -69,7 +69,7 @@ public class ResumeInterviewController {
             @ApiImplicitParam(name = "pageNo", value = "第几页", required = true, dataType = "String", paramType = "query"),
             @ApiImplicitParam(name = "pageSize", value = "每页的显示的行数", required = true, dataType = "String", paramType = "query")
     })
-    ComResponse<Page<ResumeInterviewTimeDto>> getResumeInterviewTimeDtoPageByStaffNo(@NotBlank String staffNo, @RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "10") Integer pageSize) {
+    ComResponse<Page<ResumeInterviewTimeDto>> getResumeInterviewTimeDtoPageByStaffNo(@ApiIgnore @CurrentStaffNo String staffNo, @RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "10") Integer pageSize) {
         return resumeInterviewFeginService.getResumeInterviewTimeDtoPageByStaffNo(staffNo,pageNo,pageSize);
     }
     @ApiOperation(value = "个人中心-提交", notes = "个人中心-提交", consumes = MediaType.APPLICATION_JSON_VALUE)
