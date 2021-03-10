@@ -33,4 +33,8 @@ public interface DeductItemFeginService {
     @RequestMapping(value = "/deduct/updateByState",method = RequestMethod.POST)
     ComResponse<Integer> updateByState (@RequestBody DeductItemUpdatePo updatePo);
 
+    @ApiOperation(value = "查询所有",notes = "查询",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/queryItem", method = RequestMethod.GET)
+    ComResponse<List<DeductItemDto>> queryItem();
+
 }

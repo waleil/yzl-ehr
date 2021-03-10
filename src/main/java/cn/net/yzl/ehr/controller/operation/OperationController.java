@@ -9,6 +9,7 @@ import cn.net.yzl.staff.vo.OperationPageVo;
 import cn.net.yzl.staff.vo.OperationVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import jdk.internal.jline.internal.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -51,6 +52,7 @@ public class OperationController  {
             ip = getIp(request);
             operationVo.setMacAddr(ip);
             operationVo.setUserCode(request.getHeader("userId"));
+            Log.info("ip:{},userId:{}",ip,request.getHeader("userId"));
         } catch (Exception e) {
             e.printStackTrace();
         }

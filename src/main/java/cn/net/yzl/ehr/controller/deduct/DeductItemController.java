@@ -45,4 +45,10 @@ public class DeductItemController {
         return deductItemService.updateByState(updatePo,staffNo);
     }
 
+    @ApiOperation(value = "查询所有",notes = "查询",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/queryItem", method = RequestMethod.GET)
+    ComResponse<List<DeductItemDto>> queryItem(){
+        return deductItemService.queryItem();
+    }
+
 }
