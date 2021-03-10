@@ -13,4 +13,6 @@ public interface DeductItemService {
     ComResponse<List<DeductItemDto>> queryAll();
 
     ComResponse<Integer> updateByState(DeductItemUpdatePo updatePo,String staffNo);
+
+    ComResponse<List<DeductItemDto>> queryItem();
 }

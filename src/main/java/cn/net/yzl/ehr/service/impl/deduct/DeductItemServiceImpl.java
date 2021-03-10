@@ -48,4 +48,10 @@ public class DeductItemServiceImpl implements DeductItemService {
         }
         return result;
     }
+
+    @Override
+    public ComResponse<List<DeductItemDto>> queryItem() {
+        ComResponse<List<DeductItemDto>> result = deductItemFeginService.queryItem();
+        return result;
+    }
 }
