@@ -37,6 +37,7 @@ public class ProcessReimbursementController {
                         staffReimbursementVo.getProcessNodeDTOList().get(1).getStaffNo(),
                         staffReimbursementVo.getProcessNodeDTOList().get(1).getProcessName());
                 MessageRemandAPI.processSendMessage(staffReimbursementVo.getProcessNodeDTOList().get(0).getProcessId(),
+                        staffReimbursementVo.getProcessNodeDTOList().get(0).getStaffName(),
                         staffReimbursementVo.getProcessNodeDTOList().get(1).getProcessName());
             } catch (Exception e) {
                 e.printStackTrace();

@@ -36,6 +36,7 @@ public class StaffContractApprovalController {
                         staffContractApprovalVo.getProcessNodeDTOList().get(1).getStaffNo(),
                         staffContractApprovalVo.getProcessNodeDTOList().get(1).getProcessName());
                 MessageRemandAPI.processSendMessage(staffContractApprovalVo.getProcessNodeDTOList().get(0).getProcessId(),
+                        staffContractApprovalVo.getProcessNodeDTOList().get(0).getStaffName(),
                         staffContractApprovalVo.getProcessNodeDTOList().get(1).getProcessName());
             } catch (Exception e) {
                 e.printStackTrace();
