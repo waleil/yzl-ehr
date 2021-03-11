@@ -179,7 +179,7 @@ public class StaffController {
     @ApiOperation(value = "员工基本信息-保存", notes = "员工基本信息-保存")
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     ComResponse<StaffDetailsDto> save(@RequestBody StaffInfoSaveVO staffInfoSaveVO,@ApiIgnore @CurrentStaffNo String currentStaffNo) throws ParseException {
-        ComResponse<StaffDetailsDto> save = staffFeginService.save(staffInfoSaveVO);
+        ComResponse<StaffDetailsDto> save =staffFeginService.save(staffInfoSaveVO);
         if(save.getCode()==200){
             // 添加角色
             String roleIds = staffInfoSaveVO.getRoleIds();
