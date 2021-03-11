@@ -74,4 +74,10 @@ public interface PerformanceRemindFeignService {
      */
     @RequestMapping(value = "/sendPerformanceRemind", method = RequestMethod.GET)
     ComResponse<List<PerformanceRemindDepartDto>> sendPerformanceRemind();
+
+    /**
+     * 更新系统时间
+     */
+    @RequestMapping(value = "/updateSystemDate", method = RequestMethod.GET)
+    ComResponse<Boolean> updateSystemDate(@RequestParam("systemDate") String systemDate);
 }

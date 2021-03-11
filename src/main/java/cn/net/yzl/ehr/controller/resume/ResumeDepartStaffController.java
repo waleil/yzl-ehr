@@ -2,6 +2,7 @@ package cn.net.yzl.ehr.controller.resume;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
+import cn.net.yzl.ehr.async.MsgSendAsync;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.resume.ResumeDepartStaffFeginService;
 import cn.net.yzl.staff.dto.resume.ResumeDepartStaffListDto;
@@ -27,13 +28,19 @@ public class ResumeDepartStaffController {
     @Autowired
     private ResumeDepartStaffFeginService resumeDepartStaffFeginService;
 
-
+@Autowired
+private MsgSendAsync msgSendAsync;
 
 
     @ApiOperation(value = "个人中心-待筛选-更新", notes = "个人中心-待筛选-更新", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    ComResponse<String> update(@RequestBody @Validated ResumeDepartStaffUpdateVO resumeDepartStaffUpdateVO)  {
-        return resumeDepartStaffFeginService.update(resumeDepartStaffUpdateVO);
+    ComResponse<String> update(@RequestBody @Validated ResumeDepartStaffUpdateVO resumeDepartStaffUpdateVO,@ApiIgnore @CurrentStaffNo String staffNo)  {
+        ComResponse<String> update = resumeDepartStaffFeginService.update(resumeDepartStaffUpdateVO);
+        if(update.getData()!=null){
+            msgSendAsync.resumeUpdateInfo(staffNo,update.getData());
+
+        }
+        return update;
     }
 
 

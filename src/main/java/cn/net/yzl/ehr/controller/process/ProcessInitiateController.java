@@ -36,6 +36,7 @@ public class ProcessInitiateController {
                         staffOutVo.getProcessNodeDTOList().get(1).getStaffNo(),
                         staffOutVo.getProcessNodeDTOList().get(1).getProcessName());
                 MessageRemandAPI.processSendMessage(staffOutVo.getProcessNodeDTOList().get(0).getProcessId(),
+                        staffOutVo.getProcessNodeDTOList().get(0).getStaffName(),
                         staffOutVo.getProcessNodeDTOList().get(0).getProcessName());
             } catch (Exception e) {
                 e.printStackTrace();
@@ -54,6 +55,7 @@ public class ProcessInitiateController {
                         staffTravelVo.getProcessNodeDTOList().get(1).getStaffNo(),
                         staffTravelVo.getProcessNodeDTOList().get(1).getProcessName());
                 MessageRemandAPI.processSendMessage(staffTravelVo.getProcessNodeDTOList().get(0).getProcessId(),
+                        staffTravelVo.getProcessNodeDTOList().get(0).getStaffName(),
                         staffTravelVo.getProcessNodeDTOList().get(0).getProcessName());
             } catch (Exception e) {
                 e.printStackTrace();
@@ -72,6 +74,7 @@ public class ProcessInitiateController {
                         staffAttendApprovalVo.getProcessNodeDTOList().get(1).getStaffNo(),
                         staffAttendApprovalVo.getProcessNodeDTOList().get(1).getProcessName());
                 MessageRemandAPI.processSendMessage(staffAttendApprovalVo.getProcessNodeDTOList().get(0).getProcessId(),
+                        staffAttendApprovalVo.getProcessNodeDTOList().get(0).getStaffName(),
                         staffAttendApprovalVo.getProcessNodeDTOList().get(0).getProcessName());
             } catch (Exception e) {
                 e.printStackTrace();
@@ -90,12 +93,19 @@ public class ProcessInitiateController {
                         staffParkingSpaceVo.getProcessNodeDTOList().get(1).getStaffNo(),
                         staffParkingSpaceVo.getProcessNodeDTOList().get(1).getProcessName());
                 MessageRemandAPI.processSendMessage(staffParkingSpaceVo.getProcessNodeDTOList().get(0).getProcessId(),
+                        staffParkingSpaceVo.getProcessNodeDTOList().get(0).getStaffName(),
                         staffParkingSpaceVo.getProcessNodeDTOList().get(0).getProcessName());
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
         return integerComResponse;
+    }
+
+    @ApiOperation(value = "查询车位申请通道(true:可用，false:不可用(车位申请通道已关闭！))",notes = "(true:可用，false:不可用(车位申请通道已关闭！))")
+    @GetMapping("/parking/space/select")
+    public ComResponse<Boolean> selectProcessStaffParkingSpace(){
+        return processInitiateService.selectProcessStaffParkingSpace();
     }
 
     @ApiOperation(value = "添加物品领用申请",notes = "添加物品领用申请",consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -108,6 +118,7 @@ public class ProcessInitiateController {
                         staffItemRequisitionVo.getProcessNodeDTOList().get(1).getStaffNo(),
                         staffItemRequisitionVo.getProcessNodeDTOList().get(1).getProcessName());
                 MessageRemandAPI.processSendMessage(staffItemRequisitionVo.getProcessNodeDTOList().get(0).getProcessId(),
+                        staffItemRequisitionVo.getProcessNodeDTOList().get(0).getStaffName(),
                         staffItemRequisitionVo.getProcessNodeDTOList().get(0).getProcessName());
             } catch (Exception e) {
                 e.printStackTrace();
@@ -126,11 +137,18 @@ public class ProcessInitiateController {
                         staffAttendExchangeVo.getProcessNodeDTOList().get(1).getStaffNo(),
                         staffAttendExchangeVo.getProcessNodeDTOList().get(1).getProcessName());
                 MessageRemandAPI.processSendMessage(staffAttendExchangeVo.getProcessNodeDTOList().get(0).getProcessId(),
+                        staffAttendExchangeVo.getProcessNodeDTOList().get(0).getStaffName(),
                         staffAttendExchangeVo.getProcessNodeDTOList().get(1).getProcessName());
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
         return integerComResponse;
+    }
+
+    @ApiOperation(value = "查询用户当月的申请补卡次数",notes = "查询用户当月的申请补卡次数",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/attend/approval/count", method = RequestMethod.GET)
+    ComResponse<Integer> countProcessStaffAttendApproval (@CurrentStaffNo @ApiIgnore String staffNo){
+        return processInitiateService.countProcessStaffAttendApproval(staffNo);
     }
 }

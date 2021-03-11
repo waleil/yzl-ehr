@@ -96,7 +96,9 @@ public interface PerformanceFeignService {
      * 职能管理-绩效考核-考核统计
      */
     @RequestMapping(value = "/queryPerformanceApproveCount", method = RequestMethod.GET)
-    ComResponse<PerformanceApproveCountDto> queryPerformanceApproveCount(@RequestParam("fillTime") String fillTime, @RequestParam("staffNo") String staffNo);
+    ComResponse<PerformanceApproveCountDto> queryPerformanceApproveCount(@RequestParam("fillTime") String fillTime,
+                                                                         @RequestParam("staffNo") String staffNo,
+                                                                         @RequestParam("departId") Integer departId);
 
     /**
      * 是否负责人

@@ -35,6 +35,7 @@ public class StaffLoanController {
                         staffLoanVo.getProcessNodeDTOList().get(1).getStaffNo(),
                         staffLoanVo.getProcessNodeDTOList().get(1).getProcessName());
                 MessageRemandAPI.processSendMessage(staffLoanVo.getProcessNodeDTOList().get(0).getProcessId(),
+                        staffLoanVo.getProcessNodeDTOList().get(0).getStaffName(),
                         staffLoanVo.getProcessNodeDTOList().get(1).getProcessName());
             } catch (Exception e) {
                 e.printStackTrace();

@@ -44,6 +44,11 @@ public class ProcessInitiateServiceImpl implements ProcessInitiateService {
     }
 
     @Override
+    public ComResponse<Boolean> selectProcessStaffParkingSpace() {
+        return processInitiateFeignService.selectProcessStaffParkingSpace();
+    }
+
+    @Override
     public ComResponse<Integer> insertProcessStaffItemRequisition(StaffItemRequisitionVo staffItemRequisitionVo, String staffNo) {
         staffItemRequisitionVo.setCreator(staffNo);
         return processInitiateFeignService.insertProcessStaffItemRequisition(staffItemRequisitionVo);
@@ -53,5 +58,10 @@ public class ProcessInitiateServiceImpl implements ProcessInitiateService {
     public ComResponse<Integer> insertProcessAttendExchange(StaffAttendExchangeVo staffAttendExchangeVo, String staffNo) {
         staffAttendExchangeVo.setCreator(staffNo);
         return processInitiateFeignService.insertProcessAttendExchange(staffAttendExchangeVo);
+    }
+
+    @Override
+    public ComResponse<Integer> countProcessStaffAttendApproval(String staffNo) {
+        return processInitiateFeignService.countProcessStaffAttendApproval(staffNo);
     }
 }

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  */
 //@FeignClient(name = "yzl-staff-api")
 @FeignClient(value = "operation",url = "${fegin.db.url}")
+//@FeignClient(name = "yzl-staff-db")
 @Repository
 public interface OperationFeginService {
     @ApiOperation(value = "分页查询操作日志", notes = "分页查询操作日志")

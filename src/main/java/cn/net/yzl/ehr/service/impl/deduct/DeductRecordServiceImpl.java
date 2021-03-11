@@ -56,11 +56,6 @@ public class DeductRecordServiceImpl implements DeductReocrdService {
     @Override
     public ComResponse<DeductStaffInfoDto> selectstaff(String noOrName) {
         ComResponse<DeductStaffInfoDto> result = deductRecordFeginService.selectstaff(noOrName);
-        if (result == null) {
-            return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(), ResponseCodeEnums.API_ERROR_CODE.getMessage());
-        } else if (result.getCode() == 200 && result.getData()==null ) {
-            return ComResponse.fail(ResponseCodeEnums.SAVE_DATA_ERROR_CODE.getCode(), ResponseCodeEnums.SAVE_DATA_ERROR_CODE.getMessage());
-        }
         return result;
     }
 

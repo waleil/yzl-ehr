@@ -31,6 +31,7 @@ public class StaffInvoiceController {
                         staffInvoiceVo.getProcessNodeDTOList().get(1).getProcessName());
 
                 MessageRemandAPI.processSendMessage(staffInvoiceVo.getProcessNodeDTOList().get(0).getProcessId(),
+                        staffInvoiceVo.getProcessNodeDTOList().get(0).getStaffName(),
                         staffInvoiceVo.getProcessNodeDTOList().get(1).getProcessName());
             } catch (Exception e) {
                 e.printStackTrace();

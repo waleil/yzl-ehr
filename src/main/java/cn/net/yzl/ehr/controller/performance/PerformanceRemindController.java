@@ -5,10 +5,10 @@ import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.common.util.JsonUtil;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.performance.PerformanceRemindFeignService;
+import cn.net.yzl.ehr.util.SendTask;
 import cn.net.yzl.msg.model.vo.MsgTemplateVo;
 import cn.net.yzl.msg.service.YMsgInfoService;
 import cn.net.yzl.order.model.vo.MailVo;
-import cn.net.yzl.order.util.SendTask;
 import cn.net.yzl.staff.constant.PerformanceConstant;
 import cn.net.yzl.staff.dto.performance.PerformanceApproveRemindDto;
 import cn.net.yzl.staff.dto.performance.PerformanceRemindDepartDto;
@@ -56,6 +56,8 @@ public class PerformanceRemindController {
 
     @Autowired
     private YMsgInfoService ymsgInfoService;
+    @Autowired
+    private SendTask sendTask;
 
 
     @ApiImplicitParams({
@@ -120,18 +122,27 @@ public class PerformanceRemindController {
         if (200 == response.getCode()) {
             List<PerformanceRemindDepartDto> departList = response.getData();
             if (!CollectionUtils.isEmpty(departList)) {
+                List<MailVo> mailList = new ArrayList<>();
                 for (PerformanceRemindDepartDto depart : departList) {
                     if (1 == depart.getSendType()) {
                         // 发送系统消息
                         sendSystemMsg(depart);
                     } else if (3 == depart.getSendType()) {
                         // 发送邮件消息
-                        sendEmailMsg(depart);
+                        mailList.addAll(sendEmailMsg(depart));
                     } else {
                         // 发送系统消息
                         sendSystemMsg(depart);
                         // 发送邮件消息
-                        sendEmailMsg(depart);
+                        mailList.addAll(sendEmailMsg(depart));
+                    }
+                }
+
+                if (mailList.size() > 0) {
+                    try {
+                        sendTask.runTask(mailList);
+                    } catch (Exception e) {
+                        LOGGER.error("考评填报提醒,发送邮件失败. ", e);
                     }
                 }
             }
@@ -141,15 +152,14 @@ public class PerformanceRemindController {
         return ComResponse.success(true);
     }
 
-    @Async
-    public void sendEmailMsg(PerformanceRemindDepartDto depart) {
+    public List<MailVo> sendEmailMsg(PerformanceRemindDepartDto depart) {
+        List<MailVo> mailList = new ArrayList<>();
         try {
             // 人员信息
             List<PerformanceRemindStaffDto> staffList = depart.getStaffList();
             if (!CollectionUtils.isEmpty(staffList)) {
                 LOGGER.info("部门:{} 发送邮件考评填报提醒. remindType={}", depart.getDepartId(), depart.getRemindType());
                 for (PerformanceRemindStaffDto staff : staffList) {
-                    List<MailVo> mailList = new ArrayList<>();
                     if (!StringUtils.isEmpty(staff.getEmail()) && staff.getEmail().contains("@")) {
                         String subject;
                         String content;
@@ -164,18 +174,17 @@ public class PerformanceRemindController {
                         }
                         MailVo mailVo = new MailVo(staff.getEmail(), subject, staff.getStaffName() + content);
                         mailList.add(mailVo);
-//                        MailUtil.sendMail(mailVo);
                     }
-                    SendTask.runTask(mailList);
                 }
             }
-
         } catch (Exception e) {
             LOGGER.error("考评填报提醒,发送邮件失败. depart={}", JsonUtil.toJsonStr(depart), e);
         }
+        return mailList;
     }
 
-    private void sendSystemMsg(PerformanceRemindDepartDto depart) {
+    @Async("performanceServiceExecutor")
+    public void sendSystemMsg(PerformanceRemindDepartDto depart) {
         try {
             // 人员信息
             List<PerformanceRemindStaffDto> staffList = depart.getStaffList();
@@ -206,6 +215,21 @@ public class PerformanceRemindController {
         } catch (Exception e) {
             LOGGER.error("考评填报提醒,发送系统消息失败. depart={}", JsonUtil.toJsonStr(depart), e);
         }
+    }
+
+    /**
+     * 更新系统时间
+     *
+     * @param systemDate 系统时间
+     * @return 执行结果
+     */
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "systemDate", value = "系统时间", required = true, dataType = "String", paramType = "query")
+    })
+    @ApiOperation(value = "更新系统时间", notes = "更新系统时间", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/updateSystemDate", method = RequestMethod.GET)
+    public ComResponse<Boolean> updateSystemDate(@RequestParam String systemDate) {
+        return performanceRemindFeignService.updateSystemDate(systemDate);
     }
 
 }
