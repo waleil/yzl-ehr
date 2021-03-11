@@ -102,5 +102,10 @@ public class DeductRecordController {
     ComResponse<Integer> insertStopDeductRecord(@RequestBody DeductProcessDTO deductProcessDTO , @CurrentStaffNo @ApiIgnore String staffNo){
         return deductReocrdService.insertStopDeductRecord(deductProcessDTO,staffNo);
     }
+    @ApiOperation(value = "查询扣款列表详情", notes = "查询扣款列表详情",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/queryStopByNo", method = RequestMethod.GET)
+    ComResponse<DeductRecordDto> queryStopByNo(@RequestParam ("appNo")String appNo) {
+        return deductReocrdService.queryStopByNo(appNo);
+    }
 
 }

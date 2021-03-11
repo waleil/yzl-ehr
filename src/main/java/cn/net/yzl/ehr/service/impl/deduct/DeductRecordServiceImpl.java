@@ -96,4 +96,10 @@ public class DeductRecordServiceImpl implements DeductReocrdService {
         ComResponse<ProcessDto>  result = deductRecordFeginService.queryByName(processId);
         return result;
     }
+
+    @Override
+    public ComResponse<DeductRecordDto> queryStopByNo(String appNo) {
+        ComResponse<DeductRecordDto> result =deductRecordFeginService.queryStopByNo(appNo);
+        return result;
+    }
 }
