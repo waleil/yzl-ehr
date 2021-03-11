@@ -39,7 +39,6 @@ public class ProcessActiveController {
     @ApiOperation(value = "获取流程每个节点信息")
     public ComResponse<List<ProcessNodeDTO>> findProcessInfoList(@RequestParam @NotNull Integer processId,
                                                                  @RequestParam @NotNull @CurrentStaffNo String staffNo) {
-
         return findProcessNodeService.findProcessInfoList(processId,staffNo);
     }
 
