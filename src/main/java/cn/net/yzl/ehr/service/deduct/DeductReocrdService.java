@@ -31,4 +31,7 @@ public interface DeductReocrdService {
     //查询流程名称
     ComResponse<ProcessDto> queryByName (Integer processId);
 
+    //查询停止扣款详情
+    ComResponse<DeductRecordDto> queryStopByNo(String appNo);
+
 }

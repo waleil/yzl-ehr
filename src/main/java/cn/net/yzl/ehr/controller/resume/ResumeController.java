@@ -216,6 +216,7 @@ public class ResumeController {
     ComResponse<String> updateFollowupStatus(@ApiIgnore @CurrentStaffNo String staffNo) throws ParseException {
         ComResponse<String> re = resumeFeginService.updateFollowupStatus();
         if (StrUtil.isNotBlank(re.getData())){
+
             msgSendAsync.resumeFllowUpStatus(JsonUtil.readJson2Map(re.getData()),staffNo);
         }
         return re;

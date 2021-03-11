@@ -106,7 +106,7 @@ public class MessageRemandAPI {
 
     }
 
-        public static void revocationMessage(String staffNo,String appNo,String processName,String appName){
+        public static void revocationMessage(String staffNo,String appNo,String appName,String processName){
             log.info("流程审批通过时发送消息参数:{},{},{},{}", staffNo,appNo,processName,appName);
             MsgTemplateVo templateVo = new MsgTemplateVo();
             templateVo.setCode("EHR0023");

@@ -60,4 +60,8 @@ public interface DeductRecordFeginService {
     @RequestMapping(value = "/deductRecord/queryByName", method = RequestMethod.GET)
     ComResponse<ProcessDto> queryByName(@RequestParam ("processId") Integer processId);
 
+    @ApiOperation(value = "查询停止扣款列表详情", notes = "查询停止扣款列表详情",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/deductRecord/queryStopByNo", method = RequestMethod.GET)
+    ComResponse<DeductRecordDto> queryStopByNo(@RequestParam ("appNo")String appNo);
+
 }
