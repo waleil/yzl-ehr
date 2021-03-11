@@ -6,15 +6,11 @@ import cn.net.yzl.ehr.fegin.operation.OperationFeginService;
 import cn.net.yzl.ehr.fegin.staff.StaffFeginService;
 import cn.net.yzl.staff.dto.OperationDto;
 import cn.net.yzl.staff.vo.OperationPageVo;
-import cn.net.yzl.staff.vo.OperationVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -46,33 +42,23 @@ public class OperationController  {
     }
 
     @ApiOperation(value = "外部新增接口", notes = "外部新增接口")
-    @PostMapping("/insertOperation")
-    public ComResponse insertOperation(@RequestBody OperationVo operationVo,HttpServletRequest request){
+    @GetMapping("/insertOperation")
+    public ComResponse insertOperation(@RequestParam(value = "actionCode")String actionCode, HttpServletRequest request){
         String ip = null;
+        String userId = null;
+        String macCode = null;
         try {
             ip = getIp(request);
-            operationVo.setMacAddr(ip);
-            operationVo.setUserCode(request.getHeader("userId"));
-            log.info("ip:{},userId:{}",ip,request.getHeader("userId"));
+            userId = request.getHeader("userId");
+            macCode = request.getHeader("macCode");
         } catch (Exception e) {
             e.printStackTrace();
+            log.error("EXCEPTION:{}", e.getStackTrace().toString());
         }
-        return operationFeginService.insertOperation(operationVo);
+        log.info("macCode:{},actionCode:{},userId:{},ip:{}",macCode,actionCode,userId,ip);
+        return operationFeginService.insertOperation(macCode,actionCode,userId,ip);
     }
 
-
-    @ApiOperation(value = "获取IP接口", notes = "获取IP接口")
-    @PostMapping("/getIpAddress")
-    public ComResponse getIpAddress(HttpServletRequest request){
-        String ip = null;
-        try {
-           ip = getIp(request);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return ComResponse.success("成功"+ ip);
-
-    }
 
     /**
      * 获取ip的方法
