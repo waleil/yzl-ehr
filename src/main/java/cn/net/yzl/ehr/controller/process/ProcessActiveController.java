@@ -52,7 +52,7 @@ public class ProcessActiveController {
                         approveLeaveDTO.getProcessNodeDTOList().get(1).getStaffNo(),
                         approveLeaveDTO.getProcessNodeDTOList().get(0).getProcessName());
                 MessageRemandAPI.processSendMessage(approveLeaveDTO.getProcessNodeDTOList().get(0).getProcessId(),
-                        approveLeaveDTO.getProcessNodeDTOList().get(0).getStaffName(),
+                        approveLeaveDTO.getProcessNodeDTOList().get(0).getStaffNo(),
                         approveLeaveDTO.getProcessNodeDTOList().get(0).getProcessName());
             } catch (Exception e) {
                 e.printStackTrace();
