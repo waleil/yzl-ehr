@@ -36,7 +36,7 @@ public class ProcessInitiateController {
                         staffOutVo.getProcessNodeDTOList().get(1).getStaffNo(),
                         staffOutVo.getProcessNodeDTOList().get(1).getProcessName());
                 MessageRemandAPI.processSendMessage(staffOutVo.getProcessNodeDTOList().get(0).getProcessId(),
-                        staffOutVo.getProcessNodeDTOList().get(0).getStaffName(),
+                        staffOutVo.getProcessNodeDTOList().get(0).getStaffNo(),
                         staffOutVo.getProcessNodeDTOList().get(0).getProcessName());
             } catch (Exception e) {
                 e.printStackTrace();
@@ -55,7 +55,7 @@ public class ProcessInitiateController {
                         staffTravelVo.getProcessNodeDTOList().get(1).getStaffNo(),
                         staffTravelVo.getProcessNodeDTOList().get(1).getProcessName());
                 MessageRemandAPI.processSendMessage(staffTravelVo.getProcessNodeDTOList().get(0).getProcessId(),
-                        staffTravelVo.getProcessNodeDTOList().get(0).getStaffName(),
+                        staffTravelVo.getProcessNodeDTOList().get(0).getStaffNo(),
                         staffTravelVo.getProcessNodeDTOList().get(0).getProcessName());
             } catch (Exception e) {
                 e.printStackTrace();
@@ -74,7 +74,7 @@ public class ProcessInitiateController {
                         staffAttendApprovalVo.getProcessNodeDTOList().get(1).getStaffNo(),
                         staffAttendApprovalVo.getProcessNodeDTOList().get(1).getProcessName());
                 MessageRemandAPI.processSendMessage(staffAttendApprovalVo.getProcessNodeDTOList().get(0).getProcessId(),
-                        staffAttendApprovalVo.getProcessNodeDTOList().get(0).getStaffName(),
+                        staffAttendApprovalVo.getProcessNodeDTOList().get(0).getStaffNo(),
                         staffAttendApprovalVo.getProcessNodeDTOList().get(0).getProcessName());
             } catch (Exception e) {
                 e.printStackTrace();
@@ -93,7 +93,7 @@ public class ProcessInitiateController {
                         staffParkingSpaceVo.getProcessNodeDTOList().get(1).getStaffNo(),
                         staffParkingSpaceVo.getProcessNodeDTOList().get(1).getProcessName());
                 MessageRemandAPI.processSendMessage(staffParkingSpaceVo.getProcessNodeDTOList().get(0).getProcessId(),
-                        staffParkingSpaceVo.getProcessNodeDTOList().get(0).getStaffName(),
+                        staffParkingSpaceVo.getProcessNodeDTOList().get(0).getStaffNo(),
                         staffParkingSpaceVo.getProcessNodeDTOList().get(0).getProcessName());
             } catch (Exception e) {
                 e.printStackTrace();
@@ -118,7 +118,7 @@ public class ProcessInitiateController {
                         staffItemRequisitionVo.getProcessNodeDTOList().get(1).getStaffNo(),
                         staffItemRequisitionVo.getProcessNodeDTOList().get(1).getProcessName());
                 MessageRemandAPI.processSendMessage(staffItemRequisitionVo.getProcessNodeDTOList().get(0).getProcessId(),
-                        staffItemRequisitionVo.getProcessNodeDTOList().get(0).getStaffName(),
+                        staffItemRequisitionVo.getProcessNodeDTOList().get(0).getStaffNo(),
                         staffItemRequisitionVo.getProcessNodeDTOList().get(0).getProcessName());
             } catch (Exception e) {
                 e.printStackTrace();
@@ -137,7 +137,7 @@ public class ProcessInitiateController {
                         staffAttendExchangeVo.getProcessNodeDTOList().get(1).getStaffNo(),
                         staffAttendExchangeVo.getProcessNodeDTOList().get(1).getProcessName());
                 MessageRemandAPI.processSendMessage(staffAttendExchangeVo.getProcessNodeDTOList().get(0).getProcessId(),
-                        staffAttendExchangeVo.getProcessNodeDTOList().get(0).getStaffName(),
+                        staffAttendExchangeVo.getProcessNodeDTOList().get(0).getStaffNo(),
                         staffAttendExchangeVo.getProcessNodeDTOList().get(1).getProcessName());
             } catch (Exception e) {
                 e.printStackTrace();
