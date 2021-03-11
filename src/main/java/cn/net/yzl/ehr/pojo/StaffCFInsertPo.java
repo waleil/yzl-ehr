@@ -12,6 +12,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class StaffCFInsertPo {
@@ -81,7 +82,6 @@ public class StaffCFInsertPo {
     private String creator;
 
     @ApiModelProperty(value = "电子合同及其他资质", name = "电子合同及其他资质")
-    @Valid
-    private cn.net.yzl.staff.util.ValidList<StaffContractFileInsertPo> staffContractFileInsertPos;
+    private List<StaffContractFileInsertPo> staffContractFileInsertPos;
 
 }

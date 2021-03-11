@@ -37,7 +37,8 @@ public class StaffContartListDto {
     private Integer addStatus;
     @ApiModelProperty(value = "合同状态（0:过期，1:过期中最近一份，2:新建待用合同，3:启用中）", name = "contentStatus")
     private Integer contentStatus;
-
+    @ApiModelProperty(value = "是否离职废弃(0.否,1.是)", name = "discardStatus")
+    private Integer discardStatus;
     //合同文件及资质
     @ApiModelProperty(value="合同文件及资质",name="staffContractFiles")
     private List<StaffContractFileDto> staffContractFiles;
