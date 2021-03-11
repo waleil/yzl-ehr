@@ -197,7 +197,11 @@ public class PerformanceRemindController {
                         // 填报
                         msgTemplateVo.setCode("EHR0013");//模板编号
                         msgTemplateVo.setType(1);//模版类型
-                        msgTemplateVo.setTitle("职能管理-考评填报提醒-新建填报提醒");
+                        if (staff.getIsLeader()) {
+                            msgTemplateVo.setTitle("职能管理-考评填报提醒-审核填报提醒");
+                        } else {
+                            msgTemplateVo.setTitle("职能管理-考评填报提醒-新建填报提醒");
+                        }
                     } else {
                         // 考核
                         msgTemplateVo.setCode("EHR0014");//模板编号
