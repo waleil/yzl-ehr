@@ -4,6 +4,7 @@ import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.enums.ResponseCodeEnums;
 import cn.net.yzl.ehr.fegin.processActiveService.saveProcessService;
 import cn.net.yzl.ehr.util.MessageRemandAPI;
+import cn.net.yzl.staff.dto.personApprove.ApproveAbsentInfoListDTO;
 import cn.net.yzl.staff.dto.personApprove.ApproveDimissionInfoListDTO;
 import cn.net.yzl.staff.dto.personApprove.ApproveInviteDTO;
 import cn.net.yzl.staff.dto.personApprove.ApprovePostInfoListDTO;
@@ -81,4 +82,25 @@ public class ProcessBeginController {
         }
         return ComResponse.success();
     }
+
+     @ApiOperation(value = "保存旷工申请",notes = "旷工申请添加",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "v1/saveAbsentApplay", method = RequestMethod.POST)
+    ComResponse<Boolean> saveAbsentApplay (@RequestBody @Validated ApproveAbsentInfoListDTO approveAbsentInfoListDTO){
+        ComResponse<Boolean> flag = saveProcessService.saveAbsentApplay(approveAbsentInfoListDTO);
+        if (flag.getCode().equals(200)){
+            try {
+                MessageRemandAPI.examine(approveAbsentInfoListDTO.getProcessNodeDTOList().get(0).getStaffNo(),
+                        approveAbsentInfoListDTO.getProcessNodeDTOList().get(1).getStaffNo(),
+                        approveAbsentInfoListDTO.getProcessNodeDTOList().get(0).getProcessName());
+                MessageRemandAPI.processSendMessage(approveAbsentInfoListDTO.getProcessNodeDTOList().get(0).getProcessId(),
+                        approveAbsentInfoListDTO.getProcessNodeDTOList().get(0).getStaffNo(),
+                        approveAbsentInfoListDTO.getProcessNodeDTOList().get(0).getProcessName());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return ComResponse.success();
+    }
+
+
 }
