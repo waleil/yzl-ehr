@@ -177,29 +177,6 @@ public class MsgSendAsync {
     }
 
     /**
-     *  消息发送 待选简历 更新
-     *
-     * @param staffNo  收消息 用户编号
-     *        creator  发消息 用户编号
-     * @param staffNo
-     */
-//    @Async
-    public void  resumeInterviewUpdateInfo(String send ,String to) {
-
-
-        // 获取简历详情
-        MsgTemplateVo templateVo = new MsgTemplateVo();
-        templateVo.setCode("EHR0021");
-        templateVo.setCreator(send);
-        templateVo.setUserCode(to);
-        templateVo.setSystemCode(2);
-        templateVo.setTitle("面试结果-通知");
-        // {0}你好，于{1}，收到待筛选简历，请前往筛选。
-        ymsgInfoService.sendSysMsgInfo(templateVo);
-
-    }
-
-    /**
      * 简历超时
      */
     public void  resumeFllowUpStatus(Map<String,Object> map,String send) {
@@ -227,4 +204,72 @@ public class MsgSendAsync {
 
 
     }
+
+    /**
+     *  消息发送 待选简历 更新
+     *
+     * @param staffNo  收消息 用户编号
+     *        creator  发消息 用户编号
+     * @param staffNo
+     */
+//    @Async
+    public void  resumeInterviewUpdateInfo(String send ,String to) {
+
+
+        // 获取简历详情
+        MsgTemplateVo templateVo = new MsgTemplateVo();
+        templateVo.setCode("EHR0021");
+        templateVo.setCreator(send);
+        templateVo.setUserCode(to);
+        templateVo.setSystemCode(2);
+        templateVo.setTitle("面试结果-通知");
+        // {0}你好，于{1}，收到待筛选简历，请前往筛选。
+        ymsgInfoService.sendSysMsgInfo(templateVo);
+
+    }
+
+    /**
+     * 新设员工异动
+     */
+    public void  addStaffAbnorNotice(String send ,String to) {
+        MsgTemplateVo templateVo = new MsgTemplateVo();
+        templateVo.setCode("EHR0001");
+        templateVo.setCreator(send);
+        templateVo.setUserCode(to);
+        templateVo.setSystemCode(2);
+        templateVo.setTitle("员工列表--异动");
+        // {0}你好，人力资源对你进行了异动调整，请须知，如有问题请联系人力资源。{1}你好，人力资源对你进行的异动调整已生效，请须知，可前往员工旅程查看详情如有问题请联系人力资源。
+        ymsgInfoService.sendSysMsgInfo(templateVo);
+    }
+
+    /**
+     * 执行员工异动
+     */
+    public void  executeStaffAbnorNotice(String send ,String to) {
+        MsgTemplateVo templateVo = new MsgTemplateVo();
+        templateVo.setCode("EHR0001");
+        templateVo.setCreator(send);
+        templateVo.setUserCode(to);
+        templateVo.setSystemCode(2);
+        templateVo.setTitle("员工列表--异动");
+        // {0}你好，人力资源对你进行了异动调整，请须知，如有问题请联系人力资源。{1}你好，人力资源对你进行的异动调整已生效，请须知，可前往员工旅程查看详情如有问题请联系人力资源。
+        ymsgInfoService.sendSysMsgInfo(templateVo);
+    }
+
+
+    /**
+     * 分发待招任务
+     */
+    public void  distributeStaffRecruitNotice(String send ,String to) {
+        // 获取简历详情
+        MsgTemplateVo templateVo = new MsgTemplateVo();
+        templateVo.setCode("EHR0003");
+        templateVo.setCreator(send);
+        templateVo.setUserCode(to);
+        templateVo.setSystemCode(2);
+        templateVo.setTitle("员工列表--异动");
+        // {0}你好，于{1}，收到招聘任务，请前往招聘。
+        ymsgInfoService.sendSysMsgInfo(templateVo);
+    }
+
 }

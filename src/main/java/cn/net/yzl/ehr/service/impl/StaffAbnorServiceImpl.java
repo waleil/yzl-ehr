@@ -3,6 +3,7 @@ package cn.net.yzl.ehr.service.impl;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.common.enums.ResponseCodeEnums;
+import cn.net.yzl.ehr.async.MsgSendAsync;
 import cn.net.yzl.ehr.dto.StaffAbnorRecordListDto;
 import cn.net.yzl.ehr.dto.StaffTrainInfoDto;
 import cn.net.yzl.ehr.fegin.staff.StaffAbnorFeginService;
@@ -26,6 +27,9 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
     @Autowired
     private StaffAbnorFeginService staffAbnorFeginService;
 
+    @Autowired
+    private MsgSendAsync msgSendAsync;
+
     @Override
     public ComResponse<Integer> updateStaffChangeStatus(StaffSwitchStatePo staffSwitchStatePo,String staffNo) {
         staffSwitchStatePo.setUpdator(staffNo);
@@ -41,6 +45,7 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
     @Override
     public ComResponse<Integer> executeStaffChange(StaffAbnorRecordPo staffChangePo,String staffNo) {
         staffChangePo.setCreator(staffNo);
+        msgSendAsync.addStaffAbnorNotice(staffNo,staffChangePo.getStaffNo());
         ComResponse<Integer> comResponse = staffAbnorFeginService.executeStaffChange(staffChangePo);
         if(comResponse==null){
             ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
