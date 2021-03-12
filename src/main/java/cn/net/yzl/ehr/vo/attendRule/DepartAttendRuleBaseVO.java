@@ -53,4 +53,13 @@ public class DepartAttendRuleBaseVO implements Serializable {
     protected String updator;
 
 
+    @ApiModelProperty(value="加班费标识 1:有,0:没有",name="overtimePayFlag")
+    private Byte overtimePayFlag;
+    @ApiModelProperty(value="加班费发放类型(0:无效,1:日薪固定计算,2:固定金额)",name="overtimePayType")
+    private Byte overtimePayType;
+    @ApiModelProperty(value="加班费固定金额方法的方式(0:无效,1:元/天,2:元/小时)",name="overtimePayWay")
+    private Byte overtimePayWay;
+    @ApiModelProperty(value="工作日加班开始时间()",name="workDayStartTime")
+    private String workDayStartTime;
+
 }

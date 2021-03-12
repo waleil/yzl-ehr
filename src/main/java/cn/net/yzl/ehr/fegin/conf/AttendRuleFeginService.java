@@ -2,13 +2,11 @@ package cn.net.yzl.ehr.fegin.conf;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
+import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.dto.DepartAttendRuleDto;
 import cn.net.yzl.ehr.dto.DepartPostDto;
 import cn.net.yzl.ehr.dto.PostDto;
-import cn.net.yzl.ehr.vo.attendRule.DepartAttendRuleElasticVO;
-import cn.net.yzl.ehr.vo.attendRule.DepartAttendRuleNoPunchVO;
-import cn.net.yzl.ehr.vo.attendRule.DepartAttendRuleNormalVO;
-import cn.net.yzl.ehr.vo.attendRule.DepartAttendRuleRobbedVO;
+import cn.net.yzl.ehr.vo.attendRule.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -22,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -35,13 +34,13 @@ public interface AttendRuleFeginService {
 
 
     @RequestMapping(value = "/conf/attendRule/normal/addOrUpdate", method = RequestMethod.POST, consumes = "application/json")
-    ComResponse<Integer> addOrUpdateNormal(@RequestBody @Validated DepartAttendRuleNormalVO departAttendRuleNormalVO);
+    ComResponse<Integer> addOrUpdateNormal(@RequestBody  DepartAttendRuleNormalVO departAttendRuleNormalVO);
 
     @RequestMapping(value = "/conf/attendRule/robbed/addOrUpdate", method = RequestMethod.POST, consumes = "application/json")
-    ComResponse<Integer> addOrUpdateRobbed(@RequestBody @Validated DepartAttendRuleRobbedVO departAttendRuleRobbedVO);
+    ComResponse<Integer> addOrUpdateRobbed(@RequestBody  DepartAttendRuleRobbedVO departAttendRuleRobbedVO);
 
     @RequestMapping(value = "/conf/attendRule/elastic/addOrUpdate", method = RequestMethod.POST, consumes = "application/json")
-    ComResponse<Integer> addOrUpdateElastic(@RequestBody @Validated DepartAttendRuleElasticVO departAttendRuleElasticVO);
+    ComResponse<Integer> addOrUpdateElastic(@RequestBody  DepartAttendRuleElasticVO departAttendRuleElasticVO);
 
     @RequestMapping(value = "/conf/attendRule/punch/addOrUpdate", method = RequestMethod.POST, consumes = "application/json")
     ComResponse<Integer> addOrUpdatePunch(@RequestBody DepartAttendRuleNoPunchVO departAttendRuleNoPunchVO);
@@ -61,4 +60,7 @@ public interface AttendRuleFeginService {
 
     @RequestMapping(value = "/conf/attendRule/del", method = RequestMethod.GET)
     ComResponse<Integer> del(@RequestParam("attendRuleId") Integer attendRuleId);
+
+    @RequestMapping(value = "/conf/attendRule/frontline/addOrUpdate", method = RequestMethod.POST, consumes = "application/json")
+    ComResponse<Integer> addOrUpdateFrontline(@RequestBody  DepartAttendRuleFrontLineVO departAttendRuleFrontLineVO);
 }

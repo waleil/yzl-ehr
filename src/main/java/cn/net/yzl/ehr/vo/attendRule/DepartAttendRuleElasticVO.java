@@ -1,5 +1,6 @@
 package cn.net.yzl.ehr.vo.attendRule;
 
+import cn.net.yzl.staff.vo.attendRule.DepartAttendRuleBaseVO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
