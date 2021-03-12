@@ -85,7 +85,7 @@ public class MessageRemandAPI {
         }
         personSend.getData().forEach(map-> {
             MsgTemplateVo templateVo = new MsgTemplateVo();
-            templateVo.setCode("EHR0002");
+            templateVo.setCode("EHR0024");
             templateVo.setCreator(staffNo);
             templateVo.setUserCode(map.getStaffNo());
             templateVo.setSystemCode(2);
