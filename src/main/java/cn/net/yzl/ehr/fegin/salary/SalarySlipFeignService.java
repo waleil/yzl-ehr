@@ -20,12 +20,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface SalarySlipFeignService {
 
     /**
-     * 工资发放列表(人资)-导入数据
+     * 工资导入
      *
      * @param salaryImportVo 请求参数
-     * @return
+     * @return 导入结果
      */
-    @PostMapping("/importFunctionSalary")
+    @PostMapping("/importSalary")
     ComResponse<Boolean> importSalary(@RequestBody SalaryImportVo salaryImportVo);
 
     /**

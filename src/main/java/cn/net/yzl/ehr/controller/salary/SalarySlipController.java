@@ -3,6 +3,7 @@ package cn.net.yzl.ehr.controller.salary;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.common.enums.ResponseCodeEnums;
+import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.salary.SalarySlipFeignService;
 import cn.net.yzl.staff.dto.salary.SalarySlipListDto;
 import cn.net.yzl.staff.enumeration.StaffTypeEnum;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletResponse;
 import java.net.URLEncoder;
@@ -40,17 +42,19 @@ public class SalarySlipController {
     private SalarySlipFeignService salarySlipFeignService;
 
 
-    @ApiOperation(value = "职能管理-工资发放列表(人资)-导入数据", notes = "职能管理-工资发放列表(人资)-导入数据")
+    @ApiOperation(value = "职能管理-工资发放列表-工资导入", notes = "职能管理-工资发放列表-工资导入")
     @PostMapping("/importFunctionSalary")
-    public ComResponse<Boolean> importFunctionSalary(@RequestBody SalaryImportVo salaryImportVo) {
+    public ComResponse<Boolean> importFunctionSalary(@RequestBody SalaryImportVo salaryImportVo, @ApiIgnore @CurrentStaffNo String staffNo) {
         salaryImportVo.setStaffType(StaffTypeEnum.NOT_FRONT_LINE_STAFF.getCode());
+        salaryImportVo.setStaffNo(staffNo);
         return salarySlipFeignService.importSalary(salaryImportVo);
     }
 
-    @ApiOperation(value = "一线管理-工资发放列表(人资)-导入数据", notes = "一线管理-工资发放列表(人资)-导入数据")
+    @ApiOperation(value = "一线管理-工资发放列表-工资导入", notes = "一线管理-工资发放列表-工资导入")
     @PostMapping("/importLineSalary")
-    public ComResponse<Boolean> importLineSalary(@RequestBody SalaryImportVo salaryImportVo) {
+    public ComResponse<Boolean> importLineSalary(@RequestBody SalaryImportVo salaryImportVo, @ApiIgnore @CurrentStaffNo String staffNo) {
         salaryImportVo.setStaffType(StaffTypeEnum.FRONT_LINE_STAFF.getCode());
+        salaryImportVo.setStaffNo(staffNo);
         return salarySlipFeignService.importSalary(salaryImportVo);
     }
 
