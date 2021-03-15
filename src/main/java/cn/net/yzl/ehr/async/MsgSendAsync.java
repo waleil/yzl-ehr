@@ -118,7 +118,7 @@ public class MsgSendAsync {
      *        creator  发消息 用户编号
      * @param staffNo
      */
-    @Async
+//    @Async
     public void  sendToDepart(String creator ,String staffNoAndName) {
         if(StrUtil.isBlank(staffNoAndName)){
             return;
