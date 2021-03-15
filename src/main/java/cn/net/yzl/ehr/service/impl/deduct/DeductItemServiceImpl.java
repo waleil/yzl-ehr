@@ -7,6 +7,7 @@ import cn.net.yzl.ehr.service.deduct.DeductItemService;
 import cn.net.yzl.staff.dto.deduct.DeductItemDto;
 import cn.net.yzl.staff.pojo.deduct.DeductItemInsertPo;
 import cn.net.yzl.staff.pojo.deduct.DeductItemUpdatePo;
+import cn.net.yzl.staff.pojo.deduct.DeductItemUpdateStatePo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +36,7 @@ public class DeductItemServiceImpl implements DeductItemService {
     }
 
     @Override
-    public ComResponse<Integer> updateByState(DeductItemUpdatePo updatePo,String staffNo) {
+    public ComResponse<Integer> updateByState(DeductItemUpdateStatePo updatePo, String staffNo) {
         updatePo.setUpdator(staffNo);
         ComResponse<Integer> result = deductItemFeginService.updateByState(updatePo);
         if (result == null) {
@@ -52,6 +53,21 @@ public class DeductItemServiceImpl implements DeductItemService {
     @Override
     public ComResponse<List<DeductItemDto>> queryItem() {
         ComResponse<List<DeductItemDto>> result = deductItemFeginService.queryItem();
+        return result;
+    }
+
+    @Override
+    public ComResponse<Integer> update(DeductItemUpdatePo updatePo, String staffNo) {
+        updatePo.setUpdator(staffNo);
+        ComResponse<Integer> result = deductItemFeginService.update(updatePo);
+        if (result == null) {
+            return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(), ResponseCodeEnums.API_ERROR_CODE.getMessage());
+        } else if (result.getCode() == 200 && result.getData() == null) {
+            return ComResponse.fail(ResponseCodeEnums.SAVE_DATA_ERROR_CODE.getCode(), ResponseCodeEnums.SAVE_DATA_ERROR_CODE.getMessage());
+        }
+        if (result.getData() != null) {
+            return ComResponse.success();
+        }
         return result;
     }
 }
