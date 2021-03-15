@@ -39,7 +39,7 @@ public interface DeductItemFeginService {
     ComResponse<List<DeductItemDto>> queryItem();
 
     @ApiOperation(value ="编辑扣款类型" ,notes ="编辑扣款类型",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @RequestMapping(value = "/update",method = RequestMethod.POST)
+    @RequestMapping(value = "/deduct/update",method = RequestMethod.POST)
     ComResponse<Integer> update (@RequestBody DeductItemUpdatePo updatePo);
 
 }

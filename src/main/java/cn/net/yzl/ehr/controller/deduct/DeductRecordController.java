@@ -5,6 +5,7 @@ import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.process.ProcessConfigFeignService;
 import cn.net.yzl.ehr.service.deduct.DeductItemService;
 import cn.net.yzl.ehr.service.deduct.DeductReocrdService;
+import cn.net.yzl.ehr.util.MessageRemandAPI;
 import cn.net.yzl.msg.model.vo.MsgTemplateVo;
 import cn.net.yzl.msg.service.YMsgInfoService;
 import cn.net.yzl.staff.dto.StaffLevelDto;
@@ -50,7 +51,21 @@ public class DeductRecordController {
     @ApiOperation(value = "新建扣款申请", notes = "新建扣款申请",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/insertDeductRecord", method = RequestMethod.POST)
     ComResponse<Integer> insertDeductRecord(@RequestBody DeductProcessDTO deductProcessDTO, @CurrentStaffNo @ApiIgnore String staffNo){
-        return deductReocrdService.insertDeductRecord(deductProcessDTO,staffNo);
+        ComResponse<Integer> flag = deductReocrdService.insertDeductRecord(deductProcessDTO,staffNo);
+        if (flag.getCode().equals(200)){
+            try {
+                MessageRemandAPI.examine(deductProcessDTO.getProcessNodeDTOList().get(0).getStaffNo(),
+                        deductProcessDTO.getProcessNodeDTOList().get(1).getStaffNo(),
+                        deductProcessDTO.getProcessNodeDTOList().get(0).getProcessName());
+                MessageRemandAPI.processSendMessage(deductProcessDTO.getProcessNodeDTOList().get(0).getProcessId(),
+                        deductProcessDTO.getProcessNodeDTOList().get(0).getStaffNo(),
+                        deductProcessDTO.getProcessNodeDTOList().get(0).getProcessName());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return ComResponse.success();
+
     }
 
     @ApiOperation(value = "根据员工工号或姓名查询员工信息", notes = "根据员工工号或姓名查询员工信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
@@ -100,8 +115,23 @@ public class DeductRecordController {
     @ApiOperation(value = "新建停止扣款申请", notes = "新建停止扣款申请",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/insertStopDeductRecord", method = RequestMethod.POST)
     ComResponse<Integer> insertStopDeductRecord(@RequestBody DeductProcessDTO deductProcessDTO , @CurrentStaffNo @ApiIgnore String staffNo){
-        return deductReocrdService.insertStopDeductRecord(deductProcessDTO,staffNo);
+        ComResponse<Integer> flag = deductReocrdService.insertStopDeductRecord(deductProcessDTO,staffNo);
+        if (flag.getCode().equals(200)){
+            try {
+                MessageRemandAPI.examine(deductProcessDTO.getProcessNodeDTOList().get(0).getStaffNo(),
+                        deductProcessDTO.getProcessNodeDTOList().get(1).getStaffNo(),
+                        deductProcessDTO.getProcessNodeDTOList().get(0).getProcessName());
+                MessageRemandAPI.processSendMessage(deductProcessDTO.getProcessNodeDTOList().get(0).getProcessId(),
+                        deductProcessDTO.getProcessNodeDTOList().get(0).getStaffNo(),
+                        deductProcessDTO.getProcessNodeDTOList().get(0).getProcessName());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return ComResponse.success();
+
     }
+
     @ApiOperation(value = "查询停止扣款列表详情", notes = "查询停止扣款列表详情",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/queryStopByNo", method = RequestMethod.GET)
     ComResponse<DeductRecordDto> queryStopByNo(@RequestParam ("appNo")String appNo) {
