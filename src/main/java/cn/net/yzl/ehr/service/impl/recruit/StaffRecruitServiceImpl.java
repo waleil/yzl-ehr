@@ -2,6 +2,7 @@ package cn.net.yzl.ehr.service.impl.recruit;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
+import cn.net.yzl.ehr.async.MsgSendAsync;
 import cn.net.yzl.ehr.fegin.recruit.StaffRecruitFeginService;
 import cn.net.yzl.ehr.service.StaffRecruitService;
 import cn.net.yzl.staff.dto.recruit.StaffRecruitDto;
@@ -17,6 +18,8 @@ import java.util.List;
 
 @Service
 public class StaffRecruitServiceImpl implements StaffRecruitService {
+    @Autowired
+    private MsgSendAsync msgSendAsync;
 
 
     @Autowired
@@ -49,6 +52,15 @@ public class StaffRecruitServiceImpl implements StaffRecruitService {
 
     @Override
     public ComResponse<Integer> batchDistributeTask(List<RecruitedTaskPo> recruitedTaskPos) {
+        if(recruitedTaskPos!=null && !recruitedTaskPos.isEmpty()){
+            String receiver = recruitedTaskPos.get(0).getReceiver();
+            String creator = recruitedTaskPos.get(0).getCreator();
+            try{
+            msgSendAsync.distributeStaffRecruitNotice(creator==null?"任务分配":creator,receiver);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
         return staffRecruitFeginService.batchDistributeTask(recruitedTaskPos);
     }
 }

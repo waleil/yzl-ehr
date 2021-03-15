@@ -8,10 +8,7 @@ import cn.net.yzl.ehr.dto.DepartPostDto;
 import cn.net.yzl.ehr.dto.PostDto;
 import cn.net.yzl.ehr.fegin.conf.AttendRuleFeginService;
 import cn.net.yzl.ehr.service.AttendRuleService;
-import cn.net.yzl.ehr.vo.attendRule.DepartAttendRuleElasticVO;
-import cn.net.yzl.ehr.vo.attendRule.DepartAttendRuleNoPunchVO;
-import cn.net.yzl.ehr.vo.attendRule.DepartAttendRuleNormalVO;
-import cn.net.yzl.ehr.vo.attendRule.DepartAttendRuleRobbedVO;
+import cn.net.yzl.ehr.vo.attendRule.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -38,6 +35,7 @@ public class AttendRuleController {
     private AttendRuleService attendRuleService;
     @Autowired
     private AttendRuleFeginService attendRuleFeginService;
+
 
     @ApiImplicitParams({
             @ApiImplicitParam(name = "attendRuleId", value = "考勤规则id", required = true, dataType = "Int", paramType = "query"),
@@ -76,6 +74,14 @@ public class AttendRuleController {
         departAttendRuleNoPunchVO.setCreator(staffNo);
         departAttendRuleNoPunchVO.setUpdator(staffNo);
         return attendRuleService.addOrUpdatePunch(departAttendRuleNoPunchVO,staffNo);
+    }
+
+    @ApiOperation(value = "考勤配置-考勤规则-通话打卡一线", notes = "考勤配置-考勤规则-通话打卡一线", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/frontline/addOrUpdate", method = RequestMethod.POST, consumes = "application/json")
+    ComResponse<Integer> addOrUpdateFrontline(@RequestBody @Validated DepartAttendRuleFrontLineVO departAttendRuleFrontLineVO, @ApiIgnore @CurrentStaffNo String staffNo) {
+        departAttendRuleFrontLineVO.setCreator(staffNo);
+        departAttendRuleFrontLineVO.setUpdator(staffNo);
+        return attendRuleFeginService.addOrUpdateFrontline(departAttendRuleFrontLineVO);
     }
 
     @ApiOperation(value = "考勤配置-考勤规则-根据部门id获取考勤规则分页信息", notes = "考勤配置-考勤规则-根据部门id获取考勤规则分页信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
