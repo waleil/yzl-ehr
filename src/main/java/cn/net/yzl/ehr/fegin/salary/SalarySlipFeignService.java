@@ -37,4 +37,12 @@ public interface SalarySlipFeignService {
     @PostMapping("/list")
     ComResponse<Page<SalarySlipListDto>> list(@RequestBody SalaryVo salaryVo);
 
+    /**
+     * 工资导出
+     *
+     * @param salaryVo 请求参数
+     * @return 工资报表
+     */
+    @PostMapping("/exportSalary")
+    ComResponse<byte[]> exportSalary(@RequestBody SalaryVo salaryVo);
 }
