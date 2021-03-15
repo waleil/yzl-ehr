@@ -1,20 +1,18 @@
 package cn.net.yzl.ehr.fegin.processActiveService;
 
 import cn.net.yzl.common.entity.ComResponse;
-import cn.net.yzl.staff.dto.personApprove.ApproveAbsentInfoListDTO;
-import cn.net.yzl.staff.dto.personApprove.ApproveDimissionInfoListDTO;
-import cn.net.yzl.staff.dto.personApprove.ApproveInviteDTO;
-import cn.net.yzl.staff.dto.personApprove.ApprovePostInfoListDTO;
+import cn.net.yzl.staff.dto.personApprove.*;
+import cn.net.yzl.staff.dto.processNode.ProcessNodeDTO;
 import cn.net.yzl.staff.vo.process.ProcessStaffDimissionVo;
 import cn.net.yzl.staff.vo.process.ProcessStaffPositiveVo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @FeignClient(name="processsInvite",url="${fegin.db.url}/processsInvite")
 //@FeignClient(name="processsInvite",url="localhost:38080/processsInvite")
 public interface saveProcessService {
@@ -30,4 +28,12 @@ public interface saveProcessService {
     @ApiOperation(value = "保存旷工申请",notes = "离职申请添加",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "v1/saveAbsentApplay", method = RequestMethod.POST)
     ComResponse<Boolean> saveAbsentApplay(@RequestBody ApproveAbsentInfoListDTO approveAbsentInfoListDTO);
+    @ApiOperation(value = "检查当前日期是否超过结算日期",notes = "离职申请添加",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "v1/checkAccountDay", method = RequestMethod.GET)
+    Boolean checkAccountDay(@RequestParam Integer departId);
+    @GetMapping("v1/findProcessCancelLeaveList")
+    ComResponse<List<ProcessNodeDTO>> findProcessCancelLeaveList(String processAuditId);
+    @ApiOperation(value = "保存取消请假申请",notes = "取消请假申请添加",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "v1/saveCancelLeaveApplay", method = RequestMethod.POST)
+    ComResponse<Boolean> saveCancelLeaveApplay(ApproveCancelLeaveDTO approveCancelLeaveDTO);
 }
