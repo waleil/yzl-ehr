@@ -105,6 +105,36 @@ public class StaffAbnorRecordPo {
     @ApiModelProperty("调整后薪资")
     private Integer adjustSalaryLater;
 
+    @ApiModelProperty("调整前全勤薪资")
+    private Integer adjustFullAttendanceSalaryFront;
+
+    @ApiModelProperty("调整后全勤薪资")
+    private Integer adjustFullAttendanceSalaryLater;
+
+    @ApiModelProperty("调整前绩效薪资")
+    private Integer adjustPerformanceSalaryFront;
+
+    @ApiModelProperty("调整后绩效薪资")
+    private Integer adjustPerformanceSalaryLater;
+
+    @ApiModelProperty("调整前岗位薪资")
+    private Integer adjustWageSalaryFront;
+
+    @ApiModelProperty("调整后岗位薪资")
+    private Integer adjustWageSalaryLater;
+
+    @ApiModelProperty("调整前基本薪资")
+    private Integer adjustBasicSalaryFront;
+
+    @ApiModelProperty("调整后基本薪资")
+    private Integer adjustBasicSalaryLater;
+
+    @ApiModelProperty("调整前基本薪资类型（1.日工资，2.月工资）")
+    private Integer adjustBasicSalaryTypeFront;
+
+    @ApiModelProperty("调整后基本薪资类型（1.日工资，2.月工资）")
+    private Integer adjustBasicSalaryTypeLater;
+
     @ApiModelProperty("异动时间")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")

@@ -8,14 +8,17 @@ import cn.net.yzl.ehr.dto.StaffTrainInfoDto;
 import cn.net.yzl.ehr.pojo.StaffAbnorRecordPo;
 import cn.net.yzl.ehr.pojo.StaffSwitchStatePo;
 import cn.net.yzl.ehr.service.StaffAbnorService;
+import cn.net.yzl.msg.model.vo.MsgTemplateVo;
 import cn.net.yzl.staff.dto.StaffTrainDto;
 import cn.net.yzl.staff.pojo.AbnorRecordPo;
 import cn.net.yzl.staff.pojo.RunAbnorRecordPo;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +26,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.constraints.NotBlank;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 
 
@@ -87,5 +91,15 @@ public class StaffAbnorController {
     public ComResponse<Page<StaffTrainDto>> findRecordsByPageParam(@RequestBody @Validated AbnorRecordPo abnorRecordPo) {
         ComResponse<Page<StaffTrainDto>> recordsByPageParam = staffAbnorService.findRecordsByPageParam(abnorRecordPo);
         return recordsByPageParam;
+    }
+
+
+    @ApiOperation(value = "员工异动-定时更新员工异动信息", notes = "员工异动-定时更新员工异动信息")
+    @GetMapping("/timerUpdateStafffAbnorRecord")
+    public ComResponse<List<MsgTemplateVo>> timerUpdateAttendFalse(@RequestParam("today") @DateTimeFormat(pattern = "yyyy-MM-dd")
+                                                                   @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
+                                                                           Date date) throws ParseException {
+         staffAbnorService.timerUpdateAttendFalse(date);
+        return ComResponse.success();
     }
 }
