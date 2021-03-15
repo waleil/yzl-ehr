@@ -6,6 +6,7 @@ import cn.net.yzl.ehr.service.deduct.DeductItemService;
 import cn.net.yzl.staff.dto.deduct.DeductItemDto;
 import cn.net.yzl.staff.pojo.deduct.DeductItemInsertPo;
 import cn.net.yzl.staff.pojo.deduct.DeductItemUpdatePo;
+import cn.net.yzl.staff.pojo.deduct.DeductItemUpdateStatePo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,7 @@ public class DeductItemController {
     @ApiOperation(value ="修改扣款类型" ,notes ="修改",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 
     @RequestMapping(value = "/updateByState",method = RequestMethod.POST)
-    ComResponse<Integer> updateByState (@RequestBody @Validated DeductItemUpdatePo updatePo,@ApiIgnore @CurrentStaffNo String staffNo){
+    ComResponse<Integer> updateByState (@RequestBody @Validated DeductItemUpdateStatePo updatePo, @ApiIgnore @CurrentStaffNo String staffNo){
         return deductItemService.updateByState(updatePo,staffNo);
     }
 
@@ -49,6 +50,12 @@ public class DeductItemController {
     @RequestMapping(value = "/queryItem", method = RequestMethod.GET)
     ComResponse<List<DeductItemDto>> queryItem(){
         return deductItemService.queryItem();
+    }
+
+    @ApiOperation(value ="编辑扣款类型" ,notes ="编辑扣款类型",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/update",method = RequestMethod.POST)
+    ComResponse<Integer> update (@RequestBody DeductItemUpdatePo updatePo, @ApiIgnore @CurrentStaffNo String staffNo){
+        return deductItemService.update(updatePo,staffNo);
     }
 
 }
