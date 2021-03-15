@@ -32,8 +32,8 @@ public interface saveProcessService {
     @RequestMapping(value = "v1/checkAccountDay", method = RequestMethod.GET)
     Boolean checkAccountDay(@RequestParam Integer departId);
     @GetMapping("v1/findProcessCancelLeaveList")
-    ComResponse<List<ProcessNodeDTO>> findProcessCancelLeaveList(String processAuditId);
+    ComResponse<List<ProcessNodeDTO>> findProcessCancelLeaveList(@RequestParam String processAuditId);
     @ApiOperation(value = "保存取消请假申请",notes = "取消请假申请添加",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "v1/saveCancelLeaveApplay", method = RequestMethod.POST)
-    ComResponse<Boolean> saveCancelLeaveApplay(ApproveCancelLeaveDTO approveCancelLeaveDTO);
+    ComResponse<Boolean> saveCancelLeaveApplay(@RequestBody ApproveCancelLeaveDTO approveCancelLeaveDTO);
 }
