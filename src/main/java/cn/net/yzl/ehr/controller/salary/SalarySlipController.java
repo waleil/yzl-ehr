@@ -3,11 +3,11 @@ package cn.net.yzl.ehr.controller.salary;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.common.enums.ResponseCodeEnums;
+import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.salary.SalarySlipFeignService;
 import cn.net.yzl.staff.dto.salary.SalarySlipListDto;
 import cn.net.yzl.staff.enumeration.StaffTypeEnum;
-import cn.net.yzl.staff.vo.salary.SalaryImportVo;
-import cn.net.yzl.staff.vo.salary.SalaryVo;
+import cn.net.yzl.staff.vo.salary.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -17,9 +17,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletResponse;
 import java.net.URLEncoder;
+import java.util.List;
 
 /**
  * 工资条控制层
@@ -40,17 +42,19 @@ public class SalarySlipController {
     private SalarySlipFeignService salarySlipFeignService;
 
 
-    @ApiOperation(value = "职能管理-工资发放列表(人资)-导入数据", notes = "职能管理-工资发放列表(人资)-导入数据")
+    @ApiOperation(value = "职能管理-工资发放列表-工资导入", notes = "职能管理-工资发放列表-工资导入")
     @PostMapping("/importFunctionSalary")
-    public ComResponse<Boolean> importFunctionSalary(@RequestBody SalaryImportVo salaryImportVo) {
+    public ComResponse<Boolean> importFunctionSalary(@RequestBody SalaryImportVo salaryImportVo, @ApiIgnore @CurrentStaffNo String staffNo) {
         salaryImportVo.setStaffType(StaffTypeEnum.NOT_FRONT_LINE_STAFF.getCode());
+        salaryImportVo.setStaffNo(staffNo);
         return salarySlipFeignService.importSalary(salaryImportVo);
     }
 
-    @ApiOperation(value = "一线管理-工资发放列表(人资)-导入数据", notes = "一线管理-工资发放列表(人资)-导入数据")
+    @ApiOperation(value = "一线管理-工资发放列表-工资导入", notes = "一线管理-工资发放列表-工资导入")
     @PostMapping("/importLineSalary")
-    public ComResponse<Boolean> importLineSalary(@RequestBody SalaryImportVo salaryImportVo) {
+    public ComResponse<Boolean> importLineSalary(@RequestBody SalaryImportVo salaryImportVo, @ApiIgnore @CurrentStaffNo String staffNo) {
         salaryImportVo.setStaffType(StaffTypeEnum.FRONT_LINE_STAFF.getCode());
+        salaryImportVo.setStaffNo(staffNo);
         return salarySlipFeignService.importSalary(salaryImportVo);
     }
 
@@ -122,9 +126,33 @@ public class SalarySlipController {
         return ComResponse.fail(ResponseCodeEnums.BIZ_ERROR_CODE.getCode(), "工资条导出报表失败");
     }
 
-    @ApiOperation(value = "工资发放列表(人资)", notes = "工资发放列表(人资)")
+    @ApiOperation(value = "工资发放列表(人资/财务)", notes = "工资发放列表(人资/财务)")
     @PostMapping("/list")
     public ComResponse<Page<SalarySlipListDto>> list(@RequestBody SalaryVo salaryVo) {
         return salarySlipFeignService.list(salaryVo);
+    }
+
+    @ApiOperation(value = "工资发放列表-人资提交财务", notes = "工资发放列表-人资提交财务")
+    @PostMapping("/salarySubmit")
+    public ComResponse<Void> salarySubmit(@RequestBody List<SalarySubmitVo> list) {
+        return salarySlipFeignService.salarySubmit(list);
+    }
+
+    @ApiOperation(value = "工资发放列表-财务审核", notes = "工资发放列表-财务审核")
+    @PostMapping("/salaryExamine")
+    public ComResponse<Void> salaryExamine(@RequestBody List<SalaryFinanceExamineVo> list) {
+        return salarySlipFeignService.salaryExamine(list);
+    }
+
+    @ApiOperation(value = "工资发放列表-工资发放类型修改（1-正常发，默认;0-缓发）", notes = "工资发放列表-修改工资发放类型（1-正常发，默认;0-缓发）")
+    @PostMapping("/salaryGrantStatusUpDate")
+    public ComResponse<Void> salaryGrantStatusUpDate(@RequestBody List<SalaryGrantVo> list) {
+        return salarySlipFeignService.salaryGrantStatusUpDate(list);
+    }
+
+    @ApiOperation(value = "工资发放列表-工资条状态修改（0-未发；1-已发）", notes = "工资发放列表-工资条状态修改（0-未发；1-已发）")
+    @PostMapping("/salaryFinalGrantStatusUpDate")
+    public ComResponse<Void> salaryFinalGrantStatusUpDate(@RequestBody List<SalaryGrantFinalVo> list) {
+        return salarySlipFeignService.salaryFinalGrantStatusUpDate(list);
     }
 }
