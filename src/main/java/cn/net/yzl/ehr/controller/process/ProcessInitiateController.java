@@ -87,6 +87,7 @@ public class ProcessInitiateController {
     @PostMapping("/parking/space/insert")
     public ComResponse<Integer> insertProcessStaffParkingSpace(@RequestBody @Validated StaffParkingSpaceVo staffParkingSpaceVo, @CurrentStaffNo @ApiIgnore String staffNo){
         ComResponse<Integer> integerComResponse = processInitiateService.insertProcessStaffParkingSpace(staffParkingSpaceVo,staffNo);
+        System.out.println("测试。。。。。。。。。。。。。。。。。。。。。。。。。。。");
         /*if (integerComResponse.getCode().equals(200)){
             try {
                 MessageRemandAPI.examine(staffNo,
