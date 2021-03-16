@@ -89,4 +89,6 @@ public class DepartAttendRuleFrontLineVO extends DepartAttendRuleBaseVO {
     private Byte amValue;
     @ApiModelProperty(value="下午通话次数值",name="pmValue")
     private Byte pmValue;
+    // 加班费值
+    private int overtimeValue;
 }
