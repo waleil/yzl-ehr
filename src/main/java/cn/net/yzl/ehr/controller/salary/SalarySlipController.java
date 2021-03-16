@@ -7,7 +7,12 @@ import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.salary.SalarySlipFeignService;
 import cn.net.yzl.staff.dto.salary.SalarySlipListDto;
 import cn.net.yzl.staff.enumeration.StaffTypeEnum;
-import cn.net.yzl.staff.vo.salary.*;
+import cn.net.yzl.staff.vo.salary.SalaryFinanceExamineVo;
+import cn.net.yzl.staff.vo.salary.SalaryGrantFinalVo;
+import cn.net.yzl.staff.vo.salary.SalaryGrantVo;
+import cn.net.yzl.staff.vo.salary.SalaryImportVo;
+import cn.net.yzl.staff.vo.salary.SalarySubmitVo;
+import cn.net.yzl.staff.vo.salary.SalaryVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -42,61 +47,17 @@ public class SalarySlipController {
     private SalarySlipFeignService salarySlipFeignService;
 
 
-    @ApiOperation(value = "职能管理-工资发放列表-工资导入", notes = "职能管理-工资发放列表-工资导入")
-    @PostMapping("/importFunctionSalary")
-    public ComResponse<Boolean> importFunctionSalary(@RequestBody SalaryImportVo salaryImportVo, @ApiIgnore @CurrentStaffNo String staffNo) {
-        salaryImportVo.setStaffType(StaffTypeEnum.NOT_FRONT_LINE_STAFF.getCode());
+    @ApiOperation(value = "工资发放列表(人资)-工资导入", notes = "工资发放列表(人资)-工资导入")
+    @PostMapping("/importSalary")
+    public ComResponse<Boolean> importSalary(@RequestBody SalaryImportVo salaryImportVo, @ApiIgnore @CurrentStaffNo String staffNo) {
         salaryImportVo.setStaffNo(staffNo);
         return salarySlipFeignService.importSalary(salaryImportVo);
     }
 
-    @ApiOperation(value = "一线管理-工资发放列表-工资导入", notes = "一线管理-工资发放列表-工资导入")
-    @PostMapping("/importLineSalary")
-    public ComResponse<Boolean> importLineSalary(@RequestBody SalaryImportVo salaryImportVo, @ApiIgnore @CurrentStaffNo String staffNo) {
-        salaryImportVo.setStaffType(StaffTypeEnum.FRONT_LINE_STAFF.getCode());
-        salaryImportVo.setStaffNo(staffNo);
-        return salarySlipFeignService.importSalary(salaryImportVo);
-    }
-
-    @ApiOperation(value = "职能管理-工资发放列表(人资)-工资导出", notes = "职能管理-工资发放列表(人资)-工资导出")
-    @PostMapping("/exportFunctionSalary")
-    public ComResponse<byte[]> exportFunctionSalary(@RequestBody SalaryVo salaryVo, HttpServletResponse response) {
+    @ApiOperation(value = "工资发放列表(人资/财务)-工资导出", notes = "工资发放列表(人资/财务)-工资导出")
+    @PostMapping("/exportSalary")
+    public ComResponse<byte[]> exportSalary(@RequestBody SalaryVo salaryVo, HttpServletResponse response) {
         salaryVo.setStaffType(StaffTypeEnum.NOT_FRONT_LINE_STAFF.getCode().toString());
-        ComResponse<byte[]> exportResponse = salarySlipFeignService.exportSalary(salaryVo);
-        if (200 != exportResponse.getCode()) {
-            return exportResponse;
-        }
-        return exportSalary(exportResponse.getData(), salaryVo, response);
-    }
-
-    @ApiOperation(value = "职能管理-工资发放列表(财务)-工资导出", notes = "职能管理-工资发放列表(财务)-工资导出")
-    @PostMapping("/exportFunctionFinanceSalary")
-    public ComResponse<byte[]> exportFunctionFinanceSalary(@RequestBody SalaryVo salaryVo, HttpServletResponse response) {
-        salaryVo.setStaffType(StaffTypeEnum.NOT_FRONT_LINE_STAFF.getCode().toString());
-        salaryVo.setSubmitStatus("1");
-        ComResponse<byte[]> exportResponse = salarySlipFeignService.exportSalary(salaryVo);
-        if (200 != exportResponse.getCode()) {
-            return exportResponse;
-        }
-        return exportSalary(exportResponse.getData(), salaryVo, response);
-    }
-
-    @ApiOperation(value = "一线管理-工资发放列表(人资)-工资导出", notes = "一线管理-工资发放列表(人资)-工资导出")
-    @PostMapping("/exportLineSalary")
-    public ComResponse<byte[]> exportLineSalary(@RequestBody SalaryVo salaryVo, HttpServletResponse response) {
-        salaryVo.setStaffType(StaffTypeEnum.FRONT_LINE_STAFF.getCode().toString());
-        ComResponse<byte[]> exportResponse = salarySlipFeignService.exportSalary(salaryVo);
-        if (200 != exportResponse.getCode()) {
-            return exportResponse;
-        }
-        return exportSalary(exportResponse.getData(), salaryVo, response);
-    }
-
-    @ApiOperation(value = "一线管理-工资发放列表(财务)-工资导出", notes = "一线管理-工资发放列表(财务)-工资导出")
-    @PostMapping("/exportLineFinanceSalary")
-    public ComResponse<byte[]> exportLineFinanceSalary(@RequestBody SalaryVo salaryVo, HttpServletResponse response) {
-        salaryVo.setStaffType(StaffTypeEnum.FRONT_LINE_STAFF.getCode().toString());
-        salaryVo.setSubmitStatus("1");
         ComResponse<byte[]> exportResponse = salarySlipFeignService.exportSalary(salaryVo);
         if (200 != exportResponse.getCode()) {
             return exportResponse;
