@@ -47,10 +47,24 @@ public class StaffCFInsertPo {
     @Min(0)
     private Double probationMonths;
 
-    @ApiModelProperty(value = "薪资", name = "salary")
-    @NotNull
+    @ApiModelProperty(value = "岗位薪资", name = "salary")
     @Min(0)
     private Integer salary;
+
+    @ApiModelProperty(value = "全勤工资)", name = "fullAttendanceSalary")
+    private Integer fullAttendanceSalary;
+
+    @ApiModelProperty(value = "绩效工资", name = "performanceSalary")
+    private Integer performanceSalary;
+
+    @ApiModelProperty(value = "岗位工资", name = "wageSalary")
+    private Integer wageSalary;
+
+    @ApiModelProperty(value = "基本工资", name = "basicSalary")
+    private Integer basicSalary;
+
+    @ApiModelProperty(value = "基本工资类型（1.日工资，2.月工资）", name = "basicSalaryType")
+    private Integer basicSalaryType;
 
     @ApiModelProperty(value = "月数（xx薪）", name = "months")
     @NotNull
@@ -67,10 +81,10 @@ public class StaffCFInsertPo {
     @Min(0)
     private Integer annualBonus;
 
-    @ApiModelProperty(value = "试用期薪资比例", name = "probationSalary")
+    @ApiModelProperty(value = "试用期薪资", name = "probationSalary")
     @NotNull
     @Min(0)
-    private Double probationSalary;
+    private Integer probationSalary;
 
     @ApiModelProperty(value = "合同到期时间是否不超过一个月（0:否，1:是）", name = "addStatus",hidden = true)
     private Integer addStatus;

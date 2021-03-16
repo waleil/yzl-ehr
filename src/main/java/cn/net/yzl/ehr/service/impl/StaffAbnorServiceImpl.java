@@ -10,14 +10,18 @@ import cn.net.yzl.ehr.fegin.staff.StaffAbnorFeginService;
 import cn.net.yzl.ehr.pojo.StaffAbnorRecordPo;
 import cn.net.yzl.ehr.pojo.StaffSwitchStatePo;
 import cn.net.yzl.ehr.service.StaffAbnorService;
+import cn.net.yzl.msg.model.vo.MsgTemplateVo;
 import cn.net.yzl.staff.dto.StaffTrainDto;
 import cn.net.yzl.staff.pojo.AbnorRecordPo;
 import cn.net.yzl.staff.pojo.RunAbnorRecordPo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -211,5 +215,16 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
         return integerComResponse;
     }
 
+
+    public ComResponse<List<MsgTemplateVo>> timerUpdateAttendFalse(Date date) throws ParseException {
+        ComResponse<List<MsgTemplateVo>> listComResponse = staffAbnorFeginService.timerUpdateAttendFalse(date);
+        if(listComResponse!=null && listComResponse.getData()!=null && !listComResponse.getData().isEmpty()){
+            List<MsgTemplateVo> msgTemplateVoList = listComResponse.getData();
+            msgTemplateVoList.forEach(x->{
+                msgSendAsync.sendMsg(x);
+            });
+        }
+        return listComResponse;
+    }
 
 }

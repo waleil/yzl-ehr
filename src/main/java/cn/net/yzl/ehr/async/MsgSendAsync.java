@@ -42,6 +42,10 @@ public class MsgSendAsync {
 
     private String dateFormatStr="yyyy年MM月dd日 HH时mm分ss秒"; // 时间格式化
 
+
+    public void sendMsg(MsgTemplateVo msgTemplateVo){
+        ymsgInfoService.sendSysMsgInfo(msgTemplateVo);
+    }
     /**
      *  消息发送  发送安排面试的消息
      *

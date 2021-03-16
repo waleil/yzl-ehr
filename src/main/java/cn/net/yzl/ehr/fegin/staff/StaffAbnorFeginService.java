@@ -6,6 +6,7 @@ import cn.net.yzl.ehr.dto.StaffAbnorRecordListDto;
 
 import cn.net.yzl.ehr.pojo.StaffAbnorRecordPo;
 import cn.net.yzl.ehr.pojo.StaffSwitchStatePo;
+import cn.net.yzl.msg.model.vo.MsgTemplateVo;
 import cn.net.yzl.staff.dto.StaffTrainDto;
 import cn.net.yzl.staff.pojo.AbnorRecordPo;
 import cn.net.yzl.staff.pojo.RunAbnorRecordPo;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -45,5 +47,8 @@ public interface StaffAbnorFeginService {
 
     @RequestMapping(value = "/abnor/runStaffChange", method = RequestMethod.POST, consumes = "application/json")
     public ComResponse<Integer> runStaffChange(@RequestBody RunAbnorRecordPo staffChangePo) throws ParseException;
+
+    @RequestMapping(value = "/abnor/timerUpdateStafffAbnorRecord", method = RequestMethod.POST, consumes = "application/json")
+    public ComResponse<List<MsgTemplateVo>> timerUpdateAttendFalse(@RequestParam("today") Date date) throws ParseException ;
 
 }
