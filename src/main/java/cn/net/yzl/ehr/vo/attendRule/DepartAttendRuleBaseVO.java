@@ -62,4 +62,6 @@ public class DepartAttendRuleBaseVO implements Serializable {
     @ApiModelProperty(value="工作日加班开始时间()",name="workDayStartTime")
     private String workDayStartTime;
 
+    @ApiModelProperty(value="加班费的值(单位为分)",name="overtimeValue")
+    private int overtimeValue;
 }

@@ -4,6 +4,7 @@ import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.service.process.ProcessInitiateService;
 import cn.net.yzl.ehr.util.MessageRemandAPI;
+import cn.net.yzl.ehr.util.MessageRemandAsyncAPI;
 import cn.net.yzl.staff.vo.process.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,6 +27,9 @@ public class ProcessInitiateController {
     @Autowired
     private ProcessInitiateService processInitiateService;
 
+    @Autowired
+    private MessageRemandAsyncAPI messageRemandAsyncAPI;
+
     @ApiOperation(value = "添加外出申请",notes = "添加外出申请",consumes = MediaType.APPLICATION_JSON_VALUE)
     @PostMapping(value = "/out/insert")
     public ComResponse<Integer> insertProcessStaffOut(@RequestBody @Validated StaffOutVo staffOutVo, @CurrentStaffNo @ApiIgnore String staffNo){
@@ -42,7 +46,7 @@ public class ProcessInitiateController {
                 e.printStackTrace();
             }
         }
-        return processInitiateService.insertProcessStaffOut(staffOutVo,staffNo);
+        return integerComResponse;
     }
 
     @ApiOperation(value = "添加出差申请",notes = "添加出差申请",consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -89,12 +93,13 @@ public class ProcessInitiateController {
         ComResponse<Integer> integerComResponse = processInitiateService.insertProcessStaffParkingSpace(staffParkingSpaceVo,staffNo);
         if (integerComResponse.getCode().equals(200)){
             try {
-                MessageRemandAPI.examine(staffNo,
+                messageRemandAsyncAPI.examine(staffNo,
                         staffParkingSpaceVo.getProcessNodeDTOList().get(1).getStaffNo(),
                         staffParkingSpaceVo.getProcessNodeDTOList().get(1).getProcessName());
-                MessageRemandAPI.processSendMessage(staffParkingSpaceVo.getProcessNodeDTOList().get(0).getProcessId(),
+                messageRemandAsyncAPI.processSendMessage(staffParkingSpaceVo.getProcessNodeDTOList().get(0).getProcessId(),
                         staffParkingSpaceVo.getProcessNodeDTOList().get(0).getStaffNo(),
                         staffParkingSpaceVo.getProcessNodeDTOList().get(0).getProcessName());
+                System.out.println("异步发送信息成功。。。。。。。。。。。。。。。。");
             } catch (Exception e) {
                 e.printStackTrace();
             }
