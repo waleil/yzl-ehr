@@ -134,28 +134,28 @@ public class SalarySlipController {
 
     @ApiOperation(value = "工资发放列表-人资提交财务", notes = "工资发放列表-人资提交财务")
     @PostMapping("/salarySubmit")
-    ComResponse<Void> salarySubmit(@RequestBody List<SalarySubmitVo> list) {
+    public ComResponse<Void> salarySubmit(@RequestBody List<SalarySubmitVo> list) {
         salarySlipFeignService.salarySubmit(list);
         return ComResponse.success();
     }
 
     @ApiOperation(value = "工资发放列表-财务审核", notes = "工资发放列表-财务审核")
     @PostMapping("/salaryExamine")
-    ComResponse<Void> salaryExamine(@RequestBody List<SalaryFinanceExamineVo> list) {
+    public ComResponse<Void> salaryExamine(@RequestBody List<SalaryFinanceExamineVo> list) {
         salarySlipFeignService.salaryExamine(list);
         return ComResponse.success();
     }
 
     @ApiOperation(value = "工资发放列表-工资发放类型修改（1-正常发，默认;0-缓发）", notes = "工资发放列表-修改工资发放类型（1-正常发，默认;0-缓发）")
     @PostMapping("/salaryGrantStatusUpDate")
-    ComResponse<Void> salaryGrantStatusUpDate(@RequestBody List<SalaryGrantVo> list) {
+    public ComResponse<Void> salaryGrantStatusUpDate(@RequestBody List<SalaryGrantVo> list) {
         salarySlipFeignService.salaryGrantStatusUpDate(list);
         return ComResponse.success();
     }
 
     @ApiOperation(value = "工资发放列表-工资条状态修改（0-未发；1-已发）", notes = "工资发放列表-工资条状态修改（0-未发；1-已发）")
     @PostMapping("/salaryFinalGrantStatusUpDate")
-    ComResponse<Void> salaryFinalGrantStatusUpDate(@RequestBody List<SalaryGrantFinalVo> list) {
+    public ComResponse<Void> salaryFinalGrantStatusUpDate(@RequestBody List<SalaryGrantFinalVo> list) {
         salarySlipFeignService.salaryFinalGrantStatusUpDate(list);
         return ComResponse.success();
     }
