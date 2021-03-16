@@ -7,8 +7,7 @@ import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.salary.SalarySlipFeignService;
 import cn.net.yzl.staff.dto.salary.SalarySlipListDto;
 import cn.net.yzl.staff.enumeration.StaffTypeEnum;
-import cn.net.yzl.staff.vo.salary.SalaryImportVo;
-import cn.net.yzl.staff.vo.salary.SalaryVo;
+import cn.net.yzl.staff.vo.salary.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -22,6 +21,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletResponse;
 import java.net.URLEncoder;
+import java.util.List;
 
 /**
  * 工资条控制层
@@ -126,9 +126,37 @@ public class SalarySlipController {
         return ComResponse.fail(ResponseCodeEnums.BIZ_ERROR_CODE.getCode(), "工资条导出报表失败");
     }
 
-    @ApiOperation(value = "工资发放列表(人资)", notes = "工资发放列表(人资)")
+    @ApiOperation(value = "工资发放列表(人资/财务)", notes = "工资发放列表(人资/财务)")
     @PostMapping("/list")
     public ComResponse<Page<SalarySlipListDto>> list(@RequestBody SalaryVo salaryVo) {
         return salarySlipFeignService.list(salaryVo);
+    }
+
+    @ApiOperation(value = "工资发放列表-人资提交财务", notes = "工资发放列表-人资提交财务")
+    @PostMapping("/salarySubmit")
+    ComResponse<Void> salarySubmit(@RequestBody List<SalarySubmitVo> list) {
+        salarySlipFeignService.salarySubmit(list);
+        return ComResponse.success();
+    }
+
+    @ApiOperation(value = "工资发放列表-财务审核", notes = "工资发放列表-财务审核")
+    @PostMapping("/salaryExamine")
+    ComResponse<Void> salaryExamine(@RequestBody List<SalaryFinanceExamineVo> list) {
+        salarySlipFeignService.salaryExamine(list);
+        return ComResponse.success();
+    }
+
+    @ApiOperation(value = "工资发放列表-工资发放类型修改（1-正常发，默认;0-缓发）", notes = "工资发放列表-修改工资发放类型（1-正常发，默认;0-缓发）")
+    @PostMapping("/salaryGrantStatusUpDate")
+    ComResponse<Void> salaryGrantStatusUpDate(@RequestBody List<SalaryGrantVo> list) {
+        salarySlipFeignService.salaryGrantStatusUpDate(list);
+        return ComResponse.success();
+    }
+
+    @ApiOperation(value = "工资发放列表-工资条状态修改（0-未发；1-已发）", notes = "工资发放列表-工资条状态修改（0-未发；1-已发）")
+    @PostMapping("/salaryFinalGrantStatusUpDate")
+    ComResponse<Void> salaryFinalGrantStatusUpDate(@RequestBody List<SalaryGrantFinalVo> list) {
+        salarySlipFeignService.salaryFinalGrantStatusUpDate(list);
+        return ComResponse.success();
     }
 }
