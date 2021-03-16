@@ -93,10 +93,10 @@ public class ProcessInitiateController {
         ComResponse<Integer> integerComResponse = processInitiateService.insertProcessStaffParkingSpace(staffParkingSpaceVo,staffNo);
         if (integerComResponse.getCode().equals(200)){
             try {
-                messageRemandAsyncAPI.examine(staffNo,
+                MessageRemandAPI.examine(staffNo,
                         staffParkingSpaceVo.getProcessNodeDTOList().get(1).getStaffNo(),
                         staffParkingSpaceVo.getProcessNodeDTOList().get(1).getProcessName());
-                messageRemandAsyncAPI.processSendMessage(staffParkingSpaceVo.getProcessNodeDTOList().get(0).getProcessId(),
+                MessageRemandAPI.processSendMessage(staffParkingSpaceVo.getProcessNodeDTOList().get(0).getProcessId(),
                         staffParkingSpaceVo.getProcessNodeDTOList().get(0).getStaffNo(),
                         staffParkingSpaceVo.getProcessNodeDTOList().get(0).getProcessName());
                 System.out.println("异步发送信息成功。。。。。。。。。。。。。。。。");
