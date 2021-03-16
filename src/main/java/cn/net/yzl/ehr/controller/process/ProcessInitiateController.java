@@ -46,7 +46,7 @@ public class ProcessInitiateController {
                 e.printStackTrace();
             }
         }
-        return processInitiateService.insertProcessStaffOut(staffOutVo,staffNo);
+        return integerComResponse;
     }
 
     @ApiOperation(value = "添加出差申请",notes = "添加出差申请",consumes = MediaType.APPLICATION_JSON_VALUE)
