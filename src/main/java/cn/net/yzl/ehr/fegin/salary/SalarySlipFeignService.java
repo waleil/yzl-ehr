@@ -49,15 +49,6 @@ public interface SalarySlipFeignService {
 
 
     /**
-     * 人资提交审批
-     *
-     * @param list
-     * @return
-     */
-    @PostMapping("/salarySubmit")
-    ComResponse<Void> salarySubmit(List<SalarySubmitVo> list);
-
-    /**
      * 财务审核工资条
      *
      * @param list
