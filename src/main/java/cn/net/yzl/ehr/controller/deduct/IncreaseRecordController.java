@@ -66,4 +66,11 @@ public class IncreaseRecordController {
     }
 
 
+    @ApiOperation(value = "根据工号和时间查询奖金列表信息", notes = "根据工号和时间查询奖金列表信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/queryList", method = RequestMethod.POST)
+    ComResponse<List<IncreaseRecordDto>> queryList(@RequestParam("staffNo") String staffNo,@RequestParam("increaseTime")String increaseTime) {
+        return increaseRecordService.queryList(staffNo, increaseTime);
+    }
+
+
 }

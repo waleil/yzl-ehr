@@ -102,4 +102,10 @@ public class DeductRecordServiceImpl implements DeductReocrdService {
         ComResponse<DeductRecordDto> result =deductRecordFeginService.queryStopByNo(appNo);
         return result;
     }
+
+    @Override
+    public ComResponse<List<DeductRecordDto>> queryList(String staffNo, String createTime) {
+        ComResponse<List<DeductRecordDto>> result = deductRecordFeginService.queryList(staffNo,createTime);
+        return result;
+    }
 }
