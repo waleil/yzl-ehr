@@ -93,25 +93,19 @@ public class SalarySlipController {
         return salarySlipFeignService.list(salaryVo);
     }
 
-    @ApiOperation(value = "工资发放列表-人资提交财务", notes = "工资发放列表-人资提交财务")
-    @PostMapping("/salarySubmit")
-    public ComResponse<Void> salarySubmit(@RequestBody List<SalarySubmitVo> list) {
-        return salarySlipFeignService.salarySubmit(list);
-    }
-
     @ApiOperation(value = "工资发放列表-财务审核", notes = "工资发放列表-财务审核")
     @PostMapping("/salaryExamine")
     public ComResponse<Void> salaryExamine(@RequestBody List<SalaryFinanceExamineVo> list) {
         return salarySlipFeignService.salaryExamine(list);
     }
 
-    @ApiOperation(value = "工资发放列表-工资发放类型修改（1-正常发，默认;0-缓发）", notes = "工资发放列表-修改工资发放类型（1-正常发，默认;0-缓发）")
+    @ApiOperation(value = "工资发放列表-人资提交财务", notes = "工资发放列表-修改工资发放类型（1-正常发，默认;0-缓发）")
     @PostMapping("/salaryGrantStatusUpDate")
     public ComResponse<Void> salaryGrantStatusUpDate(@RequestBody List<SalaryGrantVo> list) {
         return salarySlipFeignService.salaryGrantStatusUpDate(list);
     }
 
-    @ApiOperation(value = "工资发放列表-工资条状态修改（0-未发；1-已发）", notes = "工资发放列表-工资条状态修改（0-未发；1-已发）")
+    @ApiOperation(value = "工资发放列表-发工资", notes = "工资发放列表-发工资")
     @PostMapping("/salaryFinalGrantStatusUpDate")
     public ComResponse<Void> salaryFinalGrantStatusUpDate(@RequestBody List<SalaryGrantFinalVo> list) {
         return salarySlipFeignService.salaryFinalGrantStatusUpDate(list);
