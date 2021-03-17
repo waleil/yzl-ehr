@@ -105,8 +105,8 @@ public class ProcessBeginController {
     @RequestMapping(value = "v1/checkAccountDay", method = RequestMethod.GET)
     ComResponse<Boolean> checkAccountDay (@RequestParam("departId") @NotNull Integer departId){
 
-        Boolean flag=saveProcessService.checkAccountDay(departId);
-        return ComResponse.success(flag);
+        ComResponse<Boolean> flag=saveProcessService.checkAccountDay(departId);
+        return flag;
     }
     @ApiOperation(value = "保存取消请假申请",notes = "取消请假申请添加",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "v1/saveCancelLeaveApplay", method = RequestMethod.POST)
@@ -127,10 +127,11 @@ public class ProcessBeginController {
         return ComResponse.success();
     }
     @GetMapping("v1/findProcessCancelLeaveList")
-    @ApiOperation(value = "获取取消请假申请审批节点信息")
-    public ComResponse<List<ProcessNodeDTO>> findProcessCancelLeaveList(@RequestParam @NotNull String processAuditId) {
+    @ApiOperation(value = "获取取消请假申请审批节点和请假信息")
+    public ComResponse<ApproveCancelDetailsDTO> findProcessCancelLeaveList(@RequestParam("processAuditId") @NotNull String processAuditId,
+                                                                           @RequestParam("appNo") @NotNull String appNo) {
 
-        return saveProcessService.findProcessCancelLeaveList(processAuditId);
+        return saveProcessService.findProcessCancelLeaveList(processAuditId,appNo);
     }
 
 

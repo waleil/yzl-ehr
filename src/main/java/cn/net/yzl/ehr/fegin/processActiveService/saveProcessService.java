@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @FeignClient(name="processsInvite",url="${fegin.db.url}/processsInvite")
@@ -30,9 +31,10 @@ public interface saveProcessService {
     ComResponse<Boolean> saveAbsentApplay(@RequestBody ApproveAbsentInfoListDTO approveAbsentInfoListDTO);
     @ApiOperation(value = "检查当前日期是否超过结算日期",notes = "离职申请添加",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "v1/checkAccountDay", method = RequestMethod.GET)
-    Boolean checkAccountDay(@RequestParam("departId") Integer departId);
+    ComResponse<Boolean> checkAccountDay(@RequestParam("departId") Integer departId);
     @GetMapping("v1/findProcessCancelLeaveList")
-    ComResponse<List<ProcessNodeDTO>> findProcessCancelLeaveList(@RequestParam("processAuditId") String processAuditId);
+    ComResponse<ApproveCancelDetailsDTO> findProcessCancelLeaveList(@RequestParam("processAuditId") @NotNull String processAuditId,
+                                                                    @RequestParam("appNo") @NotNull String appNo);
     @ApiOperation(value = "保存取消请假申请",notes = "取消请假申请添加",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "v1/saveCancelLeaveApplay", method = RequestMethod.POST)
     ComResponse<Boolean> saveCancelLeaveApplay(@RequestBody ApproveCancelLeaveDTO approveCancelLeaveDTO);
