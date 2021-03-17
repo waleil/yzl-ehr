@@ -98,4 +98,10 @@ public class IncreaseRecordServiceImpl implements IncreaseRecordService {
         ComResponse<Integer> result = increaseRecordFeginService.updateExecuteState(increaseRecordPo);
         return result;
     }
+
+    @Override
+    public ComResponse<List<IncreaseRecordDto>> queryList(String staffNo, String increaseTime) {
+        ComResponse<List<IncreaseRecordDto>> result = increaseRecordFeginService.queryList(staffNo,increaseTime);
+        return result;
+    }
 }

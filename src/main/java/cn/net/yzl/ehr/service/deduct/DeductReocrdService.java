@@ -34,4 +34,7 @@ public interface DeductReocrdService {
     //查询停止扣款详情
     ComResponse<DeductRecordDto> queryStopByNo(String appNo);
 
+    //根据员工和发生时间查询列表信息
+    ComResponse<List<DeductRecordDto>> queryList (String staffNo, String createTime);
+
 }

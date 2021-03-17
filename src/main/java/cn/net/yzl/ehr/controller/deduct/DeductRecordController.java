@@ -15,12 +15,15 @@ import cn.net.yzl.staff.pojo.deduct.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -136,6 +139,15 @@ public class DeductRecordController {
     @RequestMapping(value = "/queryStopByNo", method = RequestMethod.GET)
     ComResponse<DeductRecordDto> queryStopByNo(@RequestParam ("appNo")String appNo) {
         return deductReocrdService.queryStopByNo(appNo);
+    }
+
+    @ApiOperation(value = "根据发生时间和员工查询扣款列表信息", notes = "根据发生时间和员工查询扣款列表信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/queryList", method = RequestMethod.GET)
+    ComResponse<List<DeductRecordDto>> queryList(@RequestParam("staffNo") String staffNo,@RequestParam("createTime") String createTime ) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+        String format = sdf.format(createTime);
+        return deductReocrdService.queryList(staffNo,createTime);
+
     }
 
 }

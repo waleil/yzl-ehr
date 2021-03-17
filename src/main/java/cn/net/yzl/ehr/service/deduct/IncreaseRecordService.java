@@ -4,6 +4,7 @@ import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.staff.dto.deduct.DeductRecordDto;
 import cn.net.yzl.staff.dto.deduct.IncreaseRecordDto;
 import cn.net.yzl.staff.pojo.deduct.*;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -27,4 +28,7 @@ public interface IncreaseRecordService {
 
     //修改执行状态
     ComResponse<Integer>  updateExecuteState(IncreaseRecordPo increaseRecordPo);
+
+    //根据员工号和发放时间查询消息列表
+    ComResponse<List<IncreaseRecordDto>> queryList(@Param("staffNo") String staffNo, @Param("increaseTime")String increaseTime);
 }

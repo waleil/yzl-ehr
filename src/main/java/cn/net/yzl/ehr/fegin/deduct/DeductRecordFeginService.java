@@ -12,6 +12,7 @@ import cn.net.yzl.staff.pojo.deduct.DeductRecordStateUpdatePo;
 import cn.net.yzl.staff.pojo.deduct.DeductRecordUpdatePo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -64,4 +66,7 @@ public interface DeductRecordFeginService {
     @RequestMapping(value = "/deductRecord/queryStopByNo", method = RequestMethod.GET)
     ComResponse<DeductRecordDto> queryStopByNo(@RequestParam ("appNo")String appNo);
 
+    @ApiOperation(value = "根据发生时间和员工查询扣款列表信息", notes = "根据发生时间和员工查询扣款列表信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/deductRecord/queryList", method = RequestMethod.GET)
+    ComResponse<List<DeductRecordDto>> queryList(@RequestParam("staffNo") String staffNo,@RequestParam("createTime")  String createTime );
 }
