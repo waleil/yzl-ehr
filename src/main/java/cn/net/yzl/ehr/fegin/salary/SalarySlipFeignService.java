@@ -3,6 +3,7 @@ package cn.net.yzl.ehr.fegin.salary;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.staff.dto.salary.SalarySlipListDto;
+import cn.net.yzl.staff.dto.salary.SalarySlipListShowDto;
 import cn.net.yzl.staff.vo.salary.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,8 +17,8 @@ import java.util.List;
  * @author biebaojie
  * @since 2021-03-11 10:02:46
  */
-@FeignClient(value = "SalaryService",url = "${fegin.db.url}/salarySlip")
-//@FeignClient(value = "SalaryService", url = "localhost:38080/salarySlip")
+//@FeignClient(value = "SalaryService",url = "${fegin.db.url}/salarySlip")
+@FeignClient(value = "SalaryService", url = "localhost:38080/salarySlip")
 public interface SalarySlipFeignService {
 
     /**
@@ -36,7 +37,7 @@ public interface SalarySlipFeignService {
      * @return 工资列表
      */
     @PostMapping("/list")
-    ComResponse<Page<SalarySlipListDto>> list(@RequestBody SalaryVo salaryVo);
+    ComResponse<Page<SalarySlipListShowDto>> list(@RequestBody SalaryVo salaryVo);
 
     /**
      * 工资导出

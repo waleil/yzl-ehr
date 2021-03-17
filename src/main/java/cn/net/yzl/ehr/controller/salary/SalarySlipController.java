@@ -6,6 +6,7 @@ import cn.net.yzl.common.enums.ResponseCodeEnums;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.salary.SalarySlipFeignService;
 import cn.net.yzl.staff.dto.salary.SalarySlipListDto;
+import cn.net.yzl.staff.dto.salary.SalarySlipListShowDto;
 import cn.net.yzl.staff.enumeration.StaffTypeEnum;
 import cn.net.yzl.staff.vo.salary.SalaryFinanceExamineVo;
 import cn.net.yzl.staff.vo.salary.SalaryGrantFinalVo;
@@ -89,7 +90,7 @@ public class SalarySlipController {
 
     @ApiOperation(value = "工资发放列表(人资/财务)", notes = "工资发放列表(人资/财务)")
     @PostMapping("/list")
-    public ComResponse<Page<SalarySlipListDto>> list(@RequestBody SalaryVo salaryVo) {
+    public ComResponse<Page<SalarySlipListShowDto>> list(@RequestBody SalaryVo salaryVo) {
         return salarySlipFeignService.list(salaryVo);
     }
 
