@@ -375,7 +375,7 @@ public class StaffController {
 
     @ApiOperation(value = "员工数据-查询导入员工列表", notes = "员工数据-查询导入员工列表", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/getImportStaffList", method = RequestMethod.POST)
-    ComResponse<Page<StaffListDto>> getImportStaffList(StaffParamsVO staffParamsVO) throws ParseException{
+    ComResponse<Page<StaffListDto>> getImportStaffList(@RequestBody StaffParamsVO staffParamsVO) throws ParseException{
         return staffService.getImportStaffList(staffParamsVO);
     }
 
