@@ -98,41 +98,51 @@ public class StaffAbnorRecordPo {
     private Integer adjustDepartPostLater;
 
     @ApiModelProperty("调整前薪资")
-    @NotNull
     @Min(0)
     private Integer adjustSalaryFront;
 
     @ApiModelProperty("调整后薪资")
+    @Min(0)
     private Integer adjustSalaryLater;
 
     @ApiModelProperty("调整前全勤薪资")
+    @Min(0)
     private Integer adjustFullAttendanceSalaryFront;
 
     @ApiModelProperty("调整后全勤薪资")
+    @Min(0)
     private Integer adjustFullAttendanceSalaryLater;
 
     @ApiModelProperty("调整前绩效薪资")
+    @Min(0)
     private Integer adjustPerformanceSalaryFront;
 
     @ApiModelProperty("调整后绩效薪资")
+    @Min(0)
     private Integer adjustPerformanceSalaryLater;
 
     @ApiModelProperty("调整前岗位薪资")
+    @Min(0)
     private Integer adjustWageSalaryFront;
 
     @ApiModelProperty("调整后岗位薪资")
+    @Min(0)
     private Integer adjustWageSalaryLater;
 
     @ApiModelProperty("调整前基本薪资")
+    @Min(0)
     private Integer adjustBasicSalaryFront;
 
     @ApiModelProperty("调整后基本薪资")
+    @Min(0)
     private Integer adjustBasicSalaryLater;
 
     @ApiModelProperty("调整前基本薪资类型（1.日工资，2.月工资）")
+    @Min(0)
     private Integer adjustBasicSalaryTypeFront;
 
     @ApiModelProperty("调整后基本薪资类型（1.日工资，2.月工资）")
+    @Min(0)
     private Integer adjustBasicSalaryTypeLater;
 
     @ApiModelProperty("异动时间")
