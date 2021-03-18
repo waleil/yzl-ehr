@@ -5,15 +5,11 @@ import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.common.enums.ResponseCodeEnums;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.salary.SalarySlipFeignService;
+import cn.net.yzl.staff.dto.salary.SalaryMyDto;
 import cn.net.yzl.staff.dto.salary.SalarySlipListDto;
 import cn.net.yzl.staff.dto.salary.SalarySlipListShowDto;
 import cn.net.yzl.staff.enumeration.StaffTypeEnum;
-import cn.net.yzl.staff.vo.salary.SalaryFinanceExamineVo;
-import cn.net.yzl.staff.vo.salary.SalaryGrantFinalVo;
-import cn.net.yzl.staff.vo.salary.SalaryGrantVo;
-import cn.net.yzl.staff.vo.salary.SalaryImportVo;
-import cn.net.yzl.staff.vo.salary.SalarySubmitVo;
-import cn.net.yzl.staff.vo.salary.SalaryVo;
+import cn.net.yzl.staff.vo.salary.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -110,5 +106,11 @@ public class SalarySlipController {
     @PostMapping("/salaryFinalGrantStatusUpDate")
     public ComResponse<Void> salaryFinalGrantStatusUpDate(@RequestBody List<SalaryGrantFinalVo> list) {
         return salarySlipFeignService.salaryFinalGrantStatusUpDate(list);
+    }
+
+    @ApiOperation(value = "个人中心-我的工资", notes = "个人中心-我的工资")
+    @PostMapping("/mySalary")
+    public ComResponse<SalaryMyDto> mySalary(@RequestBody MySalaryVo mySalaryVo) {
+        return salarySlipFeignService.mySalary(mySalaryVo);
     }
 }
