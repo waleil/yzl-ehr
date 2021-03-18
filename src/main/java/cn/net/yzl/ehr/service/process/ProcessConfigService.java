@@ -26,6 +26,6 @@ public interface ProcessConfigService {
 
     ComResponse<List<StaffLevelDto>> getStaffLevelByStaffNo(String staffNo,Integer flag);
 
-    ComResponse<StaffLevelDto> getUpStaffLevelByStaffNo(String staffNo,Integer flag);
+    ComResponse<StaffLevelDto> getUpStaffLevelByStaffNo(String staffNo,Integer currentDepartId);
 
 }

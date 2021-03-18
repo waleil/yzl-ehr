@@ -57,7 +57,7 @@ public class ProcessConfigServiceImpl implements ProcessConfigService {
     }
 
     @Override
-    public ComResponse<StaffLevelDto> getUpStaffLevelByStaffNo(String staffNo, Integer flag) {
-        return processConfigFeignService.getUpStaffLevelByStaffNo(staffNo,flag);
+    public ComResponse<StaffLevelDto> getUpStaffLevelByStaffNo(String staffNo, Integer currentDepartId) {
+        return processConfigFeignService.getUpStaffLevelByStaffNo(staffNo,currentDepartId);
     }
 }
