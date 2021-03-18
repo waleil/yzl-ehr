@@ -10,9 +10,13 @@ import cn.net.yzl.ehr.service.StaffService;
 import cn.net.yzl.ehr.vo.StaffParamsVO;
 import cn.net.yzl.staff.dto.StaffInfoDto;
 import cn.net.yzl.staff.dto.StatisticalStaffDto;
+import cn.net.yzl.staff.vo.ImportResultVo;
 import cn.net.yzl.staff.vo.UpdatePasswordPo;
 import cn.net.yzl.staff.dto.StaffDetailsDto;
+import cn.net.yzl.staff.vo.staff.StaffInfoSaveVO;
+import com.taobao.api.ApiException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.expression.ParseException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -96,6 +100,31 @@ public class StaffServiceImpl implements StaffService {
     @Override
     public ComResponse<StatisticalStaffDto> getStaffTotalData() {
         return staffFeginService.getStaffTotalData();
+    }
+
+    @Override
+    public ComResponse<ImportResultVo> importStaffInfo(String url) throws ParseException {
+        return staffFeginService.importStaffInfo(url);
+    }
+
+    @Override
+    public ComResponse<Page<StaffListDto>> getImportStaffList(StaffParamsVO staffParamsVO) throws ParseException {
+        return staffFeginService.getImportStaffList(staffParamsVO);
+    }
+
+    @Override
+    public ComResponse<StaffListDto> getImportStaff(Integer id) throws ParseException {
+        return staffFeginService.getImportStaff(id);
+    }
+
+    @Override
+    public ComResponse<Integer> deleteImportStaff(Integer id) throws ParseException {
+        return staffFeginService.deleteImportStaff(id);
+    }
+
+    @Override
+    public ComResponse<StaffDetailsDto> completeInfo(StaffInfoSaveVO staffInfoSaveVO) throws ParseException, ApiException {
+        return staffFeginService.completeInfo(staffInfoSaveVO);
     }
 
 

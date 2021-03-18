@@ -26,13 +26,17 @@ import cn.net.yzl.pm.service.UserRoleService;
 import cn.net.yzl.staff.dto.StaffDetailsDto;
 import cn.net.yzl.staff.dto.StaffInfoDto;
 import cn.net.yzl.staff.dto.StatisticalStaffDto;
+import cn.net.yzl.staff.dto.attend.StaffAttendImportResultDto;
 import cn.net.yzl.staff.dto.resume.ResumeListDto;
 import cn.net.yzl.staff.util.DateStaffUtils;
+import cn.net.yzl.staff.vo.ImportResultVo;
 import cn.net.yzl.staff.vo.resume.ResumeParamsVO;
 import cn.net.yzl.staff.vo.staff.StaffInfoSaveVO;
 import cn.net.yzl.staff.vo.staff.StaffInfoUpdateVO;
+import com.taobao.api.ApiException;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
@@ -258,7 +262,7 @@ public class StaffController {
                     writer.addHeaderAlias("abnorTime","异动时间");
                     writer.addHeaderAlias("entryTimes","入司次数");
                     writer.addHeaderAlias("dimissionTime","离职时间");
-                    writer.addHeaderAlias("payrollAccountingDate","薪资核酸截止日");
+                    writer.addHeaderAlias("payrollAccountingDate","薪资核算截止日");
                     staffParamsVO.setPageNo(1);
                     staffParamsVO.setPageSize(50000);
                     listByParams = staffService.getListByParams(staffParamsVO);
@@ -359,4 +363,37 @@ public class StaffController {
         }
     }
 
+
+    @ApiOperation(value = "员工数据-导入", notes = "员工数据-导入", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/importStaffInfo", method = RequestMethod.POST)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "url", value = "文件路径(相对路径)", required = true, dataType = "String", paramType = "query"),
+    })
+    ComResponse<ImportResultVo> importStaffInfo(String url) throws ParseException {
+        return staffService.importStaffInfo(url);
+    }
+
+    @ApiOperation(value = "员工数据-查询导入员工列表", notes = "员工数据-查询导入员工列表", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/getImportStaffList", method = RequestMethod.POST)
+    ComResponse<Page<StaffListDto>> getImportStaffList(StaffParamsVO staffParamsVO) throws ParseException{
+        return staffService.getImportStaffList(staffParamsVO);
+    }
+
+    @ApiOperation(value = "员工数据-用id查询导入员工详情", notes = "员工数据-用id查询导入员工详情", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/getImportStaff", method = RequestMethod.GET)
+    ComResponse<StaffListDto> getImportStaff(Integer id) throws ParseException {
+        return staffService.getImportStaff(id);
+    }
+
+    @ApiOperation(value = "员工数据-用id删除未补全员工", notes = "员工数据-用id删除未补全员工", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/deleteImportStaff", method = RequestMethod.GET)
+    ComResponse<Integer> deleteImportStaff(Integer id) throws ParseException {
+        return staffService.deleteImportStaff(id);
+    }
+
+    @ApiOperation(value = "员工数据-完善员工详情", notes = "员工数据-完善员工详情", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/completeInfo", method = RequestMethod.POST)
+    ComResponse<StaffDetailsDto> completeInfo(StaffInfoSaveVO staffInfoSaveVO) throws ParseException, ApiException{
+        return staffService.completeInfo(staffInfoSaveVO);
+    }
 }
