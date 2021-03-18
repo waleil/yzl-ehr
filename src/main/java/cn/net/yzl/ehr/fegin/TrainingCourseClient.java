@@ -20,18 +20,18 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-@FeignClient(name = "trainingCourse",url = "${fegin.db.url}/trainCourse")
-//@FeignClient(name = "trainingCourse",url = "localhost:38080/trainCourse")
+//@FeignClient(name = "trainingCourse",url = "${fegin.db.url}/trainCourse")
+@FeignClient(name = "trainingCourse",url = "localhost:38080/trainCourse")
 public interface TrainingCourseClient {
 
     @GetMapping("/selectStaffTrainProduct")
     ComResponse<List<StaffTrainProductPo>> selectStaffTrainProduct(@RequestParam("staffNo") String staffNo,@RequestParam("size")  Integer size);
 
     @PostMapping("/insertTrainCourse")
-    ComResponse insertTrainCourse(TrainInfoAllVO trainInfoAllVO);
+    ComResponse insertTrainCourse(@RequestBody TrainInfoAllVO trainInfoAllVO);
 
     @PostMapping("/insertUpdateDelTrainSubsidySys")
-    ComResponse insertUpdateDelTrainSubsidySys(TrainSubsidySysVO trainSubsidySysVO);
+    ComResponse insertUpdateDelTrainSubsidySys(@RequestBody TrainSubsidySysVO trainSubsidySysVO);
 
     @PostMapping("/selectTrainSubsidySys")
     ComResponse selectTrainSubsidySys();
@@ -87,7 +87,7 @@ public interface TrainingCourseClient {
     ComResponse staffSign(@RequestBody List<TrainStaffSignPo> list);
 
     @PostMapping("/staffEntryPost")
-    ComResponse<Integer> staffEntryPost(TrainStaffRelationPo trainStaffRelationPo);
+    ComResponse<Integer> staffEntryPost(@RequestBody TrainStaffRelationPo trainStaffRelationPo);
 
     @GetMapping("/getPartner")
     ComResponse<List<Map<String,Object>>> getPartner(@RequestParam("type") String type);
