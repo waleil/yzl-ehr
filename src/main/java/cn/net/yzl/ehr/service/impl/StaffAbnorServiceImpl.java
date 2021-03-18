@@ -1,5 +1,6 @@
 package cn.net.yzl.ehr.service.impl;
 
+import cn.hutool.core.date.DateUtil;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.common.enums.ResponseCodeEnums;
@@ -7,13 +8,16 @@ import cn.net.yzl.ehr.async.MsgSendAsync;
 import cn.net.yzl.ehr.dto.StaffAbnorRecordListDto;
 import cn.net.yzl.ehr.dto.StaffTrainInfoDto;
 import cn.net.yzl.ehr.fegin.staff.StaffAbnorFeginService;
+import cn.net.yzl.ehr.fegin.staff.StaffFeginService;
 import cn.net.yzl.ehr.pojo.StaffAbnorRecordPo;
 import cn.net.yzl.ehr.pojo.StaffSwitchStatePo;
 import cn.net.yzl.ehr.service.StaffAbnorService;
 import cn.net.yzl.msg.model.vo.MsgTemplateVo;
+import cn.net.yzl.staff.dto.StaffDetailsDto;
 import cn.net.yzl.staff.dto.StaffTrainDto;
 import cn.net.yzl.staff.pojo.AbnorRecordPo;
 import cn.net.yzl.staff.pojo.RunAbnorRecordPo;
+import cn.net.yzl.staff.util.DateStaffUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +31,9 @@ import java.util.List;
 
 @Service
 public class StaffAbnorServiceImpl implements StaffAbnorService {
+
+    @Autowired
+    private StaffFeginService staffFeginService;
 
     @Autowired
     private StaffAbnorFeginService staffAbnorFeginService;
@@ -47,14 +54,31 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
     }
 
     @Override
-    public ComResponse<Integer> executeStaffChange(StaffAbnorRecordPo staffChangePo,String staffNo) {
+    public ComResponse<Integer> executeStaffChange(StaffAbnorRecordPo staffChangePo,String staffNo) throws ParseException {
+
         staffChangePo.setCreator(staffNo);
-        msgSendAsync.addStaffAbnorNotice(staffNo,staffChangePo.getStaffNo());
+        ComResponse<StaffDetailsDto> detailsByNo = staffFeginService.getDetailsByNo(staffChangePo.getStaffNo());
+        if(detailsByNo==null){
+         return   ComResponse.fail(ResponseCodeEnums.STAFF_NOT_EXIT_CODE.getCode(),ResponseCodeEnums.STAFF_NOT_EXIT_CODE.getMessage());
+        }
+        try{
+        msgSendAsync.addStaffAbnorNotice(staffNo,staffChangePo.getStaffNo(),detailsByNo.getData().getName());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         ComResponse<Integer> comResponse = staffAbnorFeginService.executeStaffChange(staffChangePo);
         if(comResponse==null){
-            ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
+         return   ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
         }else if(comResponse.getCode()==200 && comResponse.getData()>0){
-            ComResponse.success();
+            //如果异动时间小于等于现在，则已执行，发送异动执行消息
+            if(DateStaffUtils.stringToDate(staffChangePo.getAbnorTime(),"yyyy-MM-dd","yyyy-MM-dd").getTime()<=new Date().getTime()){
+                try{
+                    msgSendAsync.executeStaffAbnorNotice(staffNo,staffChangePo.getStaffNo(),detailsByNo.getData().getName());
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+         return   ComResponse.success();
         }
         return comResponse;
     }
@@ -75,6 +99,7 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
         for (StaffTrainDto datum : listComResponse.getData()) {
             if(datum.getType()==26){
                 StaffTrainInfoDto staffTrainInfoDto = new StaffTrainInfoDto();
+                staffTrainInfoDto.setType(datum.getType());
                 staffTrainInfoDto.setTypeName(datum.getTypeName());
                 staffTrainInfoDto.setAbnorTime(datum.getAbnorTime());
                 staffTrainInfoDto.setContent(datum.getContent());
@@ -83,6 +108,7 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
                 list.add(staffTrainInfoDto);
             }if (datum.getType()==23|| datum.getType()==30||datum.getType()==31||datum.getType()==68){
                 StaffTrainInfoDto staffTrainInfoDto = new StaffTrainInfoDto();
+                staffTrainInfoDto.setType(datum.getType());
                 staffTrainInfoDto.setTypeName(datum.getTypeName());
                 staffTrainInfoDto.setAbnorTime(datum.getAbnorTime());
                 staffTrainInfoDto.setContent(datum.getContent());
@@ -91,6 +117,7 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
                 list.add(staffTrainInfoDto);
             }if (datum.getType()==24 || datum.getType()==69){
                 StaffTrainInfoDto staffTrainInfoDto = new StaffTrainInfoDto();
+                staffTrainInfoDto.setType(datum.getType());
                 staffTrainInfoDto.setTypeName(datum.getTypeName());
                 staffTrainInfoDto.setAbnorTime(datum.getAbnorTime());
                 staffTrainInfoDto.setContent(datum.getContent());
@@ -99,6 +126,7 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
                 list.add(staffTrainInfoDto);
             }if (datum.getType()==27){
                 StaffTrainInfoDto staffTrainInfoDto = new StaffTrainInfoDto();
+                staffTrainInfoDto.setType(datum.getType());
                 staffTrainInfoDto.setTypeName(datum.getTypeName());
                 staffTrainInfoDto.setAbnorTime(datum.getAbnorTime());
                 staffTrainInfoDto.setContent(datum.getContent());
@@ -107,6 +135,7 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
                 list.add(staffTrainInfoDto);
             }if (datum.getType()==72 || datum.getType()== 73){
                 StaffTrainInfoDto staffTrainInfoDto = new StaffTrainInfoDto();
+                staffTrainInfoDto.setType(datum.getType());
                 staffTrainInfoDto.setTypeName(datum.getTypeName());
                 staffTrainInfoDto.setAbnorTime(datum.getAbnorTime());
                 staffTrainInfoDto.setContent(datum.getContent());
@@ -115,6 +144,7 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
                 list.add(staffTrainInfoDto);
             }if (datum.getType()==29){
                 StaffTrainInfoDto staffTrainInfoDto = new StaffTrainInfoDto();
+                staffTrainInfoDto.setType(datum.getType());
                 staffTrainInfoDto.setTypeName(datum.getTypeName());
                 staffTrainInfoDto.setAbnorTime(datum.getAbnorTime());
                 staffTrainInfoDto.setContent(datum.getContent());
@@ -137,6 +167,7 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
             for (StaffTrainDto datum : listComResponse.getData()) {
                 if(datum.getType()==26){
                     StaffTrainInfoDto staffTrainInfoDto = new StaffTrainInfoDto();
+                    staffTrainInfoDto.setType(datum.getType());
                     staffTrainInfoDto.setTypeName(datum.getTypeName());
                     staffTrainInfoDto.setAbnorTime(datum.getAbnorTime());
                     staffTrainInfoDto.setContent(datum.getContent());
@@ -145,6 +176,7 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
                     list.add(staffTrainInfoDto);
                 }if (datum.getType()==23|| datum.getType()==30||datum.getType()==31||datum.getType()==68){
                     StaffTrainInfoDto staffTrainInfoDto = new StaffTrainInfoDto();
+                    staffTrainInfoDto.setType(datum.getType());
                     staffTrainInfoDto.setTypeName(datum.getTypeName());
                     staffTrainInfoDto.setAbnorTime(datum.getAbnorTime());
                     staffTrainInfoDto.setContent(datum.getContent());
@@ -153,6 +185,7 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
                     list.add(staffTrainInfoDto);
                 }if (datum.getType()==24 || datum.getType()==69){
                     StaffTrainInfoDto staffTrainInfoDto = new StaffTrainInfoDto();
+                    staffTrainInfoDto.setType(datum.getType());
                     staffTrainInfoDto.setTypeName(datum.getTypeName());
                     staffTrainInfoDto.setAbnorTime(datum.getAbnorTime());
                     staffTrainInfoDto.setContent(datum.getContent());
@@ -161,6 +194,7 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
                     list.add(staffTrainInfoDto);
                 }if (datum.getType()==27){
                     StaffTrainInfoDto staffTrainInfoDto = new StaffTrainInfoDto();
+                    staffTrainInfoDto.setType(datum.getType());
                     staffTrainInfoDto.setTypeName(datum.getTypeName());
                     staffTrainInfoDto.setAbnorTime(datum.getAbnorTime());
                     staffTrainInfoDto.setContent(datum.getContent());
@@ -169,6 +203,7 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
                     list.add(staffTrainInfoDto);
                 }if (datum.getType()==72 || datum.getType()== 73){
                     StaffTrainInfoDto staffTrainInfoDto = new StaffTrainInfoDto();
+                    staffTrainInfoDto.setType(datum.getType());
                     staffTrainInfoDto.setTypeName(datum.getTypeName());
                     staffTrainInfoDto.setAbnorTime(datum.getAbnorTime());
                     staffTrainInfoDto.setContent(datum.getContent());
@@ -177,6 +212,7 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
                     list.add(staffTrainInfoDto);
                 }if (datum.getType()==29){
                     StaffTrainInfoDto staffTrainInfoDto = new StaffTrainInfoDto();
+                    staffTrainInfoDto.setType(datum.getType());
                     staffTrainInfoDto.setTypeName(datum.getTypeName());
                     staffTrainInfoDto.setAbnorTime(datum.getAbnorTime());
                     staffTrainInfoDto.setContent(datum.getContent());
@@ -221,7 +257,11 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
         if(listComResponse!=null && listComResponse.getData()!=null && !listComResponse.getData().isEmpty()){
             List<MsgTemplateVo> msgTemplateVoList = listComResponse.getData();
             msgTemplateVoList.forEach(x->{
-                msgSendAsync.sendMsg(x);
+                try {
+                    msgSendAsync.sendMsg(x);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             });
         }
         return listComResponse;

@@ -24,7 +24,7 @@ public interface StaffAbnorService {
 
     public ComResponse<Integer> updateStaffChangeStatus( StaffSwitchStatePo staffSwitchStatePo,String staffNo) ;
 
-    public ComResponse<Integer> executeStaffChange(StaffAbnorRecordPo staffChangePo,String staffNo);
+    public ComResponse<Integer> executeStaffChange(StaffAbnorRecordPo staffChangePo,String staffNo) throws ParseException;
 
     public ComResponse<StaffAbnorRecordListDto> getStaffAbnorRecord(String staffNo) ;
 

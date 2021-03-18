@@ -10,13 +10,17 @@ import cn.net.yzl.ehr.vo.StaffParamsVO;
 import cn.net.yzl.staff.dto.StaffDetailsDto;
 import cn.net.yzl.staff.dto.StaffInfoDto;
 import cn.net.yzl.staff.dto.StatisticalStaffDto;
+import cn.net.yzl.staff.vo.ImportResultVo;
 import cn.net.yzl.staff.vo.UpdatePasswordPo;
 import cn.net.yzl.staff.vo.staff.StaffInfoSaveVO;
 import cn.net.yzl.staff.vo.staff.StaffInfoUpdateVO;
+import com.taobao.api.ApiException;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.expression.ParseException;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Repository;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -77,4 +81,18 @@ public interface StaffFeginService {
     @RequestMapping(value = "/staff/getStaffTotalData", method = RequestMethod.GET)
     ComResponse<StatisticalStaffDto> getStaffTotalData();
 
+    @RequestMapping(value = "/staff/importStaffInfo", method = RequestMethod.GET)
+    public ComResponse<ImportResultVo> importStaffInfo(String url) throws ParseException ;
+
+    @RequestMapping(value = "/staff/getImportStaffList", method = RequestMethod.POST)
+    public ComResponse<Page<StaffListDto>> getImportStaffList(@RequestBody StaffParamsVO staffParamsVO) throws ParseException ;
+
+    @RequestMapping(value = "/staff/getImportStaff", method = RequestMethod.GET)
+    public ComResponse<StaffListDto> getImportStaff(Integer id) throws ParseException ;
+
+    @RequestMapping(value = "/staff/deleteImportStaff", method = RequestMethod.GET)
+    public ComResponse<Integer> deleteImportStaff(Integer id) throws ParseException ;
+
+    @RequestMapping(value = "/staff/completeInfo", method = RequestMethod.POST)
+    ComResponse<StaffDetailsDto> completeInfo(@RequestBody @Validated StaffInfoSaveVO staffInfoSaveVO) throws ParseException, ApiException;
 }

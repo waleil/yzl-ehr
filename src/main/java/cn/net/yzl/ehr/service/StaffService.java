@@ -9,6 +9,10 @@ import cn.net.yzl.ehr.vo.StaffParamsVO;
 import cn.net.yzl.staff.dto.StaffDetailsDto;
 import cn.net.yzl.staff.dto.StaffInfoDto;
 import cn.net.yzl.staff.dto.StatisticalStaffDto;
+import cn.net.yzl.staff.vo.ImportResultVo;
+import cn.net.yzl.staff.vo.staff.StaffInfoSaveVO;
+import com.taobao.api.ApiException;
+import org.springframework.expression.ParseException;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -38,4 +42,14 @@ public interface StaffService {
     ComResponse<StaffInfoDto> getInfoByNoForAbnor(String staffNo);
 
     ComResponse<StatisticalStaffDto> getStaffTotalData();
+
+    ComResponse<ImportResultVo> importStaffInfo(String url) throws ParseException ;
+
+    ComResponse<Page<StaffListDto>> getImportStaffList(StaffParamsVO staffParamsVO) throws ParseException ;
+
+    ComResponse<StaffListDto> getImportStaff(Integer id) throws ParseException ;
+
+    ComResponse<Integer> deleteImportStaff(Integer id) throws ParseException ;
+
+    ComResponse<StaffDetailsDto> completeInfo(StaffInfoSaveVO staffInfoSaveVO) throws ParseException, ApiException;
 }

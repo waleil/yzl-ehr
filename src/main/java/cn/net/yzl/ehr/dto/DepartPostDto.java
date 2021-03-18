@@ -68,6 +68,9 @@ public class DepartPostDto implements Serializable {
     @ApiModelProperty("任务id")
     private Integer recruitedTaskId;
 
+    @ApiModelProperty("部门全勤奖金")
+    private Integer fullAttendanceSalary;
+
     private static final long serialVersionUID = 1L;
 
 
