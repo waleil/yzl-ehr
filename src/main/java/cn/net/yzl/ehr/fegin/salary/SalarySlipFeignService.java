@@ -2,6 +2,7 @@ package cn.net.yzl.ehr.fegin.salary;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
+import cn.net.yzl.staff.dto.salary.SalaryMyDto;
 import cn.net.yzl.staff.dto.salary.SalarySlipListDto;
 import cn.net.yzl.staff.dto.salary.SalarySlipListShowDto;
 import cn.net.yzl.staff.vo.salary.*;
@@ -75,4 +76,13 @@ public interface SalarySlipFeignService {
      */
     @PostMapping("/salaryFinalGrantStatusUpDate")
     ComResponse<Void> salaryFinalGrantStatusUpDate(List<SalaryGrantFinalVo> list);
+
+    /**
+     * 我的工资
+     *
+     * @param mySalaryVo
+     * @return
+     */
+    @PostMapping("/mySalary")
+    ComResponse<SalaryMyDto> mySalary(MySalaryVo mySalaryVo);
 }
