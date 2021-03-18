@@ -33,7 +33,7 @@ public interface FindApproveService {
     @ApiOperation(value = "获取我的流程信息")
     ComResponse<Page<ApproveInfoListDTO>> getMyProcessInfoList(@RequestBody ApproveQueryDTO approveQueryDTO);
 
-    @GetMapping("v1/getApproveInfoList")
+    @PostMapping("v1/getApproveInfoList")
     @ApiOperation(value = "审批页详情显示")
     ComResponse<ApproveInfoDTO> getApproveInfoList(@RequestBody @Validated ApprovePostInfoDTO approvePostInfoDTO);
 
@@ -48,7 +48,7 @@ public interface FindApproveService {
      */
     @PostMapping("v1/updateCancelApproveInfo")
     @ApiOperation(value = "我的流程我发起的撤销功能")
-    ComResponse<Boolean> updateCancelApproveInfo(ApproveProcessInfo approveProcessInfo);
+    ComResponse<Boolean> updateCancelApproveInfo(@RequestBody ApproveProcessInfo approveProcessInfo);
 
     /**
      * 查询抄送我的所有流程信息
@@ -57,9 +57,9 @@ public interface FindApproveService {
      */
     @PostMapping("v1/findCopyApproveInfo")
     @ApiOperation(value = "我的流程抄送我的功能")
-    ComResponse<Page<ProcessAudit>> findCopyApproveInfo(ApproveQueryDTO approveQueryDTO);
+    ComResponse<Page<ProcessAudit>> findCopyApproveInfo(@RequestBody ApproveQueryDTO approveQueryDTO);
 
     @PostMapping("v1/getMystartApproveInfo")
     @ApiOperation(value = "我的流程我发起的功能")
-    ComResponse<Page<ProcessAudit>> getMystartApproveInfo(ApproveQueryDTO approveQueryDTO);
+    ComResponse<Page<ProcessAudit>> getMystartApproveInfo(@RequestBody ApproveQueryDTO approveQueryDTO);
 }
