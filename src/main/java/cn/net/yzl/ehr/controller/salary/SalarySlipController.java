@@ -6,10 +6,14 @@ import cn.net.yzl.common.enums.ResponseCodeEnums;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.salary.SalarySlipFeignService;
 import cn.net.yzl.staff.dto.salary.SalaryMyDto;
-import cn.net.yzl.staff.dto.salary.SalarySlipListDto;
 import cn.net.yzl.staff.dto.salary.SalarySlipListShowDto;
 import cn.net.yzl.staff.enumeration.StaffTypeEnum;
-import cn.net.yzl.staff.vo.salary.*;
+import cn.net.yzl.staff.vo.salary.MySalaryVo;
+import cn.net.yzl.staff.vo.salary.SalaryFinanceExamineVo;
+import cn.net.yzl.staff.vo.salary.SalaryGrantFinalVo;
+import cn.net.yzl.staff.vo.salary.SalaryGrantVo;
+import cn.net.yzl.staff.vo.salary.SalaryImportVo;
+import cn.net.yzl.staff.vo.salary.SalaryVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -23,6 +27,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletResponse;
 import java.net.URLEncoder;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -72,7 +77,7 @@ public class SalarySlipController {
      */
     private ComResponse<byte[]> exportSalary(byte[] bytes, SalaryVo salaryVo, HttpServletResponse response) {
         try {
-            String fileName = salaryVo.getSalaryYear() + "年" + salaryVo.getSalaryMonth() + "月工资表";
+            String fileName = "yzl_gz_" + LocalDate.now().toString();
             response.setContentType("application/vnd.ms-excel;charset=utf-8");
             response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(fileName, "UTF-8") + ".xlsx");
             response.getOutputStream().write(bytes);
