@@ -30,6 +30,8 @@ public interface StaffService {
 
     ComResponse<Page<StaffListDto>> getListByParams(StaffParamsVO staffParamsVO);
 
+    ComResponse<Page<StaffListDto>> getListByParamsForDepart(StaffParamsVO staffParamsVO);
+
     ComResponse<Integer> swtichStaffTalentPoolAccount(StaffSwitchTalentPoolPo staffSwitchTalentPoolPo,String staffNo);
 
     ComResponse<Integer> swtichBatchStaffTalentPoolAccount(List<StaffSwitchTalentPoolPo> staffSwitchTalentPoolPos,String staffNo);
