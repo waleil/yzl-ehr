@@ -151,4 +151,110 @@ public class StaffAbnorRecordSalaryPo {
     @ApiModelProperty(value = "创建人",hidden = true)
     private String creator;
 
+    public void setAdjustSalaryFront(Integer adjustSalaryFront) {
+        if(adjustSalaryFront!=null){
+            this.adjustSalaryFront = adjustSalaryFront*100;
+        }else{
+            this.adjustSalaryFront =null;
+        }
+    }
+
+    public void setAdjustSalaryLater(Integer adjustSalaryLater) {
+        this.adjustSalaryLater = adjustSalaryLater*100;
+        if(adjustSalaryLater!=null){
+            this.adjustSalaryLater = adjustSalaryLater*100;
+        }else{
+            this.adjustSalaryLater =null;
+        }
+    }
+
+    public void setAdjustFullAttendanceSalaryFront(Integer adjustFullAttendanceSalaryFront) {
+        this.adjustFullAttendanceSalaryFront = adjustFullAttendanceSalaryFront*100;
+        if(adjustFullAttendanceSalaryFront!=null){
+            this.adjustFullAttendanceSalaryFront = adjustFullAttendanceSalaryFront*100;
+        }else{
+            this.adjustFullAttendanceSalaryFront =null;
+        }
+    }
+
+    public void setAdjustFullAttendanceSalaryLater(Integer adjustFullAttendanceSalaryLater) {
+        this.adjustFullAttendanceSalaryLater = adjustFullAttendanceSalaryLater*100;
+        if(adjustFullAttendanceSalaryLater!=null){
+            this.adjustFullAttendanceSalaryLater = adjustFullAttendanceSalaryLater*100;
+        }else{
+            this.adjustFullAttendanceSalaryLater =null;
+        }
+    }
+
+    public void setAdjustPerformanceSalaryFront(Integer adjustPerformanceSalaryFront) {
+        this.adjustPerformanceSalaryFront = adjustPerformanceSalaryFront*100;
+        if(adjustPerformanceSalaryFront!=null){
+            this.adjustPerformanceSalaryFront = adjustPerformanceSalaryFront*100;
+        }else{
+            this.adjustPerformanceSalaryFront =null;
+        }
+    }
+
+    public void setAdjustPerformanceSalaryLater(Integer adjustPerformanceSalaryLater) {
+        this.adjustPerformanceSalaryLater = adjustPerformanceSalaryLater*100;
+        if(adjustPerformanceSalaryLater!=null){
+            this.adjustPerformanceSalaryLater = adjustPerformanceSalaryLater*100;
+        }else{
+            this.adjustPerformanceSalaryLater =null;
+        }
+    }
+
+    public void setAdjustWageSalaryFront(Integer adjustWageSalaryFront) {
+        this.adjustWageSalaryFront = adjustWageSalaryFront*100;
+        if(adjustWageSalaryFront!=null){
+            this.adjustWageSalaryFront = adjustWageSalaryFront*100;
+        }else{
+            this.adjustWageSalaryFront =null;
+        }
+    }
+
+    public void setAdjustWageSalaryLater(Integer adjustWageSalaryLater) {
+        this.adjustWageSalaryLater = adjustWageSalaryLater*100;
+        if(adjustWageSalaryLater!=null){
+            this.adjustWageSalaryLater = adjustWageSalaryLater*100;
+        }else{
+            this.adjustWageSalaryLater =null;
+        }
+    }
+
+    public void setAdjustBasicSalaryFront(Integer adjustBasicSalaryFront) {
+        this.adjustBasicSalaryFront = adjustBasicSalaryFront*100;
+        if(adjustBasicSalaryFront!=null){
+            this.adjustBasicSalaryFront = adjustBasicSalaryFront*100;
+        }else{
+            this.adjustBasicSalaryFront =null;
+        }
+    }
+
+    public void setAdjustBasicSalaryLater(Integer adjustBasicSalaryLater) {
+        this.adjustBasicSalaryLater = adjustBasicSalaryLater*100;
+        if(adjustBasicSalaryLater!=null){
+            this.adjustBasicSalaryLater = adjustBasicSalaryLater*100;
+        }else{
+            this.adjustBasicSalaryLater =null;
+        }
+    }
+
+    public void setAdjustBasicSalaryTypeFront(Integer adjustBasicSalaryTypeFront) {
+        this.adjustBasicSalaryTypeFront = adjustBasicSalaryTypeFront*100;
+        if(adjustBasicSalaryTypeFront!=null){
+            this.adjustBasicSalaryTypeFront = adjustBasicSalaryTypeFront*100;
+        }else{
+            this.adjustBasicSalaryTypeFront =null;
+        }
+    }
+
+    public void setAdjustBasicSalaryTypeLater(Integer adjustBasicSalaryTypeLater) {
+        this.adjustBasicSalaryTypeLater = adjustBasicSalaryTypeLater*100;
+        if(adjustBasicSalaryTypeLater!=null){
+            this.adjustBasicSalaryTypeLater = adjustBasicSalaryTypeLater*100;
+        }else{
+            this.adjustBasicSalaryTypeLater =null;
+        }
+    }
 }

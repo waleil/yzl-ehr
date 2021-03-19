@@ -98,5 +98,5 @@ public interface StaffFeginService {
     public ComResponse<Integer> deleteImportStaff(@RequestParam("id") Integer id) throws ParseException ;
 
     @RequestMapping(value = "/staff/completeInfo", method = RequestMethod.POST)
-    ComResponse<StaffDetailsDto> completeInfo(@RequestBody @Validated StaffInfoSaveVO staffInfoSaveVO) throws ParseException, ApiException;
+    ComResponse<StaffDetailsDto> completeInfo(@RequestBody StaffInfoSaveVO staffInfoSaveVO) throws ParseException, ApiException;
 }
