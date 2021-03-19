@@ -129,25 +129,4 @@ public class MessageRemandAPI {
 
     }
 
-    /**
-     *
-     * @param staffNo           发送人编号
-     * @param appNo             接收人编号
-     * @param appName           接收人姓名
-     * @param time       时间
-     */
-    public static void paySalary (String staffNo,String appNo,String appName,String time){
-        log.info("发工资时发送消息参数:{},{},{},{}", staffNo,appNo,appName,time);
-        MsgTemplateVo templateVo = new MsgTemplateVo();
-        templateVo.setCode("EHR0012");
-        templateVo.setCreator(staffNo);
-        templateVo.setUserCode(appNo);
-        templateVo.setSystemCode(2);
-        templateVo.setTitle("发工资");
-        String[] str = {appName, time};
-        templateVo.setParams(str);
-        messageRemandAPI.ymsgInfoService.sendSysMsgInfo(templateVo);
-
-    }
-
 }
