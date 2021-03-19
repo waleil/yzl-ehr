@@ -52,6 +52,10 @@ public interface StaffFeginService {
     @RequestMapping(value = "/staff/getListByParams", method = RequestMethod.POST)
     ComResponse<Page<StaffListDto>> getListByParams(@RequestBody StaffParamsVO staffParamsVO);
 
+    @ApiOperation(value = "模糊查询员工列表(部门员工查询)", notes = "模糊查询员工列表(部门员工查询)")
+    @RequestMapping(value = "/staff/getListByParamsForDepart", method = RequestMethod.POST)
+    ComResponse<Page<StaffListDto>> getListByParamsForDepart(@RequestBody StaffParamsVO staffParamsVO);
+
     @RequestMapping(value = "/staff/swtichStaffTalentPoolAccount", method = RequestMethod.POST)
     ComResponse<Integer> swtichStaffTalentPoolAccount(@RequestBody StaffSwitchTalentPoolPo staffSwitchTalentPoolPo);
 

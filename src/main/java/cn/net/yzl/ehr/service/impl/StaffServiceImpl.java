@@ -48,6 +48,10 @@ public class StaffServiceImpl implements StaffService {
         return staffFeginService.getListByParams(staffParamsVO);
     }
 
+    @Override
+    public ComResponse<Page<StaffListDto>> getListByParamsForDepart(StaffParamsVO staffParamsVO) {
+        return staffFeginService.getListByParamsForDepart(staffParamsVO);
+    }
 
     @Override
     public ComResponse<Integer> swtichStaffTalentPoolAccount(StaffSwitchTalentPoolPo staffSwitchTalentPoolPo,String staffNo) {

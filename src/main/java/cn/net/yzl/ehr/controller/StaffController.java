@@ -147,6 +147,12 @@ public class StaffController {
         return staffService.getListByParams(staffParamsVO);
     }
 
+    @ApiOperation(value = "模糊查询员工列表(部门员工查询)", notes = "模糊查询员工列表(部门员工查询)")
+    @RequestMapping(value = "/getListByParamsForDepart", method = RequestMethod.POST)
+    ComResponse<Page<StaffListDto>> getListByParamsForDepart(@RequestBody @Validated StaffParamsVO staffParamsVO) {
+        return staffService.getListByParamsForDepart(staffParamsVO);
+    }
+
     @ApiOperation(value = "将员工加入/移出人才池", notes = "将员工加入/移出人才池")
     @RequestMapping(value = "/swtichStaffTalentPoolAccount", method = RequestMethod.POST)
     ComResponse<Integer> swtichStaffTalentPoolAccount(@RequestBody StaffSwitchTalentPoolPo staffSwitchTalentPoolPo,@ApiIgnore @CurrentStaffNo String staffNo){
