@@ -399,7 +399,7 @@ public class StaffController {
 
     @ApiOperation(value = "员工数据-完善员工详情", notes = "员工数据-完善员工详情", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/completeInfo", method = RequestMethod.POST)
-    ComResponse<StaffDetailsDto> completeInfo(StaffInfoSaveVO staffInfoSaveVO) throws ParseException, ApiException{
+    ComResponse<StaffDetailsDto> completeInfo(@RequestBody @Validated StaffInfoSaveVO staffInfoSaveVO) throws ParseException, ApiException{
         return staffService.completeInfo(staffInfoSaveVO);
     }
 }
