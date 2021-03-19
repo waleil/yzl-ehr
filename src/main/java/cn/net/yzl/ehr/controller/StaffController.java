@@ -371,7 +371,7 @@ public class StaffController {
 
 
     @ApiOperation(value = "员工数据-导入", notes = "员工数据-导入", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @RequestMapping(value = "/importStaffInfo", method = RequestMethod.POST)
+    @RequestMapping(value = "/importStaffInfo", method = RequestMethod.GET)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "url", value = "文件路径(相对路径)", required = true, dataType = "String", paramType = "query"),
     })
