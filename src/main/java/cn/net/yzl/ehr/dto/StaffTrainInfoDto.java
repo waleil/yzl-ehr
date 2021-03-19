@@ -10,6 +10,8 @@ import java.util.Date;
 @Data
 public class StaffTrainInfoDto  implements Serializable {
 
+    @ApiModelProperty("异动类型")
+    private Integer type;
 
     @ApiModelProperty("异动类型名称")
     private String typeName;

@@ -9,15 +9,15 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 
 /**
- * staff_abnor_record
+ * StaffAbnorRecordSalaryPo
+ * 用于处理前端传来的金额*100转化为分
  * @author 
  */
-@ApiModel(value = "员工异动操作", description = "员工异动操作")
+@ApiModel(value = "员工异动操作(金额转化)", description = "员工异动操作(金额转化)")
 @Data
-public class StaffAbnorRecordPo {
+public class StaffAbnorRecordSalaryPo {
 
     @ApiModelProperty(value = "异动编号",hidden = true)
     private Integer id;
@@ -98,51 +98,41 @@ public class StaffAbnorRecordPo {
     private Integer adjustDepartPostLater;
 
     @ApiModelProperty("调整前薪资")
+    @NotNull
     @Min(0)
     private Integer adjustSalaryFront;
 
     @ApiModelProperty("调整后薪资")
-    @Min(0)
     private Integer adjustSalaryLater;
 
     @ApiModelProperty("调整前全勤薪资")
-    @Min(0)
     private Integer adjustFullAttendanceSalaryFront;
 
     @ApiModelProperty("调整后全勤薪资")
-    @Min(0)
     private Integer adjustFullAttendanceSalaryLater;
 
     @ApiModelProperty("调整前绩效薪资")
-    @Min(0)
     private Integer adjustPerformanceSalaryFront;
 
     @ApiModelProperty("调整后绩效薪资")
-    @Min(0)
     private Integer adjustPerformanceSalaryLater;
 
     @ApiModelProperty("调整前岗位薪资")
-    @Min(0)
     private Integer adjustWageSalaryFront;
 
     @ApiModelProperty("调整后岗位薪资")
-    @Min(0)
     private Integer adjustWageSalaryLater;
 
     @ApiModelProperty("调整前基本薪资")
-    @Min(0)
     private Integer adjustBasicSalaryFront;
 
     @ApiModelProperty("调整后基本薪资")
-    @Min(0)
     private Integer adjustBasicSalaryLater;
 
     @ApiModelProperty("调整前基本薪资类型（1.日工资，2.月工资）")
-    @Min(0)
     private Integer adjustBasicSalaryTypeFront;
 
     @ApiModelProperty("调整后基本薪资类型（1.日工资，2.月工资）")
-    @Min(0)
     private Integer adjustBasicSalaryTypeLater;
 
     @ApiModelProperty("异动时间")

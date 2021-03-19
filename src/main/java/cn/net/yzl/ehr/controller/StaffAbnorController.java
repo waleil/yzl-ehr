@@ -48,7 +48,7 @@ public class StaffAbnorController {
 
     @ApiOperation(value = "员工异动-设定执行异动操作", notes = "员工异动-设定执行异动操作", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/executeStaffChange", method = RequestMethod.POST)
-    public ComResponse<Integer> executeStaffChange(@RequestBody @Validated StaffAbnorRecordPo staffChangePo, @CurrentStaffNo @ApiIgnore String staffNo){
+    public ComResponse<Integer> executeStaffChange(@RequestBody @Validated StaffAbnorRecordPo staffChangePo, @CurrentStaffNo @ApiIgnore String staffNo) throws ParseException {
 
 
         return staffAbnorService.executeStaffChange(staffChangePo,staffNo);
@@ -81,7 +81,7 @@ public class StaffAbnorController {
 
     @ApiOperation(value = "员工旅程分页查询", notes = "员工旅程分页查询", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/getStaffTrainPage", method = RequestMethod.GET)
-    public ComResponse<List<StaffTrainInfoDto>> findPage(@RequestParam("staffNo") String staffNo,@RequestParam("pageNum")Integer pageNum,@RequestParam("pageSize")Integer pageSize){
+    public ComResponse<List<StaffTrainInfoDto>> findPage(@CurrentStaffNo @ApiIgnore String staffNo,@RequestParam("pageNum")Integer pageNum,@RequestParam("pageSize")Integer pageSize){
         ComResponse<List<StaffTrainInfoDto>>  staffTrain = staffAbnorService.findPage(staffNo,pageNum,pageSize);
         return staffTrain;
     }
