@@ -18,8 +18,8 @@ import java.util.List;
  * @author biebaojie
  * @since 2021-03-11 10:02:46
  */
-@FeignClient(value = "SalaryService",url = "${fegin.db.url}/salarySlip")
-//@FeignClient(value = "SalaryService", url = "localhost:38080/salarySlip")
+//@FeignClient(value = "SalaryService",url = "${fegin.db.url}/salarySlip")
+@FeignClient(value = "SalaryService", url = "localhost:38080/salarySlip")
 public interface SalarySlipFeignService {
 
     /**
