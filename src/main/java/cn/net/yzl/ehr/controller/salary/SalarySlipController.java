@@ -5,6 +5,8 @@ import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.common.enums.ResponseCodeEnums;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.salary.SalarySlipFeignService;
+import cn.net.yzl.ehr.util.MessageRemandAPI;
+import cn.net.yzl.staff.dto.salary.SalaryGrantStatusDto;
 import cn.net.yzl.staff.dto.salary.SalaryMyDto;
 import cn.net.yzl.staff.dto.salary.SalarySlipListShowDto;
 import cn.net.yzl.staff.enumeration.StaffTypeEnum;
@@ -109,8 +111,20 @@ public class SalarySlipController {
 
     @ApiOperation(value = "工资发放列表-发工资", notes = "工资发放列表-发工资")
     @PostMapping("/salaryFinalGrantStatusUpDate")
-    public ComResponse<Void> salaryFinalGrantStatusUpDate(@RequestBody List<SalaryGrantFinalVo> list) {
-        return salarySlipFeignService.salaryFinalGrantStatusUpDate(list);
+    public ComResponse<List<SalaryGrantStatusDto>> salaryFinalGrantStatusUpDate(@RequestBody List<SalaryGrantFinalVo> list, @ApiIgnore @CurrentStaffNo String staffNo) {
+        ComResponse<List<SalaryGrantStatusDto>> comResponse = salarySlipFeignService.salaryFinalGrantStatusUpDate(list);
+        if (comResponse.getCode() == 200){
+            List<SalaryGrantStatusDto> salaryGrantStatusDtos = comResponse.getData();
+            if (salaryGrantStatusDtos != null){
+                salaryGrantStatusDtos.forEach(item -> {
+                    MessageRemandAPI.paySalary(staffNo,
+                            item.getStaffNo(),
+                            item.getStaffName(),
+                            item.getDuration());
+                });
+            }
+        }
+        return comResponse;
     }
 
     @ApiOperation(value = "个人中心-我的工资", notes = "个人中心-我的工资")
