@@ -27,10 +27,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.ApiIgnore;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.net.URLEncoder;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
@@ -114,17 +114,18 @@ public class SalarySlipController {
     @PostMapping("/salaryFinalGrantStatusUpDate")
     public ComResponse<List<SalaryGrantStatusDto>> salaryFinalGrantStatusUpDate(@RequestBody List<SalaryGrantFinalVo> list, @ApiIgnore @CurrentStaffNo String staffNo) {
         ComResponse<List<SalaryGrantStatusDto>> comResponse = salarySlipFeignService.salaryFinalGrantStatusUpDate(list);
-//        if (comResponse.getCode() == 200){
-//            List<SalaryGrantStatusDto> salaryGrantStatusDtos = comResponse.getData();
-//            if (salaryGrantStatusDtos != null){
-//                salaryGrantStatusDtos.forEach(item -> {
-//                    MessageRemandAPI.paySalary(staffNo,
-//                            item.getStaffNo(),
-//                            item.getStaffName(),
-//                            item.getDuration());
-//                });
-//            }
-//        }
+        if (comResponse.getCode() == 200){
+            List<SalaryGrantStatusDto> salaryGrantStatusDtos = comResponse.getData();
+            if (salaryGrantStatusDtos != null){
+                salaryGrantStatusDtos.forEach(item -> {
+                    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy年MM月");
+                    MessageRemandAPI.paySalary(staffNo,
+                            item.getStaffNo(),
+                            item.getStaffName(),
+                            item.getDuration().format(dtf));
+                });
+            }
+        }
         return comResponse;
     }
 
