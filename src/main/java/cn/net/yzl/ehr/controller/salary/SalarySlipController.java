@@ -30,6 +30,7 @@ import springfox.documentation.annotations.ApiIgnore;
 import javax.servlet.http.HttpServletResponse;
 import java.net.URLEncoder;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
@@ -117,10 +118,11 @@ public class SalarySlipController {
             List<SalaryGrantStatusDto> salaryGrantStatusDtos = comResponse.getData();
             if (salaryGrantStatusDtos != null){
                 salaryGrantStatusDtos.forEach(item -> {
+                    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy年MM月");
                     MessageRemandAPI.paySalary(staffNo,
                             item.getStaffNo(),
                             item.getStaffName(),
-                            item.getDuration());
+                            item.getDuration().format(dtf));
                 });
             }
         }
