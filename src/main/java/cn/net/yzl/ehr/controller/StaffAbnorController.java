@@ -99,7 +99,7 @@ public class StaffAbnorController {
     public ComResponse<List<MsgTemplateVo>> timerUpdateAttendFalse(@RequestParam("today") @DateTimeFormat(pattern = "yyyy-MM-dd")
                                                                    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
                                                                            Date date) throws ParseException {
-         staffAbnorService.timerUpdateAttendFalse(date);
+        staffAbnorService.timerUpdateAttendFalse(date);
         return ComResponse.success();
     }
 }
