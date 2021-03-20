@@ -156,8 +156,8 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
                 staffTrainInfoDto.setTypeName(datum.getTypeName());
                 staffTrainInfoDto.setAbnorTime(datum.getAbnorTime());
                 staffTrainInfoDto.setContent(datum.getContent());
-                staffTrainInfoDto.setAdjustFront(String.valueOf(df.format((float)datum.getAdjustSalaryFront()/100)));
-                staffTrainInfoDto.setAdjustLater(String.valueOf(df.format((float)datum.getAdjustSalaryLater()/100)));
+                staffTrainInfoDto.setAdjustFront(String.valueOf(datum.getAdjustSalaryFrontD()));
+                staffTrainInfoDto.setAdjustLater(String.valueOf(datum.getAdjustSalaryLaterD()));
                 list.add(staffTrainInfoDto);
             }
         }
@@ -225,8 +225,8 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
                     staffTrainInfoDto.setTypeName(datum.getTypeName());
                     staffTrainInfoDto.setAbnorTime(datum.getAbnorTime());
                     staffTrainInfoDto.setContent(datum.getContent());
-                    staffTrainInfoDto.setAdjustFront(String.valueOf(df.format((float)datum.getAdjustSalaryFront())));
-                    staffTrainInfoDto.setAdjustLater(String.valueOf(df.format((float)datum.getAdjustSalaryLater())));
+                    staffTrainInfoDto.setAdjustFront(String.valueOf(datum.getAdjustSalaryFrontD()));
+                    staffTrainInfoDto.setAdjustLater(String.valueOf(datum.getAdjustSalaryLaterD()));
                     list.add(staffTrainInfoDto);
                 }
             }
