@@ -147,6 +147,12 @@ public class StaffController {
         return staffService.getListByParams(staffParamsVO);
     }
 
+    @ApiOperation(value = "模糊查询员工列表(部门员工查询)", notes = "模糊查询员工列表(部门员工查询)")
+    @RequestMapping(value = "/getListByParamsForDepart", method = RequestMethod.POST)
+    ComResponse<Page<StaffListDto>> getListByParamsForDepart(@RequestBody @Validated StaffParamsVO staffParamsVO) {
+        return staffService.getListByParamsForDepart(staffParamsVO);
+    }
+
     @ApiOperation(value = "将员工加入/移出人才池", notes = "将员工加入/移出人才池")
     @RequestMapping(value = "/swtichStaffTalentPoolAccount", method = RequestMethod.POST)
     ComResponse<Integer> swtichStaffTalentPoolAccount(@RequestBody StaffSwitchTalentPoolPo staffSwitchTalentPoolPo,@ApiIgnore @CurrentStaffNo String staffNo){
@@ -365,7 +371,7 @@ public class StaffController {
 
 
     @ApiOperation(value = "员工数据-导入", notes = "员工数据-导入", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @RequestMapping(value = "/importStaffInfo", method = RequestMethod.POST)
+    @RequestMapping(value = "/importStaffInfo", method = RequestMethod.GET)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "url", value = "文件路径(相对路径)", required = true, dataType = "String", paramType = "query"),
     })
@@ -393,7 +399,7 @@ public class StaffController {
 
     @ApiOperation(value = "员工数据-完善员工详情", notes = "员工数据-完善员工详情", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/completeInfo", method = RequestMethod.POST)
-    ComResponse<StaffDetailsDto> completeInfo(StaffInfoSaveVO staffInfoSaveVO) throws ParseException, ApiException{
+    ComResponse<StaffDetailsDto> completeInfo(@RequestBody @Validated StaffInfoSaveVO staffInfoSaveVO) throws ParseException, ApiException{
         return staffService.completeInfo(staffInfoSaveVO);
     }
 }

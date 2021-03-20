@@ -52,6 +52,10 @@ public interface StaffFeginService {
     @RequestMapping(value = "/staff/getListByParams", method = RequestMethod.POST)
     ComResponse<Page<StaffListDto>> getListByParams(@RequestBody StaffParamsVO staffParamsVO);
 
+    @ApiOperation(value = "模糊查询员工列表(部门员工查询)", notes = "模糊查询员工列表(部门员工查询)")
+    @RequestMapping(value = "/staff/getListByParamsForDepart", method = RequestMethod.POST)
+    ComResponse<Page<StaffListDto>> getListByParamsForDepart(@RequestBody StaffParamsVO staffParamsVO);
+
     @RequestMapping(value = "/staff/swtichStaffTalentPoolAccount", method = RequestMethod.POST)
     ComResponse<Integer> swtichStaffTalentPoolAccount(@RequestBody StaffSwitchTalentPoolPo staffSwitchTalentPoolPo);
 
@@ -82,17 +86,17 @@ public interface StaffFeginService {
     ComResponse<StatisticalStaffDto> getStaffTotalData();
 
     @RequestMapping(value = "/staff/importStaffInfo", method = RequestMethod.GET)
-    public ComResponse<ImportResultVo> importStaffInfo(String url) throws ParseException ;
+    public ComResponse<ImportResultVo> importStaffInfo(@RequestParam("url") String url) throws ParseException ;
 
     @RequestMapping(value = "/staff/getImportStaffList", method = RequestMethod.POST)
     public ComResponse<Page<StaffListDto>> getImportStaffList(@RequestBody StaffParamsVO staffParamsVO) throws ParseException ;
 
     @RequestMapping(value = "/staff/getImportStaff", method = RequestMethod.GET)
-    public ComResponse<StaffListDto> getImportStaff(Integer id) throws ParseException ;
+    public ComResponse<StaffListDto> getImportStaff(@RequestParam("id") Integer id) throws ParseException ;
 
     @RequestMapping(value = "/staff/deleteImportStaff", method = RequestMethod.GET)
-    public ComResponse<Integer> deleteImportStaff(Integer id) throws ParseException ;
+    public ComResponse<Integer> deleteImportStaff(@RequestParam("id") Integer id) throws ParseException ;
 
     @RequestMapping(value = "/staff/completeInfo", method = RequestMethod.POST)
-    ComResponse<StaffDetailsDto> completeInfo(@RequestBody @Validated StaffInfoSaveVO staffInfoSaveVO) throws ParseException, ApiException;
+    ComResponse<StaffDetailsDto> completeInfo(@RequestBody StaffInfoSaveVO staffInfoSaveVO) throws ParseException, ApiException;
 }
