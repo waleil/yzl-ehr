@@ -9,6 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -97,43 +98,43 @@ public class StaffAbnorRecordPo {
     @Min(0)
     private Integer adjustDepartPostLater;
 
-    @ApiModelProperty("调整前薪资")
+    @ApiModelProperty(value = "调整前薪资",hidden = true)
     @Min(0)
     private Integer adjustSalaryFront;
 
-    @ApiModelProperty("调整后薪资")
+    @ApiModelProperty(value = "调整后薪资",hidden = true)
     @Min(0)
     private Integer adjustSalaryLater;
 
-    @ApiModelProperty("调整前全勤薪资")
+    @ApiModelProperty(value = "调整前全勤薪资",hidden = true)
     @Min(0)
     private Integer adjustFullAttendanceSalaryFront;
 
-    @ApiModelProperty("调整后全勤薪资")
+    @ApiModelProperty(value = "调整后全勤薪资",hidden = true)
     @Min(0)
     private Integer adjustFullAttendanceSalaryLater;
 
-    @ApiModelProperty("调整前绩效薪资")
+    @ApiModelProperty(value = "调整前绩效薪资",hidden = true)
     @Min(0)
     private Integer adjustPerformanceSalaryFront;
 
-    @ApiModelProperty("调整后绩效薪资")
+    @ApiModelProperty(value = "调整后绩效薪资",hidden = true)
     @Min(0)
     private Integer adjustPerformanceSalaryLater;
 
-    @ApiModelProperty("调整前岗位薪资")
+    @ApiModelProperty(value = "调整前岗位薪资",hidden = true)
     @Min(0)
     private Integer adjustWageSalaryFront;
 
-    @ApiModelProperty("调整后岗位薪资")
+    @ApiModelProperty(value = "调整后岗位薪资",hidden = true)
     @Min(0)
     private Integer adjustWageSalaryLater;
 
-    @ApiModelProperty("调整前基本薪资")
+    @ApiModelProperty(value = "调整前基本薪资",hidden = true)
     @Min(0)
     private Integer adjustBasicSalaryFront;
 
-    @ApiModelProperty("调整后基本薪资")
+    @ApiModelProperty(value = "调整后基本薪资",hidden = true)
     @Min(0)
     private Integer adjustBasicSalaryLater;
 
@@ -144,6 +145,38 @@ public class StaffAbnorRecordPo {
     @ApiModelProperty("调整后基本薪资类型（1.日工资，2.月工资）")
     @Min(0)
     private Integer adjustBasicSalaryTypeLater;
+
+
+    @ApiModelProperty("调整前薪资(元)")
+    @Min(0)
+    private Double adjustSalaryFrontD;
+
+    @ApiModelProperty("调整后薪资(元)")
+    private Double adjustSalaryLaterD;
+
+    @ApiModelProperty("调整前全勤薪资(元)")
+    private Double adjustFullAttendanceSalaryFrontD;
+
+    @ApiModelProperty("调整后全勤薪资(元)")
+    private Double adjustFullAttendanceSalaryLaterD;
+
+    @ApiModelProperty("调整前绩效薪资(元)")
+    private Double adjustPerformanceSalaryFrontD;
+
+    @ApiModelProperty("调整后绩效薪资(元)")
+    private Double adjustPerformanceSalaryLaterD;
+
+    @ApiModelProperty("调整前岗位薪资(元)")
+    private Double adjustWageSalaryFrontD;
+
+    @ApiModelProperty("调整后岗位薪资(元)")
+    private Double adjustWageSalaryLaterD;
+
+    @ApiModelProperty("调整前基本薪资(元)")
+    private Double adjustBasicSalaryFrontD;
+
+    @ApiModelProperty("调整后基本薪资(元)")
+    private Double adjustBasicSalaryLaterD;
 
     @ApiModelProperty("异动时间")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -160,5 +193,85 @@ public class StaffAbnorRecordPo {
 
     @ApiModelProperty(value = "创建人",hidden = true)
     private String creator;
+
+    public void setAdjustSalaryFrontD(Double adjustSalaryFrontD) {
+        this.adjustSalaryFrontD = adjustSalaryFrontD;
+        if(adjustSalaryFrontD!=null){
+            adjustSalaryFrontD= adjustSalaryFrontD*100;
+            this.adjustSalaryFront=adjustSalaryFrontD.intValue();
+        }
+    }
+
+    public void setAdjustSalaryLaterD(Double adjustSalaryLaterD) {
+        this.adjustSalaryLaterD = adjustSalaryLaterD;
+        if(adjustSalaryLaterD!=null){
+            adjustSalaryLaterD= adjustSalaryLaterD*100;
+            this.adjustSalaryLater=adjustSalaryLaterD.intValue();
+        }
+    }
+
+    public void setAdjustFullAttendanceSalaryFrontD(Double adjustFullAttendanceSalaryFrontD) {
+        this.adjustFullAttendanceSalaryFrontD = adjustFullAttendanceSalaryFrontD;
+        if(adjustFullAttendanceSalaryFrontD!=null){
+            adjustFullAttendanceSalaryFrontD= adjustFullAttendanceSalaryFrontD*100;
+            this.adjustFullAttendanceSalaryFront=adjustFullAttendanceSalaryFrontD.intValue();
+        }
+    }
+
+    public void setAdjustFullAttendanceSalaryLaterD(Double adjustFullAttendanceSalaryLaterD) {
+        this.adjustFullAttendanceSalaryLaterD = adjustFullAttendanceSalaryLaterD;
+        if(adjustFullAttendanceSalaryLaterD!=null){
+            adjustFullAttendanceSalaryLaterD= adjustFullAttendanceSalaryLaterD*100;
+            this.adjustFullAttendanceSalaryLater=adjustFullAttendanceSalaryLaterD.intValue();
+        }
+    }
+
+    public void setAdjustPerformanceSalaryFrontD(Double adjustPerformanceSalaryFrontD) {
+        this.adjustPerformanceSalaryFrontD = adjustPerformanceSalaryFrontD;
+        if(adjustPerformanceSalaryFrontD!=null){
+            adjustPerformanceSalaryFrontD= adjustPerformanceSalaryFrontD*100;
+            this.adjustPerformanceSalaryFront=adjustPerformanceSalaryFrontD.intValue();
+        }
+    }
+
+    public void setAdjustPerformanceSalaryLaterD(Double adjustPerformanceSalaryLaterD) {
+        this.adjustPerformanceSalaryLaterD = adjustPerformanceSalaryLaterD;
+        if(adjustPerformanceSalaryLaterD!=null){
+            adjustPerformanceSalaryLaterD= adjustPerformanceSalaryLaterD*100;
+            this.adjustPerformanceSalaryLater=adjustPerformanceSalaryLaterD.intValue();
+        }
+    }
+
+    public void setAdjustWageSalaryFrontD(Double adjustWageSalaryFrontD) {
+        this.adjustWageSalaryFrontD = adjustWageSalaryFrontD;
+        if(adjustWageSalaryFrontD!=null){
+            adjustWageSalaryFrontD= adjustWageSalaryFrontD*100;
+            this.adjustWageSalaryFront=adjustWageSalaryFrontD.intValue();
+        }
+    }
+
+    public void setAdjustWageSalaryLaterD(Double adjustWageSalaryLaterD) {
+        this.adjustWageSalaryLaterD = adjustWageSalaryLaterD;
+        if(adjustWageSalaryLaterD!=null){
+            adjustWageSalaryLaterD= adjustWageSalaryLaterD*100;
+            this.adjustWageSalaryLater=adjustWageSalaryLaterD.intValue();
+        }
+    }
+
+    public void setAdjustBasicSalaryFrontD(Double adjustBasicSalaryFrontD) {
+        this.adjustBasicSalaryFrontD = adjustBasicSalaryFrontD;
+        if(adjustBasicSalaryFrontD!=null){
+            adjustBasicSalaryFrontD= adjustBasicSalaryFrontD*100;
+            this.adjustBasicSalaryFront=adjustBasicSalaryFrontD.intValue();
+        }
+    }
+
+    public void setAdjustBasicSalaryLaterD(Double adjustBasicSalaryLaterD) {
+        this.adjustBasicSalaryLaterD = adjustBasicSalaryLaterD;
+        if(adjustBasicSalaryLaterD!=null){
+            adjustBasicSalaryLaterD= adjustBasicSalaryLaterD*100;
+            this.adjustBasicSalaryLater=adjustBasicSalaryLaterD.intValue();
+        }
+    }
 
 }
