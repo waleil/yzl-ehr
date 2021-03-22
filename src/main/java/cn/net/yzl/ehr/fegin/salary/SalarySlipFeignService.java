@@ -78,6 +78,7 @@ public interface SalarySlipFeignService {
     @PostMapping("/salaryFinalGrantStatusUpDate")
     ComResponse<List<SalaryGrantStatusDto>> salaryFinalGrantStatusUpDate(List<SalaryGrantFinalVo> list);
 
+
     /**
      * 我的工资
      *

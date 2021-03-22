@@ -20,6 +20,8 @@ import java.util.Date;
 @ApiModel(value = "DepartDto", description = "部门实体信息")
 public class StaffListDto implements Serializable {
 
+    @ApiModelProperty(value = "id", name = "id")
+    private Integer id;
     @ApiModelProperty(value = "用户名称", name = "name")
     private String name;
     @ApiModelProperty(value = "拼音名", name = "enName")
@@ -31,7 +33,8 @@ public class StaffListDto implements Serializable {
     @ApiModelProperty(value = "员工工号", name = "staffNo")
     @Id
     private String staffNo;
-
+    @ApiModelProperty(value = "身份证号", name = "idCardNo")
+    private String idCardNo;
     @ApiModelProperty(value = "工作地点code", name = "workplaceCode")
     private Integer workplaceCode;
     @ApiModelProperty(value = "工作地点", name = "workplaceCodeStr")
@@ -97,13 +100,23 @@ public class StaffListDto implements Serializable {
     @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private Date abnorTime;
     @ApiModelProperty(value = "入岗时间", name = "postTime")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private Date postTime;
+    @ApiModelProperty(value = "转正时间", name = "positiveTime")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
+    private Date positiveTime;
     @ApiModelProperty(value = "最近调入岗时间", name = "transferPostTime")
     @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private Date transferPostTime;
     @ApiModelProperty(value = "离职时间", name = "dimissionTime")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private Date dimissionTime;
     @ApiModelProperty(value = "薪资核算结算日", name = "payrollAccountingDate")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private Date payrollAccountingDate;
     @ApiModelProperty(value = "培训次数", name = "trainingTimes")
     private Integer training_times;
@@ -121,6 +134,8 @@ public class StaffListDto implements Serializable {
     private String enterStatusName;
     @ApiModelProperty(value = "是否有异动历史(0.无,1.有)", name = "abnorHistory")
     private Integer abnorHistory;
+    @ApiModelProperty(value = "是否补全（0.未补全，1.已补全）", name = "isComplete")
+    private Integer isComplete;
 
     public void setSex(Integer sex) {
         if(sex!=null) {

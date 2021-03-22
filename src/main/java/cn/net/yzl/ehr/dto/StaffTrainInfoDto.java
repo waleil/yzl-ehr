@@ -10,7 +10,7 @@ import java.util.Date;
 @Data
 public class StaffTrainInfoDto  implements Serializable {
 
-    @ApiModelProperty("异动类型")
+    @ApiModelProperty("异动类型:23离职-加急24入职25培训26调岗27转正28晋升29调薪30劝退31离职-自动68离职-正常69入岗72等级晋升73等级下调")
     private Integer type;
 
     @ApiModelProperty("异动类型名称")

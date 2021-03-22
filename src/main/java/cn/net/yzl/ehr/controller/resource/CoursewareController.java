@@ -2,6 +2,7 @@ package cn.net.yzl.ehr.controller.resource;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
+import cn.net.yzl.common.enums.ResponseCodeEnums;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.dto.CourseWareCategoryDto;
 import cn.net.yzl.ehr.service.resource.CoursewareService;
@@ -29,12 +30,26 @@ public class CoursewareController {
     @ApiOperation(value = "新增课件", notes = "新增课件", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/insertcourse", method = RequestMethod.POST)
     ComResponse<Integer> insertCourseWare(@RequestBody CourseWarePo courseWarePo, @ApiIgnore @CurrentStaffNo String creator) {
+        if (!StringUtils.hasText(courseWarePo.getDesc())){
+            return ComResponse.fail(ResponseCodeEnums.ERROR,"课件描述不能为空");
+        }
+//        System.err.println(courseWarePo.getDesc().length());
+        if (courseWarePo.getDesc().length()>20000){
+            return ComResponse.fail(ResponseCodeEnums.ERROR,"课件描述不能超过20000个字符");
+        }
         return courseWareService.insertCourseWare(courseWarePo,creator);
     }
 
     @ApiOperation(value = "编辑课件", notes = "编辑课件", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/updatecourse", method = RequestMethod.POST)
     ComResponse<Integer> updateCourseWare(@RequestBody CourseWarePo courseWarePo,@ApiIgnore @CurrentStaffNo String updator) {
+        if (!StringUtils.hasText(courseWarePo.getDesc())){
+            return ComResponse.fail(ResponseCodeEnums.ERROR,"课件描述不能为空");
+        }
+//        System.err.println(courseWarePo.getDesc().length());
+        if (courseWarePo.getDesc().length()>20000){
+            return ComResponse.fail(ResponseCodeEnums.ERROR,"课件描述不能超过20000个字符");
+        }
         return courseWareService.updateCourseWare(courseWarePo,updator);
     }
 

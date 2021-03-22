@@ -10,6 +10,7 @@ import cn.net.yzl.ehr.dto.StaffTrainInfoDto;
 import cn.net.yzl.ehr.fegin.staff.StaffAbnorFeginService;
 import cn.net.yzl.ehr.fegin.staff.StaffFeginService;
 import cn.net.yzl.ehr.pojo.StaffAbnorRecordPo;
+import cn.net.yzl.ehr.pojo.StaffAbnorRecordSalaryPo;
 import cn.net.yzl.ehr.pojo.StaffSwitchStatePo;
 import cn.net.yzl.ehr.service.StaffAbnorService;
 import cn.net.yzl.msg.model.vo.MsgTemplateVo;
@@ -18,11 +19,13 @@ import cn.net.yzl.staff.dto.StaffTrainDto;
 import cn.net.yzl.staff.pojo.AbnorRecordPo;
 import cn.net.yzl.staff.pojo.RunAbnorRecordPo;
 import cn.net.yzl.staff.util.DateStaffUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -55,6 +58,10 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
 
     @Override
     public ComResponse<Integer> executeStaffChange(StaffAbnorRecordPo staffChangePo,String staffNo) throws ParseException {
+//        //更改转化金额*100
+//        StaffAbnorRecordSalaryPo staffAbnorRecordSalaryPo=new StaffAbnorRecordSalaryPo();
+//        BeanUtils.copyProperties(staffChangePo,staffAbnorRecordSalaryPo);
+//        BeanUtils.copyProperties(staffAbnorRecordSalaryPo,staffChangePo);
 
         staffChangePo.setCreator(staffNo);
         ComResponse<StaffDetailsDto> detailsByNo = staffFeginService.getDetailsByNo(staffChangePo.getStaffNo());
@@ -94,7 +101,8 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
 
     @Override
     public ComResponse<List<StaffTrainInfoDto>> find(String staffNo) {
-        ComResponse<List<StaffTrainDto>> listComResponse = staffAbnorFeginService.find(staffNo);
+       DecimalFormat df=new DecimalFormat("0.00");
+       ComResponse<List<StaffTrainDto>> listComResponse = staffAbnorFeginService.find(staffNo);
        List<StaffTrainInfoDto>list = new ArrayList<>();
         for (StaffTrainDto datum : listComResponse.getData()) {
             if(datum.getType()==26){
@@ -113,16 +121,18 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
                 staffTrainInfoDto.setAbnorTime(datum.getAbnorTime());
                 staffTrainInfoDto.setContent(datum.getContent());
                 staffTrainInfoDto.setAdjustFront(datum.getAdjustDepartNameFront());
+                staffTrainInfoDto.setAdjustFront(datum.getAdjustDepartNameFront());
                 staffTrainInfoDto.setAdjustLater(datum.getAdjustPostNameLater());
                 list.add(staffTrainInfoDto);
-            }if (datum.getType()==24 || datum.getType()==69){
+            }if (datum.getType()==24 || datum.getType()==69){ //入职||入岗
                 StaffTrainInfoDto staffTrainInfoDto = new StaffTrainInfoDto();
                 staffTrainInfoDto.setType(datum.getType());
                 staffTrainInfoDto.setTypeName(datum.getTypeName());
                 staffTrainInfoDto.setAbnorTime(datum.getAbnorTime());
                 staffTrainInfoDto.setContent(datum.getContent());
+                //  页面显示为调整前后，数据无调整前，将调整后部门的值赋给调整前
+                staffTrainInfoDto.setAdjustFront(datum.getAdjustDepartNameLater());
                 staffTrainInfoDto.setAdjustLater(datum.getAdjustDepartNameLater());
-                staffTrainInfoDto.setAdjustLater(datum.getAdjustPostNameLater());
                 list.add(staffTrainInfoDto);
             }if (datum.getType()==27){
                 StaffTrainInfoDto staffTrainInfoDto = new StaffTrainInfoDto();
@@ -130,7 +140,8 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
                 staffTrainInfoDto.setTypeName(datum.getTypeName());
                 staffTrainInfoDto.setAbnorTime(datum.getAbnorTime());
                 staffTrainInfoDto.setContent(datum.getContent());
-                staffTrainInfoDto.setAdjustLater(datum.getAdjustDepartNameLater());
+                //  页面显示为调整前后，数据无调整前，将调整后岗位的值赋给调整前
+                staffTrainInfoDto.setAdjustLater(datum.getAdjustPostNameLater());
                 staffTrainInfoDto.setAdjustLater(datum.getAdjustPostNameLater());
                 list.add(staffTrainInfoDto);
             }if (datum.getType()==72 || datum.getType()== 73){
@@ -148,8 +159,8 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
                 staffTrainInfoDto.setTypeName(datum.getTypeName());
                 staffTrainInfoDto.setAbnorTime(datum.getAbnorTime());
                 staffTrainInfoDto.setContent(datum.getContent());
-                staffTrainInfoDto.setAdjustFront(String.valueOf(datum.getAdjustSalaryFront()));
-                staffTrainInfoDto.setAdjustLater(String.valueOf(datum.getAdjustSalaryLater()));
+                staffTrainInfoDto.setAdjustFront(String.valueOf(datum.getAdjustSalaryFrontD()));
+                staffTrainInfoDto.setAdjustLater(String.valueOf(datum.getAdjustSalaryLaterD()));
                 list.add(staffTrainInfoDto);
             }
         }
@@ -161,6 +172,7 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
 
     @Override
     public ComResponse<List<StaffTrainInfoDto>> findPage(String staffNo, Integer pageNum, Integer pageSize) {
+        DecimalFormat df=new DecimalFormat("0.00");
         ComResponse<List<StaffTrainDto>> listComResponse = staffAbnorFeginService.findPage(staffNo,pageNum,pageSize);
         List<StaffTrainInfoDto>list = new ArrayList<>();
         if(listComResponse.getData()!=null){
@@ -216,8 +228,8 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
                     staffTrainInfoDto.setTypeName(datum.getTypeName());
                     staffTrainInfoDto.setAbnorTime(datum.getAbnorTime());
                     staffTrainInfoDto.setContent(datum.getContent());
-                    staffTrainInfoDto.setAdjustFront(String.valueOf(datum.getAdjustSalaryFront()));
-                    staffTrainInfoDto.setAdjustLater(String.valueOf(datum.getAdjustSalaryLater()));
+                    staffTrainInfoDto.setAdjustFront(String.valueOf(datum.getAdjustSalaryFrontD()));
+                    staffTrainInfoDto.setAdjustLater(String.valueOf(datum.getAdjustSalaryLaterD()));
                     list.add(staffTrainInfoDto);
                 }
             }
