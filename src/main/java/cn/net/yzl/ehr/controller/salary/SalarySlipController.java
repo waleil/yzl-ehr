@@ -115,9 +115,9 @@ public class SalarySlipController {
     @PostMapping("/salaryFinalGrantStatusUpDate")
     public ComResponse<List<SalaryGrantStatusDto>> salaryFinalGrantStatusUpDate(@RequestBody List<SalaryGrantFinalVo> list, @ApiIgnore @CurrentStaffNo String staffNo) {
         ComResponse<List<SalaryGrantStatusDto>> comResponse = salarySlipFeignService.salaryFinalGrantStatusUpDate(list);
-        if (comResponse.getCode() == 200){
+        if (comResponse.getCode() == 200) {
             List<SalaryGrantStatusDto> salaryGrantStatusDtos = comResponse.getData();
-            if (salaryGrantStatusDtos != null){
+            if (salaryGrantStatusDtos != null) {
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy年MM月");
                 salaryGrantStatusDtos.forEach(item -> {
                     MessageRemandAPI.paySalary(staffNo,
@@ -132,7 +132,8 @@ public class SalarySlipController {
 
     @ApiOperation(value = "个人中心-我的工资", notes = "个人中心-我的工资")
     @PostMapping("/mySalary")
-    public ComResponse<SalaryMyDto> mySalary(@RequestBody MySalaryVo mySalaryVo) {
+    public ComResponse<SalaryMyDto> mySalary(@RequestBody MySalaryVo mySalaryVo, @ApiIgnore @CurrentStaffNo String staffNo) {
+        mySalaryVo.setStaffNo(staffNo);
         return salarySlipFeignService.mySalary(mySalaryVo);
     }
 }
