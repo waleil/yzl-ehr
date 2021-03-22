@@ -39,4 +39,7 @@ public interface ResumeInterviewFeginService {
 
     @RequestMapping(value = "/getResumeInterviewTimeDtoPageByStaffNo", method = RequestMethod.GET)
     ComResponse<Page<ResumeInterviewTimeDto>> getResumeInterviewTimeDtoPageByStaffNo(@RequestParam("staffNo") String staffNo, @RequestParam("pageNo") Integer pageNo, @RequestParam("pageSize") Integer pageSize);
+
+    @RequestMapping(value = "/takeBack", method = RequestMethod.GET)
+    ComResponse<String> takeBack(@RequestParam("interviewResumeId")Integer interviewResumeId) throws IllegalAccessException ;
 }
