@@ -5,6 +5,7 @@ import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.processActiveService.FindProcessNodeService;
 import cn.net.yzl.ehr.util.FastDFSClientWrapper;
 import cn.net.yzl.ehr.util.MessageRemandAPI;
+import cn.net.yzl.staff.dto.StaffDetailsDto;
 import cn.net.yzl.staff.dto.personApprove.ApproveLeaveDTO;
 import cn.net.yzl.staff.dto.personApprove.ApproveLeaveDayDTO;
 import cn.net.yzl.staff.dto.processNode.ProcessNodeDTO;
@@ -37,9 +38,8 @@ public class ProcessActiveController {
 
     @GetMapping("v1/findProcessInfoList")
     @ApiOperation(value = "获取流程每个节点信息")
-    public ComResponse<List<ProcessNodeDTO>> findProcessInfoList(@RequestParam @NotNull Integer processId,
-                                                                 @RequestParam @NotNull @CurrentStaffNo String staffNo) {
-        return findProcessNodeService.findProcessInfoList(processId,staffNo);
+    public ComResponse<StaffDetailsDto> findProcessInfoList(@RequestParam @NotNull @CurrentStaffNo String staffNo) {
+        return findProcessNodeService.findProcessInfoList(staffNo);
     }
 
     @PostMapping("v1/saveProcessLeaveInfo")
