@@ -6,6 +6,8 @@ import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Min;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.Date;
 
 /**
@@ -109,6 +111,37 @@ public class StaffAbnorRecordDto {
     @ApiModelProperty("调整后基本薪资")
     private Integer adjustBasicSalaryLater;
 
+
+    @ApiModelProperty("调整前薪资(元)")
+    private Double adjustSalaryFrontD;
+
+    @ApiModelProperty("调整后薪资(元)")
+    private Double adjustSalaryLaterD;
+
+    @ApiModelProperty("调整前全勤薪资(元)")
+    private Double adjustFullAttendanceSalaryFrontD;
+
+    @ApiModelProperty("调整后全勤薪资(元)")
+    private Double adjustFullAttendanceSalaryLaterD;
+
+    @ApiModelProperty("调整前绩效薪资(元)")
+    private Double adjustPerformanceSalaryFrontD;
+
+    @ApiModelProperty("调整后绩效薪资(元)")
+    private Double adjustPerformanceSalaryLaterD;
+
+    @ApiModelProperty("调整前岗位薪资(元)")
+    private Double adjustWageSalaryFrontD;
+
+    @ApiModelProperty("调整后岗位薪资(元)")
+    private Double adjustWageSalaryLaterD;
+
+    @ApiModelProperty("调整前基本薪资(元)")
+    private Double adjustBasicSalaryFrontD;
+
+    @ApiModelProperty("调整后基本薪资(元)")
+    private Double adjustBasicSalaryLaterD;
+
     @ApiModelProperty("调整前基本薪资类型（1.日工资，2.月工资）")
     private Integer adjustBasicSalaryTypeFront;
 
@@ -143,5 +176,73 @@ public class StaffAbnorRecordDto {
     private Date createTime;
 
 
+    public void setAdjustSalaryFront(Integer adjustSalaryFront) {
+        this.adjustSalaryFront = adjustSalaryFront;
+        if(adjustSalaryFront!=null){
+            this.adjustSalaryFrontD= (double) adjustSalaryFront/100;
+        }
+    }
 
+    public void setAdjustSalaryLater(Integer adjustSalaryLater) {
+        this.adjustSalaryLater = adjustSalaryLater;
+        if(adjustSalaryLater!=null){
+            this.adjustSalaryLaterD= (double) adjustSalaryLater/100;
+        }
+    }
+
+    public void setAdjustFullAttendanceSalaryFront(Integer adjustFullAttendanceSalaryFront) {
+        this.adjustFullAttendanceSalaryFront = adjustFullAttendanceSalaryFront;
+        if(adjustFullAttendanceSalaryFront!=null){
+            this.adjustFullAttendanceSalaryFrontD= (double) adjustFullAttendanceSalaryFront/100;
+        }
+    }
+
+    public void setAdjustFullAttendanceSalaryLater(Integer adjustFullAttendanceSalaryLater) {
+        this.adjustFullAttendanceSalaryLater = adjustFullAttendanceSalaryLater;
+        if(adjustFullAttendanceSalaryLater!=null){
+            this.adjustFullAttendanceSalaryLaterD= (double) adjustFullAttendanceSalaryLater/100;
+        }
+    }
+
+    public void setAdjustPerformanceSalaryFront(Integer adjustPerformanceSalaryFront) {
+        this.adjustPerformanceSalaryFront = adjustPerformanceSalaryFront;
+        if(adjustPerformanceSalaryFront!=null){
+            this.adjustPerformanceSalaryFrontD= (double) adjustPerformanceSalaryFront/100;
+        }
+    }
+
+    public void setAdjustPerformanceSalaryLater(Integer adjustPerformanceSalaryLater) {
+        this.adjustPerformanceSalaryLater = adjustPerformanceSalaryLater;
+        if(adjustPerformanceSalaryLater!=null){
+            this.adjustPerformanceSalaryLaterD= (double) adjustPerformanceSalaryLater/100;
+        }
+    }
+
+    public void setAdjustWageSalaryFront(Integer adjustWageSalaryFront) {
+        this.adjustWageSalaryFront = adjustWageSalaryFront;
+        if(adjustWageSalaryFront!=null){
+            this.adjustWageSalaryFrontD= (double) adjustWageSalaryFront/100;
+        }
+    }
+
+    public void setAdjustWageSalaryLater(Integer adjustWageSalaryLater) {
+        this.adjustWageSalaryLater = adjustWageSalaryLater;
+        if(adjustWageSalaryLater!=null){
+            this.adjustWageSalaryLaterD= (double) adjustWageSalaryLater/100;
+        }
+    }
+
+    public void setAdjustBasicSalaryFront(Integer adjustBasicSalaryFront) {
+        this.adjustBasicSalaryFront = adjustBasicSalaryFront;
+        if(adjustBasicSalaryFront!=null){
+            this.adjustBasicSalaryFrontD= (double) adjustBasicSalaryFront/100;
+        }
+    }
+
+    public void setAdjustBasicSalaryLater(Integer adjustBasicSalaryLater) {
+        this.adjustBasicSalaryLater = adjustBasicSalaryLater;
+        if(adjustBasicSalaryLater!=null){
+            this.adjustBasicSalaryLaterD= (double) adjustBasicSalaryLater/100;
+        }
+    }
 }
