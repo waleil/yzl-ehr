@@ -84,5 +84,12 @@ public class ResumeInterviewController {
         return rep;
     }
 
-
+    @ApiOperation(value = "简历列表-收回面试", notes = "简历列表-收回面试", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/takeBack", method = RequestMethod.GET)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "interviewResumeId", value = "面试简历id", required = true, dataType = "Int", paramType = "query")
+    })
+    ComResponse<String> takeBack(Integer interviewResumeId) throws IllegalAccessException {
+        return resumeInterviewFeginService.takeBack(interviewResumeId);
+    }
 }
