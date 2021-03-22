@@ -170,6 +170,8 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
     @Override
     public ComResponse<List<StaffTrainInfoDto>> findPage(String staffNo, Integer pageNum, Integer pageSize) {
         DecimalFormat df=new DecimalFormat("0.00");
+        StringBuffer front=new StringBuffer("");
+        StringBuffer later=new StringBuffer("");
         ComResponse<List<StaffTrainDto>> listComResponse = staffAbnorFeginService.findPage(staffNo,pageNum,pageSize);
         List<StaffTrainInfoDto>list = new ArrayList<>();
         if(listComResponse.getData()!=null){
@@ -225,8 +227,45 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
                     staffTrainInfoDto.setTypeName(datum.getTypeName());
                     staffTrainInfoDto.setAbnorTime(datum.getAbnorTime());
                     staffTrainInfoDto.setContent(datum.getContent());
-                    staffTrainInfoDto.setAdjustFront(String.valueOf(datum.getAdjustSalaryFrontD()));
-                    staffTrainInfoDto.setAdjustLater(String.valueOf(datum.getAdjustSalaryLaterD()));
+                    if(datum.getAdjustSalaryFrontD()!=null ){
+                        front.append("调整前岗位薪酬："+datum.getAdjustSalaryFrontD()+";");
+                    }
+                    if(datum.getAdjustSalaryLaterD()!=null){
+                        later.append("调整后岗位薪酬："+datum.getAdjustSalaryLaterD()+";");
+                    }
+                    if(datum.getAdjustFullAttendanceSalaryFrontD()!=null){
+                        front.append("调整前全勤工资："+datum.getAdjustFullAttendanceSalaryFrontD()+";");
+                    }
+                    if(datum.getAdjustFullAttendanceSalaryLaterD()!=null){
+                        later.append("调整后全勤工资："+datum.getAdjustFullAttendanceSalaryLaterD()+";");
+                    }
+                    if(datum.getAdjustPerformanceSalaryFrontD()!=null){
+                        front.append("调整前绩效工资："+datum.getAdjustPerformanceSalaryFrontD()+";");
+                    }
+                    if(datum.getAdjustPerformanceSalaryLaterD()!=null){
+                        later.append("调整后绩效工资："+datum.getAdjustPerformanceSalaryLaterD()+";");
+                    }
+                    if(datum.getAdjustWageSalaryFrontD()!=null){
+                        front.append("调整前岗位工资："+datum.getAdjustWageSalaryFrontD()+";");
+                    }
+                    if(datum.getAdjustWageSalaryLaterD()!=null){
+                        later.append("调整后岗位工资："+datum.getAdjustWageSalaryLaterD()+";");
+                    }
+                    if(datum.getAdjustBasicSalaryFrontD()!=null){
+                        front.append("调整前基本工资："+datum.getAdjustBasicSalaryFrontD()+";");
+                    }
+                    if(datum.getAdjustBasicSalaryLaterD()!=null){
+                        later.append("调整后基本工资："+datum.getAdjustBasicSalaryLaterD()+";");
+                    }
+                    if(datum.getAdjustBasicSalaryTypeFront()!=null){
+                        front.append("调整前基本工资类型："+ (datum.getAdjustBasicSalaryTypeFront()==1?"日薪":"月薪")+";");
+                    }
+                    if(datum.getAdjustBasicSalaryTypeLater()!=null){
+                        later.append("调整后基本工资类型："+ (datum.getAdjustBasicSalaryTypeLater()==1?"日薪":"月薪")+";");
+                    }
+
+                    staffTrainInfoDto.setAdjustFront(String.valueOf(front));
+                    staffTrainInfoDto.setAdjustLater(String.valueOf(later));
                     list.add(staffTrainInfoDto);
                 }
             }
