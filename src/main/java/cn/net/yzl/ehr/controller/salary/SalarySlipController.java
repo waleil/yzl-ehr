@@ -117,8 +117,8 @@ public class SalarySlipController {
         if (comResponse.getCode() == 200){
             List<SalaryGrantStatusDto> salaryGrantStatusDtos = comResponse.getData();
             if (salaryGrantStatusDtos != null){
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy年MM月");
                 salaryGrantStatusDtos.forEach(item -> {
-                    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy年MM月");
                     MessageRemandAPI.paySalary(staffNo,
                             item.getStaffNo(),
                             item.getStaffName(),
