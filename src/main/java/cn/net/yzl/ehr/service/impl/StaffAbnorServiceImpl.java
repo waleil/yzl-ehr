@@ -121,16 +121,18 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
                 staffTrainInfoDto.setAbnorTime(datum.getAbnorTime());
                 staffTrainInfoDto.setContent(datum.getContent());
                 staffTrainInfoDto.setAdjustFront(datum.getAdjustDepartNameFront());
+                staffTrainInfoDto.setAdjustFront(datum.getAdjustDepartNameFront());
                 staffTrainInfoDto.setAdjustLater(datum.getAdjustPostNameLater());
                 list.add(staffTrainInfoDto);
-            }if (datum.getType()==24 || datum.getType()==69){
+            }if (datum.getType()==24 || datum.getType()==69){ //入职||入岗
                 StaffTrainInfoDto staffTrainInfoDto = new StaffTrainInfoDto();
                 staffTrainInfoDto.setType(datum.getType());
                 staffTrainInfoDto.setTypeName(datum.getTypeName());
                 staffTrainInfoDto.setAbnorTime(datum.getAbnorTime());
                 staffTrainInfoDto.setContent(datum.getContent());
+                //  页面显示为调整前后，数据无调整前，将调整后部门的值赋给调整前
+                staffTrainInfoDto.setAdjustFront(datum.getAdjustDepartNameLater());
                 staffTrainInfoDto.setAdjustLater(datum.getAdjustDepartNameLater());
-                staffTrainInfoDto.setAdjustLater(datum.getAdjustPostNameLater());
                 list.add(staffTrainInfoDto);
             }if (datum.getType()==27){
                 StaffTrainInfoDto staffTrainInfoDto = new StaffTrainInfoDto();
@@ -138,7 +140,8 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
                 staffTrainInfoDto.setTypeName(datum.getTypeName());
                 staffTrainInfoDto.setAbnorTime(datum.getAbnorTime());
                 staffTrainInfoDto.setContent(datum.getContent());
-                staffTrainInfoDto.setAdjustLater(datum.getAdjustDepartNameLater());
+                //  页面显示为调整前后，数据无调整前，将调整后岗位的值赋给调整前
+                staffTrainInfoDto.setAdjustLater(datum.getAdjustPostNameLater());
                 staffTrainInfoDto.setAdjustLater(datum.getAdjustPostNameLater());
                 list.add(staffTrainInfoDto);
             }if (datum.getType()==72 || datum.getType()== 73){
