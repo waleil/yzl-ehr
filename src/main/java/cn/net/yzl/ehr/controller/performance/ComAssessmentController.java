@@ -42,14 +42,16 @@ public class ComAssessmentController {
             @ApiImplicitParam(name = "undertakStaffCode", value = "承接任务员工编号", required = true, dataType = "String", paramType = "query"),
             @ApiImplicitParam(name = "taskCycleTime", value = "任务周期yyyy-MM", dataType = "String", paramType = "query"),
             @ApiImplicitParam(name = "isPerformance", value = "是否作为绩效考核  (1:是 0:否)", dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "fromPage", value = "页面入口(personalCenter:个人中心 archive:提成考核)", dataType = "String", paramType = "query"),
     })
     @ApiOperation(value = "获取员工完成任务目标情况列表", notes = "获取员工完成任务目标情况列表", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/getBiStaffTargetTaskSettingList", method = RequestMethod.GET)
     ComResponse<BiStaffTargetTaskVO> getBiStaffTargetTaskSettingList(@RequestParam(name = "undertakStaffCode") String undertakStaffCode,
                                                                      @RequestParam(name = "taskCycleTime") String taskCycleTime,
                                                                      @RequestParam(name = "isPerformance",required = false) Integer isPerformance,
+                                                                     @RequestParam(name = "fromPage") String fromPage,
                                                                      @CurrentStaffNo @ApiIgnore String staffNo){
-        return  comAssessmentFeginService.getBiStaffTargetTaskSettingList(undertakStaffCode, taskCycleTime, isPerformance,staffNo);
+        return  comAssessmentFeginService.getBiStaffTargetTaskSettingList(undertakStaffCode, taskCycleTime, isPerformance,fromPage,staffNo);
 
 
     }

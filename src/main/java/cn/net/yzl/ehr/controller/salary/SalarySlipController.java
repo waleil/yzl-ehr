@@ -5,7 +5,6 @@ import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.common.enums.ResponseCodeEnums;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.salary.SalarySlipFeignService;
-<<<<<<< HEAD
 import cn.net.yzl.ehr.util.MessageRemandAPI;
 import cn.net.yzl.staff.dto.salary.SalaryGrantStatusDto;
 import cn.net.yzl.staff.dto.salary.SalaryMyDto;
@@ -17,13 +16,6 @@ import cn.net.yzl.staff.vo.salary.SalaryGrantFinalVo;
 import cn.net.yzl.staff.vo.salary.SalaryGrantVo;
 import cn.net.yzl.staff.vo.salary.SalaryImportVo;
 import cn.net.yzl.staff.vo.salary.SalaryVo;
-=======
-import cn.net.yzl.staff.dto.salary.SalaryMyDto;
-import cn.net.yzl.staff.dto.salary.SalarySlipListDto;
-import cn.net.yzl.staff.dto.salary.SalarySlipListShowDto;
-import cn.net.yzl.staff.enumeration.StaffTypeEnum;
-import cn.net.yzl.staff.vo.salary.*;
->>>>>>> 工资计算修复
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -39,6 +31,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.net.URLEncoder;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
@@ -122,24 +115,19 @@ public class SalarySlipController {
     @PostMapping("/salaryFinalGrantStatusUpDate")
     public ComResponse<List<SalaryGrantStatusDto>> salaryFinalGrantStatusUpDate(@RequestBody List<SalaryGrantFinalVo> list, @ApiIgnore @CurrentStaffNo String staffNo) {
         ComResponse<List<SalaryGrantStatusDto>> comResponse = salarySlipFeignService.salaryFinalGrantStatusUpDate(list);
-//        if (comResponse.getCode() == 200){
-//            List<SalaryGrantStatusDto> salaryGrantStatusDtos = comResponse.getData();
-//            if (salaryGrantStatusDtos != null){
-//                salaryGrantStatusDtos.forEach(item -> {
-//                    MessageRemandAPI.paySalary(staffNo,
-//                            item.getStaffNo(),
-//                            item.getStaffName(),
-//                            item.getDuration());
-//                });
-//            }
-//        }
+        if (comResponse.getCode() == 200){
+            List<SalaryGrantStatusDto> salaryGrantStatusDtos = comResponse.getData();
+            if (salaryGrantStatusDtos != null){
+                salaryGrantStatusDtos.forEach(item -> {
+                    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy年MM月");
+                    MessageRemandAPI.paySalary(staffNo,
+                            item.getStaffNo(),
+                            item.getStaffName(),
+                            item.getDuration().format(dtf));
+                });
+            }
+        }
         return comResponse;
-    }
-
-    @ApiOperation(value = "个人中心-我的工资", notes = "个人中心-我的工资")
-    @PostMapping("/mySalary")
-    public ComResponse<SalaryMyDto> mySalary(@RequestBody MySalaryVo mySalaryVo) {
-        return salarySlipFeignService.mySalary(mySalaryVo);
     }
 
     @ApiOperation(value = "个人中心-我的工资", notes = "个人中心-我的工资")
