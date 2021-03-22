@@ -123,4 +123,38 @@ public class DepartAttendRuleDto implements Serializable {
     @ApiModelProperty(value="标题",name="title")
     private String title;
 
+
+    @ApiModelProperty(value="加班费标识 1:有,0:没有",name="overtimePayFlag")
+    private Byte overtimePayFlag;
+    @ApiModelProperty(value="加班费发放类型(0:无效,1:日薪固定计算,2:固定金额)",name="overtimePayType")
+    private Byte overtimePayType;
+    @ApiModelProperty(value="加班费固定金额方法的方式(0:无效,1:元/天,2:元/小时)",name="overtimePayWay")
+    private Byte overtimePayWay;
+    @ApiModelProperty(value="工作日加班开始时间()",name="workDayStartTime")
+    private String workDayStartTime;
+    @ApiModelProperty(value="抢休开启标识(0:关闭,1:开启)()",name="rushFlag")
+    private Byte rushFlag;
+
+    @ApiModelProperty(value="视为旷工标准(0:关闭,1:开启)",name="absenFlag")
+    private Byte absenFlag;
+    @ApiModelProperty(value="上午旷工时段开始",name="amAbsenStartTime")
+    private String amAbsenStartTime;
+
+    @ApiModelProperty(value="下午旷工时段开始",name="pmAbsenStartTime")
+    private String pmAbsenStartTime;
+    @ApiModelProperty(value="下午旷工时段开始amAbsenEndTime",name="amAbsenEndTime")
+    private String amAbsenEndTime;
+    @ApiModelProperty(value="下午旷工时段结束",name="pmAbsenEndTime")
+    private String pmAbsenEndTime;
+    @ApiModelProperty(value="上午通话次数符号(0:无效,1:小于,2:大于)",name="amSymal")
+    private Byte amSymal;
+    @ApiModelProperty(value="下午通话次数符号(0:无效,1:小于,2:大于)",name="pmSymal")
+    private Byte pmSymal;
+    @ApiModelProperty(value="上午通话次数值",name="amValue")
+    private Byte amValue;
+    @ApiModelProperty(value="下午通话次数值",name="pmValue")
+    private Byte pmValue;
+    @ApiModelProperty(value="加班费的值(单位为分)",name="overtimeValue")
+    private Integer overtimeValue;
+
 }
