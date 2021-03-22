@@ -55,7 +55,6 @@ public class DepartAttendRuleFrontLineVO extends DepartAttendRuleBaseVO {
     @Pattern(regexp = "^([0-1]{7}|[0-1]{14})$")
     private String weekBitStr;
     @ApiModelProperty(value="抢休开启标识(0:关闭,1:开启)",name="rushFlag",readOnly = true)
-    @Min(1)
     @NotNull
     private Byte rushFlag;
     @ApiModelProperty(value="抢休规则(每天缺勤率,小于)",name="rushAbsenRate")
