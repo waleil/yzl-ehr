@@ -12,11 +12,14 @@ import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.dto.StaffBaseDto;
 import cn.net.yzl.ehr.dto.StaffListDto;
+import cn.net.yzl.ehr.dto.SysDictDataDto;
 import cn.net.yzl.ehr.dto.resume.ResumeExportDto;
 import cn.net.yzl.ehr.fegin.common.AreaFeginService;
+import cn.net.yzl.ehr.fegin.common.SysDictDataFeginService;
 import cn.net.yzl.ehr.fegin.staff.StaffFeginService;
 import cn.net.yzl.ehr.pojo.StaffSwitchStatePo;
 import cn.net.yzl.ehr.pojo.StaffSwitchTalentPoolPo;
+import cn.net.yzl.ehr.pojo.SysDict;
 import cn.net.yzl.ehr.service.StaffService;
 import cn.net.yzl.ehr.vo.StaffParamsVO;
 import cn.net.yzl.pm.entity.UserRole;
@@ -28,24 +31,33 @@ import cn.net.yzl.staff.dto.StaffInfoDto;
 import cn.net.yzl.staff.dto.StatisticalStaffDto;
 import cn.net.yzl.staff.dto.attend.StaffAttendImportResultDto;
 import cn.net.yzl.staff.dto.resume.ResumeListDto;
+import cn.net.yzl.staff.pojo.ImportStaffPo;
 import cn.net.yzl.staff.util.DateStaffUtils;
 import cn.net.yzl.staff.vo.ImportResultVo;
 import cn.net.yzl.staff.vo.resume.ResumeParamsVO;
 import cn.net.yzl.staff.vo.staff.StaffInfoSaveVO;
 import cn.net.yzl.staff.vo.staff.StaffInfoUpdateVO;
+import com.github.tobato.fastdfs.domain.proto.storage.DownloadCallback;
+import com.github.tobato.fastdfs.service.FastFileStorageClient;
 import com.taobao.api.ApiException;
 import io.swagger.annotations.*;
+import org.apache.poi.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.text.ParseException;
 import java.util.*;
@@ -63,7 +75,11 @@ public class StaffController {
     private StaffService staffService;
     @Autowired
     private AreaFeginService areaFeginService;
+    @Autowired
+    private SysDictDataFeginService sysDictDataFeginService;
 
+    @Value("${file.prefix}")
+    private String filePrefix;
 
 
     @ApiOperation(value = "查询当前用户详情", notes = "查询当前用户详情")
@@ -377,6 +393,17 @@ public class StaffController {
     })
     ComResponse<ImportResultVo> importStaffInfo(String url) throws ParseException {
         return staffService.importStaffInfo(url);
+    }
+
+    @ApiOperation(value = "员工数据导入模板", notes = "员工数据导入模板", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/getStaffImportExcelModel", method = RequestMethod.GET)
+    public ComResponse<String> getStaffImportExcelModel(){
+        ComResponse<List<SysDictDataDto>> dicts = sysDictDataFeginService.getByType("staff_import_model");
+        if(dicts!=null && dicts.getData()!=null){
+            SysDictDataDto sysDictDataDto = dicts.getData().get(0);
+            return ComResponse.success(filePrefix+"/"+sysDictDataDto.getDictValue());
+        }
+        return ComResponse.nodata();
     }
 
     @ApiOperation(value = "员工数据-查询导入员工列表", notes = "员工数据-查询导入员工列表", consumes = MediaType.APPLICATION_JSON_VALUE)
