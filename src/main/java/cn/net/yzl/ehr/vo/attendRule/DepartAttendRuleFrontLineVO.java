@@ -44,18 +44,13 @@ public class DepartAttendRuleFrontLineVO extends DepartAttendRuleBaseVO {
     private Integer leaveTime;
 
     @ApiModelProperty(value="是否大小周(0:否,1:是)",name="weekFlag",required = true)
-    @Min(0)
-    @Max(1)
-    @NotNull
     private Integer weekFlag;
     @ApiModelProperty(value="大小周字节",name="weekBit",hidden = true)
     private Integer weekBit;
     @ApiModelProperty(value="大小周字节字符串(101010)",name="weekBitStr",required = true)
-    @NotBlank
     @Pattern(regexp = "^([0-1]{7}|[0-1]{14})$")
     private String weekBitStr;
     @ApiModelProperty(value="抢休开启标识(0:关闭,1:开启)",name="rushFlag",readOnly = true)
-    @NotNull
     private Byte rushFlag;
     @ApiModelProperty(value="抢休规则(每天缺勤率,小于)",name="rushAbsenRate")
     private Double rushAbsenRate;
