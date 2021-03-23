@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.service.impl.deduct;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.common.enums.ResponseCodeEnums;
 import cn.net.yzl.ehr.fegin.deduct.DeductItemFeginService;
 import cn.net.yzl.ehr.fegin.deduct.DeductRecordFeginService;
@@ -21,8 +22,8 @@ public class DeductRecordServiceImpl implements DeductReocrdService {
 
 
     @Override
-    public ComResponse<List<DeductRecordDto>> getList(DeductRecordListPo deductRecordListPo) {
-        ComResponse<List<DeductRecordDto>> result = deductRecordFeginService.getList(deductRecordListPo);
+    public ComResponse<Page<DeductRecordDto>> getList(DeductRecordListPo deductRecordListPo) {
+        ComResponse<Page<DeductRecordDto>> result = deductRecordFeginService.getList(deductRecordListPo);
         if (result == null) {
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(), ResponseCodeEnums.API_ERROR_CODE.getMessage());
         } else if (result.getCode() == 200 && result.getData()==null) {

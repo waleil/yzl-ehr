@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.fegin.deduct;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.staff.dto.deduct.DeductItemDto;
 import cn.net.yzl.staff.pojo.deduct.DeductItemInsertPo;
 import cn.net.yzl.staff.pojo.deduct.DeductItemUpdatePo;
@@ -24,7 +25,7 @@ public interface DeductItemFeginService {
 
     @ApiOperation(value = "查询扣款类型",notes = "查询扣款类型",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/deduct/queryAll", method = RequestMethod.GET)
-    ComResponse<List<DeductItemDto>> queryAll();
+    ComResponse<Page<DeductItemDto>> queryAll();
 
     @ApiOperation(value = "添加扣款类型", notes = "添加扣款类型", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/deduct/insert",method = RequestMethod.POST)
