@@ -120,28 +120,16 @@ public class StaffAttendController {
         writer.renameSheet("考勤列表");     //甚至sheet的名称
         staffAttendParamsVO.setPageSize(100000);
         ComResponse<Page<StaffAttendListDto>> result = staffAttendFeginService.getStaffAttendListByParams(staffAttendParamsVO);
-        List<StaffAttendListDto> list = result.getData().getItems();
+        List<StaffAttendListDto> list = new ArrayList<>();
+                if(result.getData()!=null){
+                    list=result.getData().getItems();}
         List<StaffAttendExportDto> objects = new ArrayList<>();
         if (list!=null && list.size()>0){
             for (StaffAttendListDto staffAttendListDto : list) {
-
-
                 StaffAttendExportDto staffAttendExportDto = new StaffAttendExportDto();
                 BeanUtil.copyProperties(staffAttendListDto,staffAttendExportDto);
                 objects.add(staffAttendExportDto);
             }
-        }else{
-            writer.setOnlyAlias(true);
-            writer.write(objects, true);
-            response.reset();
-            response.setContentType("application/vnd.ms-excel;charset=utf-8");
-//            response.setContentType("application/octet-stream");
-//            execName = new String(execName.getBytes("UTF-8"),"ISO8859-1");
-            response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(DateStaffUtils.dateToDateStr(time,"yyyy-MM"), "UTF-8") + ".xlsx");   //中文名称需要特殊处理
-//            response.setHeader("Content-Disposition", "attachment; filename="+ execName+".xlsx");   //中文名称需要特殊处理
-            writer.autoSizeColumnAll();
-            writer.flush(response.getOutputStream());
-            writer.close();
         }
         try {
             writer.addHeaderAlias("staffName", "姓名");
