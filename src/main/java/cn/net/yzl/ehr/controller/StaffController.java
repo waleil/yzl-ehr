@@ -253,9 +253,7 @@ public class StaffController {
         ComResponse<Page<StaffListDto>> listByParams=null;
         List<StaffListDto> list =null;
         execName="staff";
-
         try {
-
             ExcelWriter writer = ExcelUtil.getWriter();
             //员工列表
             switch (type){
@@ -376,7 +374,7 @@ public class StaffController {
             writer.write(list, true);
             response.reset();
             response.setContentType("application/vnd.ms-excel;charset=utf-8");
-            response.setHeader("Content-Disposition", "attachment; filename="+ URLEncoder.encode(execName, "UTF-8")+DateUtil.today()+".xlsx");   //中文名称需要特殊处理
+            response.setHeader("Content-Disposition", "attachment; filename="+ URLEncoder.encode(execName, "UTF-8")+DateUtil.today()+".xls");   //中文名称需要特殊处理
             writer.autoSizeColumnAll();
             writer.flush(response.getOutputStream());
             writer.close();
