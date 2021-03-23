@@ -26,8 +26,8 @@ public class DeductItemServiceImpl implements DeductItemService {
     }
 
     @Override
-    public ComResponse<Page<DeductItemDto>> queryAll() {
-        ComResponse<Page<DeductItemDto>> result = deductItemFeginService.queryAll();
+    public ComResponse<List<DeductItemDto>> queryAll() {
+        ComResponse<List<DeductItemDto>> result = deductItemFeginService.queryAll();
         if (result == null) {
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(), ResponseCodeEnums.API_ERROR_CODE.getMessage());
         } else if (result.getCode() == 200 && result.getData()==null) {
@@ -52,8 +52,8 @@ public class DeductItemServiceImpl implements DeductItemService {
     }
 
     @Override
-    public ComResponse<List<DeductItemDto>> queryItem() {
-        ComResponse<List<DeductItemDto>> result = deductItemFeginService.queryItem();
+    public ComResponse<Page<DeductItemDto>> queryItem(Integer pageNum,Integer pageSize) {
+        ComResponse<Page<DeductItemDto>> result = deductItemFeginService.queryItem(pageNum,pageSize);
         return result;
     }
 
