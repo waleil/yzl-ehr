@@ -86,7 +86,7 @@ public class StaffAttendController {
         try {
             writer.addHeaderAlias("staffNo", "员工工号");
             writer.addHeaderAlias("result", "导入结果");
-            writer.addHeaderAlias("resultDesc", "resultDesc");
+            writer.addHeaderAlias("resultDesc", "结果描述");
             writer.addHeaderAlias("time", "时间");
             writer.setOnlyAlias(true);
             writer.write(list, true);
