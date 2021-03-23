@@ -49,8 +49,8 @@ public class DeductItemController {
 
     @ApiOperation(value = "查询所有",notes = "查询",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/queryItem", method = RequestMethod.GET)
-    ComResponse<List<DeductItemDto>> queryItem(){
-        return deductItemService.queryItem();
+    ComResponse<Page<DeductItemDto>> queryItem(Integer pageNum,Integer pageSize){
+        return deductItemService.queryItem(pageNum,pageSize);
     }
 
     @ApiOperation(value ="编辑扣款类型" ,notes ="编辑扣款类型",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
