@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -111,7 +112,7 @@ public class StaffAttendController {
 
     @ApiOperation(value = "查看考勤-导出", notes = "查看考勤-导出", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/exportStaffAttend", method = RequestMethod.POST)
-    void importStaffAttend(@RequestBody @Validated StaffAttendParamsVO staffAttendParamsVO, HttpServletResponse response) {
+    void importStaffAttend(@RequestBody @Validated StaffAttendParamsVO staffAttendParamsVO, HttpServletResponse response) throws ParseException, UnsupportedEncodingException {
         ExcelWriter writer = ExcelUtil.getWriter();
         Date time = staffAttendParamsVO.getTime();
         int daysOfMonth = DateStaffUtils.getDaysOfMonth(time);
@@ -128,6 +129,14 @@ public class StaffAttendController {
                 BeanUtil.copyProperties(staffAttendListDto,staffAttendExportDto);
                 objects.add(staffAttendExportDto);
             }
+        }else{
+            response.setContentType("application/vnd.ms-excel;charset=utf-8");
+//            response.setContentType("application/octet-stream");
+//            execName = new String(execName.getBytes("UTF-8"),"ISO8859-1");
+            response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(DateStaffUtils.dateToDateStr(time,"yyyy-MM"), "UTF-8") + ".xlsx");   //中文名称需要特殊处理
+//            response.setHeader("Content-Disposition", "attachment; filename="+ execName+".xlsx");   //中文名称需要特殊处理
+            writer.autoSizeColumnAll();
+            writer.close();
         }
         try {
             writer.addHeaderAlias("staffName", "姓名");
