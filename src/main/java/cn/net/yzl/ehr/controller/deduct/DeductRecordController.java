@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.controller.deduct;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.process.ProcessConfigFeignService;
 import cn.net.yzl.ehr.service.deduct.DeductItemService;
@@ -40,7 +41,7 @@ public class DeductRecordController {
 
     @ApiOperation(value = "查询扣款列表信息", notes = "查询扣款列表信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/getList", method = RequestMethod.POST)
-    ComResponse<List<DeductRecordDto>> getList(@RequestBody(required = false) DeductRecordListPo deductRecordListPo) {
+    ComResponse<Page<DeductRecordDto>> getList(@RequestBody(required = false) DeductRecordListPo deductRecordListPo) {
         return deductReocrdService.getList(deductRecordListPo);
     }
 

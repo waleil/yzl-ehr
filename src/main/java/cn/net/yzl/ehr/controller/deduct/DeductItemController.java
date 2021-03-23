@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.controller.deduct;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.service.deduct.DeductItemService;
 import cn.net.yzl.staff.dto.deduct.DeductItemDto;
@@ -29,7 +30,7 @@ public class DeductItemController {
 
     @ApiOperation(value = "查询扣款类型",notes = "查询",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/queryAll", method = RequestMethod.GET)
-    ComResponse<List<DeductItemDto>> queryAll(){
+    ComResponse<Page<DeductItemDto>> queryAll(){
         return deductItemService.queryAll();
     }
 

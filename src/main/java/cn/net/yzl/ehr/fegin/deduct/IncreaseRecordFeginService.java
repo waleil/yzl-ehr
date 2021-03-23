@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.fegin.deduct;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.staff.dto.deduct.DeductRecordDto;
 import cn.net.yzl.staff.dto.deduct.IncreaseRecordDto;
 import cn.net.yzl.staff.pojo.deduct.*;
@@ -22,7 +23,7 @@ public interface IncreaseRecordFeginService {
 
     @ApiOperation(value = "查询奖金列表信息", notes = "查询奖金列表信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/increaseRecord/getList", method = RequestMethod.POST)
-    ComResponse<List<IncreaseRecordDto>> getList(@RequestBody(required = false) IncreaseRecordListPo increaseRecordListPo);
+    ComResponse<Page<IncreaseRecordDto>> getList(@RequestBody(required = false) IncreaseRecordListPo increaseRecordListPo);
 
 
     @ApiOperation(value = "查询奖金详情信息", notes = "查询奖金详情信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)

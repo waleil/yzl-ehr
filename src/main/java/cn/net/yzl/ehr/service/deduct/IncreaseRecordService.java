@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.service.deduct;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.staff.dto.deduct.DeductRecordDto;
 import cn.net.yzl.staff.dto.deduct.IncreaseRecordDto;
 import cn.net.yzl.staff.pojo.deduct.*;
@@ -10,7 +11,7 @@ import java.util.List;
 
 public interface IncreaseRecordService {
     //查询奖金列表信息
-    ComResponse<List<IncreaseRecordDto>> getList(IncreaseRecordListPo increaseRecordListPo);
+    ComResponse<Page<IncreaseRecordDto>> getList(IncreaseRecordListPo increaseRecordListPo);
 
     //查询奖金详情
     ComResponse<IncreaseRecordDto> selectone(Integer id);
