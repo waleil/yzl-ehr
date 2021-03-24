@@ -6,7 +6,6 @@ import cn.net.yzl.staff.dto.process.ProcessItemDto;
 import cn.net.yzl.staff.dto.process.ProcessTypeDto;
 import cn.net.yzl.staff.vo.process.ProcessItemVo;
 import cn.net.yzl.staff.vo.process.ProcessTypeVo;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Repository;
 import org.springframework.validation.annotation.Validated;
@@ -59,7 +58,10 @@ public interface ProcessItemFeignService {
     @RequestMapping(value = "/item/show", method = RequestMethod.GET)
     ComResponse<List<ProcessTypeDto>> processItemDisplayByUser (@RequestParam("staffNo") String staffNo);
 
-    @RequestMapping(value = "/config/info", method = RequestMethod.GET)
-    ComResponse<ProcessItemDto> selectProcessByItemCode (@RequestParam("code") String code);
+    @RequestMapping(value = "/config/item/info", method = RequestMethod.GET)
+    ComResponse<Integer> selectProcessByItemCode (@RequestParam("code") String code);
+
+    @RequestMapping(value = "/config/item/enable", method = RequestMethod.GET)
+    ComResponse<Boolean> selectProcessByItemIdAndUser (@RequestParam("processItemId") Integer processItemId,@RequestParam("staffNo") String staffNo);
 
 }
