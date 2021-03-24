@@ -28,10 +28,7 @@ public class RecruitSourceServiceImpl implements RecruitSourceService {
     @Override
     public ComResponse<Integer> deleteById(Integer id, String updator) {
         ComResponse<Integer> result =sourceFeginService.deleteById(id, updator);
-        if (result==null){
-            return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
-        }
-        return ComResponse.success();
+       return result;
     }
 
     @Override
