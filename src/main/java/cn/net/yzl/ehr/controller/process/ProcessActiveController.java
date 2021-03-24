@@ -38,7 +38,7 @@ public class ProcessActiveController {
     private FastDFSClientWrapper client;
 
     @GetMapping("v1/findProcessInfoList")
-    @ApiOperation(value = "获取流程每个节点信息")
+    @ApiOperation(value = "获取当前当前员工信息")
     public ComResponse<StaffDetailsDto> findProcessInfoList(@RequestParam @NotNull @CurrentStaffNo String staffNo) {
         return findProcessNodeService.findProcessInfoList(staffNo);
     }
