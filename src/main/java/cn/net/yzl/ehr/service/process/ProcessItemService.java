@@ -40,6 +40,9 @@ public interface ProcessItemService {
     ComResponse<List<ProcessTypeDto>> processItemDisplayByUser(String staffNo);
 
     //根据流程项目code查询
-    ComResponse<ProcessItemDto> selectProcessByItemCode(String code);
+    ComResponse<Integer> selectProcessByItemCode(String code);
+
+    //根据流程项目id和当前发起的用户查询是否可以发起流程(true:可以发起，false:不可以发起)
+    ComResponse<Boolean> selectProcessByItemIdAndUser(Integer processItemId, String staffNo);
 
 }
