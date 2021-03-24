@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.fegin.process;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.staff.dto.processNode.ProcessApproveNode;
 import cn.net.yzl.staff.vo.process.StaffLoanVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -21,5 +22,5 @@ public interface StaffLoanFeignService {
 
 
     @PostMapping("v1/insertStaffLoan")
-    public ComResponse<Integer> insertStaffLoan(@RequestBody StaffLoanVo staffLoanVo);
+    public ComResponse<ProcessApproveNode> insertStaffLoan(@RequestBody StaffLoanVo staffLoanVo);
 }

@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.fegin.process;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.staff.dto.processNode.ProcessApproveNode;
 import cn.net.yzl.staff.vo.process.StaffSponsorIntrRoyaVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -22,7 +23,7 @@ public interface StaffSponsorIntrRoyaFeignService {
 
     @ApiOperation(value = "保存转介绍提成流程数据",notes = "保存转介绍提成流程数据")
     @PostMapping("v1/insertStaffSponsorIntrRoya")
-    public ComResponse<Integer> insertStaffSponsorIntrRoya(@RequestBody StaffSponsorIntrRoyaVo staffSponsorIntrRoyaVo);
+    public ComResponse<ProcessApproveNode> insertStaffSponsorIntrRoya(@RequestBody StaffSponsorIntrRoyaVo staffSponsorIntrRoyaVo);
 
 
 

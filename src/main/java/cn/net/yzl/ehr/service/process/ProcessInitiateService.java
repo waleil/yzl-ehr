@@ -1,29 +1,30 @@
 package cn.net.yzl.ehr.service.process;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.staff.dto.processNode.ProcessApproveNode;
 import cn.net.yzl.staff.vo.process.*;
 
 public interface ProcessInitiateService {
     //外出添加
-    ComResponse<Integer> insertProcessStaffOut(StaffOutVo staffOutVo,String staffNo);
+    ComResponse<ProcessApproveNode> insertProcessStaffOut(StaffOutVo staffOutVo, String staffNo);
 
     //出差添加
-    ComResponse<Integer> insertProcessStaffTravel(StaffTravelVo staffTravelVo,String staffNo);
+    ComResponse<ProcessApproveNode> insertProcessStaffTravel(StaffTravelVo staffTravelVo,String staffNo);
 
     //考勤补卡
-    ComResponse<Integer> insertProcessStaffAttendApproval(StaffAttendApprovalVo staffAttendApprovalVo,String staffNo);
+    ComResponse<ProcessApproveNode> insertProcessStaffAttendApproval(StaffAttendApprovalVo staffAttendApprovalVo,String staffNo);
 
     //车位申请添加
-    ComResponse<Integer> insertProcessStaffParkingSpace(StaffParkingSpaceVo staffParkingSpaceVo, String staffNo);
+    ComResponse<ProcessApproveNode> insertProcessStaffParkingSpace(StaffParkingSpaceVo staffParkingSpaceVo, String staffNo);
 
     //查询车位申请通道信息
     ComResponse<Boolean> selectProcessStaffParkingSpace();
 
     //物品领用添加
-    ComResponse<Integer> insertProcessStaffItemRequisition(StaffItemRequisitionVo staffItemRequisitionVo, String staffNo);
+    ComResponse<ProcessApproveNode> insertProcessStaffItemRequisition(StaffItemRequisitionVo staffItemRequisitionVo, String staffNo);
 
     //物品加班兑换
-    ComResponse<Integer> insertProcessAttendExchange(StaffAttendExchangeVo staffAttendExchangeVo, String staffNo);
+    ComResponse<ProcessApproveNode> insertProcessAttendExchange(StaffAttendExchangeVo staffAttendExchangeVo, String staffNo);
 
     //查询员工申请的补卡次数
     ComResponse<Integer> countProcessStaffAttendApproval(String staffNo);

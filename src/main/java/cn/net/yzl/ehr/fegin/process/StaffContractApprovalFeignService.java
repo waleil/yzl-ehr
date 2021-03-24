@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.fegin.process;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.staff.dto.processNode.ProcessApproveNode;
 import cn.net.yzl.staff.vo.process.StaffContractApprovalVo;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,5 +21,5 @@ public interface StaffContractApprovalFeignService {
 
 
     @PostMapping("v1/insertStaffContractApproval")
-    ComResponse<Integer> insertStaffContractApproval(@RequestBody StaffContractApprovalVo staffContractApprovalVo);
+    ComResponse<ProcessApproveNode> insertStaffContractApproval(@RequestBody StaffContractApprovalVo staffContractApprovalVo);
 }
