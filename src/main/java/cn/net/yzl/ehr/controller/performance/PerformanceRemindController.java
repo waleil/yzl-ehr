@@ -172,7 +172,7 @@ public class PerformanceRemindController {
                             subject = "职能管理-考评填报提醒-考核提醒";
                             content = "尊敬的" + staff.getStaffName() + "您好，新一周期的绩效考核已开始，请前往查阅，考核周期是：" + depart.getCycleTime();
                         }
-                        MailVo mailVo = new MailVo(staff.getEmail(), subject, staff.getStaffName() + content);
+                        MailVo mailVo = new MailVo(staff.getEmail(), subject, content);
                         mailList.add(mailVo);
                     }
                 }
