@@ -47,14 +47,14 @@ public class StaffAbnorController {
         return staffAbnorService.updateStaffChangeStatus(staffSwitchStatePo,staffNo);
     }
 
-    @ApiOperation(value = "员工异动-设定执行异动操作", notes = "员工异动-设定执行异动操作", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "员工异动-设定执行异动操作(26.调岗 29.调薪 30.劝退 31.离职-自动 68.离职-正常 23.离职-加急 72.等级晋升 73.等级下调)", notes = "员工异动-设定执行异动操作", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/executeStaffChange", method = RequestMethod.POST)
     public ComResponse<Integer> executeStaffChange(@RequestBody @Validated StaffAbnorRecordPo staffChangePo, @CurrentStaffNo @ApiIgnore String staffNo) throws ParseException {
 
         return staffAbnorService.executeStaffChange(staffChangePo,staffNo);
     }
 
-    @ApiOperation(value = "员工异动-执行即时变动操作", notes = "员工异动-执行即时变动操作", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "员工异动-执行即时变动操作(24.入职 27.转正 69.入岗)", notes = "员工异动-执行即时变动操作", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/runStaffChange", method = RequestMethod.POST)
     public ComResponse<Integer> runStaffChange(@RequestBody RunAbnorRecordPo staffChangePo, @CurrentStaffNo @ApiIgnore String staffNo) throws ParseException{
         return staffAbnorService.runStaffChange(staffChangePo,staffNo);
