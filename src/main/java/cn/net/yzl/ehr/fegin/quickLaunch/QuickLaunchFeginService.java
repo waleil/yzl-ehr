@@ -19,5 +19,5 @@ import java.util.List;
 public interface QuickLaunchFeginService {
     @ApiOperation(value = "根据员工展示前8个常用流程", notes = "根据员工展示前8个常用流程", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/work/queryByNo", method = RequestMethod.GET)
-    ComResponse<List<QuickLaunchDto>> queryByNo(@ApiIgnore @CurrentStaffNo String staffNo);
+    ComResponse<List<QuickLaunchDto>> queryByNo(@RequestParam("staffNo") String staffNo);
 }
