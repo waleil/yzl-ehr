@@ -14,6 +14,8 @@ import java.util.List;
 public interface ProcessConfigService {
     ComResponse<Integer> insertProcessConfig(ProcessConfigVo processConfigVo, String staffNo);
 
+    ComResponse<Integer> updateProcessConfig(ProcessConfigVo processConfigVo, String staffNo);
+
     ComResponse<Integer> deleteProcessConfig(Integer id, String staffNo);
 
     ComResponse<Integer> disableProcessConfig(Integer id, String staffNo);

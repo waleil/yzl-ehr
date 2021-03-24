@@ -59,7 +59,7 @@ public interface ProcessItemFeignService {
     ComResponse<List<ProcessTypeDto>> processItemDisplayByUser (@RequestParam("staffNo") String staffNo);
 
     @RequestMapping(value = "/config/item/info", method = RequestMethod.GET)
-    ComResponse<Integer> selectProcessByItemCode (@RequestParam("code") String code);
+    ComResponse<ProcessItemDto> selectProcessByItemCode (@RequestParam("code") String code);
 
     @RequestMapping(value = "/config/item/enable", method = RequestMethod.GET)
     ComResponse<Boolean> selectProcessByItemIdAndUser (@RequestParam("processItemId") Integer processItemId,@RequestParam("staffNo") String staffNo);
