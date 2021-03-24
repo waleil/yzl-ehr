@@ -143,6 +143,11 @@ public class ResumeController {
     @ApiOperation(value = "简历列表-批量/单个推送(简历库)", notes = "简历列表-批量推送(简历库)", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/sendTo", method = RequestMethod.POST)
     ComResponse<String> sendToBeatch( @RequestBody  List<ResumeDepartStaffVO> resumeDepartStaffVOList,@ApiIgnore @CurrentStaffNo String staffNo) throws IllegalAccessException {
+        resumeDepartStaffVOList.stream().forEach(resumeDepartStaffVO -> {
+            resumeDepartStaffVO.setCreator(staffNo);
+            resumeDepartStaffVO.setUpdator(staffNo);
+        });
+
         ComResponse<String> re = resumeFeginService.sendToBeatch(resumeDepartStaffVOList);
 
         if(re.getData()!=null){

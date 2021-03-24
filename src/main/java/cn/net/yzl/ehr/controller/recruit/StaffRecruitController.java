@@ -48,7 +48,7 @@ public class StaffRecruitController {
 
     @ApiOperation(value = "待招任务-查询招聘任务列表",notes = "待招任务-查询招聘任务列表",consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/getWithTaskByPo", method = RequestMethod.POST)
-    public ComResponse<Page<StaffRecruitDto>> getWithTaskByPo(@RequestBody @Validated StaffRecruitSelectPo staffRecruitSelectPo,@CurrentStaffNo String staffNo) {
+    public ComResponse<Page<StaffRecruitDto>> getWithTaskByPo(@RequestBody @Validated StaffRecruitSelectPo staffRecruitSelectPo,@CurrentStaffNo @ApiIgnore String staffNo) {
         staffRecruitSelectPo.setCurrentStaffNo(staffNo);
         return staffRecruitService.getWithTaskByPo(staffRecruitSelectPo);
     }

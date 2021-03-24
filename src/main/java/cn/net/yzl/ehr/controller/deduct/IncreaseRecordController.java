@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.controller.deduct;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.service.deduct.DeductReocrdService;
 import cn.net.yzl.ehr.service.deduct.IncreaseRecordService;
@@ -25,14 +26,14 @@ public class IncreaseRecordController {
 
     @ApiOperation(value = "查询奖金列表信息", notes = "查询奖金列表信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/getList", method = RequestMethod.POST)
-    ComResponse<List<IncreaseRecordDto>> getList(@RequestBody(required = false) IncreaseRecordListPo increaseRecordListPo) {
+    ComResponse<Page<IncreaseRecordDto>> getList(@RequestBody(required = false) IncreaseRecordListPo increaseRecordListPo) {
         return increaseRecordService.getList(increaseRecordListPo);
     }
 
     @ApiOperation(value = "查询奖金详情信息", notes = "查询奖金详情信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @RequestMapping(value = "/selectone", method = RequestMethod.POST)
-    ComResponse<IncreaseRecordDto> selectone(@RequestParam("id")Integer id) {
-        return increaseRecordService.selectone(id);
+    @RequestMapping(value = "/selectOne", method = RequestMethod.POST)
+    ComResponse<IncreaseRecordDto> selectOne(@RequestParam("id")Integer id) {
+        return increaseRecordService.selectOne(id);
     }
 
     @ApiOperation(value = "添加奖金记录", notes = "添加奖金记录",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
