@@ -18,6 +18,6 @@ import java.util.List;
 @FeignClient(value = "staff",url = "${fegin.db.url}")
 public interface QuickLaunchFeginService {
     @ApiOperation(value = "根据员工展示前8个常用流程", notes = "根据员工展示前8个常用流程", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @RequestMapping(value = "/queryByNo", method = RequestMethod.GET)
+    @RequestMapping(value = "/work/queryByNo", method = RequestMethod.GET)
     ComResponse<List<QuickLaunchDto>> queryByNo(@ApiIgnore @CurrentStaffNo String staffNo);
 }
