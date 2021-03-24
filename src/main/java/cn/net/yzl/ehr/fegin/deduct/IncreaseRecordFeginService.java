@@ -27,8 +27,8 @@ public interface IncreaseRecordFeginService {
 
 
     @ApiOperation(value = "查询奖金详情信息", notes = "查询奖金详情信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @RequestMapping(value = "/increaseRecord/selectone", method = RequestMethod.GET)
-    ComResponse<IncreaseRecordDto> selectone(@RequestParam("id")Integer id);
+    @RequestMapping(value = "/increaseRecord/selectOne", method = RequestMethod.GET)
+    ComResponse<IncreaseRecordDto> selectOne(@RequestParam("id")Integer id);
 
     @ApiOperation(value = "添加奖金记录", notes = "添加奖金记录",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/increaseRecord/insertIncreaseRecord", method = RequestMethod.POST)

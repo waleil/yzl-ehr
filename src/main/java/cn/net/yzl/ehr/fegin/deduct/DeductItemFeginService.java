@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -25,7 +26,7 @@ public interface DeductItemFeginService {
 
     @ApiOperation(value = "查询扣款类型",notes = "查询扣款类型",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/deduct/queryAll", method = RequestMethod.GET)
-    ComResponse<Page<DeductItemDto>> queryAll();
+    ComResponse<List<DeductItemDto>> queryAll();
 
     @ApiOperation(value = "添加扣款类型", notes = "添加扣款类型", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/deduct/insert",method = RequestMethod.POST)
@@ -37,7 +38,7 @@ public interface DeductItemFeginService {
 
     @ApiOperation(value = "查询所有",notes = "查询",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/deduct/queryItem", method = RequestMethod.GET)
-    ComResponse<List<DeductItemDto>> queryItem();
+    ComResponse<Page<DeductItemDto>> queryItem(@RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize")Integer pageSize);
 
     @ApiOperation(value ="编辑扣款类型" ,notes ="编辑扣款类型",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/deduct/update",method = RequestMethod.POST)

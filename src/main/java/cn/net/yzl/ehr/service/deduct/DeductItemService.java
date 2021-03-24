@@ -12,11 +12,11 @@ import java.util.List;
 public interface DeductItemService {
     ComResponse<Integer> insert(DeductItemInsertPo insertPo,String staffNo);
 
-    ComResponse<Page<DeductItemDto>> queryAll();
+    ComResponse<List<DeductItemDto>> queryAll();
 
     ComResponse<Integer> updateByState(DeductItemUpdateStatePo updatePo, String staffNo);
 
-    ComResponse<List<DeductItemDto>> queryItem();
+    ComResponse<Page<DeductItemDto>> queryItem(Integer pageNum,Integer pageSize);
 
     ComResponse<Integer> update(DeductItemUpdatePo updatePo,String staffNo);
 
