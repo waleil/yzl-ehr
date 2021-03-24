@@ -133,7 +133,7 @@ public class ProcessItemServiceImpl implements ProcessItemService {
     }
 
     @Override
-    public ComResponse<Integer> selectProcessByItemCode(String code) {
+    public ComResponse<ProcessItemDto> selectProcessByItemCode(String code) {
         return processItemFeignService.selectProcessByItemCode(code);
     }
 

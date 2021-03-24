@@ -27,6 +27,12 @@ public class ProcessConfigServiceImpl implements ProcessConfigService {
     }
 
     @Override
+    public ComResponse<Integer> updateProcessConfig(ProcessConfigVo processConfigVo, String staffNo) {
+        processConfigVo.setCreator(staffNo);
+        return processConfigFeignService.updateProcessConfig(processConfigVo);
+    }
+
+    @Override
     public ComResponse<Integer> deleteProcessConfig(Integer id, String staffNo) {
         return processConfigFeignService.deleteProcessConfig(id,staffNo);
     }
