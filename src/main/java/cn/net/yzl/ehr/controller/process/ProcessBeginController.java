@@ -5,6 +5,7 @@ import cn.net.yzl.common.enums.ResponseCodeEnums;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.processActiveService.saveProcessService;
 import cn.net.yzl.ehr.util.MessageRemandAPI;
+import cn.net.yzl.staff.dto.ProcessProfession.ProcessStaffPositiveDTO;
 import cn.net.yzl.staff.dto.personApprove.*;
 import cn.net.yzl.staff.dto.processNode.ProcessApproveNode;
 import cn.net.yzl.staff.dto.processNode.ProcessNodeDTO;
@@ -50,8 +51,8 @@ public class ProcessBeginController {
     }
     @ApiOperation(value = "保存转正申请",notes = "转正申请添加",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "v1/savePositiveApplay", method = RequestMethod.POST)
-    ComResponse<ProcessApproveNode> savePositiveApplay (@RequestBody @Validated ApprovePostInfoListDTO approvePostInfoListDTO, @CurrentStaffNo @NotNull String staffNo){
-        ComResponse<ProcessApproveNode> flag = saveProcessService.savePositiveApplay(approvePostInfoListDTO);
+    ComResponse<ProcessApproveNode> savePositiveApplay (@RequestBody @Validated ProcessStaffPositiveDTO processStaffPositiveDTO, @CurrentStaffNo @NotNull String staffNo){
+        ComResponse<ProcessApproveNode> flag = saveProcessService.savePositiveApplay(processStaffPositiveDTO);
         if (flag.getCode().equals(200)){
             try {
                 MessageRemandAPI.examine(staffNo,
@@ -87,8 +88,8 @@ public class ProcessBeginController {
 
      @ApiOperation(value = "保存旷工申请",notes = "旷工申请添加",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "v1/saveAbsentApplay", method = RequestMethod.POST)
-    ComResponse<ProcessApproveNode> saveAbsentApplay (@RequestBody @Validated ApproveAbsentInfoListDTO approveAbsentInfoListDTO, @CurrentStaffNo @NotNull String staffNo){
-        ComResponse<ProcessApproveNode> flag = saveProcessService.saveAbsentApplay(approveAbsentInfoListDTO);
+    ComResponse<ProcessApproveNode> saveAbsentApplay (@RequestBody @Validated ProcessAbsentDTO processAbsentDTO, @CurrentStaffNo @NotNull String staffNo){
+        ComResponse<ProcessApproveNode> flag = saveProcessService.saveAbsentApplay(processAbsentDTO);
          if (flag.getCode().equals(200)){
              try {
                  MessageRemandAPI.examine(staffNo,
