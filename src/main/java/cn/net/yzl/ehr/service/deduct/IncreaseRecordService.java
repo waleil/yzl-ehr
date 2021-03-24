@@ -14,7 +14,7 @@ public interface IncreaseRecordService {
     ComResponse<Page<IncreaseRecordDto>> getList(IncreaseRecordListPo increaseRecordListPo);
 
     //查询奖金详情
-    ComResponse<IncreaseRecordDto> selectone(Integer id);
+    ComResponse<IncreaseRecordDto> selectOne(Integer id);
 
     //添加奖金记录
     ComResponse<Integer> insertIncreaseRecord(IncreaseRecordPo increaseRecordPo);

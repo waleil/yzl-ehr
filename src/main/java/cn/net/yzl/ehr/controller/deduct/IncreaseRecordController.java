@@ -31,9 +31,9 @@ public class IncreaseRecordController {
     }
 
     @ApiOperation(value = "查询奖金详情信息", notes = "查询奖金详情信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @RequestMapping(value = "/selectone", method = RequestMethod.POST)
-    ComResponse<IncreaseRecordDto> selectone(@RequestParam("id")Integer id) {
-        return increaseRecordService.selectone(id);
+    @RequestMapping(value = "/selectOne", method = RequestMethod.POST)
+    ComResponse<IncreaseRecordDto> selectOne(@RequestParam("id")Integer id) {
+        return increaseRecordService.selectOne(id);
     }
 
     @ApiOperation(value = "添加奖金记录", notes = "添加奖金记录",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)

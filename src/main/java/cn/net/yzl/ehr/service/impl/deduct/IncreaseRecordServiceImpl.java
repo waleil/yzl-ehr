@@ -33,8 +33,8 @@ public class IncreaseRecordServiceImpl implements IncreaseRecordService {
     }
 
     @Override
-    public ComResponse<IncreaseRecordDto> selectone(Integer id) {
-        ComResponse<IncreaseRecordDto> result = increaseRecordFeginService.selectone(id);
+    public ComResponse<IncreaseRecordDto> selectOne(Integer id) {
+        ComResponse<IncreaseRecordDto> result = increaseRecordFeginService.selectOne(id);
         if (result == null) {
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(), ResponseCodeEnums.API_ERROR_CODE.getMessage());
         } else if (result.getCode() == 200 && result.getData()==null) {
