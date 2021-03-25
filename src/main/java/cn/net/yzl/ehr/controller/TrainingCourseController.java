@@ -245,7 +245,7 @@ public class TrainingCourseController {
     @ApiOperation(value = "培训员工合格入岗",notes = "培训员工合格入岗")
     @PostMapping("staffEntryPost")
     public ComResponse<Integer> staffEntryPost(@RequestBody TrainStaffRelationPo trainStaffRelationPo){
-        ComResponse<List<Object>> sign = trainingCourseClient.findSign(null, null, null, null, null, null, null, 1, 100000);
+        ComResponse<List<Object>> sign = trainingCourseClient.findSign(null, null, null, null, null, null, trainStaffRelationPo.getCourseId(), 1, 100000);
         List<Object> data = sign.getData();
         Page<TrainSignListVo> page = (Page<TrainSignListVo>) data.get(1);
         List<TrainSignListVo> items = page.getItems();
