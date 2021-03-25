@@ -35,6 +35,7 @@ public class ProcessBeginController {
     @PostMapping("v1/saveProcessInviteInfo")
     @ApiOperation(value = "保存招聘信息")
     public ComResponse<ProcessApproveNode> saveProcessLeaveInfo(@RequestBody @Valid ApproveInviteDTO approveInviteDTO, @CurrentStaffNo @NotNull String staffNo) {
+        approveInviteDTO.getProcessStaffInviteDTO().setStaffNo(staffNo);
         ComResponse<ProcessApproveNode> flag = saveProcessService.saveProcessInviteInfo(approveInviteDTO);
         if (flag.getCode().equals(200)){
             try {
