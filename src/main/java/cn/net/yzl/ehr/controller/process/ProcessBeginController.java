@@ -91,6 +91,7 @@ public class ProcessBeginController {
      @ApiOperation(value = "保存旷工申请",notes = "旷工申请添加",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "v1/saveAbsentApplay", method = RequestMethod.POST)
     ComResponse<ProcessApproveNode> saveAbsentApplay (@RequestBody @Validated ProcessAbsentDTO processAbsentDTO, @CurrentStaffNo @NotNull String staffNo){
+         processAbsentDTO.setStaffNo(staffNo);
         ComResponse<ProcessApproveNode> flag = saveProcessService.saveAbsentApplay(processAbsentDTO);
          if (flag.getCode().equals(200)){
              try {
@@ -116,6 +117,7 @@ public class ProcessBeginController {
     @ApiOperation(value = "保存取消请假申请",notes = "取消请假申请添加",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "v1/saveCancelLeaveApplay", method = RequestMethod.POST)
     ComResponse<ProcessApproveNode> saveCancelLeaveApplay (@RequestBody @Validated ApproveCancelLeaveDTO approveCancelLeaveDTO, @CurrentStaffNo @NotNull String staffNo){
+        approveCancelLeaveDTO.getProcessCancelLeaveDTO().setStaffNo(staffNo);
         ComResponse<ProcessApproveNode> flag = saveProcessService.saveCancelLeaveApplay(approveCancelLeaveDTO);
         if (flag.getCode().equals(200)){
             try {

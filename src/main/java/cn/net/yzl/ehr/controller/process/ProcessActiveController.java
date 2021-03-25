@@ -39,7 +39,7 @@ public class ProcessActiveController {
 
     @GetMapping("v1/findProcessInfoList")
     @ApiOperation(value = "获取当前当前员工信息")
-    public ComResponse<StaffDetailsDto> findProcessInfoList(@RequestParam @NotNull @CurrentStaffNo String staffNo) {
+    public ComResponse<StaffDetailsDto> findProcessInfoList(@CurrentStaffNo @NotNull String staffNo) {
         return findProcessNodeService.findProcessInfoList(staffNo);
     }
 
