@@ -150,8 +150,11 @@ public class ResumeController {
 
         ComResponse<String> re = resumeFeginService.sendToBeatch(resumeDepartStaffVOList);
 
-        if(re.getData()!=null){
-            msgSendAsync.sendToDepart(staffNo,re.getData());
+        if(StrUtil.isNotBlank(re.getData())){
+            for (String s : re.getData().split("=")) {
+                msgSendAsync.sendToDepart(staffNo,s);
+
+            }
 
         }
         return re;
@@ -170,7 +173,11 @@ public class ResumeController {
     ComResponse<String> sendToBatchDepart( @RequestBody @NotEmpty List<Integer> resumeIds, @ApiIgnore @CurrentStaffNo String staffNo) throws IllegalAccessException {
         ComResponse<String> re = resumeFeginService.sendToBatchDepart(resumeIds, staffNo);
         if(re.getData()!=null){
-            msgSendAsync.sendToDepart(staffNo,re.getData());
+            String[] split = re.getData().split("=");
+            for (String s : split) {
+                msgSendAsync.sendToDepart(staffNo,s);
+
+            }
 
         }
 
