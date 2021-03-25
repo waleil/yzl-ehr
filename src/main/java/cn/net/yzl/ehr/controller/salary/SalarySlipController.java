@@ -63,7 +63,6 @@ public class SalarySlipController {
     @ApiOperation(value = "工资发放列表(人资/财务)-工资导出", notes = "工资发放列表(人资/财务)-工资导出")
     @PostMapping("/exportSalary")
     public ComResponse<byte[]> exportSalary(@RequestBody SalaryVo salaryVo, HttpServletResponse response) {
-        salaryVo.setStaffType(StaffTypeEnum.NOT_FRONT_LINE_STAFF.getCode().toString());
         ComResponse<byte[]> exportResponse = salarySlipFeignService.exportSalary(salaryVo);
         if (200 != exportResponse.getCode()) {
             return exportResponse;
