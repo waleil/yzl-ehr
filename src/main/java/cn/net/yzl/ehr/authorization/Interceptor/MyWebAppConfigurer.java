@@ -90,6 +90,13 @@ public class MyWebAppConfigurer  implements WebMvcConfigurer {
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/processsInvite/**");
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/StaffPasswordRule/**");
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/work/**");
+        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/staffInvoice/**");
+        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/workOverTime/**");
+        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/staffSponsorIntrRoya/**");
+        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/staffPayment/**");
+        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/staffLoan/**");
+        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/staffContractApproval/**");
+        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/processReimbursement/**");
 
     }
 
