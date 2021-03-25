@@ -7,6 +7,7 @@ import cn.net.yzl.ehr.util.MessageRemandAPI;
 import cn.net.yzl.staff.dto.process.StaffWorkOvertimeDto;
 import cn.net.yzl.staff.dto.processNode.ProcessApproveNode;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,12 +22,13 @@ import springfox.documentation.annotations.ApiIgnore;
  */
 @RestController
 @RequestMapping("workOverTime")
-@Api("出勤休假-加班申请")
+@Api(value = "出勤休假-加班申请",tags = "出勤休假-加班申请")
 public class StaffWorkOverTimeController {
 
     @Autowired
     private StaffWorkOverTimeFeignService staffWorkOverTimeFeignService;
 
+    @ApiOperation(value = "加班流程",notes = "加班流程")
     @PostMapping("v1/insertStaffWorkOverTime")
     public ComResponse<Integer> insertStaffWorkOverTime(@RequestBody StaffWorkOvertimeDto staffWorkOvertimeDto, @CurrentStaffNo @ApiIgnore String staffNo){
         ComResponse<ProcessApproveNode> flag = staffWorkOverTimeFeignService.insertStaffWorkOverTime(staffWorkOvertimeDto);
