@@ -13,6 +13,7 @@ import cn.net.yzl.staff.dto.train.CoursewareDto;
 import cn.net.yzl.staff.dto.train.TrainInfoAllDto;
 import cn.net.yzl.staff.pojo.train.*;
 import cn.net.yzl.staff.vo.train.*;
+import com.alibaba.fastjson.JSONObject;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
@@ -283,8 +284,9 @@ public class TrainingCourseController {
     public ComResponse<Integer> staffEntryPost(@RequestBody TrainStaffRelationPo trainStaffRelationPo){
         ComResponse<List<Object>> sign = trainingCourseClient.findSign(null, null, null, null, null, null, trainStaffRelationPo.getCourseId(), 1, 100000);
         List<Object> data = sign.getData();
-        Page<TrainSignListVo> page = (Page<TrainSignListVo>) data.get(1);
-        List<TrainSignListVo> items = page.getItems();
+        String s = JSONObject.toJSONString(data.get(1));
+        JSONObject jsonObject = JSONObject.parseObject(s);
+        List<TrainSignListVo> items = jsonObject.getJSONArray("items").toJavaList(TrainSignListVo.class);
         items.forEach(trainSignListVo -> {
             Boolean isTrue = Boolean.TRUE;
             List<TrainStatusToTime> trainStatusToTimes = trainSignListVo.getTrainStatusToTimes();
@@ -303,7 +305,7 @@ public class TrainingCourseController {
                 msgTemplateVo.setSystemCode(2);
                 msgTemplateVo.setType(1);
                 msgTemplateVo.setSendName("");
-                msgTemplateVo.setUserCode(trainStaffRelationPo.getStaffNo());
+                msgTemplateVo.setUserCode(trainSignListVo.getStaffNo());
                 yMsgInfoService.sendSysMsgInfo(msgTemplateVo);
             }
 
