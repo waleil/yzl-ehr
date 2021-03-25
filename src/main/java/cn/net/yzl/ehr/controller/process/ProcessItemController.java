@@ -105,10 +105,16 @@ public class ProcessItemController {
         return processItemService.processItemDisplayByUser(staffNo);
     }
 
-    @ApiOperation(value = "根据流程项目code查询流程信息",notes = "根据流程项目code查询流程信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @RequestMapping(value = "/config/info", method = RequestMethod.GET)
+    @ApiOperation(value = "根据流程项目code查询流程item信息",notes = "根据流程项目code查询流程item信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/config/item/info", method = RequestMethod.GET)
     ComResponse<ProcessItemDto> selectProcessByItemCode (@RequestParam("code") String code){
         return processItemService.selectProcessByItemCode(code);
+    }
+
+    @ApiOperation(value = "根据流程项目id和当前发起的用户查询是否可以发起流程(true:可以发起，false:不可以发起)",notes = "根据流程项目id和当前发起的用户查询是否可以发起流程(true:可以发起，false:不可以发起)",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/config/item/enable", method = RequestMethod.GET)
+    ComResponse<Boolean> selectProcessByItemIdAndUser (@RequestParam("processItemId") Integer processItemId,@CurrentStaffNo @ApiIgnore String staffNo){
+        return processItemService.selectProcessByItemIdAndUser(processItemId,staffNo);
     }
 
 }

@@ -36,6 +36,12 @@ public class ProcessConfigController {
         return processConfigService.insertProcessConfig(processConfigVo,staffNo);
     }
 
+    @ApiOperation(value = "审批流程配置修改",notes = "审批流程配置修改",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/config/update", method = RequestMethod.POST)
+    ComResponse<Integer> updateProcessConfig (@RequestBody @Validated ProcessConfigVo processConfigVo, @CurrentStaffNo @ApiIgnore String staffNo){
+        return processConfigService.updateProcessConfig(processConfigVo,staffNo);
+    }
+
     @ApiOperation(value = "审批流程配置删除",notes = "审批流程配置删除",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/config/delete", method = RequestMethod.POST)
     ComResponse<Integer> deleteProcessConfig (@RequestParam("id") Integer id,@CurrentStaffNo @ApiIgnore String staffNo){

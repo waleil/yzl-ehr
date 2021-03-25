@@ -2,10 +2,10 @@ package cn.net.yzl.ehr.controller.process;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
-import cn.net.yzl.ehr.fegin.process.StaffContractApprovalFeignService;
+import cn.net.yzl.ehr.fegin.process.StaffWorkOverTimeFeignService;
 import cn.net.yzl.ehr.util.MessageRemandAPI;
+import cn.net.yzl.staff.dto.process.StaffWorkOvertimeDto;
 import cn.net.yzl.staff.dto.processNode.ProcessApproveNode;
-import cn.net.yzl.staff.vo.process.StaffContractApprovalVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,21 +18,21 @@ import springfox.documentation.annotations.ApiIgnore;
 /**
  * @author wangxiao
  * @version 1.0
- * @date 2021/2/26 22:20
+ * @date 2021/3/25 10:53
  */
 @RestController
-@RequestMapping("staffContractApproval")
-@Api(value = "财务审批-合同",tags = "财务审批-合同")
-public class StaffContractApprovalController {
+@RequestMapping("workOverTime")
+@Api(value = "出勤休假-加班申请",tags = "出勤休假-加班申请")
+public class StaffWorkOverTimeController {
 
     @Autowired
-    private StaffContractApprovalFeignService staffContractApprovalFeignService;
+    private StaffWorkOverTimeFeignService staffWorkOverTimeFeignService;
 
-    @ApiOperation(value = "保存合同流程数据",notes = "保存合同流程数据")
-    @PostMapping("v1/insertStaffContractApproval")
-    public ComResponse<ProcessApproveNode> insertStaffContractApproval(@RequestBody StaffContractApprovalVo staffContractApprovalVo, @CurrentStaffNo @ApiIgnore String staffNo){
+    @ApiOperation(value = "加班流程",notes = "加班流程")
+    @PostMapping("v1/insertStaffWorkOverTime")
+    public ComResponse<Integer> insertStaffWorkOverTime(@RequestBody StaffWorkOvertimeDto staffWorkOvertimeDto, @CurrentStaffNo @ApiIgnore String staffNo){
+        ComResponse<ProcessApproveNode> flag = staffWorkOverTimeFeignService.insertStaffWorkOverTime(staffWorkOvertimeDto);
 
-        ComResponse<ProcessApproveNode> flag = staffContractApprovalFeignService.insertStaffContractApproval(staffContractApprovalVo);
         if (flag.getCode().equals(200)){
             try {
                 MessageRemandAPI.examine(staffNo,
@@ -45,6 +45,7 @@ public class StaffContractApprovalController {
                 e.printStackTrace();
             }
         }
-        return flag;
+        return ComResponse.success();
     }
+
 }

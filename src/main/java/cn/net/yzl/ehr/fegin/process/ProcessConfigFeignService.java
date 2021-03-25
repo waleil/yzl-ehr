@@ -7,7 +7,6 @@ import cn.net.yzl.staff.dto.process.ProcessConfigDetailDto;
 import cn.net.yzl.staff.dto.process.ProcessDto;
 import cn.net.yzl.staff.vo.process.ProcessConfigPageVo;
 import cn.net.yzl.staff.vo.process.ProcessConfigVo;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Repository;
 import org.springframework.validation.annotation.Validated;
@@ -23,6 +22,9 @@ public interface ProcessConfigFeignService {
 
     @RequestMapping(value = "/process/config/insert", method = RequestMethod.POST)
     ComResponse<Integer> insertProcessConfig (@RequestBody @Validated ProcessConfigVo processConfigVo);
+
+    @RequestMapping(value = "/process/config/update", method = RequestMethod.POST)
+    ComResponse<Integer> updateProcessConfig (@RequestBody @Validated ProcessConfigVo processConfigVo);
 
     @RequestMapping(value = "/process/config/delete", method = RequestMethod.POST)
     ComResponse<Integer> deleteProcessConfig (@RequestParam("id") Integer id,@RequestParam("staffNo") String staffNo);

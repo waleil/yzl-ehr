@@ -5,8 +5,10 @@ import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.processActiveService.FindProcessNodeService;
 import cn.net.yzl.ehr.util.FastDFSClientWrapper;
 import cn.net.yzl.ehr.util.MessageRemandAPI;
+import cn.net.yzl.staff.dto.StaffDetailsDto;
 import cn.net.yzl.staff.dto.personApprove.ApproveLeaveDTO;
 import cn.net.yzl.staff.dto.personApprove.ApproveLeaveDayDTO;
+import cn.net.yzl.staff.dto.processNode.ProcessApproveNode;
 import cn.net.yzl.staff.dto.processNode.ProcessNodeDTO;
 import cn.net.yzl.staff.dto.processNode.StaffLeaveDTO;
 
@@ -36,29 +38,29 @@ public class ProcessActiveController {
     private FastDFSClientWrapper client;
 
     @GetMapping("v1/findProcessInfoList")
-    @ApiOperation(value = "获取流程每个节点信息")
-    public ComResponse<List<ProcessNodeDTO>> findProcessInfoList(@RequestParam @NotNull Integer processId,
-                                                                 @RequestParam @NotNull @CurrentStaffNo String staffNo) {
-        return findProcessNodeService.findProcessInfoList(processId,staffNo);
+    @ApiOperation(value = "获取当前当前员工信息")
+    public ComResponse<StaffDetailsDto> findProcessInfoList(@CurrentStaffNo @NotNull String staffNo) {
+        return findProcessNodeService.findProcessInfoList(staffNo);
     }
 
     @PostMapping("v1/saveProcessLeaveInfo")
     @ApiOperation(value = "保存请假信息")
-    public ComResponse<Boolean> saveProcessLeaveInfo(@RequestBody @Valid ApproveLeaveDTO approveLeaveDTO) {
-        ComResponse<Boolean> flag = findProcessNodeService.saveProcessLeaveInfo(approveLeaveDTO);
-        //if (flag.getCode().equals(200)){
+    public ComResponse<ProcessApproveNode> saveProcessLeaveInfo(@RequestBody @Valid StaffLeaveDTO staffLeaveDTO, @CurrentStaffNo @NotNull String staffNo) {
+        staffLeaveDTO.setStaffNo(staffNo);
+        ComResponse<ProcessApproveNode> flag = findProcessNodeService.saveProcessLeaveInfo(staffLeaveDTO);
+        if (flag.getCode().equals(200)){
             try {
-                MessageRemandAPI.examine(approveLeaveDTO.getProcessNodeDTOList().get(0).getStaffNo(),
-                        approveLeaveDTO.getProcessNodeDTOList().get(1).getStaffNo(),
-                        approveLeaveDTO.getProcessNodeDTOList().get(0).getProcessName());
-                MessageRemandAPI.processSendMessage(approveLeaveDTO.getProcessNodeDTOList().get(0).getProcessId(),
-                        approveLeaveDTO.getProcessNodeDTOList().get(0).getStaffNo(),
-                        approveLeaveDTO.getProcessNodeDTOList().get(0).getProcessName());
+                MessageRemandAPI.examine(staffNo,
+                        flag.getData().getStaffNo(),
+                        flag.getData().getProcessName());
+                MessageRemandAPI.processSendMessage(flag.getData().getProcessId(),
+                        staffNo,
+                        flag.getData().getProcessName());
             } catch (Exception e) {
                 e.printStackTrace();
             }
-       // }
-        return ComResponse.success();
+        }
+        return flag;
     }
 
     @GetMapping("v1/getLeaveNumInfo")

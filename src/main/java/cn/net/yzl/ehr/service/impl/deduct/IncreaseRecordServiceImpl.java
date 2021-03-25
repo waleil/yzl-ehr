@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.service.impl.deduct;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.common.enums.ResponseCodeEnums;
 import cn.net.yzl.ehr.fegin.deduct.DeductRecordFeginService;
 import cn.net.yzl.ehr.fegin.deduct.IncreaseRecordFeginService;
@@ -21,8 +22,8 @@ public class IncreaseRecordServiceImpl implements IncreaseRecordService {
 
 
     @Override
-    public ComResponse<List<IncreaseRecordDto>> getList(IncreaseRecordListPo increaseRecordListPo) {
-        ComResponse<List<IncreaseRecordDto>> result = increaseRecordFeginService.getList(increaseRecordListPo);
+    public ComResponse<Page<IncreaseRecordDto>> getList(IncreaseRecordListPo increaseRecordListPo) {
+        ComResponse<Page<IncreaseRecordDto>> result = increaseRecordFeginService.getList(increaseRecordListPo);
         if (result == null) {
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(), ResponseCodeEnums.API_ERROR_CODE.getMessage());
         } else if (result.getCode() == 200 && result.getData()==null) {
@@ -32,8 +33,8 @@ public class IncreaseRecordServiceImpl implements IncreaseRecordService {
     }
 
     @Override
-    public ComResponse<IncreaseRecordDto> selectone(Integer id) {
-        ComResponse<IncreaseRecordDto> result = increaseRecordFeginService.selectone(id);
+    public ComResponse<IncreaseRecordDto> selectOne(Integer id) {
+        ComResponse<IncreaseRecordDto> result = increaseRecordFeginService.selectOne(id);
         if (result == null) {
             return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(), ResponseCodeEnums.API_ERROR_CODE.getMessage());
         } else if (result.getCode() == 200 && result.getData()==null) {

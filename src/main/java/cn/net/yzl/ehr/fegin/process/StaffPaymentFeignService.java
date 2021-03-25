@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.fegin.process;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.staff.dto.processNode.ProcessApproveNode;
 import cn.net.yzl.staff.vo.process.StaffPaymentVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -22,7 +23,7 @@ public interface StaffPaymentFeignService {
 
     @ApiOperation(value = "保存付款流程数据",notes = "保存付款流程数据")
     @PostMapping("v1/insertStaffPayment")
-    public ComResponse<Integer> insertStaffPayment(@RequestBody StaffPaymentVo staffPaymentVo);
+    public ComResponse<ProcessApproveNode> insertStaffPayment(@RequestBody StaffPaymentVo staffPaymentVo);
 
 
 }

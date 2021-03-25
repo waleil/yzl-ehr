@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.fegin.process;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.staff.dto.processNode.ProcessApproveNode;
 import cn.net.yzl.staff.vo.process.StaffInvoiceVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -17,7 +18,7 @@ public interface StaffInvoiceFeignService {
 
     @ApiOperation(value = "保存开票流程数据",notes = "保存开票流程数据")
     @PostMapping("v1/insertStaffInvoice")
-    public ComResponse<Integer> insertStaffInvoice(@RequestBody StaffInvoiceVo staffInvoiceVo);
+    public ComResponse<ProcessApproveNode> insertStaffInvoice(@RequestBody StaffInvoiceVo staffInvoiceVo);
 
 
 }
