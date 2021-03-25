@@ -135,6 +135,42 @@ public class TrainingCourseController {
     @ApiOperation(value = "培训课程编辑", notes = "培训编辑")
     @PostMapping("editTrainInfo")
     public ComResponse editTrainInfo(@RequestBody TrainInfoAllVO trainInfoAllVO) {
+        List<TrainStaffRelationPo> trainStaffRelationPoList = trainInfoAllVO.getTrainStaffRelationPoList();
+        List<TrainSchedulePo> trainSchedulePoList = trainInfoAllVO.getTrainSchedulePoList();
+        if(!CollectionUtils.isEmpty(trainSchedulePoList)){
+            trainStaffRelationPoList.forEach(trainStaffRelationPo -> {
+                trainSchedulePoList.forEach(trainSchedulePo -> {
+                    if(trainSchedulePo.getInform() == 1){
+                        ComResponse<StaffDetailsDto> detailsByNo = staffFeginService.getDetailsByNo(trainStaffRelationPo.getStaffNo());
+                        StaffDetailsDto data = detailsByNo.getData();
+                        MsgTemplateVo msgTemplateVo = new MsgTemplateVo();
+                        msgTemplateVo.setTitle("培训通知:");
+                        msgTemplateVo.setParams(new Object[]{data.getName(),trainSchedulePo.getStartTime(),trainInfoAllVO.getCourseName()});
+                        msgTemplateVo.setCreator("");
+                        msgTemplateVo.setCode("EHR0008");
+                        msgTemplateVo.setSystemCode(2);
+                        msgTemplateVo.setType(1);
+                        msgTemplateVo.setSendName("");
+                        msgTemplateVo.setUserCode(trainStaffRelationPo.getStaffNo());
+                        yMsgInfoService.sendSysMsgInfo(msgTemplateVo);
+                    }
+                });
+            });
+        }
+        trainStaffRelationPoList.forEach(trainStaffRelationPo -> {
+            ComResponse<StaffDetailsDto> detailsByNo = staffFeginService.getDetailsByNo(trainStaffRelationPo.getStaffNo());
+            StaffDetailsDto data = detailsByNo.getData();
+            MsgTemplateVo msgTemplateVo = new MsgTemplateVo();
+            msgTemplateVo.setTitle("培训通知:");
+            msgTemplateVo.setParams(new Object[]{trainStaffRelationPo.getStaffNo(),trainInfoAllVO.getStartTime(),trainInfoAllVO.getEndTime(),trainInfoAllVO.getCourseName()});
+            msgTemplateVo.setCreator("");
+            msgTemplateVo.setCode("EHR0007");
+            msgTemplateVo.setSystemCode(2);
+            msgTemplateVo.setType(1);
+            msgTemplateVo.setSendName("");
+            msgTemplateVo.setUserCode(trainStaffRelationPo.getStaffNo());
+            yMsgInfoService.sendSysMsgInfo(msgTemplateVo);
+        });
         return trainingCourseClient.editTrainInfo(trainInfoAllVO);
     }
 
