@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.fegin.processActiveService;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.staff.dto.ProcessProfession.ProcessStaffDimissionDTO;
 import cn.net.yzl.staff.dto.ProcessProfession.ProcessStaffPositiveDTO;
 import cn.net.yzl.staff.dto.personApprove.*;
 import cn.net.yzl.staff.dto.processNode.ProcessApproveNode;
@@ -27,7 +28,7 @@ public interface saveProcessService {
     ComResponse<ProcessApproveNode> savePositiveApplay(@RequestBody @Validated ProcessStaffPositiveDTO processStaffPositiveDTO);
     @ApiOperation(value = "保存离职申请",notes = "离职申请添加",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "v1/saveDimissionApplay", method = RequestMethod.POST)
-    ComResponse<ProcessApproveNode> saveDimissionApplay(@RequestBody @Validated ApproveDimissionInfoListDTO approveDimissionInfoListDTO);
+    ComResponse<ProcessApproveNode> saveDimissionApplay(@RequestBody @Validated ProcessStaffDimissionDTO processStaffDimissionDTO);
     @ApiOperation(value = "保存旷工申请",notes = "离职申请添加",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "v1/saveAbsentApplay", method = RequestMethod.POST)
     ComResponse<ProcessApproveNode> saveAbsentApplay(@RequestBody ProcessAbsentDTO processAbsentDTO);

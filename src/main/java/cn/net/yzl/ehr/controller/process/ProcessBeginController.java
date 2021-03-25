@@ -5,6 +5,7 @@ import cn.net.yzl.common.enums.ResponseCodeEnums;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.processActiveService.saveProcessService;
 import cn.net.yzl.ehr.util.MessageRemandAPI;
+import cn.net.yzl.staff.dto.ProcessProfession.ProcessStaffDimissionDTO;
 import cn.net.yzl.staff.dto.ProcessProfession.ProcessStaffPositiveDTO;
 import cn.net.yzl.staff.dto.personApprove.*;
 import cn.net.yzl.staff.dto.processNode.ProcessApproveNode;
@@ -69,8 +70,8 @@ public class ProcessBeginController {
     }
     @ApiOperation(value = "保存离职申请",notes = "离职申请添加",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "v1/saveDimissionApplay", method = RequestMethod.POST)
-    ComResponse<ProcessApproveNode> saveDimissionApplay (@RequestBody @Validated ApproveDimissionInfoListDTO approveDimissionInfoListDTO, @CurrentStaffNo @NotNull String staffNo){
-        ComResponse<ProcessApproveNode> flag = saveProcessService.saveDimissionApplay(approveDimissionInfoListDTO);
+    ComResponse<ProcessApproveNode> saveDimissionApplay (@RequestBody @Validated ProcessStaffDimissionDTO processStaffDimissionDTO, @CurrentStaffNo @NotNull String staffNo){
+        ComResponse<ProcessApproveNode> flag = saveProcessService.saveDimissionApplay(processStaffDimissionDTO);
         if (flag.getCode().equals(200)){
             try {
                 MessageRemandAPI.examine(staffNo,
