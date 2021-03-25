@@ -9,6 +9,7 @@ import cn.net.yzl.ehr.service.deduct.DeductItemService;
 import cn.net.yzl.ehr.service.deduct.DeductReocrdService;
 import cn.net.yzl.staff.dto.deduct.*;
 import cn.net.yzl.staff.dto.process.ProcessDto;
+import cn.net.yzl.staff.dto.processNode.ProcessApproveNode;
 import cn.net.yzl.staff.pojo.deduct.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,9 +49,9 @@ public class DeductRecordServiceImpl implements DeductReocrdService {
     }
 
     @Override
-    public ComResponse<Integer> insertDeductRecord(DeductProcessDTO deductProcessDTO,String staffNo) {
+    public ComResponse<ProcessApproveNode> insertDeductRecord(DeductProcessDTO deductProcessDTO, String staffNo) {
         deductProcessDTO.getDeductRecordDto().setCreator(staffNo);
-        ComResponse<Integer> result = deductRecordFeginService.insertDeductRecord(deductProcessDTO);
+        ComResponse<ProcessApproveNode> result = deductRecordFeginService.insertDeductRecord(deductProcessDTO);
         return result;
     }
 
@@ -86,9 +87,9 @@ public class DeductRecordServiceImpl implements DeductReocrdService {
     }
 
     @Override
-    public ComResponse<Integer> insertStopDeductRecord(DeductProcessDTO deductProcessDTO ,String staffNo) {
+    public ComResponse<ProcessApproveNode> insertStopDeductRecord(DeductProcessDTO deductProcessDTO ,String staffNo) {
         deductProcessDTO.getDeductRecordDto().setCreator(staffNo);
-        ComResponse<Integer> result = deductRecordFeginService.insertStopDeductRecord(deductProcessDTO);
+        ComResponse<ProcessApproveNode> result = deductRecordFeginService.insertStopDeductRecord(deductProcessDTO);
         return result;
     }
 

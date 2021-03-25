@@ -12,6 +12,7 @@ import cn.net.yzl.msg.service.YMsgInfoService;
 import cn.net.yzl.staff.dto.StaffLevelDto;
 import cn.net.yzl.staff.dto.deduct.*;
 import cn.net.yzl.staff.dto.process.ProcessDto;
+import cn.net.yzl.staff.dto.processNode.ProcessApproveNode;
 import cn.net.yzl.staff.pojo.deduct.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -55,15 +56,15 @@ public class DeductRecordController {
     @ApiOperation(value = "新建扣款申请", notes = "新建扣款申请",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/insertDeductRecord", method = RequestMethod.POST)
     ComResponse<Integer> insertDeductRecord(@RequestBody DeductProcessDTO deductProcessDTO, @CurrentStaffNo @ApiIgnore String staffNo){
-        ComResponse<Integer> flag = deductReocrdService.insertDeductRecord(deductProcessDTO,staffNo);
+        ComResponse<ProcessApproveNode> flag = deductReocrdService.insertDeductRecord(deductProcessDTO,staffNo);
         if (flag.getCode().equals(200)){
             try {
-                MessageRemandAPI.examine(deductProcessDTO.getProcessNodeDTOList().get(0).getStaffNo(),
-                        deductProcessDTO.getProcessNodeDTOList().get(1).getStaffNo(),
-                        deductProcessDTO.getProcessNodeDTOList().get(0).getProcessName());
-                MessageRemandAPI.processSendMessage(deductProcessDTO.getProcessNodeDTOList().get(0).getProcessId(),
-                        deductProcessDTO.getProcessNodeDTOList().get(0).getStaffNo(),
-                        deductProcessDTO.getProcessNodeDTOList().get(0).getProcessName());
+                MessageRemandAPI.examine(staffNo,
+                        flag.getData().getStaffNo(),
+                        flag.getData().getProcessName());
+                MessageRemandAPI.processSendMessage(flag.getData().getProcessId(),
+                        staffNo,
+                        flag.getData().getProcessName());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -119,15 +120,15 @@ public class DeductRecordController {
     @ApiOperation(value = "新建停止扣款申请", notes = "新建停止扣款申请",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/insertStopDeductRecord", method = RequestMethod.POST)
     ComResponse<Integer> insertStopDeductRecord(@RequestBody DeductProcessDTO deductProcessDTO , @CurrentStaffNo @ApiIgnore String staffNo){
-        ComResponse<Integer> flag = deductReocrdService.insertStopDeductRecord(deductProcessDTO,staffNo);
+        ComResponse<ProcessApproveNode> flag = deductReocrdService.insertStopDeductRecord(deductProcessDTO,staffNo);
         if (flag.getCode().equals(200)){
             try {
-                MessageRemandAPI.examine(deductProcessDTO.getProcessNodeDTOList().get(0).getStaffNo(),
-                        deductProcessDTO.getProcessNodeDTOList().get(1).getStaffNo(),
-                        deductProcessDTO.getProcessNodeDTOList().get(0).getProcessName());
-                MessageRemandAPI.processSendMessage(deductProcessDTO.getProcessNodeDTOList().get(0).getProcessId(),
-                        deductProcessDTO.getProcessNodeDTOList().get(0).getStaffNo(),
-                        deductProcessDTO.getProcessNodeDTOList().get(0).getProcessName());
+                MessageRemandAPI.examine(staffNo,
+                        flag.getData().getStaffNo(),
+                        flag.getData().getProcessName());
+                MessageRemandAPI.processSendMessage(flag.getData().getProcessId(),
+                        staffNo,
+                        flag.getData().getProcessName());
             } catch (Exception e) {
                 e.printStackTrace();
             }
