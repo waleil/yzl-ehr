@@ -47,7 +47,7 @@ public class ProcessBeginController {
                 e.printStackTrace();
             }
         }
-        return ComResponse.success();
+        return flag;
     }
     @ApiOperation(value = "保存转正申请",notes = "转正申请添加",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "v1/savePositiveApplay", method = RequestMethod.POST)
@@ -65,7 +65,7 @@ public class ProcessBeginController {
                 e.printStackTrace();
             }
         }
-        return ComResponse.success();
+        return flag;
     }
     @ApiOperation(value = "保存离职申请",notes = "离职申请添加",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "v1/saveDimissionApplay", method = RequestMethod.POST)
@@ -83,7 +83,7 @@ public class ProcessBeginController {
                 e.printStackTrace();
             }
         }
-        return ComResponse.success();
+        return flag;
     }
 
      @ApiOperation(value = "保存旷工申请",notes = "旷工申请添加",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
@@ -102,7 +102,7 @@ public class ProcessBeginController {
                  e.printStackTrace();
              }
          }
-        return ComResponse.success();
+        return flag;
     }
     @ApiOperation(value = "检查当前日期是否超过结算日期",notes = "离职申请添加",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "v1/checkAccountDay", method = RequestMethod.GET)
@@ -127,7 +127,7 @@ public class ProcessBeginController {
                 e.printStackTrace();
             }
         }
-        return ComResponse.success();
+        return flag;
     }
     @GetMapping("v1/findProcessCancelLeaveList")
     @ApiOperation(value = "获取取消请假申请审批节点和请假信息")

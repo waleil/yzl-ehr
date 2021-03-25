@@ -30,7 +30,7 @@ public class StaffContractApprovalController {
 
     @ApiOperation(value = "保存合同流程数据",notes = "保存合同流程数据")
     @PostMapping("v1/insertStaffContractApproval")
-    public ComResponse<Integer> insertStaffContractApproval(@RequestBody StaffContractApprovalVo staffContractApprovalVo, @CurrentStaffNo @ApiIgnore String staffNo){
+    public ComResponse<ProcessApproveNode> insertStaffContractApproval(@RequestBody StaffContractApprovalVo staffContractApprovalVo, @CurrentStaffNo @ApiIgnore String staffNo){
 
         ComResponse<ProcessApproveNode> flag = staffContractApprovalFeignService.insertStaffContractApproval(staffContractApprovalVo);
         if (flag.getCode().equals(200)){
@@ -45,6 +45,6 @@ public class StaffContractApprovalController {
                 e.printStackTrace();
             }
         }
-        return ComResponse.success();
+        return flag;
     }
 }

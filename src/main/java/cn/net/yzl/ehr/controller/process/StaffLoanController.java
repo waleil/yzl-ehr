@@ -30,7 +30,7 @@ public class StaffLoanController {
 
     @ApiOperation(value = "保存借款流程数据",notes = "保存借款流程数据")
     @PostMapping("v1/insertStaffLoan")
-    public ComResponse<Integer> insertStaffLoan(@RequestBody StaffLoanVo staffLoanVo, @CurrentStaffNo @ApiIgnore String staffNo){
+    public ComResponse<ProcessApproveNode> insertStaffLoan(@RequestBody StaffLoanVo staffLoanVo, @CurrentStaffNo @ApiIgnore String staffNo){
         ComResponse<ProcessApproveNode> flag = staffLoanFeignService.insertStaffLoan(staffLoanVo);
         if (flag.getCode().equals(200)){
             try {
@@ -44,6 +44,6 @@ public class StaffLoanController {
                 e.printStackTrace();
             }
         }
-        return ComResponse.success();
+        return flag;
     }
 }

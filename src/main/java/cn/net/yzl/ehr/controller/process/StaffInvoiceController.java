@@ -25,7 +25,7 @@ public class StaffInvoiceController {
 
     @ApiOperation(value = "保存开票流程数据",notes = "保存开票流程数据")
     @PostMapping("v1/insertStaffInvoice")
-    public ComResponse<Integer> insertStaffInvoice(@RequestBody StaffInvoiceVo staffInvoiceVo, @CurrentStaffNo @ApiIgnore String staffNo) {
+    public ComResponse<ProcessApproveNode> insertStaffInvoice(@RequestBody StaffInvoiceVo staffInvoiceVo, @CurrentStaffNo @ApiIgnore String staffNo) {
         ComResponse<ProcessApproveNode> flag = staffInvoiceFeignService.insertStaffInvoice(staffInvoiceVo);
         if (flag.getCode().equals(200)){
             try {
@@ -39,7 +39,7 @@ public class StaffInvoiceController {
                 e.printStackTrace();
             }
         }
-        return ComResponse.success();
+        return flag;
     }
 
 

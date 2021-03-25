@@ -31,7 +31,7 @@ public class ProcessReimbursementController {
 
     @ApiOperation(value = "保存报销流程",notes = "保存报销流程")
     @PostMapping("v1/insertProcessReimbursement")
-    public ComResponse<Integer> insertProcessReimbursement(@RequestBody StaffReimbursementVo staffReimbursementVo, @CurrentStaffNo @ApiIgnore String staffNo){
+    public ComResponse<ProcessApproveNode> insertProcessReimbursement(@RequestBody StaffReimbursementVo staffReimbursementVo, @CurrentStaffNo @ApiIgnore String staffNo){
 
         ComResponse<ProcessApproveNode> flag = processReimbursementFeignService.insertProcessReimbursement(staffReimbursementVo);
         if (flag.getCode().equals(200)){
@@ -46,7 +46,7 @@ public class ProcessReimbursementController {
                 e.printStackTrace();
             }
         }
-        return ComResponse.success();
+        return flag;
 
     }
 

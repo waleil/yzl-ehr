@@ -30,7 +30,7 @@ public class StaffPaymentController {
 
     @ApiOperation(value = "保存付款流程数据",notes = "保存付款流程数据")
     @PostMapping("v1/insertStaffPayment")
-    public ComResponse<Integer> insertStaffPayment(@RequestBody StaffPaymentVo staffPaymentVo, @CurrentStaffNo @ApiIgnore String staffNo){
+    public ComResponse<ProcessApproveNode> insertStaffPayment(@RequestBody StaffPaymentVo staffPaymentVo, @CurrentStaffNo @ApiIgnore String staffNo){
         ComResponse<ProcessApproveNode> flag = staffPaymentFeignService.insertStaffPayment(staffPaymentVo);
         if (flag.getCode().equals(200)){
             try {
@@ -44,7 +44,7 @@ public class StaffPaymentController {
                 e.printStackTrace();
             }
         }
-        return ComResponse.success();
+        return flag;
     }
 
 

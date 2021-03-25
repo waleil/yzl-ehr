@@ -31,7 +31,7 @@ public class StaffSponsorIntrRoyaController {
 
     @ApiOperation(value = "保存转介绍提成流程数据",notes = "保存转介绍提成流程数据")
     @PostMapping("v1/insertStaffSponsorIntrRoya")
-    public ComResponse<Integer> insertStaffSponsorIntrRoya(@RequestBody StaffSponsorIntrRoyaVo staffSponsorIntrRoyaVo, @CurrentStaffNo @ApiIgnore String staffNo){
+    public ComResponse<ProcessApproveNode> insertStaffSponsorIntrRoya(@RequestBody StaffSponsorIntrRoyaVo staffSponsorIntrRoyaVo, @CurrentStaffNo @ApiIgnore String staffNo){
 
         ComResponse<ProcessApproveNode> flag = staffSponsorIntrRoyaFeignService.insertStaffSponsorIntrRoya(staffSponsorIntrRoyaVo);
         if (flag.getCode().equals(200)){
@@ -46,7 +46,7 @@ public class StaffSponsorIntrRoyaController {
                 e.printStackTrace();
             }
         }
-        return ComResponse.success();
+        return flag;
     }
 
 

@@ -55,7 +55,7 @@ public class DeductRecordController {
 
     @ApiOperation(value = "新建扣款申请", notes = "新建扣款申请",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/insertDeductRecord", method = RequestMethod.POST)
-    ComResponse<Integer> insertDeductRecord(@RequestBody DeductProcessDTO deductProcessDTO, @CurrentStaffNo @ApiIgnore String staffNo){
+    ComResponse<ProcessApproveNode> insertDeductRecord(@RequestBody DeductProcessDTO deductProcessDTO, @CurrentStaffNo @ApiIgnore String staffNo){
         ComResponse<ProcessApproveNode> flag = deductReocrdService.insertDeductRecord(deductProcessDTO,staffNo);
         if (flag.getCode().equals(200)){
             try {
@@ -69,7 +69,7 @@ public class DeductRecordController {
                 e.printStackTrace();
             }
         }
-        return ComResponse.success();
+        return flag;
 
     }
 
@@ -119,7 +119,7 @@ public class DeductRecordController {
 
     @ApiOperation(value = "新建停止扣款申请", notes = "新建停止扣款申请",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/insertStopDeductRecord", method = RequestMethod.POST)
-    ComResponse<Integer> insertStopDeductRecord(@RequestBody DeductProcessDTO deductProcessDTO , @CurrentStaffNo @ApiIgnore String staffNo){
+    ComResponse<ProcessApproveNode> insertStopDeductRecord(@RequestBody DeductProcessDTO deductProcessDTO , @CurrentStaffNo @ApiIgnore String staffNo){
         ComResponse<ProcessApproveNode> flag = deductReocrdService.insertStopDeductRecord(deductProcessDTO,staffNo);
         if (flag.getCode().equals(200)){
             try {
@@ -133,7 +133,7 @@ public class DeductRecordController {
                 e.printStackTrace();
             }
         }
-        return ComResponse.success();
+        return flag;
 
     }
 
