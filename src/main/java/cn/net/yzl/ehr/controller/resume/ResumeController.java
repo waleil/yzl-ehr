@@ -36,6 +36,7 @@ import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
@@ -225,10 +226,10 @@ public class ResumeController {
 
     @ApiOperation(value = "简历超时状态修改(定时修改)", notes = "简历超时状态修改", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/updateFollowupStatus", method = RequestMethod.GET)
-    ComResponse<String> updateFollowupStatus(@ApiIgnore @CurrentStaffNo String staffNo) throws ParseException {
+    ComResponse<String> updateFollowupStatus(HttpServletRequest request) throws ParseException {
         ComResponse<String> re = resumeFeginService.updateFollowupStatus();
         if (StrUtil.isNotBlank(re.getData())){
-            msgSendAsync.resumeFllowUpStatus(JsonUtil.readJson2Map(re.getData()),staffNo);
+            msgSendAsync.resumeFllowUpStatus(JsonUtil.readJson2Map(re.getData()),(String)request.getAttribute("CURRENT_USER_NO"));
         }
         return re;
     }
