@@ -99,4 +99,9 @@ public interface StaffFeginService {
 
     @RequestMapping(value = "/staff/completeInfo", method = RequestMethod.POST)
     ComResponse<StaffDetailsDto> completeInfo(@RequestBody StaffInfoSaveVO staffInfoSaveVO) throws ParseException, ApiException;
+
+    //办理入职时判断简历中是否有头像，无则加载默认头像，有则用之;补全信息无初始头像，直接使用默认头像
+    @RequestMapping(value = "/staff/getStaffImgUrl", method = RequestMethod.GET)
+    ComResponse<String> getStaffImgUrl(@RequestParam("resumeId") Integer resumeId,@RequestParam("staffNo") String staffNo);
+
 }

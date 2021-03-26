@@ -12,6 +12,8 @@ import java.util.List;
 @ApiModel(value = "StaffParamsVO", description = "员工对象参数")
 public class StaffParamsVO implements Serializable {
 
+    @ApiModelProperty(value = "当前登录的用户工号", name = "staffNo")
+    private String staffNo;
     @ApiModelProperty(value = "姓名或者工号", name = "params")
     private String  params;
     @ApiModelProperty(value = "工作地点code", name = "workplaceCode")
@@ -35,6 +37,9 @@ public class StaffParamsVO implements Serializable {
 
     @ApiModelProperty(value = "补全状态", name = "isComplete")
     private Integer isComplete;
+
+    @ApiModelProperty(value = "1:标识crm,2:(非部门负责人则全量)", name = "isComplete",hidden = true)
+    private Integer flag;
 
     @ApiModelProperty(value = "在职状态(字典type=post_status)", name = "postStatusCode")
     private Integer postStatusCode;

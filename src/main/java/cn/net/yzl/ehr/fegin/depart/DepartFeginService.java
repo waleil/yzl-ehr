@@ -63,4 +63,8 @@ public interface DepartFeginService {
     @ApiOperation(value = "根据员工号获取部门列表(负责人)", notes = "根据员工号获取部门列表(负责人)", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/depart/getListByStaffNo", method = RequestMethod.GET)
     ComResponse<List<cn.net.yzl.staff.dto.DepartDto>> getListByStaffNo(@RequestParam("staffNo") String staffNo);
+
+    @ApiOperation(value = "根据员工号获取部门ID集合(负责人)", notes = "根据员工号获取部门ID集合(负责人)", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/getDepartListByStaffNo", method = RequestMethod.GET)
+    ComResponse<List<Integer>> getDepartListByStaffNo(@RequestParam("staffNo")  String staffNo) ;
 }

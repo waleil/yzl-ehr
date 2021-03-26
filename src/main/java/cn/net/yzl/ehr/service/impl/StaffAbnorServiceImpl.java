@@ -14,6 +14,8 @@ import cn.net.yzl.ehr.pojo.StaffAbnorRecordSalaryPo;
 import cn.net.yzl.ehr.pojo.StaffSwitchStatePo;
 import cn.net.yzl.ehr.service.StaffAbnorService;
 import cn.net.yzl.msg.model.vo.MsgTemplateVo;
+import cn.net.yzl.pm.model.dto.MenuDTO;
+import cn.net.yzl.pm.service.RoleMenuService;
 import cn.net.yzl.staff.dto.StaffDetailsDto;
 import cn.net.yzl.staff.dto.StaffTrainDto;
 import cn.net.yzl.staff.pojo.AbnorRecordPo;
@@ -25,6 +27,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -43,6 +46,9 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
 
     @Autowired
     private MsgSendAsync msgSendAsync;
+
+    @Autowired
+    private RoleMenuService roleMenuService;
 
     @Override
     public ComResponse<Integer> updateStaffChangeStatus(StaffSwitchStatePo staffSwitchStatePo,String staffNo) {
@@ -281,7 +287,24 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
     }
 
     @Override
-    public ComResponse<Page<StaffTrainDto>> findRecordsByPageParam(AbnorRecordPo abnorRecordPo) {
+    public ComResponse<Page<StaffTrainDto>> findRecordsByPageParam(AbnorRecordPo abnorRecordPo, HttpServletRequest request) {
+
+     /*   String userNo = request.getHeader("userNo");
+        String referer = request.getHeader("Referer");
+        .setStaffNo(userNo);
+        MenuDTO menuDTO = roleMenuService.getIsAdminByUserCodeAndMenuUrl(userNo,referer);
+        log.info(JsonUtil.toJsonStr(menuDTO));
+       *//* menuDTO.getMenuName();//获取菜单名称
+        menuDTO.getIsAdmin();//获取最高权限标识*//*
+        //最高权限标识
+        if(menuDTO!=null && menuDTO.getIsAdmin()!=null && menuDTO.getIsAdmin()==1 ){
+            //全量，只根据departId查询
+            staffParamsVO.setFlag(2);
+        }else{
+            //会增加部门负责人限制
+            staffParamsVO.setFlag(1);
+        }
+*/
         ComResponse<Page<StaffTrainDto>> recordsByPageParam = staffAbnorFeginService.findRecordsByPageParam(abnorRecordPo);
         if (recordsByPageParam==null){
             ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());

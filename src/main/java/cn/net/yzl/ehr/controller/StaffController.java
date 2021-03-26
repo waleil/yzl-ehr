@@ -50,6 +50,7 @@ import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
@@ -159,14 +160,14 @@ public class StaffController {
     }
     @ApiOperation(value = "模糊查询员工列表", notes = "模糊查询员工列表")
     @RequestMapping(value = "/getListByParams", method = RequestMethod.POST)
-    ComResponse<Page<StaffListDto>> getListByParams(@RequestBody @Validated StaffParamsVO staffParamsVO) {
-        return staffService.getListByParams(staffParamsVO);
+    ComResponse<Page<StaffListDto>> getListByParams(@RequestBody @Validated StaffParamsVO staffParamsVO,  HttpServletRequest request) {
+        return staffService.getListByParams(staffParamsVO,request);
     }
 
     @ApiOperation(value = "模糊查询员工列表(部门员工查询)", notes = "模糊查询员工列表(部门员工查询)")
     @RequestMapping(value = "/getListByParamsForDepart", method = RequestMethod.POST)
-    ComResponse<Page<StaffListDto>> getListByParamsForDepart(@RequestBody @Validated StaffParamsVO staffParamsVO) {
-        return staffService.getListByParamsForDepart(staffParamsVO);
+    ComResponse<Page<StaffListDto>> getListByParamsForDepart(@RequestBody @Validated StaffParamsVO staffParamsVO, HttpServletRequest request) {
+        return staffService.getListByParamsForDepart(staffParamsVO,request);
     }
 
     @ApiOperation(value = "将员工加入/移出人才池", notes = "将员工加入/移出人才池")
@@ -248,7 +249,7 @@ public class StaffController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "type", value = "导出列表类型:1.员工列表,2.部门员工列表,3.待优化列表,4.带劝退,5.人才储备池列表", required = true, dataType = "String", paramType = "query")
     })
-    public void staffListExcelExport(@RequestBody @Validated StaffParamsVO staffParamsVO, @RequestParam("type") @NotNull @Min(1) Integer type, HttpServletResponse response) {
+    public void staffListExcelExport(@RequestBody @Validated StaffParamsVO staffParamsVO, @RequestParam("type") @NotNull @Min(1) Integer type,HttpServletRequest request,HttpServletResponse response) {
         String execName="resume_list";
         ComResponse<Page<StaffListDto>> listByParams=null;
         List<StaffListDto> list =null;
@@ -285,7 +286,7 @@ public class StaffController {
                     writer.addHeaderAlias("payrollAccountingDate","薪资核算截止日");
                     staffParamsVO.setPageNo(1);
                     staffParamsVO.setPageSize(50000);
-                    listByParams = staffService.getListByParams(staffParamsVO);
+                    listByParams = staffService.getListByParams(staffParamsVO,request);
                     break;
                 case 2://部门员工列表
                     writer.renameSheet("部门员工列表");     //甚至sheet的名称
@@ -309,7 +310,7 @@ public class StaffController {
                     writer.addHeaderAlias("entryTimes","入司次数");
                     staffParamsVO.setPageNo(1);
                     staffParamsVO.setPageSize(50000);
-                    listByParams = staffService.getListByParams(staffParamsVO);
+                    listByParams = staffService.getListByParams(staffParamsVO,request);
                     break;
                 case 3://待优化员工列表
                     writer.renameSheet("待优化员工列表");     //甚至sheet的名称
@@ -326,7 +327,7 @@ public class StaffController {
                     writer.addHeaderAlias("","原因");
                     staffParamsVO.setPageNo(1);
                     staffParamsVO.setPageSize(50000);
-                    listByParams = staffService.getListByParams(staffParamsVO);
+                    listByParams = staffService.getListByParams(staffParamsVO,request);
                     break;
                 case 4://待劝退员工列表
                     writer.renameSheet("待劝退员工列表");     //甚至sheet的名称
@@ -343,7 +344,7 @@ public class StaffController {
                     writer.addHeaderAlias("","原因");
                     staffParamsVO.setPageNo(1);
                     staffParamsVO.setPageSize(50000);
-                    listByParams = staffService.getListByParams(staffParamsVO);
+                    listByParams = staffService.getListByParams(staffParamsVO,request);
                     break;
                 case 5://人才储备池
                     writer.renameSheet("人才储备池员工列表");     //甚至sheet的名称
@@ -363,7 +364,7 @@ public class StaffController {
 
                     staffParamsVO.setPageNo(1);
                     staffParamsVO.setPageSize(50000);
-                    listByParams = staffService.getListByParams(staffParamsVO);
+                    listByParams = staffService.getListByParams(staffParamsVO,request);
                     break;
             }
             if(listByParams!=null && listByParams.getData()!=null && listByParams.getData().getItems()!=null){
@@ -426,5 +427,11 @@ public class StaffController {
     @RequestMapping(value = "/completeInfo", method = RequestMethod.POST)
     ComResponse<StaffDetailsDto> completeInfo(@RequestBody @Validated StaffInfoSaveVO staffInfoSaveVO) throws ParseException, ApiException{
         return staffService.completeInfo(staffInfoSaveVO);
+    }
+
+    @ApiOperation(value = "员工数据-完善员工详情", notes = "员工数据-完善员工详情", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/getStaffImgUrl", method = RequestMethod.GET)
+    public ComResponse<String> getStaffImgUrl(Integer resumeId, String staffNo) {
+        return staffFeginService.getStaffImgUrl(resumeId,staffNo);
     }
 }
