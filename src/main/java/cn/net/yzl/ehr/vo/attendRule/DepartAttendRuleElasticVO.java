@@ -19,9 +19,9 @@ public class DepartAttendRuleElasticVO extends DepartAttendRuleBaseVO {
 
 
     @ApiModelProperty(value="中休的开始时间",name="restStartTime",required = true)
-    @Pattern(regexp = "^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$")
+//    @Pattern(regexp = "^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$")
     private String restStartTime;
-    @Pattern(regexp = "^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$")
+//    @Pattern(regexp = "^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$")
     @ApiModelProperty(value="中休的结束时间",name="restEndTime",required = true)
     private String restEndTime;
     @ApiModelProperty(value="迟到规则(首次打卡时间大于上班时间,单位分钟)",name="lateTime",required = true)
@@ -34,22 +34,22 @@ public class DepartAttendRuleElasticVO extends DepartAttendRuleBaseVO {
     @ApiModelProperty(value="大小周字节",name="weekBit",hidden = true)
     private Integer weekBit;
     @ApiModelProperty(value="大小周字节字符串(101010)",name="weekBitStr",required = true)
-    @Pattern(regexp = "^([0-1]{7}|[0-1]{14})$")
+//    @Pattern(regexp = "^([0-1]{7}|[0-1]{14})$")
     private String weekBitStr;
 
 
 
     @ApiModelProperty(value="弹性打卡:上班打卡时段开始时间",name="elasticUpStartTime",required = true)
-    @Pattern(regexp = "^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$")
+//    @Pattern(regexp = "^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$")
     private String elasticUpStartTime;
     @ApiModelProperty(value="弹性打卡:上班打卡时段结束时间",name="remindTime",required = true)
-    @Pattern(regexp = "^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$")
+//    @Pattern(regexp = "^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$")
     private String elasticUpEndTime;
     @ApiModelProperty(value="弹性打卡:下班打卡时段开始时间",name="remindTime",required = true)
-    @Pattern(regexp = "^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$")
+//    @Pattern(regexp = "^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$")
     private String elasticDownStartTime;
     @ApiModelProperty(value="弹性打卡:下班打卡时段结束时间",name="remindTime",required = true)
-    @Pattern(regexp = "^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$")
+//    @Pattern(regexp = "^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$")
     private String elasticDownEndTime;
 
 
