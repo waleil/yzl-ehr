@@ -75,13 +75,8 @@ public class DeductRecordServiceImpl implements DeductReocrdService {
     }
 
     @Override
-    public ComResponse<ApproveDeductDto> queryById(String appNo) {
-        ComResponse<ApproveDeductDto>  result = deductRecordFeginService.queryById(appNo);
-        if (result == null) {
-            return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(), ResponseCodeEnums.API_ERROR_CODE.getMessage());
-        } else if (result.getCode() == 200 && result.getData()==null) {
-            return ComResponse.fail(ResponseCodeEnums.NO_DATA_CODE.getCode(), ResponseCodeEnums.NO_DATA_CODE.getMessage());
-        }
+    public ComResponse<DeductRecordDto> queryByNo(String appNo) {
+        ComResponse<DeductRecordDto>  result = deductRecordFeginService.queryByNo(appNo);
         return result;
     }
 

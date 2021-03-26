@@ -23,8 +23,9 @@ public interface DeductReocrdService {
     //修改执行状态
     ComResponse<Integer> updateExecuteState(DeductRecordStateUpdatePo deductRecordStateUpdatePo,String staffNo);
 
+
     //查询扣款详情
-    ComResponse<ApproveDeductDto> queryById(String appNo);
+    ComResponse<DeductRecordDto> queryByNo(String appNo);
 
     //新建停止扣款详情
     ComResponse<Integer> insertStopDeductRecord(DeductProcessDTO deductProcessDTO,String staffNo);
