@@ -26,8 +26,8 @@ import java.util.Date;
 import java.util.List;
 
 @Repository
-//@FeignClient(value = "staff",url = "${fegin.db.url}")
-@FeignClient(value = "staff",url = "localhost:38080")
+@FeignClient(value = "staff",url = "${fegin.db.url}")
+//@FeignClient(value = "staff",url = "localhost:38080")
 //@FeignClient(name = "yzl-staff-db")
 public interface DeductRecordFeginService {
 
@@ -53,8 +53,8 @@ public interface DeductRecordFeginService {
     ComResponse<Integer> updateExecuteState(@RequestBody DeductRecordStateUpdatePo deductRecordStateUpdatePo);
 
     @ApiOperation(value = "查询扣款列表信息", notes = "查询扣款列表信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @RequestMapping(value = "/deductRecord/queryById", method = RequestMethod.GET)
-    ComResponse<ApproveDeductDto> queryById(@RequestParam ("appNo") String appNo);
+    @RequestMapping(value = "/deductRecord/queryByNo", method = RequestMethod.GET)
+    ComResponse<DeductRecordDto> queryByNo (@RequestParam ("appNo") String appNo);
 
     @ApiOperation(value = "新建停止扣款申请", notes = "新建停止扣款申请",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/deductRecord/insertStopDeductRecord", method = RequestMethod.POST)

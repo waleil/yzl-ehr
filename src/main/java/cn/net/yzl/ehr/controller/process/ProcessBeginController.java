@@ -5,6 +5,7 @@ import cn.net.yzl.common.enums.ResponseCodeEnums;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.processActiveService.saveProcessService;
 import cn.net.yzl.ehr.util.MessageRemandAPI;
+import cn.net.yzl.staff.dto.ProcessProfession.ProcessStaffDimissionDTO;
 import cn.net.yzl.staff.dto.ProcessProfession.ProcessStaffPositiveDTO;
 import cn.net.yzl.staff.dto.personApprove.*;
 import cn.net.yzl.staff.dto.processNode.ProcessApproveNode;
@@ -34,6 +35,7 @@ public class ProcessBeginController {
     @PostMapping("v1/saveProcessInviteInfo")
     @ApiOperation(value = "保存招聘信息")
     public ComResponse<ProcessApproveNode> saveProcessLeaveInfo(@RequestBody @Valid ApproveInviteDTO approveInviteDTO, @CurrentStaffNo @NotNull String staffNo) {
+        approveInviteDTO.getProcessStaffInviteDTO().setStaffNo(staffNo);
         ComResponse<ProcessApproveNode> flag = saveProcessService.saveProcessInviteInfo(approveInviteDTO);
         if (flag.getCode().equals(200)){
             try {
@@ -69,8 +71,8 @@ public class ProcessBeginController {
     }
     @ApiOperation(value = "保存离职申请",notes = "离职申请添加",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "v1/saveDimissionApplay", method = RequestMethod.POST)
-    ComResponse<ProcessApproveNode> saveDimissionApplay (@RequestBody @Validated ApproveDimissionInfoListDTO approveDimissionInfoListDTO, @CurrentStaffNo @NotNull String staffNo){
-        ComResponse<ProcessApproveNode> flag = saveProcessService.saveDimissionApplay(approveDimissionInfoListDTO);
+    ComResponse<ProcessApproveNode> saveDimissionApplay (@RequestBody @Validated ProcessStaffDimissionDTO processStaffDimissionDTO, @CurrentStaffNo @NotNull String staffNo){
+        ComResponse<ProcessApproveNode> flag = saveProcessService.saveDimissionApplay(processStaffDimissionDTO);
         if (flag.getCode().equals(200)){
             try {
                 MessageRemandAPI.examine(staffNo,
@@ -89,6 +91,7 @@ public class ProcessBeginController {
      @ApiOperation(value = "保存旷工申请",notes = "旷工申请添加",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "v1/saveAbsentApplay", method = RequestMethod.POST)
     ComResponse<ProcessApproveNode> saveAbsentApplay (@RequestBody @Validated ProcessAbsentDTO processAbsentDTO, @CurrentStaffNo @NotNull String staffNo){
+         processAbsentDTO.setStaffNo(staffNo);
         ComResponse<ProcessApproveNode> flag = saveProcessService.saveAbsentApplay(processAbsentDTO);
          if (flag.getCode().equals(200)){
              try {
@@ -114,6 +117,7 @@ public class ProcessBeginController {
     @ApiOperation(value = "保存取消请假申请",notes = "取消请假申请添加",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "v1/saveCancelLeaveApplay", method = RequestMethod.POST)
     ComResponse<ProcessApproveNode> saveCancelLeaveApplay (@RequestBody @Validated ApproveCancelLeaveDTO approveCancelLeaveDTO, @CurrentStaffNo @NotNull String staffNo){
+        approveCancelLeaveDTO.getProcessCancelLeaveDTO().setStaffNo(staffNo);
         ComResponse<ProcessApproveNode> flag = saveProcessService.saveCancelLeaveApplay(approveCancelLeaveDTO);
         if (flag.getCode().equals(200)){
             try {

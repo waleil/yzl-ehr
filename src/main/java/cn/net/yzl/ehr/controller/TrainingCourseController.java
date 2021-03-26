@@ -13,7 +13,9 @@ import cn.net.yzl.staff.dto.train.CoursewareDto;
 import cn.net.yzl.staff.dto.train.TrainInfoAllDto;
 import cn.net.yzl.staff.pojo.train.*;
 import cn.net.yzl.staff.vo.train.*;
+import com.alibaba.fastjson.JSONObject;
 import io.swagger.annotations.*;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.validation.annotation.Validated;
@@ -23,10 +25,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "trainingCourse")
-@Api(value = "培训", tags = {"培训模块"})
+@Api(value="培训",tags={"培训模块"})
 public class TrainingCourseController {
 
     @Autowired
@@ -66,22 +69,26 @@ public class TrainingCourseController {
     @PostMapping("insertTrainCourse")
     public ComResponse insertTrainCourse(@RequestBody TrainInfoAllVO trainInfoAllVO) {
         List<TrainStaffRelationPo> trainStaffRelationPoList = trainInfoAllVO.getTrainStaffRelationPoList();
+        List<Speaker> speakers = trainInfoAllVO.getSpeakers();
+        Map<String, String> collect = speakers.stream().collect(Collectors.toMap(Speaker::getStaffName, Speaker::getStaffNo));
         List<TrainSchedulePo> trainSchedulePoList = trainInfoAllVO.getTrainSchedulePoList();
         if (!CollectionUtils.isEmpty(trainSchedulePoList)) {
             trainSchedulePoList.forEach(trainSchedulePo -> {
-                if (trainSchedulePo.getInform() == 1 && null != trainSchedulePo.getStaffNo()) {
+                String s = collect.get(trainSchedulePo.getDutyName());
+                if (trainSchedulePo.getInform() == 1 && StringUtils.isNotBlank(s)) {
                     //ComResponse<StaffDetailsDto> detailsByNo = staffFeginService.getDetailsByNo(trainStaffRelationPo.getStaffNo());
                     //StaffDetailsDto data = detailsByNo.getData();
                     MsgTemplateVo msgTemplateVo = new MsgTemplateVo();
                     msgTemplateVo.setTitle("培训通知:");
-                    msgTemplateVo.setParams(new Object[]{trainSchedulePo.getDutyName(), trainSchedulePo.getStartTime(), trainInfoAllVO.getCourseName()});
+                    msgTemplateVo.setParams(new Object[]{trainSchedulePo.getDutyName(), trainSchedulePo.getStartTime(), trainSchedulePo.getContent()});
                     msgTemplateVo.setCreator("");
                     msgTemplateVo.setCode("EHR0008");
                     msgTemplateVo.setSystemCode(2);
                     msgTemplateVo.setType(1);
                     msgTemplateVo.setSendName("");
-                    msgTemplateVo.setUserCode(trainSchedulePo.getStaffNo());
+                    msgTemplateVo.setUserCode(collect.get(trainSchedulePo.getDutyName()));
                     yMsgInfoService.sendSysMsgInfo(msgTemplateVo);
+
                 }
             });
         }
@@ -90,7 +97,7 @@ public class TrainingCourseController {
             StaffDetailsDto data = detailsByNo.getData();
             MsgTemplateVo msgTemplateVo = new MsgTemplateVo();
             msgTemplateVo.setTitle("培训通知:");
-            msgTemplateVo.setParams(new Object[]{trainStaffRelationPo.getStaffNo(), trainInfoAllVO.getStartTime(), trainInfoAllVO.getEndTime(), trainInfoAllVO.getCourseName()});
+            msgTemplateVo.setParams(new Object[]{trainStaffRelationPo.getStaffNo(),trainInfoAllVO.getStartTime(),trainInfoAllVO.getEndTime(),trainInfoAllVO.getCourseName()});
             msgTemplateVo.setCreator("");
             msgTemplateVo.setCode("EHR0007");
             msgTemplateVo.setSystemCode(2);
@@ -133,6 +140,44 @@ public class TrainingCourseController {
     @ApiOperation(value = "培训课程编辑", notes = "培训编辑")
     @PostMapping("editTrainInfo")
     public ComResponse editTrainInfo(@RequestBody TrainInfoAllVO trainInfoAllVO) {
+        List<TrainStaffRelationPo> trainStaffRelationPoList = trainInfoAllVO.getTrainStaffRelationPoList();
+        List<TrainSchedulePo> trainSchedulePoList = trainInfoAllVO.getTrainSchedulePoList();
+        List<Speaker> speakers = trainInfoAllVO.getSpeakers();
+        Map<String, String> collect = speakers.stream().collect(Collectors.toMap(Speaker::getStaffName, Speaker::getStaffNo));
+        if (!CollectionUtils.isEmpty(trainSchedulePoList)) {
+            trainSchedulePoList.forEach(trainSchedulePo -> {
+                String s = collect.get(trainSchedulePo.getDutyName());
+                if (trainSchedulePo.getInform() == 1 && StringUtils.isNotBlank(s)) {
+                    //ComResponse<StaffDetailsDto> detailsByNo = staffFeginService.getDetailsByNo(trainStaffRelationPo.getStaffNo());
+                    //StaffDetailsDto data = detailsByNo.getData();
+                    MsgTemplateVo msgTemplateVo = new MsgTemplateVo();
+                    msgTemplateVo.setTitle("培训通知:");
+                    msgTemplateVo.setParams(new Object[]{trainSchedulePo.getDutyName(), trainSchedulePo.getStartTime(), trainSchedulePo.getContent()});
+                    msgTemplateVo.setCreator("");
+                    msgTemplateVo.setCode("EHR0008");
+                    msgTemplateVo.setSystemCode(2);
+                    msgTemplateVo.setType(1);
+                    msgTemplateVo.setSendName("");
+                    msgTemplateVo.setUserCode(collect.get(trainSchedulePo.getDutyName()));
+                    yMsgInfoService.sendSysMsgInfo(msgTemplateVo);
+
+                }
+            });
+        }
+        trainStaffRelationPoList.forEach(trainStaffRelationPo -> {
+            ComResponse<StaffDetailsDto> detailsByNo = staffFeginService.getDetailsByNo(trainStaffRelationPo.getStaffNo());
+            StaffDetailsDto data = detailsByNo.getData();
+            MsgTemplateVo msgTemplateVo = new MsgTemplateVo();
+            msgTemplateVo.setTitle("培训通知:");
+            msgTemplateVo.setParams(new Object[]{trainStaffRelationPo.getStaffNo(),trainInfoAllVO.getStartTime(),trainInfoAllVO.getEndTime(),trainInfoAllVO.getCourseName()});
+            msgTemplateVo.setCreator("");
+            msgTemplateVo.setCode("EHR0007");
+            msgTemplateVo.setSystemCode(2);
+            msgTemplateVo.setType(1);
+            msgTemplateVo.setSendName("");
+            msgTemplateVo.setUserCode(trainStaffRelationPo.getStaffNo());
+            yMsgInfoService.sendSysMsgInfo(msgTemplateVo);
+        });
         return trainingCourseClient.editTrainInfo(trainInfoAllVO);
     }
 
@@ -145,74 +190,74 @@ public class TrainingCourseController {
             @ApiParam(value = "培训状态(0 未开始,1 培训中,2 培训完成)") @RequestParam(value = "status", required = false) Integer status,
             @ApiParam(value = "培训开始时间") @RequestParam(value = "startTime", required = false) String startTime,
             @ApiParam(value = "培训结束时间") @RequestParam(value = "endTime", required = false) String endTime,
-            @ApiParam(value = "分页参数:页码") @RequestParam(value = "pageNum", defaultValue = "0") Integer pageNum,
-            @ApiParam(value = "分页参数:每页数量") @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
+            @ApiParam(value = "分页参数:页码")@RequestParam(value = "pageNum",defaultValue = "0") Integer pageNum,
+            @ApiParam(value = "分页参数:每页数量")@RequestParam(value = "pageSize",defaultValue = "10") Integer pageSize) {
 
-        return trainingCourseClient.list(courseName, online, exam, status, startTime, endTime, pageNum, pageSize);
+        return trainingCourseClient.list(courseName, online, exam, status, startTime, endTime,pageNum,pageSize);
     }
 
 
-    @ApiOperation(value = "查询培训过商品", notes = "查询培训过商品")
+    @ApiOperation(value = "查询培训过商品",notes = "查询培训过商品")
     @GetMapping("selectProduct")
     public ComResponse<List<String>> selectProduct() {
         return trainingCourseClient.selectProduct();
     }
 
 
-    @ApiOperation(value = "查询培训计划信息", notes = "查询培训计划信息")
+    @ApiOperation(value = "查询培训计划信息",notes = "查询培训计划信息")
     @GetMapping("queryTrainingScheduleList")
-    public ComResponse<List<TrainSchedulePo>> queryTrainingScheduleList(@ApiParam(value = "课程表id") @RequestParam(value = "id", required = false) Integer id) {
+    public ComResponse<List<TrainSchedulePo>> queryTrainingScheduleList(@ApiParam(value = "课程表id")@RequestParam(value = "id",required = false)Integer id){
         return trainingCourseClient.queryTrainingScheduleList(id);
     }
 
-    @ApiOperation(value = "查询课程详情信息", notes = "查询课程详情信息")
+    @ApiOperation(value = "查询课程详情信息",notes = "查询课程详情信息")
     @GetMapping("findById")
-    public ComResponse<TrainInfoAllDto> findById(@ApiParam(value = "课程表id") @RequestParam(value = "id") Integer id) {
+    public ComResponse<TrainInfoAllDto> findById(@ApiParam(value = "课程表id")@RequestParam(value = "id")Integer id){
         return trainingCourseClient.findById(id);
     }
 
-    @ApiOperation(value = "商品列表", notes = "商品列表")
+    @ApiOperation(value = "商品列表",notes = "商品列表")
     @GetMapping("findProduct")
-    public ComResponse findProduct() {
+    public ComResponse findProduct(){
         return trainingCourseClient.findProduct();
     }
 
-    @ApiOperation(value = "查询签到列表", notes = "查询签到列表")
+    @ApiOperation(value = "查询签到列表",notes = "查询签到列表")
     @GetMapping("findSign")
     public ComResponse<List<Object>> findSign(
-            @ApiParam(value = "员工姓名") @RequestParam(value = "name", required = false) String name,
-            @ApiParam(value = "部门") @RequestParam(value = "departCode", required = false) Integer departCode,
-            @ApiParam(value = "合作方") @RequestParam(value = "partner", required = false) Integer partner,
-            @ApiParam(value = "职场") @RequestParam(value = "workplace", required = false) Integer workplace,
-            @ApiParam(value = "岗位名称") @RequestParam(value = "postId", required = false) Integer postId,
+            @ApiParam(value = "员工姓名")@RequestParam(value = "name",required = false) String name,
+            @ApiParam(value = "部门")@RequestParam(value = "departCode",required = false) Integer departCode,
+            @ApiParam(value = "合作方")@RequestParam(value = "partner",required = false)Integer partner,
+            @ApiParam(value = "职场")@RequestParam(value = "workplace",required = false) Integer workplace,
+            @ApiParam(value = "岗位名称")@RequestParam(value = "postId",required = false) Integer postId,
             @ApiParam(value = "入岗状态:180 待入岗 181 已入岗") @RequestParam(value = "enterStatus", required = false) Integer enterStatus,
-            @ApiParam(value = "课程id") @RequestParam(value = "id") Integer id,
-            @ApiParam(value = "分页参数:页码") @RequestParam(value = "pageNum", defaultValue = "0") Integer pageNum,
-            @ApiParam(value = "分页参数:每页数量") @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
-        return trainingCourseClient.findSign(name, departCode, partner, workplace, postId, enterStatus, id, pageNum, pageSize);
+            @ApiParam(value = "课程id")@RequestParam(value = "id")Integer id,
+            @ApiParam(value = "分页参数:页码")@RequestParam(value = "pageNum",defaultValue = "0") Integer pageNum,
+            @ApiParam(value = "分页参数:每页数量")@RequestParam(value = "pageSize",defaultValue = "10") Integer pageSize){
+        return trainingCourseClient.findSign(name,departCode,partner,workplace,postId,enterStatus,id,pageNum,pageSize);
     }
 
-    @ApiOperation(value = "培训员工签到", notes = "培训员工签到")
+    @ApiOperation(value = "培训员工签到",notes = "培训员工签到")
     @PostMapping("staffCourseSign")
-    public ComResponse staffCourseSign(@RequestBody @Validated List<SignInputScore> list) {
+    public ComResponse staffCourseSign(@RequestBody @Validated List<SignInputScore> list){
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd天");
         String format = sdf.format(new Date());
         list.forEach(signInputScore -> {
             int count = 0;
             List<TrainStatusToTime> trainStatusToTimes = signInputScore.getTrainStatusToTimes();
-            for (TrainStatusToTime trainStatusToTime : trainStatusToTimes) {
-                if (trainStatusToTime.getStatus() == 5) {
+            for(TrainStatusToTime trainStatusToTime : trainStatusToTimes){
+                if(trainStatusToTime.getStatus() == 5) {
                     count++;
                 }
             }
-            if (count == 1) {
+            if(count == 1){
                 ComResponse<StaffDetailsDto> detailsByNo = staffFeginService.getDetailsByNo(signInputScore.getStaffNo());
                 StaffDetailsDto data = detailsByNo.getData();
                 ComResponse<DepartDto> departResult = departFeginService.getById(data.getPDepartId());
                 DepartDto depart = departResult.getData();
                 MsgTemplateVo msgTemplateVo = new MsgTemplateVo();
                 msgTemplateVo.setTitle("培训通知:");
-                msgTemplateVo.setParams(new Object[]{depart.getLeaderName(), format});
+                msgTemplateVo.setParams(new Object[]{depart.getLeaderName(),format});
                 msgTemplateVo.setCreator("");
                 msgTemplateVo.setCode("EHR0009");
                 msgTemplateVo.setSystemCode(2);
@@ -222,10 +267,10 @@ public class TrainingCourseController {
                 yMsgInfoService.sendSysMsgInfo(msgTemplateVo);
             }
         });
-        return trainingCourseClient.staffCourseSign(list);
+        return  trainingCourseClient.staffCourseSign(list);
     }
 
-    @ApiOperation(value = "培训员工录入成绩", notes = "培训员工录入成绩")
+    @ApiOperation(value = "培训员工录入成绩",notes = "培训员工录入成绩")
     @PostMapping("staffCourseGrade")
     public ComResponse staffCourseGrade(@RequestBody @Validated List<SignInputScore> list) {
         return trainingCourseClient.staffCourseGrade(list);
@@ -240,64 +285,65 @@ public class TrainingCourseController {
     //@ApiOperation(value = "录入成绩",notes = )
 
 
-    @ApiOperation(value = "培训员工合格入岗", notes = "培训员工合格入岗")
+    @ApiOperation(value = "培训员工合格入岗",notes = "培训员工合格入岗")
     @PostMapping("staffEntryPost")
-    public ComResponse<Integer> staffEntryPost(@RequestBody TrainStaffRelationPo trainStaffRelationPo) {
-        ComResponse<List<Object>> sign = trainingCourseClient.findSign(null, null, null, null, null, null, null, 1, 100000);
+    public ComResponse<Integer> staffEntryPost(@RequestBody TrainStaffRelationPo trainStaffRelationPo){
+        ComResponse<List<Object>> sign = trainingCourseClient.findSign(null, null, null, null, null, null, trainStaffRelationPo.getCourseId(), 1, 100000);
         List<Object> data = sign.getData();
-        Page<TrainSignListVo> page = (Page<TrainSignListVo>) data.get(1);
-        List<TrainSignListVo> items = page.getItems();
+        String s = JSONObject.toJSONString(data.get(1));
+        JSONObject jsonObject = JSONObject.parseObject(s);
+        List<TrainSignListVo> items = jsonObject.getJSONArray("items").toJavaList(TrainSignListVo.class);
         items.forEach(trainSignListVo -> {
             Boolean isTrue = Boolean.TRUE;
             List<TrainStatusToTime> trainStatusToTimes = trainSignListVo.getTrainStatusToTimes();
-            for (TrainStatusToTime trainStatusToTime : trainStatusToTimes) {
-                if (trainStatusToTime.getStatus() == 5) {
+            for(TrainStatusToTime trainStatusToTime : trainStatusToTimes){
+                if(trainStatusToTime.getStatus() == 5){
                     isTrue = Boolean.FALSE;
                     break;
                 }
             }
-            if (isTrue && !trainSignListVo.getScore().equals("398")) {
+            if(isTrue && !trainSignListVo.getScore().equals("398")){
                 MsgTemplateVo msgTemplateVo = new MsgTemplateVo();
                 msgTemplateVo.setTitle("培训通知:");
-                msgTemplateVo.setParams(new Object[]{trainSignListVo.getStaffName(), trainStaffRelationPo.getInPostDate()});
+                msgTemplateVo.setParams(new Object[]{trainSignListVo.getStaffName(),trainStaffRelationPo.getInPostDate()});
                 msgTemplateVo.setCreator("");
                 msgTemplateVo.setCode("EHR0009");
                 msgTemplateVo.setSystemCode(2);
                 msgTemplateVo.setType(1);
                 msgTemplateVo.setSendName("");
-                msgTemplateVo.setUserCode(trainStaffRelationPo.getStaffNo());
+                msgTemplateVo.setUserCode(trainSignListVo.getStaffNo());
                 yMsgInfoService.sendSysMsgInfo(msgTemplateVo);
             }
 
         });
 
-        return trainingCourseClient.staffEntryPost(trainStaffRelationPo);
+        return  trainingCourseClient.staffEntryPost(trainStaffRelationPo);
     }
 
-    @ApiOperation(value = "根据类型查询各种状态查询列表", notes = "根据类型查询各种状态查询列表")
+    @ApiOperation(value = "根据类型查询各种状态查询列表",notes = "根据类型查询各种状态查询列表")
     @GetMapping("getPartner")
-    public ComResponse<List<Map<String, Object>>> getPartner(@RequestParam("type") String type) {
+    public ComResponse<List<Map<String,Object>>> getPartner(@RequestParam("type") String type){
         return trainingCourseClient.getPartner(type);
     }
 
-    @ApiOperation(value = "课件查询", notes = "课件查询")
+    @ApiOperation(value = "课件查询",notes = "课件查询")
     @GetMapping("listCourseware")
     public ComResponse<Page<CoursewareDto>> listCourseware(
-            @ApiParam(value = "课件名称") @RequestParam(value = "name", required = false) String name,
-            @ApiParam(value = "分页参数:页码") @RequestParam(value = "pageNum", defaultValue = "0") Integer pageNum,
-            @ApiParam(value = "分页参数:每页数量") @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
+            @ApiParam(value = "课件名称")@RequestParam(value = "name",required = false) String name,
+            @ApiParam(value = "分页参数:页码")@RequestParam(value = "pageNum",defaultValue = "0") Integer pageNum,
+            @ApiParam(value = "分页参数:每页数量")@RequestParam(value = "pageSize",defaultValue = "10") Integer pageSize) {
         return trainingCourseClient.listCoursewareDto(name, pageNum, pageSize);
     }
 
-    @ApiOperation(value = "商品列表", notes = "商品列表")
+    @ApiOperation(value = "商品列表",notes = "商品列表")
     @GetMapping(value = "productList")
-    public ComResponse productList(@ApiParam(value = "编码或名称") @RequestParam(value = "name") String name, @ApiParam(value = "分页页数") @RequestParam(value = "pageNo", defaultValue = "0") Integer pageNo, @ApiParam(value = "分页条数") @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
-        return trainingCourseClient.productList(name, pageNo, pageSize);
+    public ComResponse productList(@ApiParam(value = "编码或名称")@RequestParam(value = "name")String name,@ApiParam(value = "分页页数")@RequestParam(value = "pageNo",defaultValue = "0")Integer pageNo,@ApiParam(value = "分页条数")@RequestParam(value = "pageSize",defaultValue = "10")Integer pageSize){
+        return trainingCourseClient.productList(name,pageNo,pageSize);
     }
 
-    @ApiOperation(value = "查询入岗时间", notes = "查询入岗时间")
+    @ApiOperation(value = "查询入岗时间",notes = "查询入岗时间")
     @GetMapping("queryDateBycourseid")
-    public ComResponse<Date> queryDateBycourseid(@ApiParam(value = "课程id") @RequestParam("courseId") Integer courseId) {
+    public  ComResponse<Date> queryDateBycourseid(@ApiParam(value = "课程id") @RequestParam("courseId")Integer courseId){
         return trainingCourseClient.queryDateBycourseid(courseId);
     }
 }
