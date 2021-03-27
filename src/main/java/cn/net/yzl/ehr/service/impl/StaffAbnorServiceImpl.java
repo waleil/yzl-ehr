@@ -4,6 +4,7 @@ import cn.hutool.core.date.DateUtil;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.common.enums.ResponseCodeEnums;
+import cn.net.yzl.common.util.JsonUtil;
 import cn.net.yzl.ehr.async.MsgSendAsync;
 import cn.net.yzl.ehr.dto.StaffAbnorRecordListDto;
 import cn.net.yzl.ehr.dto.StaffTrainInfoDto;
@@ -21,6 +22,7 @@ import cn.net.yzl.staff.dto.StaffTrainDto;
 import cn.net.yzl.staff.pojo.AbnorRecordPo;
 import cn.net.yzl.staff.pojo.RunAbnorRecordPo;
 import cn.net.yzl.staff.util.DateStaffUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,7 +36,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
+@Slf4j
 @Service
 public class StaffAbnorServiceImpl implements StaffAbnorService {
 
@@ -64,11 +66,6 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
 
     @Override
     public ComResponse<Integer> executeStaffChange(StaffAbnorRecordPo staffChangePo,String staffNo) throws ParseException {
-//        //更改转化金额*100
-//        StaffAbnorRecordSalaryPo staffAbnorRecordSalaryPo=new StaffAbnorRecordSalaryPo();
-//        BeanUtils.copyProperties(staffChangePo,staffAbnorRecordSalaryPo);
-//        BeanUtils.copyProperties(staffAbnorRecordSalaryPo,staffChangePo);
-
         staffChangePo.setCreator(staffNo);
         ComResponse<StaffDetailsDto> detailsByNo = staffFeginService.getDetailsByNo(staffChangePo.getStaffNo());
         if(detailsByNo==null){
@@ -108,17 +105,27 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
     @Override
     public ComResponse<List<StaffTrainInfoDto>> find(String staffNo) {
        DecimalFormat df=new DecimalFormat("0.00");
+        StringBuffer front=new StringBuffer("");
+        StringBuffer later=new StringBuffer("");
        ComResponse<List<StaffTrainDto>> listComResponse = staffAbnorFeginService.find(staffNo);
        List<StaffTrainInfoDto>list = new ArrayList<>();
         for (StaffTrainDto datum : listComResponse.getData()) {
+            if(datum.getType()==25){
+                StaffTrainInfoDto staffTrainInfoDto = new StaffTrainInfoDto();
+                staffTrainInfoDto.setType(datum.getType());
+                staffTrainInfoDto.setTypeName(datum.getTypeName());
+                staffTrainInfoDto.setAbnorTime(datum.getAbnorTime());
+                staffTrainInfoDto.setContent(datum.getCourseName());
+                list.add(staffTrainInfoDto);
+            }
             if(datum.getType()==26){
                 StaffTrainInfoDto staffTrainInfoDto = new StaffTrainInfoDto();
                 staffTrainInfoDto.setType(datum.getType());
                 staffTrainInfoDto.setTypeName(datum.getTypeName());
                 staffTrainInfoDto.setAbnorTime(datum.getAbnorTime());
                 staffTrainInfoDto.setContent(datum.getContent());
-                staffTrainInfoDto.setAdjustFront(datum.getAdjustPostNameFront());
-                staffTrainInfoDto.setAdjustLater(datum.getAdjustPostNameLater());
+                staffTrainInfoDto.setAdjustFront(datum.getAdjustPostNameFront()+"("+datum.getAdjustDepartNameFront()+")");
+                staffTrainInfoDto.setAdjustLater(datum.getAdjustPostNameLater()+"("+datum.getAdjustDepartNameLater()+")");
                 list.add(staffTrainInfoDto);
             }if (datum.getType()==23|| datum.getType()==30||datum.getType()==31||datum.getType()==68){
                 StaffTrainInfoDto staffTrainInfoDto = new StaffTrainInfoDto();
@@ -165,8 +172,46 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
                 staffTrainInfoDto.setTypeName(datum.getTypeName());
                 staffTrainInfoDto.setAbnorTime(datum.getAbnorTime());
                 staffTrainInfoDto.setContent(datum.getContent());
-                staffTrainInfoDto.setAdjustFront(String.valueOf(datum.getAdjustSalaryFrontD()));
-                staffTrainInfoDto.setAdjustLater(String.valueOf(datum.getAdjustSalaryLaterD()));
+
+                if(datum.getAdjustSalaryFrontD()!=null ){
+                    front.append("调整前岗位薪酬："+datum.getAdjustSalaryFrontD()+";");
+                }
+                if(datum.getAdjustSalaryLaterD()!=null){
+                    later.append("调整后岗位薪酬："+datum.getAdjustSalaryLaterD()+";");
+                }
+                if(datum.getAdjustFullAttendanceSalaryFrontD()!=null){
+                    front.append("调整前全勤工资："+datum.getAdjustFullAttendanceSalaryFrontD()+";");
+                }
+                if(datum.getAdjustFullAttendanceSalaryLaterD()!=null){
+                    later.append("调整后全勤工资："+datum.getAdjustFullAttendanceSalaryLaterD()+";");
+                }
+                if(datum.getAdjustPerformanceSalaryFrontD()!=null){
+                    front.append("调整前绩效工资："+datum.getAdjustPerformanceSalaryFrontD()+";");
+                }
+                if(datum.getAdjustPerformanceSalaryLaterD()!=null){
+                    later.append("调整后绩效工资："+datum.getAdjustPerformanceSalaryLaterD()+";");
+                }
+                if(datum.getAdjustWageSalaryFrontD()!=null){
+                    front.append("调整前岗位工资："+datum.getAdjustWageSalaryFrontD()+";");
+                }
+                if(datum.getAdjustWageSalaryLaterD()!=null){
+                    later.append("调整后岗位工资："+datum.getAdjustWageSalaryLaterD()+";");
+                }
+                if(datum.getAdjustBasicSalaryFrontD()!=null){
+                    front.append("调整前基本工资："+datum.getAdjustBasicSalaryFrontD()+";");
+                }
+                if(datum.getAdjustBasicSalaryLaterD()!=null){
+                    later.append("调整后基本工资："+datum.getAdjustBasicSalaryLaterD()+";");
+                }
+                if(datum.getAdjustBasicSalaryTypeFront()!=null){
+                    front.append("调整前基本工资类型："+ (datum.getAdjustBasicSalaryTypeFront()==1?"日薪":"月薪")+";");
+                }
+                if(datum.getAdjustBasicSalaryTypeLater()!=null){
+                    later.append("调整后基本工资类型："+ (datum.getAdjustBasicSalaryTypeLater()==1?"日薪":"月薪")+";");
+                }
+
+                staffTrainInfoDto.setAdjustFront(String.valueOf(front));
+                staffTrainInfoDto.setAdjustLater(String.valueOf(later));
                 list.add(staffTrainInfoDto);
             }
         }
@@ -185,6 +230,14 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
         List<StaffTrainInfoDto>list = new ArrayList<>();
         if(listComResponse.getData()!=null){
             for (StaffTrainDto datum : listComResponse.getData()) {
+                if(datum.getType()==25){
+                    StaffTrainInfoDto staffTrainInfoDto = new StaffTrainInfoDto();
+                    staffTrainInfoDto.setType(datum.getType());
+                    staffTrainInfoDto.setTypeName(datum.getTypeName());
+                    staffTrainInfoDto.setAbnorTime(datum.getAbnorTime());
+                    staffTrainInfoDto.setContent(datum.getCourseName());
+                    list.add(staffTrainInfoDto);
+                }
                 if(datum.getType()==26){
                     StaffTrainInfoDto staffTrainInfoDto = new StaffTrainInfoDto();
                     staffTrainInfoDto.setType(datum.getType());
@@ -289,22 +342,20 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
     @Override
     public ComResponse<Page<StaffTrainDto>> findRecordsByPageParam(AbnorRecordPo abnorRecordPo, HttpServletRequest request) {
 
-     /*   String userNo = request.getHeader("userNo");
+        String userNo = request.getHeader("userNo");
         String referer = request.getHeader("Referer");
-        .setStaffNo(userNo);
         MenuDTO menuDTO = roleMenuService.getIsAdminByUserCodeAndMenuUrl(userNo,referer);
         log.info(JsonUtil.toJsonStr(menuDTO));
-       *//* menuDTO.getMenuName();//获取菜单名称
-        menuDTO.getIsAdmin();//获取最高权限标识*//*
+        menuDTO.getMenuName();//获取菜单名称
+        menuDTO.getIsAdmin();//获取最高权限标识
         //最高权限标识
         if(menuDTO!=null && menuDTO.getIsAdmin()!=null && menuDTO.getIsAdmin()==1 ){
             //全量，只根据departId查询
-            staffParamsVO.setFlag(2);
+            abnorRecordPo.setStaffNo(null);
         }else{
             //会增加部门负责人限制
-            staffParamsVO.setFlag(1);
+            abnorRecordPo.setStaffNo(userNo);
         }
-*/
         ComResponse<Page<StaffTrainDto>> recordsByPageParam = staffAbnorFeginService.findRecordsByPageParam(abnorRecordPo);
         if (recordsByPageParam==null){
             ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(),ResponseCodeEnums.API_ERROR_CODE.getMessage());
@@ -326,8 +377,8 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
     }
 
 
-    public ComResponse<List<MsgTemplateVo>> timerUpdateAttendFalse(Date date) throws ParseException {
-        ComResponse<List<MsgTemplateVo>> listComResponse = staffAbnorFeginService.timerUpdateAttendFalse(date);
+    public ComResponse<List<MsgTemplateVo>> timerUpdateStafffAbnorRecord() throws ParseException {
+        ComResponse<List<MsgTemplateVo>> listComResponse = staffAbnorFeginService.timerUpdateStafffAbnorRecord();
         if(listComResponse!=null && listComResponse.getData()!=null && !listComResponse.getData().isEmpty()){
             List<MsgTemplateVo> msgTemplateVoList = listComResponse.getData();
             msgTemplateVoList.forEach(x->{

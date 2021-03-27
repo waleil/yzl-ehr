@@ -18,6 +18,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -48,9 +49,9 @@ public class StaffRecruitController {
 
     @ApiOperation(value = "待招任务-查询招聘任务列表",notes = "待招任务-查询招聘任务列表",consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/getWithTaskByPo", method = RequestMethod.POST)
-    public ComResponse<Page<StaffRecruitDto>> getWithTaskByPo(@RequestBody @Validated StaffRecruitSelectPo staffRecruitSelectPo,@CurrentStaffNo @ApiIgnore String staffNo) {
+    public ComResponse<Page<StaffRecruitDto>> getWithTaskByPo(@RequestBody @Validated StaffRecruitSelectPo staffRecruitSelectPo, @CurrentStaffNo @ApiIgnore String staffNo, HttpServletRequest request) {
         staffRecruitSelectPo.setCurrentStaffNo(staffNo);
-        return staffRecruitService.getWithTaskByPo(staffRecruitSelectPo);
+        return staffRecruitService.getWithTaskByPo(staffRecruitSelectPo,request);
     }
 
     @ApiOperation(value = "待招任务-查询单个招聘任务详情",notes = "待招任务-查询单个招聘任务详情",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)

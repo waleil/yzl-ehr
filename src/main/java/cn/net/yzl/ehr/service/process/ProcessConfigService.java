@@ -2,6 +2,7 @@ package cn.net.yzl.ehr.service.process;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
+import cn.net.yzl.staff.dto.DepartDto;
 import cn.net.yzl.staff.dto.StaffLevelDto;
 import cn.net.yzl.staff.dto.process.ProcessConfigDetailDto;
 import cn.net.yzl.staff.dto.process.ProcessDto;
@@ -25,6 +26,8 @@ public interface ProcessConfigService {
     ComResponse<Page<ProcessDto>> pageSelectProcessConfig(ProcessConfigPageVo processConfigPageVo);
 
     ComResponse<ProcessConfigDetailDto> processConfigDetail(Integer id);
+
+    ComResponse<DepartDto> processConfigDepartByProcessItemId(Integer processItemId);
 
     ComResponse<List<StaffLevelDto>> getStaffLevelByStaffNo(String staffNo,Integer flag);
 

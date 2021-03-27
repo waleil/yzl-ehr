@@ -4,6 +4,7 @@ import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.service.process.ProcessConfigService;
+import cn.net.yzl.staff.dto.DepartDto;
 import cn.net.yzl.staff.dto.StaffLevelDto;
 import cn.net.yzl.staff.dto.process.ProcessConfigDetailDto;
 import cn.net.yzl.staff.dto.process.ProcessDto;
@@ -72,6 +73,12 @@ public class ProcessConfigController {
     @RequestMapping(value = "/config/detail", method = RequestMethod.GET)
     ComResponse<ProcessConfigDetailDto> processConfigDetail (@RequestParam("id") Integer id){
         return processConfigService.processConfigDetail(id);
+    }
+
+    @ApiOperation(value = "审批流程配-根据流程项目id查询已经有流程的部门",notes = "审批流程配-根据流程项目id查询已经有流程的部门",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/config/depart", method = RequestMethod.GET)
+    ComResponse<DepartDto> processConfigDepartByProcessItemId (@RequestParam("processItemId") Integer processItemId){
+        return processConfigService.processConfigDepartByProcessItemId(processItemId);
     }
 
     @ApiOperation(value = "根据员工获取上下级信息", notes = "根据员工获取上下级信息")

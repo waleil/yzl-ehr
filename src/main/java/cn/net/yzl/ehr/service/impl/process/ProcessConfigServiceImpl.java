@@ -4,6 +4,7 @@ import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.fegin.process.ProcessConfigFeignService;
 import cn.net.yzl.ehr.service.process.ProcessConfigService;
+import cn.net.yzl.staff.dto.DepartDto;
 import cn.net.yzl.staff.dto.StaffLevelDto;
 import cn.net.yzl.staff.dto.process.ProcessConfigDetailDto;
 import cn.net.yzl.staff.dto.process.ProcessDto;
@@ -55,6 +56,11 @@ public class ProcessConfigServiceImpl implements ProcessConfigService {
     @Override
     public ComResponse<ProcessConfigDetailDto> processConfigDetail(Integer id) {
         return processConfigFeignService.processConfigDetail(id);
+    }
+
+    @Override
+    public ComResponse<DepartDto> processConfigDepartByProcessItemId(Integer processItemId) {
+        return processConfigFeignService.processConfigDepartByProcessItemId(processItemId);
     }
 
     @Override
