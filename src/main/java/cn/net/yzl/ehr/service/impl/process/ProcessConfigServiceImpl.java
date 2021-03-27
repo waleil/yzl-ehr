@@ -59,8 +59,8 @@ public class ProcessConfigServiceImpl implements ProcessConfigService {
     }
 
     @Override
-    public ComResponse<DepartDto> processConfigDepartByProcessItemId(Integer processItemId) {
-        return processConfigFeignService.processConfigDepartByProcessItemId(processItemId);
+    public ComResponse<DepartDto> processConfigDepartByProcessItemId(Integer processItemId, Integer processId) {
+        return processConfigFeignService.processConfigDepartByProcessItemId(processItemId,processId);
     }
 
     @Override
