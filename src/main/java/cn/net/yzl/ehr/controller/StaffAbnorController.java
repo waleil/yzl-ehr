@@ -97,10 +97,8 @@ public class StaffAbnorController {
 
     @ApiOperation(value = "员工异动-定时更新员工异动信息", notes = "员工异动-定时更新员工异动信息")
     @GetMapping("/timerUpdateStafffAbnorRecord")
-    public ComResponse<List<MsgTemplateVo>> timerUpdateAttendFalse(@RequestParam("today") @DateTimeFormat(pattern = "yyyy-MM-dd")
-                                                                   @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
-                                                                           Date date) throws ParseException {
-        staffAbnorService.timerUpdateAttendFalse(date);
+    public ComResponse<List<MsgTemplateVo>> timerUpdateStafffAbnorRecord() throws ParseException {
+        staffAbnorService.timerUpdateStafffAbnorRecord();
         return ComResponse.success();
     }
 }
