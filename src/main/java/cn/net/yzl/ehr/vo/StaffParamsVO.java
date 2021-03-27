@@ -58,4 +58,7 @@ public class StaffParamsVO implements Serializable {
     @Min(10)
     Integer pageSize;
 
+    @ApiModelProperty(value = "业务属性", name = "attrCode")
+    private Integer attrCode;
+
 }
