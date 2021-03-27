@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.pojo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -187,6 +188,10 @@ public class StaffPo implements Serializable {
     @JsonFormat(pattern="yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date updateTime;
+
+
+    @ApiModelProperty(value = "业务属性", name = "attrCode")
+    private Integer attrCode;
 
     /**
      * 更新人id
