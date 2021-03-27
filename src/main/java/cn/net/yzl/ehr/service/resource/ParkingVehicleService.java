@@ -34,5 +34,5 @@ public interface ParkingVehicleService {
    ComResponse selectStatisticalList();
 
    //定时扫描
-   ComResponse<List<ParkingVehicleUpdatePo>> timerUpdate(String staffNo);
+   ComResponse<List<ParkingVehicleUpdatePo>> timerUpdate();
 }
