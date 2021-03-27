@@ -2,6 +2,7 @@ package cn.net.yzl.ehr.fegin.process;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
+import cn.net.yzl.staff.dto.DepartDto;
 import cn.net.yzl.staff.dto.StaffLevelDto;
 import cn.net.yzl.staff.dto.process.ProcessConfigDetailDto;
 import cn.net.yzl.staff.dto.process.ProcessDto;
@@ -40,6 +41,9 @@ public interface ProcessConfigFeignService {
 
     @RequestMapping(value = "/process/config/detail", method = RequestMethod.GET)
     ComResponse<ProcessConfigDetailDto> processConfigDetail (@RequestParam("id") Integer id);
+
+    @RequestMapping(value = "/process/config/depart", method = RequestMethod.GET)
+    ComResponse<DepartDto> processConfigDepartByProcessItemId (@RequestParam("processItemId") Integer processItemId);
 
     @RequestMapping(value = "/staff/getStaffLevelByStaffNo", method = RequestMethod.GET)
     ComResponse<List<StaffLevelDto>> getStaffLevelByStaffNo(@RequestParam("staffNo") String staffNo, @RequestParam("flag") Integer flag) ;

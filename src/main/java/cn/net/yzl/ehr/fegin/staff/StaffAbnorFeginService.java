@@ -49,6 +49,6 @@ public interface StaffAbnorFeginService {
     public ComResponse<Integer> runStaffChange(@RequestBody RunAbnorRecordPo staffChangePo) throws ParseException;
 
     @RequestMapping(value = "/abnor/timerUpdateStafffAbnorRecord", method = RequestMethod.POST, consumes = "application/json")
-    public ComResponse<List<MsgTemplateVo>> timerUpdateAttendFalse(@RequestParam("today") Date date) throws ParseException ;
+    public ComResponse<List<MsgTemplateVo>> timerUpdateStafffAbnorRecord() throws ParseException ;
 
 }
