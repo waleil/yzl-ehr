@@ -61,6 +61,7 @@ public class StaffServiceImpl implements StaffService {
         staffParamsVO.setStaffNo(userNo);
         MenuDTO menuDTO = roleMenuService.getIsAdminByUserCodeAndMenuUrl(userNo,referer);
         log.info(JsonUtil.toJsonStr(menuDTO));
+        staffParamsVO.setStaffNo(userNo);
        /* menuDTO.getMenuName();//获取菜单名称
         menuDTO.getIsAdmin();//获取最高权限标识*/
         //最高权限标识
@@ -71,6 +72,7 @@ public class StaffServiceImpl implements StaffService {
             //会增加部门负责人限制
             staffParamsVO.setFlag(1);
         }
+
         return staffFeginService.getListByParams(staffParamsVO);
     }
 
