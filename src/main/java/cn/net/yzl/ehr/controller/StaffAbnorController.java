@@ -25,6 +25,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotBlank;
 import java.text.ParseException;
 import java.util.Date;
@@ -88,8 +89,8 @@ public class StaffAbnorController {
 
     @ApiOperation(value = "人事管理-员工调整记录", notes = "人事管理-员工调整记录", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/findRecordsByPageParam", method = RequestMethod.POST)
-    public ComResponse<Page<StaffTrainDto>> findRecordsByPageParam(@RequestBody @Validated AbnorRecordPo abnorRecordPo) {
-        ComResponse<Page<StaffTrainDto>> recordsByPageParam = staffAbnorService.findRecordsByPageParam(abnorRecordPo);
+    public ComResponse<Page<StaffTrainDto>> findRecordsByPageParam(@RequestBody @Validated AbnorRecordPo abnorRecordPo, HttpServletRequest request) {
+        ComResponse<Page<StaffTrainDto>> recordsByPageParam = staffAbnorService.findRecordsByPageParam(abnorRecordPo,request);
         return recordsByPageParam;
     }
 

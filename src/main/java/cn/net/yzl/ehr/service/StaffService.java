@@ -15,6 +15,7 @@ import com.taobao.api.ApiException;
 import org.springframework.expression.ParseException;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface StaffService {
@@ -28,9 +29,9 @@ public interface StaffService {
 
     ComResponse<List<StaffBaseDto>> getByParams(String params);
 
-    ComResponse<Page<StaffListDto>> getListByParams(StaffParamsVO staffParamsVO);
+    ComResponse<Page<StaffListDto>> getListByParams(StaffParamsVO staffParamsVO, HttpServletRequest request);
 
-    ComResponse<Page<StaffListDto>> getListByParamsForDepart(StaffParamsVO staffParamsVO);
+    ComResponse<Page<StaffListDto>> getListByParamsForDepart(StaffParamsVO staffParamsVO, HttpServletRequest request);
 
     ComResponse<Integer> swtichStaffTalentPoolAccount(StaffSwitchTalentPoolPo staffSwitchTalentPoolPo,String staffNo);
 
@@ -54,4 +55,6 @@ public interface StaffService {
     ComResponse<Integer> deleteImportStaff(Integer id) throws ParseException ;
 
     ComResponse<StaffDetailsDto> completeInfo(StaffInfoSaveVO staffInfoSaveVO) throws ParseException, ApiException;
+
+    ComResponse<String> getStaffImgUrl(@RequestParam("resumeId") Integer resumeId,@RequestParam("staffNo") String staffNo) ;
 }

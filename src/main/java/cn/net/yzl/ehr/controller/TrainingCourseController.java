@@ -15,6 +15,7 @@ import cn.net.yzl.staff.pojo.train.*;
 import cn.net.yzl.staff.vo.train.*;
 import com.alibaba.fastjson.JSONObject;
 import io.swagger.annotations.*;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.validation.annotation.Validated;
@@ -24,6 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "trainingCourse")
@@ -67,25 +69,27 @@ public class TrainingCourseController {
     @PostMapping("insertTrainCourse")
     public ComResponse insertTrainCourse(@RequestBody TrainInfoAllVO trainInfoAllVO) {
         List<TrainStaffRelationPo> trainStaffRelationPoList = trainInfoAllVO.getTrainStaffRelationPoList();
+        List<Speaker> speakers = trainInfoAllVO.getSpeakers();
+        Map<String, String> collect = speakers.stream().collect(Collectors.toMap(Speaker::getStaffName, Speaker::getStaffNo));
         List<TrainSchedulePo> trainSchedulePoList = trainInfoAllVO.getTrainSchedulePoList();
-        if(!CollectionUtils.isEmpty(trainSchedulePoList)){
-            trainStaffRelationPoList.forEach(trainStaffRelationPo -> {
-                trainSchedulePoList.forEach(trainSchedulePo -> {
-                    if(trainSchedulePo.getInform() == 1){
-                        ComResponse<StaffDetailsDto> detailsByNo = staffFeginService.getDetailsByNo(trainStaffRelationPo.getStaffNo());
-                        StaffDetailsDto data = detailsByNo.getData();
-                        MsgTemplateVo msgTemplateVo = new MsgTemplateVo();
-                        msgTemplateVo.setTitle("培训通知:");
-                        msgTemplateVo.setParams(new Object[]{data.getName(),trainSchedulePo.getStartTime(),trainInfoAllVO.getCourseName()});
-                        msgTemplateVo.setCreator("");
-                        msgTemplateVo.setCode("EHR0008");
-                        msgTemplateVo.setSystemCode(2);
-                        msgTemplateVo.setType(1);
-                        msgTemplateVo.setSendName("");
-                        msgTemplateVo.setUserCode(trainStaffRelationPo.getStaffNo());
-                        yMsgInfoService.sendSysMsgInfo(msgTemplateVo);
-                    }
-                });
+        if (!CollectionUtils.isEmpty(trainSchedulePoList)) {
+            trainSchedulePoList.forEach(trainSchedulePo -> {
+                String s = collect.get(trainSchedulePo.getDutyName());
+                if (trainSchedulePo.getInform() == 1 && StringUtils.isNotBlank(s)) {
+                    //ComResponse<StaffDetailsDto> detailsByNo = staffFeginService.getDetailsByNo(trainStaffRelationPo.getStaffNo());
+                    //StaffDetailsDto data = detailsByNo.getData();
+                    MsgTemplateVo msgTemplateVo = new MsgTemplateVo();
+                    msgTemplateVo.setTitle("培训通知:");
+                    msgTemplateVo.setParams(new Object[]{trainSchedulePo.getDutyName(), trainSchedulePo.getStartTime(), trainSchedulePo.getContent()});
+                    msgTemplateVo.setCreator("");
+                    msgTemplateVo.setCode("EHR0008");
+                    msgTemplateVo.setSystemCode(2);
+                    msgTemplateVo.setType(1);
+                    msgTemplateVo.setSendName("");
+                    msgTemplateVo.setUserCode(collect.get(trainSchedulePo.getDutyName()));
+                    yMsgInfoService.sendSysMsgInfo(msgTemplateVo);
+
+                }
             });
         }
         trainStaffRelationPoList.forEach(trainStaffRelationPo -> {
@@ -138,24 +142,26 @@ public class TrainingCourseController {
     public ComResponse editTrainInfo(@RequestBody TrainInfoAllVO trainInfoAllVO) {
         List<TrainStaffRelationPo> trainStaffRelationPoList = trainInfoAllVO.getTrainStaffRelationPoList();
         List<TrainSchedulePo> trainSchedulePoList = trainInfoAllVO.getTrainSchedulePoList();
-        if(!CollectionUtils.isEmpty(trainSchedulePoList)){
-            trainStaffRelationPoList.forEach(trainStaffRelationPo -> {
-                trainSchedulePoList.forEach(trainSchedulePo -> {
-                    if(trainSchedulePo.getInform() == 1){
-                        ComResponse<StaffDetailsDto> detailsByNo = staffFeginService.getDetailsByNo(trainStaffRelationPo.getStaffNo());
-                        StaffDetailsDto data = detailsByNo.getData();
-                        MsgTemplateVo msgTemplateVo = new MsgTemplateVo();
-                        msgTemplateVo.setTitle("培训通知:");
-                        msgTemplateVo.setParams(new Object[]{data.getName(),trainSchedulePo.getStartTime(),trainInfoAllVO.getCourseName()});
-                        msgTemplateVo.setCreator("");
-                        msgTemplateVo.setCode("EHR0008");
-                        msgTemplateVo.setSystemCode(2);
-                        msgTemplateVo.setType(1);
-                        msgTemplateVo.setSendName("");
-                        msgTemplateVo.setUserCode(trainStaffRelationPo.getStaffNo());
-                        yMsgInfoService.sendSysMsgInfo(msgTemplateVo);
-                    }
-                });
+        List<Speaker> speakers = trainInfoAllVO.getSpeakers();
+        Map<String, String> collect = speakers.stream().collect(Collectors.toMap(Speaker::getStaffName, Speaker::getStaffNo));
+        if (!CollectionUtils.isEmpty(trainSchedulePoList)) {
+            trainSchedulePoList.forEach(trainSchedulePo -> {
+                String s = collect.get(trainSchedulePo.getDutyName());
+                if (trainSchedulePo.getInform() == 1 && StringUtils.isNotBlank(s)) {
+                    //ComResponse<StaffDetailsDto> detailsByNo = staffFeginService.getDetailsByNo(trainStaffRelationPo.getStaffNo());
+                    //StaffDetailsDto data = detailsByNo.getData();
+                    MsgTemplateVo msgTemplateVo = new MsgTemplateVo();
+                    msgTemplateVo.setTitle("培训通知:");
+                    msgTemplateVo.setParams(new Object[]{trainSchedulePo.getDutyName(), trainSchedulePo.getStartTime(), trainSchedulePo.getContent()});
+                    msgTemplateVo.setCreator("");
+                    msgTemplateVo.setCode("EHR0008");
+                    msgTemplateVo.setSystemCode(2);
+                    msgTemplateVo.setType(1);
+                    msgTemplateVo.setSendName("");
+                    msgTemplateVo.setUserCode(collect.get(trainSchedulePo.getDutyName()));
+                    yMsgInfoService.sendSysMsgInfo(msgTemplateVo);
+
+                }
             });
         }
         trainStaffRelationPoList.forEach(trainStaffRelationPo -> {

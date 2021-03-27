@@ -3,11 +3,15 @@ package cn.net.yzl.ehr.service.impl;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.common.enums.ResponseCodeEnums;
+import cn.net.yzl.common.util.JsonUtil;
 import cn.net.yzl.ehr.dto.*;
+import cn.net.yzl.ehr.fegin.depart.DepartFeginService;
 import cn.net.yzl.ehr.fegin.staff.StaffFeginService;
 import cn.net.yzl.ehr.pojo.*;
 import cn.net.yzl.ehr.service.StaffService;
 import cn.net.yzl.ehr.vo.StaffParamsVO;
+import cn.net.yzl.pm.model.dto.MenuDTO;
+import cn.net.yzl.pm.service.RoleMenuService;
 import cn.net.yzl.staff.dto.StaffInfoDto;
 import cn.net.yzl.staff.dto.StatisticalStaffDto;
 import cn.net.yzl.staff.vo.ImportResultVo;
@@ -15,18 +19,25 @@ import cn.net.yzl.staff.vo.UpdatePasswordPo;
 import cn.net.yzl.staff.dto.StaffDetailsDto;
 import cn.net.yzl.staff.vo.staff.StaffInfoSaveVO;
 import com.taobao.api.ApiException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.expression.ParseException;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+@Slf4j
 @Service
 public class StaffServiceImpl implements StaffService {
-
+    @Autowired
+    private RoleMenuService roleMenuService;
 
     @Autowired
     private StaffFeginService staffFeginService;
+
+    @Autowired
+    private DepartFeginService departFeginService;
 
     @Override
     public ComResponse<StaffDetailsDto> getDetailsByNo(String staffNo) {
@@ -44,12 +55,43 @@ public class StaffServiceImpl implements StaffService {
     }
 
     @Override
-    public ComResponse<Page<StaffListDto>> getListByParams(StaffParamsVO staffParamsVO) {
+    public ComResponse<Page<StaffListDto>> getListByParams(StaffParamsVO staffParamsVO, HttpServletRequest request) {
+        String userNo = request.getHeader("userNo");
+        String referer = request.getHeader("Referer");
+        staffParamsVO.setStaffNo(userNo);
+        MenuDTO menuDTO = roleMenuService.getIsAdminByUserCodeAndMenuUrl(userNo,referer);
+        log.info(JsonUtil.toJsonStr(menuDTO));
+       /* menuDTO.getMenuName();//获取菜单名称
+        menuDTO.getIsAdmin();//获取最高权限标识*/
+        //最高权限标识
+        if(menuDTO!=null && menuDTO.getIsAdmin()!=null && menuDTO.getIsAdmin()==1 ){
+            //全量，只根据departId查询
+            staffParamsVO.setFlag(2);
+        }else{
+            //会增加部门负责人限制
+            staffParamsVO.setFlag(1);
+        }
         return staffFeginService.getListByParams(staffParamsVO);
     }
 
+
     @Override
-    public ComResponse<Page<StaffListDto>> getListByParamsForDepart(StaffParamsVO staffParamsVO) {
+    public ComResponse<Page<StaffListDto>> getListByParamsForDepart(StaffParamsVO staffParamsVO, HttpServletRequest request) {
+        String userNo = request.getHeader("userNo");
+        String referer = request.getHeader("Referer");
+        staffParamsVO.setStaffNo(userNo);
+        MenuDTO menuDTO = roleMenuService.getIsAdminByUserCodeAndMenuUrl(userNo,referer);
+        log.info(JsonUtil.toJsonStr(menuDTO));
+       /* menuDTO.getMenuName();//获取菜单名称
+        menuDTO.getIsAdmin();//获取最高权限标识*/
+        //最高权限标识
+        if(menuDTO!=null && menuDTO.getIsAdmin()!=null && menuDTO.getIsAdmin()==1 ){
+            //全量
+            staffParamsVO.setFlag(2);
+        }else{
+            //会增加部门负责人限制
+            staffParamsVO.setFlag(1);
+        }
         return staffFeginService.getListByParamsForDepart(staffParamsVO);
     }
 
@@ -129,6 +171,11 @@ public class StaffServiceImpl implements StaffService {
     @Override
     public ComResponse<StaffDetailsDto> completeInfo(StaffInfoSaveVO staffInfoSaveVO) throws ParseException, ApiException {
         return staffFeginService.completeInfo(staffInfoSaveVO);
+    }
+
+    @Override
+    public ComResponse<String> getStaffImgUrl(Integer resumeId, String staffNo) {
+        return staffFeginService.getStaffImgUrl(resumeId,staffNo);
     }
 
 
