@@ -55,18 +55,6 @@ public class ProcessActiveController {
     @ApiOperation(value = "保存请假信息")
     public ComResponse<ProcessApproveNode> saveProcessLeaveInfo(@RequestBody @Valid StaffLeaveDTO staffLeaveDTO, @CurrentStaffNo @NotNull String staffNo) {
         staffLeaveDTO.setStaffNo(staffNo);
-        Date startTime=staffLeaveDTO.getStartTime();
-        Instant instant = startTime.toInstant();
-        ZoneId zone = ZoneId.systemDefault();
-        LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, zone);
-        LocalDate localDate = localDateTime.toLocalDate();
-
-        LocalDate now = LocalDate.now();
-
-        if (now.isAfter(localDate)){
-            throw new BaseParamsException(ResponseCodeEnums.API_ERROR_CODE.getCode(), "请假时间不能小于当前时间！");
-        }
-
         ComResponse<ProcessApproveNode> flag = findProcessNodeService.saveProcessLeaveInfo(staffLeaveDTO);
         if (flag.getCode().equals(200)){
             try {
