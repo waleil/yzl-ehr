@@ -19,7 +19,6 @@ import cn.net.yzl.staff.dto.salaryFrontLineRule.SalaryFrontLineRuleDto5;
 import cn.net.yzl.staff.dto.salaryFrontLineRule.SalaryFrontLineRuleDto6;
 import cn.net.yzl.staff.dto.salaryFrontLineRule.SalaryFrontLineRuleDto7;
 import cn.net.yzl.staff.dto.salaryFrontLineRule.SalaryFrontLineRuleDto9;
-import cn.net.yzl.staff.dto.salaryFrontLineRule.SalaryFrontLineRuleInfoDto;
 import cn.net.yzl.staff.dto.salaryRule.SalaryRuleDepartPostDto;
 import cn.net.yzl.staff.vo.salaryRule.SalaryRulePostVo;
 import cn.net.yzl.staff.vo.salaryRule.SalaryRuleSwitch;
@@ -47,7 +46,7 @@ public interface SalaryFrontLineRuleFeignService {
      * @return 规则对象
      */
     @GetMapping("/getRule")
-    ComResponse<SalaryFrontLineRuleInfoDto> getRule(@RequestParam("ruleType") Integer ruleType);
+    ComResponse getRule(@RequestParam("ruleType") Integer ruleType);
 
     // 薪酬规则一
     @PostMapping("/rule1")

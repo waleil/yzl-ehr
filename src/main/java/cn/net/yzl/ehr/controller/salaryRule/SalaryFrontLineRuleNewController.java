@@ -21,7 +21,6 @@ import cn.net.yzl.staff.dto.salaryFrontLineRule.SalaryFrontLineRuleDto5;
 import cn.net.yzl.staff.dto.salaryFrontLineRule.SalaryFrontLineRuleDto6;
 import cn.net.yzl.staff.dto.salaryFrontLineRule.SalaryFrontLineRuleDto7;
 import cn.net.yzl.staff.dto.salaryFrontLineRule.SalaryFrontLineRuleDto9;
-import cn.net.yzl.staff.dto.salaryFrontLineRule.SalaryFrontLineRuleInfoDto;
 import cn.net.yzl.staff.dto.salaryRule.SalaryRuleDepartPostDto;
 import cn.net.yzl.staff.vo.salaryRule.SalaryRulePostVo;
 import cn.net.yzl.staff.vo.salaryRule.SalaryRuleSwitch;
@@ -69,7 +68,7 @@ public class SalaryFrontLineRuleNewController {
     })
     @ApiOperation(value = "一线管理-薪酬核算规则配置-查看", notes = "一线管理-薪酬核算规则配置-查看")
     @GetMapping("/getRule")
-    public ComResponse<SalaryFrontLineRuleInfoDto> getRule(@RequestParam("ruleType") Integer ruleType) {
+    public ComResponse getRule(@RequestParam("ruleType") Integer ruleType) {
         return salaryFrontLineService.getRule(ruleType);
     }
 
