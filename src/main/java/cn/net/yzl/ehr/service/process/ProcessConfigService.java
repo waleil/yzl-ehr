@@ -27,7 +27,7 @@ public interface ProcessConfigService {
 
     ComResponse<ProcessConfigDetailDto> processConfigDetail(Integer id);
 
-    ComResponse<DepartDto> processConfigDepartByProcessItemId(Integer processItemId);
+    ComResponse<DepartDto> processConfigDepartByProcessItemId(Integer processItemId,Integer processId);
 
     ComResponse<List<StaffLevelDto>> getStaffLevelByStaffNo(String staffNo,Integer flag);
 

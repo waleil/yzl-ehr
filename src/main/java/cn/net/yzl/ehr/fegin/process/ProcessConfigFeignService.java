@@ -43,7 +43,7 @@ public interface ProcessConfigFeignService {
     ComResponse<ProcessConfigDetailDto> processConfigDetail (@RequestParam("id") Integer id);
 
     @RequestMapping(value = "/process/config/depart", method = RequestMethod.GET)
-    ComResponse<DepartDto> processConfigDepartByProcessItemId (@RequestParam("processItemId") Integer processItemId);
+    ComResponse<DepartDto> processConfigDepartByProcessItemId (@RequestParam("processItemId") Integer processItemId,@RequestParam("processId") Integer processId);
 
     @RequestMapping(value = "/staff/getStaffLevelByStaffNo", method = RequestMethod.GET)
     ComResponse<List<StaffLevelDto>> getStaffLevelByStaffNo(@RequestParam("staffNo") String staffNo, @RequestParam("flag") Integer flag) ;
