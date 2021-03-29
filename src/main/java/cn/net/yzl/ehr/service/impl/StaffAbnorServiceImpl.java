@@ -346,8 +346,8 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
         String referer = request.getHeader("Referer");
         MenuDTO menuDTO = roleMenuService.getIsAdminByUserCodeAndMenuUrl(userNo,referer);
         log.info(JsonUtil.toJsonStr(menuDTO));
-        menuDTO.getMenuName();//获取菜单名称
-        menuDTO.getIsAdmin();//获取最高权限标识
+//        menuDTO.getMenuName();//获取菜单名称
+//        menuDTO.getIsAdmin();//获取最高权限标识
         //最高权限标识
         if(menuDTO!=null && menuDTO.getIsAdmin()!=null && menuDTO.getIsAdmin()==1 ){
             //全量，只根据departId查询
