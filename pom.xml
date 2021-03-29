@@ -174,7 +174,7 @@
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml-schemas</artifactId>
             <version>3.17</version>
-         </dependency>
+        </dependency>
 
         <dependency>
             <groupId>cn.net.yzl</groupId>
