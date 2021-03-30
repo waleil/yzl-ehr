@@ -91,14 +91,14 @@ public class ParkingVehicleServiceImpl implements ParkingVehicleService {
     }
 
     @Override
-    public ComResponse<List<ParkingVehicleUpdatePo>> timerUpdate(String staffNo) {
+    public ComResponse<List<ParkingVehicleUpdatePo>> timerUpdate() {
         ComResponse<List<ParkingVehicleUpdatePo>> list = parkingVehicleFeginService.timerUpdate();
             if(!CollectionUtils.isEmpty(list.getData())){
                 for (ParkingVehicleUpdatePo datum : list.getData()) {
                     ComResponse<ParkingVehiclePo> comResponse = parkingVehicleFeginService.queryById(list.getData().size());
                     MsgTemplateVo templateVo = new MsgTemplateVo();
                     templateVo.setCode("EHR0016");
-                    templateVo.setCreator(staffNo);
+                    templateVo.setCreator("0");
                     templateVo.setTitle("车位管理排队进入停放");
                     templateVo.setUserCode(datum.getStaffNo());
                     String name = staffFeginService.getDetailsByNo(datum.getStaffNo()).getData().getName();

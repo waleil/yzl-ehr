@@ -79,8 +79,8 @@ public class ParkingVehicleController {
 
     @ApiOperation(value = "入司车辆管理-定时扫描车辆入司停放",notes = "入司车辆管理-定时扫描车辆入司停放",consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/timerUpdate", method = RequestMethod.POST)
-    ComResponse<List<ParkingVehicleUpdatePo>>  timerUpdate(@ApiIgnore @CurrentStaffNo String staffNo) {
-        return parkingVehicleService.timerUpdate(staffNo);
+    ComResponse<List<ParkingVehicleUpdatePo>>  timerUpdate() {
+        return parkingVehicleService.timerUpdate();
 
     }
 }
