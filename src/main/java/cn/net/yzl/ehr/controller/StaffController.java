@@ -284,6 +284,7 @@ public class StaffController {
                     writer.addHeaderAlias("entryTimes","入司次数");
                     writer.addHeaderAlias("dimissionTime","离职时间");
                     writer.addHeaderAlias("payrollAccountingDate","薪资核算截止日");
+                    writer.addHeaderAlias("isImportName","来源类型");
                     staffParamsVO.setPageNo(1);
                     staffParamsVO.setPageSize(50000);
                     listByParams = staffService.getListByParams(staffParamsVO,request);

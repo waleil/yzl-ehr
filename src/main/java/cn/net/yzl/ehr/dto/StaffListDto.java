@@ -136,6 +136,21 @@ public class StaffListDto implements Serializable {
     private Integer abnorHistory;
     @ApiModelProperty(value = "是否补全（0.未补全，1.已补全）", name = "isComplete")
     private Integer isComplete;
+    @ApiModelProperty(value = "来源类型(0.招聘,1.导入)", name = "isImport")
+    private Integer isImport;
+    @ApiModelProperty(value = "来源类型(0.招聘,1.导入)", name = "isImportName")
+    private String isImportName;
+
+    public void setIsImport(Integer isImport) {
+        if(isImport!=null){
+            this.isImport=isImport;
+            if (isImport == 0) {
+                this.isImportName = "招聘";
+            } else if (isImport == 1) {
+                this.isImportName = "导入";
+            }
+        }
+    }
 
     public void setSex(Integer sex) {
         if(sex!=null) {
