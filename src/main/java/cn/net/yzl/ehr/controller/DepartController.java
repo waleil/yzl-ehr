@@ -118,5 +118,13 @@ public class DepartController {
     public ComResponse<List<cn.net.yzl.staff.dto.DepartDto>> getListByStaffNo(String staffNo){
         return departService.getListByStaffNo(staffNo);
     }
-
+    @ApiOperation(value = "根据员工号获取部门列表(是否有最高权限)", notes = "根据员工号获取部门列表((是否有最高权限))", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "staffNo", value = "员工工号", required = true, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "maxLevel", value = "是否最高权限 true是 false 否", required = true, dataType = "Boolean", paramType = "query")
+    })
+    @RequestMapping(value = "/getListByStaffNoData", method = RequestMethod.GET)
+    ComResponse<List<cn.net.yzl.staff.dto.DepartDto>> getListByStaffNoData(@NotBlank String staffNo, Boolean maxLevel) {
+        return departService.getListByStaffNoData(staffNo,maxLevel);
+    }
 }
