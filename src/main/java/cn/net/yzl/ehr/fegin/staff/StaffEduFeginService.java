@@ -1,8 +1,8 @@
 package cn.net.yzl.ehr.fegin.staff;
 
 import cn.net.yzl.common.entity.ComResponse;
-import cn.net.yzl.ehr.dto.StaffEduListDto;
 import cn.net.yzl.ehr.pojo.*;
+import cn.net.yzl.staff.dto.StaffEduListDto;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
