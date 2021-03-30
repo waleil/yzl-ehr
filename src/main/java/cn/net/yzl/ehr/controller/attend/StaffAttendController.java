@@ -56,7 +56,7 @@ public class StaffAttendController {
         MenuDTO menuDTO = roleMenuService.getIsAdminByUserCodeAndMenuUrl(userNo,referer);
         Integer isAdmin = menuDTO.getIsAdmin();
         if(0 == isAdmin){
-//            staffAttendParamsVO.setStaffNo(userNo);
+            staffAttendParamsVO.setStaffNo(userNo);
         }
         return staffAttendFeginService.getStaffAttendListByParams(staffAttendParamsVO);
     }
