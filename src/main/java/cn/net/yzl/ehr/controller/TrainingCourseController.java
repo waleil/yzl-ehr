@@ -97,7 +97,7 @@ public class TrainingCourseController {
             StaffDetailsDto data = detailsByNo.getData();
             MsgTemplateVo msgTemplateVo = new MsgTemplateVo();
             msgTemplateVo.setTitle("培训通知:");
-            msgTemplateVo.setParams(new Object[]{trainStaffRelationPo.getStaffNo(),trainInfoAllVO.getStartTime(),trainInfoAllVO.getEndTime(),trainInfoAllVO.getCourseName()});
+            msgTemplateVo.setParams(new Object[]{trainStaffRelationPo.getName(),trainInfoAllVO.getStartTime(),trainInfoAllVO.getEndTime(),trainInfoAllVO.getCourseName()});
             msgTemplateVo.setCreator("");
             msgTemplateVo.setCode("EHR0007");
             msgTemplateVo.setSystemCode(2);
@@ -169,7 +169,7 @@ public class TrainingCourseController {
             StaffDetailsDto data = detailsByNo.getData();
             MsgTemplateVo msgTemplateVo = new MsgTemplateVo();
             msgTemplateVo.setTitle("培训通知:");
-            msgTemplateVo.setParams(new Object[]{trainStaffRelationPo.getStaffNo(),trainInfoAllVO.getStartTime(),trainInfoAllVO.getEndTime(),trainInfoAllVO.getCourseName()});
+            msgTemplateVo.setParams(new Object[]{trainStaffRelationPo.getName(),trainInfoAllVO.getStartTime(),trainInfoAllVO.getEndTime(),trainInfoAllVO.getCourseName()});
             msgTemplateVo.setCreator("");
             msgTemplateVo.setCode("EHR0007");
             msgTemplateVo.setSystemCode(2);

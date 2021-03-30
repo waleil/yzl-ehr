@@ -429,7 +429,7 @@ public class StaffController {
         return staffService.completeInfo(staffInfoSaveVO);
     }
 
-    @ApiOperation(value = "员工数据-完善员工详情", notes = "员工数据-完善员工详情", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "员工数据-查询默认头像图片路径", notes = "员工数据-查询默认头像图片路径", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/getStaffImgUrl", method = RequestMethod.GET)
     public ComResponse<String> getStaffImgUrl(Integer resumeId, String staffNo) {
         return staffFeginService.getStaffImgUrl(resumeId,staffNo);
