@@ -144,7 +144,7 @@ public class MessageRemandAPI {
         templateVo.setCreator(staffNo);
         templateVo.setUserCode(appNo);
         templateVo.setSystemCode(2);
-        templateVo.setTitle("发工资");
+        templateVo.setTitle("工资发放提醒");
         String[] str = {appName, time};
         templateVo.setParams(str);
         messageRemandAPI.ymsgInfoService.sendSysMsgInfo(templateVo);

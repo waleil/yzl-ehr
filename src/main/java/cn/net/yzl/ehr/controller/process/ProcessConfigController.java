@@ -77,8 +77,8 @@ public class ProcessConfigController {
 
     @ApiOperation(value = "审批流程配-根据流程项目id查询已经有流程的部门",notes = "审批流程配-根据流程项目id查询已经有流程的部门",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/config/depart", method = RequestMethod.GET)
-    ComResponse<DepartDto> processConfigDepartByProcessItemId (@RequestParam("processItemId") Integer processItemId){
-        return processConfigService.processConfigDepartByProcessItemId(processItemId);
+    ComResponse<DepartDto> processConfigDepartByProcessItemId (@RequestParam("processItemId") Integer processItemId,@RequestParam(name = "processId",required = false) Integer processId){
+        return processConfigService.processConfigDepartByProcessItemId(processItemId,processId);
     }
 
     @ApiOperation(value = "根据员工获取上下级信息", notes = "根据员工获取上下级信息")
