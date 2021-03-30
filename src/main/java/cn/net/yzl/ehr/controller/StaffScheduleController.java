@@ -4,6 +4,8 @@ import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.staff.StaffScheduleFeginService;
+import cn.net.yzl.pm.model.dto.MenuDTO;
+import cn.net.yzl.pm.service.RoleMenuService;
 import cn.net.yzl.staff.dto.StaffScheduleDetailDto;
 import cn.net.yzl.staff.dto.StaffScheduleDto;
 import cn.net.yzl.staff.util.StaffBeanUtils;
@@ -19,6 +21,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotBlank;
 import java.text.ParseException;
 import java.util.Date;
@@ -32,12 +35,23 @@ public class StaffScheduleController {
     @Autowired
     private StaffScheduleFeginService staffScheduleFeginService;
 
+    @Autowired
+    private RoleMenuService roleMenuService;
+
 
 
     @ApiOperation(value = "查看排班-获取排班信息列表", notes = "查看排班-获取排班信息列表", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/getListByParams", method = RequestMethod.POST)
-    ComResponse<Page<StaffScheduleDto>> getListByParams(@RequestBody @Validated StaffScheduleParamsVO staffScheduleParamsVO) throws ParseException, IllegalAccessException {
+    ComResponse<Page<StaffScheduleDto>> getListByParams(@RequestBody @Validated StaffScheduleParamsVO staffScheduleParamsVO, HttpServletRequest request) throws ParseException, IllegalAccessException {
         staffScheduleParamsVO = StaffBeanUtils.setNullValue(staffScheduleParamsVO);
+
+        String userNo = request.getHeader("userNo");
+        String referer = request.getHeader("Referer");
+        MenuDTO menuDTO = roleMenuService.getIsAdminByUserCodeAndMenuUrl(userNo,referer);
+        Integer isAdmin = menuDTO.getIsAdmin();
+        if(0 == isAdmin){
+            staffScheduleParamsVO.setStaffNo(userNo);
+        }
         return staffScheduleFeginService.getListByParams(staffScheduleParamsVO);
     }
 
