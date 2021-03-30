@@ -1,5 +1,6 @@
 package cn.net.yzl.ehr.pojo;
 
+import cn.net.yzl.staff.pojo.uploadRelation.UploadRelationPo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -10,6 +11,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * staff_edu
@@ -48,15 +50,16 @@ public class StaffEduUpdatePo implements Serializable {
     @NotBlank
     private String major;
 
-    @ApiModelProperty(value = "证书路径", name = "path")
+  /*  @ApiModelProperty(value = "证书路径", name = "path")
     @NotBlank
     private String path;
 
 
     @ApiModelProperty(value = "持有证书", name = "certificate")
     @NotBlank
-    private String certificate;
+    private String certificate;*/
 
+    private List<UploadRelationPo> uploadRelationPos;
 
     @ApiModelProperty(value = "修改人",hidden = true)
     private String updator;

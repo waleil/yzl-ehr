@@ -2,9 +2,9 @@ package cn.net.yzl.ehr.controller.staffArchives;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
-import cn.net.yzl.ehr.dto.StaffEduListDto;
 import cn.net.yzl.ehr.pojo.*;
 import cn.net.yzl.ehr.service.StaffEduService;
+import cn.net.yzl.staff.dto.StaffEduListDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
