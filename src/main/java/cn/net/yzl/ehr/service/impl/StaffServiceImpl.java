@@ -72,7 +72,6 @@ public class StaffServiceImpl implements StaffService {
             //会增加部门负责人限制
             staffParamsVO.setFlag(1);
         }
-
         return staffFeginService.getListByParams(staffParamsVO);
     }
 

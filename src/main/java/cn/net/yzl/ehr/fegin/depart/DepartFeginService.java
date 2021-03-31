@@ -24,8 +24,8 @@ import java.util.List;
  */
 //@FeignClient(name = "yzl-staff-api")
 //@FeignClient(name = "yzl-staff-db")
-//@FeignClient(value = "depart",url="http://localhost:38080/")
-@FeignClient(value = "depart",url = "${fegin.db.url}")
+@FeignClient(value = "depart",url="http://localhost:38080/")
+//@FeignClient(value = "depart",url = "${fegin.db.url}")
 @Repository
 public interface DepartFeginService {
 
@@ -67,4 +67,8 @@ public interface DepartFeginService {
     @ApiOperation(value = "根据员工号获取部门ID集合(负责人)", notes = "根据员工号获取部门ID集合(负责人)", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/getDepartListByStaffNo", method = RequestMethod.GET)
     ComResponse<List<Integer>> getDepartListByStaffNo(@RequestParam("staffNo")  String staffNo) ;
+
+    @ApiOperation(value = "根据员工号获取部门ID集合(负责人)", notes = "根据员工号获取部门ID集合(负责人)", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/depart/getListByStaffNoData", method = RequestMethod.GET)
+    ComResponse<List<cn.net.yzl.staff.dto.DepartDto>> getListByStaffNoData(@RequestParam("staffNo")  String staffNo,@RequestParam("maxLevel") Boolean maxLevel) ;
 }
