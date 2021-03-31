@@ -426,8 +426,29 @@ public class StaffController {
 
     @ApiOperation(value = "员工数据-完善员工详情", notes = "员工数据-完善员工详情", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/completeInfo", method = RequestMethod.POST)
-    ComResponse<StaffDetailsDto> completeInfo(@RequestBody @Validated StaffInfoSaveVO staffInfoSaveVO) throws ParseException, ApiException{
-        return staffService.completeInfo(staffInfoSaveVO);
+    ComResponse<StaffDetailsDto> completeInfo(@RequestBody @Validated StaffInfoSaveVO staffInfoSaveVO,@CurrentStaffNo @ApiIgnore String currentStaffNo) throws ParseException, ApiException{
+        ComResponse<StaffDetailsDto> staffDetailsDtoComResponse = staffService.completeInfo(staffInfoSaveVO);
+        if(staffDetailsDtoComResponse.getCode()==200){
+            // 添加角色
+            String roleIds = staffInfoSaveVO.getRoleIds();
+            if(StrUtil.isNotBlank(roleIds)){
+                String staffNo = staffInfoSaveVO.getStaffNo();
+                List<UserRole> userRoles = new ArrayList<>();
+                for (String s : roleIds.split(",")) {
+                    UserRole userRole = new UserRole();
+                    userRole.setUserCode(staffNo);
+                    userRole.setRoleId(Integer.parseInt(s));
+                    userRole.setCreateCode(currentStaffNo);
+                    userRoles.add(userRole);
+                }
+                UserRoleDTO userRoleDTO = new UserRoleDTO();
+                userRoleDTO.setUserRoleList(userRoles);
+                userRoleService.createUserRoleInfoList(userRoleDTO);
+            }
+
+        }
+        return staffDetailsDtoComResponse;
+
     }
 
     @ApiOperation(value = "员工数据-查询默认头像图片路径", notes = "员工数据-查询默认头像图片路径", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
