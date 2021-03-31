@@ -98,4 +98,8 @@ public class DepartServiceImpl implements DepartService {
         return departFeginService.getDepartListByStaffNo(staffNo);
     }
 
+    @Override
+    public ComResponse<List<cn.net.yzl.staff.dto.DepartDto>> getListByStaffNoData(String staffNo, Boolean maxLevel) {
+        return departFeginService.getListByStaffNoData(staffNo,maxLevel);
+    }
 }

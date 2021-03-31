@@ -81,7 +81,7 @@ public class personApproveController {
                 e.printStackTrace();
             }
         }
-        return ComResponse.success();
+        return flag;
     }
 
     @PostMapping("v1/updateCancelApproveInfo")
