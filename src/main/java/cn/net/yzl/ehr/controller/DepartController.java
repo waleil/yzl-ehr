@@ -10,6 +10,8 @@ import cn.net.yzl.ehr.service.DepartService;
 import cn.net.yzl.ehr.vo.DepartBusinessAttrVO;
 import cn.net.yzl.ehr.vo.DepartUpdateVO;
 import cn.net.yzl.ehr.vo.DepartVO;
+import cn.net.yzl.pm.model.dto.MenuDTO;
+import cn.net.yzl.pm.service.RoleMenuService;
 import cn.net.yzl.staff.pojo.PostLevelUpdatePo;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -33,6 +36,9 @@ public class DepartController {
 
     @Autowired
     private DepartService departService;
+
+    @Autowired
+    private RoleMenuService roleMenuService;
 
 
     @ApiOperation(value = "获取部门的树状列表", notes = "获取部门的树状列表", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
@@ -124,7 +130,8 @@ public class DepartController {
             @ApiImplicitParam(name = "maxLevel", value = "是否最高权限 true是 false 否", required = true, dataType = "Boolean", paramType = "query")
     })
     @RequestMapping(value = "/getListByStaffNoData", method = RequestMethod.GET)
-    ComResponse<List<cn.net.yzl.staff.dto.DepartDto>> getListByStaffNoData(@NotBlank String staffNo, Boolean maxLevel) {
+    ComResponse<List<cn.net.yzl.staff.dto.DepartDto>> getListByStaffNoData(@ApiIgnore @CurrentStaffNo String staffNo,@RequestParam Boolean maxLevel) {
+
         return departService.getListByStaffNoData(staffNo,maxLevel);
     }
 }
