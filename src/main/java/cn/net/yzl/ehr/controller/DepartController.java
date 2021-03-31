@@ -130,13 +130,7 @@ public class DepartController {
             @ApiImplicitParam(name = "maxLevel", value = "是否最高权限 true是 false 否", required = true, dataType = "Boolean", paramType = "query")
     })
     @RequestMapping(value = "/getListByStaffNoData", method = RequestMethod.GET)
-    ComResponse<List<cn.net.yzl.staff.dto.DepartDto>> getListByStaffNoData(@ApiIgnore @CurrentStaffNo String staffNo, HttpServletRequest request) {
-        String referer = request.getHeader("Referer");
-        MenuDTO menuDTO = roleMenuService.getIsAdminByUserCodeAndMenuUrl(staffNo,referer);
-        Boolean maxLevel = false;
-        if(null != menuDTO && 1== menuDTO.getIsAdmin()){
-            maxLevel = true;
-        }
+    ComResponse<List<cn.net.yzl.staff.dto.DepartDto>> getListByStaffNoData(@ApiIgnore @CurrentStaffNo String staffNo,@RequestParam Boolean maxLevel) {
 
         return departService.getListByStaffNoData(staffNo,maxLevel);
     }
