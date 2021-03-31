@@ -55,8 +55,9 @@ public class StaffAttendController {
         String referer = request.getHeader("Referer");
         MenuDTO menuDTO = roleMenuService.getIsAdminByUserCodeAndMenuUrl(userNo,referer);
         Integer isAdmin = menuDTO.getIsAdmin();
+        staffAttendParamsVO.setStaffNo(userNo);
         if(0 == isAdmin){
-            staffAttendParamsVO.setStaffNo(userNo);
+            staffAttendParamsVO.setFlag(1);
         }
         return staffAttendFeginService.getStaffAttendListByParams(staffAttendParamsVO);
     }
