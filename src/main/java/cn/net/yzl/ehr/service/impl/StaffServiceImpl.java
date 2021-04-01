@@ -59,6 +59,11 @@ public class StaffServiceImpl implements StaffService {
         String userNo = request.getHeader("userNo");
         String referer = request.getHeader("Referer");
         staffParamsVO.setStaffNo(userNo);
+        if(referer.contains("/trainingManagement/newTraining")){
+             referer = referer.replace("/newTraining", "");
+        }
+
+
         MenuDTO menuDTO = roleMenuService.getIsAdminByUserCodeAndMenuUrl(userNo,referer);
         log.info(JsonUtil.toJsonStr(menuDTO));
         staffParamsVO.setStaffNo(userNo);
