@@ -60,7 +60,7 @@ public class StaffServiceImpl implements StaffService {
         String referer = request.getHeader("Referer");
         staffParamsVO.setStaffNo(userNo);
         if(referer.contains("/trainingManagement/newTraining")){
-            referer.replace("/newTraining","");
+            referer= referer.replace("/newTraining","");
         }
 
 
