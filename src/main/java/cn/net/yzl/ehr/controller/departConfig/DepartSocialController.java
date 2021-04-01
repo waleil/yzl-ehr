@@ -131,7 +131,8 @@ public class DepartSocialController {
     })
     public ComResponse<String> getSocialItemsNameByDepartPostId(@RequestParam("departPostId") @NotNull @Min(0) Integer departPostId,
                                                                 @RequestParam("zoneId") @NotNull @Min(0) Integer zoneId,
-                                                                @RequestParam("salary") @NotNull @Min(0) Integer salary) {
-        return departSocialService.getSocialItemsNameByDepartPostId(departPostId,zoneId,salary);
+                                                                @RequestParam("salary") @NotNull @Min(0) double salary) {
+        Double salaryF = salary * 100;
+        return departSocialService.getSocialItemsNameByDepartPostId(departPostId,zoneId,salaryF.intValue());
     }
 }
