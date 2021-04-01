@@ -55,8 +55,9 @@ public class StaffAttendController {
         String referer = request.getHeader("Referer");
         MenuDTO menuDTO = roleMenuService.getIsAdminByUserCodeAndMenuUrl(userNo,referer);
         Integer isAdmin = menuDTO.getIsAdmin();
+        staffAttendParamsVO.setStaffNo(userNo);
         if(0 == isAdmin){
-            staffAttendParamsVO.setStaffNo(userNo);
+            staffAttendParamsVO.setFlag(1);
         }
         return staffAttendFeginService.getStaffAttendListByParams(staffAttendParamsVO);
     }
@@ -107,10 +108,7 @@ public class StaffAttendController {
             writer.write(list, true);
             response.reset();
             response.setContentType("application/vnd.ms-excel;charset=utf-8");
-//            response.setContentType("application/octet-stream");
-//            execName = new String(execName.getBytes("UTF-8"),"ISO8859-1");
-            response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode("attend_result", "UTF-8") + ".xlsx");   //中文名称需要特殊处理
-//            response.setHeader("Content-Disposition", "attachment; filename="+ execName+".xlsx");   //中文名称需要特殊处理
+            response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode("考勤导入结果", "UTF-8") + ".xlsx");   //中文名称需要特殊处理
             writer.autoSizeColumnAll();
             writer.flush(response.getOutputStream());
             writer.close();
@@ -164,10 +162,7 @@ public class StaffAttendController {
             writer.write(objects, true);
             response.reset();
             response.setContentType("application/vnd.ms-excel;charset=utf-8");
-//            response.setContentType("application/octet-stream");
-//            execName = new String(execName.getBytes("UTF-8"),"ISO8859-1");
             response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode("考勤"+DateStaffUtils.dateToDateStr(time,"yyyy-MM"), "UTF-8") + ".xlsx");   //中文名称需要特殊处理
-//            response.setHeader("Content-Disposition", "attachment; filename="+ execName+".xlsx");   //中文名称需要特殊处理
             writer.autoSizeColumnAll();
             writer.flush(response.getOutputStream());
             writer.close();
