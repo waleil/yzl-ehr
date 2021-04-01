@@ -98,7 +98,7 @@ public class ParkingVehicleServiceImpl implements ParkingVehicleService {
                     ComResponse<ParkingVehiclePo> comResponse = parkingVehicleFeginService.queryById(list.getData().size());
                     MsgTemplateVo templateVo = new MsgTemplateVo();
                     templateVo.setCode("EHR0016");
-                    templateVo.setCreator("0");
+                    templateVo.setCreator("");
                     templateVo.setTitle("车位管理排队进入停放");
                     templateVo.setUserCode(datum.getStaffNo());
                     String name = staffFeginService.getDetailsByNo(datum.getStaffNo()).getData().getName();
