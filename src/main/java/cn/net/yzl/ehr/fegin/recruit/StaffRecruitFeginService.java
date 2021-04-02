@@ -45,6 +45,4 @@ public interface StaffRecruitFeginService {
     @RequestMapping(value = "/staffRecruit/batchDistributeTask", method = RequestMethod.POST)
     public ComResponse<Integer> batchDistributeTask(@RequestBody List<RecruitedTaskPo> recruitedTaskPos ) ;
 
-
-
 }

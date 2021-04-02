@@ -408,8 +408,8 @@ public class StaffController {
 
     @ApiOperation(value = "员工数据-查询导入员工列表", notes = "员工数据-查询导入员工列表", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/getImportStaffList", method = RequestMethod.POST)
-    ComResponse<Page<StaffListDto>> getImportStaffList(@RequestBody StaffParamsVO staffParamsVO) throws ParseException{
-        return staffService.getImportStaffList(staffParamsVO);
+    ComResponse<Page<StaffListDto>> getImportStaffList(@RequestBody StaffParamsVO staffParamsVO, HttpServletRequest request) throws ParseException{
+        return staffService.getImportStaffList(staffParamsVO,request);
     }
 
     @ApiOperation(value = "员工数据-用id查询导入员工详情", notes = "员工数据-用id查询导入员工详情", consumes = MediaType.APPLICATION_JSON_VALUE)

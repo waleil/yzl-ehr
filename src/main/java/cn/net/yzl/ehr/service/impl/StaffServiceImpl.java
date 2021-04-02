@@ -159,9 +159,26 @@ public class StaffServiceImpl implements StaffService {
         return staffFeginService.importStaffInfo(url);
     }
 
+
     @Override
-    public ComResponse<Page<StaffListDto>> getImportStaffList(StaffParamsVO staffParamsVO) throws ParseException {
-        return staffFeginService.getImportStaffList(staffParamsVO);
+    public ComResponse<Page<StaffListDto>> getImportStaffList(StaffParamsVO staffParamsVO, HttpServletRequest request) throws ParseException {
+        String userNo = request.getHeader("userNo");
+        String referer = request.getHeader("Referer");
+        staffParamsVO.setStaffNo(userNo);
+        MenuDTO menuDTO = roleMenuService.getIsAdminByUserCodeAndMenuUrl(userNo,referer);
+        log.info(JsonUtil.toJsonStr(menuDTO));
+       /* menuDTO.getMenuName();//获取菜单名称
+        menuDTO.getIsAdmin();//获取最高权限标识*/
+        //最高权限标识
+        if(menuDTO!=null && menuDTO.getIsAdmin()!=null && menuDTO.getIsAdmin()==1 ){
+            //全量
+            return staffFeginService.getImportStaffList(staffParamsVO);
+        }else{
+            //不展示
+            return ComResponse.nodata();
+        }
+
+
     }
 
     @Override
