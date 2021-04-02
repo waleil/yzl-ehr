@@ -48,7 +48,7 @@ public interface StaffService {
 
     ComResponse<ImportResultVo> importStaffInfo(String url) throws ParseException ;
 
-    ComResponse<Page<StaffListDto>> getImportStaffList(StaffParamsVO staffParamsVO) throws ParseException ;
+    ComResponse<Page<StaffListDto>> getImportStaffList(StaffParamsVO staffParamsVO, HttpServletRequest request) throws ParseException ;
 
     ComResponse<StaffListDto> getImportStaff(Integer id) throws ParseException ;
 
