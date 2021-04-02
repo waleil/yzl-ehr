@@ -80,4 +80,10 @@ public interface PerformanceRemindFeignService {
      */
     @RequestMapping(value = "/updateSystemDate", method = RequestMethod.GET)
     ComResponse<Boolean> updateSystemDate(@RequestParam("systemDate") String systemDate);
+
+    /**
+     * 开启自定义系统时间
+     */
+    @RequestMapping(value = "/openCustomizeSystemDate", method = RequestMethod.GET)
+    ComResponse<Boolean> openCustomizeSystemDate(@RequestParam("open") Integer open);
 }
