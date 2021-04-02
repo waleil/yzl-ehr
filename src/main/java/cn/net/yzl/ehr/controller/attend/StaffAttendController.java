@@ -132,10 +132,19 @@ public class StaffAttendController {
 
     @ApiOperation(value = "查看考勤-导出", notes = "查看考勤-导出", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/exportStaffAttend", method = RequestMethod.POST)
-    void importStaffAttend(@RequestBody @Validated StaffAttendParamsVO staffAttendParamsVO, HttpServletResponse response) throws ParseException, IOException {
+    void importStaffAttend(@RequestBody @Validated StaffAttendParamsVO staffAttendParamsVO, HttpServletResponse response,HttpServletRequest request) throws ParseException, IOException {
         ExcelWriter writer = ExcelUtil.getWriter();
         Date time = staffAttendParamsVO.getTime();
         int daysOfMonth = DateStaffUtils.getDaysOfMonth(time);
+        String userNo = request.getHeader("userNo");
+        String referer = request.getHeader("Referer");
+        MenuDTO menuDTO = roleMenuService.getIsAdminByUserCodeAndMenuUrl(userNo,referer);
+        Integer isAdmin = menuDTO.getIsAdmin();
+        staffAttendParamsVO.setStaffNo(userNo);
+        if(0 == isAdmin){
+            staffAttendParamsVO.setFlag(1);
+        }
+
         writer.renameSheet("考勤列表");     //甚至sheet的名称
         staffAttendParamsVO.setPageSize(100000);
         ComResponse<Page<StaffAttendListDto>> result = staffAttendFeginService.getStaffAttendListByParams(staffAttendParamsVO);
