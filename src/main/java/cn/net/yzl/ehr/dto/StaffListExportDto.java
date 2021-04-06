@@ -98,22 +98,22 @@ public class StaffListExportDto implements Serializable {
     @ApiModelProperty(value = "入岗时间", name = "postTime")
 //    @DateTimeFormat(pattern = "yyyy-MM-dd")
 //    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
-    private Date postTime;
+    private String postTime;
     @ApiModelProperty(value = "转正时间", name = "positiveTime")
 //    @DateTimeFormat(pattern = "yyyy-MM-dd")
 //    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
-    private Date positiveTime;
+    private String positiveTime;
     @ApiModelProperty(value = "最近调入岗时间", name = "transferPostTime")
 //    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
-    private Date transferPostTime;
+    private String transferPostTime;
     @ApiModelProperty(value = "离职时间", name = "dimissionTime")
 //    @DateTimeFormat(pattern = "yyyy-MM-dd")
 //    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
-    private Date dimissionTime;
+    private String dimissionTime;
     @ApiModelProperty(value = "薪资核算结算日", name = "payrollAccountingDate")
 //    @DateTimeFormat(pattern = "yyyy-MM-dd")
 //    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
-    private Date payrollAccountingDate;
+    private String payrollAccountingDate;
     @ApiModelProperty(value = "培训次数", name = "trainingTimes")
     private Integer training_times;
     @ApiModelProperty(value = "培训完成度code", name = "trainingCompletion")
