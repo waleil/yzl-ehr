@@ -11,14 +11,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- * staff_back
- * @author 
- */
 @Data
 @JsonIgnoreProperties(value = {"handler"})
-@ApiModel(value = "staffListDto", description = "员工信息")
-public class StaffListDto implements Serializable {
+@ApiModel(value = "staffListExportDto", description = "员工集合信息")
+public class StaffListExportDto implements Serializable {
 
     @ApiModelProperty(value = "id", name = "id")
     private Integer id;
@@ -96,27 +92,27 @@ public class StaffListDto implements Serializable {
     @ApiModelProperty(value = "入职次数", name = "entryTimes")
     private Integer entryTimes;
     @ApiModelProperty(value = "异动时间", name = "abnorTime")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
-    private Date abnorTime;
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
+//    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
+    private String abnorTime;
     @ApiModelProperty(value = "入岗时间", name = "postTime")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
+//    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private Date postTime;
     @ApiModelProperty(value = "转正时间", name = "positiveTime")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
+//    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private Date positiveTime;
     @ApiModelProperty(value = "最近调入岗时间", name = "transferPostTime")
-    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
+//    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private Date transferPostTime;
     @ApiModelProperty(value = "离职时间", name = "dimissionTime")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
+//    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private Date dimissionTime;
     @ApiModelProperty(value = "薪资核算结算日", name = "payrollAccountingDate")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
+//    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private Date payrollAccountingDate;
     @ApiModelProperty(value = "培训次数", name = "trainingTimes")
     private Integer training_times;

@@ -12,6 +12,7 @@ import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.dto.StaffBaseDto;
 import cn.net.yzl.ehr.dto.StaffListDto;
+import cn.net.yzl.ehr.dto.StaffListExportDto;
 import cn.net.yzl.ehr.dto.SysDictDataDto;
 import cn.net.yzl.ehr.dto.resume.ResumeExportDto;
 import cn.net.yzl.ehr.fegin.common.AreaFeginService;
@@ -251,8 +252,8 @@ public class StaffController {
     })
     public void staffListExcelExport(@RequestBody @Validated StaffParamsVO staffParamsVO, @RequestParam("type") @NotNull @Min(1) Integer type,HttpServletRequest request,HttpServletResponse response) {
         String execName="resume_list";
-        ComResponse<Page<StaffListDto>> listByParams=null;
-        List<StaffListDto> list =null;
+        ComResponse<Page<StaffListExportDto>> listByParams=null;
+        List<StaffListExportDto> list =null;
         execName="staff";
         try {
             ExcelWriter writer = ExcelUtil.getWriter();
@@ -287,7 +288,7 @@ public class StaffController {
                     writer.addHeaderAlias("isImportName","来源类型");
                     staffParamsVO.setPageNo(1);
                     staffParamsVO.setPageSize(50000);
-                    listByParams = staffService.getListByParams(staffParamsVO,request);
+                    listByParams = staffService.getListByParamsExport(staffParamsVO,request);
                     break;
                 case 2://部门员工列表
                     writer.renameSheet("部门员工列表");     //甚至sheet的名称
@@ -311,7 +312,7 @@ public class StaffController {
                     writer.addHeaderAlias("entryTimes","入司次数");
                     staffParamsVO.setPageNo(1);
                     staffParamsVO.setPageSize(50000);
-                    listByParams = staffService.getListByParams(staffParamsVO,request);
+                    listByParams = staffService.getListByParamsExport(staffParamsVO,request);
                     break;
                 case 3://待优化员工列表
                     writer.renameSheet("待优化员工列表");     //甚至sheet的名称
@@ -328,7 +329,7 @@ public class StaffController {
                     writer.addHeaderAlias("","原因");
                     staffParamsVO.setPageNo(1);
                     staffParamsVO.setPageSize(50000);
-                    listByParams = staffService.getListByParams(staffParamsVO,request);
+                    listByParams = staffService.getListByParamsExport(staffParamsVO,request);
                     break;
                 case 4://待劝退员工列表
                     writer.renameSheet("待劝退员工列表");     //甚至sheet的名称
@@ -345,7 +346,7 @@ public class StaffController {
                     writer.addHeaderAlias("","原因");
                     staffParamsVO.setPageNo(1);
                     staffParamsVO.setPageSize(50000);
-                    listByParams = staffService.getListByParams(staffParamsVO,request);
+                    listByParams = staffService.getListByParamsExport(staffParamsVO,request);
                     break;
                 case 5://人才储备池
                     writer.renameSheet("人才储备池员工列表");     //甚至sheet的名称
@@ -362,10 +363,9 @@ public class StaffController {
                     writer.addHeaderAlias("accountStatusStr","账号状态");
                     writer.addHeaderAlias("abnorTime","历史异动时间");
                     writer.addHeaderAlias("entryTimes","入司次数");
-
                     staffParamsVO.setPageNo(1);
                     staffParamsVO.setPageSize(50000);
-                    listByParams = staffService.getListByParams(staffParamsVO,request);
+                    listByParams = staffService.getListByParamsExport(staffParamsVO,request);
                     break;
             }
             if(listByParams!=null && listByParams.getData()!=null && listByParams.getData().getItems()!=null){
