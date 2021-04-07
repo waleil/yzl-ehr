@@ -51,4 +51,8 @@ public interface StaffAbnorFeginService {
     @RequestMapping(value = "/abnor/timerUpdateStafffAbnorRecord", method = RequestMethod.POST, consumes = "application/json")
     public ComResponse<List<MsgTemplateVo>> timerUpdateStafffAbnorRecord() throws ParseException ;
 
+    @RequestMapping(value = "/abnor/staffBatchPostLevelTimedTask", method = RequestMethod.POST, consumes = "application/json")
+    public ComResponse<List<MsgTemplateVo>> staffBatchPostLevelTimedTask() throws ParseException ;
+
+
 }

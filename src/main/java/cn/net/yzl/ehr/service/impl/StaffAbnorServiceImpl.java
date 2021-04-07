@@ -392,4 +392,20 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
         return listComResponse;
     }
 
+    @Override
+    public ComResponse<List<MsgTemplateVo>> staffBatchPostLevelTimedTask() throws ParseException {
+        ComResponse<List<MsgTemplateVo>> listComResponse = staffAbnorFeginService.staffBatchPostLevelTimedTask();
+        if(listComResponse!=null && listComResponse.getData()!=null && !listComResponse.getData().isEmpty()){
+            List<MsgTemplateVo> msgTemplateVoList = listComResponse.getData();
+            msgTemplateVoList.forEach(x->{
+                try {
+                    msgSendAsync.sendMsg(x);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            });
+        }
+        return listComResponse;
+    }
+
 }

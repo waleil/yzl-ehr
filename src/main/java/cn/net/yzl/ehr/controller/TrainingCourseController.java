@@ -302,7 +302,7 @@ public class TrainingCourseController {
                     break;
                 }
             }
-            if(isTrue && !trainSignListVo.getScore().equals("398")){
+            if(isTrue && !"398".equals(trainSignListVo.getScore())){
                 MsgTemplateVo msgTemplateVo = new MsgTemplateVo();
                 msgTemplateVo.setTitle("培训通知:");
                 msgTemplateVo.setParams(new Object[]{trainSignListVo.getStaffName(),trainStaffRelationPo.getInPostDate()});

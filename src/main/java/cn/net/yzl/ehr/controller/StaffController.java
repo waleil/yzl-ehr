@@ -255,7 +255,7 @@ public class StaffController {
         String execName="resume_list";
         ComResponse<Page<StaffListExportDto>> listByParams=null;
         List<StaffListExportDto> list =null;
-        execName="staff";
+        execName="员工列表";
         try {
             ExcelWriter writer = ExcelUtil.getWriter();
             //员工列表
