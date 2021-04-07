@@ -55,9 +55,9 @@ public class IncreaseRecordController {
     }
 
     @ApiOperation(value = "启用", notes = "启用",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @RequestMapping(value = "/updateIncreaseStateById", method = RequestMethod.POST)
-    ComResponse<Integer> updateIncreaseStateById(@RequestParam("id")Integer id){
-        return increaseRecordService.updateStateById(id);
+    @RequestMapping(value = "/updateState", method = RequestMethod.POST)
+    ComResponse<Integer> updateState(@RequestBody IncreaseRecordPo increaseRecordPo){
+        return increaseRecordService.updateState(increaseRecordPo);
     }
 
     @ApiOperation(value = "修改执行状态", notes = "修改执行状态",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)

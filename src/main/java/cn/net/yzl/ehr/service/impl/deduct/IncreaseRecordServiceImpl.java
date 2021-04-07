@@ -72,16 +72,8 @@ public class IncreaseRecordServiceImpl implements IncreaseRecordService {
     }
 
     @Override
-    public ComResponse<Integer> updateIncreaseStateById(Integer id) {
-        ComResponse<Integer> result = increaseRecordFeginService.updateIncreaseStateById(id);
-        if (result == null) {
-            return ComResponse.fail(ResponseCodeEnums.API_ERROR_CODE.getCode(), ResponseCodeEnums.API_ERROR_CODE.getMessage());
-        } else if (result.getCode() == 200 && result.getData() < 1) {
-            return ComResponse.fail(ResponseCodeEnums.SAVE_DATA_ERROR_CODE.getCode(), ResponseCodeEnums.SAVE_DATA_ERROR_CODE.getMessage());
-        }
-        if (result.getData() > 0) {
-            return ComResponse.success();
-        }
+    public ComResponse<Integer> updateState(IncreaseRecordPo increaseRecordPo) {
+        ComResponse<Integer> result = increaseRecordFeginService.updateState(increaseRecordPo);
         return result;
     }
 

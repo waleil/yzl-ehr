@@ -164,7 +164,7 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
                 staffTrainInfoDto.setAbnorTime(datum.getAbnorTime());
                 staffTrainInfoDto.setContent(datum.getContent());
                 staffTrainInfoDto.setAdjustFront(datum.getAdjustPostLevelFrontName());
-                staffTrainInfoDto.setAdjustLater(datum.getAdjustPostLevelFrontName());
+                staffTrainInfoDto.setAdjustLater(datum.getAdjustPostLevelLaterName());
                 list.add(staffTrainInfoDto);
             }if (datum.getType()==29){
                 StaffTrainInfoDto staffTrainInfoDto = new StaffTrainInfoDto();
