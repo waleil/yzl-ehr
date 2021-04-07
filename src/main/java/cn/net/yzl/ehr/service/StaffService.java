@@ -4,6 +4,7 @@ import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.dto.StaffBaseDto;
 import cn.net.yzl.ehr.dto.StaffListDto;
+import cn.net.yzl.ehr.dto.StaffListExportDto;
 import cn.net.yzl.ehr.pojo.*;
 import cn.net.yzl.ehr.vo.StaffParamsVO;
 import cn.net.yzl.staff.dto.StaffDetailsDto;
@@ -30,6 +31,8 @@ public interface StaffService {
     ComResponse<List<StaffBaseDto>> getByParams(String params);
 
     ComResponse<Page<StaffListDto>> getListByParams(StaffParamsVO staffParamsVO, HttpServletRequest request);
+
+    ComResponse<Page<StaffListExportDto>> getListByParamsExport(StaffParamsVO staffParamsVO, HttpServletRequest request);
 
     ComResponse<Page<StaffListDto>> getListByParamsForDepart(StaffParamsVO staffParamsVO, HttpServletRequest request);
 
