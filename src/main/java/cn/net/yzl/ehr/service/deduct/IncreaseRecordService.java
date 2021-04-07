@@ -23,7 +23,7 @@ public interface IncreaseRecordService {
     ComResponse<Integer> updateStateById(Integer id);
 
     //启用
-    ComResponse<Integer> updateIncreaseStateById(Integer id);
+    ComResponse<Integer> updateState(IncreaseRecordPo increaseRecordPo);
     //删除
     ComResponse<Integer> deleteById(Integer id,String staffNo);
 
