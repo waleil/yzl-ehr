@@ -42,7 +42,8 @@ public class MyWebAppConfigurer  implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/depart/**");
-        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/staff/**");
+        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/staff/**")
+                .excludePathPatterns("/staff/abnor/timerUpdateStafffAbnorRecord").excludePathPatterns("/staff/abnor/staffBatchPostLevelTimedTask");;
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/sysDic/**");
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/conf/**");
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/post/**");
