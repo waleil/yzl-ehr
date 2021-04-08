@@ -38,4 +38,7 @@ public interface StaffAbnorService {
     ComResponse<Integer> runStaffChange(RunAbnorRecordPo staffChangePo,String staffNo) throws ParseException;
 
     ComResponse<List<MsgTemplateVo>> timerUpdateStafffAbnorRecord() throws ParseException ;
+
+    ComResponse<List<MsgTemplateVo>> staffBatchPostLevelTimedTask() throws ParseException ;
+
 }

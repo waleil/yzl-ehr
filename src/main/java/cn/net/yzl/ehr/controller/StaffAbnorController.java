@@ -101,4 +101,11 @@ public class StaffAbnorController {
         staffAbnorService.timerUpdateStafffAbnorRecord();
         return ComResponse.success();
     }
+
+    @ApiOperation(value = "员工异动-定时更新员工岗位等级", notes = "员工异动-定时更新员工岗位等级")
+    @GetMapping("/staffBatchPostLevelTimedTask")
+    public ComResponse<List<MsgTemplateVo>> staffBatchPostLevelTimedTask() throws ParseException {
+        staffAbnorService.staffBatchPostLevelTimedTask();
+        return ComResponse.success();
+    }
 }
