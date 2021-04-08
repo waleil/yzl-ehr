@@ -35,6 +35,9 @@ public class StaffAbnorRecordPo {
     @ApiModelProperty("异动内容")
     private String content;
 
+    @ApiModelProperty("异动原因/备注")
+    private String desc;
+
     @ApiModelProperty("调整前部门")
     @Min(1)
     private Integer adjustDepartFront;
