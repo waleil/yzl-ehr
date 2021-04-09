@@ -253,7 +253,7 @@ public class TrainingCourseController {
             if(count == 1){
                 ComResponse<StaffDetailsDto> detailsByNo = staffFeginService.getDetailsByNo(signInputScore.getStaffNo());
                 StaffDetailsDto data = detailsByNo.getData();
-                ComResponse<DepartDto> departResult = departFeginService.getById(data.getPDepartId());
+                ComResponse<DepartDto> departResult = departFeginService.getById(data.getDepartId());
                 DepartDto depart = departResult.getData();
                 MsgTemplateVo msgTemplateVo = new MsgTemplateVo();
                 msgTemplateVo.setTitle("培训通知:");
@@ -305,7 +305,7 @@ public class TrainingCourseController {
             if(isTrue && !"398".equals(trainSignListVo.getScore())){
                 ComResponse<StaffDetailsDto> detailsByNo = staffFeginService.getDetailsByNo(trainSignListVo.getStaffNo());
                 StaffDetailsDto data1 = detailsByNo.getData();
-                ComResponse<DepartDto> departResult = departFeginService.getById(data1.getPDepartId());
+                ComResponse<DepartDto> departResult = departFeginService.getById(data1.getDepartId());
                 DepartDto depart = departResult.getData();
                 MsgTemplateVo msgTemplateVo = new MsgTemplateVo();
                 msgTemplateVo.setTitle("培训通知:");
