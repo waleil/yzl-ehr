@@ -39,7 +39,6 @@ public class StaffCFInsertPo {
     @ApiModelProperty(value = "试用期到期日", name = "probationEndtime")
     @JsonFormat(pattern="yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @NotNull
     private Date probationEndtime;
 
     @ApiModelProperty(value = "试用期时长（月）", name = "probationMonths")
