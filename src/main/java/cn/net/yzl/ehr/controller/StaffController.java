@@ -42,6 +42,7 @@ import com.github.tobato.fastdfs.domain.proto.storage.DownloadCallback;
 import com.github.tobato.fastdfs.service.FastFileStorageClient;
 import com.taobao.api.ApiException;
 import io.swagger.annotations.*;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,6 +71,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/staff")
 @Api(value = "员工服务", tags = {"员工服务"})
 @Valid
+@Slf4j
 public class StaffController {
 
     @Autowired
@@ -209,6 +211,8 @@ public class StaffController {
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     ComResponse<StaffDetailsDto> save(@RequestBody StaffInfoSaveVO staffInfoSaveVO,@ApiIgnore @CurrentStaffNo String currentStaffNo) throws ParseException {
         ComResponse<StaffDetailsDto> save =staffFeginService.save(staffInfoSaveVO);
+        log.info("员工入职：-------------------------------");
+        log.info("员工入职结果：{}",save.toString());
         if(save.getCode()==200){
             // 添加角色
             String roleIds = staffInfoSaveVO.getRoleIds();
@@ -220,10 +224,11 @@ public class StaffController {
                     userRole.setUserCode(staffNo);
                     userRole.setRoleId(Integer.parseInt(s));
                     userRole.setCreateCode(currentStaffNo);
-                userRoles.add(userRole);
+                    userRoles.add(userRole);
                 }
                 UserRoleDTO userRoleDTO = new UserRoleDTO();
                 userRoleDTO.setUserRoleList(userRoles);
+                log.info("员工新增角色数据：{}",userRoleDTO.toString());
                 userRoleService.createUserRoleInfoList(userRoleDTO);
             }
 
