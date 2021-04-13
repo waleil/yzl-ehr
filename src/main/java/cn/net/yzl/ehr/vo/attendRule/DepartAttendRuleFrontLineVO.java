@@ -1,11 +1,13 @@
 package cn.net.yzl.ehr.vo.attendRule;
 
 import cn.net.yzl.staff.vo.attendRule.DepartAttendRuleBaseVO;
+import cn.net.yzl.staff.vo.attendRule.DepartAttendRuleHolidaysVO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.Pattern;
+import java.util.List;
 
 /**
  * depart_attend_rule
@@ -76,4 +78,7 @@ public class DepartAttendRuleFrontLineVO extends DepartAttendRuleBaseVO {
     private Byte pmValue;
     // 加班费值
     private int overtimeValue;
+
+    @ApiModelProperty(value="法定节假日",name="holidaysConf")
+    private List<DepartAttendRuleHolidaysVO> holidaysConf;
 }
