@@ -226,8 +226,11 @@ public class StaffController {
                     userRole.setCreateCode(currentStaffNo);
                     userRoles.add(userRole);
                 }
+                List<String> strings = new ArrayList<String>();
+                strings.add(staffNo);
                 UserRoleDTO userRoleDTO = new UserRoleDTO();
                 userRoleDTO.setUserRoleList(userRoles);
+                userRoleDTO.setUserCode(strings);
                 log.info("员工新增角色数据：{}",userRoleDTO.toString());
                 userRoleService.createUserRoleInfoList(userRoleDTO);
             }
@@ -447,8 +450,11 @@ public class StaffController {
                     userRole.setCreateCode(currentStaffNo);
                     userRoles.add(userRole);
                 }
+                List<String> strings = new ArrayList<>();
+                strings.add(staffNo);
                 UserRoleDTO userRoleDTO = new UserRoleDTO();
                 userRoleDTO.setUserRoleList(userRoles);
+                userRoleDTO.setUserCode(strings);
                 userRoleService.createUserRoleInfoList(userRoleDTO);
             }
 
