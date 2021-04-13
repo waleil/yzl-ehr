@@ -6,6 +6,7 @@ import cn.net.yzl.ehr.dto.PostDto;
 import cn.net.yzl.ehr.dto.PostLevelIndicatorsDto;
 import cn.net.yzl.ehr.vo.BusinessPostVO;
 import cn.net.yzl.ehr.vo.PostLevelIndicatorsVO;
+import cn.net.yzl.staff.dto.PostLevelUpRuleDto;
 import cn.net.yzl.staff.vo.PostLevelIndicatorsUpDurationVO;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public interface BusinessPostService {
 
     ComResponse<Integer> delPostIndicators(Integer id);
 
-    ComResponse<List<PostLevelIndicatorsDto>> getAllPostIndcatorsList(Integer postLevelId);
+    ComResponse<PostLevelUpRuleDto> getAllPostIndcatorsList(Integer postLevelId);
 
     ComResponse<Integer> addOrUpdatePostIndicators(List<PostLevelIndicatorsVO> postLevelIndicatorsVOList);
 

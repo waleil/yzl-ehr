@@ -7,6 +7,7 @@ import cn.net.yzl.ehr.dto.PostLevelIndicatorsDto;
 import cn.net.yzl.ehr.service.BusinessPostService;
 import cn.net.yzl.ehr.vo.BusinessPostVO;
 import cn.net.yzl.ehr.vo.PostLevelIndicatorsVO;
+import cn.net.yzl.staff.dto.PostLevelUpRuleDto;
 import cn.net.yzl.staff.vo.PostLevelIndicatorsUpDurationVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -78,7 +79,7 @@ public class BusinessPostController {
             @ApiImplicitParam(name = "postLevelId", value = "postLevelId", required = true, dataType = "Int", paramType = "query")
     })
     @RequestMapping(value = "/getAllPostIndcatorsList", method = RequestMethod.GET)
-    public ComResponse<List<PostLevelIndicatorsDto>> getAllPostIndcatorsList(@NotNull @Min(1) Integer postLevelId) {
+    public ComResponse<PostLevelUpRuleDto> getAllPostIndcatorsList(@NotNull @Min(1) Integer postLevelId) {
         return businessPostService.getAllPostIndcatorsList(postLevelId);
     }
 

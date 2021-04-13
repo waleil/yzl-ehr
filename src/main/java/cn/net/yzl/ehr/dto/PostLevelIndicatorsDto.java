@@ -26,12 +26,5 @@ public class PostLevelIndicatorsDto implements Serializable {
     @ApiModelProperty(value = "指标值", name = "indicatorsvalue")
     private double indicatorsValue;
 
-    @ApiModelProperty(value = "时长")
-    private Integer duration;
 
-    @ApiModelProperty(value = "时长单位")
-    private Integer durationUnit;
-
-    @ApiModelProperty(value = "升级规则")
-    private Integer upRule;
 }

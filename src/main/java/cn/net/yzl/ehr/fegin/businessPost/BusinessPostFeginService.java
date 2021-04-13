@@ -6,6 +6,7 @@ import cn.net.yzl.ehr.dto.PostDto;
 import cn.net.yzl.ehr.dto.PostLevelIndicatorsDto;
 import cn.net.yzl.ehr.vo.BusinessPostVO;
 import cn.net.yzl.ehr.vo.PostLevelIndicatorsVO;
+import cn.net.yzl.staff.dto.PostLevelUpRuleDto;
 import cn.net.yzl.staff.vo.PostLevelIndicatorsUpDurationVO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.validation.annotation.Validated;
@@ -37,7 +38,7 @@ public interface BusinessPostFeginService {
     public ComResponse<Integer> delPostIndicators(@RequestParam("id")  Integer id);
 
     @RequestMapping(value = "/businessPost/getAllPostIndcatorsList", method = RequestMethod.GET)
-    public ComResponse<List<PostLevelIndicatorsDto>> getAllPostIndcatorsList(@RequestParam("postLevelId") Integer postLevelId);
+    public ComResponse<PostLevelUpRuleDto> getAllPostIndcatorsList(@RequestParam("postLevelId") Integer postLevelId);
 
 
     @RequestMapping(value = "/businessPost/addOrUpdatePostIndicators", method = RequestMethod.POST)
