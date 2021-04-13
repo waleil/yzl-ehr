@@ -61,7 +61,7 @@ public class BusinessPostController {
             @ApiImplicitParam(name = "postLevelId", value = "postLevelId", required = true, dataType = "Int", paramType = "query")
     })
     @RequestMapping(value = "/getPostLevelIndicatorsList", method = RequestMethod.GET)
-    public ComResponse<List<PostLevelIndicatorsDto>> getPostLevelIndicatorsList(@NotNull @Min(1) Integer postLevelId) {
+    public ComResponse<PostLevelUpRuleDto> getPostLevelIndicatorsList(@NotNull @Min(1) Integer postLevelId) {
         return businessPostService.getPostLevelIndicatorsList(postLevelId);
     }
 
@@ -79,7 +79,7 @@ public class BusinessPostController {
             @ApiImplicitParam(name = "postLevelId", value = "postLevelId", required = true, dataType = "Int", paramType = "query")
     })
     @RequestMapping(value = "/getAllPostIndcatorsList", method = RequestMethod.GET)
-    public ComResponse<PostLevelUpRuleDto> getAllPostIndcatorsList(@NotNull @Min(1) Integer postLevelId) {
+    public ComResponse<List<PostLevelIndicatorsDto>> getAllPostIndcatorsList(@NotNull @Min(1) Integer postLevelId) {
         return businessPostService.getAllPostIndcatorsList(postLevelId);
     }
 

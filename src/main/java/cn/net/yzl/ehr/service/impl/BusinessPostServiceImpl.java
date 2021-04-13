@@ -37,7 +37,7 @@ public class BusinessPostServiceImpl implements BusinessPostService {
     }
 
     @Override
-    public ComResponse<List<PostLevelIndicatorsDto>> getPostLevelIndicatorsList(Integer postLevelId) {
+    public ComResponse<PostLevelUpRuleDto> getPostLevelIndicatorsList(Integer postLevelId) {
 
         return businessPostFeginService.getPostLevelIndicatorsList(postLevelId);
     }
@@ -48,7 +48,7 @@ public class BusinessPostServiceImpl implements BusinessPostService {
     }
 
     @Override
-    public ComResponse<PostLevelUpRuleDto> getAllPostIndcatorsList(Integer postLevelId) {
+    public ComResponse<List<PostLevelIndicatorsDto>> getAllPostIndcatorsList(Integer postLevelId) {
 
         return businessPostFeginService.getAllPostIndcatorsList(postLevelId);
     }

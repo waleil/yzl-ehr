@@ -18,11 +18,11 @@ public interface BusinessPostService {
 
     ComResponse<List<PostDto>> getPostListByBussinessAttrCode(Integer bussinessAtrrCode);
 
-    ComResponse<List<PostLevelIndicatorsDto>> getPostLevelIndicatorsList(Integer postLevelId);
+    ComResponse<PostLevelUpRuleDto> getPostLevelIndicatorsList(Integer postLevelId);
 
     ComResponse<Integer> delPostIndicators(Integer id);
 
-    ComResponse<PostLevelUpRuleDto> getAllPostIndcatorsList(Integer postLevelId);
+    ComResponse<List<PostLevelIndicatorsDto>> getAllPostIndcatorsList(Integer postLevelId);
 
     ComResponse<Integer> addOrUpdatePostIndicators(List<PostLevelIndicatorsVO> postLevelIndicatorsVOList);
 

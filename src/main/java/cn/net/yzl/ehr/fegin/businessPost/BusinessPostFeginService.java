@@ -32,13 +32,13 @@ public interface BusinessPostFeginService {
     public ComResponse<List<PostDto>> getPostListByBussinessAttrCode(@RequestParam("bussinessAtrrCode") Integer bussinessAtrrCode);
 
     @RequestMapping(value = "/businessPost/getPostLevelIndicatorsList", method = RequestMethod.GET)
-    public ComResponse<List<PostLevelIndicatorsDto>> getPostLevelIndicatorsList(@RequestParam("postLevelId") Integer postLevelId);
+    public ComResponse<PostLevelUpRuleDto> getPostLevelIndicatorsList(@RequestParam("postLevelId") Integer postLevelId);
 
     @RequestMapping(value = "/businessPost/delPostIndicators", method = RequestMethod.GET)
     public ComResponse<Integer> delPostIndicators(@RequestParam("id")  Integer id);
 
     @RequestMapping(value = "/businessPost/getAllPostIndcatorsList", method = RequestMethod.GET)
-    public ComResponse<PostLevelUpRuleDto> getAllPostIndcatorsList(@RequestParam("postLevelId") Integer postLevelId);
+    public ComResponse<List<PostLevelIndicatorsDto>> getAllPostIndcatorsList(@RequestParam("postLevelId") Integer postLevelId);
 
 
     @RequestMapping(value = "/businessPost/addOrUpdatePostIndicators", method = RequestMethod.POST)
