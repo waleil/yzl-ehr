@@ -7,6 +7,7 @@ import cn.net.yzl.ehr.dto.PostLevelIndicatorsDto;
 import cn.net.yzl.ehr.service.BusinessPostService;
 import cn.net.yzl.ehr.vo.BusinessPostVO;
 import cn.net.yzl.ehr.vo.PostLevelIndicatorsVO;
+import cn.net.yzl.staff.vo.PostLevelIndicatorsUpDurationVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -14,10 +15,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -89,5 +87,10 @@ public class BusinessPostController {
     public ComResponse<Integer> addOrUpdatePostIndicators(@RequestBody @Validated  List<PostLevelIndicatorsVO> postLevelIndicatorsVOList){
         return businessPostService.addOrUpdatePostIndicators(postLevelIndicatorsVOList);
     };
+    @ApiOperation(value = "按照时间升级", notes = "按照时间升级")
+    @PostMapping(value = "/addOrUpdateDuration")
+    public ComResponse<Boolean> addOrUpdateDuration(@RequestBody PostLevelIndicatorsUpDurationVO upDurationVO){
 
+        return businessPostService.addOrUpdateDuration(upDurationVO);
+    }
 }
