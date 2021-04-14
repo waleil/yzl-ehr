@@ -30,12 +30,14 @@ public class FeignBasicAuthRequestInterceptor implements RequestInterceptor {
             String traceId = request.getHeader("traceId");
             String spanId = request.getHeader("spanId");
             String userId = request.getHeader("userId");
+            String token = request.getHeader("token");
             String cspanId = XBasicUtil.uuid();
             String url = requestTemplate.url();
             String params = requestTemplate.getRequestVariables().toString();
             log.info("{app:yzl-ehr,traceId:{},spanId:{},cspanId:{},userId:{},url:{},params:{}}",traceId,spanId,cspanId,userId,url,params);
             requestTemplate.header("spanId",cspanId);
             if (StringUtils.isNotBlank(userId)) requestTemplate.header("userId", userId);
+            if (StringUtils.isNotBlank(token)) requestTemplate.header("token", token);
         }
 //        Enumeration<String> bodyNames = request.getParameterNames();
 //        StringBuffer body =new StringBuffer();
