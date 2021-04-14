@@ -2,11 +2,13 @@ package cn.net.yzl.ehr.vo.attendRule;
 
 import cn.hutool.core.util.ReUtil;
 import cn.net.yzl.staff.vo.attendRule.DepartAttendRuleBaseVO;
+import cn.net.yzl.staff.vo.attendRule.DepartAttendRuleHolidaysVO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.Pattern;
+import java.util.List;
 
 /**
  * depart_attend_rule
@@ -42,6 +44,8 @@ public class DepartAttendRuleNormalVO extends DepartAttendRuleBaseVO {
     @ApiModelProperty(value="大小周字节字符串(101010)",name="weekBitStr",required = true)
 //    @Pattern(regexp = "^([0-1]{7}|[0-1]{14})$")
     private String weekBitStr;
+    @ApiModelProperty(value="法定节假日",name="holidaysConf")
+    private List<DepartAttendRuleHolidaysVO> holidaysConf;
 
 
     public static void main(String[] args) {

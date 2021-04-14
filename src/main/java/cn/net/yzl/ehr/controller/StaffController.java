@@ -12,6 +12,7 @@ import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.dto.StaffBaseDto;
 import cn.net.yzl.ehr.dto.StaffListDto;
+import cn.net.yzl.ehr.dto.StaffListExportDto;
 import cn.net.yzl.ehr.dto.SysDictDataDto;
 import cn.net.yzl.ehr.dto.resume.ResumeExportDto;
 import cn.net.yzl.ehr.fegin.common.AreaFeginService;
@@ -41,6 +42,8 @@ import com.github.tobato.fastdfs.domain.proto.storage.DownloadCallback;
 import com.github.tobato.fastdfs.service.FastFileStorageClient;
 import com.taobao.api.ApiException;
 import io.swagger.annotations.*;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -68,6 +71,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/staff")
 @Api(value = "员工服务", tags = {"员工服务"})
 @Valid
+@Slf4j
 public class StaffController {
 
     @Autowired
@@ -207,6 +211,8 @@ public class StaffController {
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     ComResponse<StaffDetailsDto> save(@RequestBody StaffInfoSaveVO staffInfoSaveVO,@ApiIgnore @CurrentStaffNo String currentStaffNo) throws ParseException {
         ComResponse<StaffDetailsDto> save =staffFeginService.save(staffInfoSaveVO);
+        log.info("员工入职：-------------------------------");
+        log.info("员工入职结果：{}",save.toString());
         if(save.getCode()==200){
             // 添加角色
             String roleIds = staffInfoSaveVO.getRoleIds();
@@ -218,10 +224,14 @@ public class StaffController {
                     userRole.setUserCode(staffNo);
                     userRole.setRoleId(Integer.parseInt(s));
                     userRole.setCreateCode(currentStaffNo);
-                userRoles.add(userRole);
+                    userRoles.add(userRole);
                 }
+                List<String> strings = new ArrayList<String>();
+                strings.add(staffNo);
                 UserRoleDTO userRoleDTO = new UserRoleDTO();
                 userRoleDTO.setUserRoleList(userRoles);
+                userRoleDTO.setUserCode(strings);
+                log.info("员工新增角色数据：{}",userRoleDTO.toString());
                 userRoleService.createUserRoleInfoList(userRoleDTO);
             }
 
@@ -251,9 +261,9 @@ public class StaffController {
     })
     public void staffListExcelExport(@RequestBody @Validated StaffParamsVO staffParamsVO, @RequestParam("type") @NotNull @Min(1) Integer type,HttpServletRequest request,HttpServletResponse response) {
         String execName="resume_list";
-        ComResponse<Page<StaffListDto>> listByParams=null;
-        List<StaffListDto> list =null;
-        execName="staff";
+        ComResponse<Page<StaffListExportDto>> listByParams=null;
+        List<StaffListExportDto> list =null;
+        execName="员工列表";
         try {
             ExcelWriter writer = ExcelUtil.getWriter();
             //员工列表
@@ -287,7 +297,7 @@ public class StaffController {
                     writer.addHeaderAlias("isImportName","来源类型");
                     staffParamsVO.setPageNo(1);
                     staffParamsVO.setPageSize(50000);
-                    listByParams = staffService.getListByParams(staffParamsVO,request);
+                    listByParams = staffService.getListByParamsExport(staffParamsVO,request);
                     break;
                 case 2://部门员工列表
                     writer.renameSheet("部门员工列表");     //甚至sheet的名称
@@ -311,7 +321,7 @@ public class StaffController {
                     writer.addHeaderAlias("entryTimes","入司次数");
                     staffParamsVO.setPageNo(1);
                     staffParamsVO.setPageSize(50000);
-                    listByParams = staffService.getListByParams(staffParamsVO,request);
+                    listByParams = staffService.getListByParamsExport(staffParamsVO,request);
                     break;
                 case 3://待优化员工列表
                     writer.renameSheet("待优化员工列表");     //甚至sheet的名称
@@ -328,7 +338,7 @@ public class StaffController {
                     writer.addHeaderAlias("","原因");
                     staffParamsVO.setPageNo(1);
                     staffParamsVO.setPageSize(50000);
-                    listByParams = staffService.getListByParams(staffParamsVO,request);
+                    listByParams = staffService.getListByParamsExport(staffParamsVO,request);
                     break;
                 case 4://待劝退员工列表
                     writer.renameSheet("待劝退员工列表");     //甚至sheet的名称
@@ -345,7 +355,7 @@ public class StaffController {
                     writer.addHeaderAlias("","原因");
                     staffParamsVO.setPageNo(1);
                     staffParamsVO.setPageSize(50000);
-                    listByParams = staffService.getListByParams(staffParamsVO,request);
+                    listByParams = staffService.getListByParamsExport(staffParamsVO,request);
                     break;
                 case 5://人才储备池
                     writer.renameSheet("人才储备池员工列表");     //甚至sheet的名称
@@ -362,10 +372,9 @@ public class StaffController {
                     writer.addHeaderAlias("accountStatusStr","账号状态");
                     writer.addHeaderAlias("abnorTime","历史异动时间");
                     writer.addHeaderAlias("entryTimes","入司次数");
-
                     staffParamsVO.setPageNo(1);
                     staffParamsVO.setPageSize(50000);
-                    listByParams = staffService.getListByParams(staffParamsVO,request);
+                    listByParams = staffService.getListByParamsExport(staffParamsVO,request);
                     break;
             }
             if(listByParams!=null && listByParams.getData()!=null && listByParams.getData().getItems()!=null){
@@ -441,8 +450,11 @@ public class StaffController {
                     userRole.setCreateCode(currentStaffNo);
                     userRoles.add(userRole);
                 }
+                List<String> strings = new ArrayList<>();
+                strings.add(staffNo);
                 UserRoleDTO userRoleDTO = new UserRoleDTO();
                 userRoleDTO.setUserRoleList(userRoles);
+                userRoleDTO.setUserCode(strings);
                 userRoleService.createUserRoleInfoList(userRoleDTO);
             }
 

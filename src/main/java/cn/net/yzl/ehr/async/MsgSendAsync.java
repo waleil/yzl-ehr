@@ -11,16 +11,15 @@ import cn.net.yzl.msg.model.vo.MsgTemplateVo;
 import cn.net.yzl.msg.service.YMsgInfoService;
 import cn.net.yzl.staff.dto.StaffDetailsDto;
 import cn.net.yzl.staff.dto.resume.ResumeDetailDto;
+import cn.net.yzl.staff.pojo.StaffPo;
 import cn.net.yzl.staff.util.DateStaffUtils;
 import cn.net.yzl.staff.vo.resume.ResumeInterviewInsertVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -183,20 +182,21 @@ public class MsgSendAsync {
     /**
      * 简历超时
      */
-    public void  resumeFllowUpStatus(Map<String,Object> map,String send) {
-        map.forEach((key,value)->{
+    public void  resumeFllowUpStatus(List<StaffPo> list) {
+        list.forEach(po->{
 
             // 获取简历详情
             MsgTemplateVo templateVo = new MsgTemplateVo();
             templateVo.setCode("EHR0006");
-            templateVo.setCreator(send);
-            templateVo.setUserCode(key);
+            templateVo.setCreator("");
+            templateVo.setType(1);
+            templateVo.setUserCode(po.getNo().toString());
             templateVo.setSystemCode(2);
             templateVo.setTitle("简历超时");
             // {0}你好，于{1}，收到待筛选简历，请前往筛选。
             String[] str = new String[0];
             try {
-                str = new String[]{(String)value, DateStaffUtils.dateToDateStr(new Date(),dateFormatStr)};
+                str = new String[]{po.getName(), DateStaffUtils.dateToDateStr(new Date(),dateFormatStr)};
             } catch (ParseException e) {
                 e.printStackTrace();
             }

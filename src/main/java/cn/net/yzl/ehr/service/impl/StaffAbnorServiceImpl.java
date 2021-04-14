@@ -164,7 +164,7 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
                 staffTrainInfoDto.setAbnorTime(datum.getAbnorTime());
                 staffTrainInfoDto.setContent(datum.getContent());
                 staffTrainInfoDto.setAdjustFront(datum.getAdjustPostLevelFrontName());
-                staffTrainInfoDto.setAdjustLater(datum.getAdjustPostLevelFrontName());
+                staffTrainInfoDto.setAdjustLater(datum.getAdjustPostLevelLaterName());
                 list.add(staffTrainInfoDto);
             }if (datum.getType()==29){
                 StaffTrainInfoDto staffTrainInfoDto = new StaffTrainInfoDto();
@@ -174,41 +174,41 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
                 staffTrainInfoDto.setContent(datum.getContent());
 
                 if(datum.getAdjustSalaryFrontD()!=null ){
-                    front.append("调整前岗位薪酬："+datum.getAdjustSalaryFrontD()+";");
+                    front.append("调整前岗位薪酬："+datum.getAdjustSalaryFrontD()+"元;");
                 }
                 if(datum.getAdjustSalaryLaterD()!=null){
-                    later.append("调整后岗位薪酬："+datum.getAdjustSalaryLaterD()+";");
+                    later.append("调整后岗位薪酬："+datum.getAdjustSalaryLaterD()+"元;");
                 }
                 if(datum.getAdjustFullAttendanceSalaryFrontD()!=null){
-                    front.append("调整前全勤工资："+datum.getAdjustFullAttendanceSalaryFrontD()+";");
+                    front.append("调整前全勤工资："+datum.getAdjustFullAttendanceSalaryFrontD()+"元;");
                 }
                 if(datum.getAdjustFullAttendanceSalaryLaterD()!=null){
-                    later.append("调整后全勤工资："+datum.getAdjustFullAttendanceSalaryLaterD()+";");
+                    later.append("调整后全勤工资："+datum.getAdjustFullAttendanceSalaryLaterD()+"元;");
                 }
                 if(datum.getAdjustPerformanceSalaryFrontD()!=null){
-                    front.append("调整前绩效工资："+datum.getAdjustPerformanceSalaryFrontD()+";");
+                    front.append("调整前绩效工资："+datum.getAdjustPerformanceSalaryFrontD()+"元;");
                 }
                 if(datum.getAdjustPerformanceSalaryLaterD()!=null){
-                    later.append("调整后绩效工资："+datum.getAdjustPerformanceSalaryLaterD()+";");
+                    later.append("调整后绩效工资："+datum.getAdjustPerformanceSalaryLaterD()+"元;");
                 }
                 if(datum.getAdjustWageSalaryFrontD()!=null){
-                    front.append("调整前岗位工资："+datum.getAdjustWageSalaryFrontD()+";");
+                    front.append("调整前岗位工资："+datum.getAdjustWageSalaryFrontD()+"元;");
                 }
                 if(datum.getAdjustWageSalaryLaterD()!=null){
-                    later.append("调整后岗位工资："+datum.getAdjustWageSalaryLaterD()+";");
+                    later.append("调整后岗位工资："+datum.getAdjustWageSalaryLaterD()+"元;");
                 }
                 if(datum.getAdjustBasicSalaryFrontD()!=null){
-                    front.append("调整前基本工资："+datum.getAdjustBasicSalaryFrontD()+";");
+                    front.append("调整前基本工资："+datum.getAdjustBasicSalaryFrontD()+"元;");
                 }
                 if(datum.getAdjustBasicSalaryLaterD()!=null){
-                    later.append("调整后基本工资："+datum.getAdjustBasicSalaryLaterD()+";");
+                    later.append("调整后基本工资："+datum.getAdjustBasicSalaryLaterD()+"元;");
                 }
-                if(datum.getAdjustBasicSalaryTypeFront()!=null){
-                    front.append("调整前基本工资类型："+ (datum.getAdjustBasicSalaryTypeFront()==1?"日薪":"月薪")+";");
-                }
-                if(datum.getAdjustBasicSalaryTypeLater()!=null){
-                    later.append("调整后基本工资类型："+ (datum.getAdjustBasicSalaryTypeLater()==1?"日薪":"月薪")+";");
-                }
+//                if(datum.getAdjustBasicSalaryTypeFront()!=null){
+//                    front.append("调整前基本工资类型："+ (datum.getAdjustBasicSalaryTypeFront()==1?"日薪":"月薪")+";");
+//                }
+//                if(datum.getAdjustBasicSalaryTypeLater()!=null){
+//                    later.append("调整后基本工资类型："+ (datum.getAdjustBasicSalaryTypeLater()==1?"日薪":"月薪")+";");
+//                }
 
                 staffTrainInfoDto.setAdjustFront(String.valueOf(front));
                 staffTrainInfoDto.setAdjustLater(String.valueOf(later));
@@ -290,41 +290,41 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
                     staffTrainInfoDto.setAbnorTime(datum.getAbnorTime());
                     staffTrainInfoDto.setContent(datum.getContent());
                     if(datum.getAdjustSalaryFrontD()!=null ){
-                        front.append("调整前岗位薪酬："+datum.getAdjustSalaryFrontD()+";");
+                        front.append("调整前岗位薪酬："+datum.getAdjustSalaryFrontD()+"元;");
                     }
                     if(datum.getAdjustSalaryLaterD()!=null){
-                        later.append("调整后岗位薪酬："+datum.getAdjustSalaryLaterD()+";");
+                        later.append("调整后岗位薪酬："+datum.getAdjustSalaryLaterD()+"元;");
                     }
                     if(datum.getAdjustFullAttendanceSalaryFrontD()!=null){
-                        front.append("调整前全勤工资："+datum.getAdjustFullAttendanceSalaryFrontD()+";");
+                        front.append("调整前全勤工资："+datum.getAdjustFullAttendanceSalaryFrontD()+"元;");
                     }
                     if(datum.getAdjustFullAttendanceSalaryLaterD()!=null){
-                        later.append("调整后全勤工资："+datum.getAdjustFullAttendanceSalaryLaterD()+";");
+                        later.append("调整后全勤工资："+datum.getAdjustFullAttendanceSalaryLaterD()+"元;");
                     }
                     if(datum.getAdjustPerformanceSalaryFrontD()!=null){
-                        front.append("调整前绩效工资："+datum.getAdjustPerformanceSalaryFrontD()+";");
+                        front.append("调整前绩效工资："+datum.getAdjustPerformanceSalaryFrontD()+"元;");
                     }
                     if(datum.getAdjustPerformanceSalaryLaterD()!=null){
-                        later.append("调整后绩效工资："+datum.getAdjustPerformanceSalaryLaterD()+";");
+                        later.append("调整后绩效工资："+datum.getAdjustPerformanceSalaryLaterD()+"元;");
                     }
                     if(datum.getAdjustWageSalaryFrontD()!=null){
-                        front.append("调整前岗位工资："+datum.getAdjustWageSalaryFrontD()+";");
+                        front.append("调整前岗位工资："+datum.getAdjustWageSalaryFrontD()+"元;");
                     }
                     if(datum.getAdjustWageSalaryLaterD()!=null){
-                        later.append("调整后岗位工资："+datum.getAdjustWageSalaryLaterD()+";");
+                        later.append("调整后岗位工资："+datum.getAdjustWageSalaryLaterD()+"元;");
                     }
                     if(datum.getAdjustBasicSalaryFrontD()!=null){
-                        front.append("调整前基本工资："+datum.getAdjustBasicSalaryFrontD()+";");
+                        front.append("调整前基本工资："+datum.getAdjustBasicSalaryFrontD()+"元;");
                     }
                     if(datum.getAdjustBasicSalaryLaterD()!=null){
-                        later.append("调整后基本工资："+datum.getAdjustBasicSalaryLaterD()+";");
+                        later.append("调整后基本工资："+datum.getAdjustBasicSalaryLaterD()+"元;");
                     }
-                    if(datum.getAdjustBasicSalaryTypeFront()!=null){
-                        front.append("调整前基本工资类型："+ (datum.getAdjustBasicSalaryTypeFront()==1?"日薪":"月薪")+";");
-                    }
-                    if(datum.getAdjustBasicSalaryTypeLater()!=null){
-                        later.append("调整后基本工资类型："+ (datum.getAdjustBasicSalaryTypeLater()==1?"日薪":"月薪")+";");
-                    }
+//                    if(datum.getAdjustBasicSalaryTypeFront()!=null){
+//                        front.append("调整前基本工资类型："+ (datum.getAdjustBasicSalaryTypeFront()==1?"日薪":"月薪")+";");
+//                    }
+//                    if(datum.getAdjustBasicSalaryTypeLater()!=null){
+//                        later.append("调整后基本工资类型："+ (datum.getAdjustBasicSalaryTypeLater()==1?"日薪":"月薪")+";");
+//                    }
 
                     staffTrainInfoDto.setAdjustFront(String.valueOf(front));
                     staffTrainInfoDto.setAdjustLater(String.valueOf(later));
@@ -379,6 +379,22 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
 
     public ComResponse<List<MsgTemplateVo>> timerUpdateStafffAbnorRecord() throws ParseException {
         ComResponse<List<MsgTemplateVo>> listComResponse = staffAbnorFeginService.timerUpdateStafffAbnorRecord();
+        if(listComResponse!=null && listComResponse.getData()!=null && !listComResponse.getData().isEmpty()){
+            List<MsgTemplateVo> msgTemplateVoList = listComResponse.getData();
+            msgTemplateVoList.forEach(x->{
+                try {
+                    msgSendAsync.sendMsg(x);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            });
+        }
+        return listComResponse;
+    }
+
+    @Override
+    public ComResponse<List<MsgTemplateVo>> staffBatchPostLevelTimedTask() throws ParseException {
+        ComResponse<List<MsgTemplateVo>> listComResponse = staffAbnorFeginService.staffBatchPostLevelTimedTask();
         if(listComResponse!=null && listComResponse.getData()!=null && !listComResponse.getData().isEmpty()){
             List<MsgTemplateVo> msgTemplateVoList = listComResponse.getData();
             msgTemplateVoList.forEach(x->{

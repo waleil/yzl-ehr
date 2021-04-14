@@ -60,9 +60,8 @@ public class StaffServiceImpl implements StaffService {
         String referer = request.getHeader("Referer");
         staffParamsVO.setStaffNo(userNo);
         if(referer.contains("/trainingManagement/newTraining")){
-             referer = referer.replace("/newTraining", "");
+            referer= referer.replace("/newTraining","");
         }
-
 
         MenuDTO menuDTO = roleMenuService.getIsAdminByUserCodeAndMenuUrl(userNo,referer);
         log.info(JsonUtil.toJsonStr(menuDTO));
@@ -80,6 +79,30 @@ public class StaffServiceImpl implements StaffService {
         return staffFeginService.getListByParams(staffParamsVO);
     }
 
+    @Override
+    public ComResponse<Page<StaffListExportDto>> getListByParamsExport(StaffParamsVO staffParamsVO, HttpServletRequest request) {
+        String userNo = request.getHeader("userNo");
+        String referer = request.getHeader("Referer");
+        staffParamsVO.setStaffNo(userNo);
+        if(referer.contains("/trainingManagement/newTraining")){
+            referer= referer.replace("/newTraining","");
+        }
+
+        MenuDTO menuDTO = roleMenuService.getIsAdminByUserCodeAndMenuUrl(userNo,referer);
+        log.info(JsonUtil.toJsonStr(menuDTO));
+        staffParamsVO.setStaffNo(userNo);
+       /* menuDTO.getMenuName();//获取菜单名称
+        menuDTO.getIsAdmin();//获取最高权限标识*/
+        //最高权限标识
+        if(menuDTO!=null && menuDTO.getIsAdmin()!=null && menuDTO.getIsAdmin()==1 ){
+            //全量，只根据departId查询
+            staffParamsVO.setFlag(2);
+        }else{
+            //会增加部门负责人限制
+            staffParamsVO.setFlag(1);
+        }
+        return staffFeginService.getListByParamsExport(staffParamsVO);
+    }
 
     @Override
     public ComResponse<Page<StaffListDto>> getListByParamsForDepart(StaffParamsVO staffParamsVO, HttpServletRequest request) {

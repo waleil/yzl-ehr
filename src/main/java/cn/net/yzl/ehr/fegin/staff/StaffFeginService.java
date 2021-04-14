@@ -4,6 +4,7 @@ import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.dto.StaffBaseDto;
 import cn.net.yzl.ehr.dto.StaffListDto;
+import cn.net.yzl.ehr.dto.StaffListExportDto;
 import cn.net.yzl.ehr.pojo.StaffSwitchStatePo;
 import cn.net.yzl.ehr.pojo.StaffSwitchTalentPoolPo;
 import cn.net.yzl.ehr.vo.StaffParamsVO;
@@ -51,6 +52,10 @@ public interface StaffFeginService {
     @ApiOperation(value = "模糊查询员工列表", notes = "模糊查询员工列表")
     @RequestMapping(value = "/staff/getListByParamsEHR", method = RequestMethod.POST)
     ComResponse<Page<StaffListDto>> getListByParams(@RequestBody StaffParamsVO staffParamsVO);
+
+    @ApiOperation(value = "模糊查询员工列表(导出)", notes = "模糊查询员工列表")
+    @RequestMapping(value = "/staff/getListByParamsEHR", method = RequestMethod.POST)
+    ComResponse<Page<StaffListExportDto>> getListByParamsExport(@RequestBody StaffParamsVO staffParamsVO);
 
     @ApiOperation(value = "模糊查询员工列表(部门员工查询)", notes = "模糊查询员工列表(部门员工查询)")
     @RequestMapping(value = "/staff/getListByParamsForDepart", method = RequestMethod.POST)

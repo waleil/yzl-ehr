@@ -34,13 +34,11 @@ public class StaffCFInsertPo {
     private Date endDate;
 
     @ApiModelProperty(value = "工作邮箱", name = "workEmail")
-    @NotBlank
     private String workEmail;
 
     @ApiModelProperty(value = "试用期到期日", name = "probationEndtime")
     @JsonFormat(pattern="yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @NotNull
     private Date probationEndtime;
 
     @ApiModelProperty(value = "试用期时长（月）", name = "probationMonths")
@@ -78,7 +76,6 @@ public class StaffCFInsertPo {
     @ApiModelProperty(value = "试用期薪资", name = "probationSalary",hidden = true)
     @Min(0)
     private Integer probationSalary;
-
 
     @ApiModelProperty(value = "岗位薪资(元)", name = "salaryD")
     @Min(0)

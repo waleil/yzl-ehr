@@ -8,6 +8,8 @@ import cn.net.yzl.ehr.fegin.businessPost.BusinessPostFeginService;
 import cn.net.yzl.ehr.service.BusinessPostService;
 import cn.net.yzl.ehr.vo.BusinessPostVO;
 import cn.net.yzl.ehr.vo.PostLevelIndicatorsVO;
+import cn.net.yzl.staff.dto.PostLevelUpRuleDto;
+import cn.net.yzl.staff.vo.PostLevelIndicatorsUpDurationVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +37,7 @@ public class BusinessPostServiceImpl implements BusinessPostService {
     }
 
     @Override
-    public ComResponse<List<PostLevelIndicatorsDto>> getPostLevelIndicatorsList(Integer postLevelId) {
+    public ComResponse<PostLevelUpRuleDto> getPostLevelIndicatorsList(Integer postLevelId) {
 
         return businessPostFeginService.getPostLevelIndicatorsList(postLevelId);
     }
@@ -54,5 +56,10 @@ public class BusinessPostServiceImpl implements BusinessPostService {
     @Override
     public ComResponse<Integer> addOrUpdatePostIndicators(List<PostLevelIndicatorsVO> postLevelIndicatorsVOList) {
         return businessPostFeginService.addOrUpdatePostIndicators(postLevelIndicatorsVOList);
+    }
+
+    @Override
+    public ComResponse<Boolean> addOrUpdateDuration(PostLevelIndicatorsUpDurationVO upDurationVO) {
+        return businessPostFeginService.addOrUpdateDuration(upDurationVO);
     }
 }

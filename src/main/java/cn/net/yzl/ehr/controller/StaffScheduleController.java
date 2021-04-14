@@ -4,16 +4,15 @@ import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.staff.StaffScheduleFeginService;
+import cn.net.yzl.ehr.util.FastDFSClientWrapper;
 import cn.net.yzl.pm.model.dto.MenuDTO;
 import cn.net.yzl.pm.service.RoleMenuService;
 import cn.net.yzl.staff.dto.StaffScheduleDetailDto;
 import cn.net.yzl.staff.dto.StaffScheduleDto;
 import cn.net.yzl.staff.util.StaffBeanUtils;
+import cn.net.yzl.staff.vo.ImportResultVo;
 import cn.net.yzl.staff.vo.StaffScheduleParamsVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
@@ -38,6 +37,8 @@ public class StaffScheduleController {
     @Autowired
     private RoleMenuService roleMenuService;
 
+    @Autowired
+    private FastDFSClientWrapper client;
 
 
     @ApiOperation(value = "查看排班-获取排班信息列表", notes = "查看排班-获取排班信息列表", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -64,5 +65,14 @@ public class StaffScheduleController {
     ComResponse<StaffScheduleDetailDto> getDetailByStaffNoAndTime(@ApiIgnore @CurrentStaffNo String staffNo, String time) throws ParseException {
         return staffScheduleFeginService.getDetailByStaffNoAndTime(staffNo,time);
     }
+
+    @ApiOperation(value = "排班-导入更新下月排班信息", notes = "排班-导入更新下月排班信息", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/importUpdateStaffScheduleInfo", method = RequestMethod.GET)
+    ComResponse<ImportResultVo> importUpdateStaffScheduleInfo(@RequestParam("url") String url, @CurrentStaffNo @ApiIgnore String updator) throws ParseException {
+        ComResponse<ImportResultVo> importResultVoComResponse = staffScheduleFeginService.importUpdateStaffScheduleInfo(url, updator);
+        client.deleteFile(url);
+        return importResultVoComResponse;
+    }
+
 
 }

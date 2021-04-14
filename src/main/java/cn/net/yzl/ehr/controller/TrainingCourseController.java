@@ -253,7 +253,7 @@ public class TrainingCourseController {
             if(count == 1){
                 ComResponse<StaffDetailsDto> detailsByNo = staffFeginService.getDetailsByNo(signInputScore.getStaffNo());
                 StaffDetailsDto data = detailsByNo.getData();
-                ComResponse<DepartDto> departResult = departFeginService.getById(data.getPDepartId());
+                ComResponse<DepartDto> departResult = departFeginService.getById(data.getDepartId());
                 DepartDto depart = departResult.getData();
                 MsgTemplateVo msgTemplateVo = new MsgTemplateVo();
                 msgTemplateVo.setTitle("培训通知:");
@@ -263,7 +263,7 @@ public class TrainingCourseController {
                 msgTemplateVo.setSystemCode(2);
                 msgTemplateVo.setType(1);
                 msgTemplateVo.setSendName("");
-                msgTemplateVo.setUserCode(signInputScore.getStaffNo());
+                msgTemplateVo.setUserCode(depart.getLeaderNo());
                 yMsgInfoService.sendSysMsgInfo(msgTemplateVo);
             }
         });
@@ -302,16 +302,20 @@ public class TrainingCourseController {
                     break;
                 }
             }
-            if(isTrue && !trainSignListVo.getScore().equals("398")){
+            if(isTrue && !"398".equals(trainSignListVo.getScore())){
+                ComResponse<StaffDetailsDto> detailsByNo = staffFeginService.getDetailsByNo(trainSignListVo.getStaffNo());
+                StaffDetailsDto data1 = detailsByNo.getData();
+                ComResponse<DepartDto> departResult = departFeginService.getById(data1.getDepartId());
+                DepartDto depart = departResult.getData();
                 MsgTemplateVo msgTemplateVo = new MsgTemplateVo();
                 msgTemplateVo.setTitle("培训通知:");
-                msgTemplateVo.setParams(new Object[]{trainSignListVo.getStaffName(),trainStaffRelationPo.getInPostDate()});
+                msgTemplateVo.setParams(new Object[]{depart.getLeaderName(),trainStaffRelationPo.getInPostDate()});
                 msgTemplateVo.setCreator("");
                 msgTemplateVo.setCode("EHR0009");
                 msgTemplateVo.setSystemCode(2);
                 msgTemplateVo.setType(1);
                 msgTemplateVo.setSendName("");
-                msgTemplateVo.setUserCode(trainSignListVo.getStaffNo());
+                msgTemplateVo.setUserCode(depart.getLeaderNo());
                 yMsgInfoService.sendSysMsgInfo(msgTemplateVo);
             }
 
