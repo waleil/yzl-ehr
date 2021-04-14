@@ -75,7 +75,7 @@ public class StaffScheduleController {
     }
 
     @ApiOperation(value = "排班-员工排班导入模板下载地址", notes = "排班-员工排班导入模板下载地址", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @RequestMapping(value = "/getStaffScheduleImportExcelModel", method = RequestMethod.POST)
+    @RequestMapping(value = "/getStaffScheduleImportExcelModel", method = RequestMethod.GET)
     ComResponse<String> getStaffScheduleImportExcelModel(){
         ComResponse<String> importResultVoComResponse = staffScheduleFeginService.getStaffScheduleImportExcelModel();
         return importResultVoComResponse;
