@@ -2,21 +2,30 @@ package cn.net.yzl.ehr.controller;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
+import cn.net.yzl.ehr.dto.DepartDto;
 import cn.net.yzl.ehr.fegin.TrainingCourseClient;
+import cn.net.yzl.ehr.fegin.depart.DepartFeginService;
+import cn.net.yzl.ehr.fegin.staff.StaffFeginService;
+import cn.net.yzl.msg.model.vo.MsgTemplateVo;
+import cn.net.yzl.msg.service.YMsgInfoService;
+import cn.net.yzl.staff.dto.StaffDetailsDto;
 import cn.net.yzl.staff.dto.train.CoursewareDto;
 import cn.net.yzl.staff.dto.train.TrainInfoAllDto;
 import cn.net.yzl.staff.pojo.train.*;
-import cn.net.yzl.staff.vo.train.SignInputScore;
-import cn.net.yzl.staff.vo.train.TrainInfoAllVO;
-import cn.net.yzl.staff.vo.train.TrainSubsidySysVO;
+import cn.net.yzl.staff.vo.train.*;
+import com.alibaba.fastjson.JSONObject;
 import io.swagger.annotations.*;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "trainingCourse")
@@ -25,6 +34,15 @@ public class TrainingCourseController {
 
     @Autowired
     private TrainingCourseClient trainingCourseClient;
+
+    @Autowired
+    private YMsgInfoService yMsgInfoService;
+
+    @Autowired
+    private StaffFeginService staffFeginService;
+
+    @Autowired
+    private DepartFeginService departFeginService;
 
 
     /**
@@ -50,6 +68,44 @@ public class TrainingCourseController {
     @ApiOperation(value = "新增培训课程信息", notes = "新增培训课程信息")
     @PostMapping("insertTrainCourse")
     public ComResponse insertTrainCourse(@RequestBody TrainInfoAllVO trainInfoAllVO) {
+        List<TrainStaffRelationPo> trainStaffRelationPoList = trainInfoAllVO.getTrainStaffRelationPoList();
+        List<Speaker> speakers = trainInfoAllVO.getSpeakers();
+        Map<String, String> collect = speakers.stream().collect(Collectors.toMap(Speaker::getStaffName, Speaker::getStaffNo));
+        List<TrainSchedulePo> trainSchedulePoList = trainInfoAllVO.getTrainSchedulePoList();
+        if (!CollectionUtils.isEmpty(trainSchedulePoList)) {
+            trainSchedulePoList.forEach(trainSchedulePo -> {
+                String s = collect.get(trainSchedulePo.getDutyName());
+                if (trainSchedulePo.getInform() == 1 && StringUtils.isNotBlank(s)) {
+                    //ComResponse<StaffDetailsDto> detailsByNo = staffFeginService.getDetailsByNo(trainStaffRelationPo.getStaffNo());
+                    //StaffDetailsDto data = detailsByNo.getData();
+                    MsgTemplateVo msgTemplateVo = new MsgTemplateVo();
+                    msgTemplateVo.setTitle("培训通知:");
+                    msgTemplateVo.setParams(new Object[]{trainSchedulePo.getDutyName(), trainSchedulePo.getStartTime(), trainSchedulePo.getContent()});
+                    msgTemplateVo.setCreator("");
+                    msgTemplateVo.setCode("EHR0008");
+                    msgTemplateVo.setSystemCode(2);
+                    msgTemplateVo.setType(1);
+                    msgTemplateVo.setSendName("");
+                    msgTemplateVo.setUserCode(collect.get(trainSchedulePo.getDutyName()));
+                    yMsgInfoService.sendSysMsgInfo(msgTemplateVo);
+
+                }
+            });
+        }
+        trainStaffRelationPoList.forEach(trainStaffRelationPo -> {
+            ComResponse<StaffDetailsDto> detailsByNo = staffFeginService.getDetailsByNo(trainStaffRelationPo.getStaffNo());
+            StaffDetailsDto data = detailsByNo.getData();
+            MsgTemplateVo msgTemplateVo = new MsgTemplateVo();
+            msgTemplateVo.setTitle("培训通知:");
+            msgTemplateVo.setParams(new Object[]{trainStaffRelationPo.getName(),trainInfoAllVO.getStartTime(),trainInfoAllVO.getEndTime(),trainInfoAllVO.getCourseName()});
+            msgTemplateVo.setCreator("");
+            msgTemplateVo.setCode("EHR0007");
+            msgTemplateVo.setSystemCode(2);
+            msgTemplateVo.setType(1);
+            msgTemplateVo.setSendName("");
+            msgTemplateVo.setUserCode(trainStaffRelationPo.getStaffNo());
+            yMsgInfoService.sendSysMsgInfo(msgTemplateVo);
+        });
         return trainingCourseClient.insertTrainCourse(trainInfoAllVO);
     }
 
@@ -84,6 +140,44 @@ public class TrainingCourseController {
     @ApiOperation(value = "培训课程编辑", notes = "培训编辑")
     @PostMapping("editTrainInfo")
     public ComResponse editTrainInfo(@RequestBody TrainInfoAllVO trainInfoAllVO) {
+        List<TrainStaffRelationPo> trainStaffRelationPoList = trainInfoAllVO.getTrainStaffRelationPoList();
+        List<TrainSchedulePo> trainSchedulePoList = trainInfoAllVO.getTrainSchedulePoList();
+        List<Speaker> speakers = trainInfoAllVO.getSpeakers();
+        Map<String, String> collect = speakers.stream().collect(Collectors.toMap(Speaker::getStaffName, Speaker::getStaffNo));
+        if (!CollectionUtils.isEmpty(trainSchedulePoList)) {
+            trainSchedulePoList.forEach(trainSchedulePo -> {
+                String s = collect.get(trainSchedulePo.getDutyName());
+                if (trainSchedulePo.getInform() == 1 && StringUtils.isNotBlank(s)) {
+                    //ComResponse<StaffDetailsDto> detailsByNo = staffFeginService.getDetailsByNo(trainStaffRelationPo.getStaffNo());
+                    //StaffDetailsDto data = detailsByNo.getData();
+                    MsgTemplateVo msgTemplateVo = new MsgTemplateVo();
+                    msgTemplateVo.setTitle("培训通知:");
+                    msgTemplateVo.setParams(new Object[]{trainSchedulePo.getDutyName(), trainSchedulePo.getStartTime(), trainSchedulePo.getContent()});
+                    msgTemplateVo.setCreator("");
+                    msgTemplateVo.setCode("EHR0008");
+                    msgTemplateVo.setSystemCode(2);
+                    msgTemplateVo.setType(1);
+                    msgTemplateVo.setSendName("");
+                    msgTemplateVo.setUserCode(collect.get(trainSchedulePo.getDutyName()));
+                    yMsgInfoService.sendSysMsgInfo(msgTemplateVo);
+
+                }
+            });
+        }
+        trainStaffRelationPoList.forEach(trainStaffRelationPo -> {
+            ComResponse<StaffDetailsDto> detailsByNo = staffFeginService.getDetailsByNo(trainStaffRelationPo.getStaffNo());
+            StaffDetailsDto data = detailsByNo.getData();
+            MsgTemplateVo msgTemplateVo = new MsgTemplateVo();
+            msgTemplateVo.setTitle("培训通知:");
+            msgTemplateVo.setParams(new Object[]{trainStaffRelationPo.getName(),trainInfoAllVO.getStartTime(),trainInfoAllVO.getEndTime(),trainInfoAllVO.getCourseName()});
+            msgTemplateVo.setCreator("");
+            msgTemplateVo.setCode("EHR0007");
+            msgTemplateVo.setSystemCode(2);
+            msgTemplateVo.setType(1);
+            msgTemplateVo.setSendName("");
+            msgTemplateVo.setUserCode(trainStaffRelationPo.getStaffNo());
+            yMsgInfoService.sendSysMsgInfo(msgTemplateVo);
+        });
         return trainingCourseClient.editTrainInfo(trainInfoAllVO);
     }
 
@@ -146,6 +240,33 @@ public class TrainingCourseController {
     @ApiOperation(value = "培训员工签到",notes = "培训员工签到")
     @PostMapping("staffCourseSign")
     public ComResponse staffCourseSign(@RequestBody @Validated List<SignInputScore> list){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd天");
+        String format = sdf.format(new Date());
+        list.forEach(signInputScore -> {
+            int count = 0;
+            List<TrainStatusToTime> trainStatusToTimes = signInputScore.getTrainStatusToTimes();
+            for(TrainStatusToTime trainStatusToTime : trainStatusToTimes){
+                if(trainStatusToTime.getStatus() == 5) {
+                    count++;
+                }
+            }
+            if(count == 1){
+                ComResponse<StaffDetailsDto> detailsByNo = staffFeginService.getDetailsByNo(signInputScore.getStaffNo());
+                StaffDetailsDto data = detailsByNo.getData();
+                ComResponse<DepartDto> departResult = departFeginService.getById(data.getDepartId());
+                DepartDto depart = departResult.getData();
+                MsgTemplateVo msgTemplateVo = new MsgTemplateVo();
+                msgTemplateVo.setTitle("培训通知:");
+                msgTemplateVo.setParams(new Object[]{depart.getLeaderName(),format});
+                msgTemplateVo.setCreator("");
+                msgTemplateVo.setCode("EHR0009");
+                msgTemplateVo.setSystemCode(2);
+                msgTemplateVo.setType(1);
+                msgTemplateVo.setSendName("");
+                msgTemplateVo.setUserCode(depart.getLeaderNo());
+                yMsgInfoService.sendSysMsgInfo(msgTemplateVo);
+            }
+        });
         return  trainingCourseClient.staffCourseSign(list);
     }
 
@@ -167,6 +288,39 @@ public class TrainingCourseController {
     @ApiOperation(value = "培训员工合格入岗",notes = "培训员工合格入岗")
     @PostMapping("staffEntryPost")
     public ComResponse<Integer> staffEntryPost(@RequestBody TrainStaffRelationPo trainStaffRelationPo){
+        ComResponse<List<Object>> sign = trainingCourseClient.findSign(null, null, null, null, null, null, trainStaffRelationPo.getCourseId(), 1, 100000);
+        List<Object> data = sign.getData();
+        String s = JSONObject.toJSONString(data.get(1));
+        JSONObject jsonObject = JSONObject.parseObject(s);
+        List<TrainSignListVo> items = jsonObject.getJSONArray("items").toJavaList(TrainSignListVo.class);
+        items.forEach(trainSignListVo -> {
+            Boolean isTrue = Boolean.TRUE;
+            List<TrainStatusToTime> trainStatusToTimes = trainSignListVo.getTrainStatusToTimes();
+            for(TrainStatusToTime trainStatusToTime : trainStatusToTimes){
+                if(trainStatusToTime.getStatus() == 5){
+                    isTrue = Boolean.FALSE;
+                    break;
+                }
+            }
+            if(isTrue && !"398".equals(trainSignListVo.getScore())){
+                ComResponse<StaffDetailsDto> detailsByNo = staffFeginService.getDetailsByNo(trainSignListVo.getStaffNo());
+                StaffDetailsDto data1 = detailsByNo.getData();
+                ComResponse<DepartDto> departResult = departFeginService.getById(data1.getDepartId());
+                DepartDto depart = departResult.getData();
+                MsgTemplateVo msgTemplateVo = new MsgTemplateVo();
+                msgTemplateVo.setTitle("培训通知:");
+                msgTemplateVo.setParams(new Object[]{depart.getLeaderName(),trainStaffRelationPo.getInPostDate()});
+                msgTemplateVo.setCreator("");
+                msgTemplateVo.setCode("EHR0009");
+                msgTemplateVo.setSystemCode(2);
+                msgTemplateVo.setType(1);
+                msgTemplateVo.setSendName("");
+                msgTemplateVo.setUserCode(depart.getLeaderNo());
+                yMsgInfoService.sendSysMsgInfo(msgTemplateVo);
+            }
+
+        });
+
         return  trainingCourseClient.staffEntryPost(trainStaffRelationPo);
     }
 

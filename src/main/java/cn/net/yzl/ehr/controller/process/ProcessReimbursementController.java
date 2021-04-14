@@ -1,14 +1,17 @@
 package cn.net.yzl.ehr.controller.process;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.process.ProcessReimbursementFeignService;
 
 import cn.net.yzl.ehr.util.MessageRemandAPI;
+import cn.net.yzl.staff.dto.processNode.ProcessApproveNode;
 import cn.net.yzl.staff.vo.process.StaffReimbursementVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * 财务审批-报销
@@ -28,22 +31,22 @@ public class ProcessReimbursementController {
 
     @ApiOperation(value = "保存报销流程",notes = "保存报销流程")
     @PostMapping("v1/insertProcessReimbursement")
-    public ComResponse<Integer> insertProcessReimbursement(@RequestBody StaffReimbursementVo staffReimbursementVo){
+    public ComResponse<ProcessApproveNode> insertProcessReimbursement(@RequestBody StaffReimbursementVo staffReimbursementVo, @CurrentStaffNo @ApiIgnore String staffNo){
 
-        ComResponse<Integer> integerComResponse = processReimbursementFeignService.insertProcessReimbursement(staffReimbursementVo);
-        if (integerComResponse.getCode().equals(200)){
+        ComResponse<ProcessApproveNode> flag = processReimbursementFeignService.insertProcessReimbursement(staffReimbursementVo);
+        if (flag.getCode().equals(200)){
             try {
-                MessageRemandAPI.examine(staffReimbursementVo.getStaffNo(),
-                        staffReimbursementVo.getProcessNodeDTOList().get(1).getStaffNo(),
-                        staffReimbursementVo.getProcessNodeDTOList().get(1).getProcessName());
-                MessageRemandAPI.processSendMessage(staffReimbursementVo.getProcessNodeDTOList().get(0).getProcessId(),
-                        staffReimbursementVo.getProcessNodeDTOList().get(0).getStaffNo(),
-                        staffReimbursementVo.getProcessNodeDTOList().get(1).getProcessName());
+                MessageRemandAPI.examine(staffNo,
+                        flag.getData().getStaffNo(),
+                        flag.getData().getProcessName());
+                MessageRemandAPI.processSendMessage(flag.getData().getProcessId(),
+                        staffNo,
+                        flag.getData().getProcessName());
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        return integerComResponse;
+        return flag;
 
     }
 

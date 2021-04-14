@@ -1,8 +1,8 @@
 package cn.net.yzl.ehr.service;
 
 import cn.net.yzl.common.entity.ComResponse;
-import cn.net.yzl.ehr.dto.StaffEduListDto;
 import cn.net.yzl.ehr.pojo.*;
+import cn.net.yzl.staff.dto.StaffEduListDto;
 
 import java.util.List;
 

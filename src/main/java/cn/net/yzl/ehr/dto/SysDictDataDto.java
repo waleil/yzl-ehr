@@ -19,6 +19,9 @@ public class SysDictDataDto {
     @ApiModelProperty("字典排序")
     private Integer dictSort;
 
+    @ApiModelProperty("字典排序中文")
+    private String dictSortCHN;
+
     @ApiModelProperty("字典标签")
     private String dictLabel;
 

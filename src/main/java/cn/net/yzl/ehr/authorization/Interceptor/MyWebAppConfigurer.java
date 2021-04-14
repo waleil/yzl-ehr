@@ -42,7 +42,8 @@ public class MyWebAppConfigurer  implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/depart/**");
-        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/staff/**");
+        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/staff/**").
+                excludePathPatterns("/staff/abnor/timerUpdateStafffAbnorRecord").excludePathPatterns("/staff/abnor/staffBatchPostLevelTimedTask");
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/sysDic/**");
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/conf/**");
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/post/**");
@@ -62,11 +63,13 @@ public class MyWebAppConfigurer  implements WebMvcConfigurer {
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/chooseClassConf/**");
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/recruit/**");
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/deduct/**");
-        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/resume/**");
+        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/resume/**")
+                      .excludePathPatterns("/resume/updateFollowupStatus");
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/departLevel/**");
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/office/**");
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/courseware/**");
-        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/parking/**");
+        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/parking/**")
+                .excludePathPatterns("/parking/timerUpdate");
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/attend/**");
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/saffAttend/**");
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/achievementsConfigureForFrontLine/**");
@@ -87,6 +90,16 @@ public class MyWebAppConfigurer  implements WebMvcConfigurer {
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/deductRecord/**");
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/increaseRecord/**");
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/processActive/**");
+        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/processsInvite/**");
+        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/StaffPasswordRule/**");
+        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/work/**");
+        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/staffInvoice/**");
+        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/workOverTime/**");
+        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/staffSponsorIntrRoya/**");
+        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/staffPayment/**");
+        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/staffLoan/**");
+        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/staffContractApproval/**");
+        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/processReimbursement/**");
 
     }
 

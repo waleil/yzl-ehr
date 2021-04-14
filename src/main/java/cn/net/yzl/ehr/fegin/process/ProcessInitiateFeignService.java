@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.fegin.process;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.staff.dto.processNode.ProcessApproveNode;
 import cn.net.yzl.staff.vo.process.*;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -19,25 +20,25 @@ import org.springframework.web.bind.annotation.*;
 public interface ProcessInitiateFeignService {
 
     @PostMapping("/out/insert")
-    ComResponse<Integer> insertProcessStaffOut(@RequestBody @Validated StaffOutVo staffOutVo);
+    ComResponse<ProcessApproveNode> insertProcessStaffOut(@RequestBody @Validated StaffOutVo staffOutVo);
 
     @PostMapping("/travel/insert")
-    ComResponse<Integer> insertProcessStaffTravel(@RequestBody @Validated StaffTravelVo staffTravelVo);
+    ComResponse<ProcessApproveNode> insertProcessStaffTravel(@RequestBody @Validated StaffTravelVo staffTravelVo);
 
     @PostMapping("/attend/approval/insert")
-    ComResponse<Integer> insertProcessStaffAttendApproval(@RequestBody @Validated StaffAttendApprovalVo staffAttendApprovalVo);
+    ComResponse<ProcessApproveNode> insertProcessStaffAttendApproval(@RequestBody @Validated StaffAttendApprovalVo staffAttendApprovalVo);
 
     @PostMapping("/parking/space/insert")
-    ComResponse<Integer> insertProcessStaffParkingSpace(@RequestBody @Validated StaffParkingSpaceVo staffParkingSpaceVo);
+    ComResponse<ProcessApproveNode> insertProcessStaffParkingSpace(@RequestBody @Validated StaffParkingSpaceVo staffParkingSpaceVo);
 
     @GetMapping("/parking/space/select")
     ComResponse<Boolean> selectProcessStaffParkingSpace();
 
     @PostMapping("/item/requisition/insert")
-    ComResponse<Integer> insertProcessStaffItemRequisition(@RequestBody @Validated StaffItemRequisitionVo staffItemRequisitionVo);
+    ComResponse<ProcessApproveNode> insertProcessStaffItemRequisition(@RequestBody @Validated StaffItemRequisitionVo staffItemRequisitionVo);
 
     @PostMapping("/attend/exchange/insert")
-    ComResponse<Integer> insertProcessAttendExchange(@RequestBody @Validated StaffAttendExchangeVo staffAttendExchangeVo);
+    ComResponse<ProcessApproveNode> insertProcessAttendExchange(@RequestBody @Validated StaffAttendExchangeVo staffAttendExchangeVo);
 
     @GetMapping(value = "/attend/approval/count")
     ComResponse<Integer> countProcessStaffAttendApproval (@RequestParam("staffNo") String staffNo);

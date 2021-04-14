@@ -12,11 +12,15 @@ import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.dto.StaffBaseDto;
 import cn.net.yzl.ehr.dto.StaffListDto;
+import cn.net.yzl.ehr.dto.StaffListExportDto;
+import cn.net.yzl.ehr.dto.SysDictDataDto;
 import cn.net.yzl.ehr.dto.resume.ResumeExportDto;
 import cn.net.yzl.ehr.fegin.common.AreaFeginService;
+import cn.net.yzl.ehr.fegin.common.SysDictDataFeginService;
 import cn.net.yzl.ehr.fegin.staff.StaffFeginService;
 import cn.net.yzl.ehr.pojo.StaffSwitchStatePo;
 import cn.net.yzl.ehr.pojo.StaffSwitchTalentPoolPo;
+import cn.net.yzl.ehr.pojo.SysDict;
 import cn.net.yzl.ehr.service.StaffService;
 import cn.net.yzl.ehr.vo.StaffParamsVO;
 import cn.net.yzl.pm.entity.UserRole;
@@ -26,22 +30,38 @@ import cn.net.yzl.pm.service.UserRoleService;
 import cn.net.yzl.staff.dto.StaffDetailsDto;
 import cn.net.yzl.staff.dto.StaffInfoDto;
 import cn.net.yzl.staff.dto.StatisticalStaffDto;
+import cn.net.yzl.staff.dto.attend.StaffAttendImportResultDto;
 import cn.net.yzl.staff.dto.resume.ResumeListDto;
+import cn.net.yzl.staff.pojo.ImportStaffPo;
 import cn.net.yzl.staff.util.DateStaffUtils;
+import cn.net.yzl.staff.vo.ImportResultVo;
 import cn.net.yzl.staff.vo.resume.ResumeParamsVO;
 import cn.net.yzl.staff.vo.staff.StaffInfoSaveVO;
 import cn.net.yzl.staff.vo.staff.StaffInfoUpdateVO;
+import com.github.tobato.fastdfs.domain.proto.storage.DownloadCallback;
+import com.github.tobato.fastdfs.service.FastFileStorageClient;
+import com.taobao.api.ApiException;
 import io.swagger.annotations.*;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.text.ParseException;
 import java.util.*;
@@ -51,6 +71,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/staff")
 @Api(value = "员工服务", tags = {"员工服务"})
 @Valid
+@Slf4j
 public class StaffController {
 
     @Autowired
@@ -59,7 +80,11 @@ public class StaffController {
     private StaffService staffService;
     @Autowired
     private AreaFeginService areaFeginService;
+    @Autowired
+    private SysDictDataFeginService sysDictDataFeginService;
 
+    @Value("${file.prefix}")
+    private String filePrefix;
 
 
     @ApiOperation(value = "查询当前用户详情", notes = "查询当前用户详情")
@@ -139,8 +164,14 @@ public class StaffController {
     }
     @ApiOperation(value = "模糊查询员工列表", notes = "模糊查询员工列表")
     @RequestMapping(value = "/getListByParams", method = RequestMethod.POST)
-    ComResponse<Page<StaffListDto>> getListByParams(@RequestBody @Validated StaffParamsVO staffParamsVO) {
-        return staffService.getListByParams(staffParamsVO);
+    ComResponse<Page<StaffListDto>> getListByParams(@RequestBody @Validated StaffParamsVO staffParamsVO,  HttpServletRequest request) {
+        return staffService.getListByParams(staffParamsVO,request);
+    }
+
+    @ApiOperation(value = "模糊查询员工列表(部门员工查询)", notes = "模糊查询员工列表(部门员工查询)")
+    @RequestMapping(value = "/getListByParamsForDepart", method = RequestMethod.POST)
+    ComResponse<Page<StaffListDto>> getListByParamsForDepart(@RequestBody @Validated StaffParamsVO staffParamsVO, HttpServletRequest request) {
+        return staffService.getListByParamsForDepart(staffParamsVO,request);
     }
 
     @ApiOperation(value = "将员工加入/移出人才池", notes = "将员工加入/移出人才池")
@@ -180,6 +211,8 @@ public class StaffController {
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     ComResponse<StaffDetailsDto> save(@RequestBody StaffInfoSaveVO staffInfoSaveVO,@ApiIgnore @CurrentStaffNo String currentStaffNo) throws ParseException {
         ComResponse<StaffDetailsDto> save =staffFeginService.save(staffInfoSaveVO);
+        log.info("员工入职：-------------------------------");
+        log.info("员工入职结果：{}",save.toString());
         if(save.getCode()==200){
             // 添加角色
             String roleIds = staffInfoSaveVO.getRoleIds();
@@ -191,10 +224,14 @@ public class StaffController {
                     userRole.setUserCode(staffNo);
                     userRole.setRoleId(Integer.parseInt(s));
                     userRole.setCreateCode(currentStaffNo);
-                userRoles.add(userRole);
+                    userRoles.add(userRole);
                 }
+                List<String> strings = new ArrayList<String>();
+                strings.add(staffNo);
                 UserRoleDTO userRoleDTO = new UserRoleDTO();
                 userRoleDTO.setUserRoleList(userRoles);
+                userRoleDTO.setUserCode(strings);
+                log.info("员工新增角色数据：{}",userRoleDTO.toString());
                 userRoleService.createUserRoleInfoList(userRoleDTO);
             }
 
@@ -222,14 +259,12 @@ public class StaffController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "type", value = "导出列表类型:1.员工列表,2.部门员工列表,3.待优化列表,4.带劝退,5.人才储备池列表", required = true, dataType = "String", paramType = "query")
     })
-    public void staffListExcelExport(@RequestBody @Validated StaffParamsVO staffParamsVO, @RequestParam("type") @NotNull @Min(1) Integer type, HttpServletResponse response) {
+    public void staffListExcelExport(@RequestBody @Validated StaffParamsVO staffParamsVO, @RequestParam("type") @NotNull @Min(1) Integer type,HttpServletRequest request,HttpServletResponse response) {
         String execName="resume_list";
-        ComResponse<Page<StaffListDto>> listByParams=null;
-        List<StaffListDto> list =null;
-        execName="staff";
-
+        ComResponse<Page<StaffListExportDto>> listByParams=null;
+        List<StaffListExportDto> list =null;
+        execName="员工列表";
         try {
-
             ExcelWriter writer = ExcelUtil.getWriter();
             //员工列表
             switch (type){
@@ -258,10 +293,11 @@ public class StaffController {
                     writer.addHeaderAlias("abnorTime","异动时间");
                     writer.addHeaderAlias("entryTimes","入司次数");
                     writer.addHeaderAlias("dimissionTime","离职时间");
-                    writer.addHeaderAlias("payrollAccountingDate","薪资核酸截止日");
+                    writer.addHeaderAlias("payrollAccountingDate","薪资核算截止日");
+                    writer.addHeaderAlias("isImportName","来源类型");
                     staffParamsVO.setPageNo(1);
                     staffParamsVO.setPageSize(50000);
-                    listByParams = staffService.getListByParams(staffParamsVO);
+                    listByParams = staffService.getListByParamsExport(staffParamsVO,request);
                     break;
                 case 2://部门员工列表
                     writer.renameSheet("部门员工列表");     //甚至sheet的名称
@@ -285,7 +321,7 @@ public class StaffController {
                     writer.addHeaderAlias("entryTimes","入司次数");
                     staffParamsVO.setPageNo(1);
                     staffParamsVO.setPageSize(50000);
-                    listByParams = staffService.getListByParams(staffParamsVO);
+                    listByParams = staffService.getListByParamsExport(staffParamsVO,request);
                     break;
                 case 3://待优化员工列表
                     writer.renameSheet("待优化员工列表");     //甚至sheet的名称
@@ -302,7 +338,7 @@ public class StaffController {
                     writer.addHeaderAlias("","原因");
                     staffParamsVO.setPageNo(1);
                     staffParamsVO.setPageSize(50000);
-                    listByParams = staffService.getListByParams(staffParamsVO);
+                    listByParams = staffService.getListByParamsExport(staffParamsVO,request);
                     break;
                 case 4://待劝退员工列表
                     writer.renameSheet("待劝退员工列表");     //甚至sheet的名称
@@ -319,7 +355,7 @@ public class StaffController {
                     writer.addHeaderAlias("","原因");
                     staffParamsVO.setPageNo(1);
                     staffParamsVO.setPageSize(50000);
-                    listByParams = staffService.getListByParams(staffParamsVO);
+                    listByParams = staffService.getListByParamsExport(staffParamsVO,request);
                     break;
                 case 5://人才储备池
                     writer.renameSheet("人才储备池员工列表");     //甚至sheet的名称
@@ -336,10 +372,9 @@ public class StaffController {
                     writer.addHeaderAlias("accountStatusStr","账号状态");
                     writer.addHeaderAlias("abnorTime","历史异动时间");
                     writer.addHeaderAlias("entryTimes","入司次数");
-
                     staffParamsVO.setPageNo(1);
                     staffParamsVO.setPageSize(50000);
-                    listByParams = staffService.getListByParams(staffParamsVO);
+                    listByParams = staffService.getListByParamsExport(staffParamsVO,request);
                     break;
             }
             if(listByParams!=null && listByParams.getData()!=null && listByParams.getData().getItems()!=null){
@@ -350,7 +385,7 @@ public class StaffController {
             writer.write(list, true);
             response.reset();
             response.setContentType("application/vnd.ms-excel;charset=utf-8");
-            response.setHeader("Content-Disposition", "attachment; filename="+ URLEncoder.encode(execName, "UTF-8")+DateUtil.today()+".xlsx");   //中文名称需要特殊处理
+            response.setHeader("Content-Disposition", "attachment; filename="+ URLEncoder.encode(execName, "UTF-8")+DateUtil.today()+".xls");   //中文名称需要特殊处理
             writer.autoSizeColumnAll();
             writer.flush(response.getOutputStream());
             writer.close();
@@ -359,4 +394,78 @@ public class StaffController {
         }
     }
 
+
+    @ApiOperation(value = "员工数据-导入", notes = "员工数据-导入", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/importStaffInfo", method = RequestMethod.GET)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "url", value = "文件路径(相对路径)", required = true, dataType = "String", paramType = "query"),
+    })
+    ComResponse<ImportResultVo> importStaffInfo(String url) throws ParseException {
+        return staffService.importStaffInfo(url);
+    }
+
+    @ApiOperation(value = "员工数据导入模板", notes = "员工数据导入模板", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/getStaffImportExcelModel", method = RequestMethod.GET)
+    public ComResponse<String> getStaffImportExcelModel(){
+        ComResponse<List<SysDictDataDto>> dicts = sysDictDataFeginService.getByType("staff_import_model");
+        if(dicts!=null && dicts.getData()!=null){
+            SysDictDataDto sysDictDataDto = dicts.getData().get(0);
+            return ComResponse.success(filePrefix+"/"+sysDictDataDto.getDictValue());
+        }
+        return ComResponse.nodata();
+    }
+
+    @ApiOperation(value = "员工数据-查询导入员工列表", notes = "员工数据-查询导入员工列表", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/getImportStaffList", method = RequestMethod.POST)
+    ComResponse<Page<StaffListDto>> getImportStaffList(@RequestBody StaffParamsVO staffParamsVO, HttpServletRequest request) throws ParseException{
+        return staffService.getImportStaffList(staffParamsVO,request);
+    }
+
+    @ApiOperation(value = "员工数据-用id查询导入员工详情", notes = "员工数据-用id查询导入员工详情", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/getImportStaff", method = RequestMethod.GET)
+    ComResponse<StaffListDto> getImportStaff(Integer id) throws ParseException {
+        return staffService.getImportStaff(id);
+    }
+
+    @ApiOperation(value = "员工数据-用id删除未补全员工", notes = "员工数据-用id删除未补全员工", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/deleteImportStaff", method = RequestMethod.GET)
+    ComResponse<Integer> deleteImportStaff(Integer id) throws ParseException {
+        return staffService.deleteImportStaff(id);
+    }
+
+    @ApiOperation(value = "员工数据-完善员工详情", notes = "员工数据-完善员工详情", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/completeInfo", method = RequestMethod.POST)
+    ComResponse<StaffDetailsDto> completeInfo(@RequestBody @Validated StaffInfoSaveVO staffInfoSaveVO,@CurrentStaffNo @ApiIgnore String currentStaffNo) throws ParseException, ApiException{
+        ComResponse<StaffDetailsDto> staffDetailsDtoComResponse = staffService.completeInfo(staffInfoSaveVO);
+        if(staffDetailsDtoComResponse.getCode()==200){
+            // 添加角色
+            String roleIds = staffInfoSaveVO.getRoleIds();
+            if(StrUtil.isNotBlank(roleIds)){
+                String staffNo = staffInfoSaveVO.getStaffNo();
+                List<UserRole> userRoles = new ArrayList<>();
+                for (String s : roleIds.split(",")) {
+                    UserRole userRole = new UserRole();
+                    userRole.setUserCode(staffNo);
+                    userRole.setRoleId(Integer.parseInt(s));
+                    userRole.setCreateCode(currentStaffNo);
+                    userRoles.add(userRole);
+                }
+                List<String> strings = new ArrayList<>();
+                strings.add(staffNo);
+                UserRoleDTO userRoleDTO = new UserRoleDTO();
+                userRoleDTO.setUserRoleList(userRoles);
+                userRoleDTO.setUserCode(strings);
+                userRoleService.createUserRoleInfoList(userRoleDTO);
+            }
+
+        }
+        return staffDetailsDtoComResponse;
+
+    }
+
+    @ApiOperation(value = "员工数据-查询默认头像图片路径", notes = "员工数据-查询默认头像图片路径", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/getStaffImgUrl", method = RequestMethod.GET)
+    public ComResponse<String> getStaffImgUrl(Integer resumeId, String staffNo) {
+        return staffFeginService.getStaffImgUrl(resumeId,staffNo);
+    }
 }

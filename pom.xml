@@ -12,9 +12,8 @@
     <description>Demo project for Spring Boot</description>
     <version>1.0.0-SNAPSHOT</version>
 
+
     <dependencies>
-
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -23,7 +22,7 @@
         <dependency>
             <groupId>cn.net.yzl</groupId>
             <artifactId>yzl-common</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0.0-RELEASE</version>
         </dependency>
 
         <dependency>
@@ -46,19 +45,19 @@
         <dependency>
             <groupId>cn.net.yzl</groupId>
             <artifactId>yzl-common-pm</artifactId>
-            <version>1.8-RELEASE</version>
+            <version>1.0.0-RELEASE</version>
         </dependency>
         <!--消息服务common依赖-->
         <dependency>
             <groupId>cn.net.yzl</groupId>
             <artifactId>yzl-common-msg</artifactId>
-            <version>1.0-SNAPSHOT</version>
-<!--            <exclusions>-->
-<!--                <exclusion>-->
-<!--                    <groupId>com.github.pagehelper</groupId>-->
-<!--                    <artifactId>pagehelper</artifactId>-->
-<!--                </exclusion>-->
-<!--            </exclusions>-->
+            <version>1.0.5-RELEASE</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.github.pagehelper</groupId>
+                    <artifactId>pagehelper</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!--taobao sdk-->
@@ -126,8 +125,8 @@
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper</artifactId>
-            <!--            <version>5.1.8</version>-->
-            <version>4.1.6</version>
+            <!--<version>4.1.6</version>-->
+            <version>5.1.2</version>
         </dependency>
         <dependency>
             <groupId>org.aspectj</groupId>
@@ -175,7 +174,7 @@
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml-schemas</artifactId>
             <version>3.17</version>
-         </dependency>
+        </dependency>
 
         <dependency>
             <groupId>cn.net.yzl</groupId>

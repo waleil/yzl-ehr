@@ -9,6 +9,7 @@ import cn.net.yzl.staff.pojo.recruit.StaffRecruitSelectPo;
 import cn.net.yzl.staff.pojo.recruit.StaffRecruitUpdatePo;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface StaffRecruitService {
@@ -17,7 +18,7 @@ public interface StaffRecruitService {
 
     public ComResponse<Integer> updateStaffRecruitApply(StaffRecruitUpdatePo staffRecruitPo) ;
 
-    public ComResponse<Page<StaffRecruitDto>> getWithTaskByPo(StaffRecruitSelectPo staffRecruitSelectPo) ;
+    public ComResponse<Page<StaffRecruitDto>> getWithTaskByPo(StaffRecruitSelectPo staffRecruitSelectPo, HttpServletRequest request) ;
 
     public ComResponse<StaffRecruitDto> getById(Integer id) ;
 

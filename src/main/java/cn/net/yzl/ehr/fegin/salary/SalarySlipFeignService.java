@@ -2,7 +2,10 @@ package cn.net.yzl.ehr.fegin.salary;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
+import cn.net.yzl.staff.dto.salary.SalaryGrantStatusDto;
+import cn.net.yzl.staff.dto.salary.SalaryMyDto;
 import cn.net.yzl.staff.dto.salary.SalarySlipListDto;
+import cn.net.yzl.staff.dto.salary.SalarySlipListShowDto;
 import cn.net.yzl.staff.vo.salary.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,7 +39,7 @@ public interface SalarySlipFeignService {
      * @return 工资列表
      */
     @PostMapping("/list")
-    ComResponse<Page<SalarySlipListDto>> list(@RequestBody SalaryVo salaryVo);
+    ComResponse<Page<SalarySlipListShowDto>> list(@RequestBody SalaryVo salaryVo);
 
     /**
      * 工资导出
@@ -47,15 +50,6 @@ public interface SalarySlipFeignService {
     @PostMapping("/exportSalary")
     ComResponse<byte[]> exportSalary(@RequestBody SalaryVo salaryVo);
 
-
-    /**
-     * 人资提交审批
-     *
-     * @param list
-     * @return
-     */
-    @PostMapping("/salarySubmit")
-    ComResponse<Void> salarySubmit(List<SalarySubmitVo> list);
 
     /**
      * 财务审核工资条
@@ -82,5 +76,15 @@ public interface SalarySlipFeignService {
      * @return
      */
     @PostMapping("/salaryFinalGrantStatusUpDate")
-    ComResponse<Void> salaryFinalGrantStatusUpDate(List<SalaryGrantFinalVo> list);
+    ComResponse<List<SalaryGrantStatusDto>> salaryFinalGrantStatusUpDate(List<SalaryGrantFinalVo> list);
+
+
+    /**
+     * 我的工资
+     *
+     * @param mySalaryVo
+     * @return
+     */
+    @PostMapping("/mySalary")
+    ComResponse<SalaryMyDto> mySalary(MySalaryVo mySalaryVo);
 }

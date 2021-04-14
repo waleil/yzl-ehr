@@ -166,13 +166,13 @@ public class PerformanceRemindController {
                         if (1 == depart.getRemindType()) {
                             // 填报
                             subject = "职能管理-考评填报提醒-新建填报提醒";
-                            content = "你好，" + depart.getCycleTime() + " 新一周期的绩效填报已开始，请前往填报。";
+                            content = "尊敬的" + staff.getStaffName() + "您好， 新一周期的绩效填报已开始，请前往填报，填报周期是：" + depart.getCycleTime();
                         } else {
                             // 考核
                             subject = "职能管理-考评填报提醒-考核提醒";
-                            content = "你好，" + depart.getCycleTime() + " 新一周期的绩效考核已开始，请前往查阅。";
+                            content = "尊敬的" + staff.getStaffName() + "您好，新一周期的绩效考核已开始，请前往查阅，考核周期是：" + depart.getCycleTime();
                         }
-                        MailVo mailVo = new MailVo(staff.getEmail(), subject, staff.getStaffName() + content);
+                        MailVo mailVo = new MailVo(staff.getEmail(), subject, content);
                         mailList.add(mailVo);
                     }
                 }
@@ -221,19 +221,21 @@ public class PerformanceRemindController {
         }
     }
 
-    /**
-     * 更新系统时间
-     *
-     * @param systemDate 系统时间
-     * @return 执行结果
-     */
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "systemDate", value = "系统时间", required = true, dataType = "String", paramType = "query")
+            @ApiImplicitParam(name = "systemDate", value = "系统时间 yyyy-MM-dd HH:mm:ss", required = true, dataType = "String", paramType = "query")
     })
-    @ApiOperation(value = "更新系统时间", notes = "更新系统时间", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "更新自定义系统时间", notes = "更新自定义系统时间", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/updateSystemDate", method = RequestMethod.GET)
-    public ComResponse<Boolean> updateSystemDate(@RequestParam String systemDate) {
+    public ComResponse<Boolean> updateSystemDate(@RequestParam("systemDate") String systemDate) {
         return performanceRemindFeignService.updateSystemDate(systemDate);
     }
 
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "open", value = "是否开启（0:关闭, 1:开启）", required = true, dataType = "Integer", paramType = "query")
+    })
+    @ApiOperation(value = "开启自定义系统时间", notes = "开启自定义系统时间", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/openCustomizeSystemDate", method = RequestMethod.GET)
+    public ComResponse<Boolean> openCustomizeSystemDate(@RequestParam("open") Integer open) {
+        return performanceRemindFeignService.openCustomizeSystemDate(open);
+    }
 }

@@ -1,8 +1,10 @@
 package cn.net.yzl.ehr.controller.process;
 
 import cn.net.yzl.common.entity.ComResponse;
+import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.process.StaffContractApprovalFeignService;
 import cn.net.yzl.ehr.util.MessageRemandAPI;
+import cn.net.yzl.staff.dto.processNode.ProcessApproveNode;
 import cn.net.yzl.staff.vo.process.StaffContractApprovalVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * @author wangxiao
@@ -27,21 +30,21 @@ public class StaffContractApprovalController {
 
     @ApiOperation(value = "保存合同流程数据",notes = "保存合同流程数据")
     @PostMapping("v1/insertStaffContractApproval")
-    public ComResponse<Integer> insertStaffContractApproval(@RequestBody StaffContractApprovalVo staffContractApprovalVo){
+    public ComResponse<ProcessApproveNode> insertStaffContractApproval(@RequestBody StaffContractApprovalVo staffContractApprovalVo, @CurrentStaffNo @ApiIgnore String staffNo){
 
-        ComResponse<Integer> integerComResponse = staffContractApprovalFeignService.insertStaffContractApproval(staffContractApprovalVo);
-        if (integerComResponse.getCode().equals(200)){
+        ComResponse<ProcessApproveNode> flag = staffContractApprovalFeignService.insertStaffContractApproval(staffContractApprovalVo);
+        if (flag.getCode().equals(200)){
             try {
-                MessageRemandAPI.examine(staffContractApprovalVo.getStaffNo(),
-                        staffContractApprovalVo.getProcessNodeDTOList().get(1).getStaffNo(),
-                        staffContractApprovalVo.getProcessNodeDTOList().get(1).getProcessName());
-                MessageRemandAPI.processSendMessage(staffContractApprovalVo.getProcessNodeDTOList().get(0).getProcessId(),
-                        staffContractApprovalVo.getProcessNodeDTOList().get(0).getStaffNo(),
-                        staffContractApprovalVo.getProcessNodeDTOList().get(1).getProcessName());
+                MessageRemandAPI.examine(staffNo,
+                        flag.getData().getStaffNo(),
+                        flag.getData().getProcessName());
+                MessageRemandAPI.processSendMessage(flag.getData().getProcessId(),
+                        staffNo,
+                        flag.getData().getProcessName());
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        return integerComResponse;
+        return flag;
     }
 }

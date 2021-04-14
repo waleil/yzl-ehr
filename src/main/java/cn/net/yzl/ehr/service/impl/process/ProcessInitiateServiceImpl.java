@@ -3,6 +3,7 @@ package cn.net.yzl.ehr.service.impl.process;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.fegin.process.ProcessInitiateFeignService;
 import cn.net.yzl.ehr.service.process.ProcessInitiateService;
+import cn.net.yzl.staff.dto.processNode.ProcessApproveNode;
 import cn.net.yzl.staff.vo.process.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,26 +21,30 @@ public class ProcessInitiateServiceImpl implements ProcessInitiateService {
 
 
     @Override
-    public ComResponse<Integer> insertProcessStaffOut(StaffOutVo staffOutVo,String staffNo) {
+    public ComResponse<ProcessApproveNode> insertProcessStaffOut(StaffOutVo staffOutVo, String staffNo) {
         staffOutVo.setCreator(staffNo);
+        staffOutVo.setStaffNo(staffNo);
         return processInitiateFeignService.insertProcessStaffOut(staffOutVo);
     }
 
     @Override
-    public ComResponse<Integer> insertProcessStaffTravel(StaffTravelVo staffTravelVo,String staffNo) {
+    public ComResponse<ProcessApproveNode> insertProcessStaffTravel(StaffTravelVo staffTravelVo,String staffNo) {
         staffTravelVo.setCreator(staffNo);
+        staffTravelVo.setStaffNo(staffNo);
         return processInitiateFeignService.insertProcessStaffTravel(staffTravelVo);
     }
 
     @Override
-    public ComResponse<Integer> insertProcessStaffAttendApproval(StaffAttendApprovalVo staffAttendApprovalVo,String staffNo) {
+    public ComResponse<ProcessApproveNode> insertProcessStaffAttendApproval(StaffAttendApprovalVo staffAttendApprovalVo,String staffNo) {
         staffAttendApprovalVo.setCreator(staffNo);
+        staffAttendApprovalVo.setStaffNo(staffNo);
         return processInitiateFeignService.insertProcessStaffAttendApproval(staffAttendApprovalVo);
     }
 
     @Override
-    public ComResponse<Integer> insertProcessStaffParkingSpace(StaffParkingSpaceVo staffParkingSpaceVo, String staffNo) {
+    public ComResponse<ProcessApproveNode> insertProcessStaffParkingSpace(StaffParkingSpaceVo staffParkingSpaceVo, String staffNo) {
         staffParkingSpaceVo.setCreator(staffNo);
+        staffParkingSpaceVo.setStaffNo(staffNo);
         return processInitiateFeignService.insertProcessStaffParkingSpace(staffParkingSpaceVo);
     }
 
@@ -49,14 +54,16 @@ public class ProcessInitiateServiceImpl implements ProcessInitiateService {
     }
 
     @Override
-    public ComResponse<Integer> insertProcessStaffItemRequisition(StaffItemRequisitionVo staffItemRequisitionVo, String staffNo) {
+    public ComResponse<ProcessApproveNode> insertProcessStaffItemRequisition(StaffItemRequisitionVo staffItemRequisitionVo, String staffNo) {
         staffItemRequisitionVo.setCreator(staffNo);
+        staffItemRequisitionVo.setStaffNo(staffNo);
         return processInitiateFeignService.insertProcessStaffItemRequisition(staffItemRequisitionVo);
     }
 
     @Override
-    public ComResponse<Integer> insertProcessAttendExchange(StaffAttendExchangeVo staffAttendExchangeVo, String staffNo) {
+    public ComResponse<ProcessApproveNode> insertProcessAttendExchange(StaffAttendExchangeVo staffAttendExchangeVo, String staffNo) {
         staffAttendExchangeVo.setCreator(staffNo);
+        staffAttendExchangeVo.setStaffNo(staffNo);
         return processInitiateFeignService.insertProcessAttendExchange(staffAttendExchangeVo);
     }
 

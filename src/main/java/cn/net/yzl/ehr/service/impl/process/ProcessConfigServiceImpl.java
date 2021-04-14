@@ -4,6 +4,7 @@ import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.fegin.process.ProcessConfigFeignService;
 import cn.net.yzl.ehr.service.process.ProcessConfigService;
+import cn.net.yzl.staff.dto.DepartDto;
 import cn.net.yzl.staff.dto.StaffLevelDto;
 import cn.net.yzl.staff.dto.process.ProcessConfigDetailDto;
 import cn.net.yzl.staff.dto.process.ProcessDto;
@@ -24,6 +25,12 @@ public class ProcessConfigServiceImpl implements ProcessConfigService {
     public ComResponse<Integer> insertProcessConfig(ProcessConfigVo processConfigVo, String staffNo) {
         processConfigVo.setCreator(staffNo);
         return processConfigFeignService.insertProcessConfig(processConfigVo);
+    }
+
+    @Override
+    public ComResponse<Integer> updateProcessConfig(ProcessConfigVo processConfigVo, String staffNo) {
+        processConfigVo.setCreator(staffNo);
+        return processConfigFeignService.updateProcessConfig(processConfigVo);
     }
 
     @Override
@@ -52,12 +59,17 @@ public class ProcessConfigServiceImpl implements ProcessConfigService {
     }
 
     @Override
+    public ComResponse<DepartDto> processConfigDepartByProcessItemId(Integer processItemId, Integer processId) {
+        return processConfigFeignService.processConfigDepartByProcessItemId(processItemId,processId);
+    }
+
+    @Override
     public ComResponse<List<StaffLevelDto>> getStaffLevelByStaffNo(String staffNo, Integer flag) {
         return processConfigFeignService.getStaffLevelByStaffNo(staffNo,flag);
     }
 
     @Override
-    public ComResponse<StaffLevelDto> getUpStaffLevelByStaffNo(String staffNo, Integer flag) {
-        return processConfigFeignService.getUpStaffLevelByStaffNo(staffNo,flag);
+    public ComResponse<StaffLevelDto> getUpStaffLevelByStaffNo(String staffNo, Integer currentDepartId) {
+        return processConfigFeignService.getUpStaffLevelByStaffNo(staffNo,currentDepartId);
     }
 }

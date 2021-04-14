@@ -30,4 +30,9 @@ public interface DepartService {
     ComResponse<List<DepartAttrDto>> getDepartAttrList();
 
     ComResponse<List<cn.net.yzl.staff.dto.DepartDto>> getListByStaffNo(String staffNo);
+    ComResponse<List<Integer>> getDepartListByStaffNo(String staffNo);
+
+    ComResponse<List<cn.net.yzl.staff.dto.DepartDto>> getListByStaffNoData(String staffNo,Boolean maxLevel);
+
+
 }

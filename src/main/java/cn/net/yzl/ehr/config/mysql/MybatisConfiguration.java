@@ -2,6 +2,7 @@ package cn.net.yzl.ehr.config.mysql;
 
 import cn.net.yzl.ehr.util.SpringContextUtil;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInterceptor;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -76,7 +77,7 @@ public class MybatisConfiguration {
             sessionFactoryBean.setConfigLocation(new DefaultResourceLoader().getResource(configLocation));
 
             //添加分页插件、打印sql插件
-            Interceptor[] plugins = new Interceptor[]{pageHelper(),new SqlPrintInterceptor()};
+            Interceptor[] plugins = new Interceptor[]{pageInterceptor(),new SqlPrintInterceptor()};
             sessionFactoryBean.setPlugins(plugins);
             
             return sessionFactoryBean.getObject();
@@ -94,16 +95,16 @@ public class MybatisConfiguration {
      * @return
      */
     @Bean
-    public PageHelper pageHelper() {
-        PageHelper pageHelper = new PageHelper();
+    public PageInterceptor pageInterceptor() {
+        PageInterceptor pageInterceptor = new PageInterceptor();
         Properties p = new Properties();
         p.setProperty("offsetAsPageNum", "true");
         p.setProperty("rowBoundsWithCount", "true");
         p.setProperty("reasonable", "true");
         p.setProperty("returnPageInfo", "check");
         p.setProperty("params", "count=countSql");
-        pageHelper.setProperties(p);
-        return pageHelper;
+        pageInterceptor.setProperties(p);
+        return pageInterceptor;
     }
     /**
      * 把所有数据库都放在路由中

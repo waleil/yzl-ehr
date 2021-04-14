@@ -9,9 +9,10 @@ import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.dto.attend.StaffAttendExportDto;
 import cn.net.yzl.ehr.fegin.attend.StaffAttendFeginService;
+import cn.net.yzl.pm.model.dto.MenuDTO;
+import cn.net.yzl.pm.service.RoleMenuService;
 import cn.net.yzl.staff.dto.attend.*;
 import cn.net.yzl.staff.util.DateStaffUtils;
-import cn.net.yzl.staff.util.StaffBeanUtils;
 import cn.net.yzl.staff.vo.attend.StaffAttendParamsVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -20,13 +21,19 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.net.URLEncoder;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -38,9 +45,22 @@ public class StaffAttendController {
     @Autowired
     private StaffAttendFeginService staffAttendFeginService;
 
+
+    @Autowired
+    private RoleMenuService roleMenuService;
+
+
     @ApiOperation(value = "查看考勤-考勤列表", notes = "查看考勤-考勤列表", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/getStaffAttendListByParams", method = RequestMethod.POST)
-    ComResponse<Page<StaffAttendListDto>> getStaffAttendListByParams(@RequestBody @Validated StaffAttendParamsVO staffAttendParamsVO) throws ParseException, IllegalAccessException {
+    ComResponse<Page<StaffAttendListDto>> getStaffAttendListByParams(@RequestBody @Validated StaffAttendParamsVO staffAttendParamsVO, HttpServletRequest request) throws ParseException, IllegalAccessException {
+        String userNo = request.getHeader("userNo");
+        String referer = request.getHeader("Referer");
+        MenuDTO menuDTO = roleMenuService.getIsAdminByUserCodeAndMenuUrl(userNo,referer);
+        Integer isAdmin = menuDTO.getIsAdmin();
+        staffAttendParamsVO.setStaffNo(userNo);
+        if(0 == isAdmin){
+            staffAttendParamsVO.setFlag(1);
+        }
         return staffAttendFeginService.getStaffAttendListByParams(staffAttendParamsVO);
     }
 
@@ -84,16 +104,17 @@ public class StaffAttendController {
         try {
             writer.addHeaderAlias("staffNo", "员工工号");
             writer.addHeaderAlias("result", "导入结果");
-            writer.addHeaderAlias("resultDesc", "resultDesc");
+            writer.addHeaderAlias("resultDesc", "结果描述");
             writer.addHeaderAlias("time", "时间");
             writer.setOnlyAlias(true);
-            writer.write(list, true);
+            if(null != list) {
+                writer.write(list, true);
+            }else{
+                writer.write(Arrays.asList("导入模板错误"), true);
+            }
             response.reset();
             response.setContentType("application/vnd.ms-excel;charset=utf-8");
-//            response.setContentType("application/octet-stream");
-//            execName = new String(execName.getBytes("UTF-8"),"ISO8859-1");
-            response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode("attend_result", "UTF-8") + ".xlsx");   //中文名称需要特殊处理
-//            response.setHeader("Content-Disposition", "attachment; filename="+ execName+".xlsx");   //中文名称需要特殊处理
+            response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode("考勤导入结果", "UTF-8") + ".xlsx");   //中文名称需要特殊处理
             writer.autoSizeColumnAll();
             writer.flush(response.getOutputStream());
             writer.close();
@@ -111,19 +132,28 @@ public class StaffAttendController {
 
     @ApiOperation(value = "查看考勤-导出", notes = "查看考勤-导出", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/exportStaffAttend", method = RequestMethod.POST)
-    void importStaffAttend(@RequestBody @Validated StaffAttendParamsVO staffAttendParamsVO, HttpServletResponse response) {
+    void importStaffAttend(@RequestBody @Validated StaffAttendParamsVO staffAttendParamsVO, HttpServletResponse response,HttpServletRequest request) throws ParseException, IOException {
         ExcelWriter writer = ExcelUtil.getWriter();
         Date time = staffAttendParamsVO.getTime();
         int daysOfMonth = DateStaffUtils.getDaysOfMonth(time);
+        String userNo = request.getHeader("userNo");
+        String referer = request.getHeader("Referer");
+        MenuDTO menuDTO = roleMenuService.getIsAdminByUserCodeAndMenuUrl(userNo,referer);
+        Integer isAdmin = menuDTO.getIsAdmin();
+        staffAttendParamsVO.setStaffNo(userNo);
+        if(0 == isAdmin){
+            staffAttendParamsVO.setFlag(1);
+        }
+
         writer.renameSheet("考勤列表");     //甚至sheet的名称
         staffAttendParamsVO.setPageSize(100000);
         ComResponse<Page<StaffAttendListDto>> result = staffAttendFeginService.getStaffAttendListByParams(staffAttendParamsVO);
-        List<StaffAttendListDto> list = result.getData().getItems();
+        List<StaffAttendListDto> list = new ArrayList<>();
+        if(result.getData()!=null){
+            list=result.getData().getItems();}
         List<StaffAttendExportDto> objects = new ArrayList<>();
         if (list!=null && list.size()>0){
             for (StaffAttendListDto staffAttendListDto : list) {
-
-
                 StaffAttendExportDto staffAttendExportDto = new StaffAttendExportDto();
                 BeanUtil.copyProperties(staffAttendListDto,staffAttendExportDto);
                 objects.add(staffAttendExportDto);
@@ -147,10 +177,7 @@ public class StaffAttendController {
             writer.write(objects, true);
             response.reset();
             response.setContentType("application/vnd.ms-excel;charset=utf-8");
-//            response.setContentType("application/octet-stream");
-//            execName = new String(execName.getBytes("UTF-8"),"ISO8859-1");
-            response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(DateStaffUtils.dateToDateStr(time,"yyyy-MM"), "UTF-8") + ".xlsx");   //中文名称需要特殊处理
-//            response.setHeader("Content-Disposition", "attachment; filename="+ execName+".xlsx");   //中文名称需要特殊处理
+            response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode("考勤"+DateStaffUtils.dateToDateStr(time,"yyyy-MM"), "UTF-8") + ".xlsx");   //中文名称需要特殊处理
             writer.autoSizeColumnAll();
             writer.flush(response.getOutputStream());
             writer.close();

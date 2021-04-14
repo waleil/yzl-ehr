@@ -17,6 +17,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
@@ -24,6 +25,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotBlank;
 import java.text.ParseException;
 import java.util.Date;
@@ -46,15 +48,14 @@ public class StaffAbnorController {
         return staffAbnorService.updateStaffChangeStatus(staffSwitchStatePo,staffNo);
     }
 
-    @ApiOperation(value = "员工异动-设定执行异动操作", notes = "员工异动-设定执行异动操作", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "员工异动-设定执行异动操作(26.调岗 29.调薪 30.劝退 31.离职-自动 68.离职-正常 23.离职-加急 72.等级晋升 73.等级下调)", notes = "员工异动-设定执行异动操作", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/executeStaffChange", method = RequestMethod.POST)
-    public ComResponse<Integer> executeStaffChange(@RequestBody @Validated StaffAbnorRecordPo staffChangePo, @CurrentStaffNo @ApiIgnore String staffNo){
-
+    public ComResponse<Integer> executeStaffChange(@RequestBody @Validated StaffAbnorRecordPo staffChangePo, @CurrentStaffNo @ApiIgnore String staffNo) throws ParseException {
 
         return staffAbnorService.executeStaffChange(staffChangePo,staffNo);
     }
 
-    @ApiOperation(value = "员工异动-执行即时变动操作", notes = "员工异动-执行即时变动操作", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "员工异动-执行即时变动操作(24.入职 27.转正 69.入岗)", notes = "员工异动-执行即时变动操作", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/runStaffChange", method = RequestMethod.POST)
     public ComResponse<Integer> runStaffChange(@RequestBody RunAbnorRecordPo staffChangePo, @CurrentStaffNo @ApiIgnore String staffNo) throws ParseException{
         return staffAbnorService.runStaffChange(staffChangePo,staffNo);
@@ -81,25 +82,30 @@ public class StaffAbnorController {
 
     @ApiOperation(value = "员工旅程分页查询", notes = "员工旅程分页查询", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/getStaffTrainPage", method = RequestMethod.GET)
-    public ComResponse<List<StaffTrainInfoDto>> findPage(@RequestParam("staffNo") String staffNo,@RequestParam("pageNum")Integer pageNum,@RequestParam("pageSize")Integer pageSize){
+    public ComResponse<List<StaffTrainInfoDto>> findPage(@CurrentStaffNo @ApiIgnore String staffNo,@RequestParam("pageNum")Integer pageNum,@RequestParam("pageSize")Integer pageSize){
         ComResponse<List<StaffTrainInfoDto>>  staffTrain = staffAbnorService.findPage(staffNo,pageNum,pageSize);
         return staffTrain;
     }
 
     @ApiOperation(value = "人事管理-员工调整记录", notes = "人事管理-员工调整记录", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/findRecordsByPageParam", method = RequestMethod.POST)
-    public ComResponse<Page<StaffTrainDto>> findRecordsByPageParam(@RequestBody @Validated AbnorRecordPo abnorRecordPo) {
-        ComResponse<Page<StaffTrainDto>> recordsByPageParam = staffAbnorService.findRecordsByPageParam(abnorRecordPo);
+    public ComResponse<Page<StaffTrainDto>> findRecordsByPageParam(@RequestBody @Validated AbnorRecordPo abnorRecordPo, HttpServletRequest request) {
+        ComResponse<Page<StaffTrainDto>> recordsByPageParam = staffAbnorService.findRecordsByPageParam(abnorRecordPo,request);
         return recordsByPageParam;
     }
 
 
     @ApiOperation(value = "员工异动-定时更新员工异动信息", notes = "员工异动-定时更新员工异动信息")
     @GetMapping("/timerUpdateStafffAbnorRecord")
-    public ComResponse<List<MsgTemplateVo>> timerUpdateAttendFalse(@RequestParam("today") @DateTimeFormat(pattern = "yyyy-MM-dd")
-                                                                   @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
-                                                                           Date date) throws ParseException {
-         staffAbnorService.timerUpdateAttendFalse(date);
+    public ComResponse<List<MsgTemplateVo>> timerUpdateStafffAbnorRecord() throws ParseException {
+        staffAbnorService.timerUpdateStafffAbnorRecord();
+        return ComResponse.success();
+    }
+
+    @ApiOperation(value = "员工异动-定时更新员工岗位等级", notes = "员工异动-定时更新员工岗位等级")
+    @GetMapping("/staffBatchPostLevelTimedTask")
+    public ComResponse<List<MsgTemplateVo>> staffBatchPostLevelTimedTask() throws ParseException {
+        staffAbnorService.staffBatchPostLevelTimedTask();
         return ComResponse.success();
     }
 }

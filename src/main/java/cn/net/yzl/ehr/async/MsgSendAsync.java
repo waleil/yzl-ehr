@@ -11,16 +11,15 @@ import cn.net.yzl.msg.model.vo.MsgTemplateVo;
 import cn.net.yzl.msg.service.YMsgInfoService;
 import cn.net.yzl.staff.dto.StaffDetailsDto;
 import cn.net.yzl.staff.dto.resume.ResumeDetailDto;
+import cn.net.yzl.staff.pojo.StaffPo;
 import cn.net.yzl.staff.util.DateStaffUtils;
 import cn.net.yzl.staff.vo.resume.ResumeInterviewInsertVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -183,20 +182,21 @@ public class MsgSendAsync {
     /**
      * 简历超时
      */
-    public void  resumeFllowUpStatus(Map<String,Object> map,String send) {
-        map.forEach((key,value)->{
+    public void  resumeFllowUpStatus(List<StaffPo> list) {
+        list.forEach(po->{
 
             // 获取简历详情
             MsgTemplateVo templateVo = new MsgTemplateVo();
             templateVo.setCode("EHR0006");
-            templateVo.setCreator(send);
-            templateVo.setUserCode(key);
+            templateVo.setCreator("");
+            templateVo.setType(1);
+            templateVo.setUserCode(po.getNo().toString());
             templateVo.setSystemCode(2);
             templateVo.setTitle("简历超时");
             // {0}你好，于{1}，收到待筛选简历，请前往筛选。
             String[] str = new String[0];
             try {
-                str = new String[]{(String)value, DateStaffUtils.dateToDateStr(new Date(),dateFormatStr)};
+                str = new String[]{po.getName(), DateStaffUtils.dateToDateStr(new Date(),dateFormatStr)};
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -218,8 +218,6 @@ public class MsgSendAsync {
      */
 //    @Async
     public void  resumeInterviewUpdateInfo(String send ,String to) {
-
-
         // 获取简历详情
         MsgTemplateVo templateVo = new MsgTemplateVo();
         templateVo.setCode("EHR0021");
@@ -235,13 +233,15 @@ public class MsgSendAsync {
     /**
      * 新设员工异动
      */
-    public void  addStaffAbnorNotice(String send ,String to) {
+    public void  addStaffAbnorNotice(String send ,String to ,String toName) {
         MsgTemplateVo templateVo = new MsgTemplateVo();
         templateVo.setCode("EHR0001");
         templateVo.setCreator(send);
         templateVo.setUserCode(to);
         templateVo.setSystemCode(2);
         templateVo.setTitle("员工列表--异动");
+        String[] names={toName};
+        templateVo.setParams(names);
         // {0}你好，人力资源对你进行了异动调整，请须知，如有问题请联系人力资源。{1}你好，人力资源对你进行的异动调整已生效，请须知，可前往员工旅程查看详情如有问题请联系人力资源。
         ymsgInfoService.sendSysMsgInfo(templateVo);
     }
@@ -249,14 +249,17 @@ public class MsgSendAsync {
     /**
      * 执行员工异动
      */
-    public void  executeStaffAbnorNotice(String send ,String to) {
+    public void  executeStaffAbnorNotice(String send ,String to ,String toName) {
         MsgTemplateVo templateVo = new MsgTemplateVo();
-        templateVo.setCode("EHR0001");
+        templateVo.setCode("EHR0025");
         templateVo.setCreator(send);
         templateVo.setUserCode(to);
         templateVo.setSystemCode(2);
         templateVo.setTitle("员工列表--异动");
-        // {0}你好，人力资源对你进行了异动调整，请须知，如有问题请联系人力资源。{1}你好，人力资源对你进行的异动调整已生效，请须知，可前往员工旅程查看详情如有问题请联系人力资源。
+        String[] names={toName};
+        templateVo.setParams(names);
+        //{0}你好，人力资源对你进行的异动调整已生效，请须知，可前往员工旅程查看详情如有问题请联系人力资源。
+
         ymsgInfoService.sendSysMsgInfo(templateVo);
     }
 
@@ -264,14 +267,17 @@ public class MsgSendAsync {
     /**
      * 分发待招任务
      */
-    public void  distributeStaffRecruitNotice(String send ,String to) {
+    public void  distributeStaffRecruitNotice(String send ,String to ,String toName ,String timeStr) {
         // 获取简历详情
         MsgTemplateVo templateVo = new MsgTemplateVo();
         templateVo.setCode("EHR0003");
         templateVo.setCreator(send);
         templateVo.setUserCode(to);
         templateVo.setSystemCode(2);
-        templateVo.setTitle("员工列表--异动");
+        templateVo.setTitle("待招任务-分发");
+
+        String[] names={toName,timeStr};
+        templateVo.setParams(names);
         // {0}你好，于{1}，收到招聘任务，请前往招聘。
         ymsgInfoService.sendSysMsgInfo(templateVo);
     }

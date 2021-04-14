@@ -1,9 +1,7 @@
 package cn.net.yzl.ehr.controller.resume;
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.json.JSONUtil;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
 import cn.net.yzl.common.entity.ComResponse;
@@ -16,10 +14,10 @@ import cn.net.yzl.ehr.fegin.resume.ResumeFeginService;
 import cn.net.yzl.staff.dto.DepartDto;
 import cn.net.yzl.staff.dto.DepartPostDto;
 import cn.net.yzl.staff.dto.DepartResumeNodeStaffDto;
-import cn.net.yzl.staff.dto.attend.StaffAttendImportResultDto;
-import cn.net.yzl.staff.dto.resume.*;
+import cn.net.yzl.staff.dto.resume.ResumeDetailDto;
+import cn.net.yzl.staff.dto.resume.ResumeImportResultDto;
+import cn.net.yzl.staff.dto.resume.ResumeListDto;
 import cn.net.yzl.staff.pojo.StaffPo;
-import cn.net.yzl.staff.util.StaffBeanUtils;
 import cn.net.yzl.staff.vo.resume.ResumeDbVO;
 import cn.net.yzl.staff.vo.resume.ResumeDepartStaffVO;
 import cn.net.yzl.staff.vo.resume.ResumeInsertVO;
@@ -28,24 +26,20 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
-import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.net.URLEncoder;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -143,10 +137,18 @@ public class ResumeController {
     @ApiOperation(value = "简历列表-批量/单个推送(简历库)", notes = "简历列表-批量推送(简历库)", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/sendTo", method = RequestMethod.POST)
     ComResponse<String> sendToBeatch( @RequestBody  List<ResumeDepartStaffVO> resumeDepartStaffVOList,@ApiIgnore @CurrentStaffNo String staffNo) throws IllegalAccessException {
+        resumeDepartStaffVOList.stream().forEach(resumeDepartStaffVO -> {
+            resumeDepartStaffVO.setCreator(staffNo);
+            resumeDepartStaffVO.setUpdator(staffNo);
+        });
+
         ComResponse<String> re = resumeFeginService.sendToBeatch(resumeDepartStaffVOList);
 
-        if(re.getData()!=null){
-            msgSendAsync.sendToDepart(staffNo,re.getData());
+        if(StrUtil.isNotBlank(re.getData())){
+            for (String s : re.getData().split("=")) {
+                msgSendAsync.sendToDepart(staffNo,s);
+
+            }
 
         }
         return re;
@@ -165,7 +167,11 @@ public class ResumeController {
     ComResponse<String> sendToBatchDepart( @RequestBody @NotEmpty List<Integer> resumeIds, @ApiIgnore @CurrentStaffNo String staffNo) throws IllegalAccessException {
         ComResponse<String> re = resumeFeginService.sendToBatchDepart(resumeIds, staffNo);
         if(re.getData()!=null){
-            msgSendAsync.sendToDepart(staffNo,re.getData());
+            String[] split = re.getData().split("=");
+            for (String s : split) {
+                msgSendAsync.sendToDepart(staffNo,s);
+
+            }
 
         }
 
@@ -213,10 +219,10 @@ public class ResumeController {
 
     @ApiOperation(value = "简历超时状态修改(定时修改)", notes = "简历超时状态修改", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/updateFollowupStatus", method = RequestMethod.GET)
-    ComResponse<String> updateFollowupStatus(@ApiIgnore @CurrentStaffNo String staffNo) throws ParseException {
+    ComResponse<String> updateFollowupStatus(HttpServletRequest request) throws ParseException {
         ComResponse<String> re = resumeFeginService.updateFollowupStatus();
         if (StrUtil.isNotBlank(re.getData())){
-            msgSendAsync.resumeFllowUpStatus(JsonUtil.readJson2Map(re.getData()),staffNo);
+            msgSendAsync.resumeFllowUpStatus(JsonUtil.jsonToList(re.getData(), StaffPo.class));
         }
         return re;
     }

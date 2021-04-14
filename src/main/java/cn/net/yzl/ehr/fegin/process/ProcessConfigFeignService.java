@@ -2,12 +2,12 @@ package cn.net.yzl.ehr.fegin.process;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
+import cn.net.yzl.staff.dto.DepartDto;
 import cn.net.yzl.staff.dto.StaffLevelDto;
 import cn.net.yzl.staff.dto.process.ProcessConfigDetailDto;
 import cn.net.yzl.staff.dto.process.ProcessDto;
 import cn.net.yzl.staff.vo.process.ProcessConfigPageVo;
 import cn.net.yzl.staff.vo.process.ProcessConfigVo;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Repository;
 import org.springframework.validation.annotation.Validated;
@@ -24,6 +24,9 @@ public interface ProcessConfigFeignService {
     @RequestMapping(value = "/process/config/insert", method = RequestMethod.POST)
     ComResponse<Integer> insertProcessConfig (@RequestBody @Validated ProcessConfigVo processConfigVo);
 
+    @RequestMapping(value = "/process/config/update", method = RequestMethod.POST)
+    ComResponse<Integer> updateProcessConfig (@RequestBody @Validated ProcessConfigVo processConfigVo);
+
     @RequestMapping(value = "/process/config/delete", method = RequestMethod.POST)
     ComResponse<Integer> deleteProcessConfig (@RequestParam("id") Integer id,@RequestParam("staffNo") String staffNo);
 
@@ -38,6 +41,9 @@ public interface ProcessConfigFeignService {
 
     @RequestMapping(value = "/process/config/detail", method = RequestMethod.GET)
     ComResponse<ProcessConfigDetailDto> processConfigDetail (@RequestParam("id") Integer id);
+
+    @RequestMapping(value = "/process/config/depart", method = RequestMethod.GET)
+    ComResponse<DepartDto> processConfigDepartByProcessItemId (@RequestParam("processItemId") Integer processItemId,@RequestParam("processId") Integer processId);
 
     @RequestMapping(value = "/staff/getStaffLevelByStaffNo", method = RequestMethod.GET)
     ComResponse<List<StaffLevelDto>> getStaffLevelByStaffNo(@RequestParam("staffNo") String staffNo, @RequestParam("flag") Integer flag) ;

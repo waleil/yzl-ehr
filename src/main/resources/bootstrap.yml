@@ -7,7 +7,7 @@ spring:
     allow-bean-definition-overriding: true
   cloud:
     nacos:
-      server-addr: 192.168.32.33:8848,192.168.32.34:8848,192.168.32.35:8848
+      server-addr: http://nacosdev.staff.yuzhilin.net.cn
       discovery:
         service: ${spring.application.name}
         enabled: true

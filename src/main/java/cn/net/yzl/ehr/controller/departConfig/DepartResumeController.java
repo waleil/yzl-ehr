@@ -1,5 +1,6 @@
 package cn.net.yzl.ehr.controller.departConfig;
 
+import cn.hutool.core.collection.CollectionUtil;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.common.util.SnowFlakeUtil;
@@ -25,6 +26,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/conf/resume")
@@ -61,7 +63,12 @@ public class DepartResumeController {
  @ApiOperation(value = "面试流程-根据部门岗位id获取面试流程节点", notes = "面试流程-获取岗位的面试流程信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/getByDepartPostId", method = RequestMethod.GET)
     ComResponse<List<DepartResumeNodeDto>> getByDepartPostId(@RequestParam("departPostId") @NotNull @Min(1)  Integer departPostId) {
-        return departResumeFeignService.getByDepartPostId(departPostId);
+     ComResponse<List<DepartResumeNodeDto>> byDepartPostId = departResumeFeignService.getByDepartPostId(departPostId);
+     List<DepartResumeNodeDto> data = byDepartPostId.getData();
+     if(CollectionUtil.isNotEmpty(data)){
+         data = data.stream().sorted((s1, s2) -> s1.getNoteId().compareTo(s2.getNoteId())).collect(Collectors.toList());
+     }
+     return byDepartPostId;
     }
 
     @ApiOperation(value = "面试流程-用配置ip获取流程信息", notes = "面试流程-用配置ip获取流程信息", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
