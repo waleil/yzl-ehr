@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -31,6 +32,11 @@ public class StaffAbnorRecordPo {
     @NotNull
     @Min(0)
     private Integer type;
+
+    @ApiModelProperty("是否加入黑名单 0.不加入 1.加入")
+    @Min(0)
+    @Max(1)
+    private Integer onBlackList;
 
     @ApiModelProperty("异动内容")
     private String content;
