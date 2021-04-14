@@ -4,6 +4,7 @@ import feign.Request;
 import feign.RequestInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 
 /**
  * Feign配置注册（全局）
@@ -12,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 public class FeignSupportConfig {
 
     @Bean
+    @Order(-1)
     public RequestInterceptor requestInterceptor(){
         return new FeignBasicAuthRequestInterceptor();
     }
