@@ -4,6 +4,7 @@ import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.salaryRule.SalaryFrontLineRuleFeignService;
 import cn.net.yzl.staff.dto.salaryFrontLineRule.RulePostDto;
+import cn.net.yzl.staff.dto.salaryFrontLineRule.RuleTypeDto;
 import cn.net.yzl.staff.dto.salaryFrontLineRule.SalaryFrontLineRuleDto1;
 import cn.net.yzl.staff.dto.salaryFrontLineRule.SalaryFrontLineRuleDto10;
 import cn.net.yzl.staff.dto.salaryFrontLineRule.SalaryFrontLineRuleDto11;
@@ -14,6 +15,7 @@ import cn.net.yzl.staff.dto.salaryFrontLineRule.SalaryFrontLineRuleDto15;
 import cn.net.yzl.staff.dto.salaryFrontLineRule.SalaryFrontLineRuleDto16;
 import cn.net.yzl.staff.dto.salaryFrontLineRule.SalaryFrontLineRuleDto17;
 import cn.net.yzl.staff.dto.salaryFrontLineRule.SalaryFrontLineRuleDto18;
+import cn.net.yzl.staff.dto.salaryFrontLineRule.SalaryFrontLineRuleDto19;
 import cn.net.yzl.staff.dto.salaryFrontLineRule.SalaryFrontLineRuleDto2;
 import cn.net.yzl.staff.dto.salaryFrontLineRule.SalaryFrontLineRuleDto3;
 import cn.net.yzl.staff.dto.salaryFrontLineRule.SalaryFrontLineRuleDto4;
@@ -21,8 +23,6 @@ import cn.net.yzl.staff.dto.salaryFrontLineRule.SalaryFrontLineRuleDto5;
 import cn.net.yzl.staff.dto.salaryFrontLineRule.SalaryFrontLineRuleDto6;
 import cn.net.yzl.staff.dto.salaryFrontLineRule.SalaryFrontLineRuleDto7;
 import cn.net.yzl.staff.dto.salaryFrontLineRule.SalaryFrontLineRuleDto9;
-import cn.net.yzl.staff.dto.salaryRule.SalaryRuleDepartPostDto;
-import cn.net.yzl.staff.vo.salaryRule.SalaryRulePostVo;
 import cn.net.yzl.staff.vo.salaryRule.SalaryRuleSwitch;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -50,6 +50,11 @@ public class SalaryFrontLineRuleNewController {
     @Autowired
     private SalaryFrontLineRuleFeignService salaryFrontLineService;
 
+    @ApiOperation(value = "一线管理-薪酬核算规则-规则列表", notes = "一线管理-薪酬核算规则-规则列表")
+    @PostMapping("/getSalaryRuleTypeList")
+    public ComResponse<List<RuleTypeDto>> getSalaryRuleTypeList() {
+        return salaryFrontLineService.getRuleTypeList();
+    }
 
     @ApiOperation(value = "一线管理-薪酬核算规则开关", notes = "一线管理-薪酬核算规则开关")
     @PostMapping("/ruleSwitch")
@@ -70,6 +75,17 @@ public class SalaryFrontLineRuleNewController {
     @GetMapping("/getRule")
     public ComResponse getRule(@RequestParam("ruleType") Integer ruleType) {
         return salaryFrontLineService.getRule(ruleType);
+    }
+
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "departId", value = "部门id", required = true, dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "staffType", value = "员工类型(1:一线；2:职能)", required = true, dataType = "Integer", paramType = "query")
+    })
+    @ApiOperation(value = "查询部门下所有岗位", notes = "查询部门下所有岗位")
+    @RequestMapping(value = "/getPostByDepartId", method = RequestMethod.GET)
+    public ComResponse<List<RulePostDto>> getPostByDepartId(@RequestParam("departId") Integer departId,
+                                                            @RequestParam("staffType") Integer staffType) {
+        return salaryFrontLineService.getPostByDepartId(departId, staffType);
     }
 
     @ApiOperation(value = "一线管理-薪酬核算规则配置-规则一", notes = "一线管理-薪酬核算规则配置-规则一")
@@ -193,26 +209,9 @@ public class SalaryFrontLineRuleNewController {
         return salaryFrontLineService.rule18(ruleDto18);
     }
 
-    @ApiOperation(value = "获取部门下一线岗位列表", notes = "获取部门下一线岗位列表")
-    @RequestMapping(value = "/getListByDepartId", method = RequestMethod.GET)
-    public ComResponse<List<SalaryRuleDepartPostDto>> getListByDepartId(@RequestParam("departId") Integer departId, @RequestParam("ruleType") Integer ruleType) {
-        return salaryFrontLineService.getPostsByDepartId(departId, ruleType);
-    }
-
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "ruleType", value = "规则类型", required = true, dataType = "Integer", paramType = "query")
-    })
-    @ApiOperation(value = "获取规则下所选部门一线岗位列表", notes = "获取规则下所选部门一线岗位列表")
-    @RequestMapping(value = "/getListByRuleType", method = RequestMethod.GET)
-    public ComResponse<List<RulePostDto>> getListByRuleType(@RequestParam("ruleType") Integer ruleType) {
-        return salaryFrontLineService.getListByRuleType(ruleType);
-    }
-
-    @ApiOperation(value = "一线管理-薪酬核算规则配置-设置规则对应岗位", notes = "一线管理-薪酬核算规则配置-设置规则对应岗位")
-    @PostMapping("/ruleDepartPostConfig")
-    public ComResponse<Boolean> ruleDepartPostConfig(@RequestBody SalaryRulePostVo salaryRulePostVo, @ApiIgnore @CurrentStaffNo String staffNo) {
-        salaryRulePostVo.setCreator(staffNo);
-        salaryRulePostVo.setStaffType(1);
-        return salaryFrontLineService.ruleDepartPostConfig(salaryRulePostVo);
+    @ApiOperation(value = "一线管理-薪酬核算规则配置-规则十九", notes = "一线管理-薪酬核算规则配置-规则十九")
+    @PostMapping("/rule19")
+    public ComResponse<Boolean> rule19(@RequestBody SalaryFrontLineRuleDto19 ruleDto19) {
+        return salaryFrontLineService.rule19(ruleDto19);
     }
 }

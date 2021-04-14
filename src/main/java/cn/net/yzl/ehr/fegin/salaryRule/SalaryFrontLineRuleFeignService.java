@@ -2,6 +2,7 @@ package cn.net.yzl.ehr.fegin.salaryRule;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.staff.dto.salaryFrontLineRule.RulePostDto;
+import cn.net.yzl.staff.dto.salaryFrontLineRule.RuleTypeDto;
 import cn.net.yzl.staff.dto.salaryFrontLineRule.SalaryFrontLineRuleDto1;
 import cn.net.yzl.staff.dto.salaryFrontLineRule.SalaryFrontLineRuleDto10;
 import cn.net.yzl.staff.dto.salaryFrontLineRule.SalaryFrontLineRuleDto11;
@@ -12,6 +13,7 @@ import cn.net.yzl.staff.dto.salaryFrontLineRule.SalaryFrontLineRuleDto15;
 import cn.net.yzl.staff.dto.salaryFrontLineRule.SalaryFrontLineRuleDto16;
 import cn.net.yzl.staff.dto.salaryFrontLineRule.SalaryFrontLineRuleDto17;
 import cn.net.yzl.staff.dto.salaryFrontLineRule.SalaryFrontLineRuleDto18;
+import cn.net.yzl.staff.dto.salaryFrontLineRule.SalaryFrontLineRuleDto19;
 import cn.net.yzl.staff.dto.salaryFrontLineRule.SalaryFrontLineRuleDto2;
 import cn.net.yzl.staff.dto.salaryFrontLineRule.SalaryFrontLineRuleDto3;
 import cn.net.yzl.staff.dto.salaryFrontLineRule.SalaryFrontLineRuleDto4;
@@ -19,8 +21,6 @@ import cn.net.yzl.staff.dto.salaryFrontLineRule.SalaryFrontLineRuleDto5;
 import cn.net.yzl.staff.dto.salaryFrontLineRule.SalaryFrontLineRuleDto6;
 import cn.net.yzl.staff.dto.salaryFrontLineRule.SalaryFrontLineRuleDto7;
 import cn.net.yzl.staff.dto.salaryFrontLineRule.SalaryFrontLineRuleDto9;
-import cn.net.yzl.staff.dto.salaryRule.SalaryRuleDepartPostDto;
-import cn.net.yzl.staff.vo.salaryRule.SalaryRulePostVo;
 import cn.net.yzl.staff.vo.salaryRule.SalaryRuleSwitch;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,16 +35,29 @@ import java.util.List;
 /**
  * 一线管理-薪酬核算规则配置
  */
-@FeignClient(value = "SalaryFrontLineRuleFeginService", url = "${fegin.db.url}/salaryFrontLineRuleNew")
-//@FeignClient(value = "SalaryFrontLineRuleFeginService",url = "http://localhost:38080/salaryFrontLineRuleNew")
+//@FeignClient(value = "yzl-staff-db", url = "${fegin.db.url}/salaryFrontLineRuleNew")
+@FeignClient(value = "yzl-staff-db", url = "http://localhost:38080/salaryFrontLineRuleNew")
 public interface SalaryFrontLineRuleFeignService {
 
-    /**
-     * 获取薪酬规则
-     *
-     * @param ruleType 规则类型
-     * @return 规则对象
-     */
+
+    //薪酬规则是否开启（1开启，0关闭）
+    @PostMapping("/ruleSwitch")
+    ComResponse<Void> ruleSwitch(@RequestBody SalaryRuleSwitch salaryRuleSwitch);
+
+    //查询薪酬规则开关开启状态
+    @GetMapping("/ruleOnStatus")
+    ComResponse<Integer> ruleOnStatus();
+
+    // 一线管理-薪酬核算规则-规则列表
+    @PostMapping("/getSalaryRuleTypeList")
+    ComResponse<List<RuleTypeDto>> getRuleTypeList();
+
+    // 查询部门下所有岗位
+    @RequestMapping(value = "/getPostByDepartId", method = RequestMethod.GET)
+    ComResponse<List<RulePostDto>> getPostByDepartId(@RequestParam("departId") Integer departId,
+                                                     @RequestParam("staffType") Integer staffType);
+
+    // 一线管理-薪酬核算规则配置-查看
     @GetMapping("/getRule")
     ComResponse getRule(@RequestParam("ruleType") Integer ruleType);
 
@@ -116,23 +129,7 @@ public interface SalaryFrontLineRuleFeignService {
     @PostMapping("/rule18")
     ComResponse<Boolean> rule18(@RequestBody SalaryFrontLineRuleDto18 ruleDto18);
 
-    //配置规则对应岗位
-    @PostMapping("/ruleDepartPostConfig")
-    ComResponse<Boolean> ruleDepartPostConfig(@RequestBody SalaryRulePostVo salaryRulePostVo);
-
-    //获取部门下 一线岗位列表
-    @RequestMapping(value = "/getListByDepartId", method = RequestMethod.GET)
-    ComResponse<List<SalaryRuleDepartPostDto>> getPostsByDepartId(@RequestParam("departId") Integer departId, @RequestParam("ruleType") Integer ruleType);
-
-    //薪酬规则是否开启（1开启，0关闭）
-    @PostMapping("/ruleSwitch")
-    ComResponse<Void> ruleSwitch(@RequestBody SalaryRuleSwitch salaryRuleSwitch);
-
-    //查询薪酬规则开关开启状态
-    @GetMapping("/ruleOnStatus")
-    ComResponse<Integer> ruleOnStatus();
-
-    // 获取规则下所选部门一线岗位列表
-    @RequestMapping(value = "/getListByRuleType", method = RequestMethod.GET)
-    ComResponse<List<RulePostDto>> getListByRuleType(@RequestParam("ruleType") Integer ruleType);
+    //薪酬规则十九
+    @PostMapping("/rule19")
+    ComResponse<Boolean> rule19(@RequestBody SalaryFrontLineRuleDto19 ruleDto19);
 }
