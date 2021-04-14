@@ -62,7 +62,7 @@
         <appender-ref ref="ERROR_FILE"/>
     </appender>
 
-    <springProfile name="test,dev,pre">
+    <springProfile name="test,dev,pre,pro">
         <root level="info">
             <appender-ref ref="console"/>
             <appender-ref ref="ASYNC_INFO_FILE_LOG"/>

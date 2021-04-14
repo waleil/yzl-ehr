@@ -22,19 +22,19 @@
         <dependency>
             <groupId>cn.net.yzl</groupId>
             <artifactId>yzl-common</artifactId>
-            <version>1.0.0-RELEASE</version>
+            <version>1.0.1-RELEASE</version>
         </dependency>
 
         <dependency>
             <groupId>cn.net.yzl</groupId>
             <artifactId>yzl-staff-model</artifactId>
-            <version>1.0.0-RELEASE</version>
+            <version>1.0.1-RELEASE</version>
         </dependency>
         <!--logger-->
         <dependency>
             <groupId>cn.net.yzl</groupId>
             <artifactId>yzl-logger</artifactId>
-            <version>1.0-RELEASE</version>
+            <version>1.0.0-RELEASE</version>
         </dependency>
         <dependency>
             <groupId>cn.net.yzl</groupId>
@@ -186,7 +186,7 @@
         <dependency>
             <groupId>cn.net.yzl.order</groupId>
             <artifactId>yzl-order-common</artifactId>
-            <version>1.0.0-RELEASE</version>
+            <version>1.0.1-RELEASE</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.springframework.boot</groupId>
