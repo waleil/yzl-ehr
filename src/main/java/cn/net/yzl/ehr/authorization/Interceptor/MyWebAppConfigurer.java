@@ -101,6 +101,7 @@ public class MyWebAppConfigurer  implements WebMvcConfigurer {
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/staffContractApproval/**");
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/processReimbursement/**");
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/salaryFrontLineRuleNew/**");
+        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/salaryRulePost/**");
 
     }
 
