@@ -70,7 +70,9 @@ public class StaffScheduleController {
     @RequestMapping(value = "/importUpdateStaffScheduleInfo", method = RequestMethod.GET)
     ComResponse<ImportResultVo> importUpdateStaffScheduleInfo(@RequestParam("url") String url, @CurrentStaffNo @ApiIgnore String updator) throws ParseException {
         ComResponse<ImportResultVo> importResultVoComResponse = staffScheduleFeginService.importUpdateStaffScheduleInfo(url, updator);
+        if(importResultVoComResponse.getCode()==200){
         client.deleteFile(url);
+        }
         return importResultVoComResponse;
     }
 
@@ -80,4 +82,6 @@ public class StaffScheduleController {
         ComResponse<String> importResultVoComResponse = staffScheduleFeginService.getStaffScheduleImportExcelModel();
         return importResultVoComResponse;
     }
+
+
 }
