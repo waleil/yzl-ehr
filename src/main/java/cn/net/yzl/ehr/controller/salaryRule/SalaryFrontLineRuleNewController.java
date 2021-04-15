@@ -131,11 +131,18 @@ public class SalaryFrontLineRuleNewController {
     }
 
 
-    @ApiOperation(value = "一线管理-薪酬核算规则配置-规则七/八", notes = "一线管理-薪酬核算规则配置-规则七/八")
+    @ApiOperation(value = "一线管理-薪酬核算规则配置-规则七", notes = "一线管理-薪酬核算规则配置-规则七")
     @PostMapping("/rule7")
     public ComResponse<Boolean> rule7(@RequestBody SalaryFrontLineRuleDto7 ruleDto7, @ApiIgnore @CurrentStaffNo String staffNo) {
         ruleDto7.setStaffNo(staffNo);
         return salaryFrontLineService.rule7(ruleDto7);
+    }
+
+    @ApiOperation(value = "一线管理-薪酬核算规则配置-规则八", notes = "一线管理-薪酬核算规则配置-规则八")
+    @PostMapping("/rule8")
+    public ComResponse<Boolean> rule8(@RequestBody SalaryFrontLineRuleDto7 ruleDto7, @ApiIgnore @CurrentStaffNo String staffNo) {
+        ruleDto7.setStaffNo(staffNo);
+        return salaryFrontLineService.rule8(ruleDto7);
     }
 
     @ApiOperation(value = "一线管理-薪酬核算规则配置-规则九", notes = "一线管理-薪酬核算规则配置-规则九")

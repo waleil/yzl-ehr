@@ -85,9 +85,13 @@ public interface SalaryFrontLineRuleFeignService {
     @PostMapping("/rule6")
     ComResponse<Boolean> rule6(@RequestBody SalaryFrontLineRuleDto6 ruleDto6);
 
-    //薪酬规则七/八
+    //薪酬规则七
     @PostMapping("/rule7")
     ComResponse<Boolean> rule7(@RequestBody SalaryFrontLineRuleDto7 ruleDto7);
+
+    //薪酬规则八
+    @PostMapping("/rule8")
+    ComResponse<Boolean> rule8(@RequestBody SalaryFrontLineRuleDto7 ruleDto7);
 
     //薪酬规则九
     @PostMapping("/rule9")
