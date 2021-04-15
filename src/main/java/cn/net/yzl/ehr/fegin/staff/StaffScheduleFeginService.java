@@ -30,4 +30,7 @@ public interface StaffScheduleFeginService {
 
     @RequestMapping(value = "/importUpdateStaffScheduleInfo", method = RequestMethod.GET)
     ComResponse<ImportResultVo> importUpdateStaffScheduleInfo(@RequestParam("url") String url,@RequestParam("updator") String updator) throws ParseException;
+
+    @RequestMapping(value = "/getStaffScheduleImportExcelModel", method = RequestMethod.GET)
+    ComResponse<String> getStaffScheduleImportExcelModel() ;
 }
