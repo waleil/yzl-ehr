@@ -28,7 +28,7 @@ import java.util.List;
  *
  * @author biebaojie
  */
-@FeignClient(value = "ComAssessmentFeginService", url = "${fegin.db.url}/assessment")
+@FeignClient(value = "yzl-staff-db", url = "${fegin.db.url}/assessment")
 public interface ComAssessmentFeginService {
 
 
