@@ -20,8 +20,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-//@FeignClient(name = "trainingCourse",url = "${fegin.db.url}/trainCourse")
-@FeignClient(name = "trainingCourse",url = "localhost:38080/trainCourse")
+@FeignClient(name = "trainingCourse",url = "${fegin.db.url}/trainCourse")
+//@FeignClient(name = "trainingCourse",url = "localhost:38080/trainCourse")
 public interface TrainingCourseClient {
 
     @GetMapping("/selectStaffTrainProduct")
