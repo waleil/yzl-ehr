@@ -180,6 +180,12 @@ public class StaffController {
         return staffService.swtichStaffTalentPoolAccount(staffSwitchTalentPoolPo,staffNo);
     }
 
+    @ApiOperation(value = "将员工加入/移出黑名单", notes = "将员工加入/移出黑名单")
+    @RequestMapping(value = "/swtichStaffBlackList", method = RequestMethod.POST)
+    ComResponse<Integer> swtichStaffBlackList(@RequestBody StaffSwitchTalentPoolPo staffSwitchTalentPoolPo,@ApiIgnore @CurrentStaffNo String staffNo){
+        return staffService.swtichStaffBlackList(staffSwitchTalentPoolPo,staffNo);
+    }
+
     @ApiOperation(value = "批量将员工移出人才池", notes = "批量将员工移出人才池")
     @RequestMapping(value = "/swtichBatchStaffTalentPoolAccount", method = RequestMethod.POST)
     ComResponse<Integer> swtichBatchStaffTalentPoolAccount(@RequestBody List<StaffSwitchTalentPoolPo> staffSwitchTalentPoolPos,@ApiIgnore @CurrentStaffNo String staffNo){
@@ -257,7 +263,7 @@ public class StaffController {
     @ApiOperation(value = "员工列表-导出", notes = "员工列表-导出")
     @RequestMapping(value = "/staffListExcelExport", method = RequestMethod.POST)
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "type", value = "导出列表类型:1.员工列表,2.部门员工列表,3.待优化列表,4.带劝退,5.人才储备池列表", required = true, dataType = "String", paramType = "query")
+            @ApiImplicitParam(name = "type", value = "导出列表类型:1.员工列表,2.部门员工列表,3.待优化列表,4.带劝退,5.人才储备池列表,6.员工黑名单", required = true, dataType = "String", paramType = "query")
     })
     public void staffListExcelExport(@RequestBody @Validated StaffParamsVO staffParamsVO, @RequestParam("type") @NotNull @Min(1) Integer type,HttpServletRequest request,HttpServletResponse response) {
         String execName="resume_list";
@@ -269,6 +275,7 @@ public class StaffController {
             //员工列表
             switch (type){
                 case 1:
+                    execName="员工列表";
                     writer.renameSheet("员工列表");     //甚至sheet的名称
                     writer.addHeaderAlias("staffNo", "工号");
                     writer.addHeaderAlias("name", "姓名");
@@ -300,6 +307,7 @@ public class StaffController {
                     listByParams = staffService.getListByParamsExport(staffParamsVO,request);
                     break;
                 case 2://部门员工列表
+                    execName="部门员工列表";
                     writer.renameSheet("部门员工列表");     //甚至sheet的名称
                     writer.addHeaderAlias("staffNo", "工号");
                     writer.addHeaderAlias("name", "姓名");
@@ -324,6 +332,7 @@ public class StaffController {
                     listByParams = staffService.getListByParamsExport(staffParamsVO,request);
                     break;
                 case 3://待优化员工列表
+                    execName="待优化员工列表";
                     writer.renameSheet("待优化员工列表");     //甚至sheet的名称
                     writer.addHeaderAlias("staffNo", "工号");
                     writer.addHeaderAlias("name", "姓名");
@@ -341,6 +350,7 @@ public class StaffController {
                     listByParams = staffService.getListByParamsExport(staffParamsVO,request);
                     break;
                 case 4://待劝退员工列表
+                    execName="待劝退员工列表";
                     writer.renameSheet("待劝退员工列表");     //甚至sheet的名称
                     writer.addHeaderAlias("staffNo", "工号");
                     writer.addHeaderAlias("name", "姓名");
@@ -358,6 +368,7 @@ public class StaffController {
                     listByParams = staffService.getListByParamsExport(staffParamsVO,request);
                     break;
                 case 5://人才储备池
+                    execName="人才储备池员工列表";
                     writer.renameSheet("人才储备池员工列表");     //甚至sheet的名称
                     writer.addHeaderAlias("staffNo", "工号");
                     writer.addHeaderAlias("name", "姓名");
@@ -372,6 +383,25 @@ public class StaffController {
                     writer.addHeaderAlias("accountStatusStr","账号状态");
                     writer.addHeaderAlias("abnorTime","历史异动时间");
                     writer.addHeaderAlias("entryTimes","入司次数");
+                    staffParamsVO.setPageNo(1);
+                    staffParamsVO.setPageSize(50000);
+                    listByParams = staffService.getListByParamsExport(staffParamsVO,request);
+                    break;
+                case 6://黑名单
+                    execName="员工黑名单列表";
+                    writer.renameSheet("员工黑名单列表");     //甚至sheet的名称
+                    writer.addHeaderAlias("staffNo", "工号");
+                    writer.addHeaderAlias("name", "姓名");
+                    writer.addHeaderAlias("phone","手机号");
+                    writer.addHeaderAlias("postStatusCodeStr","在职状态");
+                    writer.addHeaderAlias("email","邮箱");
+                    writer.addHeaderAlias("workplaceCodeStr","工作地点");
+                    writer.addHeaderAlias("pDepartName","上级架构");
+                    writer.addHeaderAlias("departName","部门");
+                    writer.addHeaderAlias("postName","岗位名称");
+                    writer.addHeaderAlias("postLevelName","岗位级别");
+                    writer.addHeaderAlias("natureName","属性");
+                    writer.addHeaderAlias("dimissionTime","离职时间");
                     staffParamsVO.setPageNo(1);
                     staffParamsVO.setPageSize(50000);
                     listByParams = staffService.getListByParamsExport(staffParamsVO,request);

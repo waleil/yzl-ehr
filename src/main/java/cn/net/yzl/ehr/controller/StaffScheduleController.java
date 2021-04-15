@@ -49,10 +49,12 @@ public class StaffScheduleController {
         String userNo = request.getHeader("userNo");
         String referer = request.getHeader("Referer");
         MenuDTO menuDTO = roleMenuService.getIsAdminByUserCodeAndMenuUrl(userNo,referer);
-        Integer isAdmin = menuDTO.getIsAdmin();
-        staffScheduleParamsVO.setStaffNo(userNo);
-        if(0 == isAdmin){
-            staffScheduleParamsVO.setFlag(1);
+        if(null !=menuDTO) {
+            Integer isAdmin = menuDTO.getIsAdmin();
+            staffScheduleParamsVO.setStaffNo(userNo);
+            if (null != isAdmin && 0 == isAdmin) {
+                staffScheduleParamsVO.setFlag(1);
+            }
         }
         return staffScheduleFeginService.getListByParams(staffScheduleParamsVO);
     }
@@ -70,7 +72,16 @@ public class StaffScheduleController {
     @RequestMapping(value = "/importUpdateStaffScheduleInfo", method = RequestMethod.GET)
     ComResponse<ImportResultVo> importUpdateStaffScheduleInfo(@RequestParam("url") String url, @CurrentStaffNo @ApiIgnore String updator) throws ParseException {
         ComResponse<ImportResultVo> importResultVoComResponse = staffScheduleFeginService.importUpdateStaffScheduleInfo(url, updator);
+        if(importResultVoComResponse.getCode()==200){
         client.deleteFile(url);
+        }
+        return importResultVoComResponse;
+    }
+
+    @ApiOperation(value = "排班-员工排班导入模板下载地址", notes = "排班-员工排班导入模板下载地址", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/getStaffScheduleImportExcelModel", method = RequestMethod.GET)
+    ComResponse<String> getStaffScheduleImportExcelModel(){
+        ComResponse<String> importResultVoComResponse = staffScheduleFeginService.getStaffScheduleImportExcelModel();
         return importResultVoComResponse;
     }
 
