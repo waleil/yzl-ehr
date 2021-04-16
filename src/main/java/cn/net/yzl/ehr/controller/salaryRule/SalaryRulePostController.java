@@ -3,6 +3,7 @@ package cn.net.yzl.ehr.controller.salaryRule;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.common.enums.ResponseCodeEnums;
+import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.salaryRule.SalaryRulePostFeignService;
 import cn.net.yzl.staff.dto.salaryFrontLineRule.SalaryFrontLineRuleElement;
 import cn.net.yzl.staff.dto.salaryFrontLineRule.SalaryRulePostListDto;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 
@@ -80,19 +82,22 @@ public class SalaryRulePostController {
 
     @ApiOperation(value = "配置规则", notes = "配置规则")
     @PostMapping("/addPostSalaryRule")
-    public ComResponse<Boolean> addSalaryRulePost(@RequestBody @Validated AddSalaryRulePostVo salaryRulePostVo) {
+    public ComResponse<Boolean> addSalaryRulePost(@RequestBody @Validated AddSalaryRulePostVo salaryRulePostVo, @ApiIgnore @CurrentStaffNo String staffNo) {
+        salaryRulePostVo.setStaffNo(staffNo);
         return salaryRulePostFeignService.addSalaryRulePost(salaryRulePostVo);
     }
 
     @ApiOperation(value = "编辑规则", notes = "编辑规则")
     @PostMapping("/updateSalaryRulePost")
-    public ComResponse<Boolean> updateSalaryRulePost(@RequestBody @Validated AddSalaryRulePostVo salaryRulePostVo) {
+    public ComResponse<Boolean> updateSalaryRulePost(@RequestBody @Validated AddSalaryRulePostVo salaryRulePostVo, @ApiIgnore @CurrentStaffNo String staffNo) {
+        salaryRulePostVo.setStaffNo(staffNo);
         return salaryRulePostFeignService.updateSalaryRulePost(salaryRulePostVo);
     }
 
     @ApiOperation(value = "删除岗位规则", notes = "删除岗位规则")
     @PostMapping("/deletePostSalaryRule")
-    public ComResponse<Boolean> deleteSalaryRulePost(@RequestBody @Validated DeleteSalaryRulePostVo deleteSalaryRulePostVo) {
+    public ComResponse<Boolean> deleteSalaryRulePost(@RequestBody @Validated DeleteSalaryRulePostVo deleteSalaryRulePostVo, @ApiIgnore @CurrentStaffNo String staffNo) {
+        deleteSalaryRulePostVo.setStaffNo(staffNo);
         return salaryRulePostFeignService.deleteSalaryRulePost(deleteSalaryRulePostVo);
     }
 }
