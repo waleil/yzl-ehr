@@ -76,7 +76,7 @@ public class SalaryRulePostController {
     })
     @ApiOperation(value = "薪酬规则详情", notes = "薪酬规则详情")
     @GetMapping("/getSalaryRulePostContent")
-    public ComResponse<SalaryFrontLineRuleElement> getSalaryRulePostContent(@RequestParam("busNo") Long busNo) {
+    public ComResponse getSalaryRulePostContent(@RequestParam("busNo") Long busNo) {
         return salaryRulePostFeignService.getPostSalaryRuleContent(busNo);
     }
 
