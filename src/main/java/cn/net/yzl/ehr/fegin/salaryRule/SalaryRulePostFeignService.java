@@ -2,7 +2,6 @@ package cn.net.yzl.ehr.fegin.salaryRule;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
-import cn.net.yzl.staff.dto.salaryFrontLineRule.SalaryFrontLineRuleElement;
 import cn.net.yzl.staff.dto.salaryFrontLineRule.SalaryRulePostListDto;
 import cn.net.yzl.staff.dto.salaryRule.SalaryRuleDepartPostDto;
 import cn.net.yzl.staff.util.ValidList;
@@ -26,8 +25,8 @@ import java.util.List;
  *
  * @author biebaojie
  */
-//@FeignClient(value = "yzl-staff-db", url = "${fegin.db.url}/salaryRulePost")
-@FeignClient(value = "yzl-staff-db", url = "http://localhost:38080/salaryRulePost")
+@FeignClient(value = "yzl-staff-db", url = "${fegin.db.url}/salaryRulePost")
+//@FeignClient(value = "yzl-staff-db", url = "http://localhost:38080/salaryRulePost")
 public interface SalaryRulePostFeignService {
 
     /**
@@ -52,7 +51,7 @@ public interface SalaryRulePostFeignService {
      * 薪酬规则详情
      */
     @GetMapping("/getSalaryRulePostContent")
-    ComResponse<SalaryFrontLineRuleElement> getPostSalaryRuleContent(@RequestParam("busNo") Long busNo);
+    ComResponse getPostSalaryRuleContent(@RequestParam("busNo") Long busNo);
 
     /**
      * 配置规则
