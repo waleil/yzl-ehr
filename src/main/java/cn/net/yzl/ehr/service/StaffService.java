@@ -38,6 +38,8 @@ public interface StaffService {
 
     ComResponse<Integer> swtichStaffTalentPoolAccount(StaffSwitchTalentPoolPo staffSwitchTalentPoolPo,String staffNo);
 
+    ComResponse<Integer> swtichStaffBlackList(StaffSwitchTalentPoolPo staffSwitchTalentPoolPo,String staffNo);
+
     ComResponse<Integer> swtichBatchStaffTalentPoolAccount(List<StaffSwitchTalentPoolPo> staffSwitchTalentPoolPos,String staffNo);
 
 

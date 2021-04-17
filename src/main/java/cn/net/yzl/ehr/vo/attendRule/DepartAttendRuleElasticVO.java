@@ -1,11 +1,13 @@
 package cn.net.yzl.ehr.vo.attendRule;
 
 import cn.net.yzl.staff.vo.attendRule.DepartAttendRuleBaseVO;
+import cn.net.yzl.staff.vo.attendRule.DepartAttendRuleHolidaysVO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.Pattern;
+import java.util.List;
 
 /**
  * depart_attend_rule
@@ -51,6 +53,9 @@ public class DepartAttendRuleElasticVO extends DepartAttendRuleBaseVO {
     @ApiModelProperty(value="弹性打卡:下班打卡时段结束时间",name="remindTime",required = true)
 //    @Pattern(regexp = "^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$")
     private String elasticDownEndTime;
+
+    @ApiModelProperty(value="法定节假日",name="holidaysConf")
+    private List<DepartAttendRuleHolidaysVO> holidaysConf;
 
 
 

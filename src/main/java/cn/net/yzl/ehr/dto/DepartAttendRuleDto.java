@@ -157,4 +157,7 @@ public class DepartAttendRuleDto implements Serializable {
     @ApiModelProperty(value="加班费的值(单位为分)",name="overtimeValue")
     private Integer overtimeValue;
 
+    @ApiModelProperty(value="法定节假日(字符串长度=月长度【2正常，1上班，0休息 2200022……222】)",name="holidaysStr")
+    private String holidaysStr;
+
 }

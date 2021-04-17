@@ -64,6 +64,9 @@ public interface StaffFeginService {
     @RequestMapping(value = "/staff/swtichStaffTalentPoolAccount", method = RequestMethod.POST)
     ComResponse<Integer> swtichStaffTalentPoolAccount(@RequestBody StaffSwitchTalentPoolPo staffSwitchTalentPoolPo);
 
+    @RequestMapping(value = "/staff/swtichStaffBlackList", method = RequestMethod.POST)
+    ComResponse<Integer> swtichStaffBlackList(@RequestBody StaffSwitchTalentPoolPo staffSwitchTalentPoolPo);
+
     @RequestMapping(value = "/staff/swtichBatchStaffTalentPoolAccount", method = RequestMethod.POST)
     ComResponse<Integer> swtichBatchStaffTalentPoolAccount(@RequestBody List<StaffSwitchTalentPoolPo> staffSwitchStatePos);
 

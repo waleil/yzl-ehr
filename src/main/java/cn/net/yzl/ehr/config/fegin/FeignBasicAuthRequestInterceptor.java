@@ -9,12 +9,13 @@ import feign.RequestTemplate;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
-
+@Component
 public class FeignBasicAuthRequestInterceptor implements RequestInterceptor {
     private static final Logger log = LoggerFactory.getLogger(FeignBasicAuthRequestInterceptor.class);
     @Override
@@ -29,12 +30,14 @@ public class FeignBasicAuthRequestInterceptor implements RequestInterceptor {
             String traceId = request.getHeader("traceId");
             String spanId = request.getHeader("spanId");
             String userId = request.getHeader("userId");
+            String token = request.getHeader("token");
             String cspanId = XBasicUtil.uuid();
             String url = requestTemplate.url();
             String params = requestTemplate.getRequestVariables().toString();
             log.info("{app:yzl-ehr,traceId:{},spanId:{},cspanId:{},userId:{},url:{},params:{}}",traceId,spanId,cspanId,userId,url,params);
             requestTemplate.header("spanId",cspanId);
             if (StringUtils.isNotBlank(userId)) requestTemplate.header("userId", userId);
+            if (StringUtils.isNotBlank(token)) requestTemplate.header("token", token);
         }
 //        Enumeration<String> bodyNames = request.getParameterNames();
 //        StringBuffer body =new StringBuffer();

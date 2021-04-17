@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import java.io.Serializable;
 import java.util.List;
@@ -50,7 +51,13 @@ public class StaffParamsVO implements Serializable {
     @ApiModelProperty(value = "异动状态(20.正常,21.待优化,22.待劝退)", name = "abnoStatusCode")
     private Integer abnoStatusCode;
     @ApiModelProperty(value = "是否加入人才池(0否 1是)", name = "reserveTalent")
+    @Min(0)
+    @Max(1)
     private Integer reserveTalent;
+    @ApiModelProperty("是否加入黑名单 0.不加入 1.加入")
+    @Min(0)
+    @Max(1)
+    private Integer onBlackList;
     @ApiModelProperty(value = "页数", name = "pageNo",required = true)
     @Min(1)
     Integer pageNo;

@@ -45,7 +45,6 @@ public class DepartPostPo implements Serializable {
     private Integer jobNum;
 
     @ApiModelProperty("需要确认入岗：0.不需要,1.需要")
-    @NotNull
     @Min(0)
     private Integer confirmFlag;
 
