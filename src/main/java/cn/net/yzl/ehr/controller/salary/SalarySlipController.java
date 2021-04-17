@@ -1,5 +1,6 @@
 package cn.net.yzl.ehr.controller.salary;
 
+import cn.hutool.core.date.DateUtil;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.common.enums.ResponseCodeEnums;
@@ -9,8 +10,12 @@ import cn.net.yzl.ehr.util.MessageRemandAPI;
 import cn.net.yzl.staff.dto.salary.SalaryGrantStatusDto;
 import cn.net.yzl.staff.dto.salary.SalaryMyDto;
 import cn.net.yzl.staff.dto.salary.SalarySlipListShowDto;
-import cn.net.yzl.staff.enumeration.StaffTypeEnum;
-import cn.net.yzl.staff.vo.salary.*;
+import cn.net.yzl.staff.vo.salary.MySalaryVo;
+import cn.net.yzl.staff.vo.salary.SalaryFinanceExamineVo;
+import cn.net.yzl.staff.vo.salary.SalaryGrantFinalVo;
+import cn.net.yzl.staff.vo.salary.SalaryGrantVo;
+import cn.net.yzl.staff.vo.salary.SalaryImportVo;
+import cn.net.yzl.staff.vo.salary.SalaryVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -24,7 +29,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletResponse;
 import java.net.URLEncoder;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -74,9 +79,11 @@ public class SalarySlipController {
      */
     private ComResponse<byte[]> exportSalary(byte[] bytes, SalaryVo salaryVo, HttpServletResponse response) {
         try {
-            String fileName = "yzl_gz_" + LocalDate.now().toString();
+            Integer staffType = salaryVo.getStaffType();
+            String salaryType = staffType == 1 ? "一线" : "职能";
+            String fileName = "御芝林-" + salaryType + "工资条-" + DateUtil.format(LocalDateTime.now(), "yyyy-MM-dd HH:mm:ss");
             response.setContentType("application/vnd.ms-excel;charset=utf-8");
-            response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(fileName, "UTF-8") + ".xlsx");
+            response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(fileName, "UTF-8") + ".xls");
             response.getOutputStream().write(bytes);
             response.getOutputStream().flush();
             response.getOutputStream().close();
