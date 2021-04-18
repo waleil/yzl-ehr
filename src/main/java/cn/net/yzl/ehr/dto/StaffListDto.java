@@ -62,8 +62,10 @@ public class StaffListDto implements Serializable {
     private Integer postId;
     @ApiModelProperty(value = "岗位名称", name = "postName")
     private String postName;
-    @ApiModelProperty(value = "岗位id", name = "departPostId")
+    @ApiModelProperty(value = "部门岗位id", name = "departPostId")
     private Integer departPostId;
+    @ApiModelProperty(value = "是否显示确认入岗按钮(0.不需要,1.需要)", name = "confirmType")
+    private Integer confirmType;
 
     @ApiModelProperty(value = "岗位级别id", name = "postLevelId")
     private Integer postLevelId;
