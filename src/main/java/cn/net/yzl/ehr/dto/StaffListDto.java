@@ -123,7 +123,7 @@ public class StaffListDto implements Serializable {
     @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private Date payrollAccountingDate;
     @ApiModelProperty(value = "培训次数", name = "trainingTimes")
-    private Integer training_times;
+    private Integer trainingTimes;
     @ApiModelProperty(value = "培训完成度code", name = "trainingCompletion")
     private Integer trainingCompletion;
     @ApiModelProperty(value = "培训完成度", name = "trainingCompletionName")
