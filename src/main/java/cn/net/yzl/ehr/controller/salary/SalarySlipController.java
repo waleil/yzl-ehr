@@ -29,8 +29,8 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletResponse;
 import java.net.URLEncoder;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -81,7 +81,7 @@ public class SalarySlipController {
         try {
             Integer staffType = salaryVo.getStaffType();
             String salaryType = staffType == 1 ? "一线" : "职能";
-            String fileName = "御芝林-" + salaryType + "工资条-" + DateUtil.format(LocalDateTime.now(), "yyyy-MM-dd HH:mm:ss");
+            String fileName = "御芝林-" + salaryType + "工资条-" + DateUtil.format(new Date(), "yyyy-MM-dd_HHmmss");
             response.setContentType("application/vnd.ms-excel;charset=utf-8");
             response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(fileName, "UTF-8") + ".xls");
             response.getOutputStream().write(bytes);
