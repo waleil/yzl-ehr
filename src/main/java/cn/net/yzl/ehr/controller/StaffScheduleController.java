@@ -49,10 +49,12 @@ public class StaffScheduleController {
         String userNo = request.getHeader("userNo");
         String referer = request.getHeader("Referer");
         MenuDTO menuDTO = roleMenuService.getIsAdminByUserCodeAndMenuUrl(userNo,referer);
-        Integer isAdmin = menuDTO.getIsAdmin();
-        staffScheduleParamsVO.setStaffNo(userNo);
-        if(0 == isAdmin){
-            staffScheduleParamsVO.setFlag(1);
+        if(null !=menuDTO) {
+            Integer isAdmin = menuDTO.getIsAdmin();
+            staffScheduleParamsVO.setStaffNo(userNo);
+            if (null != isAdmin && 0 == isAdmin) {
+                staffScheduleParamsVO.setFlag(1);
+            }
         }
         return staffScheduleFeginService.getListByParams(staffScheduleParamsVO);
     }
