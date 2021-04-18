@@ -95,6 +95,9 @@ public class StaffListDto implements Serializable {
 
     @ApiModelProperty(value = "入职次数", name = "entryTimes")
     private Integer entryTimes;
+    @ApiModelProperty(value = "入职时间", name = "entryTime")
+    private String entryTime;
+
     @ApiModelProperty(value = "异动时间", name = "abnorTime")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
