@@ -62,8 +62,10 @@ public class StaffListDto implements Serializable {
     private Integer postId;
     @ApiModelProperty(value = "岗位名称", name = "postName")
     private String postName;
-    @ApiModelProperty(value = "岗位id", name = "departPostId")
+    @ApiModelProperty(value = "部门岗位id", name = "departPostId")
     private Integer departPostId;
+    @ApiModelProperty(value = "是否显示确认入岗按钮(0.不需要,1.需要)", name = "confirmType")
+    private Integer confirmType;
 
     @ApiModelProperty(value = "岗位级别id", name = "postLevelId")
     private Integer postLevelId;
@@ -95,6 +97,8 @@ public class StaffListDto implements Serializable {
 
     @ApiModelProperty(value = "入职次数", name = "entryTimes")
     private Integer entryTimes;
+    @ApiModelProperty(value = "入职时间", name = "entryTime")
+    private String entryTime;
     @ApiModelProperty(value = "异动时间", name = "abnorTime")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
