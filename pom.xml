@@ -28,7 +28,7 @@
         <dependency>
             <groupId>cn.net.yzl</groupId>
             <artifactId>yzl-staff-model</artifactId>
-            <version>1.0.3-RELEASE</version>
+            <version>1.0.4-RELEASE</version>
         </dependency>
         <!--logger-->
         <dependency>
