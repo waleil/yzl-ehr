@@ -2,12 +2,12 @@ spring:
   application:
     name: yzl-ehr
   profiles:
-    active: dev
+    active: pro
   main:
     allow-bean-definition-overriding: true
   cloud:
     nacos:
-      server-addr: http://nacosdev.staff.yuzhilin.net.cn
+      server-addr: http://nacospre.staff.yuzhilin.net.cn
       discovery:
         service: ${spring.application.name}
         enabled: true

@@ -323,7 +323,7 @@ public class StaffController {
                     writer.addHeaderAlias("accountStatusStr","账号状态");
                     writer.addHeaderAlias("enterStatusName","入岗状态");
                     writer.addHeaderAlias("postTime","入岗时间");
-                    writer.addHeaderAlias("trainingCompletion","培训完成度");
+                    writer.addHeaderAlias("trainingCompletionName","培训完成度");
                     writer.addHeaderAlias("trainingGradeName","培训成绩");
                     writer.addHeaderAlias("abnorTime","历史异动异动时间");
                     writer.addHeaderAlias("entryTimes","入司次数");
