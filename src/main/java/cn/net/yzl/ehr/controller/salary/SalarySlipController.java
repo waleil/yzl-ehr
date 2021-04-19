@@ -79,8 +79,8 @@ public class SalarySlipController {
      */
     private ComResponse<byte[]> exportSalary(byte[] bytes, SalaryVo salaryVo, HttpServletResponse response) {
         try {
-            String staffType = salaryVo.getStaffType();
-            String salaryType = "1".equals(staffType) ? "一线" : "职能";
+            Integer staffType = salaryVo.getStaffType();
+            String salaryType = staffType == 1 ? "一线" : "职能";
             String fileName = "御芝林-" + salaryType + "工资条-" + DateUtil.format(new Date(), "yyyy-MM-dd_HHmmss");
             response.setContentType("application/vnd.ms-excel;charset=utf-8");
             response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(fileName, "UTF-8") + ".xlsx");
