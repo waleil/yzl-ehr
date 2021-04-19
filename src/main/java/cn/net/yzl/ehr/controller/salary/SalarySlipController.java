@@ -79,7 +79,7 @@ public class SalarySlipController {
             String salaryType = staffType == 1 ? "一线" : "职能";
             String fileName = "御芝林-" + salaryType + "工资条-" + DateUtil.format(new Date(), "yyyy-MM-dd_HHmmss");
             response.setContentType("application/vnd.ms-excel;charset=utf-8");
-            response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(fileName, "UTF-8") + ".xls");
+            response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(fileName, "UTF-8") + ".xlsx");
             response.getOutputStream().write(bytes);
             response.getOutputStream().flush();
             response.getOutputStream().close();
