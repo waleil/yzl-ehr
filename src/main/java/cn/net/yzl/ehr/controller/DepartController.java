@@ -95,7 +95,7 @@ public class DepartController {
             @ApiImplicitParam(name = "departId", value = "部门id", required = true, dataType = "Int", paramType = "query")
     })
     @RequestMapping(value = "/getById", method = RequestMethod.GET)
-    ComResponse<DepartDto> getById(@Min(1) @NotNull Integer departId) {
+    ComResponse<DepartDto> getById(@Min(0) @NotNull Integer departId) {
         return departService.getById(departId);
     }
 
