@@ -21,7 +21,7 @@ import java.util.List;
 
 public interface StaffService {
 
-
+    ComResponse<StaffBaseDto> getStaffNoByIdCard(String idCardNo);
 
     // 获取用户详情
     ComResponse<StaffDetailsDto> getDetailsByNo(String staffNo);
