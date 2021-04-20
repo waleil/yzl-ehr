@@ -79,6 +79,10 @@ public class DepartPostController {
     ComResponse<String> delete(@RequestParam("id") @NotNull @Min(0) Integer id, @CurrentStaffNo @ApiIgnore String staffNo) {
         return departPostService.delete(id,staffNo);
     }
-
+    @ApiOperation(value = "获取登录人部门下岗位列表", notes = "获取登录人部门下岗位列表", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/getListByLoginDepartId", method = RequestMethod.GET)
+    public ComResponse<List<DepartPostDto>> getListByLoginDepartId(@CurrentStaffNo @ApiIgnore String staffNo) {
+        return departPostService.getListByLoginDepartId(staffNo);
+    }
 
 }
