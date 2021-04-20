@@ -1,5 +1,6 @@
 package cn.net.yzl.ehr.controller.salary;
 
+import cn.hutool.core.date.DateUtil;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.common.enums.ResponseCodeEnums;
@@ -24,8 +25,8 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletResponse;
 import java.net.URLEncoder;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -74,9 +75,11 @@ public class SalarySlipController {
      */
     private ComResponse<byte[]> exportSalary(byte[] bytes, SalaryVo salaryVo, HttpServletResponse response) {
         try {
-            String fileName = "yzl_gz_" + LocalDate.now().toString();
+            Integer staffType = salaryVo.getStaffType();
+            String salaryType = staffType == 1 ? "一线" : "职能";
+            String fileName = "御芝林-" + salaryType + "工资条-" + DateUtil.format(new Date(), "yyyy-MM-dd_HHmmss");
             response.setContentType("application/vnd.ms-excel;charset=utf-8");
-            response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(fileName, "UTF-8") + ".xlsx");
+            response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(fileName, "UTF-8") + ".xls");
             response.getOutputStream().write(bytes);
             response.getOutputStream().flush();
             response.getOutputStream().close();
