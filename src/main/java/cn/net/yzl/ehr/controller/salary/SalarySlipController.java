@@ -58,7 +58,6 @@ public class SalarySlipController {
     @ApiOperation(value = "工资发放列表(人资)-工资导入", notes = "工资发放列表(人资)-工资导入")
     @PostMapping("/importSalary")
     public ComResponse importSalary(@RequestBody SalaryImportVo salaryImportVo, @ApiIgnore @CurrentStaffNo String staffNo, HttpServletResponse response) {
-        // TODO 返回 ComResponse<byte[]>
         salaryImportVo.setStaffNo(staffNo);
         ComResponse<byte[]> exportResponse = salarySlipFeignService.importSalary(salaryImportVo);
         if (null == exportResponse || !SUCCESS_CODE.equals(exportResponse.getCode())) {
