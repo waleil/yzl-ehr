@@ -30,7 +30,7 @@ public interface SalarySlipFeignService {
      * @return 导入结果
      */
     @PostMapping("/importSalary")
-    ComResponse importSalary(@RequestBody SalaryImportVo salaryImportVo);
+    ComResponse<byte[]> importSalary(@RequestBody SalaryImportVo salaryImportVo);
 
     /**
      * 查询工资条列表
@@ -48,7 +48,7 @@ public interface SalarySlipFeignService {
      * @return 工资报表
      */
     @PostMapping("/exportSalary")
-    ComResponse exportSalary(@RequestBody SalaryVo salaryVo);
+    ComResponse<byte[]> exportSalary(@RequestBody SalaryVo salaryVo);
 
 
     /**
