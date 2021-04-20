@@ -17,7 +17,6 @@ public interface DepartPostService {
     ComResponse<String> addPost( DepartPostPo departPostPo,String staffNo) ;
 
     public ComResponse<List<DepartPostDto>> getListByDepartId(Integer departId);
-
     public ComResponse<DepartPostDto> getPostByPostId( Integer departId, Integer postId);
 
     public ComResponse<DepartPostDto> getPostById( Integer id);
@@ -27,4 +26,6 @@ public interface DepartPostService {
     ComResponse<String> delete( Integer id, String staffNo) ;
 
     public ComResponse<List<DepartPostDto>> getListWithoutResumeByDepartId(Integer departId) ;
+
+    public ComResponse<List<DepartPostDto>> getListByLoginDepartId(String departId);
 }

@@ -42,5 +42,7 @@ public interface DepartPostFeginMapper {
     @RequestMapping(value = "/departPost/deletePost", method = RequestMethod.GET)
     ComResponse<Integer> delete(@RequestParam("id")  Integer id,@RequestParam("staffNo") String staffNo) ;
 
+    @RequestMapping(value = "/departPost/getListByLoginDepartId", method = RequestMethod.GET)
+    ComResponse<List<DepartPostDto>> getListByLoginDepartId(@RequestParam("staffNo") String staffNo);
 
 }
