@@ -10,12 +10,7 @@ import cn.net.yzl.ehr.util.MessageRemandAPI;
 import cn.net.yzl.staff.dto.salary.SalaryGrantStatusDto;
 import cn.net.yzl.staff.dto.salary.SalaryMyDto;
 import cn.net.yzl.staff.dto.salary.SalarySlipListShowDto;
-import cn.net.yzl.staff.vo.salary.MySalaryVo;
-import cn.net.yzl.staff.vo.salary.SalaryFinanceExamineVo;
-import cn.net.yzl.staff.vo.salary.SalaryGrantFinalVo;
-import cn.net.yzl.staff.vo.salary.SalaryGrantVo;
-import cn.net.yzl.staff.vo.salary.SalaryImportVo;
-import cn.net.yzl.staff.vo.salary.SalaryVo;
+import cn.net.yzl.staff.vo.salary.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -29,6 +24,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletResponse;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
@@ -57,32 +53,17 @@ public class SalarySlipController {
 
     @ApiOperation(value = "工资发放列表(人资)-工资导入", notes = "工资发放列表(人资)-工资导入")
     @PostMapping("/importSalary")
-    public ComResponse importSalary(@RequestBody SalaryImportVo salaryImportVo, @ApiIgnore @CurrentStaffNo String staffNo, HttpServletResponse response) {
+    public ComResponse importSalary(@RequestBody SalaryImportVo salaryImportVo,
+                                    @ApiIgnore @CurrentStaffNo String staffNo) {
         salaryImportVo.setStaffNo(staffNo);
-        ComResponse<byte[]> exportResponse = salarySlipFeignService.importSalary(salaryImportVo);
-        if (null == exportResponse || !SUCCESS_CODE.equals(exportResponse.getCode())) {
-            return exportResponse;
-        }
-        try {
-            Integer staffType = salaryImportVo.getStaffType();
-            String salaryType = staffType == 1 ? "一线" : "职能";
-            String fileName = "御芝林-" + salaryType + "工资条-" + DateUtil.format(new Date(), "yyyy-MM-dd_HHmmss");
-            response.setContentType("application/vnd.ms-excel;charset=utf-8");
-            response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(fileName, "UTF-8") + ".xlsx");
-            response.getOutputStream().write(exportResponse.getData());
-            response.getOutputStream().flush();
-            response.getOutputStream().close();
-        } catch (Exception e) {
-            LOGGER.error("工资条导出报表失败", e);
-        }
-        return ComResponse.fail(ResponseCodeEnums.BIZ_ERROR_CODE.getCode(), "工资条导出报表失败");
+        return salarySlipFeignService.importSalary(salaryImportVo);
     }
 
     @ApiOperation(value = "工资发放列表(人资/财务)-工资导出", notes = "工资发放列表(人资/财务)-工资导出")
     @PostMapping("/exportSalary")
     public ComResponse exportSalary(@RequestBody SalaryVo salaryVo, HttpServletResponse response) {
         ComResponse<byte[]> exportResponse = salarySlipFeignService.exportSalary(salaryVo);
-        if (null == exportResponse || !SUCCESS_CODE.equals(exportResponse.getCode())) {
+        if (null == exportResponse || !SUCCESS_CODE.equals(exportResponse.getCode()) || null == exportResponse.getData()) {
             return exportResponse;
         }
         try {
@@ -90,7 +71,8 @@ public class SalarySlipController {
             String salaryType = staffType == 1 ? "一线" : "职能";
             String fileName = "御芝林-" + salaryType + "工资条-" + DateUtil.format(new Date(), "yyyy-MM-dd_HHmmss");
             response.setContentType("application/vnd.ms-excel;charset=utf-8");
-            response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(fileName, "UTF-8") + ".xlsx");
+            response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(fileName,
+                    StandardCharsets.UTF_8.name()) + ".xlsx");
             response.getOutputStream().write(exportResponse.getData());
             response.getOutputStream().flush();
             response.getOutputStream().close();
@@ -128,9 +110,7 @@ public class SalarySlipController {
             if (salaryGrantStatusDtos != null) {
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy年MM月");
                 salaryGrantStatusDtos.forEach(item -> {
-                    MessageRemandAPI.paySalary(staffNo,
-                            item.getStaffNo(),
-                            item.getStaffName(),
+                    MessageRemandAPI.paySalary(staffNo, item.getStaffNo(), item.getStaffName(),
                             item.getDuration().format(dtf));
                 });
             }
@@ -140,7 +120,8 @@ public class SalarySlipController {
 
     @ApiOperation(value = "个人中心-我的工资", notes = "个人中心-我的工资")
     @PostMapping("/mySalary")
-    public ComResponse<SalaryMyDto> mySalary(@RequestBody MySalaryVo mySalaryVo, @ApiIgnore @CurrentStaffNo String staffNo) {
+    public ComResponse<SalaryMyDto> mySalary(@RequestBody MySalaryVo mySalaryVo,
+                                             @ApiIgnore @CurrentStaffNo String staffNo) {
         mySalaryVo.setStaffNo(staffNo);
         return salarySlipFeignService.mySalary(mySalaryVo);
     }
