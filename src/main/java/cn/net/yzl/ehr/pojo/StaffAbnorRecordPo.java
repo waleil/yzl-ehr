@@ -45,7 +45,7 @@ public class StaffAbnorRecordPo {
     private String desc;
 
     @ApiModelProperty("调整前部门")
-    @Min(1)
+    @Min(0)
     private Integer adjustDepartFront;
 
     @ApiModelProperty("调整前部门名")
@@ -58,14 +58,14 @@ public class StaffAbnorRecordPo {
     private String adjustDepartNameLater;
 
     @ApiModelProperty("调整前上级部门")
-    @Min(1)
+    @Min(0)
     private Integer adjustParentDepartFront;
 
     @ApiModelProperty("调整前上级部门名")
     private String adjustParentDepartNameFront;
 
     @ApiModelProperty("调整后上级部门")
-    @Min(1)
+    @Min(0)
     private Integer adjustParentDepartLater;
 
     @ApiModelProperty("调整后上级部门名")
