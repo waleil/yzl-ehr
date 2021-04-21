@@ -1,7 +1,9 @@
 package cn.net.yzl.ehr.controller.salary;
 
+import cn.hutool.core.date.DateUtil;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
+import cn.net.yzl.common.enums.ResponseCodeEnums;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.salary.SalarySlipFeignService;
 import cn.net.yzl.ehr.util.MessageRemandAPI;
@@ -25,7 +27,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.servlet.http.HttpServletResponse;
+import java.net.URLEncoder;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -40,6 +45,9 @@ import java.util.List;
 public class SalarySlipController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SalarySlipController.class);
+
+    private static final Integer SUCCESS_CODE = 200;
+
     /**
      * 服务对象
      */
@@ -49,16 +57,49 @@ public class SalarySlipController {
 
     @ApiOperation(value = "工资发放列表(人资)-工资导入", notes = "工资发放列表(人资)-工资导入")
     @PostMapping("/importSalary")
-    public ComResponse importSalary(@RequestBody SalaryImportVo salaryImportVo, @ApiIgnore @CurrentStaffNo String staffNo) {
+    public ComResponse importSalary(@RequestBody SalaryImportVo salaryImportVo, @ApiIgnore @CurrentStaffNo String staffNo, HttpServletResponse response) {
         salaryImportVo.setStaffNo(staffNo);
-        return salarySlipFeignService.importSalary(salaryImportVo);
+        ComResponse<byte[]> exportResponse = salarySlipFeignService.importSalary(salaryImportVo);
+        if (null == exportResponse || !SUCCESS_CODE.equals(exportResponse.getCode())) {
+            return exportResponse;
+        }
+        try {
+            Integer staffType = salaryImportVo.getStaffType();
+            String salaryType = staffType == 1 ? "一线" : "职能";
+            String fileName = "御芝林-" + salaryType + "工资条-" + DateUtil.format(new Date(), "yyyy-MM-dd_HHmmss");
+            response.setContentType("application/vnd.ms-excel;charset=utf-8");
+            response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(fileName, "UTF-8") + ".xlsx");
+            response.getOutputStream().write(exportResponse.getData());
+            response.getOutputStream().flush();
+            response.getOutputStream().close();
+        } catch (Exception e) {
+            LOGGER.error("工资条导出报表失败", e);
+        }
+        return ComResponse.fail(ResponseCodeEnums.BIZ_ERROR_CODE.getCode(), "工资条导出报表失败");
     }
 
     @ApiOperation(value = "工资发放列表(人资/财务)-工资导出", notes = "工资发放列表(人资/财务)-工资导出")
     @PostMapping("/exportSalary")
-    public ComResponse exportSalary(@RequestBody SalaryVo salaryVo) {
-        return salarySlipFeignService.exportSalary(salaryVo);
+    public ComResponse exportSalary(@RequestBody SalaryVo salaryVo, HttpServletResponse response) {
+        ComResponse<byte[]> exportResponse = salarySlipFeignService.exportSalary(salaryVo);
+        if (null == exportResponse || !SUCCESS_CODE.equals(exportResponse.getCode())) {
+            return exportResponse;
+        }
+        try {
+            Integer staffType = salaryVo.getStaffType();
+            String salaryType = staffType == 1 ? "一线" : "职能";
+            String fileName = "御芝林-" + salaryType + "工资条-" + DateUtil.format(new Date(), "yyyy-MM-dd_HHmmss");
+            response.setContentType("application/vnd.ms-excel;charset=utf-8");
+            response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(fileName, "UTF-8") + ".xlsx");
+            response.getOutputStream().write(exportResponse.getData());
+            response.getOutputStream().flush();
+            response.getOutputStream().close();
+        } catch (Exception e) {
+            LOGGER.error("工资条导出报表失败", e);
+        }
+        return ComResponse.fail(ResponseCodeEnums.BIZ_ERROR_CODE.getCode(), "工资条导出报表失败");
     }
+
 
     @ApiOperation(value = "工资发放列表(人资/财务)", notes = "工资发放列表(人资/财务)")
     @PostMapping("/list")
