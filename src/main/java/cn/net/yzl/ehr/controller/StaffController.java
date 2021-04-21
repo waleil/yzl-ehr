@@ -160,8 +160,19 @@ public class StaffController {
         Map<String, Object> map = new HashMap<>();
         map.put("idCardNo",idCardNo);
         return staffFeginService.getOneByMap(map);
-
     }
+
+    @ApiOperation(value = "根据身份证id获取用户基本信息-二次入职回显专用", notes = "根据身份证id获取用户基本信息-二次入职回显专用")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "idCardNo", value = "身份证号", required = true, dataType = "String", paramType = "query")
+    })
+    @RequestMapping(value = "/getStaffNoByIdCard", method = RequestMethod.GET)
+    public ComResponse<StaffBaseDto> getStaffNoByIdCard( String idCardNo) {
+        return staffService.getStaffNoByIdCard(idCardNo);
+    }
+
+
+
     @ApiOperation(value = "模糊查询员工列表", notes = "模糊查询员工列表")
     @RequestMapping(value = "/getListByParams", method = RequestMethod.POST)
     ComResponse<Page<StaffListDto>> getListByParams(@RequestBody @Validated StaffParamsVO staffParamsVO,  HttpServletRequest request) {

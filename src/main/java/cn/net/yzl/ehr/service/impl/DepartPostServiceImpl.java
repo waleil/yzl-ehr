@@ -113,4 +113,9 @@ public class DepartPostServiceImpl implements DepartPostService {
         }
         return ComResponse.success();
     }
+
+    @Override
+    public ComResponse<List<DepartPostDto>> getListByLoginDepartId(String staffNo) {
+        return departPostMapper.getListByLoginDepartId(staffNo);
+    }
 }

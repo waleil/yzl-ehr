@@ -46,11 +46,15 @@ public class ProcessActiveController {
     private FastDFSClientWrapper client;
 
     @GetMapping("v1/findProcessInfoList")
-    @ApiOperation(value = "获取当前当前员工信息")
+    @ApiOperation(value = "获取当前员工信息")
     public ComResponse<StaffDetailsDto> findProcessInfoList(@CurrentStaffNo @NotNull String staffNo) {
         return findProcessNodeService.findProcessInfoList(staffNo);
     }
-
+    @GetMapping("v1/getTransferStaffInfo")
+    @ApiOperation(value = "判断是否部门负责人并获取当前员工信息")
+    public ComResponse<StaffDetailsDto> getTransferStaffInfo(@CurrentStaffNo @NotNull String staffNo) {
+        return findProcessNodeService.getTransferStaffInfo(staffNo);
+    }
     @PostMapping("v1/saveProcessLeaveInfo")
     @ApiOperation(value = "保存请假信息")
     public ComResponse<ProcessApproveNode> saveProcessLeaveInfo(@RequestBody @Valid StaffLeaveDTO staffLeaveDTO, @CurrentStaffNo @NotNull String staffNo) {

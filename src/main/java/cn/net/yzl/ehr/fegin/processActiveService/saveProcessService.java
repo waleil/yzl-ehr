@@ -3,6 +3,7 @@ package cn.net.yzl.ehr.fegin.processActiveService;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.staff.dto.ProcessProfession.ProcessStaffDimissionDTO;
 import cn.net.yzl.staff.dto.ProcessProfession.ProcessStaffPositiveDTO;
+import cn.net.yzl.staff.dto.ProcessProfession.ProcessStaffTransferDTO;
 import cn.net.yzl.staff.dto.personApprove.*;
 import cn.net.yzl.staff.dto.processNode.ProcessApproveNode;
 import cn.net.yzl.staff.dto.processNode.ProcessNodeDTO;
@@ -41,4 +42,7 @@ public interface saveProcessService {
     @ApiOperation(value = "保存取消请假申请",notes = "取消请假申请添加",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "v1/saveCancelLeaveApplay", method = RequestMethod.POST)
     ComResponse<ProcessApproveNode> saveCancelLeaveApplay(@RequestBody ApproveCancelLeaveDTO approveCancelLeaveDTO);
+    @ApiOperation(value = "保存调动申请",notes = "保存调动申请",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "v1/saveTransferApplay", method = RequestMethod.POST)
+    ComResponse<ProcessApproveNode> saveTransferApplay(ProcessStaffTransferDTO processStaffTransferDTO);
 }
