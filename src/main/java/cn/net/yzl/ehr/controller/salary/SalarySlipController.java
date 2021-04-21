@@ -10,12 +10,7 @@ import cn.net.yzl.ehr.util.MessageRemandAPI;
 import cn.net.yzl.staff.dto.salary.SalaryGrantStatusDto;
 import cn.net.yzl.staff.dto.salary.SalaryMyDto;
 import cn.net.yzl.staff.dto.salary.SalarySlipListShowDto;
-import cn.net.yzl.staff.vo.salary.MySalaryVo;
-import cn.net.yzl.staff.vo.salary.SalaryFinanceExamineVo;
-import cn.net.yzl.staff.vo.salary.SalaryGrantFinalVo;
-import cn.net.yzl.staff.vo.salary.SalaryGrantVo;
-import cn.net.yzl.staff.vo.salary.SalaryImportVo;
-import cn.net.yzl.staff.vo.salary.SalaryVo;
+import cn.net.yzl.staff.vo.salary.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -59,24 +54,9 @@ public class SalarySlipController {
     @ApiOperation(value = "工资发放列表(人资)-工资导入", notes = "工资发放列表(人资)-工资导入")
     @PostMapping("/importSalary")
     public ComResponse importSalary(@RequestBody SalaryImportVo salaryImportVo,
-                                    @ApiIgnore @CurrentStaffNo String staffNo, HttpServletResponse response) {
+                                    @ApiIgnore @CurrentStaffNo String staffNo) {
         salaryImportVo.setStaffNo(staffNo);
-        ComResponse<byte[]> exportResponse = salarySlipFeignService.importSalary(salaryImportVo);
-        if (null == exportResponse || !SUCCESS_CODE.equals(exportResponse.getCode()) || null == exportResponse.getData()) {
-            return exportResponse;
-        }
-        try {
-            String fileName = "工资条导入失败" + DateUtil.format(new Date(), "yyyy-MM-dd_HHmmss");
-            response.setContentType("application/vnd.ms-excel;charset=utf-8");
-            response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(fileName,
-                    StandardCharsets.UTF_8.name()) + ".xlsx");
-            response.getOutputStream().write(exportResponse.getData());
-            response.getOutputStream().flush();
-            response.getOutputStream().close();
-        } catch (Exception e) {
-            LOGGER.error("工资条导出报表失败", e);
-        }
-        return ComResponse.fail(ResponseCodeEnums.BIZ_ERROR_CODE.getCode(), "工资条导出报表失败");
+        return salarySlipFeignService.importSalary(salaryImportVo);
     }
 
     @ApiOperation(value = "工资发放列表(人资/财务)-工资导出", notes = "工资发放列表(人资/财务)-工资导出")
