@@ -111,7 +111,7 @@ public class SalarySlipController {
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy年MM月");
                 salaryGrantStatusDtos.forEach(item -> {
                     MessageRemandAPI.paySalary(staffNo, item.getStaffNo(), item.getStaffName(),
-                            item.getDuration().format(dtf));
+                            DateUtil.format(item.getDuration(), dtf));
                 });
             }
         }
