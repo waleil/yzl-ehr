@@ -25,7 +25,6 @@ import springfox.documentation.annotations.ApiIgnore;
 import javax.servlet.http.HttpServletResponse;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -108,10 +107,9 @@ public class SalarySlipController {
         if (comResponse.getCode() == 200) {
             List<SalaryGrantStatusDto> salaryGrantStatusDtos = comResponse.getData();
             if (salaryGrantStatusDtos != null) {
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy年MM月");
                 salaryGrantStatusDtos.forEach(item -> {
                     MessageRemandAPI.paySalary(staffNo, item.getStaffNo(), item.getStaffName(),
-                            DateUtil.format(item.getDuration(), dtf));
+                            DateUtil.format(item.getDuration(), "yyyy年MM月"));
                 });
             }
         }
