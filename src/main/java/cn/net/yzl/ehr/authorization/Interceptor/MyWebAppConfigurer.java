@@ -79,7 +79,7 @@ public class MyWebAppConfigurer  implements WebMvcConfigurer {
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/performance/**")
                 .excludePathPatterns("/performance/sendPerformanceRemind")
                 .excludePathPatterns("/performance/updateSystemDate");
-        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/salary/**");
+//        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/salary/**");
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/salarySlip/**");
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/salaryFrontLineRule/**");
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/salaryNotFrontLineRule/**");
@@ -100,6 +100,8 @@ public class MyWebAppConfigurer  implements WebMvcConfigurer {
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/staffLoan/**");
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/staffContractApproval/**");
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/processReimbursement/**");
+        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/salaryFrontLineRuleNew/**");
+        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/salaryRulePost/**");
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/encrypt/**");
 
     }
