@@ -24,5 +24,14 @@ public class StaffBaseDto implements Serializable {
     @ApiModelProperty(value="密码",name="password",hidden = true)
     private String password;
 
-
+    @ApiModelProperty(value="部门岗位编号",name="departPostId")
+    private Integer departPostId;
+    @ApiModelProperty(value="部门编号",name="departId")
+    private Integer departId;
+    @ApiModelProperty(value="岗位编号",name="postId")
+    private Integer postId;
+    @ApiModelProperty(value="部门名称",name="departName")
+    private String departName;
+    @ApiModelProperty(value="岗位名称",name="postName")
+    private String postName;
 }
