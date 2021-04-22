@@ -44,5 +44,5 @@ public interface saveProcessService {
     ComResponse<ProcessApproveNode> saveCancelLeaveApplay(@RequestBody ApproveCancelLeaveDTO approveCancelLeaveDTO);
     @ApiOperation(value = "保存调动申请",notes = "保存调动申请",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "v1/saveTransferApplay", method = RequestMethod.POST)
-    ComResponse<ProcessApproveNode> saveTransferApplay(ProcessStaffTransferDTO processStaffTransferDTO);
+    ComResponse<ProcessApproveNode> saveTransferApplay(@RequestBody ProcessStaffTransferDTO processStaffTransferDTO);
 }

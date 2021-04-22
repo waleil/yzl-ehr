@@ -39,5 +39,5 @@ public interface FindProcessNodeService {
                                                            @RequestParam("staffNo") String staffNo);
     @GetMapping("v1/getTransferStaffInfo")
     @ApiOperation(value = "判断是否部门负责人并获取当前员工信息")
-    ComResponse<StaffDetailsDto> getTransferStaffInfo(String staffNo);
+    ComResponse<StaffDetailsDto> getTransferStaffInfo(@RequestParam("staffNo") String staffNo);
 }
