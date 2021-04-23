@@ -41,7 +41,7 @@ public interface TrainingCourseClient {
     ComResponse<TrainInfoAllDto> selectTrainInfo(@RequestParam("id") Integer id);
 
     @GetMapping("/selectCourseInfoForStaff")
-    public ComResponse<List<StaffTrainingInfoDto>> selectCourseInfoForStaff(String staffNo);
+    public ComResponse<List<StaffTrainingInfoDto>> selectCourseInfoForStaff(@RequestParam("staffNo") String staffNo);
 
     @PostMapping("/editTrainInfo")
     ComResponse editTrainInfo(@RequestBody TrainInfoAllVO trainInfoAllVO);
