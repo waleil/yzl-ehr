@@ -24,6 +24,9 @@ public class DepartSalarySettlePo implements Serializable {
 
     @ApiModelProperty(value = "工资结算日结束",name = "settleEnd")
     private Integer settleEnd;
+
+    @ApiModelProperty(value = "急辞薪资核算截止日",name = "emergencySettleDate")
+    private Integer emergencySettleDate;
 //
 //
 //    private Integer isDel;
