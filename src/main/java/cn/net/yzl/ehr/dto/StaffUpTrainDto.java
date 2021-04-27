@@ -1,5 +1,6 @@
 package cn.net.yzl.ehr.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -22,9 +23,11 @@ public class StaffUpTrainDto implements Serializable {
     private String staffNo;
 
     @ApiModelProperty(value = "开始时间",name = "startTime")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date startTime;
 
     @ApiModelProperty(value = "结束时间",name = "endTime")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date endTime;
 
     @ApiModelProperty(value = "培训名称",name = "content")
