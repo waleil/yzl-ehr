@@ -2,13 +2,10 @@ spring:
   cloud:
     nacos:
       server-addr: 10.128.8.16:8848
-
       discovery:
         username: server_gateway
         password: v*1^hzAGbeob
         namespace: 94d8c7c7-3317-443a-87a0-e4a69789c377
-#        register-enabled: false
-
       config:
         namespace: e70c5f1c-d80c-4afe-956f-c69e3ac38612
         username: ehr

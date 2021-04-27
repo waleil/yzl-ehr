@@ -38,6 +38,9 @@ public interface StaffFeginService {
     @RequestMapping(value = "/staff/getOneByMap", method = RequestMethod.POST, consumes = "application/json")
     ComResponse<StaffBaseDto> getOneByMap(@RequestBody Map<String, Object> map);
 
+    @RequestMapping(value = "/staff/getStaffNoByIdCard", method = RequestMethod.GET, consumes = "application/json")
+    ComResponse<StaffBaseDto> getStaffNoByIdCard(@RequestParam("idCardNo") String idCardNo);
+
     @ApiOperation(value = "根据staffno查询用户详情", notes = "根据UserNo查询用户详情")
     @RequestMapping(value = "/staff/getDetailsByNo", method = RequestMethod.GET)
     ComResponse<StaffDetailsDto> getDetailsByNo(@RequestParam("staffNo") String staffNo);

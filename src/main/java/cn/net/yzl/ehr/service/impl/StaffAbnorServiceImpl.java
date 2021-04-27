@@ -134,8 +134,7 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
                 staffTrainInfoDto.setAbnorTime(datum.getAbnorTime());
                 staffTrainInfoDto.setContent(datum.getContent());
                 staffTrainInfoDto.setAdjustFront(datum.getAdjustDepartNameFront());
-                staffTrainInfoDto.setAdjustFront(datum.getAdjustDepartNameFront());
-                staffTrainInfoDto.setAdjustLater(datum.getAdjustPostNameLater());
+                staffTrainInfoDto.setAdjustLater("-");
                 list.add(staffTrainInfoDto);
             }if (datum.getType()==24 || datum.getType()==69){ //入职||入岗
                 StaffTrainInfoDto staffTrainInfoDto = new StaffTrainInfoDto();
@@ -254,7 +253,7 @@ public class StaffAbnorServiceImpl implements StaffAbnorService {
                     staffTrainInfoDto.setAbnorTime(datum.getAbnorTime());
                     staffTrainInfoDto.setContent(datum.getContent());
                     staffTrainInfoDto.setAdjustFront(datum.getAdjustDepartNameFront());
-                    staffTrainInfoDto.setAdjustLater(datum.getAdjustPostNameLater());
+                    staffTrainInfoDto.setAdjustLater("");
                     list.add(staffTrainInfoDto);
                 }if (datum.getType()==24 || datum.getType()==69){
                     StaffTrainInfoDto staffTrainInfoDto = new StaffTrainInfoDto();
