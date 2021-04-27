@@ -2,7 +2,7 @@ spring:
   application:
     name: yzl-ehr
   profiles:
-    active: test
+    active: pre
   main:
     allow-bean-definition-overriding: true
   cloud:
