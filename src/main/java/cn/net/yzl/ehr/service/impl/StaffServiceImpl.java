@@ -40,6 +40,11 @@ public class StaffServiceImpl implements StaffService {
     private DepartFeginService departFeginService;
 
     @Override
+    public ComResponse<StaffBaseDto> getStaffNoByIdCard(String idCardNo) {
+        return staffFeginService.getStaffNoByIdCard(idCardNo);
+    }
+
+    @Override
     public ComResponse<StaffDetailsDto> getDetailsByNo(String staffNo) {
         return staffFeginService.getDetailsByNo(staffNo);
     }

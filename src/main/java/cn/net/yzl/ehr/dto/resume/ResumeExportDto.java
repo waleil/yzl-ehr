@@ -89,7 +89,7 @@ public class ResumeExportDto {
     public void setResumeDbDto(ResumeDbDto resumeDbDto) {
         if (resumeDbDto!=null){
             reasonCodeName=resumeDbDto.getReasonCodeName();
-            rdCreateTime=resumeDbDto.getCreateTime();
+            rdCreateTime=resumeDbDto.getCreateTimeDb();
         }
         this.resumeDbDto = resumeDbDto;
     }

@@ -2,10 +2,7 @@ package cn.net.yzl.ehr.fegin.salary;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
-import cn.net.yzl.staff.dto.salary.SalaryGrantStatusDto;
-import cn.net.yzl.staff.dto.salary.SalaryMyDto;
-import cn.net.yzl.staff.dto.salary.SalarySlipListDto;
-import cn.net.yzl.staff.dto.salary.SalarySlipListShowDto;
+import cn.net.yzl.staff.dto.salary.*;
 import cn.net.yzl.staff.vo.salary.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,8 +16,8 @@ import java.util.List;
  * @author biebaojie
  * @since 2021-03-11 10:02:46
  */
-@FeignClient(value = "SalaryService",url = "${fegin.db.url}/salarySlip")
-//@FeignClient(value = "SalaryService", url = "localhost:38080/salarySlip")
+@FeignClient(value = "yzl-staff-db",url = "${fegin.db.url}/salarySlip")
+//@FeignClient(value = "yzl-staff-db", url = "localhost:38080/salarySlip")
 public interface SalarySlipFeignService {
 
     /**
@@ -30,7 +27,7 @@ public interface SalarySlipFeignService {
      * @return 导入结果
      */
     @PostMapping("/importSalary")
-    ComResponse<Boolean> importSalary(@RequestBody SalaryImportVo salaryImportVo);
+    ComResponse<SalaryImportCountDTO> importSalary(@RequestBody SalaryImportVo salaryImportVo);
 
     /**
      * 查询工资条列表

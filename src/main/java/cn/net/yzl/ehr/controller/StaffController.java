@@ -160,8 +160,19 @@ public class StaffController {
         Map<String, Object> map = new HashMap<>();
         map.put("idCardNo",idCardNo);
         return staffFeginService.getOneByMap(map);
-
     }
+
+    @ApiOperation(value = "根据身份证id获取用户基本信息-二次入职回显专用", notes = "根据身份证id获取用户基本信息-二次入职回显专用")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "idCardNo", value = "身份证号", required = true, dataType = "String", paramType = "query")
+    })
+    @RequestMapping(value = "/getStaffNoByIdCard", method = RequestMethod.GET)
+    public ComResponse<StaffBaseDto> getStaffNoByIdCard( String idCardNo) {
+        return staffService.getStaffNoByIdCard(idCardNo);
+    }
+
+
+
     @ApiOperation(value = "模糊查询员工列表", notes = "模糊查询员工列表")
     @RequestMapping(value = "/getListByParams", method = RequestMethod.POST)
     ComResponse<Page<StaffListDto>> getListByParams(@RequestBody @Validated StaffParamsVO staffParamsVO,  HttpServletRequest request) {
@@ -323,7 +334,7 @@ public class StaffController {
                     writer.addHeaderAlias("accountStatusStr","账号状态");
                     writer.addHeaderAlias("enterStatusName","入岗状态");
                     writer.addHeaderAlias("postTime","入岗时间");
-                    writer.addHeaderAlias("trainingCompletion","培训完成度");
+                    writer.addHeaderAlias("trainingCompletionName","培训完成度");
                     writer.addHeaderAlias("trainingGradeName","培训成绩");
                     writer.addHeaderAlias("abnorTime","历史异动异动时间");
                     writer.addHeaderAlias("entryTimes","入司次数");
