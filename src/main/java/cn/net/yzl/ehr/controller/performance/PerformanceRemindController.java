@@ -119,7 +119,7 @@ public class PerformanceRemindController {
     public ComResponse<Boolean> sendPerformanceRemind() {
         LOGGER.info("发送绩效提醒(每小时执行一次)");
         ComResponse<List<PerformanceRemindDepartDto>> response = performanceRemindFeignService.sendPerformanceRemind();
-        if (200 == response.getCode()) {
+        if (null != response && response.getCode().equals(200)) {
             List<PerformanceRemindDepartDto> departList = response.getData();
             if (!CollectionUtils.isEmpty(departList)) {
                 List<MailVo> mailList = new ArrayList<>();
@@ -138,7 +138,7 @@ public class PerformanceRemindController {
                     }
                 }
 
-                if (mailList.size() > 0) {
+                if (!mailList.isEmpty()) {
                     try {
                         sendTask.runTask(mailList);
                     } catch (Exception e) {
@@ -147,7 +147,7 @@ public class PerformanceRemindController {
                 }
             }
         } else {
-            LOGGER.error("定时考评提醒失败. error={}", response.getMessage());
+            LOGGER.error("定时考评提醒失败. error={}", response);
         }
         return ComResponse.success(true);
     }
@@ -197,7 +197,7 @@ public class PerformanceRemindController {
                         // 填报
                         msgTemplateVo.setCode("EHR0013");//模板编号
                         msgTemplateVo.setType(1);//模版类型
-                        if (staff.getIsLeader()) {
+                        if (null != staff.getIsLeader() && staff.getIsLeader()) {
                             msgTemplateVo.setTitle("职能管理-考评填报提醒-审核填报提醒");
                         } else {
                             msgTemplateVo.setTitle("职能管理-考评填报提醒-新建填报提醒");
