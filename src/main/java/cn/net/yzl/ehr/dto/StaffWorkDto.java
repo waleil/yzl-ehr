@@ -1,5 +1,6 @@
 package cn.net.yzl.ehr.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -15,8 +16,10 @@ public class StaffWorkDto implements Serializable {
     @ApiModelProperty(value = "员工表工号", name = "staff_no")
     private Integer staffNo;
     @ApiModelProperty(value = "起始时间", name = "start_time")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date startTime;
     @ApiModelProperty(value = "结束时间", name = "end_time")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date endTime;
     @ApiModelProperty(value = "单位名称", name = "company")
     private String company;
