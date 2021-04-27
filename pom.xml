@@ -28,12 +28,18 @@
         <dependency>
             <groupId>cn.net.yzl</groupId>
             <artifactId>yzl-staff-model</artifactId>
-            <version>1.0.5-RELEASE</version>
+            <version>1.0.8-RELEASE</version>
         </dependency>
         <!--logger-->
         <dependency>
             <groupId>cn.net.yzl</groupId>
             <artifactId>yzl-logger</artifactId>
+            <version>1.0.0-RELEASE</version>
+        </dependency>
+        <!--行为日志-->
+        <dependency>
+            <groupId>cn.net.yzl</groupId>
+            <artifactId>yzl-operatelogger</artifactId>
             <version>1.0.0-RELEASE</version>
         </dependency>
         <dependency>
