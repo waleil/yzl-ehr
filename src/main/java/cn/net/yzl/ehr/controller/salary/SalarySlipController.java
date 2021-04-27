@@ -8,9 +8,15 @@ import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.salary.SalarySlipFeignService;
 import cn.net.yzl.ehr.util.MessageRemandAPI;
 import cn.net.yzl.staff.dto.salary.SalaryGrantStatusDto;
+import cn.net.yzl.staff.dto.salary.SalaryImportCountDTO;
 import cn.net.yzl.staff.dto.salary.SalaryMyDto;
 import cn.net.yzl.staff.dto.salary.SalarySlipListShowDto;
-import cn.net.yzl.staff.vo.salary.*;
+import cn.net.yzl.staff.vo.salary.MySalaryVo;
+import cn.net.yzl.staff.vo.salary.SalaryFinanceExamineVo;
+import cn.net.yzl.staff.vo.salary.SalaryGrantFinalVo;
+import cn.net.yzl.staff.vo.salary.SalaryGrantVo;
+import cn.net.yzl.staff.vo.salary.SalaryImportVo;
+import cn.net.yzl.staff.vo.salary.SalaryVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -52,15 +58,15 @@ public class SalarySlipController {
 
     @ApiOperation(value = "工资发放列表(人资)-工资导入", notes = "工资发放列表(人资)-工资导入")
     @PostMapping("/importSalary")
-    public ComResponse importSalary(@RequestBody SalaryImportVo salaryImportVo,
-                                    @ApiIgnore @CurrentStaffNo String staffNo) {
+    public ComResponse<SalaryImportCountDTO> importSalary(@RequestBody SalaryImportVo salaryImportVo,
+                                                          @ApiIgnore @CurrentStaffNo String staffNo) {
         salaryImportVo.setStaffNo(staffNo);
         return salarySlipFeignService.importSalary(salaryImportVo);
     }
 
     @ApiOperation(value = "工资发放列表(人资/财务)-工资导出", notes = "工资发放列表(人资/财务)-工资导出")
     @PostMapping("/exportSalary")
-    public ComResponse exportSalary(@RequestBody SalaryVo salaryVo, HttpServletResponse response) {
+    public ComResponse<byte[]> exportSalary(@RequestBody SalaryVo salaryVo, HttpServletResponse response) {
         ComResponse<byte[]> exportResponse = salarySlipFeignService.exportSalary(salaryVo);
         if (null == exportResponse || !SUCCESS_CODE.equals(exportResponse.getCode()) || null == exportResponse.getData()) {
             return exportResponse;
@@ -104,7 +110,7 @@ public class SalarySlipController {
     @PostMapping("/salaryFinalGrantStatusUpDate")
     public ComResponse<List<SalaryGrantStatusDto>> salaryFinalGrantStatusUpDate(@RequestBody List<SalaryGrantFinalVo> list, @ApiIgnore @CurrentStaffNo String staffNo) {
         ComResponse<List<SalaryGrantStatusDto>> comResponse = salarySlipFeignService.salaryFinalGrantStatusUpDate(list);
-        if (comResponse.getCode() == 200) {
+        if (null != comResponse && comResponse.getCode().equals(200)) {
             List<SalaryGrantStatusDto> salaryGrantStatusDtos = comResponse.getData();
             if (salaryGrantStatusDtos != null) {
                 salaryGrantStatusDtos.forEach(item -> {
