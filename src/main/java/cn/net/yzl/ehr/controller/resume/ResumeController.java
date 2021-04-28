@@ -404,19 +404,21 @@ public class ResumeController {
             resumeParamsVO.setState(state);
             resumeParamsVO.setPageSize(100000);
             ComResponse<Page<ResumeListDto>> listByParams = resumeFeginService.getListByParams(resumeParamsVO);
-            List<ResumeListDto> items = listByParams.getData().getItems();
-            List list=new ArrayList();
+            List list = new ArrayList();
+            if(null != listByParams.getData()) {
+                List<ResumeListDto> items = listByParams.getData().getItems();
 //            List<RecordInfoDetailsDTO> list = query(); //查询出所有的需要导出的数据
-            if(items!=null || items.size()>0){
-                for (ResumeListDto item : items) {
-                    ResumeExportDto resumeExportDto = new ResumeExportDto();
-                    try{
-                        BeanUtil.copyProperties(item,resumeExportDto);
+                if (items != null || items.size() > 0) {
+                    for (ResumeListDto item : items) {
+                        ResumeExportDto resumeExportDto = new ResumeExportDto();
+                        try {
+                            BeanUtil.copyProperties(item, resumeExportDto);
 
-                    }catch (Exception e){
-                        e.printStackTrace();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        list.add(resumeExportDto);
                     }
-                    list.add(resumeExportDto);
                 }
             }
             writer.setOnlyAlias(true);
