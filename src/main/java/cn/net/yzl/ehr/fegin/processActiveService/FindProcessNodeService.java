@@ -21,11 +21,11 @@ import springfox.documentation.annotations.ApiIgnore;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
-@FeignClient(name="personApprove",url="${fegin.db.url}/processActive")
-//@FeignClient(name="processActive",url="localhost:38080/processActive")
+//@FeignClient(name="personApprove",url="${fegin.db.url}/processActive")
+@FeignClient(name="processActive",url="localhost:38080/processActive")
 public interface FindProcessNodeService {
     @GetMapping("v1/findProcessInfoList")
-    @ApiOperation(value = "获取当前当前员工信息")
+    @ApiOperation(value = "获取当前员工信息")
     ComResponse<StaffDetailsDto> findProcessInfoList(@RequestParam("staffNo") String staffNo);
 
     @PostMapping("v1/saveProcessLeaveInfo")
@@ -37,5 +37,7 @@ public interface FindProcessNodeService {
     ComResponse<ApproveLeaveDayDTO> getLeaveNumInfo(@RequestParam("departId") Integer departId,
                                                            @RequestParam("sysDictDataId") Integer sysDictDataId,
                                                            @RequestParam("staffNo") String staffNo);
-
+    @GetMapping("v1/getTransferStaffInfo")
+    @ApiOperation(value = "判断是否部门负责人并获取当前员工信息")
+    ComResponse<StaffDetailsDto> getTransferStaffInfo(@RequestParam("staffNo") String staffNo);
 }

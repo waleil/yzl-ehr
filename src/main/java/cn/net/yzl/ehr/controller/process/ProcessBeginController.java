@@ -7,6 +7,7 @@ import cn.net.yzl.ehr.fegin.processActiveService.saveProcessService;
 import cn.net.yzl.ehr.util.MessageRemandAPI;
 import cn.net.yzl.staff.dto.ProcessProfession.ProcessStaffDimissionDTO;
 import cn.net.yzl.staff.dto.ProcessProfession.ProcessStaffPositiveDTO;
+import cn.net.yzl.staff.dto.ProcessProfession.ProcessStaffTransferDTO;
 import cn.net.yzl.staff.dto.personApprove.*;
 import cn.net.yzl.staff.dto.processNode.ProcessApproveNode;
 import cn.net.yzl.staff.dto.processNode.ProcessNodeDTO;
@@ -140,6 +141,24 @@ public class ProcessBeginController {
 
         return saveProcessService.findProcessCancelLeaveList(processAuditId,appNo);
     }
-
+    @ApiOperation(value = "保存调动申请",notes = "保存调动申请",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "v1/saveTransferApplay", method = RequestMethod.POST)
+    ComResponse<ProcessApproveNode> saveTransferApplay (@RequestBody @Validated ProcessStaffTransferDTO processStaffTransferDTO, @CurrentStaffNo @NotNull String staffNo){
+        processStaffTransferDTO.setAppStaffNo(staffNo);
+        ComResponse<ProcessApproveNode> flag = saveProcessService.saveTransferApplay(processStaffTransferDTO);
+        if (flag.getCode().equals(200)){
+            try {
+                MessageRemandAPI.examine(staffNo,
+                        flag.getData().getStaffNo(),
+                        flag.getData().getProcessName());
+                MessageRemandAPI.processSendMessage(flag.getData().getProcessId(),
+                        staffNo,
+                        flag.getData().getProcessName());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return flag;
+    }
 
 }
