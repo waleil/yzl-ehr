@@ -25,4 +25,10 @@ public class AppClockRangeConfServiceImpl implements AppClockRangeConfService {
         return result;
     }
 
+    @Override
+    public ComResponse<AppClockRangeConfPo> queryByDepartId(Integer departId) {
+        ComResponse<AppClockRangeConfPo> result = appClockRangeConfFeginService.queryByDepartId(departId);
+        return result;
+    }
+
 }

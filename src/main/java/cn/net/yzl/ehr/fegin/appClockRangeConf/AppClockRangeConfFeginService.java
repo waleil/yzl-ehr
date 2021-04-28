@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Repository
 @FeignClient(value = "staff",url = "${fegin.db.url}")
@@ -17,4 +18,8 @@ public interface AppClockRangeConfFeginService {
     @ApiOperation(value = "考勤范围设置", notes = "考勤范围设置", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/appClockRangeConf/saveUpDateAddress", method = RequestMethod.POST)
     ComResponse<Integer> saveUpDateAddress(@RequestBody AppClockRangeConfPo appClockRangeConfPo);
+
+    @ApiOperation(value = "考勤范围设置查询", notes = "考勤范围设置查询", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/appClockRangeConf/queryByDepartId", method = RequestMethod.GET)
+    ComResponse<AppClockRangeConfPo> queryByDepartId(@RequestParam Integer departId);
 }
