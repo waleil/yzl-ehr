@@ -45,6 +45,7 @@ import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.util.IOUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
@@ -340,7 +341,18 @@ public class StaffController {
                     writer.addHeaderAlias("entryTimes","入司次数");
                     staffParamsVO.setPageNo(1);
                     staffParamsVO.setPageSize(50000);
-                    listByParams = staffService.getListByParamsExport(staffParamsVO,request);
+                    List<StaffListExportDto> dtos=new ArrayList<StaffListExportDto>();
+                    ComResponse<Page<StaffListDto>> listByParamsForDepart = staffService.getListByParamsForDepart(staffParamsVO, request);
+                    if(listByParamsForDepart.getData()!=null && CollectionUtil.isNotEmpty(listByParamsForDepart.getData().getItems())){
+                        listByParamsForDepart.getData().getItems().forEach(x->{
+                            StaffListExportDto staffListExportDto=new StaffListExportDto();
+                            BeanUtils.copyProperties(x,staffListExportDto);
+                            dtos.add(staffListExportDto);
+                        });
+                    }
+                    Page<StaffListExportDto> page=new Page<StaffListExportDto>();
+                    page.setItems(dtos);
+                    listByParams = ComResponse.success(page);
                     break;
                 case 3://待优化员工列表
                     execName="待优化员工列表";
@@ -498,10 +510,8 @@ public class StaffController {
                 userRoleDTO.setUserCode(strings);
                 userRoleService.createUserRoleInfoList(userRoleDTO);
             }
-
         }
         return staffDetailsDtoComResponse;
-
     }
 
     @ApiOperation(value = "员工数据-查询默认头像图片路径", notes = "员工数据-查询默认头像图片路径", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
