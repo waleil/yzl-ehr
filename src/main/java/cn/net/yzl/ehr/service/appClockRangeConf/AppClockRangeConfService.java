@@ -7,4 +7,6 @@ public interface AppClockRangeConfService {
 
     ComResponse<Integer> saveUpDateAddress (AppClockRangeConfPo appClockRangeConfPo, String staffNo);
 
+    ComResponse<AppClockRangeConfPo> queryByDepartId (Integer departId);
+
 }

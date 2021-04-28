@@ -8,10 +8,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
@@ -32,4 +29,16 @@ public class AppClockRangeConfController {
     ComResponse<Integer> saveUpDateAddress(@RequestBody AppClockRangeConfPo appClockRangeConfPo,@ApiIgnore @CurrentStaffNo String staffNo) {
         return appClockRangeConfService.saveUpDateAddress(appClockRangeConfPo,staffNo);
     }
+
+    /**
+     * 考勤范围设置查询
+     * @param departId
+     * @return
+     */
+    @ApiOperation(value = "考勤范围设置查询", notes = "考勤范围设置查询", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/queryByDepartId", method = RequestMethod.GET)
+    ComResponse<AppClockRangeConfPo> queryByDepartId(@RequestParam Integer departId) {
+        return appClockRangeConfService.queryByDepartId(departId);
+    }
+
 }
