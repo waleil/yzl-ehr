@@ -3,20 +3,17 @@ package cn.net.yzl.ehr.fegin.resume;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.staff.dto.resume.ResumeInterviewTimeDto;
+import cn.net.yzl.staff.pojo.resume.ResumeInterviewTimePo;
 import cn.net.yzl.staff.vo.resume.ResumeInterviewInsertVO;
 import cn.net.yzl.staff.vo.resume.ResumeInterviewUpdateVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @FeignClient(value = "ResumeFeginService",url = "${fegin.db.url}/resume/time")
@@ -42,4 +39,7 @@ public interface ResumeInterviewFeginService {
 
     @RequestMapping(value = "/takeBack", method = RequestMethod.GET)
     ComResponse<String> takeBack(@RequestParam("interviewResumeId")Integer interviewResumeId) throws IllegalAccessException ;
+
+    @RequestMapping(value = "/selectByPrimaryKey", method = RequestMethod.GET)
+    ComResponse<ResumeInterviewTimePo> selectByPrimaryKey(@RequestParam("id") Integer id);
 }
