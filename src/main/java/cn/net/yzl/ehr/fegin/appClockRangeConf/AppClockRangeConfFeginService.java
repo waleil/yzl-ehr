@@ -21,5 +21,5 @@ public interface AppClockRangeConfFeginService {
 
     @ApiOperation(value = "考勤范围设置查询", notes = "考勤范围设置查询", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/appClockRangeConf/queryByDepartId", method = RequestMethod.GET)
-    ComResponse<AppClockRangeConfPo> queryByDepartId(@RequestParam Integer departId);
+    ComResponse<AppClockRangeConfPo> queryByDepartId(@RequestParam("departId") Integer departId);
 }
