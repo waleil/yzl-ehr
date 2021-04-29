@@ -5,7 +5,6 @@ import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.ehr.async.MsgSendAsync;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.fegin.resume.ResumeInterviewFeginService;
-import cn.net.yzl.msg.model.vo.MsgTemplateVo;
 import cn.net.yzl.msg.service.YMsgInfoService;
 import cn.net.yzl.staff.dto.resume.ResumeInterviewTimeDto;
 import cn.net.yzl.staff.vo.resume.ResumeInterviewInsertVO;
@@ -20,9 +19,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
-import javax.validation.constraints.NotBlank;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -50,8 +46,9 @@ public class ResumeInterviewController {
 
     @ApiOperation(value = "简历列表-修改面试时间", notes = "简历列表-修改面试时间", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    ComResponse<String> update(@RequestBody @Validated ResumeInterviewUpdateVO resumeInterviewInsertVO) throws IllegalAccessException {
-        return resumeInterviewFeginService.update(resumeInterviewInsertVO);
+    ComResponse<String> update(@RequestBody @Validated ResumeInterviewUpdateVO resumeInterviewUpdateVO,@ApiIgnore @CurrentStaffNo String staffNo) throws IllegalAccessException {
+        msgSendAsync.sendArrangeinfo(resumeInterviewUpdateVO,staffNo);
+        return resumeInterviewFeginService.update(resumeInterviewUpdateVO);
     }
 
     @ApiOperation(value = "个人中心-我的面试", notes = "个人中心-我的面试", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
