@@ -28,7 +28,7 @@
         <dependency>
             <groupId>cn.net.yzl</groupId>
             <artifactId>yzl-staff-model</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>1.0.8-RELEASE</version>
         </dependency>
         <!--logger-->
         <dependency>
@@ -57,7 +57,7 @@
         <dependency>
             <groupId>cn.net.yzl</groupId>
             <artifactId>yzl-common-msg</artifactId>
-            <version>1.0.5-RELEASE</version>
+            <version>1.0.6-RELEASE</version>
             <exclusions>
                 <exclusion>
                     <groupId>com.github.pagehelper</groupId>
