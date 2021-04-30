@@ -1,11 +1,13 @@
 package cn.net.yzl.ehr.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -34,4 +36,9 @@ public class StaffBaseDto implements Serializable {
     private String departName;
     @ApiModelProperty(value="岗位名称",name="postName")
     private String postName;
+    @ApiModelProperty(value="入职时间",name="entryTime")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
+    private Date entryTime;
+    @ApiModelProperty(value="是否在黑名单中:0否 1是",name="onBlackList")
+    private Integer onBlackList;
 }
