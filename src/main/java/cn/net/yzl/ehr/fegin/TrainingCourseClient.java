@@ -3,6 +3,7 @@ package cn.net.yzl.ehr.fegin;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.staff.dto.train.CoursewareDto;
+import cn.net.yzl.staff.dto.train.StaffTrainingInfoDto;
 import cn.net.yzl.staff.dto.train.TrainInfoAllDto;
 import cn.net.yzl.staff.pojo.train.*;
 import cn.net.yzl.staff.vo.train.SignInputScore;
@@ -38,6 +39,9 @@ public interface TrainingCourseClient {
 
     @GetMapping("/selectTrainInfo")
     ComResponse<TrainInfoAllDto> selectTrainInfo(@RequestParam("id") Integer id);
+
+    @GetMapping("/selectCourseInfoForStaff")
+    public ComResponse<List<StaffTrainingInfoDto>> selectCourseInfoForStaff(@RequestParam("staffNo") String staffNo);
 
     @PostMapping("/editTrainInfo")
     ComResponse editTrainInfo(@RequestBody TrainInfoAllVO trainInfoAllVO);
