@@ -12,6 +12,7 @@ import cn.net.yzl.ehr.vo.DepartUpdateVO;
 import cn.net.yzl.ehr.vo.DepartVO;
 import cn.net.yzl.pm.model.dto.MenuDTO;
 import cn.net.yzl.pm.service.RoleMenuService;
+import cn.net.yzl.staff.dto.StaffBaseDto;
 import cn.net.yzl.staff.pojo.PostLevelUpdatePo;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -118,6 +119,18 @@ public class DepartController {
     ComResponse<List<DepartAttrDto>> getDepartAttrList() {
         return departService.getDepartAttrList();
     }
+
+
+
+    @ApiOperation(value = "根据员工号获取部门下所有员工(负责人)", notes = "根据员工号获取部门下所有员工(负责人)", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "param", value = "搜索参数", required = true, dataType = "String", paramType = "query")
+    })
+    @RequestMapping(value = "/getByParamsForLeaderNo", method = RequestMethod.GET)
+    ComResponse<List<StaffBaseDto>> getByParamsForLeaderNo(@RequestParam("param") String param,@CurrentStaffNo @ApiIgnore String staffNo) {
+        return departService.getByParamsForLeaderNo(param,staffNo);
+    }
+
 
     @ApiOperation(value = "根据员工号获取部门列表(负责人)", notes = "根据员工号获取部门列表(负责人)", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/getListByStaffNo", method = RequestMethod.GET)
