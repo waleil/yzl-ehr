@@ -10,6 +10,7 @@ import cn.net.yzl.msg.model.vo.MsgTemplateVo;
 import cn.net.yzl.msg.service.YMsgInfoService;
 import cn.net.yzl.staff.dto.StaffDetailsDto;
 import cn.net.yzl.staff.dto.train.CoursewareDto;
+import cn.net.yzl.staff.dto.train.StaffTrainingInfoDto;
 import cn.net.yzl.staff.dto.train.TrainInfoAllDto;
 import cn.net.yzl.staff.pojo.train.*;
 import cn.net.yzl.staff.vo.train.*;
@@ -62,7 +63,14 @@ public class TrainingCourseController {
         return trainingCourseClient.selectStaffTrainProduct(staffNo, size);
     }
 
-//    public ComResponse<List<ProductGradeStaffPo>>
+    @ApiOperation("获取员工培训记录")
+    @GetMapping("selectCourseInfoForStaff")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "staffNo", value = "员工编号", dataType = "String", paramType = "query")
+    })
+    public ComResponse<List<StaffTrainingInfoDto>> selectCourseInfoForStaff(String staffNo){
+        return trainingCourseClient.selectCourseInfoForStaff(staffNo);
+    }
 
 
     @ApiOperation(value = "新增培训课程信息", notes = "新增培训课程信息")
@@ -108,7 +116,6 @@ public class TrainingCourseController {
         });
         return trainingCourseClient.insertTrainCourse(trainInfoAllVO);
     }
-
 
     @ApiOperation(value = "新增修改删除培训补贴配置", notes = "新增修改删除培训补贴配置")
     @PostMapping("insertUpdateDelTrainSubsidySys")

@@ -10,6 +10,7 @@ import cn.net.yzl.ehr.service.DepartService;
 import cn.net.yzl.ehr.vo.DepartBusinessAttrVO;
 import cn.net.yzl.ehr.vo.DepartUpdateVO;
 import cn.net.yzl.ehr.vo.DepartVO;
+import cn.net.yzl.staff.dto.StaffBaseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -91,6 +92,11 @@ public class DepartServiceImpl implements DepartService {
     @Override
     public ComResponse<List<cn.net.yzl.staff.dto.DepartDto>> getListByStaffNo(String staffNo){
         return departFeginService.getListByStaffNo(staffNo);
+    }
+
+    @Override
+    public ComResponse<List<StaffBaseDto>> getByParamsForLeaderNo(String param, String staffNo) {
+        return departFeginService.getByParamsForLeaderNo(param,staffNo);
     }
 
     @Override

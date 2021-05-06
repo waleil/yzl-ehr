@@ -107,4 +107,11 @@ public class StaffAbnorController {
         staffAbnorService.staffBatchPostLevelTimedTask();
         return ComResponse.success();
     }
+
+    @ApiOperation(value = "人事管理-员工岗位等级日自动调整", notes = "人事管理-员工岗位等级日自动调整", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/staffBatchPostLevelTimedDayTask", method = RequestMethod.GET)
+    public ComResponse<List<cn.net.yzl.staff.pojo.MsgTemplateVo>> staffBatchPostLevelTimedDayTask() throws ParseException {
+        staffAbnorService.staffBatchPostLevelTimedDayTask();
+        return ComResponse.success();
+    }
 }
