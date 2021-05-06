@@ -14,6 +14,9 @@ public interface ProcessInitiateService {
     //考勤补卡
     ComResponse<ProcessApproveNode> insertProcessStaffAttendApproval(StaffAttendApprovalVo staffAttendApprovalVo,String staffNo);
 
+    //迟到早退考勤补卡
+    ComResponse<ProcessApproveNode> insertProcessStaffAttendAbnormalApproval(StaffAttendAbnormalApprovalVo staffAttendAbnormalApprovalVo,String staffNo);
+
     //车位申请添加
     ComResponse<ProcessApproveNode> insertProcessStaffParkingSpace(StaffParkingSpaceVo staffParkingSpaceVo, String staffNo);
 
