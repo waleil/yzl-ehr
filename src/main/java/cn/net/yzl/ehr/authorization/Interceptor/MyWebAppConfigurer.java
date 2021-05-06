@@ -104,6 +104,7 @@ public class MyWebAppConfigurer  implements WebMvcConfigurer {
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/salaryRulePost/**");
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/encrypt/**");
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/appClockRangeConf/**");
+        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/appDeviceRecord/**");
 
     }
 
