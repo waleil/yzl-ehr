@@ -92,7 +92,9 @@ public class StaffServiceImpl implements StaffService {
         if(referer.contains("/trainingManagement/newTraining")){
             referer= referer.replace("/newTraining","");
         }
-
+        if(referer.contains("/employeeList/departStaffList")){
+            referer= referer.replace("/departStaffList","");
+        }
         MenuDTO menuDTO = roleMenuService.getIsAdminByUserCodeAndMenuUrl(userNo,referer);
         log.info(JsonUtil.toJsonStr(menuDTO));
         staffParamsVO.setStaffNo(userNo);

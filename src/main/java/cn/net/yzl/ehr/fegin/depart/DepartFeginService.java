@@ -6,6 +6,7 @@ import cn.net.yzl.ehr.dto.DepartDto;
 import cn.net.yzl.ehr.vo.DepartBusinessAttrVO;
 import cn.net.yzl.ehr.vo.DepartUpdateVO;
 import cn.net.yzl.ehr.vo.DepartVO;
+import cn.net.yzl.staff.dto.StaffBaseDto;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
@@ -67,6 +68,10 @@ public interface DepartFeginService {
     @ApiOperation(value = "根据员工号获取部门ID集合(负责人)", notes = "根据员工号获取部门ID集合(负责人)", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/depart/getDepartListByStaffNo", method = RequestMethod.GET)
     ComResponse<List<Integer>> getDepartListByStaffNo(@RequestParam("staffNo")  String staffNo) ;
+
+    @ApiOperation(value = "根据员工号获取部门员工列表(负责人)", notes = "根据员工号获取部门员工列表(负责人)", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/depart/getByParamsForLeaderNo", method = RequestMethod.GET)
+    ComResponse<List<StaffBaseDto>> getByParamsForLeaderNo(@RequestParam("param") String param,@RequestParam("staffNo") String staffNo);
 
     @ApiOperation(value = "根据员工号获取部门ID集合(负责人)", notes = "根据员工号获取部门ID集合(负责人)", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/depart/getListByStaffNoData", method = RequestMethod.GET)

@@ -42,6 +42,13 @@ public class ProcessInitiateServiceImpl implements ProcessInitiateService {
     }
 
     @Override
+    public ComResponse<ProcessApproveNode> insertProcessStaffAttendAbnormalApproval(StaffAttendAbnormalApprovalVo staffAttendAbnormalApprovalVo, String staffNo) {
+        staffAttendAbnormalApprovalVo.setCreator(staffNo);
+        staffAttendAbnormalApprovalVo.setStaffNo(staffNo);
+        return processInitiateFeignService.insertProcessStaffAttendAbnormalApproval(staffAttendAbnormalApprovalVo);
+    }
+
+    @Override
     public ComResponse<ProcessApproveNode> insertProcessStaffParkingSpace(StaffParkingSpaceVo staffParkingSpaceVo, String staffNo) {
         staffParkingSpaceVo.setCreator(staffNo);
         staffParkingSpaceVo.setStaffNo(staffNo);

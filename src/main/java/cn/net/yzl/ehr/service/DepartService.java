@@ -6,6 +6,7 @@ import cn.net.yzl.ehr.dto.DepartDto;
 import cn.net.yzl.ehr.vo.DepartBusinessAttrVO;
 import cn.net.yzl.ehr.vo.DepartUpdateVO;
 import cn.net.yzl.ehr.vo.DepartVO;
+import cn.net.yzl.staff.dto.StaffBaseDto;
 
 import java.util.List;
 
@@ -31,6 +32,7 @@ public interface DepartService {
 
     ComResponse<List<cn.net.yzl.staff.dto.DepartDto>> getListByStaffNo(String staffNo);
     ComResponse<List<Integer>> getDepartListByStaffNo(String staffNo);
+    ComResponse<List<StaffBaseDto>> getByParamsForLeaderNo(String param, String staffNo);
 
     ComResponse<List<cn.net.yzl.staff.dto.DepartDto>> getListByStaffNoData(String staffNo,Boolean maxLevel);
 

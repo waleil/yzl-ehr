@@ -88,6 +88,25 @@ public class ProcessInitiateController {
         return flag;
     }
 
+    @ApiOperation(value = "添加迟到早退考勤补卡申请",notes = "添加迟到早退考勤补卡申请",consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping("/abnormal/attend/approval/insert")
+    public ComResponse<ProcessApproveNode> insertProcessStaffAttendAbnormalApproval(@RequestBody @Validated StaffAttendAbnormalApprovalVo staffAttendAbnormalApprovalVo, @CurrentStaffNo @ApiIgnore String staffNo){
+        ComResponse<ProcessApproveNode> flag = processInitiateService.insertProcessStaffAttendAbnormalApproval(staffAttendAbnormalApprovalVo,staffNo);
+        if (flag.getCode().equals(200)){
+            try {
+                MessageRemandAPI.examine(staffNo,
+                        flag.getData().getStaffNo(),
+                        flag.getData().getProcessName());
+                MessageRemandAPI.processSendMessage(flag.getData().getProcessId(),
+                        staffNo,
+                        flag.getData().getProcessName());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return flag;
+    }
+
     @ApiOperation(value = "添加车位申请",notes = "添加车位申请",consumes = MediaType.APPLICATION_JSON_VALUE)
     @PostMapping("/parking/space/insert")
     public ComResponse<ProcessApproveNode> insertProcessStaffParkingSpace(@RequestBody @Validated StaffParkingSpaceVo staffParkingSpaceVo, @CurrentStaffNo @ApiIgnore String staffNo){

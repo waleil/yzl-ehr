@@ -28,6 +28,9 @@ public interface ProcessInitiateFeignService {
     @PostMapping("/attend/approval/insert")
     ComResponse<ProcessApproveNode> insertProcessStaffAttendApproval(@RequestBody @Validated StaffAttendApprovalVo staffAttendApprovalVo);
 
+    @PostMapping("/abnormal/attend/approval/insert")
+    ComResponse<ProcessApproveNode> insertProcessStaffAttendAbnormalApproval(@RequestBody @Validated StaffAttendAbnormalApprovalVo staffAttendAbnormalApprovalVo);
+
     @PostMapping("/parking/space/insert")
     ComResponse<ProcessApproveNode> insertProcessStaffParkingSpace(@RequestBody @Validated StaffParkingSpaceVo staffParkingSpaceVo);
 
