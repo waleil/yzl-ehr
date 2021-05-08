@@ -6,8 +6,6 @@ spring:
         username: server-gateway
         password: Yzl@12345
         namespace: 413a0c70-2606-4fdd-b3d2-9b3a931fe816
-#        register-enabled: false
-
       config:
         namespace: 6862472c-063d-4d2b-b278-6476c92f9088
         username: ehr
