@@ -113,10 +113,7 @@ public class SalarySlipController {
         if (null != comResponse && comResponse.getCode().equals(200)) {
             List<SalaryGrantStatusDto> salaryGrantStatusDtos = comResponse.getData();
             if (salaryGrantStatusDtos != null) {
-                salaryGrantStatusDtos.forEach(item -> {
-                    MessageRemandAPI.paySalary(staffNo, item.getStaffNo(), item.getStaffName(),
-                            DateUtil.format(item.getDuration(), "yyyy年MM月"));
-                });
+                MessageRemandAPI.paySalarys(salaryGrantStatusDtos,staffNo);
             }
         }
         return comResponse;
