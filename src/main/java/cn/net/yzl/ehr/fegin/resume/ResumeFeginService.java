@@ -9,6 +9,7 @@ import cn.net.yzl.staff.dto.attend.StaffAttendImportResultDto;
 import cn.net.yzl.staff.dto.resume.ResumeDetailDto;
 import cn.net.yzl.staff.dto.resume.ResumeImportResultDto;
 import cn.net.yzl.staff.dto.resume.ResumeListDto;
+import cn.net.yzl.staff.pojo.resume.ResumeDepartStaffInsertPo;
 import cn.net.yzl.staff.util.StaffBeanUtils;
 import cn.net.yzl.staff.vo.resume.ResumeDbVO;
 import cn.net.yzl.staff.vo.resume.ResumeDepartStaffVO;
@@ -60,9 +61,9 @@ public interface ResumeFeginService{
     @RequestMapping(value = "/resume/sendTo", method = RequestMethod.POST)
     ComResponse<String> sendTo( @RequestBody  ResumeDepartStaffVO resumeDepartStaffVO);
     @RequestMapping(value = "/resume/sendToBatchDepart", method = RequestMethod.POST)
-    ComResponse<String> sendToBatchDepart(@RequestBody List<Integer> resumeIds, @RequestParam("staffNo") String staffNo);
-    @RequestMapping(value = "/resume/sendToDepart", method = RequestMethod.GET)
-    ComResponse<String> sendToDepart(@RequestParam("resumeId") Integer resumeId,@RequestParam("staffNo") String staffNo);
+    ComResponse<String> sendToBatchDepart(@RequestBody List<ResumeDepartStaffInsertPo> insertPo);
+    @RequestMapping(value = "/resume/sendToDepart", method = RequestMethod.POST)
+    ComResponse<String> sendToDepart(@RequestBody ResumeDepartStaffInsertPo insertPo);
     @RequestMapping(value = "/resume/getDepartResumeNodeStaffList", method = RequestMethod.GET)
     ComResponse<List<DepartResumeNodeStaffDto>> getDepartResumeNodeStaffList(@RequestParam("nextResumeNodeId") Integer nextResumeNodeId);
 

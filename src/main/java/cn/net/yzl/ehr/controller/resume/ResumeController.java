@@ -18,6 +18,7 @@ import cn.net.yzl.staff.dto.resume.ResumeDetailDto;
 import cn.net.yzl.staff.dto.resume.ResumeImportResultDto;
 import cn.net.yzl.staff.dto.resume.ResumeListDto;
 import cn.net.yzl.staff.pojo.StaffPo;
+import cn.net.yzl.staff.pojo.resume.ResumeDepartStaffInsertPo;
 import cn.net.yzl.staff.vo.resume.ResumeDbVO;
 import cn.net.yzl.staff.vo.resume.ResumeDepartStaffVO;
 import cn.net.yzl.staff.vo.resume.ResumeInsertVO;
@@ -164,29 +165,26 @@ public class ResumeController {
 
     @ApiOperation(value = "简历列表-批量发送(待筛选)", notes = "简历列表-批量发送(待筛选)", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/sendToBatchDepart", method = RequestMethod.POST)
-    ComResponse<String> sendToBatchDepart( @RequestBody @NotEmpty List<Integer> resumeIds, @ApiIgnore @CurrentStaffNo String staffNo) throws IllegalAccessException {
-        ComResponse<String> re = resumeFeginService.sendToBatchDepart(resumeIds, staffNo);
+    ComResponse<String> sendToBatchDepart( @RequestBody @NotEmpty List<ResumeDepartStaffInsertPo> insertPos, @ApiIgnore @CurrentStaffNo String staffNo) throws IllegalAccessException {
+        insertPos.forEach(x->x.setCreator(staffNo));
+        ComResponse<String> re = resumeFeginService.sendToBatchDepart(insertPos);
         if(re.getData()!=null){
             String[] split = re.getData().split("=");
             for (String s : split) {
                 msgSendAsync.sendToDepart(staffNo,s);
 
             }
-
         }
-
         return re;
     }
+
     @ApiOperation(value = "简历列表-单个发给部门(待筛选)", notes = "简历列表-单个发给部门(待筛选)", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @RequestMapping(value = "/sendToDepart", method = RequestMethod.GET)
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "resumeId", value = "简历id", required = true, dataType = "Integer", paramType = "query")
-    })
-    ComResponse<String> sendToDepart(Integer resumeId, @ApiIgnore @CurrentStaffNo String staffNo) throws IllegalAccessException {
-        ComResponse<String> re = resumeFeginService.sendToDepart(resumeId, staffNo);
+    @RequestMapping(value = "/sendToDepart", method = RequestMethod.POST)
+    ComResponse<String> sendToDepart(@RequestBody ResumeDepartStaffInsertPo insertPo, @ApiIgnore @CurrentStaffNo String staffNo) throws IllegalAccessException {
+        insertPo.setCreator(staffNo);
+        ComResponse<String> re = resumeFeginService.sendToDepart(insertPo);
         if(re.getData()!=null){
             msgSendAsync.sendToDepart(staffNo,re.getData());
-
         }
         return re;
     }
@@ -394,7 +392,6 @@ public class ResumeController {
                 writer.addHeaderAlias("reasonCodeName","入库原因");
                 writer.addHeaderAlias("intentionName","初试意向");
                 writer.addHeaderAlias("entryTimes","入司次数");
-
                 writer.addHeaderAlias("createTime","录入时间");
                 writer.addHeaderAlias("creator","录入人");
             }
