@@ -63,7 +63,7 @@ public class GlobalExceptionHandler {
         BindingResult bindingResult = exception.getBindingResult();
         StringBuilder sb = new StringBuilder("校验失败:");
         for (FieldError fieldError : bindingResult.getFieldErrors()) {
-            sb.append(fieldError.getField()).append(":").append(fieldError.getDefaultMessage()).append(", ");
+            sb.append(fieldError.getDefaultMessage()).append(", ");
         }
         logger.info("接口路径:{},请求参数:{},报错信息:{}", request.getRequestURI(),
                 showParams(request),
