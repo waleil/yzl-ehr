@@ -180,7 +180,7 @@ public class ResumeController {
         return re;
     }
     @ApiOperation(value = "简历列表-单个发给部门(待筛选)", notes = "简历列表-单个发给部门(待筛选)", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @RequestMapping(value = "/sendToDepart", method = RequestMethod.GET)
+    @RequestMapping(value = "/sendToDepart", method = RequestMethod.POST)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "resumeId", value = "简历id", required = true, dataType = "Integer", paramType = "query")
     })
