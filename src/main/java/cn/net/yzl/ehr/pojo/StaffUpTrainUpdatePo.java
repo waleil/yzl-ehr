@@ -23,7 +23,7 @@ public class StaffUpTrainUpdatePo implements Serializable {
      * 员工表工号
      */
     @ApiModelProperty(value = "id")
-    @NotNull
+
     @Min(0)
     private Integer id;
 
@@ -53,21 +53,21 @@ public class StaffUpTrainUpdatePo implements Serializable {
      * 培训名称
      */
     @ApiModelProperty(value = "培训名称")
-    @NotBlank
+
     private String content;
 
     /**
      * 结果
      */
     @ApiModelProperty(value = "结果")
-    @NotBlank
+
     private String result;
 
     /**
      * 是否获奖(0:否,1:是)
      */
     @ApiModelProperty(value = "是否获奖(0:否,1:是)")
-    @NotNull
+
     private Integer flag;
 
     /**

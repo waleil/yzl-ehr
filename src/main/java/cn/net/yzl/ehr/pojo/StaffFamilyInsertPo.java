@@ -26,28 +26,28 @@ public class StaffFamilyInsertPo implements Serializable {
      * 姓名
      */
     @ApiModelProperty("姓名")
-    @NotBlank
+
     private String name;
 
     /**
      * 关系
      */
     @ApiModelProperty("关系")
-    @NotBlank
+
     private String relation;
 
     /**
      * 工作单位/职务
      */
     @ApiModelProperty("工作单位/职务")
-    @NotBlank
+
     private String workUnit;
 
     /**
      * 联系电话
      */
     @ApiModelProperty("联系电话")
-    @NotBlank
+
     private String phone;
 
     /**

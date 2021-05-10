@@ -36,16 +36,16 @@ public class StaffEduInsertPo implements Serializable {
     private Date endTime;
 
     @ApiModelProperty(value = "毕业学校", name = "school")
-    @NotBlank
+
     private String school;
 
     @ApiModelProperty(value = "学历", name = "degree")
-    @NotNull
+
     @Min(0)
     private Integer degree;
 
     @ApiModelProperty(value = "专业/院系", name = "major")
-    @NotBlank
+
     private String major;
 
   /*  @ApiModelProperty(value = "证书路径", name = "path")

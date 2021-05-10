@@ -34,17 +34,16 @@ public class StaffUpTrainInsertPo implements Serializable {
 
 
     @ApiModelProperty(value = "培训名称")
-    @NotBlank
+
     private String content;
 
 
     @ApiModelProperty(value = "结果")
-    @NotBlank
+
     private String result;
 
 
     @ApiModelProperty(value = "是否获奖(0:否,1:是)")
-    @NotNull
     private Integer flag;
 
 
