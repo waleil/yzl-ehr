@@ -20,8 +20,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.expression.ParseException;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Repository;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,9 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 import java.util.Map;
 
-@FeignClient(value = "staff",url = "${fegin.db.url}")
-//@FeignClient(value = "yzl-staff-db")
-@Repository
+@FeignClient(value = "yzl-staff-db", url = "${fegin.db.url}")
 public interface StaffFeginService {
 
     @RequestMapping(value = "/staff/getOneByMap", method = RequestMethod.POST, consumes = "application/json")
@@ -97,22 +93,22 @@ public interface StaffFeginService {
     ComResponse<StatisticalStaffDto> getStaffTotalData();
 
     @RequestMapping(value = "/staff/importStaffInfo", method = RequestMethod.GET)
-    public ComResponse<ImportResultVo> importStaffInfo(@RequestParam("url") String url) throws ParseException ;
+    public ComResponse<ImportResultVo> importStaffInfo(@RequestParam("url") String url) throws ParseException;
 
     @RequestMapping(value = "/staff/getImportStaffList", method = RequestMethod.POST)
-    public ComResponse<Page<StaffListDto>> getImportStaffList(@RequestBody StaffParamsVO staffParamsVO) throws ParseException ;
+    public ComResponse<Page<StaffListDto>> getImportStaffList(@RequestBody StaffParamsVO staffParamsVO) throws ParseException;
 
     @RequestMapping(value = "/staff/getImportStaff", method = RequestMethod.GET)
-    public ComResponse<StaffListDto> getImportStaff(@RequestParam("id") Integer id) throws ParseException ;
+    public ComResponse<StaffListDto> getImportStaff(@RequestParam("id") Integer id) throws ParseException;
 
     @RequestMapping(value = "/staff/deleteImportStaff", method = RequestMethod.GET)
-    public ComResponse<Integer> deleteImportStaff(@RequestParam("id") Integer id) throws ParseException ;
+    public ComResponse<Integer> deleteImportStaff(@RequestParam("id") Integer id) throws ParseException;
 
     @RequestMapping(value = "/staff/completeInfo", method = RequestMethod.POST)
     ComResponse<StaffDetailsDto> completeInfo(@RequestBody StaffInfoSaveVO staffInfoSaveVO) throws ParseException, ApiException;
 
     //办理入职时判断简历中是否有头像，无则加载默认头像，有则用之;补全信息无初始头像，直接使用默认头像
     @RequestMapping(value = "/staff/getStaffImgUrl", method = RequestMethod.GET)
-    ComResponse<String> getStaffImgUrl(@RequestParam("resumeId") Integer resumeId,@RequestParam("staffNo") String staffNo);
+    ComResponse<String> getStaffImgUrl(@RequestParam("resumeId") Integer resumeId, @RequestParam("staffNo") String staffNo);
 
 }

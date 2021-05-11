@@ -1,8 +1,6 @@
 package cn.net.yzl.ehr.fegin.ding;
 
 import cn.net.yzl.common.entity.ComResponse;
-import cn.net.yzl.ehr.dto.DepartDto;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestMapping;

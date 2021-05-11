@@ -36,7 +36,6 @@ import java.util.List;
  * 一线管理-薪酬核算规则配置
  */
 @FeignClient(value = "yzl-staff-db", url = "${fegin.db.url}/salaryFrontLineRuleNew")
-//@FeignClient(value = "yzl-staff-db", url = "http://localhost:38080/salaryFrontLineRuleNew")
 public interface SalaryFrontLineRuleFeignService {
 
 

@@ -9,8 +9,7 @@ import cn.net.yzl.staff.vo.achievements.PerformanceAuditConfigurationUpdateVo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 
-@FeignClient(value = "PerformanceAuditConfigurationFeginService",url = "${fegin.db.url}/performanceAuditConfiguration")
-//@FeignClient(value = "PerformanceAuditConfigurationFeginService",url = "http://127.0.0.1:38080/performanceAuditConfiguration")
+@FeignClient(value = "yzl-staff-db", url = "${fegin.db.url}/performanceAuditConfiguration")
 public interface PerformanceAuditConfigurationFeginService {
 
     @PostMapping("/getByDepartId")

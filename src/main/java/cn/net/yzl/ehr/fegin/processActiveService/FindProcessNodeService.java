@@ -1,28 +1,20 @@
 package cn.net.yzl.ehr.fegin.processActiveService;
 
 import cn.net.yzl.common.entity.ComResponse;
-import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.staff.dto.StaffDetailsDto;
-import cn.net.yzl.staff.dto.personApprove.ApproveLeaveDTO;
-
 import cn.net.yzl.staff.dto.personApprove.ApproveLeaveDayDTO;
 import cn.net.yzl.staff.dto.processNode.ProcessApproveNode;
-import cn.net.yzl.staff.dto.processNode.ProcessNodeDTO;
 import cn.net.yzl.staff.dto.processNode.StaffLeaveDTO;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import java.util.List;
-//@FeignClient(name="personApprove",url="${fegin.db.url}/processActive")
-@FeignClient(name="processActive",url="localhost:38080/processActive")
+
+@FeignClient(name = "yzl-staff-db", url = "${fegin.db.url}/processActive")
 public interface FindProcessNodeService {
     @GetMapping("v1/findProcessInfoList")
     @ApiOperation(value = "获取当前员工信息")
@@ -35,8 +27,9 @@ public interface FindProcessNodeService {
     @GetMapping("v1/getLeaveNumInfo")
     @ApiOperation(value = "获得年假信息")
     ComResponse<ApproveLeaveDayDTO> getLeaveNumInfo(@RequestParam("departId") Integer departId,
-                                                           @RequestParam("sysDictDataId") Integer sysDictDataId,
-                                                           @RequestParam("staffNo") String staffNo);
+                                                    @RequestParam("sysDictDataId") Integer sysDictDataId,
+                                                    @RequestParam("staffNo") String staffNo);
+
     @GetMapping("v1/getTransferStaffInfo")
     @ApiOperation(value = "判断是否部门负责人并获取当前员工信息")
     ComResponse<StaffDetailsDto> getTransferStaffInfo(@RequestParam("staffNo") String staffNo);

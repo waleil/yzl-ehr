@@ -17,13 +17,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-@FeignClient(value = "businessPost",url = "${fegin.db.url}")
-//@FeignClient(name = "yzl-staff-db")
+@FeignClient(name = "yzl-staff-db", url = "${fegin.db.url}")
 public interface BusinessPostFeginService {
 
 
     @RequestMapping(value = "/businessPost/addBussnessAtrrPost", method = RequestMethod.POST)
-    ComResponse<Integer> addBussnessAtrrPost(@RequestBody @Validated BusinessPostVO businessPostVO) ;
+    ComResponse<Integer> addBussnessAtrrPost(@RequestBody @Validated BusinessPostVO businessPostVO);
 
     @RequestMapping(value = "/businessPost/getBusinessPostListEhr", method = RequestMethod.GET)
     public ComResponse<List<BusinessPostDto>> getBusiPostListByAttr(@RequestParam("bussinessAtrrCode") Integer bussinessAtrrCode);
@@ -35,7 +34,7 @@ public interface BusinessPostFeginService {
     public ComResponse<PostLevelUpRuleDto> getPostLevelIndicatorsList(@RequestParam("postLevelId") Integer postLevelId);
 
     @RequestMapping(value = "/businessPost/delPostIndicators", method = RequestMethod.GET)
-    public ComResponse<Integer> delPostIndicators(@RequestParam("id")  Integer id);
+    public ComResponse<Integer> delPostIndicators(@RequestParam("id") Integer id);
 
     @RequestMapping(value = "/businessPost/getAllPostIndcatorsList", method = RequestMethod.GET)
     public ComResponse<List<PostLevelIndicatorsDto>> getAllPostIndcatorsList(@RequestParam("postLevelId") Integer postLevelId);

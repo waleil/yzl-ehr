@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @version 1.0
  * @date 2021/3/25 20:54
  */
-@FeignClient(value = "staffWorkOverTimeFeignService",url = "${fegin.db.url}/workOverTime")
+@FeignClient(value = "yzl-staff-db", url = "${fegin.db.url}/workOverTime")
 public interface StaffWorkOverTimeFeignService {
 
 
