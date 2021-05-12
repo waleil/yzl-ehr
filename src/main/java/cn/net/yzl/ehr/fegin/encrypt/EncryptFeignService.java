@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Repository
-@FeignClient(value = "EncryptFeign",url = "localhost:38080/encrypt")
+@FeignClient(value = "EncryptFeign",url = "${fegin.db.url}/encrypt")
 //@RefreshScope
 public interface EncryptFeignService {
 
