@@ -452,7 +452,7 @@ public class ResumeController {
 
 
     @ApiOperation(value = "简历录入-导入", notes = "查简历录入-导入", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @RequestMapping(value = "/importResumeList", method = RequestMethod.POST)
+    @RequestMapping(value = "/importResumeList", method = RequestMethod.GET)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "url", value = "文件路径(相对路径)", required = true, dataType = "String", paramType = "query"),
     })
@@ -460,8 +460,6 @@ public class ResumeController {
         ExcelWriter writer = ExcelUtil.getWriter();
         writer.renameSheet("简历导入结果");     //甚至sheet的名称
         ComResponse<List<ResumeImportResultDto>> result =  resumeFeginService.importResumeList(url,staffNo);
-
-
         List<ResumeImportResultDto> list = result.getData();
         try {
             writer.addHeaderAlias("departNo", "部门id");
