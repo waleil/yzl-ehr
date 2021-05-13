@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.controller.resume;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
@@ -461,7 +462,16 @@ public class ResumeController {
         writer.renameSheet("简历导入结果");     //甚至sheet的名称
         ComResponse<List<ResumeImportResultDto>> result =  resumeFeginService.importResumeList(url,staffNo);
         List<ResumeImportResultDto> list = result.getData();
+
         try {
+            if(CollectionUtil.isEmpty(list)){
+                ResumeImportResultDto dto=new ResumeImportResultDto();
+                dto.setDepartNo(0);
+                dto.setResultDesc("导入失败");
+                dto.setResult(result.getMessage());
+                list=new ArrayList<ResumeImportResultDto>();
+                list.add(dto);
+            }
             writer.addHeaderAlias("departNo", "部门id");
             writer.addHeaderAlias("result", "导入结果");
             writer.addHeaderAlias("resultDesc", "resultDesc");
