@@ -47,21 +47,21 @@ public class StaffUpRpUpdatePo implements Serializable {
      * 奖惩内容
      */
     @ApiModelProperty(value = "奖惩内容")
-    @NotBlank
+
     private String content;
 
     /**
      * 奖惩结果
      */
     @ApiModelProperty(value = "奖惩结果")
-    @NotBlank
+
     private String result;
 
     /**
      * 奖/惩 1.奖励 2.惩罚
      */
     @ApiModelProperty(value = "奖/惩 (1.奖励 2.惩罚)")
-    @NotNull
+
     private Integer flag;
 
 
