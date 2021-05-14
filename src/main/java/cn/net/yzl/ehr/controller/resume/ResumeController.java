@@ -1,6 +1,7 @@
 package cn.net.yzl.ehr.controller.resume;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
@@ -451,7 +452,7 @@ public class ResumeController {
 
 
     @ApiOperation(value = "简历录入-导入", notes = "查简历录入-导入", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @RequestMapping(value = "/importResumeList", method = RequestMethod.POST)
+    @RequestMapping(value = "/importResumeList", method = RequestMethod.GET)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "url", value = "文件路径(相对路径)", required = true, dataType = "String", paramType = "query"),
     })
@@ -459,10 +460,17 @@ public class ResumeController {
         ExcelWriter writer = ExcelUtil.getWriter();
         writer.renameSheet("简历导入结果");     //甚至sheet的名称
         ComResponse<List<ResumeImportResultDto>> result =  resumeFeginService.importResumeList(url,staffNo);
-
-
         List<ResumeImportResultDto> list = result.getData();
+
         try {
+            if(CollectionUtil.isEmpty(list)){
+                ResumeImportResultDto dto=new ResumeImportResultDto();
+                dto.setDepartNo(0);
+                dto.setResultDesc("导入失败");
+                dto.setResult(result.getMessage());
+                list=new ArrayList<ResumeImportResultDto>();
+                list.add(dto);
+            }
             writer.addHeaderAlias("departNo", "部门id");
             writer.addHeaderAlias("result", "导入结果");
             writer.addHeaderAlias("resultDesc", "resultDesc");
