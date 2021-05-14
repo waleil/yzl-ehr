@@ -1,5 +1,6 @@
 package cn.net.yzl.ehr.dto.attend;
 
+import cn.hutool.core.date.DateUtil;
 import cn.net.yzl.staff.dto.attend.StaffAttendDayDto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
@@ -7,6 +8,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -91,39 +93,47 @@ public class StaffAttendExportDto implements Serializable {
     private List<StaffAttendDayDto> staffAttendDayDtoList;
 
     public void setStaffAttendDayDtoList(List<StaffAttendDayDto> staffAttendDayDtoList) {
+
         for (int i = 0; i < staffAttendDayDtoList.size(); i++) {
-            if(i==0){v1=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==1){v2=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==2){v3=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==3){v4=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==4){v5=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==5){v6=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==6){v7=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==7){v8=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==8){v9=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==9){v10=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==10){v11=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==11){v12=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==12){v13=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==13){v14=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==14){v15=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==15){v16=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==16){v17=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==17){v18=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==18){v19=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==19){v20=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==20){v21=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==21){v22=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==22){v23=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==23){v24=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==24){v25=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==25){v26=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==26){v27=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==27){v28=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==28){v29=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==29){v30=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==30){v31=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==31){v32=staffAttendDayDtoList.get(i).getDesc();}
+            Date time = staffAttendDayDtoList.get(i).getTime();
+            int day = 0;
+            if(time!=null){
+                day = DateUtil.dayOfMonth(time);
+            }else{
+                continue;
+            }
+            if(i==day){v1=staffAttendDayDtoList.get(i).getDesc();}
+            else if(i==day){v2=staffAttendDayDtoList.get(i).getDesc();}
+            else if(i==day){v3=staffAttendDayDtoList.get(i).getDesc();}
+            else if(i==day){v4=staffAttendDayDtoList.get(i).getDesc();}
+            else if(i==day){v5=staffAttendDayDtoList.get(i).getDesc();}
+            else if(i==day){v6=staffAttendDayDtoList.get(i).getDesc();}
+            else if(i==day){v7=staffAttendDayDtoList.get(i).getDesc();}
+            else if(i==day){v8=staffAttendDayDtoList.get(i).getDesc();}
+            else if(i==day){v9=staffAttendDayDtoList.get(i).getDesc();}
+            else if(i==day){v10=staffAttendDayDtoList.get(i).getDesc();}
+            else if(i==day){v11=staffAttendDayDtoList.get(i).getDesc();}
+            else if(i==day){v12=staffAttendDayDtoList.get(i).getDesc();}
+            else if(i==day){v13=staffAttendDayDtoList.get(i).getDesc();}
+            else if(i==day){v14=staffAttendDayDtoList.get(i).getDesc();}
+            else if(i==day){v15=staffAttendDayDtoList.get(i).getDesc();}
+            else if(i==day){v16=staffAttendDayDtoList.get(i).getDesc();}
+            else if(i==day){v17=staffAttendDayDtoList.get(i).getDesc();}
+            else if(i==day){v18=staffAttendDayDtoList.get(i).getDesc();}
+            else if(i==day){v19=staffAttendDayDtoList.get(i).getDesc();}
+            else if(i==day){v20=staffAttendDayDtoList.get(i).getDesc();}
+            else if(i==day){v21=staffAttendDayDtoList.get(i).getDesc();}
+            else if(i==day){v22=staffAttendDayDtoList.get(i).getDesc();}
+            else if(i==day){v23=staffAttendDayDtoList.get(i).getDesc();}
+            else if(i==day){v24=staffAttendDayDtoList.get(i).getDesc();}
+            else if(i==day){v25=staffAttendDayDtoList.get(i).getDesc();}
+            else if(i==day){v26=staffAttendDayDtoList.get(i).getDesc();}
+            else if(i==day){v27=staffAttendDayDtoList.get(i).getDesc();}
+            else if(i==day){v28=staffAttendDayDtoList.get(i).getDesc();}
+            else if(i==day){v29=staffAttendDayDtoList.get(i).getDesc();}
+            else if(i==day){v30=staffAttendDayDtoList.get(i).getDesc();}
+            else if(i==day){v31=staffAttendDayDtoList.get(i).getDesc();}
+            else if(i==day){v32=staffAttendDayDtoList.get(i).getDesc();}
         }
 
         this.staffAttendDayDtoList = staffAttendDayDtoList;
