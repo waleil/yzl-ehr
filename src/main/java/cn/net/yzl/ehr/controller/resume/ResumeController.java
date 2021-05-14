@@ -397,7 +397,6 @@ public class ResumeController {
                 writer.addHeaderAlias("reasonCodeName","入库原因");
                 writer.addHeaderAlias("intentionName","初试意向");
                 writer.addHeaderAlias("entryTimes","入司次数");
-
                 writer.addHeaderAlias("createTime","录入时间");
                 writer.addHeaderAlias("creator","录入人");
             }

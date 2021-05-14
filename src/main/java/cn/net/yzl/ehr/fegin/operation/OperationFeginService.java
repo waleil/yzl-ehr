@@ -6,7 +6,6 @@ import cn.net.yzl.staff.dto.OperationDto;
 import cn.net.yzl.staff.vo.OperationPageVo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,10 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  *
  * @author yangxiaopeng
  */
-//@FeignClient(name = "yzl-staff-api")
-@FeignClient(value = "operation",url = "${fegin.db.url}")
-//@FeignClient(name = "yzl-staff-db")
-@Repository
+@FeignClient(name = "yzl-staff-db", url = "${fegin.db.url}")
 public interface OperationFeginService {
     @ApiOperation(value = "分页查询操作日志", notes = "分页查询操作日志")
     @PostMapping("operation/selectOperationPageList")
@@ -33,6 +29,6 @@ public interface OperationFeginService {
 
     @ApiOperation(value = "外部新增接口", notes = "外部新增接口")
     @GetMapping("operation/insertOperation")
-    public ComResponse insertOperation(@RequestParam(value = "macCode",required = false)String macCode, @RequestParam(value = "actionCode")String actionCode,
-                                       @RequestParam(value = "userCode")String userCode, @RequestParam(value = "ip")String ip);
+    public ComResponse insertOperation(@RequestParam(value = "macCode", required = false) String macCode, @RequestParam(value = "actionCode") String actionCode,
+                                       @RequestParam(value = "userCode") String userCode, @RequestParam(value = "ip") String ip);
 }

@@ -5,21 +5,19 @@ import cn.net.yzl.ehr.dto.PostLevelDto;
 import cn.net.yzl.ehr.dto.PostLevelListDto;
 import cn.net.yzl.ehr.pojo.PostLevelUpdatePo;
 import cn.net.yzl.ehr.util.ValidList;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-@Repository
-//@FeignClient(name = "yzl-staff-db")
-@FeignClient(value = "postLevel",url = "${fegin.db.url}")
-@RefreshScope
+@FeignClient(name = "yzl-staff-db", url = "${fegin.db.url}")
 public interface PostLevelFeginMapper {
 
     @RequestMapping(value = "/postLevel/getById", method = RequestMethod.GET)
-    ComResponse<PostLevelDto> getById(@RequestParam("id")  Integer id);
+    ComResponse<PostLevelDto> getById(@RequestParam("id") Integer id);
 
 /*
     @RequestMapping(value = "/postLevel/delete", method = RequestMethod.POST)
@@ -38,8 +36,8 @@ public interface PostLevelFeginMapper {
     ComResponse<PostLevelListDto> getListByPostId(@RequestParam("postId") Integer postId);
 
     @RequestMapping(value = "/postLevel/getStaffTotalForPostLevel", method = RequestMethod.GET)
-    ComResponse<Integer> getStaffTotalForPostLevel(@RequestParam("postLevelId") Integer postLevelId) ;
+    ComResponse<Integer> getStaffTotalForPostLevel(@RequestParam("postLevelId") Integer postLevelId);
 
     @RequestMapping(value = "/postLevel/saveUpdate", method = RequestMethod.POST)
-    ComResponse<Integer> saveUpdate(@RequestBody ValidList<PostLevelUpdatePo> updatePo) ;
+    ComResponse<Integer> saveUpdate(@RequestBody ValidList<PostLevelUpdatePo> updatePo);
 }

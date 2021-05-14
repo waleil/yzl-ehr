@@ -7,7 +7,6 @@ import cn.net.yzl.staff.dto.performance.PerformanceRemindDepartDto;
 import cn.net.yzl.staff.dto.performance.PerformanceRemindDto;
 import cn.net.yzl.staff.pojo.performance.PerformanceRemindPo;
 import cn.net.yzl.staff.vo.performance.PerformanceNoVo;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,8 +21,6 @@ import java.util.List;
  * @author biebaojie
  */
 @FeignClient(value = "yzl-staff-db", url = "${fegin.db.url}/performance")
-//@FeignClient(value = "yzl-staff-db", url = "http://localhost:38080/performance")
-@RefreshScope
 public interface PerformanceRemindFeignService {
 
     /**

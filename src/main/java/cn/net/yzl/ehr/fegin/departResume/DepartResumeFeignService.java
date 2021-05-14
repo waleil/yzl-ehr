@@ -8,7 +8,6 @@ import cn.net.yzl.ehr.dto.DepartResumeNodeDto;
 import cn.net.yzl.ehr.pojo.DepartResumeInsertListPo;
 import cn.net.yzl.ehr.pojo.DepartResumeUpdateListPo;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,13 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 
-@Repository
-//@FeignClient(name = "yzl-staff-db")
-@FeignClient(value = "departResume",url = "${fegin.db.url}")
+@FeignClient(name = "yzl-staff-db", url = "${fegin.db.url}")
 public interface DepartResumeFeignService {
 
     @RequestMapping(value = "/conf/resume/add", method = RequestMethod.POST)
-    ComResponse<Integer> add(@RequestBody  DepartResumeInsertListPo departResumePo) ;
+    ComResponse<Integer> add(@RequestBody DepartResumeInsertListPo departResumePo);
 
 
     @RequestMapping(value = "/conf/resume/saveUpdate", method = RequestMethod.POST, consumes = "application/json")
@@ -36,10 +33,10 @@ public interface DepartResumeFeignService {
 
 
     @RequestMapping(value = "/conf/resume/getByDepartPostId", method = RequestMethod.GET)
-    ComResponse<List<DepartResumeNodeDto>> getByDepartPostId(@RequestParam("departPostId") Integer departPostId) ;
+    ComResponse<List<DepartResumeNodeDto>> getByDepartPostId(@RequestParam("departPostId") Integer departPostId);
 
     @RequestMapping(value = "/conf/resume/getByResumeId", method = RequestMethod.GET)
-    ComResponse<DepartResumeDto> getByResumeId(@RequestParam("resumeId") Integer resumeId) ;
+    ComResponse<DepartResumeDto> getByResumeId(@RequestParam("resumeId") Integer resumeId);
 
 
     @RequestMapping(value = "/conf/resume/deleteByResumeId", method = RequestMethod.POST)

@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @Description
  */
 @FeignClient(value = "yzl-staff-db", url = "${fegin.db.url}/performanceProportionConfiguration")
-//@FeignClient(value = "yzl-staff-db",url = "http://localhost:38080/performanceProportionConfiguration")
 public interface PerformanceProportionConfigurationFeginService {
 
     //列表

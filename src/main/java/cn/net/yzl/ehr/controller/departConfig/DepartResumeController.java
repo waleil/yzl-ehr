@@ -3,7 +3,6 @@ package cn.net.yzl.ehr.controller.departConfig;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
-import cn.net.yzl.common.util.SnowFlakeUtil;
 import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.ehr.dto.DepartResumeDto;
 import cn.net.yzl.ehr.dto.DepartResumeItemDto;
@@ -12,14 +11,16 @@ import cn.net.yzl.ehr.fegin.departResume.DepartResumeFeignService;
 import cn.net.yzl.ehr.pojo.DepartResumeInsertListPo;
 import cn.net.yzl.ehr.pojo.DepartResumeUpdateListPo;
 import cn.net.yzl.ehr.service.DepartResumeService;
-
-import cn.net.yzl.logger.utils.SnowFlake;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;

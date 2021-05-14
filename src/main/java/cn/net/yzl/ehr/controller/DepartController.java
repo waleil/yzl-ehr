@@ -121,14 +121,16 @@ public class DepartController {
     }
 
 
+
     @ApiOperation(value = "根据员工号获取部门下所有员工(负责人)", notes = "根据员工号获取部门下所有员工(负责人)", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "param", value = "搜索参数", required = true, dataType = "String", paramType = "query")
     })
     @RequestMapping(value = "/getByParamsForLeaderNo", method = RequestMethod.GET)
-    ComResponse<List<StaffBaseDto>> getByParamsForLeaderNo(@RequestParam("param") String param, @CurrentStaffNo @ApiIgnore String staffNo) {
+    ComResponse<List<StaffBaseDto>> getByParamsForLeaderNo(@RequestParam("param") String param,@CurrentStaffNo @ApiIgnore String staffNo) {
         return departService.getByParamsForLeaderNo(param,staffNo);
     }
+
 
     @ApiOperation(value = "根据员工号获取部门列表(负责人)", notes = "根据员工号获取部门列表(负责人)", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/getListByStaffNo", method = RequestMethod.GET)

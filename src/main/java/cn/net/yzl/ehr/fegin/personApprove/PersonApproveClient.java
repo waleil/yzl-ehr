@@ -8,7 +8,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name="personApprove",url="${fegin.db.url}/personApprove")
+@FeignClient(name = "yzl-staff-db", url = "${fegin.db.url}/personApprove")
 public interface PersonApproveClient {
 
     @PostMapping("v1/getApproveInfoListDTOList")

@@ -43,7 +43,9 @@ public class MyWebAppConfigurer  implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/depart/**");
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/staff/**").
-                excludePathPatterns("/staff/abnor/timerUpdateStafffAbnorRecord").excludePathPatterns("/staff/abnor/staffBatchPostLevelTimedTask");
+                excludePathPatterns("/staff/abnor/timerUpdateStafffAbnorRecord")
+                .excludePathPatterns("/staff/abnor/staffBatchPostLevelTimedTask")
+                .excludePathPatterns("/staff/abnor/staffBatchPostLevelTimedDayTask");
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/sysDic/**");
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/conf/**");
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/post/**");

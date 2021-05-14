@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 
-@FeignClient(value = "yzl-staff-db",url = "${fegin.db.url}/salaryNotFrontLineRule")
+@FeignClient(value = "yzl-staff-db", url = "${fegin.db.url}/salaryNotFrontLineRule")
 public interface SalaryNotFrontLineRuleFeginService {
 
 

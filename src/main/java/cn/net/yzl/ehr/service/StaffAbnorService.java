@@ -41,4 +41,6 @@ public interface StaffAbnorService {
 
     ComResponse<List<MsgTemplateVo>> staffBatchPostLevelTimedTask() throws ParseException ;
 
+    public ComResponse<List<MsgTemplateVo>> staffBatchPostLevelTimedDayTask() throws ParseException;
+
 }
