@@ -14,7 +14,7 @@ public class StaffWorkUpdatePo implements Serializable {
     @ApiModelProperty(value = "id", name = "id")
     private Integer id;
     @ApiModelProperty(value = "员工表工号", name = "staffNo")
-    private Integer staffNo;
+    private String staffNo;
     @ApiModelProperty(value = "起始时间", name = "startTime")
     @JsonFormat(pattern="yyyy-MM-dd")
     private String startTime;

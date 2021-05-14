@@ -1,8 +1,10 @@
 package cn.net.yzl.ehr.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.Valid;
 import java.io.Serializable;
@@ -13,10 +15,14 @@ import java.util.Date;
 public class StaffWorkPo implements Serializable {
 
     @ApiModelProperty(value = "员工工号", name = "staffNo")
-    private Integer staffNo;
+    private String staffNo;
     @ApiModelProperty(value = "起始时间", name = "startTime")
+    @JsonFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date startTime;
     @ApiModelProperty(value = "结束时间", name = "endTime")
+    @JsonFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date endTime;
     @ApiModelProperty(value = "单位名称", name = "company")
     private String company;
@@ -43,7 +49,7 @@ public class StaffWorkPo implements Serializable {
     @ApiModelProperty(value = "创建时间", name = "createTime")
     private Date createTime;
     @ApiModelProperty(value = "创建人", name = "creator")
-    private Integer creator;
+    private String creator;
     @ApiModelProperty(value = "修改时间", name = "updateTime")
     private Date updateTime;
     @ApiModelProperty(value = "修改人", name = "updator")

@@ -14,11 +14,11 @@ public class StaffWorkDto implements Serializable {
     @ApiModelProperty(value = "id", name = "id")
     private Integer id;
     @ApiModelProperty(value = "员工表工号", name = "staff_no")
-    private Integer staffNo;
-    @ApiModelProperty(value = "起始时间", name = "start_time")
+    private String staffNo;
+    @ApiModelProperty(value = "起始时间", name = "startTime")
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date startTime;
-    @ApiModelProperty(value = "结束时间", name = "end_time")
+    @ApiModelProperty(value = "结束时间", name = "endTime")
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date endTime;
     @ApiModelProperty(value = "单位名称", name = "company")
