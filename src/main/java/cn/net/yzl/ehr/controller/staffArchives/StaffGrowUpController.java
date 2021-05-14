@@ -19,6 +19,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class StaffGrowUpController {
 
     @ApiOperation(value = "成长信息—查询员工成长中奖惩信息",notes = "查询员工成长中奖惩信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/findByStaffNo", method = RequestMethod.GET)
-    ComResponse<StaffUpRpListDto> findByStaffNo(@RequestParam("staffNO")String staffNO) {
+    ComResponse<StaffUpRpListDto> findByStaffNo(@RequestParam("staffNO") @NotBlank String staffNO) {
         return staffGrowUpService.findByStaffNo(staffNO);
     }
 /*
@@ -78,7 +79,7 @@ public class StaffGrowUpController {
 
     @ApiOperation(value = "成长信息—查询员工成长信息中培训信息",notes = "查询员工成长信息中培训信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/find", method = RequestMethod.GET)
-    ComResponse<StaffUpTrainListDto> find(@RequestParam("staffNO")String staffNO) {
+    ComResponse<StaffUpTrainListDto> find(@RequestParam("staffNO") @NotBlank String staffNO) {
         return staffGrowUpService.find(staffNO);
     }
 
