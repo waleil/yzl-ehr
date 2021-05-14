@@ -143,7 +143,7 @@ public class StaffAttendController {
         MenuDTO menuDTO = roleMenuService.getIsAdminByUserCodeAndMenuUrl(userNo,referer);
         Integer isAdmin = menuDTO.getIsAdmin();
         staffAttendParamsVO.setStaffNo(userNo);
-        if(0 == isAdmin){
+        if(isAdmin!=null && 0 == isAdmin){
             staffAttendParamsVO.setFlag(1);
         }
 
@@ -170,7 +170,7 @@ public class StaffAttendController {
             writer.addHeaderAlias("shouldAttendDays", "应出勤天数");
             writer.addHeaderAlias("attendDays", "出勤天数");
             writer.addHeaderAlias("restDays", "休息天数");
-            writer.addHeaderAlias("workTime", "工作时长(分钟)");
+            writer.addHeaderAlias("workTime", "工作时长(小时)");
             for (int i = 1; i < daysOfMonth+1; i++) {
                 writer.addHeaderAlias("v"+i, i+"");
             }

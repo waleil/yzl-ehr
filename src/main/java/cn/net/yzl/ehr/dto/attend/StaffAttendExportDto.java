@@ -92,6 +92,12 @@ public class StaffAttendExportDto implements Serializable {
     @ApiModelProperty(value = "每天出勤信息集合", name = "staffAttendDayDtoList")
     private List<StaffAttendDayDto> staffAttendDayDtoList;
 
+    public void setWorkTime(Integer workTime){
+        if(workTime!=null){
+            this.workTime = workTime/60;
+        }
+    }
+
     public void setStaffAttendDayDtoList(List<StaffAttendDayDto> staffAttendDayDtoList) {
 
         for (int i = 0; i < staffAttendDayDtoList.size(); i++) {
@@ -102,38 +108,38 @@ public class StaffAttendExportDto implements Serializable {
             }else{
                 continue;
             }
-            if(i==day){v1=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==day){v2=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==day){v3=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==day){v4=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==day){v5=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==day){v6=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==day){v7=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==day){v8=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==day){v9=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==day){v10=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==day){v11=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==day){v12=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==day){v13=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==day){v14=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==day){v15=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==day){v16=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==day){v17=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==day){v18=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==day){v19=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==day){v20=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==day){v21=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==day){v22=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==day){v23=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==day){v24=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==day){v25=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==day){v26=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==day){v27=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==day){v28=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==day){v29=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==day){v30=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==day){v31=staffAttendDayDtoList.get(i).getDesc();}
-            else if(i==day){v32=staffAttendDayDtoList.get(i).getDesc();}
+            if(1==day){v1=staffAttendDayDtoList.get(i).getDesc();}
+            else if(2==day){v2=staffAttendDayDtoList.get(i).getDesc();}
+            else if(3==day){v3=staffAttendDayDtoList.get(i).getDesc();}
+            else if(4==day){v4=staffAttendDayDtoList.get(i).getDesc();}
+            else if(5==day){v5=staffAttendDayDtoList.get(i).getDesc();}
+            else if(6==day){v6=staffAttendDayDtoList.get(i).getDesc();}
+            else if(7==day){v7=staffAttendDayDtoList.get(i).getDesc();}
+            else if(8==day){v8=staffAttendDayDtoList.get(i).getDesc();}
+            else if(9==day){v9=staffAttendDayDtoList.get(i).getDesc();}
+            else if(10==day){v10=staffAttendDayDtoList.get(i).getDesc();}
+            else if(11==day){v11=staffAttendDayDtoList.get(i).getDesc();}
+            else if(12==day){v12=staffAttendDayDtoList.get(i).getDesc();}
+            else if(13==day){v13=staffAttendDayDtoList.get(i).getDesc();}
+            else if(14==day){v14=staffAttendDayDtoList.get(i).getDesc();}
+            else if(15==day){v15=staffAttendDayDtoList.get(i).getDesc();}
+            else if(16==day){v16=staffAttendDayDtoList.get(i).getDesc();}
+            else if(17==day){v17=staffAttendDayDtoList.get(i).getDesc();}
+            else if(18==day){v18=staffAttendDayDtoList.get(i).getDesc();}
+            else if(19==day){v19=staffAttendDayDtoList.get(i).getDesc();}
+            else if(20==day){v20=staffAttendDayDtoList.get(i).getDesc();}
+            else if(21==day){v21=staffAttendDayDtoList.get(i).getDesc();}
+            else if(22==day){v22=staffAttendDayDtoList.get(i).getDesc();}
+            else if(23==day){v23=staffAttendDayDtoList.get(i).getDesc();}
+            else if(24==day){v24=staffAttendDayDtoList.get(i).getDesc();}
+            else if(25==day){v25=staffAttendDayDtoList.get(i).getDesc();}
+            else if(26==day){v26=staffAttendDayDtoList.get(i).getDesc();}
+            else if(27==day){v27=staffAttendDayDtoList.get(i).getDesc();}
+            else if(28==day){v28=staffAttendDayDtoList.get(i).getDesc();}
+            else if(29==day){v29=staffAttendDayDtoList.get(i).getDesc();}
+            else if(30==day){v30=staffAttendDayDtoList.get(i).getDesc();}
+            else if(31==day){v31=staffAttendDayDtoList.get(i).getDesc();}
+            else if(32==day){v32=staffAttendDayDtoList.get(i).getDesc();}
         }
 
         this.staffAttendDayDtoList = staffAttendDayDtoList;
