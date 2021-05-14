@@ -197,7 +197,7 @@ public class TrainingCourseController {
             @ApiParam(value = "培训状态(0 未开始,1 培训中,2 培训完成)") @RequestParam(value = "status", required = false) Integer status,
             @ApiParam(value = "培训开始时间") @RequestParam(value = "startTime", required = false) String startTime,
             @ApiParam(value = "培训结束时间") @RequestParam(value = "endTime", required = false) String endTime,
-            @ApiParam(value = "分页参数:页码")@RequestParam(value = "pageNum",defaultValue = "0") Integer pageNum,
+            @ApiParam(value = "分页参数:页码")@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,
             @ApiParam(value = "分页参数:每页数量")@RequestParam(value = "pageSize",defaultValue = "10") Integer pageSize) {
 
         return trainingCourseClient.list(courseName, online, exam, status, startTime, endTime,pageNum,pageSize);
@@ -239,7 +239,7 @@ public class TrainingCourseController {
             @ApiParam(value = "岗位名称")@RequestParam(value = "postId",required = false) Integer postId,
             @ApiParam(value = "入岗状态:180 待入岗 181 已入岗") @RequestParam(value = "enterStatus", required = false) Integer enterStatus,
             @ApiParam(value = "课程id")@RequestParam(value = "id")Integer id,
-            @ApiParam(value = "分页参数:页码")@RequestParam(value = "pageNum",defaultValue = "0") Integer pageNum,
+            @ApiParam(value = "分页参数:页码")@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,
             @ApiParam(value = "分页参数:每页数量")@RequestParam(value = "pageSize",defaultValue = "10") Integer pageSize){
         return trainingCourseClient.findSign(name,departCode,partner,workplace,postId,enterStatus,id,pageNum,pageSize);
     }
