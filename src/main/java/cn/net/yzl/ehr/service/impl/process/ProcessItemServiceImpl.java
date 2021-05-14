@@ -138,7 +138,7 @@ public class ProcessItemServiceImpl implements ProcessItemService {
     }
 
     @Override
-    public ComResponse<Boolean> selectProcessByItemIdAndUser(Integer processItemId, String staffNo) {
+    public ComResponse<Object> selectProcessByItemIdAndUser(Integer processItemId, String staffNo) {
         return processItemFeignService.selectProcessByItemIdAndUser(processItemId,staffNo);
     }
 }

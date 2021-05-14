@@ -174,12 +174,16 @@ public class ResumeController {
                 msgSendAsync.sendToDepart(staffNo,s);
 
             }
+
         }
+
         return re;
     }
-
     @ApiOperation(value = "简历列表-单个发给部门(待筛选)", notes = "简历列表-单个发给部门(待筛选)", consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/sendToDepart", method = RequestMethod.POST)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "resumeId", value = "简历id", required = true, dataType = "Integer", paramType = "query")
+    })
     ComResponse<String> sendToDepart(@RequestBody ResumeDepartStaffInsertPo insertPo, @ApiIgnore @CurrentStaffNo String staffNo) throws IllegalAccessException {
         insertPo.setCreator(staffNo);
         ComResponse<String> re = resumeFeginService.sendToDepart(insertPo);

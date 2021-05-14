@@ -26,7 +26,6 @@ import java.util.List;
  * @author biebaojie
  */
 @FeignClient(value = "yzl-staff-db", url = "${fegin.db.url}/salaryRulePost")
-//@FeignClient(value = "yzl-staff-db", url = "http://localhost:38080/salaryRulePost")
 public interface SalaryRulePostFeignService {
 
     /**

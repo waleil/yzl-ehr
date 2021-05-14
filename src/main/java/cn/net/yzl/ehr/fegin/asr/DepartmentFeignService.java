@@ -4,11 +4,15 @@ import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.model.dto.DepartmentDto;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-@FeignClient(value = "departmentService",url = "${fegin.asr.url}")
+@FeignClient(value = "yzl-asr", url = "${fegin.asr.url}")
 public interface DepartmentFeignService {
 
     /**
@@ -19,7 +23,7 @@ public interface DepartmentFeignService {
      */
     @GetMapping(value = "department/v1/query/tree")
     @ApiOperation(value = "查询asr组织架构", httpMethod = "GET")
-    ComResponse<List<DepartmentDto>> getDepartmentTree() ;
+    ComResponse<List<DepartmentDto>> getDepartmentTree();
 
     /**
      * @author wanghuasheng
@@ -39,7 +43,7 @@ public interface DepartmentFeignService {
      */
     @DeleteMapping(value = "department/v1/delete/by/id")
     @ApiOperation(value = "删除asr组织架构", httpMethod = "DELETE")
-    ComResponse<Boolean> delDepartment(@RequestParam("id") String id) ;
+    ComResponse<Boolean> delDepartment(@RequestParam("id") String id);
 
     /**
      * @author wanghuasheng

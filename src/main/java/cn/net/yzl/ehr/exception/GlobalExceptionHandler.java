@@ -2,6 +2,7 @@ package cn.net.yzl.ehr.exception;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.enums.ResponseCodeEnums;
+import cn.net.yzl.common.util.JsonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -67,7 +68,7 @@ public class GlobalExceptionHandler {
         }
         logger.info("接口路径:{},请求参数:{},报错信息:{}", request.getRequestURI(),
                 showParams(request),
-                sb);
+                JsonUtil.toJsonStr(bindingResult.getFieldErrors()));
         return ComResponse.fail(ResponseCodeEnums.PARAMS_ERROR_CODE.getCode(), sb.toString());
     }
 
@@ -151,9 +152,9 @@ public class GlobalExceptionHandler {
         Map<String, Object> map = new HashMap<String, Object>();
         StringBuilder stringBuilder = new StringBuilder();
         Enumeration paramNames = request.getParameterNames();
-        stringBuilder.append("----------------参数开始-------------------");
-        stringBuilder.append(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
         if (Objects.nonNull(paramNames)) {
+            stringBuilder.append("----------------参数开始-------------------");
+            stringBuilder.append(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
             while (paramNames.hasMoreElements()) {
                 String paramName = (String) paramNames.nextElement();
                 String[] paramValues = request.getParameterValues(paramName);
@@ -164,8 +165,8 @@ public class GlobalExceptionHandler {
                     }
                 }
             }
+            stringBuilder.append("----------------参数结束-------------------");
         }
-        stringBuilder.append("----------------参数结束-------------------");
         return stringBuilder.toString();
     }
 

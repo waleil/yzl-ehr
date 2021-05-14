@@ -1,25 +1,14 @@
 package cn.net.yzl.ehr.fegin.performance;
 
 import cn.net.yzl.common.entity.ComResponse;
-
-import cn.net.yzl.ehr.authorization.annotation.CurrentStaffNo;
 import cn.net.yzl.staff.dto.achievements.StaffArchiveDto;
 import cn.net.yzl.staff.dto.salaryRule.PerforProConfDepartTreeDto;
 import cn.net.yzl.staff.vo.BiStaffTargetTaskVO;
-
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.cloud.openfeign.FeignClient;
-
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import springfox.documentation.annotations.ApiIgnore;
 
-import java.text.ParseException;
 import java.util.List;
 
 

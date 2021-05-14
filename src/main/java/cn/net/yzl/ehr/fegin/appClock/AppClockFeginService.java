@@ -1,21 +1,25 @@
 package cn.net.yzl.ehr.fegin.appClock;
 
 import cn.net.yzl.common.entity.ComResponse;
-import cn.net.yzl.staff.app.clock.dto.*;
+import cn.net.yzl.staff.app.clock.dto.AppStaffAttendStatisticsDTO;
+import cn.net.yzl.staff.app.clock.dto.AppStaffClockDayStatisticsDTO;
+import cn.net.yzl.staff.app.clock.dto.AppStaffClockLogBetweenDTO;
+import cn.net.yzl.staff.app.clock.dto.AppStaffClockLogDTO;
+import cn.net.yzl.staff.app.clock.dto.AppStaffClockTimeStatusDTO;
 import cn.net.yzl.staff.app.clock.vo.AppStaffClockLogVO;
 import cn.net.yzl.staff.app.clock.vo.AppStaffClockVO;
-import cn.net.yzl.staff.pojo.AppClockRangeConfPo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Date;
 import java.util.List;
 
-@Repository
-@FeignClient(value = "staff",url = "${fegin.db.url}")
+@FeignClient(value = "yzl-staff-db", url = "${fegin.db.url}")
 public interface AppClockFeginService {
 
     @ApiOperation(value = "初始化打卡页面", notes = "初始化打卡页面", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)

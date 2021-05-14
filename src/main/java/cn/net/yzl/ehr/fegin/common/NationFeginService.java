@@ -8,13 +8,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
-@FeignClient(value = "nationFeginService",url = "${fegin.db.url}")
-//@FeignClient(name = "yzl-staff-db")
+@FeignClient(name = "yzl-common-zt")
 public interface NationFeginService {
 
     @RequestMapping(value = "/nation/getAllNation", method = RequestMethod.GET)
     ComResponse<List<NationDto>> getAllNation();
-
 
 
 }

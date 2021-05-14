@@ -12,7 +12,6 @@ import cn.net.yzl.staff.vo.performance.PerformanceApproveVo;
 import cn.net.yzl.staff.vo.performance.PerformanceCreateVo;
 import cn.net.yzl.staff.vo.performance.PerformanceReturnVo;
 import cn.net.yzl.staff.vo.performance.PerformanceVo;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,8 +27,6 @@ import java.util.List;
  * @author biebaojie
  */
 @FeignClient(value = "yzl-staff-db", url = "${fegin.db.url}/performance")
-//@FeignClient(value = "yzl-staff-db", url = "http://localhost:38080/performance")
-@RefreshScope
 public interface PerformanceFeignService {
 
     /**

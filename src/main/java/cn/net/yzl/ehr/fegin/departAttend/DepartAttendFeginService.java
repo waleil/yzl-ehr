@@ -2,30 +2,23 @@ package cn.net.yzl.ehr.fegin.departAttend;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.ehr.dto.DepartAttendDto;
-import cn.net.yzl.ehr.dto.DepartAttendFtDto;
 import cn.net.yzl.ehr.dto.SysAttendFalsePunishDto;
-import cn.net.yzl.ehr.pojo.DepartAttendFtPo;
-import cn.net.yzl.ehr.vo.DepartAttendAllVo;
 import cn.net.yzl.ehr.vo.DepartAttendInsertAllVo;
-import cn.net.yzl.ehr.vo.DepartAttendVo;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.http.MediaType;
-import org.springframework.stereotype.Repository;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
-
-//@FeignClient(name = "yzl-staff-db")
-@FeignClient(value = "staff",url = "${fegin.db.url}")
-@Repository
+@FeignClient(name = "yzl-staff-db", url = "${fegin.db.url}")
 public interface DepartAttendFeginService {
 
     @RequestMapping(value = "departAttendFalse/getByDepartAttendFalseId", method = RequestMethod.GET)
-    ComResponse<DepartAttendDto> getByDepartAttendFalseId(@RequestParam("departId") Integer departId, @RequestParam(value = "isEdit",required = false) Integer isEdit);
+    ComResponse<DepartAttendDto> getByDepartAttendFalseId(@RequestParam("departId") Integer departId, @RequestParam(value = "isEdit", required = false) Integer isEdit);
 
     @PostMapping("departAttendFalse/insertUpdateDelDepartAttendFalse")
     public ComResponse insertUpdateDelDepartAttendFalse(@RequestBody @Validated DepartAttendInsertAllVo departAttendInsertAllVo);

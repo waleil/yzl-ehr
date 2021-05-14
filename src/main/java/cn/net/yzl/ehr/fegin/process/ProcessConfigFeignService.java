@@ -9,47 +9,49 @@ import cn.net.yzl.staff.dto.process.ProcessDto;
 import cn.net.yzl.staff.vo.process.ProcessConfigPageVo;
 import cn.net.yzl.staff.vo.process.ProcessConfigVo;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.stereotype.Repository;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
 
-@Repository
-@FeignClient(value = "ProcessConfigFeign",url = "${fegin.db.url}")
-//@RefreshScope
+@FeignClient(value = "yzl-staff-db", url = "${fegin.db.url}")
 public interface ProcessConfigFeignService {
 
     @RequestMapping(value = "/process/config/insert", method = RequestMethod.POST)
-    ComResponse<Integer> insertProcessConfig (@RequestBody @Validated ProcessConfigVo processConfigVo);
+    ComResponse<Integer> insertProcessConfig(@RequestBody @Validated ProcessConfigVo processConfigVo);
 
     @RequestMapping(value = "/process/config/update", method = RequestMethod.POST)
-    ComResponse<Integer> updateProcessConfig (@RequestBody @Validated ProcessConfigVo processConfigVo);
+    ComResponse<Integer> updateProcessConfig(@RequestBody @Validated ProcessConfigVo processConfigVo);
 
     @RequestMapping(value = "/process/config/delete", method = RequestMethod.POST)
-    ComResponse<Integer> deleteProcessConfig (@RequestParam("id") Integer id,@RequestParam("staffNo") String staffNo);
+    ComResponse<Integer> deleteProcessConfig(@RequestParam("id") Integer id, @RequestParam("staffNo") String staffNo);
 
     @RequestMapping(value = "/process/config/disable", method = RequestMethod.POST)
-    ComResponse<Integer> disableProcessConfig (@RequestParam("id") Integer id,@RequestParam("staffNo") String staffNo);
+    ComResponse<Integer> disableProcessConfig(@RequestParam("id") Integer id, @RequestParam("staffNo") String staffNo);
 
     @RequestMapping(value = "/process/config/enable", method = RequestMethod.POST)
-    ComResponse<Integer> enableProcessConfig (@RequestParam("id") Integer id,@RequestParam("processItemId") Integer processItemId,@RequestParam("staffNo") String staffNo);
+    ComResponse<Integer> enableProcessConfig(@RequestParam("id") Integer id, @RequestParam("processItemId") Integer processItemId, @RequestParam("staffNo") String staffNo);
 
     @RequestMapping(value = "/process/config/pageSelect", method = RequestMethod.POST)
-    ComResponse<Page<ProcessDto>> pageSelectProcessConfig(@RequestBody @Validated ProcessConfigPageVo processConfigPageVo) ;
+    ComResponse<Page<ProcessDto>> pageSelectProcessConfig(@RequestBody @Validated ProcessConfigPageVo processConfigPageVo);
 
     @RequestMapping(value = "/process/config/detail", method = RequestMethod.GET)
-    ComResponse<ProcessConfigDetailDto> processConfigDetail (@RequestParam("id") Integer id);
+    ComResponse<ProcessConfigDetailDto> processConfigDetail(@RequestParam("id") Integer id);
 
     @RequestMapping(value = "/process/config/depart", method = RequestMethod.GET)
-    ComResponse<DepartDto> processConfigDepartByProcessItemId (@RequestParam("processItemId") Integer processItemId,@RequestParam("processId") Integer processId);
+    ComResponse<DepartDto> processConfigDepartByProcessItemId(@RequestParam("processItemId") Integer processItemId, @RequestParam("processId") Integer processId);
 
     @RequestMapping(value = "/staff/getStaffLevelByStaffNo", method = RequestMethod.GET)
-    ComResponse<List<StaffLevelDto>> getStaffLevelByStaffNo(@RequestParam("staffNo") String staffNo, @RequestParam("flag") Integer flag) ;
+    ComResponse<List<StaffLevelDto>> getStaffLevelByStaffNo(@RequestParam("staffNo") String staffNo, @RequestParam("flag") Integer flag);
 
     /**
      * 查询抄送人
+     *
      * @param processId
      * @return
      */
@@ -58,13 +60,14 @@ public interface ProcessConfigFeignService {
 
     /**
      * 查询下一个节点的审批人编号
+     *
      * @param processAuditId
      * @return
      */
     @GetMapping("/processsInvite/v1/getStaffNodeByStaffNo")
     ComResponse<String> getStaffNodeByStaffNo(@RequestParam("processAuditId") String processAuditId,
-                                              @RequestParam("stepNo")Integer stepNo);
+                                              @RequestParam("stepNo") Integer stepNo);
 
     @RequestMapping(value = "/staff/getUpStaffLevelByStaffNo", method = RequestMethod.GET)
-    ComResponse<StaffLevelDto> getUpStaffLevelByStaffNo(@RequestParam("staffNo") String staffNo,@RequestParam("currentDepartId") Integer currentDepartId);
+    ComResponse<StaffLevelDto> getUpStaffLevelByStaffNo(@RequestParam("staffNo") String staffNo, @RequestParam("currentDepartId") Integer currentDepartId);
 }

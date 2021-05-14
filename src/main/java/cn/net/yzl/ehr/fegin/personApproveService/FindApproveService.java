@@ -8,25 +8,17 @@ import cn.net.yzl.staff.dto.personApprove.ApproveProcessInfo;
 import cn.net.yzl.staff.dto.personApprove.ApproveQueryDTO;
 import cn.net.yzl.staff.dto.processNode.ApproveInfoDTO;
 import cn.net.yzl.staff.dto.processNode.ProcessAudit;
-import cn.net.yzl.staff.dto.processNode.ProcessNodeDTO;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.validation.constraints.NotNull;
-import java.util.List;
-
-@FeignClient(name="personApprove",url="${fegin.db.url}/personApprove")
-//@FeignClient(name="personApprove",url="localhost:38080/personApprove")
+@FeignClient(name = "yzl-staff-db", url = "${fegin.db.url}/personApprove")
 public interface FindApproveService {
     @PostMapping("v1/getApproveInfoListDTOList")
     @ApiOperation(value = "审批查询")
     ComResponse<Page<ApproveInfoListDTO>> findApproveInfoList(@RequestBody ApproveQueryDTO approveQueryDTO);
-
 
 
     @PostMapping("v1/getMyProcessInfoList")
@@ -43,6 +35,7 @@ public interface FindApproveService {
 
     /**
      * 我的流程撤销功能
+     *
      * @param approveProcessInfo
      * @return
      */
@@ -52,6 +45,7 @@ public interface FindApproveService {
 
     /**
      * 查询抄送我的所有流程信息
+     *
      * @param approveQueryDTO
      * @return
      */

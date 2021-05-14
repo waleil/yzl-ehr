@@ -16,23 +16,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-@FeignClient(value = "ResumeFeginService",url = "${fegin.db.url}/resume/departStaff")
+@FeignClient(value = "yzl-staff-db", url = "${fegin.db.url}/resume/departStaff")
 public interface ResumeDepartStaffFeginService {
-
-
-
-
 
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     ComResponse<String> update(@RequestBody ResumeDepartStaffUpdateVO resumeDepartStaffUpdateVO);
+
     @RequestMapping(value = "/getResumeDepartStaffList", method = RequestMethod.POST)
-    ComResponse<Page<ResumeDepartStaffListDto>> getResumeDepartStaffList(@RequestBody  ResumeDepartStaffParamsVO resumeDepartStaffParamsVO);
-
-
-
-
-
+    ComResponse<Page<ResumeDepartStaffListDto>> getResumeDepartStaffList(@RequestBody ResumeDepartStaffParamsVO resumeDepartStaffParamsVO);
 
 
 }

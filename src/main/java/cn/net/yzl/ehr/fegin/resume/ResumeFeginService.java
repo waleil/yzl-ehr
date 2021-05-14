@@ -5,31 +5,27 @@ import cn.net.yzl.common.entity.Page;
 import cn.net.yzl.staff.dto.DepartDto;
 import cn.net.yzl.staff.dto.DepartPostDto;
 import cn.net.yzl.staff.dto.DepartResumeNodeStaffDto;
-import cn.net.yzl.staff.dto.attend.StaffAttendImportResultDto;
 import cn.net.yzl.staff.dto.resume.ResumeDetailDto;
 import cn.net.yzl.staff.dto.resume.ResumeImportResultDto;
 import cn.net.yzl.staff.dto.resume.ResumeListDto;
+import cn.net.yzl.staff.pojo.resume.ResumeDepartStaffInsertPo;
 import cn.net.yzl.staff.pojo.resume.ResumeDepartStaffInsertPo;
 import cn.net.yzl.staff.util.StaffBeanUtils;
 import cn.net.yzl.staff.vo.resume.ResumeDbVO;
 import cn.net.yzl.staff.vo.resume.ResumeDepartStaffVO;
 import cn.net.yzl.staff.vo.resume.ResumeInsertVO;
 import cn.net.yzl.staff.vo.resume.ResumeParamsVO;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.http.MediaType;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 
-@FeignClient(value = "ResumeFeginService",url = "${fegin.db.url}")
-//@FeignClient(name = "yzl-staff-db")
-public interface ResumeFeginService{
+@FeignClient(value = "yzl-staff-db", url = "${fegin.db.url}")
+public interface ResumeFeginService {
 
 
 
@@ -61,7 +57,7 @@ public interface ResumeFeginService{
     @RequestMapping(value = "/resume/sendTo", method = RequestMethod.POST)
     ComResponse<String> sendTo( @RequestBody  ResumeDepartStaffVO resumeDepartStaffVO);
     @RequestMapping(value = "/resume/sendToBatchDepart", method = RequestMethod.POST)
-    ComResponse<String> sendToBatchDepart(@RequestBody List<ResumeDepartStaffInsertPo> insertPo);
+    ComResponse<String> sendToBatchDepart(@RequestBody List<ResumeDepartStaffInsertPo> insertPos);
     @RequestMapping(value = "/resume/sendToDepart", method = RequestMethod.POST)
     ComResponse<String> sendToDepart(@RequestBody ResumeDepartStaffInsertPo insertPo);
     @RequestMapping(value = "/resume/getDepartResumeNodeStaffList", method = RequestMethod.GET)

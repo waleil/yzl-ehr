@@ -2,8 +2,16 @@ package cn.net.yzl.ehr.fegin.salary;
 
 import cn.net.yzl.common.entity.ComResponse;
 import cn.net.yzl.common.entity.Page;
-import cn.net.yzl.staff.dto.salary.*;
-import cn.net.yzl.staff.vo.salary.*;
+import cn.net.yzl.staff.dto.salary.SalaryGrantStatusDto;
+import cn.net.yzl.staff.dto.salary.SalaryImportCountDTO;
+import cn.net.yzl.staff.dto.salary.SalaryMyDto;
+import cn.net.yzl.staff.dto.salary.SalarySlipListShowDto;
+import cn.net.yzl.staff.vo.salary.MySalaryVo;
+import cn.net.yzl.staff.vo.salary.SalaryFinanceExamineVo;
+import cn.net.yzl.staff.vo.salary.SalaryGrantFinalVo;
+import cn.net.yzl.staff.vo.salary.SalaryGrantVo;
+import cn.net.yzl.staff.vo.salary.SalaryImportVo;
+import cn.net.yzl.staff.vo.salary.SalaryVo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,8 +24,7 @@ import java.util.List;
  * @author biebaojie
  * @since 2021-03-11 10:02:46
  */
-@FeignClient(value = "yzl-staff-db",url = "${fegin.db.url}/salarySlip")
-//@FeignClient(value = "yzl-staff-db", url = "localhost:38080/salarySlip")
+@FeignClient(value = "yzl-staff-db", url = "${fegin.db.url}/salarySlip")
 public interface SalarySlipFeignService {
 
     /**
