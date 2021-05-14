@@ -21,6 +21,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @RestController
@@ -36,7 +37,7 @@ public class StaffFamilyController {
             @ApiImplicitParam(name = "staffNO", value = "员工工号", required = true, paramType = "query")
     )
     @RequestMapping(value = "/findByStaffNo", method = RequestMethod.GET)
-    ComResponse<StaffFamilyListDto> findByStaffNo(@RequestParam("staffNO") String staffNO) {
+    ComResponse<StaffFamilyListDto> findByStaffNo(@RequestParam("staffNO") @NotBlank String staffNO) {
         return staffFamilyService.findByStaffNo(staffNO);
     }
 /*

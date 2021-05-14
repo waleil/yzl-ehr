@@ -9,12 +9,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @RestController
@@ -26,7 +24,7 @@ public class StaffWorkController {
 
     @ApiOperation(value = "工作经历信息-查询员工工作经历信息",notes = "查询员工工作经历信息",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    ComResponse<StaffWorkListDto> list(String staffNo) {
+    ComResponse<StaffWorkListDto> list(@RequestParam("staffNo") @NotBlank String staffNo) {
         return staffWorkService.list(staffNo);
     }
 
